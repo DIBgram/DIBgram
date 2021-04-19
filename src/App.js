@@ -4,7 +4,7 @@ import {MainApp, setInitialAuthState} from './dibgram/auth/ui';
 import TdLib from './dibgram/TdWeb/tdlib';
 
 TdLib.initializeTdLib().then(function (res) {
-    setInitialAuthState(res['@type']);
+    setInitialAuthState(res);
 });
 function App() {
     return (

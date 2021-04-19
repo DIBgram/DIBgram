@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TdLib from '../TdWeb/tdlib';
 import Auth from './auth';
 import {MessengerWindow} from '../messenger/messengerWindow';
 
-var initialAuthState;
+var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
     initialAuthState=state;
 }
@@ -15,6 +16,10 @@ export class MainApp extends React.Component {
         this.state= {
             step: initialAuthState
         };
+        // eslint-disable-next-line no-func-assign
+        setInitialAuthState= state=> {
+            this.setState({step: state});
+        };
 
         TdLib.registerUpdateHandler('updateAuthorizationState', update => {
             const states= [
@@ -25,15 +30,15 @@ export class MainApp extends React.Component {
                 'authorizationStateReady',
                 'authorizationStateClosed',
             ];
-            const state=update['authorization_state']['@type'];
-            if(states.includes(state)) {
+            const state=update['authorization_state'];
+            if(states.includes(state['@type'])) {
                 this.setState({step: state});
             }
         });
     }
     
     render () {
-        switch (this.state.step) {
+        switch (this.state.step['@type']) {
         case 'authorizationStateWaitPhoneNumber':
             return (
                 <AuthWindowStepPhoneNumber/>
@@ -41,12 +46,12 @@ export class MainApp extends React.Component {
 
         case 'authorizationStateWaitCode':
             return (
-                <AuthWindowStepCode/>
+                <AuthWindowStepCode info={this.state.step.code_info}/>
             );
 
         case 'authorizationStateWaitPassword':
             return (
-                <AuthWindowStepPassword/>
+                <AuthWindowStepPassword info={this.state.step}/>
             );
 
         case 'authorizationStateWaitRegistration':
@@ -65,7 +70,7 @@ export class MainApp extends React.Component {
             );
         
         default:
-            return null;
+            return <p>Loading...</p>;
         }
     }
 }
@@ -88,11 +93,12 @@ class AuthWindowStepPhoneNumber extends React.Component {
     }
     render () {
         return (
-            <div>
-                <p>Please enter your phone number:</p>
+            <div id="auth" className="auth-step-phoneNumber">
+                <h2>Your phone number</h2>
+                <p>Please confirm your country code and enter your mobile phone number.</p>
                 <input type="text" value={this.state.number} onChange={this.handlePNFieldChange} />
-                {this.state.textUnderField || ''}
-                <button onClick={this.handleContinueButton}>Continue</button>
+                <div>{this.state.textUnderField || ''}</div>
+                <button onClick={this.handleContinueButton}>NEXT</button>
             </div>
         );
     }
@@ -117,20 +123,25 @@ class AuthWindowStepCode extends React.Component {
             else
                 this.setState({textUnderField: reason.message});
         });
-        // if(res['@type']==='error') {
-        //}
     }
     render () {
+        var message= (this.props.info.type['@type']=='authenticationCodeTypeSms') ?
+            <p>Please enter the verification code you received as SMS:</p> :
+            <p>A code was sent <b>via Telegram</b> to your other devices, if you have any connected.</p>;
         return (
-            <div>
-                <p>Please enter the verification code you received:</p>
+            <div id="auth" className="auth-state-code">
+                <h2>{this.props.info.phone_number}</h2>
+                {message}
                 <input type="text" value={this.state.code} onChange={this.handleCodeFieldChange} />
-                {this.state.textUnderField || ''}
-                <button onClick={this.handleContinueButton}>Continue</button>
+                <div>{this.state.textUnderField || ''}</div>
+                <button onClick={this.handleContinueButton}>NEXT</button>
             </div>
         );
     }
 }
+AuthWindowStepCode.propTypes= {
+    info: PropTypes.object
+};
 
 class AuthWindowStepPassword extends React.Component {
     constructor (args) {
@@ -145,20 +156,31 @@ class AuthWindowStepPassword extends React.Component {
     }
     handleContinueButton= async () => {
         Auth.check2FACode(this.state.password).catch(reason=> {
-            this.setState({textUnderField: reason.message});
+            if(reason.message=='PASSWORD_HASH_INVALID') 
+                this.setState({textUnderField: 'You have entered a wrong password.'});
+            else
+                this.setState({textUnderField: reason.message});
         });
     }
     render () {
         return (
-            <div>
-                <p>You have enabled 2FA on your account. Please enter your cloud password:</p>
-                <input type="text" value={this.state.password} onChange={this.handlePasswordFieldChange} />
-                {this.state.textUnderField || ''}
-                <button onClick={this.handleContinueButton}>Continue</button>
+            <div id="auth" className="auth-state-password">
+                <div className="content">
+                    <h2>Cloud password check</h2>
+                    <p className="description">Please enter your cloud password.</p>
+                    <input type="text" value={this.state.password} onChange={this.handlePasswordFieldChange} />
+                    <div className="hint">Hint: {this.props.info.password_hint}</div>
+                    <div className="forgot-password"><a href="#">Forgot password?</a></div>
+                    <div className="status">{this.state.textUnderField || <i>&nbsp;</i>}</div>
+                    <button onClick={this.handleContinueButton}>SUBMIT</button>
+                </div>
             </div>
         );
     }
 }
+AuthWindowStepPassword.propTypes= {
+    info: PropTypes.object
+};
 
 class AuthWindowStepRegister extends React.Component {
     constructor (args) {
@@ -182,12 +204,15 @@ class AuthWindowStepRegister extends React.Component {
     }
     render () {
         return (
-            <div>
-                <p>Enter your name:</p>
-                <input type="text" value={this.state.firstName} onChange={this.handleFirstNameFieldChange} />
-                <input type="text" value={this.state.lastName} onChange={this.handleLastNameFieldChange} />
-                {this.state.textUnderField || ''}
-                <button onClick={this.handleContinueButton}>Continue</button>
+            <div id="auth" className="auth-state-signup">
+                <div className="content">
+                    <h2>Your info</h2>
+                    <p>Please enter your name and upload a photo.</p>
+                    <input type="text" value={this.state.firstName} onChange={this.handleFirstNameFieldChange} />
+                    <input type="text" value={this.state.lastName} onChange={this.handleLastNameFieldChange} />
+                    {this.state.textUnderField || ''}
+                    <button onClick={this.handleContinueButton}>SIGN UP</button>
+                </div>
             </div>
         );
     }
