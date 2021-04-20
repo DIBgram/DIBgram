@@ -4,6 +4,8 @@ import TdLib from '../TdWeb/tdlib';
 import Auth from './auth';
 import {MessengerWindow} from '../messenger/messengerWindow';
 
+import BigHighlightedButton from '../ui/elements/highlighted-button';
+
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
     initialAuthState=state;
@@ -94,11 +96,11 @@ class AuthWindowStepPhoneNumber extends React.Component {
     render () {
         return (
             <div id="auth" className="auth-step-phoneNumber">
-                <h2>Your phone number</h2>
-                <p>Please confirm your country code and enter your mobile phone number.</p>
                 <input type="text" value={this.state.number} onChange={this.handlePNFieldChange} />
-                <div>{this.state.textUnderField || ''}</div>
-                <button onClick={this.handleContinueButton}>NEXT</button>
+                <h2>Your Phone Number</h2>
+                <p className="description">Please confirm your country code and enter your mobile phone number.</p>
+                <div className="status">{this.state.textUnderField || ''}</div>
+                <BigHighlightedButton onClick={this.handleContinueButton}>NEXT</BigHighlightedButton>
             </div>
         );
     }
@@ -126,15 +128,15 @@ class AuthWindowStepCode extends React.Component {
     }
     render () {
         var message= (this.props.info.type['@type']=='authenticationCodeTypeSms') ?
-            <p>Please enter the verification code you received as SMS:</p> :
-            <p>A code was sent <b>via Telegram</b> to your other devices, if you have any connected.</p>;
+            <p className="description">Please enter the verification code you received as SMS:</p> :
+            <p className="description">A code was sent <b>via Telegram</b> to your other devices, if you have any connected.</p>;
         return (
             <div id="auth" className="auth-state-code">
                 <h2>{this.props.info.phone_number}</h2>
                 {message}
                 <input type="text" value={this.state.code} onChange={this.handleCodeFieldChange} />
-                <div>{this.state.textUnderField || ''}</div>
-                <button onClick={this.handleContinueButton}>NEXT</button>
+                <div className="status">{this.state.textUnderField || ''}</div>
+                <BigHighlightedButton onClick={this.handleContinueButton}>NEXT</BigHighlightedButton>
             </div>
         );
     }
@@ -142,7 +144,6 @@ class AuthWindowStepCode extends React.Component {
 AuthWindowStepCode.propTypes= {
     info: PropTypes.object
 };
-
 class AuthWindowStepPassword extends React.Component {
     constructor (args) {
         super(args);
@@ -172,7 +173,7 @@ class AuthWindowStepPassword extends React.Component {
                     <div className="hint">Hint: {this.props.info.password_hint}</div>
                     <div className="forgot-password"><a href="#">Forgot password?</a></div>
                     <div className="status">{this.state.textUnderField || <i>&nbsp;</i>}</div>
-                    <button onClick={this.handleContinueButton}>SUBMIT</button>
+                    <BigHighlightedButton onClick={this.handleContinueButton}>SUBMIT</BigHighlightedButton>
                 </div>
             </div>
         );
@@ -207,11 +208,11 @@ class AuthWindowStepRegister extends React.Component {
             <div id="auth" className="auth-state-signup">
                 <div className="content">
                     <h2>Your info</h2>
-                    <p>Please enter your name and upload a photo.</p>
+                    <p className="description">Please enter your name and upload a photo.</p>
                     <input type="text" value={this.state.firstName} onChange={this.handleFirstNameFieldChange} />
                     <input type="text" value={this.state.lastName} onChange={this.handleLastNameFieldChange} />
-                    {this.state.textUnderField || ''}
-                    <button onClick={this.handleContinueButton}>SIGN UP</button>
+                    <div className="status">{this.state.textUnderField || ''}</div>
+                    <BigHighlightedButton onClick={this.handleContinueButton}>SIGN UP</BigHighlightedButton>
                 </div>
             </div>
         );
