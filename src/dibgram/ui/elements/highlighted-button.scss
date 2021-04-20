@@ -1,0 +1,16 @@
+.big-highlighted-button {
+    display: block;
+    width: 100%;
+    border: none;
+    background: var(--theme-accent-color-main);
+    height: 56px;
+    margin-top: 20px;
+    color: var(--theme-color-background);
+    border-radius: 5px;
+    cursor: pointer;
+    font: {
+        family: OpenSans;
+        size: 16px;
+        weight: 500;
+    }
+}
