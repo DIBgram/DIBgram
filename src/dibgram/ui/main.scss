@@ -1,0 +1,34 @@
+@import 'globals';
+@import 'font/fonts.scss';
+
+@import 'themes/day.scss';
+@import 'themes/classic.scss';
+
+@import 'auth/auth';
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    font-family: OpenSans, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+#root, #app {
+    height: 100%;
+}
+
+#app {
+    display: flex;
+}

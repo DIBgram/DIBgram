@@ -1,0 +1,9 @@
+@mixin app-theme-day {
+    --theme-color-background: rgb(255, 255, 255);
+    --theme-color-text: rgb(34, 34, 34);
+    --theme-color-text-secondary: rgb(153, 153, 153);
+    --theme-color-input-border: rgb(224, 224, 224);
+}
+#app[data-theme=day] {
+    @include app-theme-day;
+}
