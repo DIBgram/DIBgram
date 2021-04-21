@@ -5,6 +5,7 @@ import Auth from './auth';
 import {MessengerWindow} from '../messenger/messengerWindow';
 
 import BigHighlightedButton from '../ui/elements/highlighted-button';
+import UnderlinedInput from '../ui/elements/underlined-input';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
@@ -96,9 +97,9 @@ class AuthWindowStepPhoneNumber extends React.Component {
     render () {
         return (
             <div id="auth" className="auth-step-phoneNumber">
-                <input type="text" value={this.state.number} onChange={this.handlePNFieldChange} />
                 <h2>Your Phone Number</h2>
                 <p className="description">Please confirm your country code and enter your mobile phone number.</p>
+                <UnderlinedInput type="text" value={this.state.number} onChange={this.handlePNFieldChange} />
                 <div className="status">{this.state.textUnderField || <span>&nbsp;</span>}</div>
                 <BigHighlightedButton onClick={this.handleContinueButton}>NEXT</BigHighlightedButton>
             </div>
@@ -134,7 +135,7 @@ class AuthWindowStepCode extends React.Component {
             <div id="auth" className="auth-state-code">
                 <h2>{this.props.info.phone_number}</h2>
                 {message}
-                <input type="text" value={this.state.code} onChange={this.handleCodeFieldChange} />
+                <UnderlinedInput type="text" value={this.state.code} onChange={this.handleCodeFieldChange} />
                 <div className="status">{this.state.textUnderField || ''}</div>
                 <BigHighlightedButton onClick={this.handleContinueButton}>NEXT</BigHighlightedButton>
             </div>
@@ -169,7 +170,7 @@ class AuthWindowStepPassword extends React.Component {
                 <div className="content">
                     <h2>Cloud password check</h2>
                     <p className="description">Please enter your cloud password.</p>
-                    <input type="text" value={this.state.password} onChange={this.handlePasswordFieldChange} />
+                    <UnderlinedInput type="text" value={this.state.password} onChange={this.handlePasswordFieldChange} />
                     <div className="hint">Hint: {this.props.info.password_hint}</div>
                     <div className="forgot-password"><a href="#">Forgot password?</a></div>
                     <div className="status">{this.state.textUnderField || <i>&nbsp;</i>}</div>
@@ -209,8 +210,8 @@ class AuthWindowStepRegister extends React.Component {
                 <div className="content">
                     <h2>Your info</h2>
                     <p className="description">Please enter your name and upload a photo.</p>
-                    <input type="text" value={this.state.firstName} onChange={this.handleFirstNameFieldChange} />
-                    <input type="text" value={this.state.lastName} onChange={this.handleLastNameFieldChange} />
+                    <UnderlinedInput type="text" value={this.state.firstName} onChange={this.handleFirstNameFieldChange} />
+                    <UnderlinedInput type="text" value={this.state.lastName} onChange={this.handleLastNameFieldChange} />
                     <div className="status">{this.state.textUnderField || ''}</div>
                     <BigHighlightedButton onClick={this.handleContinueButton}>SIGN UP</BigHighlightedButton>
                 </div>

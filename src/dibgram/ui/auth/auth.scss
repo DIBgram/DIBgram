@@ -12,6 +12,10 @@
         color: var(--theme-color-text-secondary);
         line-height: 20px;
     }
+    .underlined-input input {
+        padding: 11px;
+        font-size: 17px;
+    }
     .status {
         @extend .description;
         text-align: center;

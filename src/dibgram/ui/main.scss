@@ -5,6 +5,7 @@
 @import 'themes/classic.scss';
 
 @import 'elements/highlighted-button.scss';
+@import 'elements/underlined-input.scss';
 
 @import 'auth/auth';
 
@@ -33,4 +34,8 @@ code {
 
 #app {
     display: flex;
+}
+
+:focus {
+    outline: none;
 }

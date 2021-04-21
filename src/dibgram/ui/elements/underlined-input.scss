@@ -1,0 +1,53 @@
+.underlined-input{
+    text-align: center;
+    position: relative;
+    input {
+        text-align: initial;
+        border: none;
+        border-bottom: 1px solid var(--theme-color-input-border);
+        background-color: transparent;
+        font-family: 'OpenSans';
+        box-sizing: border-box;
+        width: 100%;
+    }
+    input:focus+.underline {
+        animation: {
+            name: underlined-input-focus;
+            duration: 200ms;
+            fill-mode: forwards;
+        };
+    }
+    .underline {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        background-color: var(--theme-accent-color-input-underline);
+    }
+}
+.underlined-input.inactive .underline {
+    animation: {
+        name: underlined-input-blur;
+        duration: 200ms;
+        fill-mode: forwards;
+    };
+}
+@keyframes underlined-input-focus {
+    from {
+        opacity: 1;
+        width: 0px;
+    }
+    to {
+        opacity: 1;
+        width: 100%;
+    }
+}
+@keyframes underlined-input-blur {
+    from {
+        opacity: 1;
+        width: 100px !important;
+    }
+    to {
+        opacity: 0;
+        width: 100% !important;
+    }
+}
