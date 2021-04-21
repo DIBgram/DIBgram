@@ -11,10 +11,18 @@
         font-size: 13px;
         color: var(--theme-color-text-secondary);
         line-height: 20px;
-        margin-top: 10px;
+    }
+    .status {
+        @extend .description;
+        text-align: center;
     }
 }
 
-// #auth.auth-step-phoneNumber{
-
-// }
+#auth.auth-step-phoneNumber{
+    .status {
+        margin: 10px;
+    }
+    .description {
+        margin-top: 10px;
+    }
+}

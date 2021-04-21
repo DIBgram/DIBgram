@@ -99,7 +99,7 @@ class AuthWindowStepPhoneNumber extends React.Component {
                 <input type="text" value={this.state.number} onChange={this.handlePNFieldChange} />
                 <h2>Your Phone Number</h2>
                 <p className="description">Please confirm your country code and enter your mobile phone number.</p>
-                <div className="status">{this.state.textUnderField || ''}</div>
+                <div className="status">{this.state.textUnderField || <span>&nbsp;</span>}</div>
                 <BigHighlightedButton onClick={this.handleContinueButton}>NEXT</BigHighlightedButton>
             </div>
         );
