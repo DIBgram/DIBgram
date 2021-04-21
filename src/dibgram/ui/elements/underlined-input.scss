@@ -32,9 +32,9 @@
 }
 .underlined-input.inactive .underline {
     animation: {
-        name: underlined-input-blur;
-        duration: 200ms;
-        fill-mode: forwards;
+        name: underlined-input-blur !important;
+        duration: 200ms !important;
+        fill-mode: forwards !important;
     };
 }
 .underlined-input.autoFocus .underline {
