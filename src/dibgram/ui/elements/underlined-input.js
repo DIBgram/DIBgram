@@ -16,6 +16,9 @@ export default class UnderlinedInput extends React.Component {
         if(this.state.inactive) {
             className+=' inactive';
         }
+        if(this.props.autoFocus) {
+            className+=' autoFocus';
+        }
         return (
             <div className={className}
                 style={{'--mouse-left': this.state.mouseX || '50%'}}>
@@ -25,7 +28,8 @@ export default class UnderlinedInput extends React.Component {
                     value={this.props.value}
                     onMouseDown={this.handleMouseDown}
                     onFocus={this.handleFocus}
-                    onBlur={this.handleBlur}/>
+                    onBlur={this.handleBlur}
+                    autoFocus={this.props.autoFocus || false}/>
                 <div className="underline"></div>
             </div>
         );
@@ -51,6 +55,7 @@ export default class UnderlinedInput extends React.Component {
         type: PropTypes.oneOf(['text', 'number', 'password', 'email', 'url']).isRequired,
         onChange: PropTypes.func,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        active: PropTypes.bool
+        active: PropTypes.bool,
+        autoFocus: PropTypes.bool
     }
 }

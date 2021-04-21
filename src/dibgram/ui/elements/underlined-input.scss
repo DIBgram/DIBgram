@@ -37,6 +37,9 @@
         fill-mode: forwards;
     };
 }
+.underlined-input.autoFocus .underline {
+    animation: none;
+}
 @keyframes underlined-input-focus {
     from {
         opacity: 1;
