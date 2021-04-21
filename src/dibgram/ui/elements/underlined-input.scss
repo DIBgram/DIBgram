@@ -40,10 +40,14 @@
     from {
         opacity: 1;
         width: 0px;
+        left: var(--mouse-left);
+        right: calc(100% - var(--mouse-left));
     }
     to {
         opacity: 1;
         width: 100%;
+        left: 0px;
+        right: 0px;
     }
 }
 @keyframes underlined-input-blur {
