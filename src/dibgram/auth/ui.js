@@ -89,7 +89,7 @@ class AuthWindowStepPhoneNumber extends React.Component {
     handlePNFieldChange = (event) => {
         this.setState({number: event.target.value});
     }
-    handleContinueButton= async () => {
+    submitNumber= async () => {
         Auth.givePhoneNumber(this.state.number).catch(reason=> {
             this.setState({textUnderField: reason.message});
         });
@@ -107,15 +107,16 @@ class AuthWindowStepPhoneNumber extends React.Component {
                 <UnderlinedInput 
                     type="text" 
                     value={this.state.number} 
-                    onChange={this.handlePNFieldChange} 
-                    autoFocus={true}/>
+                    autoFocus={true}
+                    onChange={this.handlePNFieldChange}
+                    onEnterKeyPressed={this.submitNumber}/>
 
                 <div className="status">
                     {this.state.textUnderField || <span>&nbsp;</span>}
                 </div>
 
                 <BigHighlightedButton 
-                    onClick={this.handleContinueButton}>
+                    onClick={this.submitNumber}>
                     NEXT
                 </BigHighlightedButton>
             </div>

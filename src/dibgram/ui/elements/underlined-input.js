@@ -29,7 +29,8 @@ export default class UnderlinedInput extends React.Component {
                     onMouseDown={this.handleMouseDown}
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
-                    autoFocus={this.props.autoFocus || false}/>
+                    autoFocus={this.props.autoFocus || false}
+                    onKeyDown={this.handleKeyDown}/>
                 <div className="underline"></div>
             </div>
         );
@@ -48,12 +49,18 @@ export default class UnderlinedInput extends React.Component {
             mouseX: e.nativeEvent.offsetX+'px'
         });
     }
+    handleKeyDown =(e)=>{
+        if(e.key=='Enter') {
+            this.props.onEnterKeyPressed();
+        }
+    }
 
     static propTypes = {
         type: PropTypes.oneOf(['text', 'number', 'password', 'email', 'url']).isRequired,
         onChange: PropTypes.func,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         active: PropTypes.bool,
-        autoFocus: PropTypes.bool
+        autoFocus: PropTypes.bool,
+        onEnterKeyPressed: PropTypes.func
     }
 }
