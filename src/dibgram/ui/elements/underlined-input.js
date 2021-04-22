@@ -39,13 +39,11 @@ export default class UnderlinedInput extends React.Component {
         this.setState({
             inactive: false
         });
-        console.log('focus');
     }
     handleBlur =()=>{
         this.setState({inactive: true, mouseX: '50%'});
     }
     handleMouseDown =(e)=>{
-        console.log('click');
         this.setState({
             mouseX: e.nativeEvent.offsetX+'px'
         });
