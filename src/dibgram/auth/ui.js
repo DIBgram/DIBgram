@@ -165,7 +165,8 @@ class AuthWindowStepCode extends React.Component {
                     type="text" 
                     value={this.state.code} 
                     onChange={this.handleCodeFieldChange}
-                    autoFocus={true}/>
+                    autoFocus={true}
+                    title="Code"/>
 
                 <div className="status">
                     {this.state.textUnderField || ''}
