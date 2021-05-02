@@ -151,7 +151,7 @@ class AuthWindowStepCode extends React.Component {
             </p>) 
             :
             (<p className="description">
-                A code was sent <b>via Telegram</b> to your other devices, if you have any connected.
+                A code was sent <strong>via Telegram</strong> to your other devices, if you have any connected.
             </p>);
             
         return (
