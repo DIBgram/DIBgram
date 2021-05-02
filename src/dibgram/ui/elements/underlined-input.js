@@ -7,8 +7,13 @@ export default class UnderlinedInput extends React.Component {
 
         this.state= {
             inactive: false,
-            mouseX: '50%'
+            mouseX: '50%',
+            titleClass: this.getTitleClass(this.props.autoFocus)
         };
+    }
+
+    getTitleClass (focus) {
+        return (focus || (!!this.props.value)) ? 'title top' : 'title placeholder';
     }
 
     render () {
@@ -22,6 +27,9 @@ export default class UnderlinedInput extends React.Component {
         return (
             <div className={className}
                 style={{'--mouse-left': this.state.mouseX || '50%'}}>
+                { this.props.title ? (
+                    <div className={this.state.titleClass}>{this.props.title}</div>
+                ) : null }
                 <input 
                     type={this.props.type} 
                     onChange={this.props.onChange} 
@@ -38,11 +46,16 @@ export default class UnderlinedInput extends React.Component {
 
     handleFocus =()=>{
         this.setState({
-            inactive: false
+            inactive: false,
+            titleClass: this.getTitleClass(true)
         });
     }
     handleBlur =()=>{
-        this.setState({inactive: true, mouseX: '50%'});
+        this.setState({
+            inactive: true, 
+            mouseX: '50%',
+            titleClass: this.getTitleClass(false)
+        });
     }
     handleMouseDown =(e)=>{
         this.setState({
@@ -61,6 +74,7 @@ export default class UnderlinedInput extends React.Component {
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         active: PropTypes.bool,
         autoFocus: PropTypes.bool,
-        onEnterKeyPressed: PropTypes.func
+        onEnterKeyPressed: PropTypes.func,
+        title: PropTypes.string,
     }
 }

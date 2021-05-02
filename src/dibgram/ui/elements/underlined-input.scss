@@ -1,6 +1,30 @@
 .underlined-input{
     text-align: center;
     position: relative;
+    .title {
+        text-align: left;
+        position: absolute;
+        font-weight: 500;
+        display: none; // Hidden by default
+        transition: color       150ms linear,
+                    font-size   150ms linear,
+                    top         150ms linear,
+                    left        150ms linear;
+    }
+    .title.top{
+        display: block;
+        color: var(--theme-accent-color-text);
+        font-size: 13px;
+        top: -8px;
+        left: 3px;
+    }
+    .title.placeholder{
+        display: block;
+        color: var(--theme-color-text-secondary);
+        font-size: 14px;
+        top: 12px;
+        left: 4px;
+    }
     input {
         text-align: initial;
         border: none;
