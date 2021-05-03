@@ -152,7 +152,7 @@ class AuthWindowStepCode extends React.Component {
         Auth.checkAuthCode(code).catch(reason=> {
             if(reason.message==='PHONE_CODE_INVALID'){
                 this.setState({
-                    textUnderField: 'Code is invalid',
+                    textUnderField: 'You have entered an invalid code.',
                     invalid: true
                 });
             }
