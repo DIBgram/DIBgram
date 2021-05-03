@@ -55,6 +55,8 @@
     .underlined-input {
         input {
             padding: 11px 3px;
+            text-security: disc;
+            -webkit-text-security: disc;
         }
     }
     .status.status {
