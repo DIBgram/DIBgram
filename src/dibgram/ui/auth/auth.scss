@@ -11,6 +11,9 @@
         font-size: 13px;
         color: var(--theme-color-text-secondary);
         line-height: 20px;
+        b, strong {
+            font-weight: 500;
+        }
     }
     .underlined-input input {
         padding: 11px;
