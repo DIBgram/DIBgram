@@ -129,19 +129,38 @@ class AuthWindowStepCode extends React.Component {
         super(args);
 
         this.state= {
-            code: ''
+            code: '',
+            invalid: false,
         };
     }
     handleCodeFieldChange= (event) => {
-        this.setState({code: event.target.value});
+        this.setState({
+            code: event.target.value,
+            invalid: false
+        });
+        if(event.target.value.length==this.props.info.type.length) {
+            this.handleContinueButton(event.target.value);
+        }
     }
-    handleContinueButton= async () => {
-        Auth.checkAuthCode(this.state.code).catch(reason=> {
+    handleContinueButton= (code) => {
+        if(typeof code != 'string') {
+            code= undefined;
+        }
+        code = code || this.state.code;
+        if(code.length!=this.props.info.type.length) return;
+
+        Auth.checkAuthCode(code).catch(reason=> {
             if(reason.message==='PHONE_CODE_INVALID'){
-                this.setState({textUnderField: 'Code is invalid'});
+                this.setState({
+                    textUnderField: 'Code is invalid',
+                    invalid: true
+                });
             }
             else
-                this.setState({textUnderField: reason.message});
+                this.setState({
+                    textUnderField: reason.message,
+                    invalid: true
+                });
         });
     }
     render () {
@@ -166,7 +185,10 @@ class AuthWindowStepCode extends React.Component {
                     value={this.state.code} 
                     onChange={this.handleCodeFieldChange}
                     autoFocus={true}
-                    title="Code"/>
+                    title="Code"
+                    maxLength={this.props.info.type.length}
+                    onEnterKeyPressed={this.handleContinueButton}
+                    invalid={this.state.invalid}/>
 
                 <div className="status">
                     {this.state.textUnderField || ''}
