@@ -239,7 +239,8 @@ class AuthWindowStepPassword extends React.Component {
                         type="text" 
                         value={this.state.password} 
                         onChange={this.handlePasswordFieldChange}
-                        autoFocus={true} />
+                        autoFocus={true} 
+                        title="Your cloud password"/>
 
                     <div className="hint">
                         Hint: {this.props.info.password_hint}
