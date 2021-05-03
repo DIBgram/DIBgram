@@ -24,6 +24,9 @@ export default class UnderlinedInput extends React.Component {
         if(this.props.autoFocus) {
             className+=' autoFocus';
         }
+        if(this.props.invalid) {
+            className+=' invalid';
+        }
         return (
             <div className={className}
                 style={{'--mouse-left': this.state.mouseX || '50%'}}>
@@ -76,5 +79,6 @@ export default class UnderlinedInput extends React.Component {
         autoFocus: PropTypes.bool,
         onEnterKeyPressed: PropTypes.func,
         title: PropTypes.string,
+        invalid: PropTypes.bool,
     }
 }

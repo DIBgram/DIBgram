@@ -3,6 +3,7 @@
     --theme-color-text: rgb(34, 34, 34);
     --theme-color-text-secondary: rgb(153, 153, 153);
     --theme-color-input-border: rgb(224, 224, 224);
+    --theme-color-input-invalid: rgb(228, 131, 131);
 }
 #app[data-theme=day] {
     @include app-theme-day;

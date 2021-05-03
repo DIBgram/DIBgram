@@ -54,6 +54,19 @@
         opacity: 0;
     }
 }
+.underlined-input.invalid {
+    .underline.underline { // Specificity trick
+        background-color: var(--theme-color-input-invalid) !important;
+        animation-name: none !important;
+        opacity: 1 !important;
+        width: 100% !important;
+        left: 0px !important;
+        right: 0px !important;
+    };
+    .title {
+        color: var(--theme-color-input-invalid) !important;
+    };
+}
 .underlined-input.inactive .underline {
     animation: {
         name: underlined-input-blur !important;
