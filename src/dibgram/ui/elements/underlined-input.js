@@ -42,7 +42,12 @@ export default class UnderlinedInput extends React.Component {
                     onBlur={this.handleBlur}
                     autoFocus={this.props.autoFocus || false}
                     onKeyDown={this.handleKeyDown}
-                    maxLength={this.props.maxLength}/>
+                    maxLength={this.props.maxLength}
+                    onCopy={e=> {
+                        if(this.props.disableCopy) {
+                            e.preventDefault();
+                        }
+                    }}/>
                 <div className="underline"></div>
             </div>
         );
@@ -82,5 +87,6 @@ export default class UnderlinedInput extends React.Component {
         onEnterKeyPressed: PropTypes.func,
         title: PropTypes.string,
         invalid: PropTypes.bool,
+        disableCopy: PropTypes.bool,
     }
 }
