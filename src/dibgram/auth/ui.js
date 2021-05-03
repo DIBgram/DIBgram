@@ -174,7 +174,7 @@ class AuthWindowStepCode extends React.Component {
             </p>);
             
         return (
-            <div id="auth" className="auth-state-code">
+            <div id="auth" className="auth-step-code">
 
                 <h2>{this.props.info.phone_number}</h2>
 
@@ -226,7 +226,7 @@ class AuthWindowStepPassword extends React.Component {
     }
     render () {
         return (
-            <div id="auth" className="auth-state-password">
+            <div id="auth" className="auth-step-password">
                 <div className="content">
 
                     <h2>Cloud password check</h2>
@@ -288,7 +288,7 @@ class AuthWindowStepRegister extends React.Component {
     }
     render () {
         return (
-            <div id="auth" className="auth-state-signup">
+            <div id="auth" className="auth-step-signup">
                 <div className="content">
 
                     <h2>Your info</h2>
