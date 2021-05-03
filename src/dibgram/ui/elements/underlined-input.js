@@ -68,7 +68,7 @@ export default class UnderlinedInput extends React.Component {
     }
     handleKeyDown =(e)=>{
         if(e.key=='Enter') {
-            this.props.onEnterKeyPressed();
+            this.props.onEnterKeyPressed && this.props.onEnterKeyPressed();
         }
     }
 
