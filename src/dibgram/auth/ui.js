@@ -210,18 +210,28 @@ class AuthWindowStepPassword extends React.Component {
         super(args);
 
         this.state= {
-            password: ''
+            password: '',
+            invalid: false
         };
     }
     handlePasswordFieldChange= (event) => {
-        this.setState({password: event.target.value});
+        this.setState({
+            password: event.target.value,
+            invalid: false,
+        });
     }
     handleContinueButton= async () => {
         Auth.check2FACode(this.state.password).catch(reason=> {
             if(reason.message=='PASSWORD_HASH_INVALID') 
-                this.setState({textUnderField: 'You have entered a wrong password.'});
+                this.setState({
+                    textUnderField: 'You have entered a wrong password.',
+                    invalid: true,
+                });
             else
-                this.setState({textUnderField: reason.message});
+                this.setState({
+                    textUnderField: reason.message,
+                    invalid: true,
+                });
         });
     }
     render () {
@@ -241,7 +251,8 @@ class AuthWindowStepPassword extends React.Component {
                         onChange={this.handlePasswordFieldChange}
                         autoFocus={true} 
                         title="Your cloud password"
-                        disableCopy={true}/>
+                        disableCopy={true}
+                        invalid={this.state.invalid}/>
 
                     <div className="hint">
                         Hint: {this.props.info.password_hint}
