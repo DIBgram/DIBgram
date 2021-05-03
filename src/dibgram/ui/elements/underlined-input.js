@@ -41,7 +41,8 @@ export default class UnderlinedInput extends React.Component {
                     onFocus={this.handleFocus}
                     onBlur={this.handleBlur}
                     autoFocus={this.props.autoFocus || false}
-                    onKeyDown={this.handleKeyDown}/>
+                    onKeyDown={this.handleKeyDown}
+                    maxLength={this.props.maxLength}/>
                 <div className="underline"></div>
             </div>
         );
@@ -75,6 +76,7 @@ export default class UnderlinedInput extends React.Component {
         type: PropTypes.oneOf(['text', 'number', 'password', 'email', 'url']).isRequired,
         onChange: PropTypes.func,
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        maxLength: PropTypes.number,
         active: PropTypes.bool,
         autoFocus: PropTypes.bool,
         onEnterKeyPressed: PropTypes.func,
