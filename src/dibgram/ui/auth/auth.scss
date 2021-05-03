@@ -51,3 +51,36 @@
         margin-top: 10px;
     }
 }
+#auth.auth-step-password{
+    .underlined-input {
+        input {
+            padding: 11px 3px;
+        }
+    }
+    .status.status {
+        height: 16px;
+        line-height: unset;
+        margin-bottom: 29px;
+        margin-top: 22px;
+        text-align: unset;
+        margin-left: 5px;
+    }
+    .hint {
+        font-size: 13px;
+        margin-left: 5px;
+        margin-top: 17px;
+        margin-bottom: 11px;
+    }
+    .description {
+        margin-top: 10px;
+        margin-bottom: 35px;
+    }
+    .forgot-password {
+        font-size: 13px;
+        margin-left: 5px;
+        a {
+            color: var(--theme-accent-color-text);
+            text-decoration: none;
+        }
+    }
+}
