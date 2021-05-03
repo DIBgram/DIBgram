@@ -251,6 +251,7 @@ class AuthWindowStepPassword extends React.Component {
                         onChange={this.handlePasswordFieldChange}
                         autoFocus={true} 
                         title="Your cloud password"
+                        onEnterKeyPressed={this.handleContinueButton}
                         disableCopy={true}
                         invalid={this.state.invalid}/>
 
