@@ -1,0 +1,47 @@
+# DIBgram
+
+*[DIBgram is not complete yet. Visit the [projects](https://github.com/Mammad900/DIBgram/projects) page to see the progress]*
+
+DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies.
+
+## Why make it
+
+Many people like the official Telegram Desktop. But not all desktop users have Windows, MacOS or Linux, or they don't want to install anything on their device.  
+So I am developing this app so these users can have the same experience as Telegram Desktop using their browsers.
+
+## Technologies, libraries and other software used in this project
+
+- **HTML, JS, CSS**: The languages of the web
+- **TdLib**: Telegram Database Library. Takes care of networking, encryption and storage
+- **React**: UI framework used in project
+- **Babel**: Compiler of the source code
+- **Sass**: CSS preprocessor
+- **ESLint**: Used to detect problems, warnings and enforce code style
+- **VSCode**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
+
+## Building
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Mammad900/DIBgram.git
+   ```
+
+2. Install all dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Building
+   - To run app in development mode
+
+     ```bash
+     npm start
+     ```
+
+   - To build for production
+
+     ```bash
+     npm run build
+     ```
