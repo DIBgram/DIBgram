@@ -19,6 +19,15 @@ So I am developing this app so these users can have the same experience as Teleg
 - **ESLint**: Used to detect problems, warnings and enforce code style
 - **VSCode**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
 
+## Contributing
+
+- Contributions should follow these rules:
+  - There should be no ESLint errors, warnings or notices
+  - It should compile and run successfully
+  - It should not introduce a feature that is not present in the official Telegram Desktop app
+  - Behavior and UI should be similar to the official Telegram Desktop app
+- Bug reports and feature requests are welcome, but do not ask for features not present in the official Telegram Desktop app.
+
 ## Building
 
 1. Clone the repository:
