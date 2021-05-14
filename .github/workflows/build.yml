@@ -36,8 +36,6 @@ jobs:
       run: npm ci
     - name: Build
       run: npm run build --if-present
-    - name: Test
-      run: npm test
     - name: GitHub Pages
       uses: crazy-max/ghaction-github-pages@v2.3.0
       if: success()
