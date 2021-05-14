@@ -80,13 +80,9 @@ export class MainApp extends React.Component {
 }
 
 class AuthWindowStepPhoneNumber extends React.Component {
-    constructor (args) {
-        super(args);
-
-        this.state= {
-            number: ''
-        };
-    }
+    state= {
+        number: ''
+    };
     handlePNFieldChange = (event) => {
         this.setState({number: event.target.value});
     }
@@ -126,14 +122,13 @@ class AuthWindowStepPhoneNumber extends React.Component {
 }
 
 class AuthWindowStepCode extends React.Component {
-    constructor (args) {
-        super(args);
-
-        this.state= {
-            code: '',
-            invalid: false,
-        };
-    }
+    static propTypes= {
+        info: PropTypes.object
+    };
+    state= {
+        code: '',
+        invalid: false,
+    };
     handleCodeFieldChange= (event) => {
         this.setState({
             code: event.target.value,
@@ -203,18 +198,15 @@ class AuthWindowStepCode extends React.Component {
         );
     }
 }
-AuthWindowStepCode.propTypes= {
-    info: PropTypes.object
-};
-class AuthWindowStepPassword extends React.Component {
-    constructor (args) {
-        super(args);
 
-        this.state= {
-            password: '',
-            invalid: false
-        };
-    }
+class AuthWindowStepPassword extends React.Component {
+    static propTypes= {
+        info: PropTypes.object
+    };
+    state= {
+        password: '',
+        invalid: false
+    };
     handlePasswordFieldChange= (event) => {
         this.setState({
             password: event.target.value,
@@ -277,19 +269,12 @@ class AuthWindowStepPassword extends React.Component {
         );
     }
 }
-AuthWindowStepPassword.propTypes= {
-    info: PropTypes.object
-};
 
 class AuthWindowStepRegister extends React.Component {
-    constructor (args) {
-        super(args);
-
-        this.state= {
-            firstName: '',
-            lastName: ''
-        };
-    }
+    state= {
+        firstName: '',
+        lastName: ''
+    };
     handleFirstNameFieldChange= (event) => {
         this.setState({firstName: event.target.value});
     }
