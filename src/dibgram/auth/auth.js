@@ -6,10 +6,10 @@ TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
     const auth_state= update['authorization_state'];
     
     if(auth_state['@type']==='authorizationStateWaitEncryptionKey'){
-        TdLib.sendRequest({'@type': 'checkDatabaseEncryptionKey', 'encryption_key': ''});
+        TdLib.sendQuery({'@type': 'checkDatabaseEncryptionKey', 'encryption_key': ''});
     }
     if(auth_state['@type']==='authorizationStateWaitTdlibParameters'){
-        TdLib.sendRequest({
+        TdLib.sendQuery({
             '@type': 'setTdlibParameters',
             'parameters': {
                 'database_directory': 'tdlib',
@@ -29,15 +29,15 @@ TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
 
 export default class {
     static async givePhoneNumber(number) {
-        return await TdLib.sendRequest({'@type': 'setAuthenticationPhoneNumber', 'phone_number': number});
+        return await TdLib.sendQuery({'@type': 'setAuthenticationPhoneNumber', 'phone_number': number});
     }
     static async checkAuthCode(code) {
-        return await TdLib.sendRequest({'@type': 'checkAuthenticationCode', 'code': code});
+        return await TdLib.sendQuery({'@type': 'checkAuthenticationCode', 'code': code});
     }
     static async check2FACode(pass) {
-        return await TdLib.sendRequest({'@type': 'checkAuthenticationPassword', 'password': pass});
+        return await TdLib.sendQuery({'@type': 'checkAuthenticationPassword', 'password': pass});
     }
     static async registerNewAccount(first, last) {
-        return await TdLib.sendRequest({'@type': 'registerUser', 'first_name': first, 'last_name': last});
+        return await TdLib.sendQuery({'@type': 'registerUser', 'first_name': first, 'last_name': last});
     }
 }

@@ -26,7 +26,7 @@ export default class TdLib {
                 }
             }
         });
-        return await TdLib.sendRequest({'@type': 'getAuthorizationState'});
+        return await TdLib.sendQuery({'@type': 'getAuthorizationState'});
     }
 
     /**
@@ -46,7 +46,7 @@ export default class TdLib {
      * If the query contains an `@extra` field, the same field will be added to the result
      * @param {import('tdweb').TdObject} query The request to send. Consult TdLib & JSON interface API for help.
      */
-    static sendRequest(query) {
+    static sendQuery(query) {
         const {log}= getConfig();
         if(log.log_queries) {
             console.log('Query: ',query);
