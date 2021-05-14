@@ -43,6 +43,18 @@ export default class TdLib {
     }
 
     /**
+     * Remove an existing update handler
+     * @param {string} type The type of the update to remove handler from. Look for TdLib API docs for types
+     * @param {Function} handler The handler to remove
+     */
+    static unRegisterUpdateHandler(type, handler) {
+        if(TdLib.#updateHandlers[type]===undefined){
+            return;
+        }
+        TdLib.#updateHandlers.remove(handler);
+    }
+
+    /**
      * Send a request to the TdLib instance
      * If the query contains an `@extra` field, the same field will be added to the result
      * @param {import('tdweb').TdObject} query The request to send. Consult TdLib & JSON interface API for help.
