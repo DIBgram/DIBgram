@@ -68,8 +68,9 @@ export class MainApp extends React.Component {
             );
 
         case 'authorizationStateClosed':
+            window.location.reload();
             return (
-                <p>This session is closed.</p>
+                <p>This session is closed. Please wait till DIBgram reloads automatically...</p>
             );
         
         default:
