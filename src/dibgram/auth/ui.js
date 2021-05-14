@@ -6,6 +6,7 @@ import {MessengerWindow} from '../messenger/messengerWindow';
 
 import BigHighlightedButton from '../ui/elements/highlighted-button';
 import UnderlinedInput from '../ui/elements/underlined-input';
+import ConnectionState from '../ui/elements/connecting';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
@@ -116,6 +117,8 @@ class AuthWindowStepPhoneNumber extends React.Component {
                     onClick={this.submitNumber}>
                     NEXT
                 </BigHighlightedButton>
+
+                <ConnectionState/>
             </div>
         );
     }
@@ -194,6 +197,8 @@ class AuthWindowStepCode extends React.Component {
                     onClick={this.handleContinueButton}>
                     NEXT
                 </BigHighlightedButton>
+
+                <ConnectionState/>
             </div>
         );
     }
@@ -264,6 +269,8 @@ class AuthWindowStepPassword extends React.Component {
                         onClick={this.handleContinueButton}>
                         SUBMIT
                     </BigHighlightedButton>
+
+                    <ConnectionState/>
                 </div>
             </div>
         );
@@ -316,6 +323,8 @@ class AuthWindowStepRegister extends React.Component {
                         onClick={this.handleContinueButton}>
                         SIGN UP
                     </BigHighlightedButton>
+
+                    <ConnectionState/>
                 </div>
             </div>
         );
