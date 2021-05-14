@@ -1,0 +1,31 @@
+.connectionState {
+    svg {
+        animation-duration: 800ms !important;
+    }
+    &>div{
+        height: 20px;
+        width: 20px;
+    }
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    margin-bottom: 10px;
+    padding: 5px;
+    box-shadow: 0 0 2px;
+    border-radius: 100%;
+}
+
+@keyframes animation-rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    50% {
+        transition: rotate(180);
+    }
+  
+    100% {
+        transform: rotate(360deg);
+    }
+  }
+  
