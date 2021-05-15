@@ -8,7 +8,11 @@ export default class ConnectionState extends React.Component {
     }
     render () {
         return (
-            <div className="connectionState">
+            <div className={'connectionState'+(([
+                'connectionStateConnecting',
+                'connectionStateConnectingToProxy',
+                'connectionStateWaitingForNetwork'
+            ].includes(this.state.cState))? '' : ' connected')}>
                 <LoadingSpinner
                     progressColor="gray"
                     size="20"
