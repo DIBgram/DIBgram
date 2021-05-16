@@ -1,0 +1,8 @@
+#messenger-screen  #navigation-menu #chat-folders-list {
+    height: 100%;
+    background-color: var(--theme-color-chat-folders-background);
+    display: flex;
+    flex-direction: column;
+    width: 72px;
+    flex-shrink: 0;
+}

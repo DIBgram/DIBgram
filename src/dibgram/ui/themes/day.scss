@@ -4,6 +4,7 @@
     --theme-color-text-secondary: rgb(153, 153, 153);
     --theme-color-input-border: rgb(224, 224, 224);
     --theme-color-input-invalid: rgb(228, 131, 131);
+    --theme-color-chat-folders-background: rgb(41, 58, 76);
 }
 #app[data-theme=day] {
     @include app-theme-day;
