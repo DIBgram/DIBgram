@@ -1,7 +1,7 @@
 import React from 'react';
 import TdLib from '../TdWeb/tdlib';
 import BigHighlightedButton from '../ui/elements/highlighted-button';
-import NavigationMenu from './ui/navigation-menu';
+import NavigationMenu from './ui/navigation-menu/navigation-menu';
 
 export function MessengerWindow () {
     function logOut() {

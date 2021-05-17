@@ -11,8 +11,8 @@
 
 @import 'auth/auth';
 @import '../messenger/messengerWindow.scss';
-@import '../messenger/ui/navigation-menu.scss';
-@import '../messenger/ui/chat-folders.scss';
+@import '../messenger/ui/navigation-menu/navigation-menu.scss';
+@import '../messenger/ui/navigation-menu/chat-folders.scss';
 
 html, body {
     height: 100%;
