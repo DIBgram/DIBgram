@@ -1,7 +1,10 @@
 #messenger-screen  #navigation-menu {
     height: 100%;
-    width: 200px;
     background-color: var(--theme-color-background);
     display: flex;
     flex-direction: row;
+    #chat-list-container {
+        height: 100%;
+        min-width: 260px;
+    }
 }
