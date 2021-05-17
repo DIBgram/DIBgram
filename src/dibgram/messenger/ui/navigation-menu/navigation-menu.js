@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
+import ConnectionState from '../../../ui/elements/connecting';
 import chatFiltersStore from '../../chat-filters';
 import ChatFolderList from './chat-folders';
 
@@ -12,7 +13,7 @@ const NavMenu = connect(function (state) {
             <div id="navigation-menu" className="uses-folders">
                 <ChatFolderList/>
                 <div id="chat-list-container">
-                    
+                    <ConnectionState/>
                 </div>
             </div>
         );
