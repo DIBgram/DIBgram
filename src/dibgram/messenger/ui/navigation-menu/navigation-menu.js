@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
-import chatFiltersStore from '../chat-filters';
+import chatFiltersStore from '../../chat-filters';
 import ChatFolderList from './chat-folders';
 
 
