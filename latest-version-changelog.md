@@ -1,0 +1,1 @@
+Initial version, has basic authorization and an empty messenger window.
