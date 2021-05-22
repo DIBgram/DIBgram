@@ -32,12 +32,3 @@ jobs:
       run: npm ci
     - name: Build
       run: npm run build --if-present
-    - name: GitHub Pages
-      uses: crazy-max/ghaction-github-pages@v2.3.0
-      if: success()
-      with:
-        keep_history: true
-        # Build directory to deploy
-        build_dir: build
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
