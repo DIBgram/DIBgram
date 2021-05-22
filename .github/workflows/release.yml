@@ -1,0 +1,70 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Release new version
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: 14.x
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    # Checkout the repository so we can access its contents
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    # Prepare Node.js
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    # Create config.js, which stores API ID and hash, log settings and whether to use test cloud or not
+    - name: Create config file
+      run: 'echo "export function getCredentials() {return {api_id: $APIID,api_hash: $APIHASH};}export function getConfig() {return {use_test_dc: false,log: {log_updates: false,log_queries: false}};}" > ./src/dibgram/TdWeb/config.js'
+      shell: bash
+      env:
+        APIID: ${{ secrets.API_ID }}
+        APIHASH: ${{ secrets.API_HASH }}
+
+    # Install all dependencies defined in package.json
+    - name: Install dependencies
+      run: npm ci
+
+    # Create an optimized build
+    - name: Build
+      run: npm run build --if-present
+
+    # Put build folder in a zip file, so we can upload it to the release
+    - name: Zip the build directory
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r dibgram.zip build
+
+    # Create the GitHub release
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dibgram.zip
+        body_path: latest-version-changelog.md
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    # Deploy to GitHub Pages
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2.3.0
+      if: success()
+      with:
+        keep_history: true
+        build_dir: build
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
