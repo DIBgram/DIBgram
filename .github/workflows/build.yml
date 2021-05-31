@@ -5,30 +5,40 @@ name: Production Build
 
 on:
   workflow_dispatch:
+    inputs:
+      use_test_dc:
+        description: "Use Telegram's test servers (only true/false)"
+        required: false
+        default: 'false'
+      log_queries:
+        description: "Log TdLib queries (only true/false)"
+        required: false
+        default: 'false'
+      log_updates:
+        description: "Log TdLib updates (only true/false)"
+        required: false
+        default: 'false'
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 14.x
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 14.x
     - name: Create config file
-      run: 'echo "export function getCredentials() {return {api_id: $APIID,api_hash: $APIHASH};}export function getConfig() {return {use_test_dc: false,log: {log_updates: false,log_queries: false}};}" > ./src/dibgram/TdWeb/config.js'
+      run: 'echo "export function getCredentials() {return {api_id: ${{ secrets.API_ID }},api_hash: ${{ secrets.API_HASH }}};}export function getConfig() {return {use_test_dc: ${{ github.event.inputs.use_test_dc }},log: {log_updates: ${{ github.event.inputs.log_updates }},log_queries: ${{ github.event.inputs.log_queries }}}};}" > ./src/dibgram/TdWeb/config.js'
       shell: bash
-      env:
-        APIID: ${{ secrets.API_ID }}
-        APIHASH: ${{ secrets.API_HASH }}
     - name: Install dependencies
       run: npm ci
     - name: Build
       run: npm run build --if-present
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: build-results
+        path: build
