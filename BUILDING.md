@@ -52,7 +52,7 @@ You can run the app in test mode which is faster and better suited for developme
 1. Clone DIBgram repository
 
    ```sh
-   git clone github.com/Mammad900/DIBgram.git
+   git clone github.com/DIBgram/DIBgram.git
    cd DIBgram
    ```
 
@@ -76,7 +76,7 @@ You can create an optimized build of DIBgram, for use in production.
 1. Clone DIBgram repository
 
    ```sh
-   git clone github.com/Mammad900/DIBgram.git
+   git clone github.com/DIBgram/DIBgram.git
    cd DIBgram
    ```
 
