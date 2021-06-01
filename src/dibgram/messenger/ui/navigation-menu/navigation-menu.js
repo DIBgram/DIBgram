@@ -11,7 +11,9 @@ const NavMenu = connect(function (state) {
     if(props.useFolders) {
         return (
             <div id="navigation-menu" className="uses-folders">
-                <ChatFolderList/>
+                <div id="chat-folders-list">
+                    <ChatFolderList/>
+                </div>
                 <div id="chat-list-container">
                     <ConnectionState/>
                 </div>
