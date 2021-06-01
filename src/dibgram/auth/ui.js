@@ -14,32 +14,33 @@ export function setInitialAuthState(state) {
 }
 
 export class MainApp extends React.Component {
-    constructor(args) {
-        super(args);
+    state= {
+        step: initialAuthState
+    };
 
-        this.state= {
-            step: initialAuthState
-        };
+    componentDidMount(){
         // eslint-disable-next-line no-func-assign
         setInitialAuthState= state=> {
             this.setState({step: state});
         };
 
-        TdLib.registerUpdateHandler('updateAuthorizationState', update => {
-            const states= [
-                'authorizationStateWaitPhoneNumber',
-                'authorizationStateWaitCode',
-                'authorizationStateWaitPassword',
-                'authorizationStateWaitRegistration',
-                'authorizationStateReady',
-                'authorizationStateClosed',
-            ];
-            const state=update['authorization_state'];
-            if(states.includes(state['@type'])) {
-                this.setState({step: state});
-            }
-        });
+        TdLib.registerUpdateHandler('updateAuthorizationState', this.handleAuthStateUpdate);
     }
+
+    handleAuthStateUpdate= update => {
+        const states= [
+            'authorizationStateWaitPhoneNumber',
+            'authorizationStateWaitCode',
+            'authorizationStateWaitPassword',
+            'authorizationStateWaitRegistration',
+            'authorizationStateReady',
+            'authorizationStateClosed',
+        ];
+        const state=update['authorization_state'];
+        if(states.includes(state['@type'])) {
+            this.setState({step: state});
+        }
+    };
     
     render () {
         switch (this.state.step['@type']) {
