@@ -1,0 +1,24 @@
+#hamburger-menu-button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    span {
+        height: 2px;
+        width: 18px;
+        display: block;
+        background: var(--theme-color-hamburger-menu-button);
+        margin: 1.5px;
+    }
+}
+
+#chat-folders-list #hamburger-menu-button {
+    width: 100%;
+    min-height: 54px;
+    height: 54px;
+    padding: 0;
+}
