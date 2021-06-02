@@ -1,6 +1,7 @@
 {
   "name": "dibgram",
   "version": "0.0.1",
+  "homepage" : "http://DIBgram.github.io/DIBgram",
   "private": true,
   "dependencies": {
     "@babel/eslint-parser": "^7.13.14",
