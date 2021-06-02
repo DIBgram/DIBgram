@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question
+    url: https://github.com/DIBgram/DIBgram/discussions
+    about: Ask any question at the discussions section
+  - name: DIBgram chat at Telegram
+    url: https://t.me/DIBgramChat
+    about: Join DIBgram chat for more casual discussion
