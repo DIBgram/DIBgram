@@ -1,6 +1,6 @@
 # DIBgram
 
-*[DIBgram is not complete yet. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=sort%3Acreated-asc) section to see the progress]*
+*[DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=sort%3Acreated-asc) section to see the progress]*
 
 DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies.
 
