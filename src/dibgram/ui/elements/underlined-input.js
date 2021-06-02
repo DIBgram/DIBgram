@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Renders a beautiful field with a title and underline
+ */
 export default class UnderlinedInput extends React.Component {
     constructor(args) {
         super(args);

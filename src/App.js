@@ -6,6 +6,10 @@ import './dibgram/ui/main.scss';
 TdLib.initializeTdLib().then(function (res) {
     setInitialAuthState(res);
 });
+
+/**
+ * Renders the whole React app
+ */
 function App() {
     return (
         <div data-theme="classic" id="app">

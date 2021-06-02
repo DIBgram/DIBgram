@@ -13,6 +13,9 @@ export function setInitialAuthState(state) {
     initialAuthState=state;
 }
 
+/**
+ * Renders the messenger or authorization screens. Does not include dialogs and toasts
+ */
 export class MainApp extends React.Component {
     state= {
         step: initialAuthState
@@ -81,6 +84,9 @@ export class MainApp extends React.Component {
     }
 }
 
+/**
+ * Renders the phone number step of authorization screen
+ */
 class AuthWindowStepPhoneNumber extends React.Component {
     state= {
         number: ''
@@ -125,6 +131,9 @@ class AuthWindowStepPhoneNumber extends React.Component {
     }
 }
 
+/**
+ * Renders verification code step of authorization screen
+ */
 class AuthWindowStepCode extends React.Component {
     static propTypes= {
         info: PropTypes.object
@@ -205,6 +214,9 @@ class AuthWindowStepCode extends React.Component {
     }
 }
 
+/**
+ * Renders 2FA password step of authorization screen
+ */
 class AuthWindowStepPassword extends React.Component {
     static propTypes= {
         info: PropTypes.object
@@ -278,6 +290,9 @@ class AuthWindowStepPassword extends React.Component {
     }
 }
 
+/**
+ * Render sign up step of authorization screen
+ */
 class AuthWindowStepRegister extends React.Component {
     state= {
         firstName: '',

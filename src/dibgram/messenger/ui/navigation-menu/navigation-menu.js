@@ -30,6 +30,9 @@ const NavMenu = connect(function (state) {
     }
 });
 
+/**
+ * Return Renders the navigation menu, containing chat list, search field and search results, chat folders and the hamburger menu
+ */
 export default function NavigationMenu() {
     return (
         <Provider store={chatFiltersStore}>

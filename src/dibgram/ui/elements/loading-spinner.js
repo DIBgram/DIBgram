@@ -3,6 +3,9 @@ import 'progress-ring/src/styles.css';
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Renders a spinner which in addition to spinning, also changes size.
+ */
 export default class LoadingSpinner extends React.Component {
     static props= {
         size: PropTypes.number.isRequired,

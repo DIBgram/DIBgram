@@ -1,6 +1,9 @@
 import { createStore } from 'redux';
 import TdLib from '../TdWeb/tdlib';
 
+/**
+ * A Redux store which state contains an array of chat filters in the form used by TdLib
+ */
 const chatFiltersStore= createStore(reducer, 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
