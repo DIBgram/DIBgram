@@ -1,1 +1,3 @@
-Initial version, has basic authorization and an empty messenger window.
+- Added app logo
+- Fixed some bugs
+- Update some dependencies
