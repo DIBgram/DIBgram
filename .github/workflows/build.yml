@@ -26,10 +26,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Use Node.js 14.x
+    - name: Use Node.js 15.x
       uses: actions/setup-node@v2
       with:
-        node-version: 14.x
+        node-version: 15.x
     - name: Create config file
       run: 'echo "export function getCredentials() {return {api_id: ${{ secrets.API_ID }},api_hash: ${{ secrets.API_HASH }}};}export function getConfig() {return {use_test_dc: ${{ github.event.inputs.use_test_dc }},log: {log_updates: ${{ github.event.inputs.log_updates }},log_queries: ${{ github.event.inputs.log_queries }}}};}" > ./src/dibgram/TdWeb/config.js'
       shell: bash
