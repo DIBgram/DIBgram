@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
 
+/**
+ * A redux store which state is an array of objects with {id: unique ID of dialog, element: react element of the dialog}
+ */
 export var dialogStore= createStore(
     /**
      * @param {any[]} state
@@ -24,6 +27,11 @@ export var dialogStore= createStore(
     },
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
+/**
+ * Opens a dialog
+ * @param {string} id A unique ID for the dialog
+ * @param {React.ReactElement} dialog The dialog React element
+ */
 export function addDialog(id, dialog) {
     dialogStore.dispatch({
         type: 'ADD_DIALOG',
@@ -34,6 +42,10 @@ export function addDialog(id, dialog) {
     });
 }
 
+/**
+ * Closes an existing dialog
+ * @param {string} id The dialog unique ID
+ */
 export function removeDialog(id) {
     dialogStore.dispatch({
         type: 'REMOVE_DIALOG',
@@ -44,6 +56,10 @@ export function removeDialog(id) {
 function Wrapper(props){
     return props.children;
 }
+
+/**
+ * Renders all dialogs.
+ */
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
 })(function (props) {
