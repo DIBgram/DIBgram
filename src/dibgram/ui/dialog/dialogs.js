@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
 
@@ -39,10 +40,14 @@ export function removeDialog(id) {
         id: id
     });
 }
+
+function Wrapper(props){
+    return props.children;
+}
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
 })(function (props) {
-    return props.dialogs.map(el => el.element) || null;
+    return props.dialogs.map(el => <Wrapper key={el.id}>{el.element}</Wrapper>) || null;
 }));
 
 export default Dialogs;
