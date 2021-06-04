@@ -16,5 +16,6 @@ export default function Dialog(props) {
 }
 Dialog.propTypes= {
     children: PropTypes.node.isRequired,
+    /** Dialog width in CSS format */
     width: PropTypes.string
 };
