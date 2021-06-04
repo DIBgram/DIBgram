@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
-import ConnectionState from '../../../ui/elements/connecting';
+import ConnectionState from '../../../ui/components/connecting';
 import chatFiltersStore from '../../chat-filters';
 import HamburgerMenuButton from './hamburger-menu/menu-button';
 import ChatFolderList from './chat-folders';

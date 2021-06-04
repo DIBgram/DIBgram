@@ -1,6 +1,6 @@
 import React from 'react';
 import TdLib from '../../TdWeb/tdlib';
-import LoadingSpinner from './loading-spinner';
+import LoadingSpinner from '../elements/loading-spinner';
 
 /**
  * Renders the connecting spinner at the bottom left corner, which is hidden when connected

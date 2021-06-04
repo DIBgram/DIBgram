@@ -6,7 +6,7 @@ import {MessengerWindow} from '../messenger/messengerWindow';
 
 import BigHighlightedButton from '../ui/elements/highlighted-button';
 import UnderlinedInput from '../ui/elements/underlined-input';
-import ConnectionState from '../ui/elements/connecting';
+import ConnectionState from '../ui/components/connecting';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
