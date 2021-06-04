@@ -1,0 +1,21 @@
+.modal-dialog {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgb(0,0,0,0.5);
+    display: flex;
+    z-index: 100;
+    &>div {
+        width: fit-content;
+        box-sizing: border-box;
+        background-color: var(--theme-color-modal-dialog);
+        margin: auto;
+        padding: 12px 13px;
+        border-radius: 3px;
+        font-size: 14px;
+        line-height: 22px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+}
