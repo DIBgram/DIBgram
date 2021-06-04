@@ -14,17 +14,20 @@ export var dialogStore= createStore(function (state= [], action) {
     }
 }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-export function addDialog(dialog) {
+export function addDialog(id, dialog) {
     dialogStore.dispatch({
         type: 'ADD_DIALOG',
-        dialog: dialog
+        dialog: {
+            element: dialog,
+            id: id
+        }
     });
 }
 
 const Dialogs= (connect(function (state) {
-    return {dialogs: state};
+    return {dialogs: state || []};
 })(function (props) {
-    return props.dialogs || null;
+    return props.dialogs.map(el => el.element) || null;
 }));
 
 export default Dialogs;
