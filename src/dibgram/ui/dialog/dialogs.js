@@ -12,7 +12,7 @@ export var dialogStore= createStore(function (state= [], action) {
     default:
         break;
     }
-});
+}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export function addDialog(dialog) {
     dialogStore.dispatch({
