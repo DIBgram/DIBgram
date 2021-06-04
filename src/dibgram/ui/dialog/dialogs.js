@@ -1,18 +1,27 @@
 import { connect } from 'react-redux';
 import { createStore } from 'redux';
 
-export var dialogStore= createStore(function (state= [], action) {
-    switch (action.type) {
-    case 'ADD_DIALOG':
-        return [
-            ...state,
-            action.dialog
-        ];
-    
-    default:
-        break;
-    }
-}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+export var dialogStore= createStore(
+    /**
+     * @param {any[]} state
+     * @param {Object} action
+     */
+    function (state= [], action) {
+        switch (action.type) {
+        case 'ADD_DIALOG':
+            return [
+                ...state,
+                action.dialog
+            ];
+        
+        case 'REMOVE_DIALOG':
+            return state.filter(value => value.id!=action.id);
+        
+        default:
+            break;
+        }
+    },
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export function addDialog(id, dialog) {
     dialogStore.dispatch({
@@ -24,6 +33,12 @@ export function addDialog(id, dialog) {
     });
 }
 
+export function removeDialog(id) {
+    dialogStore.dispatch({
+        type: 'REMOVE_DIALOG',
+        id: id
+    });
+}
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
 })(function (props) {
