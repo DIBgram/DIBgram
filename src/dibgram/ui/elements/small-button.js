@@ -6,8 +6,12 @@ import PropTypes from 'prop-types';
  */
 export default function SmallButton(props) {
     return (
-        <button className="small-button">
+        <button 
+            className="small-button" 
+            {...props}>
+
             {props.children}
+            
         </button>
     );
 }
