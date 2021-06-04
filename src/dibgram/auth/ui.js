@@ -7,6 +7,8 @@ import {MessengerWindow} from '../messenger/messengerWindow';
 import BigHighlightedButton from '../ui/elements/highlighted-button';
 import UnderlinedInput from '../ui/elements/underlined-input';
 import ConnectionState from '../ui/components/connecting';
+import { addDialog } from '../ui/dialog/dialogs';
+import ConfirmDialog from '../ui/dialog/confirm-dialog';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
@@ -89,14 +91,44 @@ export class MainApp extends React.Component {
  */
 class AuthWindowStepPhoneNumber extends React.Component {
     state= {
-        number: ''
+        number: '',
+        textUnderField: '',
+        invalid: false
     };
     handlePNFieldChange = (event) => {
-        this.setState({number: event.target.value});
+        this.setState({
+            number: event.target.value,
+            textUnderField: '',
+            invalid: false
+        });
     }
     submitNumber= async () => {
         Auth.givePhoneNumber(this.state.number).catch(reason=> {
-            this.setState({textUnderField: reason.message});
+            switch(reason.message){
+            case 'PHONE_NUMBER_FLOOD':
+                addDialog( 'phone_number_flood_error',
+                    <ConfirmDialog width="320px" hideCancelButton={true} id="phone_number_flood_error">
+                        Sorry, you have deleted and re-created your account too many times recently.<br/>
+                        Please wait for a few days before signing up again.
+                    </ConfirmDialog>
+                );
+                this.setState({textUnderField: ''});
+                break;
+            case 'PHONE_NUMBER_INVALID':
+                this.setState({
+                    textUnderField: 'Invalid phone number. Please try again.',
+                    invalid: true
+                });
+                break;
+            case 'Another authorization query has started': 
+                break;
+            default:
+                this.setState({
+                    textUnderField: reason.message,
+                    invalid: false
+                });
+                break;
+            }
         });
     }
     render () {
@@ -114,7 +146,8 @@ class AuthWindowStepPhoneNumber extends React.Component {
                     value={this.state.number} 
                     autoFocus={true}
                     onChange={this.handlePNFieldChange}
-                    onEnterKeyPressed={this.submitNumber}/>
+                    onEnterKeyPressed={this.submitNumber}
+                    invalid={this.state.invalid}/>
 
                 <div className="status">
                     {this.state.textUnderField || <span>&nbsp;</span>}
