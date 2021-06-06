@@ -6,6 +6,10 @@ name: Production Build
 on:
   workflow_dispatch:
     inputs:
+      node_version:
+        description: "Node.js version"
+        default: '15.x'
+        required: false
       use_test_dc:
         description: "Use Telegram's test servers (only true/false)"
         required: false
@@ -26,10 +30,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Use Node.js 15.x
+    - name: Use Node.js ${{ github.event.inputs.node_version }}
       uses: actions/setup-node@v2
       with:
-        node-version: 15.x
+        node-version: ${{ github.event.inputs.node_version }}
     - name: Create config file
       run: 'echo "export function getCredentials() {return {api_id: ${{ secrets.API_ID }},api_hash: ${{ secrets.API_HASH }}};}export function getConfig() {return {use_test_dc: ${{ github.event.inputs.use_test_dc }},log: {log_updates: ${{ github.event.inputs.log_updates }},log_queries: ${{ github.event.inputs.log_queries }}}};}" > ./src/dibgram/TdWeb/config.js'
       shell: bash
