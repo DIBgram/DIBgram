@@ -23,17 +23,20 @@ export default class ConfirmDialog extends React.Component{
         /** Called when the cancel button is pressed */
         onCancel: PropTypes.func
     };
+    state= {
+        closing: false
+    }
     handleOK =()=>{
-        removeDialog(this.props.id);
+        this.closeDialog();
         this.props.onOK && this.props.onOK();
     }
     handleCancel =()=>{
-        removeDialog(this.props.id);
+        this.closeDialog();
         this.props.onCancel && this.props.onCancel();
     }
     render() {
         return (
-            <div className="modal-dialog confirm-dialog">
+            <div className={'modal-dialog confirm-dialog' + ((this.state.closing) ? ' closing' : '')}>
                 <div style={{
                     'width': this.props.width || 'auto'
                 }}>
@@ -54,5 +57,14 @@ export default class ConfirmDialog extends React.Component{
                 </div>
             </div>
         );
+    }
+    
+    closeDialog= ()=>{
+        this.setState({
+            closing: true
+        });
+        setTimeout(() => {
+            removeDialog(this.props.id);
+        }, 1000);
     }
 }
