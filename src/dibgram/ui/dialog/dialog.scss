@@ -7,7 +7,7 @@
     background-color: rgb(0,0,0,0.5);
     display: flex;
     z-index: 100;
-    animation: modal-dialog-appear 150ms linear;
+    animation: modal-dialog-appear 100ms linear;
     animation-fill-mode: forwards;
     &>div {
         width: fit-content;
