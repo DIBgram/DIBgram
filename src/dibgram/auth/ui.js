@@ -210,6 +210,10 @@ class AuthWindowStepCode extends React.Component {
     static propTypes= {
         info: PropTypes.object
     };
+    constructor(args) {
+        super(args);
+        manageStatusTextContent(this);
+    }
     state= {
         code: '',
         invalid: false,
@@ -219,6 +223,7 @@ class AuthWindowStepCode extends React.Component {
             code: event.target.value,
             invalid: false
         });
+        this.changeStatus('');
         if(event.target.value.length==this.props.info.type.length) {
             this.handleContinueButton(event.target.value);
         }
@@ -232,19 +237,18 @@ class AuthWindowStepCode extends React.Component {
 
         Auth.checkAuthCode(code).catch(reason=> {
             if(reason.message==='PHONE_CODE_INVALID'){
-                this.setState({
-                    textUnderField: 'You have entered an invalid code.',
-                    invalid: true
-                });
+                this.setState({invalid: true});
+                this.changeStatus('You have entered an invalid code.');
             }
-            else
-                this.setState({
-                    textUnderField: reason.message,
-                    invalid: true
-                });
+            else {
+                this.setState({invalid: true});
+                this.changeStatus(reason.message);
+            }
         });
     }
     render () {
+        const Status = this.Status;
+
         var message= (this.props.info.type['@type']=='authenticationCodeTypeSms') ?
             (<p className="description">
                 A code was sent <strong>via SMS</strong> to your phone number.
@@ -271,9 +275,7 @@ class AuthWindowStepCode extends React.Component {
                     onEnterKeyPressed={this.handleContinueButton}
                     invalid={this.state.invalid}/>
 
-                <div className="status">
-                    {this.state.textUnderField || ''}
-                </div>
+                <Status/>
 
                 <BigHighlightedButton 
                     onClick={this.handleContinueButton}>
@@ -290,6 +292,10 @@ class AuthWindowStepCode extends React.Component {
  * Renders 2FA password step of authorization screen
  */
 class AuthWindowStepPassword extends React.Component {
+    constructor(args) {
+        super(args);
+        manageStatusTextContent(this);
+    }
     static propTypes= {
         info: PropTypes.object
     };
@@ -302,19 +308,18 @@ class AuthWindowStepPassword extends React.Component {
             password: event.target.value,
             invalid: false,
         });
+        this.changeStatus('');
     }
     handleContinueButton= async () => {
         Auth.check2FACode(this.state.password).catch(reason=> {
-            if(reason.message=='PASSWORD_HASH_INVALID') 
-                this.setState({
-                    textUnderField: 'You have entered a wrong password.',
-                    invalid: true,
-                });
-            else
-                this.setState({
-                    textUnderField: reason.message,
-                    invalid: true,
-                });
+            if(reason.message=='PASSWORD_HASH_INVALID') {
+                this.setState({invalid: true});
+                this.changeStatus('You have entered a wrong password.');
+            }
+            else {
+                this.setState({invalid: true});
+                this.changeStatus(reason.message);
+            }
         });
     }
     render () {
