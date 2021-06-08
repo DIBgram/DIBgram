@@ -38,10 +38,6 @@ jobs:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
 
     steps:
-
-    - name: configure Page-file
-      uses: al-cheb/configure-pagefile-action@v1.2
-
     - name: Checkout repository
       uses: actions/checkout@v2
 
