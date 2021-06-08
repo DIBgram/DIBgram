@@ -71,4 +71,4 @@ jobs:
       uses: github/codeql-action/analyze@v1
       with:
         paths:
-          - src
+        - src
