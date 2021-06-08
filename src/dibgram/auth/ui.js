@@ -16,6 +16,46 @@ export function setInitialAuthState(state) {
 }
 
 /**
+ * Start managing a status text block with fade effects.  
+ * Usage:
+ * ```js
+ * manageStatusTextContent(this);
+ * ```
+ * 
+ * @param {React.Component} thisClass pass `this` as this argument
+ * @returns Store this function and call it to change 
+ */
+function manageStatusTextContent(thisClass) {
+    thisClass.state= {
+        ...(thisClass.state|{}),
+        statusContent: '',
+        statusVisible: false
+    };
+    thisClass.Status= function Status(){
+        return (
+            <div className={'status'+ (thisClass.state.statusVisible?'':' hidden')}>{thisClass.state.statusContent}</div>
+        );
+    };
+    thisClass.changeStatus= function(string){
+        if(string) {
+            thisClass.setState({
+                statusContent: string,
+                statusVisible: true
+            });
+        } else {
+            thisClass.setState({
+                statusVisible: false
+            });
+            setTimeout(() => {
+                thisClass.setState({
+                    statusContent: null
+                });
+            }, 1000);
+        }
+    };
+}
+
+/**
  * Renders the messenger or authorization screens. Does not include dialogs and toasts
  */
 export class MainApp extends React.Component {
@@ -90,17 +130,20 @@ export class MainApp extends React.Component {
  * Renders the phone number step of authorization screen
  */
 class AuthWindowStepPhoneNumber extends React.Component {
+    constructor(args) {
+        super(args);
+        manageStatusTextContent(this);
+    }
     state= {
         number: '',
-        textUnderField: '',
         invalid: false
     };
     handlePNFieldChange = (event) => {
         this.setState({
             number: event.target.value,
-            textUnderField: '',
             invalid: false
         });
+        this.changeStatus('');
     }
     submitNumber= async () => {
         Auth.givePhoneNumber(this.state.number).catch(reason=> {
@@ -112,26 +155,24 @@ class AuthWindowStepPhoneNumber extends React.Component {
                         Please wait for a few days before signing up again.
                     </ConfirmDialog>
                 );
-                this.setState({textUnderField: ''});
+                this.changeStatus('');
                 break;
             case 'PHONE_NUMBER_INVALID':
-                this.setState({
-                    textUnderField: 'Invalid phone number. Please try again.',
-                    invalid: true
-                });
+                this.setState({invalid: true});
+                this.changeStatus('Invalid phone number. Please try again.');
+                
                 break;
             case 'Another authorization query has started': 
                 break;
             default:
-                this.setState({
-                    textUnderField: reason.message,
-                    invalid: false
-                });
+                this.setState({invalid: false});
+                this.changeStatus(reason.message);
                 break;
             }
         });
     }
     render () {
+        const Status=this.Status;
         return (
             <div id="auth" className="auth-step-phoneNumber">
 
@@ -149,9 +190,7 @@ class AuthWindowStepPhoneNumber extends React.Component {
                     onEnterKeyPressed={this.submitNumber}
                     invalid={this.state.invalid}/>
 
-                <div className="status">
-                    {this.state.textUnderField || <span>&nbsp;</span>}
-                </div>
+                <Status/>
 
                 <BigHighlightedButton 
                     onClick={this.submitNumber}>
