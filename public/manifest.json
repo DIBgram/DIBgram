@@ -6,6 +6,23 @@
       "src": "favicon.png",
       "type": "image/png",
       "sizes": "256x256"
+    },
+    {
+      "src": "favicon-4168.png",
+      "type": "image/png",
+      "sizes": "4168x4168"
+    },
+    {
+      "src": "favicon-maskable-1000.png",
+      "type": "image/png",
+      "sizes": "1000x1000",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon-maskable-256.png",
+      "type": "image/png",
+      "sizes": "256x256",
+      "purpose": "any maskable"
     }
   ],
   "start_url": ".",
