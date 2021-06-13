@@ -39,14 +39,14 @@ jobs:
       with:
         args: zip -qq -r dibgram.zip build
 
-    # Create the GitHub release
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: dibgram.zip
-        body_path: latest-version-changelog.md
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     # Create the GitHub release
+#     - name: Release
+#       uses: softprops/action-gh-release@v1
+#       with:
+#         files: dibgram.zip
+#         body_path: latest-version-changelog.md
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # Deploy to GitHub Pages
     - name: GitHub Pages
