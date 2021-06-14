@@ -345,7 +345,7 @@ class AuthWindowStepPassword extends React.Component {
                         invalid={this.state.invalid}/>
 
                     <div className="hint">
-                        Hint: {this.props.info.password_hint}
+                        {this.props.info.password_hint?'Hint: ':<span>&nbsp;</span>}{this.props.info.password_hint}
                     </div>
 
                     <div className="forgot-password">
