@@ -26,11 +26,6 @@ export function setInitialAuthState(state) {
  * @returns Store this function and call it to change 
  */
 function manageStatusTextContent(thisClass) {
-    thisClass.state= {
-        ...(thisClass.state|{}),
-        statusContent: '',
-        statusVisible: false
-    };
     thisClass.Status= function Status(){
         return (
             <div className={'status'+ (thisClass.state.statusVisible?'':' hidden')}>{thisClass.state.statusContent}</div>
@@ -136,7 +131,9 @@ class AuthWindowStepPhoneNumber extends React.Component {
     }
     state= {
         number: '',
-        invalid: false
+        invalid: false,
+        statusContent: '',
+        statusVisible: false
     };
     handlePNFieldChange = (event) => {
         this.setState({
@@ -217,6 +214,8 @@ class AuthWindowStepCode extends React.Component {
     state= {
         code: '',
         invalid: false,
+        statusContent: '',
+        statusVisible: false
     };
     handleCodeFieldChange= (event) => {
         this.setState({
@@ -301,7 +300,9 @@ class AuthWindowStepPassword extends React.Component {
     };
     state= {
         password: '',
-        invalid: false
+        invalid: false,
+        statusContent: '',
+        statusVisible: false
     };
     handlePasswordFieldChange= (event) => {
         this.setState({
@@ -372,7 +373,9 @@ class AuthWindowStepPassword extends React.Component {
 class AuthWindowStepRegister extends React.Component {
     state= {
         firstName: '',
-        lastName: ''
+        lastName: '',
+        statusContent: '',
+        statusVisible: false
     };
     handleFirstNameFieldChange= (event) => {
         this.setState({firstName: event.target.value});
