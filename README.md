@@ -26,4 +26,7 @@ So I am developing this app so these users can have the same experience as Teleg
   - It should compile and run successfully
   - It should not introduce a feature that is not present in the official Telegram Desktop app
   - Behavior and UI should be similar to the official Telegram Desktop app
-- Bug reports and feature requests are welcome, but do not ask for features not present in the official Telegram Desktop app.
+- Bug reports and feature requests:
+  - Don't ask for features not present in the official Telegram Desktop app
+  - Look at the project progress (link is at the top) before creating issues, to avoid requesting features which are already planned
+
