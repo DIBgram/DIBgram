@@ -32,7 +32,7 @@ export default class ConnectionState extends React.Component {
         TdLib.registerUpdateHandler('updateConnectionState', this.handleUpdate);
     }
     componentWillUnmount () {
-        TdLib.registerUpdateHandler('updateConnectionState', this.handleUpdate);
+        TdLib.unRegisterUpdateHandler('updateConnectionState', this.handleUpdate);
     }
 
 }
