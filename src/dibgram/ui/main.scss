@@ -48,3 +48,7 @@ code {
 :focus {
     outline: none;
 }
+
+::selection {
+    background-color: var(--theme-accent-color-selection);
+}
