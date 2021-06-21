@@ -12,4 +12,7 @@
         size: 16px;
         weight: 500;
     }
+    &:hover {
+        background-color: var(--theme-accent-color-big-button-hover);
+    }
 }
