@@ -51,7 +51,7 @@ export default class TdLib {
         if(TdLib.#updateHandlers[type]===undefined){
             return;
         }
-        TdLib.#updateHandlers.remove(handler);
+        TdLib.#updateHandlers[type].remove(handler);
     }
 
     /**
