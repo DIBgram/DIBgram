@@ -52,6 +52,8 @@
             console.error('ServiceWorker registration failed: ', err);
           });
         });
+      } else {
+        console.error('ServiceWorker registration failed: '+ (window.isSecureContext? 'Browser does not support this functionality': 'Context is not secure'))
       }
     </script>
   </body>
