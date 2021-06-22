@@ -7,12 +7,29 @@
     color: var(--theme-color-background);
     border-radius: 5px;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
     font: {
         family: OpenSans;
         size: 16px;
         weight: 500;
     }
     &:hover {
+        // You may not have noticed it, but the button gets a little bit darker on hover.
+        //    You don't believe me? Go check it!
         background-color: var(--theme-accent-color-big-button-hover);
+    }
+    // These are to make sure it's not behind the ripple effect circle
+    .content {
+        z-index: 1; // Bring to front
+
+        // Use absolute position so z-index works
+        top: 0; left: 0; right: 0; bottom: 0;
+        position: absolute;
+
+        // And center content
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
