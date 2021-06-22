@@ -1,0 +1,46 @@
+.ripple {
+    position: absolute;
+    &.pressed {
+        animation: {
+            name: ripple-press;
+            fill-mode: forwards;
+            duration: 400ms;
+            timing-function: cubic-bezier(0.25, 0.63, 0.58, 1); // My personal record of the highest time spent on 1 CSS property
+        };
+    }
+    &.released {
+        top:0; left:0; right:0; bottom:0;
+        animation: {
+            name: ripple-release;
+            fill-mode: forwards;
+            duration: 200ms;
+            timing-function: linear;
+        };
+    }
+}
+@keyframes ripple-press {
+    // It starts from a point in the same location as where the user clicked ...
+    from {
+        border-radius: 100%;
+        left: var(--left);
+        top: var(--top);
+        width: 0;
+        height: 0;
+    }
+
+    // ... And it slowly grows ...
+
+    // Until it has fill all of the button
+    to {
+        border-radius: 100%;
+        left: calc( var(--left) - var(--radius) );
+        top: calc( var(--top) - var(--radius) );
+        width: calc( var(--radius) * 2 );
+        height: calc( var(--radius) * 2 );
+    }
+}
+
+@keyframes ripple-release {
+    from { opacity: 1; } 
+    to   { opacity: 0; }
+}
