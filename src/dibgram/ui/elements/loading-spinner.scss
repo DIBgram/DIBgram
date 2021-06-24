@@ -1,8 +1,9 @@
-.loading-spinner{
+.loading-spinner {
     svg {
         animation-duration: 800ms !important;
     }
-    &>div{
+
+    & > div {
         height: 20px;
         width: 20px;
     }

@@ -7,6 +7,7 @@
     --theme-color-chat-folders-background: rgb(41, 58, 76);
     --theme-color-hamburger-menu-button: rgb(131, 147, 163);
 }
+
 #app[data-theme=day] {
     @include app-theme-day;
 }

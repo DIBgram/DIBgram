@@ -4,16 +4,18 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: rgb(0,0,0,0.5);
+    background-color: rgb(0, 0, 0, 0.5);
     display: flex;
     z-index: 100;
     animation: modal-dialog-appear 100ms linear;
     animation-fill-mode: forwards;
+
     &.closing {
         animation: modal-dialog-disappear 100ms linear;
         animation-fill-mode: forwards;
     }
-    &>div {
+
+    & > div {
         width: fit-content;
         box-sizing: border-box;
         background-color: var(--theme-color-background);
@@ -23,10 +25,25 @@
 }
 
 @keyframes modal-dialog-appear {
-    from { opacity: 0; z-index: 100; }
-    to   { opacity: 1; z-index: 100; }
+    from {
+        opacity: 0;
+        z-index: 100;
+    }
+
+    to {
+        opacity: 1;
+        z-index: 100;
+    }
 }
+
 @keyframes modal-dialog-disappear {
-    from { opacity: 1; z-index: 100; }
-    to   { opacity: 0; z-index: 100; }
+    from {
+        opacity: 1;
+        z-index: 100;
+    }
+
+    to {
+        opacity: 0;
+        z-index: 100;
+    }
 }

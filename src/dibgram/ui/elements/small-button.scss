@@ -5,9 +5,10 @@ button.small-button {
     border-radius: 4px;
     color: var(--theme-accent-color-text);
     text-transform: uppercase;
-    font-family: 'OpenSans';
+    font-family: var(--font-family);
     font-weight: 500;
     font-size: 14px;
+
     &:hover {
         background-color: var(--theme-accent-color-small-button-hover-background);
     }

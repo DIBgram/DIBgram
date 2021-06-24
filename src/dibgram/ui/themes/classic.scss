@@ -1,5 +1,6 @@
 #app[data-theme=classic] {
     @include app-theme-day;
+
     --theme-accent-color-main: rgb(64, 167, 227);
     --theme-accent-color-text: rgb(22, 138, 205);
     --theme-accent-color-input-underline: rgb(55, 163, 222);
