@@ -30,3 +30,5 @@ So I am developing this app so these users can have the same experience as Teleg
   - Don't ask for features not present in the official Telegram Desktop app
   - Look at the project progress (link is at the top) before creating issues, to avoid requesting features which are already planned
 
+***
+For updates, subscribe to our Telegram channel at https://t.me/DIBgram.
