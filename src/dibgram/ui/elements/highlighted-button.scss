@@ -1,25 +1,30 @@
 .big-highlighted-button {
     display: block;
     width: 100%;
+    height: 56px;
+
     border: none;
     background: var(--theme-accent-color-main);
-    height: 56px;
     color: var(--theme-color-background);
     border-radius: 5px;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
+
+    text-transform: uppercase;
     font: {
         family: OpenSans;
         size: 16px;
         weight: 500;
     }
+
     &:hover {
         // You may not have noticed it, but the button gets a little bit darker on hover.
         //    You don't believe me? Go check it!
         background-color: var(--theme-accent-color-big-button-hover);
     }
-    // These are to make sure it's not behind the ripple effect circle
+
+    // These are to make sure the ripple effect works correctly
+    position: relative;
+    overflow: hidden;
     .content {
         z-index: 1; // Bring to front
 
