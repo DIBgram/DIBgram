@@ -98,10 +98,16 @@
         .forgot-password {
             font-size: 13px;
             margin-left: 5px;
+            width: max-content;
 
             a {
                 color: var(--theme-accent-color-text);
                 text-decoration: none;
+            }
+
+            &:hover {
+                text-decoration: underline;
+                text-decoration-skip-ink: none;
             }
         }
     }
