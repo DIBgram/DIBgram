@@ -15,7 +15,7 @@ export default class RippleEffect extends React.Component {
          * - Change to `released` on `mouseUp`
          * - Change to `off` 1000ms after `mouseUp`
          */
-        state: PropTypes.oneOf('off', 'pressed', 'released').isRequired,
+        state: PropTypes.oneOf(['off', 'pressed', 'released']).isRequired,
         X: PropTypes.number,
         Y: PropTypes.number,
         width: PropTypes.number,
