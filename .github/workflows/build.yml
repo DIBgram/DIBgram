@@ -21,7 +21,7 @@ jobs:
 
     # Create config.js, which stores API ID and hash, log settings and whether to use test cloud or not
     - name: Create config file
-      run: 'echo "export function getCredentials() {return {api_id: ${{ secrets.API_ID }},api_hash: ${{ secrets.API_HASH }}};}export function getConfig() {return {use_test_dc: false,log: {log_updates: false,log_queries: false}};}" > ./src/dibgram/TdWeb/config.js'
+      run: 'echo "export function getCredentials() {return {api_id: ${{ secrets.API_ID }},api_hash: ${{ secrets.API_HASH }}};}export function getConfig() {return {use_test_dc: false,log: {log_updates: true,log_queries: true}};}" > ./src/dibgram/TdWeb/config.js'
       shell: bash
 
     # Install all dependencies defined in package.json
