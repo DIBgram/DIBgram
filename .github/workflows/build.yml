@@ -1,48 +1,46 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
-name: Production Build
+name: Build and deploy to beta GH pages
 
 on:
-  workflow_dispatch:
-    inputs:
-      node_version:
-        description: "Node.js version"
-        default: '15.x'
-        required: false
-      use_test_dc:
-        description: "Use Telegram's test servers (only true/false)"
-        required: false
-        default: 'false'
-      log_queries:
-        description: "Log TdLib queries (only true/false)"
-        required: false
-        default: 'false'
-      log_updates:
-        description: "Log TdLib updates (only true/false)"
-        required: false
-        default: 'false'
+  push:
+    branches: [main]
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
     steps:
+    # Checkout the repository so we can access its contents
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Use Node.js ${{ github.event.inputs.node_version }}
+
+    # Prepare Node.js
+    - name: Use Node.js 15.x
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ github.event.inputs.node_version }}
+        node-version: 15.x
+
+    # Create config.js, which stores API ID and hash, log settings and whether to use test cloud or not
     - name: Create config file
-      run: 'echo "export function getCredentials() {return {api_id: ${{ secrets.API_ID }},api_hash: ${{ secrets.API_HASH }}};}export function getConfig() {return {use_test_dc: ${{ github.event.inputs.use_test_dc }},log: {log_updates: ${{ github.event.inputs.log_updates }},log_queries: ${{ github.event.inputs.log_queries }}}};}" > ./src/dibgram/TdWeb/config.js'
+      run: 'echo "export function getCredentials() {return {api_id: ${{ secrets.API_ID }},api_hash: ${{ secrets.API_HASH }}};}export function getConfig() {return {use_test_dc: false,log: {log_updates: false,log_queries: false}};}" > ./src/dibgram/TdWeb/config.js'
       shell: bash
+
+    # Install all dependencies defined in package.json
     - name: Install dependencies
       run: npm ci
+
+    # Create an optimized build
     - name: Build
       run: npm run build --if-present
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
+
+    # Deploy to GitHub Pages
+    - name: GitHub Pages
+      uses: crazy-max/ghaction-github-pages@v2.3.0
+      if: success()
       with:
-        name: build-results
-        path: build
+        keep_history: true
+        build_dir: build
+        repo: DIBgram/beta
+        target_branch: main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_PAT: ${{ secrets.REPO_WRITE_PAT }}
