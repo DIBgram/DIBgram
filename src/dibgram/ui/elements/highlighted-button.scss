@@ -4,8 +4,8 @@
     height: 56px;
 
     border: none;
-    background: var(--theme-accent-color-main);
-    color: var(--theme-color-background);
+    background: var(--theme-color-activeButtonBg);
+    color: var(--theme-color-activeButtonFg);
     border-radius: 5px;
     cursor: pointer;
 
@@ -19,7 +19,7 @@
     &:hover {
         // You may not have noticed it, but the button gets a little bit darker on hover.
         //    You don't believe me? Go check it!
-        background-color: var(--theme-accent-color-big-button-hover);
+        background-color: var(--theme-color-activeButtonBgOver);
     }
 
     // These are to make sure the ripple effect works correctly

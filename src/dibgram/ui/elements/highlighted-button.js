@@ -53,7 +53,7 @@ export default class BigHighlightedButton extends React.Component{
                 onMouseUp={this.mouseUp}
                 onMouseLeave={this.mouseLeave}>
 
-                <RippleEffect {...this.state.ripple} color="var(--theme-accent-color-big-button-active)"/>
+                <RippleEffect {...this.state.ripple} color="var(--theme-color-activeButtonBgRipple)"/>
                 <div className="content">
                     {this.props.children}
                 </div>

@@ -1,7 +1,11 @@
 #auth {
-    width: 300px;
-    margin: auto;
-
+    background-color: var(--theme-color-introBg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    padding: calc(50% - 150px);
     h2 {
         font-size: 17px;
         font-weight: 500;
@@ -10,7 +14,7 @@
 
     .description {
         font-size: 13px;
-        color: var(--theme-color-text-secondary);
+        color: var(--theme-color-introDescriptionFg);
         line-height: 20px;
 
         b,
@@ -29,6 +33,7 @@
         text-align: center;
         min-height: 20px;
         transition: opacity 250ms;
+        color: var(--theme-color-introErrorFg);
 
         &.hidden {
             opacity: 0;
@@ -101,7 +106,7 @@
             width: max-content;
 
             a {
-                color: var(--theme-accent-color-text);
+                color: var(--theme-color-windowActiveTextFg);
                 text-decoration: none;
             }
 

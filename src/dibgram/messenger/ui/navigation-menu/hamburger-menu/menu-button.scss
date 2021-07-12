@@ -12,7 +12,7 @@
         height: 2px;
         width: 18px;
         display: block;
-        background: var(--theme-color-hamburger-menu-button);
+        background: var(--theme-color-dialogsMenuIconFg);
         margin: 1.5px;
     }
 }
@@ -22,4 +22,6 @@
     min-height: 54px;
     height: 54px;
     padding: 0;
+
+    --theme-color-dialogsMenuIconFg: var(--theme-color-sideBarIconFg);
 }

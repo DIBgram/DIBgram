@@ -1,8 +1,5 @@
 @import 'font/fonts.scss';
 
-@import 'themes/day.scss';
-@import 'themes/classic.scss';
-
 @import 'elements/highlighted-button.scss';
 @import 'elements/small-button.scss';
 @import 'elements/underlined-input.scss';
@@ -30,6 +27,8 @@ body {
     font-family: var(--font-family);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: var(--theme-color-windowBg);
+    color: var(--theme-color-windowFg);
 }
 
 code {
@@ -50,5 +49,5 @@ code {
 }
 
 ::selection {
-    background-color: var(--theme-accent-color-selection);
+    background-color: var(--theme-color-msgInBgSelected);
 }

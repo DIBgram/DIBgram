@@ -17,7 +17,7 @@ export default class ConnectionState extends React.Component {
                 'connectionStateWaitingForNetwork'
             ].includes(this.state.cState))? '' : ' connected')}>
                 <LoadingSpinner
-                    progressColor="rgb(160, 160, 160)"
+                    progressColor="var(--theme-color-menuIconFg)"
                     size="20"
                     lineWidth="2"/>
             </div>

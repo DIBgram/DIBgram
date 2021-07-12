@@ -1,15 +1,16 @@
 button.small-button {
     border: none;
-    background: transparent;
+    background: var(--theme-color-lightButtonBg);
     padding: 8px 12px 9px 12px;
     border-radius: 4px;
-    color: var(--theme-accent-color-text);
+    color: var(--theme-color-lightButtonFg);
     text-transform: uppercase;
     font-family: var(--font-family);
     font-weight: 500;
     font-size: 14px;
 
     &:hover {
-        background-color: var(--theme-accent-color-small-button-hover-background);
+        background-color: var(--theme-color-lightButtonBgOver);
+        color: var(--theme-color-lightButtonFgOver);
     }
 }

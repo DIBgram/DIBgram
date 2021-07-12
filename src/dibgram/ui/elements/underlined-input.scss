@@ -13,14 +13,14 @@
     }
     .title.top{
         display: block;
-        color: var(--theme-accent-color-text);
+        color: var(--theme-color-windowBgActive);
         font-size: 13px;
         top: -8px;
         left: 3px;
     }
     .title.placeholder{
         display: block;
-        color: var(--theme-color-text-secondary);
+        color: var(--theme-color-placeholderFg);
         font-size: 14px;
         top: 12px;
         left: 4px;
@@ -29,11 +29,13 @@
     input {
         text-align: initial;
         border: none;
-        border-bottom: 1px solid var(--theme-color-input-border);
+        border-bottom: 1px solid var(--theme-color-inputBorderFg);
         background-color: transparent;
-        font-family: 'OpenSans';
+        font-family: var(--font-family);
         box-sizing: border-box;
         width: 100%;
+        color: var(--theme-color-windowFg);
+        font-weight: 300;
     }
     input:focus+.underline {
         animation: {
@@ -46,7 +48,7 @@
         position: absolute;
         bottom: 0;
         height: 2px;
-        background-color: var(--theme-accent-color-input-underline);
+        background-color: var(--theme-color-activeLineFg);
         margin-left: auto;
         margin-right: auto;
         left: 0;
@@ -57,7 +59,7 @@
 }
 .underlined-input.invalid {
     .underline.underline { // Specificity trick
-        background-color: var(--theme-color-input-invalid) !important;
+        background-color: var(--theme-color-activeLineFgError) !important;
         animation-name: none !important;
         opacity: 1 !important;
         width: 100% !important;
@@ -65,7 +67,7 @@
         right: 0px !important;
     };
     .title {
-        color: var(--theme-color-input-invalid) !important;
+        color: var(--theme-color-activeLineFgError) !important;
     };
 }
 .underlined-input.inactive .underline {
