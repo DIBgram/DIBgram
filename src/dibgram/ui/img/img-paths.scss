@@ -1,0 +1,13 @@
+/*
+    WebPack adds random numbers to the path of files,
+     and modifies CSS paths to point to the changed path.
+    However, there are file in which the path modification is
+     not supported by WebPack (e.g. URL in JSON data).
+    So the files are defined here so WebPack can add it to
+     the bundled resources and change the path. Then we can
+     access it with CSS variables.
+*/
+
+:root {
+    --img-classic-theme-bg: url("classic-theme-bg.jpg");
+}

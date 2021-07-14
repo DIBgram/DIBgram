@@ -2636,5 +2636,9 @@
     "songCoverOverlayFg": {
         "value": "#00000066",
         "comment": " song cover overlay"
+    },
+    "chatBg": {
+        "value": "var(--img-classic-theme-bg)",
+        "comment": null
     }
 }

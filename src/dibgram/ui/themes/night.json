@@ -2062,5 +2062,11 @@
     "sideBarBadgeBgMuted": {
         "value": "#8d939e",
         "comment": " filters side bar unimportant badge background"
+    },
+    "chatBg": {
+        "value": {
+            "equals": "sideBarBg"
+        },
+        "comment": " default chat background"
     }
 }

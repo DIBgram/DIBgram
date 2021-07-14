@@ -1772,5 +1772,9 @@
             "equals": "windowBg"
         },
         "comment": null
+    },
+    "chatBg": {
+        "value": "#74b5e0",
+        "comment": null
     }
 }
