@@ -1,1 +1,2066 @@
-{"windowBg":{"value":"#282e33","comment":" white: fallback for background"},"windowFg":{"value":"#f5f5f5","comment":" black: fallback for text"},"windowBgOver":{"value":"#313b43","comment":" light gray: fallback for background with mouse over"},"windowBgRipple":{"value":"#3f4850","comment":" darker gray: fallback for ripple effect"},"windowFgOver":{"value":"#e9ecf0","comment":" black: fallback for text with mouse over"},"windowSubTextFg":{"value":"#82868a","comment":" gray: fallback for additional text"},"windowSubTextFgOver":{"value":"#797b7f","comment":" darker gray: fallback for additional text with mouse over"},"windowBoldFg":{"value":"#e9e8e8","comment":" dark gray: fallback for bold text"},"windowBoldFgOver":{"value":"#e9e9e9","comment":" dark gray: fallback for bold text with mouse over"},"windowBgActive":{"value":"#3fc1b0","comment":" bright blue: fallback for blue filled active areas"},"windowFgActive":{"value":"#ffffff","comment":" white: fallback for text on active areas"},"windowActiveTextFg":{"value":"#4be1c3","comment":" online blue: fallback for active text like online status"},"windowShadowFg":{"value":"#000000","comment":" black: fallback for shadow"},"windowShadowFgFallback":{"value":{"equals":"windowBg"},"comment":" gray: fallback for shadow without opacity"},"shadowFg":{"value":"#00000018","comment":" most shadows (including opacity)"},"slideFadeOutBg":{"value":"#0000003c","comment":" slide animation (chat to profile) fade out filling"},"slideFadeOutShadowFg":{"value":{"equals":"windowShadowFg"},"comment":" slide animation (chat to profile) fade out right section shadow"},"imageBg":{"value":"#000000","comment":" image background fallback (when photo size is less than minimum allowed)"},"imageBgTransparent":{"value":"#ffffff","comment":" image background when displaying an image with opacity where no opacity is needed"},"activeButtonBg":{"value":"#2da192","comment":" default active button background"},"activeButtonBgOver":{"value":"#32a898","comment":" default active button background with mouse over"},"activeButtonBgRipple":{"value":"#42b8a8","comment":" default active button ripple effect"},"activeButtonFg":{"value":"#ffffff","comment":" default active button text"},"activeButtonFgOver":{"value":"#ffffff","comment":" default active button text with mouse over"},"activeButtonSecondaryFg":{"value":"#8ee4d9","comment":" default active button additional text (selected messages counter in forward / delete buttons)"},"activeButtonSecondaryFgOver":{"value":{"equals":"activeButtonSecondaryFg"},"comment":" default active button additional text with mouse over"},"activeLineFg":{"value":"#3ee2cc","comment":" default active line (like code input field bottom border when you log in and field is focused)"},"activeLineFgError":{"value":"#f57878","comment":" default active line for error state (like code input field bottom border when you log in and you've entered incorrect code)"},"lightButtonBg":{"value":"#282e33","comment":" default light button background (like buttons in boxes)"},"lightButtonBgOver":{"value":"#313b43","comment":" default light button background with mouse over"},"lightButtonBgRipple":{"value":"#3c474f","comment":" default light button ripple effect"},"lightButtonFg":{"value":"#79e8da","comment":" default light button text"},"lightButtonFgOver":{"value":{"equals":"lightButtonFg"},"comment":" default light button text with mouse over"},"attentionButtonFg":{"value":"#f57474","comment":" default attention button text (like confirm button on log out)"},"attentionButtonFgOver":{"value":"#e76060","comment":" default attention button text with mouse over"},"attentionButtonBgOver":{"value":"#613a3a64","comment":" default attention button background with mouse over"},"attentionButtonBgRipple":{"value":"#f4c3c2","comment":" default attention button ripple effect"},"outlineButtonBg":{"value":{"equals":"windowBg"},"comment":" default left outlined button background (like shared media links in profiles)"},"outlineButtonBgOver":{"value":"#313b43","comment":" default left outlined button background with mouse over"},"outlineButtonOutlineFg":{"value":"#29baa7","comment":" default left outlined button left outline border"},"outlineButtonBgRipple":{"value":"#3c474f","comment":" default left outlined button ripple effect"},"menuBg":{"value":"#282e33","comment":" default popup menu background"},"menuBgOver":{"value":"#ffffff","comment":" default popup menu item background with mouse over"},"menuBgRipple":{"value":"#26292d","comment":" default popup menu item ripple effect"},"menuIconFg":{"value":"#808080","comment":" default popup menu item icon (like main menu)"},"menuIconFgOver":{"value":"#dcdcdc","comment":" default popup menu item icon with mouse over"},"menuSubmenuArrowFg":{"value":"#757575","comment":" default popup menu submenu arrow icon (like in message field context menu in case of RTL system language)"},"menuFgDisabled":{"value":"#737373","comment":" default popup menu item disabled text (like unavailable items in message field context menu)"},"menuSeparatorFg":{"value":"#42484d","comment":" default popup menu separator (like in message field context menu)"},"scrollBarBg":{"value":"#ffffff53","comment":" default scroll bar current rectangle, the bar itself (like in chats list)"},"scrollBarBgOver":{"value":"#ffffff7a","comment":" default scroll bar current rectangle with mouse over it"},"scrollBg":{"value":"#ffffff1a","comment":" default scroll bar background"},"scrollBgOver":{"value":"#ffffff2c","comment":" default scroll bar background with mouse over the scroll bar"},"smallCloseIconFg":{"value":"#6d6d6d","comment":" small X icon (like in Show all sessions box to the right for sessions termination)"},"smallCloseIconFgOver":{"value":"#a3a3a3","comment":" small X icon with mouse over"},"radialFg":{"value":{"equals":"windowFgActive"},"comment":" default radial loader line (like in Media Viewer when loading a photo)"},"radialBg":{"value":"#00000056","comment":" default radial loader background (like in Media Viewer when loading a photo)"},"placeholderFg":{"value":"#818991","comment":" default input field placeholder when field is not focused (like in phone input field when you log in)"},"placeholderFgActive":{"value":"#5d6165","comment":" default input field placeholder when field is focused"},"inputBorderFg":{"value":"#6f6f6f","comment":" default input field bottom border (like in code input field when you log in and field is not focused)"},"filterInputBorderFg":{"value":"#3d444b","comment":" default rounded input field border (like in chats list search field when field is focused)"},"filterInputInactiveBg":{"value":"#3d444b","comment":" default rounded input field background (like in chats list search field when field is inactive)"},"checkboxFg":{"value":"#6c6c6c","comment":" default unchecked checkbox rounded rectangle (and also emoji category icons)"},"sliderBgInactive":{"value":"#545454","comment":" default slider not active bar (like in Settings when you choose interface scale or custom notifications count)"},"sliderBgActive":{"value":{"equals":"windowBgActive"},"comment":" default slider active bar (like in Settings when you choose interface scale or custom notifications count)"},"tooltipBg":{"value":"#d4dadd","comment":" tooltip background (like when you put mouse over the message timestamp and wait)"},"tooltipFg":{"value":"#9a9e9c","comment":" tooltip text"},"tooltipBorderFg":{"value":"#c9d1db","comment":" tooltip border"},"titleShadow":{"value":"#00000003","comment":" one pixel line shadow at the bottom of custom window title"},"titleBg":{"value":"#3a4047","comment":" custom window title background when window is inactive"},"titleBgActive":{"value":{"equals":"titleBg"},"comment":" custom window title background when window is active"},"titleButtonBg":{"value":{"equals":"titleBg"},"comment":" custom window title minimize/maximize/restore button background when window is inactive (Windows only)"},"titleButtonFg":{"value":"#8b9096","comment":" custom window title minimize/maximize/restore button icon when window is inactive (Windows only)"},"titleButtonBgOver":{"value":"#4c535b","comment":" custom window title minimize/maximize/restore button background with mouse over when window is inactive (Windows only)"},"titleButtonFgOver":{"value":"#e0e0e0","comment":" custom window title minimize/maximize/restore button icon with mouse over when window is inactive (Windows only)"},"titleButtonBgActive":{"value":{"equals":"titleButtonBg"},"comment":" custom window title minimize/maximize/restore button background when window is active (Windows only)"},"titleButtonFgActive":{"value":{"equals":"titleButtonFg"},"comment":" custom window title minimize/maximize/restore button icon when window is active (Windows only)"},"titleButtonBgActiveOver":{"value":{"equals":"titleButtonBgOver"},"comment":" custom window title minimize/maximize/restore button background with mouse over when window is active (Windows only)"},"titleButtonFgActiveOver":{"value":{"equals":"titleButtonFgOver"},"comment":" custom window title minimize/maximize/restore button icon with mouse over when window is active (Windows only)"},"titleButtonCloseBg":{"value":{"equals":"titleButtonBg"},"comment":" custom window title close button background when window is inactive (Windows only)"},"titleButtonCloseFg":{"value":{"equals":"titleButtonFg"},"comment":" custom window title close button icon when window is inactive (Windows only)"},"titleButtonCloseBgOver":{"value":"#e81123","comment":" custom window title close button background with mouse over when window is inactive (Windows only)"},"titleButtonCloseFgOver":{"value":{"equals":"windowFgActive"},"comment":" custom window title close button icon with mouse over when window is inactive (Windows only)"},"titleButtonCloseBgActive":{"value":{"equals":"titleButtonCloseBg"},"comment":" custom window title close button background when window is active (Windows only)"},"titleButtonCloseFgActive":{"value":{"equals":"titleButtonCloseFg"},"comment":" custom window title close button icon when window is active (Windows only)"},"titleButtonCloseBgActiveOver":{"value":{"equals":"titleButtonCloseBgOver"},"comment":" custom window title close button background with mouse over when window is active (Windows only)"},"titleButtonCloseFgActiveOver":{"value":{"equals":"titleButtonCloseFgOver"},"comment":" custom window title close button icon with mouse over when window is active (Windows only)"},"titleFg":{"value":"#666666","comment":" custom window title text when window is inactive (macOS only)"},"titleFgActive":{"value":"#808080","comment":" custom window title text when window is active (macOS only)"},"trayCounterBg":{"value":"#f23c34","comment":" tray icon counter background"},"trayCounterBgMute":{"value":"#888888","comment":" tray icon counter background if all unread messages are muted"},"trayCounterFg":{"value":"#ffffff","comment":" tray icon counter text"},"trayCounterBgMacInvert":{"value":"#ffffff","comment":" tray icon counter background when tray icon is pressed or when dark theme of macOS is used (macOS only)"},"trayCounterFgMacInvert":{"value":"#ffffff01","comment":" tray icon counter text when tray icon is pressed or when dark theme of macOS is used (macOS only)"},"layerBg":{"value":"#0000007f","comment":" box and main menu background layer fade"},"cancelIconFg":{"value":"#666666","comment":" default for settings close icon and box search cancel icon"},"cancelIconFgOver":{"value":"#dcdcdc","comment":" default for settings close icon and box search cancel icon with mouse over"},"boxBg":{"value":{"equals":"windowBg"},"comment":" box background"},"boxTextFg":{"value":{"equals":"windowFg"},"comment":" box text"},"boxTextFgGood":{"value":"#56dbce","comment":" accepted box text (like when choosing username that is not occupied)"},"boxTextFgError":{"value":"#d84d4d","comment":" rejecting box text (like when choosing username that is occupied)"},"boxTitleFg":{"value":"#ebebeb","comment":" box title text"},"boxSearchBg":{"value":"#282e33","comment":" box search field background (like in contacts box)"},"boxTitleAdditionalFg":{"value":"#808080","comment":" box title additional text (like in create group box when you see chosen members count)"},"boxTitleCloseFg":{"value":{"equals":"cancelIconFg"},"comment":" settings close icon and box search cancel icon (like in contacts box)"},"boxTitleCloseFgOver":{"value":{"equals":"cancelIconFgOver"},"comment":" settings close icon and box search cancel icon (like in contacts box) with mouse over"},"membersAboutLimitFg":{"value":"#5e6065","comment":" text in channel members box about the limit (max 200 last members are shown)"},"contactsBg":{"value":"#222528","comment":" contacts (and some other) box row background"},"contactsBgOver":{"value":"#282e33","comment":" contacts (and some other) box row background with mouse over"},"contactsNameFg":{"value":{"equals":"boxTextFg"},"comment":" contacts (and some other) box row name text"},"contactsStatusFg":{"value":"#808080","comment":" contacts (and some other) box row additional text (like last seen stamp)"},"contactsStatusFgOver":{"value":"#808080","comment":" contacts (and some other) box row additional text (like last seen stamp) with mouse over"},"contactsStatusFgOnline":{"value":"#55e1d3","comment":" contacts (and some other) box row active additional text (like online status)"},"photoCropFadeBg":{"value":{"equals":"layerBg"},"comment":" avatar crop box fade background (when choosing a new photo in Settings or for a group)"},"photoCropPointFg":{"value":"#ffffff7f","comment":" avatar crop box corner rectangles (when choosing a new photo in Settings or for a group)"},"callArrowFg":{"value":"#2bc7b8","comment":" received phone call arrow (in calls list box)"},"callArrowMissedFg":{"value":"#dd5b4a","comment":" missed phone call arrow (in calls list box)"},"introBg":{"value":{"equals":"windowBg"},"comment":" login background"},"introTitleFg":{"value":"#eeeeee","comment":" login title text"},"introDescriptionFg":{"value":"#999999","comment":" login description text"},"introErrorFg":{"value":"#999999","comment":" login error text (like when providing a wrong log in code)"},"introCoverTopBg":{"value":"#188173","comment":" intro gradient top (from)"},"introCoverBottomBg":{"value":"#188173","comment":" intro gradient bottom (to)"},"introCoverIconsFg":{"value":"#34a495","comment":" intro cloud graphics"},"introCoverPlaneTrace":{"value":"#329d8f","comment":" intro plane traces"},"introCoverPlaneInner":{"value":"#ced9e2","comment":" intro plane part"},"introCoverPlaneOuter":{"value":"#97a9b5","comment":" intro plane part"},"introCoverPlaneTop":{"value":"#ffffff","comment":" intro plane part"},"dialogsMenuIconFg":{"value":{"equals":"menuIconFg"},"comment":" main menu and lock telegram icon"},"dialogsMenuIconFgOver":{"value":{"equals":"menuIconFgOver"},"comment":" main menu and lock telegram icon with mouse over"},"dialogsBg":{"value":{"equals":"windowBg"},"comment":" chat list background"},"dialogsNameFg":{"value":"#f5f5f5","comment":" chat list name text"},"dialogsChatIconFg":{"value":{"equals":"dialogsNameFg"},"comment":" chat list group or channel icon"},"dialogsDateFg":{"value":"#6d727c","comment":" chat list date text"},"dialogsTextFg":{"value":"#8d939e","comment":" chat list message text"},"dialogsTextFgService":{"value":"#ebebeb","comment":" chat list group sender name text (or media message type text)"},"dialogsDraftFg":{"value":"#ec6657","comment":" chat list draft label"},"dialogsVerifiedIconBg":{"value":"#53edde","comment":" chat list verified icon background"},"dialogsVerifiedIconFg":{"value":"#282e33","comment":" chat list verified icon check"},"dialogsSendingIconFg":{"value":"#727272","comment":" chat list sending message icon (clock)"},"dialogsSentIconFg":{"value":"#20eeda","comment":" chat list sent message tick / double tick icon"},"dialogsUnreadBg":{"value":"#05a091","comment":" chat list unread badge background for not muted chat"},"dialogsUnreadBgMuted":{"value":"#495159","comment":" chat list unread badge background for muted chat"},"dialogsUnreadFg":{"value":"#ffffff","comment":" chat list unread badge text"},"dialogsOnlineBadgeFg":{"value":"#0ae7d2","comment":" chat list online status"},"dialogsBgOver":{"value":"#353c43","comment":" chat list background with mouse over"},"dialogsNameFgOver":{"value":{"equals":"windowBoldFgOver"},"comment":" chat list name text with mouse over"},"dialogsChatIconFgOver":{"value":{"equals":"dialogsNameFgOver"},"comment":" chat list group or channel icon with mouse over"},"dialogsDateFgOver":{"value":"#6d727c","comment":" chat list date text with mouse over"},"dialogsTextFgOver":{"value":"#a3a7ae","comment":" chat list message text with mouse over"},"dialogsTextFgServiceOver":{"value":"#f0f0f0","comment":" chat list group sender name text with mouse over"},"dialogsDraftFgOver":{"value":{"equals":"dialogsDraftFg"},"comment":" chat list draft label with mouse over"},"dialogsVerifiedIconBgOver":{"value":"#53edde","comment":" chat list verified icon background with mouse over"},"dialogsVerifiedIconFgOver":{"value":{"equals":"dialogsVerifiedIconFg"},"comment":" chat list verified icon check with mouse over"},"dialogsSendingIconFgOver":{"value":{"equals":"dialogsSendingIconFg"},"comment":" chat list sending message icon (clock) with mouse over"},"dialogsSentIconFgOver":{"value":"#41f0df","comment":" chat list sent message tick / double tick icon with mouse over"},"dialogsUnreadBgOver":{"value":"#009687","comment":" chat list unread badge background for not muted chat with mouse over"},"dialogsUnreadBgMutedOver":{"value":"#555e67","comment":" chat list unread badge background for muted chat with mouse over"},"dialogsUnreadFgOver":{"value":{"equals":"dialogsUnreadFg"},"comment":" chat list unread badge text with mouse over"},"dialogsBgActive":{"value":"#009687","comment":" chat list background for current (active) chat"},"dialogsNameFgActive":{"value":{"equals":"windowFgActive"},"comment":" chat list name text for current (active) chat"},"dialogsChatIconFgActive":{"value":{"equals":"dialogsNameFgActive"},"comment":" chat list group or channel icon for current (active) chat"},"dialogsDateFgActive":{"value":{"equals":"windowFgActive"},"comment":" chat list date text for current (active) chat"},"dialogsTextFgActive":{"value":{"equals":"windowFgActive"},"comment":" chat list message text for current (active) chat"},"dialogsTextFgServiceActive":{"value":{"equals":"dialogsTextFgActive"},"comment":" chat list group sender name text for current (active) chat"},"dialogsDraftFgActive":{"value":"#c6f7f3","comment":" chat list draft label for current (active) chat"},"dialogsVerifiedIconBgActive":{"value":{"equals":"dialogsTextFgActive"},"comment":" chat list verified icon background for current (active) chat"},"dialogsVerifiedIconFgActive":{"value":{"equals":"dialogsBgActive"},"comment":" chat list verified icon check for current (active) chat"},"dialogsSendingIconFgActive":{"value":"#ffffff99","comment":" chat list sending message icon (clock) for current (active) chat"},"dialogsSentIconFgActive":{"value":{"equals":"dialogsTextFgActive"},"comment":" chat list sent message tick / double tick icon for current (active) chat"},"dialogsUnreadBgActive":{"value":{"equals":"dialogsTextFgActive"},"comment":" chat list unread badge background for not muted chat for current (active) chat"},"dialogsUnreadBgMutedActive":{"value":"#cbf7e9","comment":" chat list unread badge background for muted chat for current (active) chat"},"dialogsUnreadFgActive":{"value":"#039d8e","comment":" chat list unread badge text for current (active) chat"},"dialogsOnlineBadgeFgActive":{"value":"#ffffff","comment":" chat list online status for current (active) chat"},"dialogsRippleBg":{"value":"#43474d","comment":" "},"dialogsRippleBgActive":{"value":"#12a798","comment":" "},"dialogsForwardBg":{"value":{"equals":"dialogsBgActive"},"comment":" forwarding panel background (when forwarding messages in the smallest window size)"},"dialogsForwardFg":{"value":{"equals":"dialogsNameFgActive"},"comment":" forwarding panel text (when forwarding messages in the smallest window size)"},"searchedBarBg":{"value":"#3a4047","comment":" search results bar background (in chats list, contacts box..)"},"searchedBarFg":{"value":"#a8a8a8","comment":" search results bar text (in chats list, contacts box..)"},"topBarBg":{"value":"#282e33","comment":" top bar background (in chat view, media overview..)"},"emojiPanBg":{"value":{"equals":"windowBg"},"comment":" emoji panel background"},"emojiPanCategories":{"value":"#20262b","comment":" emoji panel categories background"},"emojiPanHeaderFg":{"value":"#90949a","comment":" emoji panel section header text"},"emojiPanHeaderBg":{"value":"#fffffff2","comment":" emoji panel section header background"},"stickerPanDeleteBg":{"value":"#000000cc","comment":" delete X button background for custom sent stickers in stickers panel (legacy)"},"stickerPanDeleteFg":{"value":{"equals":"windowFgActive"},"comment":" delete X button icon for custom sent stickers in stickers panel (legacy)"},"stickerPreviewBg":{"value":"#000000b0","comment":" sticker and GIF preview background (when you press and hold on a sticker)"},"historyTextInFg":{"value":{"equals":"windowFg"},"comment":" inbox message text"},"historyTextInFgSelected":{"value":"#ffffff","comment":" inbox message selected text or text in a selected message"},"historyTextOutFg":{"value":"#e4ecf2","comment":" outbox message text"},"historyTextOutFgSelected":{"value":"#ffffff","comment":" outbox message selected text or text in a selected message"},"historyLinkInFg":{"value":"#37e1cb","comment":" inbox message link"},"historyLinkInFgSelected":{"value":"#a7fff4","comment":" inbox message link in a selected text or message"},"historyLinkOutFg":{"value":"#37e1cb","comment":" outbox message link"},"historyLinkOutFgSelected":{"value":"#a7fff4","comment":" outbox message link in a selected text or message"},"historyFileNameInFg":{"value":{"equals":"historyTextInFg"},"comment":" inbox media filename text"},"historyFileNameInFgSelected":{"value":"#ffffff","comment":" inbox media filename text in a selected message"},"historyFileNameOutFg":{"value":{"equals":"historyTextOutFg"},"comment":" outbox media filename text"},"historyFileNameOutFgSelected":{"value":"#ffffff","comment":" outbox media filename text in a selected message"},"historyOutIconFg":{"value":"#40e6c5","comment":" outbox message tick / double tick icon"},"historyOutIconFgSelected":{"value":"#ffffff","comment":" outbox message tick / double tick icon in a selected message"},"historyIconFgInverted":{"value":"#40e6c5","comment":" media message tick / double tick icon (like in sent photo)"},"historySendingOutIconFg":{"value":"#9eface","comment":" outbox sending message icon (clock)"},"historySendingInIconFg":{"value":"#76838b","comment":" inbox sending message icon (clock) (like in sent messages to yourself or in sent messages to a channel)"},"historySendingInvertedIconFg":{"value":"#ffffffc8","comment":" media sending message icon (clock) (like in sent photo)"},"historyCallArrowInFg":{"value":"#26c2ad","comment":" received phone call arrow"},"historyCallArrowInFgSelected":{"value":"#ffffff","comment":" received phone call arrow in a selected message"},"historyCallArrowMissedInFg":{"value":{"equals":"callArrowMissedFg"},"comment":" missed phone call arrow"},"historyCallArrowMissedInFgSelected":{"value":"#ffffff","comment":" missed phone call arrow in a selected message"},"historyCallArrowOutFg":{"value":"#ffffff","comment":" outgoing phone call arrow"},"historyCallArrowOutFgSelected":{"value":"#ffffff","comment":" outgoing phone call arrow"},"historyUnreadBarBg":{"value":"#33393f","comment":" new unread messages bar background"},"historyUnreadBarBorder":{"value":{"equals":"shadowFg"},"comment":" new unread messages bar shadow"},"historyUnreadBarFg":{"value":"#3cd3bf","comment":" new unread messages bar text"},"historyForwardChooseBg":{"value":"#0000004c","comment":" forwarding messages in a large window size \"choose recipient\" background"},"historyForwardChooseFg":{"value":{"equals":"windowFgActive"},"comment":" forwarding messages in a large window size \"choose recipient\" text"},"historyPeer1NameFg":{"value":"#ec7577","comment":" red group member name"},"historyPeer1NameFgSelected":{"value":"#ffffff","comment":" red group member name in a selected message"},"historyPeer1UserpicBg":{"value":"#e17076","comment":" red userpic background"},"historyPeer2NameFg":{"value":"#86d67f","comment":" green group member name"},"historyPeer2NameFgSelected":{"value":"#ffffff","comment":" green group member name in a selected message"},"historyPeer2UserpicBg":{"value":"#7bc862","comment":" green userpic background"},"historyPeer3NameFg":{"value":"#e4c054","comment":" yellow group member name"},"historyPeer3NameFgSelected":{"value":"#ffffff","comment":" yellow group member name in a selected message"},"historyPeer3UserpicBg":{"value":"#ccad4f","comment":" yellow userpic background"},"historyPeer4NameFg":{"value":"#68c7f3","comment":" blue group member name"},"historyPeer4NameFgSelected":{"value":"#ffffff","comment":" blue group member name in a selected message"},"historyPeer4UserpicBg":{"value":"#65aadd","comment":" blue userpic background"},"historyPeer5NameFg":{"value":"#b383f3","comment":" purple group member name"},"historyPeer5NameFgSelected":{"value":"#ffffff","comment":" purple group member name in a selected message"},"historyPeer5UserpicBg":{"value":"#a695e7","comment":" purple userpic background"},"historyPeer6NameFg":{"value":"#e16794","comment":" pink group member name"},"historyPeer6NameFgSelected":{"value":"#ffffff","comment":" pink group member name in a selected message"},"historyPeer6UserpicBg":{"value":"#ee7aae","comment":" pink userpic background"},"historyPeer7NameFg":{"value":"#57c9e0","comment":" sea group member name"},"historyPeer7NameFgSelected":{"value":"#ffffff","comment":" sea group member name in a selected message"},"historyPeer7UserpicBg":{"value":"#6ec9cb","comment":" sea userpic background"},"historyPeer8NameFg":{"value":"#efb05d","comment":" orange group member name"},"historyPeer8NameFgSelected":{"value":"#ffffff","comment":" orange group member name in a selected message"},"historyPeer8UserpicBg":{"value":"#eda86c","comment":" orange userpic background"},"historyPeerUserpicFg":{"value":{"equals":"windowFgActive"},"comment":" default userpic initials"},"historyScrollBarBg":{"value":"#8989897a","comment":" scroll bar current rectangle, the bar itself in the chat view (adjusted)"},"historyScrollBarBgOver":{"value":"#6b6b6bbc","comment":" scroll bar current rectangle with mouse over it in the chat view (adjusted)"},"historyScrollBg":{"value":"#5f5f5f4c","comment":" scroll bar background (adjusted)"},"historyScrollBgOver":{"value":"#6262626b","comment":" scroll bar background with mouse over the scroll bar (adjusted)"},"msgInBg":{"value":"#33393f","comment":" inbox message background"},"msgInBgSelected":{"value":"#009687","comment":" inbox selected message background (and background of selected text in those messages)"},"msgOutBg":{"value":"#2a2f33","comment":" outbox message background"},"msgOutBgSelected":{"value":"#009687","comment":" outbox selected message background (and background of selected text in those messages)"},"msgSelectOverlay":{"value":"#35d4bf4c","comment":" overlay which is filling the media parts of selected messages (like in selected photo message)"},"msgStickerOverlay":{"value":"#35d4bf7f","comment":" overlay which is filling the selected sticker message"},"msgInServiceFg":{"value":{"equals":"windowActiveTextFg"},"comment":" inbox message information text (like information about a forwarded message original sender)"},"msgInServiceFgSelected":{"value":"#ffffff","comment":" inbox selected message information text (like information about a forwarded message original sender)"},"msgOutServiceFg":{"value":"#60e5cb","comment":" outbox message information text (like information about a forwarded message original sender)"},"msgOutServiceFgSelected":{"value":"#ffffff","comment":" outbox message information text (like information about a forwarded message original sender)"},"msgInShadow":{"value":"#748ea200","comment":" inbox message shadow (below the bubble)"},"msgInShadowSelected":{"value":"#538ebb00","comment":" inbox selected message shadow (below the bubble)"},"msgOutShadow":{"value":"#00000000","comment":" outbox message shadow (below the bubble)"},"msgOutShadowSelected":{"value":"#37a78d00","comment":" outbox selected message shadow (below the bubble)"},"msgInDateFg":{"value":"#828d94","comment":" inbox message time text"},"msgInDateFgSelected":{"value":"#ffffff","comment":" inbox selected message time text"},"msgOutDateFg":{"value":"#737f87","comment":" outbox message time text"},"msgOutDateFgSelected":{"value":"#ffffff","comment":" outbox selected message time text"},"msgServiceFg":{"value":{"equals":"windowFgActive"},"comment":" service message text (like date dividers or service message about the group title being changed)"},"msgServiceBg":{"value":"#363c43c8","comment":" service message background (like in a service message about group title being changed) (adjusted)"},"msgServiceBgSelected":{"value":"#009687","comment":" service message selected text background (like in a service message about group title being changed) (adjusted)"},"msgInReplyBarColor":{"value":"#32ceb9","comment":" inbox message reply outline"},"msgInReplyBarSelColor":{"value":"#ffffff","comment":" inbox selected message reply outline"},"msgOutReplyBarColor":{"value":"#32ceb9","comment":" outbox message reply outline"},"msgOutReplyBarSelColor":{"value":"#ffffff","comment":" outbox selected message reply outline"},"msgImgReplyBarColor":{"value":{"equals":"msgServiceFg"},"comment":" sticker message reply outline"},"msgInMonoFg":{"value":"#5aaba0","comment":" inbox message monospace text (like a message sent with `test` text)"},"msgOutMonoFg":{"value":"#c2f2ec","comment":" outbox message monospace text"},"msgInMonoFgSelected":{"value":"#a7fff4","comment":" inbox message monospace text in a selected text or message"},"msgOutMonoFgSelected":{"value":"#c9fff8","comment":" outbox message monospace text in a selected text or message"},"msgDateImgFg":{"value":{"equals":"msgServiceFg"},"comment":" media message time text (like time text in a sent photo)"},"msgDateImgBg":{"value":"#00000054","comment":" media message time bubble background (like time bubble in a sent photo) or file with thumbnail download icon circle background"},"msgDateImgBgOver":{"value":"#00000074","comment":" media message download icon circle background with mouse over (like file with thumbnail download icon)"},"msgDateImgBgSelected":{"value":"#1c706587","comment":" selected media message time bubble background"},"msgFileThumbLinkInFg":{"value":{"equals":"lightButtonFg"},"comment":" inbox media file message with thumbnail download / open with button text"},"msgFileThumbLinkInFgSelected":{"value":{"equals":"lightButtonFgOver"},"comment":" inbox selected media file message with thumbnail download / open with button text"},"msgFileThumbLinkOutFg":{"value":"#60e5cb","comment":" outbox media file message with thumbnail download / open with button text"},"msgFileThumbLinkOutFgSelected":{"value":"#ffffff","comment":" outbox selected media file message with thumbnail download / open with button text"},"msgFileInBg":{"value":"#50d4c3","comment":" inbox audio file download circle background"},"msgFileInBgOver":{"value":"#48cfbd","comment":" inbox audio file download circle background with mouse over"},"msgFileInBgSelected":{"value":"#ffffff","comment":" inbox selected audio file download circle background"},"msgFileOutBg":{"value":"#11bfab","comment":" outbox audio file download circle background"},"msgFileOutBgOver":{"value":"#ffffff","comment":" outbox audio file download circle background with mouse over"},"msgFileOutBgSelected":{"value":"#ffffff","comment":" outbox selected audio file download circle background"},"msgFile1Bg":{"value":"#3fbbab","comment":" blue shared links / files without image square thumbnail"},"msgFile1BgDark":{"value":"#269f8f","comment":" blue shared files without image download circle background"},"msgFile1BgOver":{"value":"#52c4b5","comment":" blue shared files without image download circle background with mouse over"},"msgFile1BgSelected":{"value":"#ffffff","comment":" blue shared files without image download circle background if file is selected"},"msgFile2Bg":{"value":"#8ef5e8","comment":" green shared links / shared files without image square thumbnail"},"msgFile2BgDark":{"value":"#7ef7e7","comment":" green shared files without image download circle background"},"msgFile2BgOver":{"value":"#8df7e9","comment":" green shared files without image download circle background with mouse over"},"msgFile2BgSelected":{"value":"#ffffff","comment":" green shared files without image download circle background if file is selected"},"msgFile3Bg":{"value":"#e47272","comment":" red shared links / shared files without image square thumbnail"},"msgFile3BgDark":{"value":"#cd5b5e","comment":" red shared files without image download circle background"},"msgFile3BgOver":{"value":"#c35154","comment":" red shared files without image download circle background with mouse over"},"msgFile3BgSelected":{"value":"#9f6a82","comment":" red shared files without image download circle background if file is selected"},"msgFile4Bg":{"value":"#efc274","comment":" yellow shared links / shared files without image square thumbnail"},"msgFile4BgDark":{"value":"#e6a561","comment":" yellow shared files without image download circle background"},"msgFile4BgOver":{"value":"#dc9c5a","comment":" yellow shared files without image download circle background with mouse over"},"msgFile4BgSelected":{"value":"#b19d84","comment":" yellow shared files without image download circle background if file is selected"},"historyFileInIconFg":{"value":"#33393f","comment":" inbox file without thumbnail (like audio file) download arrow icon"},"historyFileInIconFgSelected":{"value":"#009687","comment":" inbox selected file without thumbnail (like audio file) download arrow icon"},"historyFileInRadialFg":{"value":"#33393f","comment":" inbox file without thumbnail (like audio file) radial download animation line"},"historyFileInRadialFgSelected":{"value":{"equals":"historyFileInIconFgSelected"},"comment":" inbox selected file without thumbnail (like audio file) radial download animation line"},"historyFileOutIconFg":{"value":"#33393f","comment":" outbox file without thumbnail (like audio file) download arrow icon"},"historyFileOutIconFgSelected":{"value":"#009687","comment":" outbox selected file without thumbnail (like audio file) download arrow icon"},"historyFileOutRadialFg":{"value":{"equals":"historyFileOutIconFg"},"comment":" outbox file without thumbnail (like audio file) radial download animation line"},"historyFileOutRadialFgSelected":{"value":"#009687","comment":" outbox selected file without thumbnail (like audio file) radial download animation line"},"historyFileThumbIconFg":{"value":"#efefef","comment":" file with thumbnail (or photo / video) download arrow icon"},"historyFileThumbIconFgSelected":{"value":"#ffffff","comment":" selected file with thumbnail (or photo / video) download arrow icon"},"historyFileThumbRadialFg":{"value":{"equals":"historyFileThumbIconFg"},"comment":" file with thumbnail (or photo / video) radial download animation line"},"historyFileThumbRadialFgSelected":{"value":"#ffffff","comment":" selected file with thumbnail (or photo / video) radial download animation line"},"historyVideoMessageProgressFg":{"value":{"equals":"historyFileThumbIconFg"},"comment":" radial playback progress in round video messages"},"msgWaveformInActive":{"value":{"equals":"windowBgActive"},"comment":" inbox voice message active waveform lines (like played part of currently playing voice message)"},"msgWaveformInActiveSelected":{"value":"#ffffff","comment":" inbox selected voice message active waveform lines (like played part of currently playing voice message)"},"msgWaveformInInactive":{"value":"#5d6b76","comment":" inbox voice message inactive waveform lines (like upcoming part of currently playing voice message)"},"msgWaveformInInactiveSelected":{"value":"#41d1c0","comment":" inbox selected voice message inactive waveform lines (like upcoming part of currently playing voice message)"},"msgWaveformOutActive":{"value":"#11bfab","comment":" outbox voice message active waveform lines (like played part of currently playing voice message)"},"msgWaveformOutActiveSelected":{"value":"#ffffff","comment":" outbox selected voice message active waveform lines (like played part of currently playing voice message)"},"msgWaveformOutInactive":{"value":"#596874","comment":" outbox voice message inactive waveform lines (like upcoming part of currently playing voice message)"},"msgWaveformOutInactiveSelected":{"value":"#41d1c0","comment":" outbox selected voice message inactive waveform lines (like upcoming part of currently playing voice message)"},"msgBotKbOverBgAdd":{"value":"#ffffff14","comment":" this is painted over a bot inline keyboard button (which has msgServiceBg background) when mouse is over that button"},"msgBotKbIconFg":{"value":{"equals":"msgServiceFg"},"comment":" bot inline keyboard button icon in the top-right corner (like in @vote bot when a poll is ready to be shared)"},"msgBotKbRippleBg":{"value":"#9e9d9d10","comment":" bot inline keyboard button ripple effect"},"mediaInFg":{"value":{"equals":"msgInDateFg"},"comment":" inbox media message status text (like in file that is being downloaded)"},"mediaInFgSelected":{"value":{"equals":"msgInDateFgSelected"},"comment":" inbox selected media message status text (like in file that is being downloaded)"},"mediaOutFg":{"value":{"equals":"msgOutDateFg"},"comment":" outbox media message status text (like in file that is being downloaded)"},"mediaOutFgSelected":{"value":{"equals":"msgOutDateFgSelected"},"comment":" outbox selected media message status text (like in file that is being downloaded)"},"youtubePlayIconBg":{"value":"#e83131c8","comment":" youtube play icon background (when a link to a youtube video with a webpage preview is sent)"},"youtubePlayIconFg":{"value":{"equals":"windowFgActive"},"comment":" youtube play icon arrow (when a link to a youtube video with a webpage preview is sent)"},"videoPlayIconBg":{"value":"#0000007f","comment":" other video play icon background (like when a link to a vimeo video with a webpage preview is sent)"},"videoPlayIconFg":{"value":"#ffffff","comment":" other video play icon arrow (like when a link to a vimeo video with a webpage preview is sent)"},"toastBg":{"value":"#000000b2","comment":" toast notification background (like when you click on your t.me link when editing your username)"},"toastFg":{"value":{"equals":"windowFgActive"},"comment":" toast notification text (like when you click on your t.me link when editing your username)"},"reportSpamBg":{"value":"#363c42","comment":" report spam panel background (like a non contact user writes your for the first time)"},"reportSpamFg":{"value":{"equals":"windowFg"},"comment":" report spam panel text (when you send a report from that panel)"},"historyToDownBg":{"value":"#434d57","comment":" arrow button background (to scroll to the end of the viewed chat)"},"historyToDownBgOver":{"value":"#515b65","comment":" arrow button background with mouse over"},"historyToDownBgRipple":{"value":"#636d77","comment":" arrow button ripple effect"},"historyToDownFg":{"value":"#adb4ba","comment":" arrow button icon"},"historyToDownFgOver":{"value":{"equals":"menuIconFgOver"},"comment":" arrow button icon with mouse over"},"historyToDownShadow":{"value":"#00000040","comment":" arrow button shadow"},"historyComposeAreaBg":{"value":"#282e33","comment":" history compose area background (message write area / reply information / forwarding information)"},"historyComposeAreaFg":{"value":{"equals":"historyTextInFg"},"comment":" history compose area text"},"historyComposeAreaFgService":{"value":{"equals":"msgInDateFg"},"comment":" history compose area text when replying to a media message"},"historyComposeIconFg":{"value":{"equals":"menuIconFg"},"comment":" history compose area icon (like emoji, attach, bot command..)"},"historyComposeIconFgOver":{"value":{"equals":"menuIconFgOver"},"comment":" history compose area icon with mouse over"},"historySendIconFg":{"value":{"equals":"windowBgActive"},"comment":" send message icon"},"historySendIconFgOver":{"value":{"equals":"windowBgActive"},"comment":" send message icon with mouse over"},"historyPinnedBg":{"value":{"equals":"historyComposeAreaBg"},"comment":" pinned message area background"},"historyReplyBg":{"value":{"equals":"historyComposeAreaBg"},"comment":" reply / forward / edit message area background"},"historyReplyIconFg":{"value":{"equals":"windowBgActive"},"comment":" reply / forward / edit message left icon"},"historyReplyCancelFg":{"value":{"equals":"cancelIconFg"},"comment":" reply / forward / edit message cancel button"},"historyReplyCancelFgOver":{"value":{"equals":"cancelIconFgOver"},"comment":" reply / forward / edit message cancel button with mouse over"},"historyComposeButtonBg":{"value":{"equals":"historyComposeAreaBg"},"comment":" unblock / join channel / mute channel button background"},"historyComposeButtonBgOver":{"value":"#31363c","comment":" unblock / join channel / mute channel button background with mouse over"},"historyComposeButtonBgRipple":{"value":"#272b2f","comment":" unblock / join channel / mute channel button ripple effect"},"overviewCheckBg":{"value":"#00000040","comment":" shared files / links checkbox background for not selected rows when some rows are selected"},"overviewCheckFg":{"value":"#ffffff","comment":" shared files / links checkbox icon for not selected rows when some rows are selected"},"overviewCheckFgActive":{"value":"#ffffff","comment":" shared files / links checkbox icon for selected rows"},"overviewPhotoSelectOverlay":{"value":"#40ace333","comment":" shared photos / videos / links fill for selected rows"},"profileStatusFgOver":{"value":"#9c9c9c","comment":" group members list in group profile user last seen text with mouse over"},"profileVerifiedCheckBg":{"value":{"equals":"windowBgActive"},"comment":" profile verified check icon background"},"profileVerifiedCheckFg":{"value":"#ffffff","comment":" profile verified check icon tick"},"profileAdminStartFg":{"value":{"equals":"windowBgActive"},"comment":" group members list admin star icon"},"notificationsBoxMonitorFg":{"value":{"equals":"windowFg"},"comment":" custom notifications settings box monitor color"},"notificationsBoxScreenBg":{"value":{"equals":"dialogsBgActive"},"comment":" #6389a8; // custom notifications settings box monitor screen background"},"notificationSampleUserpicFg":{"value":{"equals":"windowBgActive"},"comment":" custom notifications settings box small sample userpic placeholder"},"notificationSampleCloseFg":{"value":"#d7d7d7","comment":" custom notifications settings box small sample close button placeholder"},"notificationSampleTextFg":{"value":"#d7d7d7","comment":" custom notifications settings box small sample text placeholder"},"notificationSampleNameFg":{"value":"#939393","comment":" custom notifications settings box small sample name placeholder"},"changePhoneSimcardFrom":{"value":{"equals":"notificationSampleTextFg"},"comment":" change phone number box left simcard icon"},"changePhoneSimcardTo":{"value":{"equals":"notificationSampleNameFg"},"comment":" change phone number box right simcard and plane icons"},"mainMenuBg":{"value":{"equals":"windowBg"},"comment":" main menu background"},"mainMenuCoverBg":{"value":"#009687","comment":" main menu top cover background"},"mainMenuCoverFg":{"value":{"equals":"windowFgActive"},"comment":" main menu top cover text"},"mainMenuCloudFg":{"value":{"equals":"activeButtonFg"},"comment":" "},"mainMenuCloudBg":{"value":"#0e837f","comment":" "},"mediaPlayerBg":{"value":{"equals":"windowBg"},"comment":" audio file player background"},"mediaPlayerActiveFg":{"value":{"equals":"windowBgActive"},"comment":" audio file player playback progress already played part"},"mediaPlayerInactiveFg":{"value":{"equals":"sliderBgInactive"},"comment":" audio file player playback progress upcoming (not played yet) part with mouse over"},"mediaPlayerDisabledFg":{"value":"#9dd1ef","comment":" audio file player loading progress (when you're playing an audio file and switch to the previous one which is not loaded yet)"},"mediaviewFileBg":{"value":{"equals":"windowBg"},"comment":" file rectangle background (when you view a png file in Media Viewer and go to a previous, not loaded yet, file)"},"mediaviewFileNameFg":{"value":{"equals":"windowFg"},"comment":" file name in file rectangle"},"mediaviewFileSizeFg":{"value":{"equals":"windowSubTextFg"},"comment":" file size text in file rectangle"},"mediaviewFileRedCornerFg":{"value":"#d55959","comment":" red file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .pdf)"},"mediaviewFileYellowCornerFg":{"value":"#e8a659","comment":" yellow file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .zip)"},"mediaviewFileGreenCornerFg":{"value":"#49a957","comment":" green file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .exe)"},"mediaviewFileBlueCornerFg":{"value":"#599dcf","comment":" blue file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .dmg)"},"mediaviewFileExtFg":{"value":{"equals":"activeButtonFg"},"comment":" file extension text in file thumbnail placeholder in file rectangle"},"mediaviewMenuBg":{"value":"#383838","comment":" context menu in Media Viewer background"},"mediaviewMenuBgOver":{"value":"#505050","comment":" context menu item background with mouse over"},"mediaviewMenuBgRipple":{"value":"#676767","comment":" context menu item ripple effect"},"mediaviewMenuFg":{"value":{"equals":"windowFgActive"},"comment":" context menu item text"},"mediaviewBg":{"value":"#222222eb","comment":" Media Viewer background"},"mediaviewVideoBg":{"value":{"equals":"imageBg"},"comment":" Media Viewer background when viewing a video in full screen"},"mediaviewControlBg":{"value":"#0000003c","comment":" controls background (like next photo / previous photo)"},"mediaviewControlFg":{"value":{"equals":"windowFgActive"},"comment":" controls icon (like next photo / previous photo)"},"mediaviewCaptionBg":{"value":"#11111180","comment":" caption text background (when viewing photo with caption)"},"mediaviewCaptionFg":{"value":{"equals":"mediaviewControlFg"},"comment":" caption text"},"mediaviewTextLinkFg":{"value":"#66f7e4","comment":" caption text link"},"mediaviewSaveMsgBg":{"value":{"equals":"toastBg"},"comment":" save to file toast message background in Media Viewer"},"mediaviewSaveMsgFg":{"value":{"equals":"toastFg"},"comment":" save to file toast message text"},"mediaviewPlaybackActive":{"value":"#c7c7c7","comment":" video playback progress already played part"},"mediaviewPlaybackInactive":{"value":"#252525","comment":" video playback progress upcoming (not played yet) part"},"mediaviewPlaybackActiveOver":{"value":"#ffffff","comment":" video playback progress already played part with mouse over"},"mediaviewPlaybackInactiveOver":{"value":"#474747","comment":" video playback progress upcoming (not played yet) part with mouse over"},"mediaviewPlaybackProgressFg":{"value":"#ffffffc7","comment":" video playback progress text"},"mediaviewPlaybackIconFg":{"value":{"equals":"mediaviewPlaybackActive"},"comment":" video playback controls icon"},"mediaviewPlaybackIconFgOver":{"value":{"equals":"mediaviewPlaybackActiveOver"},"comment":" video playback controls icon with mouse over"},"mediaviewTransparentBg":{"value":"#ffffff","comment":" transparent filling part (when viewing a transparent .png file in Media Viewer)"},"mediaviewTransparentFg":{"value":"#cccccc","comment":" another transparent filling part"},"notificationBg":{"value":{"equals":"windowBg"},"comment":" custom notification window background"},"callBg":{"value":"#26282cf2","comment":" phone call popup background"},"callNameFg":{"value":"#ffffff","comment":" phone call popup name text"},"callFingerprintBg":{"value":"#00000066","comment":" phone call popup emoji fingerprint background"},"callStatusFg":{"value":"#aaabac","comment":" phone call popup status text"},"callIconFg":{"value":"#ffffff","comment":" phone call popup answer, hangup and mute mic icon"},"callAnswerBg":{"value":"#5ad1c1","comment":" phone call popup answer button background"},"callAnswerRipple":{"value":"#42c2b1","comment":" phone call popup answer button ripple effect"},"callAnswerBgOuter":{"value":"#3febc926","comment":" phone call popup answer button outer ripple effect"},"callHangupBg":{"value":"#d75a5a","comment":" phone call popup hangup button background"},"callHangupRipple":{"value":"#c04646","comment":" phone call popup hangup button ripple effect"},"callCancelBg":{"value":"#ffffff","comment":" phone call popup line busy cancel button background"},"callCancelFg":{"value":"#777777","comment":" phone call popup line busy cancel button icon"},"callCancelRipple":{"value":"#f1f1f1","comment":" phone call popup line busy cancel button ripple effect"},"callMuteRipple":{"value":"#ffffff12","comment":" phone call popup mute mic ripple effect"},"callBarBg":{"value":{"equals":"dialogsBgActive"},"comment":" active phone call bar background"},"callBarMuteRipple":{"value":{"equals":"dialogsRippleBgActive"},"comment":" active phone call bar mute and hangup button ripple effect"},"callBarBgMuted":{"value":"#8f8f8f","comment":" phone call bar with muted mic background"},"callBarUnmuteRipple":{"value":"#7f7f7f","comment":" phone call bar with muted mic mute and hangup button ripple effect"},"callBarFg":{"value":{"equals":"dialogsNameFgActive"},"comment":" phone call bar text and icons"},"importantTooltipBg":{"value":{"equals":"toastBg"},"comment":" "},"importantTooltipFg":{"value":{"equals":"toastFg"},"comment":" "},"importantTooltipFgLink":{"value":"#65fce8","comment":" "},"filterInputActiveBg":{"value":"#3d444b","comment":" default rounded input field active background (like in chats list search field when field is focused)"},"botKbBg":{"value":"#3d444b","comment":" bot keyboard button background"},"botKbDownBg":{"value":"#494f55","comment":" bot keyboard button ripple effect"},"emojiIconFg":{"value":"#6c7278","comment":" emoji category icon"},"emojiIconFgActive":{"value":"#36cdb9","comment":" active emoji category icon"},"overviewCheckBorder":{"value":"#e4eaef","comment":" shared media round checkbox border"},"sideBarBg":{"value":"#18191d","comment":" filters side bar background"},"sideBarBgActive":{"value":"#282e33","comment":" filters side bar active background"},"sideBarBgRipple":{"value":"#22272b","comment":" filters side bar ripple effect"},"sideBarTextFg":{"value":"#8d939e","comment":" filters side bar text"},"sideBarTextFgActive":{"value":"#24c9b9","comment":" filters side bar active item text"},"sideBarIconFg":{"value":"#8d939e","comment":" filters side bar icon"},"sideBarIconFgActive":{"value":"#25dbca","comment":" filters side bar active item icon"},"sideBarBadgeBg":{"value":"#25dbca","comment":" filters side bar badge background"},"sideBarBadgeBgMuted":{"value":"#8d939e","comment":" filters side bar unimportant badge background"}}
+{
+    "windowBg": {
+        "value": "#282e33",
+        "comment": " white: fallback for background"
+    },
+    "windowFg": {
+        "value": "#f5f5f5",
+        "comment": " black: fallback for text"
+    },
+    "windowBgOver": {
+        "value": "#313b43",
+        "comment": " light gray: fallback for background with mouse over"
+    },
+    "windowBgRipple": {
+        "value": "#3f4850",
+        "comment": " darker gray: fallback for ripple effect"
+    },
+    "windowFgOver": {
+        "value": "#e9ecf0",
+        "comment": " black: fallback for text with mouse over"
+    },
+    "windowSubTextFg": {
+        "value": "#82868a",
+        "comment": " gray: fallback for additional text"
+    },
+    "windowSubTextFgOver": {
+        "value": "#797b7f",
+        "comment": " darker gray: fallback for additional text with mouse over"
+    },
+    "windowBoldFg": {
+        "value": "#e9e8e8",
+        "comment": " dark gray: fallback for bold text"
+    },
+    "windowBoldFgOver": {
+        "value": "#e9e9e9",
+        "comment": " dark gray: fallback for bold text with mouse over"
+    },
+    "windowBgActive": {
+        "value": "#3fc1b0",
+        "comment": " bright blue: fallback for blue filled active areas"
+    },
+    "windowFgActive": {
+        "value": "#ffffff",
+        "comment": " white: fallback for text on active areas"
+    },
+    "windowActiveTextFg": {
+        "value": "#4be1c3",
+        "comment": " online blue: fallback for active text like online status"
+    },
+    "windowShadowFg": {
+        "value": "#000000",
+        "comment": " black: fallback for shadow"
+    },
+    "windowShadowFgFallback": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " gray: fallback for shadow without opacity"
+    },
+    "shadowFg": {
+        "value": "#00000018",
+        "comment": " most shadows (including opacity)"
+    },
+    "slideFadeOutBg": {
+        "value": "#0000003c",
+        "comment": " slide animation (chat to profile) fade out filling"
+    },
+    "slideFadeOutShadowFg": {
+        "value": {
+            "equals": "windowShadowFg"
+        },
+        "comment": " slide animation (chat to profile) fade out right section shadow"
+    },
+    "imageBg": {
+        "value": "#000000",
+        "comment": " image background fallback (when photo size is less than minimum allowed)"
+    },
+    "imageBgTransparent": {
+        "value": "#ffffff",
+        "comment": " image background when displaying an image with opacity where no opacity is needed"
+    },
+    "activeButtonBg": {
+        "value": "#2da192",
+        "comment": " default active button background"
+    },
+    "activeButtonBgOver": {
+        "value": "#32a898",
+        "comment": " default active button background with mouse over"
+    },
+    "activeButtonBgRipple": {
+        "value": "#42b8a8",
+        "comment": " default active button ripple effect"
+    },
+    "activeButtonFg": {
+        "value": "#ffffff",
+        "comment": " default active button text"
+    },
+    "activeButtonFgOver": {
+        "value": "#ffffff",
+        "comment": " default active button text with mouse over"
+    },
+    "activeButtonSecondaryFg": {
+        "value": "#8ee4d9",
+        "comment": " default active button additional text (selected messages counter in forward / delete buttons)"
+    },
+    "activeButtonSecondaryFgOver": {
+        "value": {
+            "equals": "activeButtonSecondaryFg"
+        },
+        "comment": " default active button additional text with mouse over"
+    },
+    "activeLineFg": {
+        "value": "#3ee2cc",
+        "comment": " default active line (like code input field bottom border when you log in and field is focused)"
+    },
+    "activeLineFgError": {
+        "value": "#f57878",
+        "comment": " default active line for error state (like code input field bottom border when you log in and you've entered incorrect code)"
+    },
+    "lightButtonBg": {
+        "value": "#282e33",
+        "comment": " default light button background (like buttons in boxes)"
+    },
+    "lightButtonBgOver": {
+        "value": "#313b43",
+        "comment": " default light button background with mouse over"
+    },
+    "lightButtonBgRipple": {
+        "value": "#3c474f",
+        "comment": " default light button ripple effect"
+    },
+    "lightButtonFg": {
+        "value": "#79e8da",
+        "comment": " default light button text"
+    },
+    "lightButtonFgOver": {
+        "value": {
+            "equals": "lightButtonFg"
+        },
+        "comment": " default light button text with mouse over"
+    },
+    "attentionButtonFg": {
+        "value": "#f57474",
+        "comment": " default attention button text (like confirm button on log out)"
+    },
+    "attentionButtonFgOver": {
+        "value": "#e76060",
+        "comment": " default attention button text with mouse over"
+    },
+    "attentionButtonBgOver": {
+        "value": "#613a3a64",
+        "comment": " default attention button background with mouse over"
+    },
+    "attentionButtonBgRipple": {
+        "value": "#f4c3c2",
+        "comment": " default attention button ripple effect"
+    },
+    "outlineButtonBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " default left outlined button background (like shared media links in profiles)"
+    },
+    "outlineButtonBgOver": {
+        "value": "#313b43",
+        "comment": " default left outlined button background with mouse over"
+    },
+    "outlineButtonOutlineFg": {
+        "value": "#29baa7",
+        "comment": " default left outlined button left outline border"
+    },
+    "outlineButtonBgRipple": {
+        "value": "#3c474f",
+        "comment": " default left outlined button ripple effect"
+    },
+    "menuBg": {
+        "value": "#282e33",
+        "comment": " default popup menu background"
+    },
+    "menuBgOver": {
+        "value": "#ffffff",
+        "comment": " default popup menu item background with mouse over"
+    },
+    "menuBgRipple": {
+        "value": "#26292d",
+        "comment": " default popup menu item ripple effect"
+    },
+    "menuIconFg": {
+        "value": "#808080",
+        "comment": " default popup menu item icon (like main menu)"
+    },
+    "menuIconFgOver": {
+        "value": "#dcdcdc",
+        "comment": " default popup menu item icon with mouse over"
+    },
+    "menuSubmenuArrowFg": {
+        "value": "#757575",
+        "comment": " default popup menu submenu arrow icon (like in message field context menu in case of RTL system language)"
+    },
+    "menuFgDisabled": {
+        "value": "#737373",
+        "comment": " default popup menu item disabled text (like unavailable items in message field context menu)"
+    },
+    "menuSeparatorFg": {
+        "value": "#42484d",
+        "comment": " default popup menu separator (like in message field context menu)"
+    },
+    "scrollBarBg": {
+        "value": "#ffffff53",
+        "comment": " default scroll bar current rectangle, the bar itself (like in chats list)"
+    },
+    "scrollBarBgOver": {
+        "value": "#ffffff7a",
+        "comment": " default scroll bar current rectangle with mouse over it"
+    },
+    "scrollBg": {
+        "value": "#ffffff1a",
+        "comment": " default scroll bar background"
+    },
+    "scrollBgOver": {
+        "value": "#ffffff2c",
+        "comment": " default scroll bar background with mouse over the scroll bar"
+    },
+    "smallCloseIconFg": {
+        "value": "#6d6d6d",
+        "comment": " small X icon (like in Show all sessions box to the right for sessions termination)"
+    },
+    "smallCloseIconFgOver": {
+        "value": "#a3a3a3",
+        "comment": " small X icon with mouse over"
+    },
+    "radialFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " default radial loader line (like in Media Viewer when loading a photo)"
+    },
+    "radialBg": {
+        "value": "#00000056",
+        "comment": " default radial loader background (like in Media Viewer when loading a photo)"
+    },
+    "placeholderFg": {
+        "value": "#818991",
+        "comment": " default input field placeholder when field is not focused (like in phone input field when you log in)"
+    },
+    "placeholderFgActive": {
+        "value": "#5d6165",
+        "comment": " default input field placeholder when field is focused"
+    },
+    "inputBorderFg": {
+        "value": "#6f6f6f",
+        "comment": " default input field bottom border (like in code input field when you log in and field is not focused)"
+    },
+    "filterInputBorderFg": {
+        "value": "#3d444b",
+        "comment": " default rounded input field border (like in chats list search field when field is focused)"
+    },
+    "filterInputInactiveBg": {
+        "value": "#3d444b",
+        "comment": " default rounded input field background (like in chats list search field when field is inactive)"
+    },
+    "checkboxFg": {
+        "value": "#6c6c6c",
+        "comment": " default unchecked checkbox rounded rectangle (and also emoji category icons)"
+    },
+    "sliderBgInactive": {
+        "value": "#545454",
+        "comment": " default slider not active bar (like in Settings when you choose interface scale or custom notifications count)"
+    },
+    "sliderBgActive": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " default slider active bar (like in Settings when you choose interface scale or custom notifications count)"
+    },
+    "tooltipBg": {
+        "value": "#d4dadd",
+        "comment": " tooltip background (like when you put mouse over the message timestamp and wait)"
+    },
+    "tooltipFg": {
+        "value": "#9a9e9c",
+        "comment": " tooltip text"
+    },
+    "tooltipBorderFg": {
+        "value": "#c9d1db",
+        "comment": " tooltip border"
+    },
+    "titleShadow": {
+        "value": "#00000003",
+        "comment": " one pixel line shadow at the bottom of custom window title"
+    },
+    "titleBg": {
+        "value": "#3a4047",
+        "comment": " custom window title background when window is inactive"
+    },
+    "titleBgActive": {
+        "value": {
+            "equals": "titleBg"
+        },
+        "comment": " custom window title background when window is active"
+    },
+    "titleButtonBg": {
+        "value": {
+            "equals": "titleBg"
+        },
+        "comment": " custom window title minimize/maximize/restore button background when window is inactive (Windows only)"
+    },
+    "titleButtonFg": {
+        "value": "#8b9096",
+        "comment": " custom window title minimize/maximize/restore button icon when window is inactive (Windows only)"
+    },
+    "titleButtonBgOver": {
+        "value": "#4c535b",
+        "comment": " custom window title minimize/maximize/restore button background with mouse over when window is inactive (Windows only)"
+    },
+    "titleButtonFgOver": {
+        "value": "#e0e0e0",
+        "comment": " custom window title minimize/maximize/restore button icon with mouse over when window is inactive (Windows only)"
+    },
+    "titleButtonBgActive": {
+        "value": {
+            "equals": "titleButtonBg"
+        },
+        "comment": " custom window title minimize/maximize/restore button background when window is active (Windows only)"
+    },
+    "titleButtonFgActive": {
+        "value": {
+            "equals": "titleButtonFg"
+        },
+        "comment": " custom window title minimize/maximize/restore button icon when window is active (Windows only)"
+    },
+    "titleButtonBgActiveOver": {
+        "value": {
+            "equals": "titleButtonBgOver"
+        },
+        "comment": " custom window title minimize/maximize/restore button background with mouse over when window is active (Windows only)"
+    },
+    "titleButtonFgActiveOver": {
+        "value": {
+            "equals": "titleButtonFgOver"
+        },
+        "comment": " custom window title minimize/maximize/restore button icon with mouse over when window is active (Windows only)"
+    },
+    "titleButtonCloseBg": {
+        "value": {
+            "equals": "titleButtonBg"
+        },
+        "comment": " custom window title close button background when window is inactive (Windows only)"
+    },
+    "titleButtonCloseFg": {
+        "value": {
+            "equals": "titleButtonFg"
+        },
+        "comment": " custom window title close button icon when window is inactive (Windows only)"
+    },
+    "titleButtonCloseBgOver": {
+        "value": "#e81123",
+        "comment": " custom window title close button background with mouse over when window is inactive (Windows only)"
+    },
+    "titleButtonCloseFgOver": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " custom window title close button icon with mouse over when window is inactive (Windows only)"
+    },
+    "titleButtonCloseBgActive": {
+        "value": {
+            "equals": "titleButtonCloseBg"
+        },
+        "comment": " custom window title close button background when window is active (Windows only)"
+    },
+    "titleButtonCloseFgActive": {
+        "value": {
+            "equals": "titleButtonCloseFg"
+        },
+        "comment": " custom window title close button icon when window is active (Windows only)"
+    },
+    "titleButtonCloseBgActiveOver": {
+        "value": {
+            "equals": "titleButtonCloseBgOver"
+        },
+        "comment": " custom window title close button background with mouse over when window is active (Windows only)"
+    },
+    "titleButtonCloseFgActiveOver": {
+        "value": {
+            "equals": "titleButtonCloseFgOver"
+        },
+        "comment": " custom window title close button icon with mouse over when window is active (Windows only)"
+    },
+    "titleFg": {
+        "value": "#666666",
+        "comment": " custom window title text when window is inactive (macOS only)"
+    },
+    "titleFgActive": {
+        "value": "#808080",
+        "comment": " custom window title text when window is active (macOS only)"
+    },
+    "trayCounterBg": {
+        "value": "#f23c34",
+        "comment": " tray icon counter background"
+    },
+    "trayCounterBgMute": {
+        "value": "#888888",
+        "comment": " tray icon counter background if all unread messages are muted"
+    },
+    "trayCounterFg": {
+        "value": "#ffffff",
+        "comment": " tray icon counter text"
+    },
+    "trayCounterBgMacInvert": {
+        "value": "#ffffff",
+        "comment": " tray icon counter background when tray icon is pressed or when dark theme of macOS is used (macOS only)"
+    },
+    "trayCounterFgMacInvert": {
+        "value": "#ffffff01",
+        "comment": " tray icon counter text when tray icon is pressed or when dark theme of macOS is used (macOS only)"
+    },
+    "layerBg": {
+        "value": "#0000007f",
+        "comment": " box and main menu background layer fade"
+    },
+    "cancelIconFg": {
+        "value": "#666666",
+        "comment": " default for settings close icon and box search cancel icon"
+    },
+    "cancelIconFgOver": {
+        "value": "#dcdcdc",
+        "comment": " default for settings close icon and box search cancel icon with mouse over"
+    },
+    "boxBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " box background"
+    },
+    "boxTextFg": {
+        "value": {
+            "equals": "windowFg"
+        },
+        "comment": " box text"
+    },
+    "boxTextFgGood": {
+        "value": "#56dbce",
+        "comment": " accepted box text (like when choosing username that is not occupied)"
+    },
+    "boxTextFgError": {
+        "value": "#d84d4d",
+        "comment": " rejecting box text (like when choosing username that is occupied)"
+    },
+    "boxTitleFg": {
+        "value": "#ebebeb",
+        "comment": " box title text"
+    },
+    "boxSearchBg": {
+        "value": "#282e33",
+        "comment": " box search field background (like in contacts box)"
+    },
+    "boxTitleAdditionalFg": {
+        "value": "#808080",
+        "comment": " box title additional text (like in create group box when you see chosen members count)"
+    },
+    "boxTitleCloseFg": {
+        "value": {
+            "equals": "cancelIconFg"
+        },
+        "comment": " settings close icon and box search cancel icon (like in contacts box)"
+    },
+    "boxTitleCloseFgOver": {
+        "value": {
+            "equals": "cancelIconFgOver"
+        },
+        "comment": " settings close icon and box search cancel icon (like in contacts box) with mouse over"
+    },
+    "membersAboutLimitFg": {
+        "value": "#5e6065",
+        "comment": " text in channel members box about the limit (max 200 last members are shown)"
+    },
+    "contactsBg": {
+        "value": "#222528",
+        "comment": " contacts (and some other) box row background"
+    },
+    "contactsBgOver": {
+        "value": "#282e33",
+        "comment": " contacts (and some other) box row background with mouse over"
+    },
+    "contactsNameFg": {
+        "value": {
+            "equals": "boxTextFg"
+        },
+        "comment": " contacts (and some other) box row name text"
+    },
+    "contactsStatusFg": {
+        "value": "#808080",
+        "comment": " contacts (and some other) box row additional text (like last seen stamp)"
+    },
+    "contactsStatusFgOver": {
+        "value": "#808080",
+        "comment": " contacts (and some other) box row additional text (like last seen stamp) with mouse over"
+    },
+    "contactsStatusFgOnline": {
+        "value": "#55e1d3",
+        "comment": " contacts (and some other) box row active additional text (like online status)"
+    },
+    "photoCropFadeBg": {
+        "value": {
+            "equals": "layerBg"
+        },
+        "comment": " avatar crop box fade background (when choosing a new photo in Settings or for a group)"
+    },
+    "photoCropPointFg": {
+        "value": "#ffffff7f",
+        "comment": " avatar crop box corner rectangles (when choosing a new photo in Settings or for a group)"
+    },
+    "callArrowFg": {
+        "value": "#2bc7b8",
+        "comment": " received phone call arrow (in calls list box)"
+    },
+    "callArrowMissedFg": {
+        "value": "#dd5b4a",
+        "comment": " missed phone call arrow (in calls list box)"
+    },
+    "introBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " login background"
+    },
+    "introTitleFg": {
+        "value": "#eeeeee",
+        "comment": " login title text"
+    },
+    "introDescriptionFg": {
+        "value": "#999999",
+        "comment": " login description text"
+    },
+    "introErrorFg": {
+        "value": "#999999",
+        "comment": " login error text (like when providing a wrong log in code)"
+    },
+    "introCoverTopBg": {
+        "value": "#188173",
+        "comment": " intro gradient top (from)"
+    },
+    "introCoverBottomBg": {
+        "value": "#188173",
+        "comment": " intro gradient bottom (to)"
+    },
+    "introCoverIconsFg": {
+        "value": "#34a495",
+        "comment": " intro cloud graphics"
+    },
+    "introCoverPlaneTrace": {
+        "value": "#329d8f",
+        "comment": " intro plane traces"
+    },
+    "introCoverPlaneInner": {
+        "value": "#ced9e2",
+        "comment": " intro plane part"
+    },
+    "introCoverPlaneOuter": {
+        "value": "#97a9b5",
+        "comment": " intro plane part"
+    },
+    "introCoverPlaneTop": {
+        "value": "#ffffff",
+        "comment": " intro plane part"
+    },
+    "dialogsMenuIconFg": {
+        "value": {
+            "equals": "menuIconFg"
+        },
+        "comment": " main menu and lock telegram icon"
+    },
+    "dialogsMenuIconFgOver": {
+        "value": {
+            "equals": "menuIconFgOver"
+        },
+        "comment": " main menu and lock telegram icon with mouse over"
+    },
+    "dialogsBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " chat list background"
+    },
+    "dialogsNameFg": {
+        "value": "#f5f5f5",
+        "comment": " chat list name text"
+    },
+    "dialogsChatIconFg": {
+        "value": {
+            "equals": "dialogsNameFg"
+        },
+        "comment": " chat list group or channel icon"
+    },
+    "dialogsDateFg": {
+        "value": "#6d727c",
+        "comment": " chat list date text"
+    },
+    "dialogsTextFg": {
+        "value": "#8d939e",
+        "comment": " chat list message text"
+    },
+    "dialogsTextFgService": {
+        "value": "#ebebeb",
+        "comment": " chat list group sender name text (or media message type text)"
+    },
+    "dialogsDraftFg": {
+        "value": "#ec6657",
+        "comment": " chat list draft label"
+    },
+    "dialogsVerifiedIconBg": {
+        "value": "#53edde",
+        "comment": " chat list verified icon background"
+    },
+    "dialogsVerifiedIconFg": {
+        "value": "#282e33",
+        "comment": " chat list verified icon check"
+    },
+    "dialogsSendingIconFg": {
+        "value": "#727272",
+        "comment": " chat list sending message icon (clock)"
+    },
+    "dialogsSentIconFg": {
+        "value": "#20eeda",
+        "comment": " chat list sent message tick / double tick icon"
+    },
+    "dialogsUnreadBg": {
+        "value": "#05a091",
+        "comment": " chat list unread badge background for not muted chat"
+    },
+    "dialogsUnreadBgMuted": {
+        "value": "#495159",
+        "comment": " chat list unread badge background for muted chat"
+    },
+    "dialogsUnreadFg": {
+        "value": "#ffffff",
+        "comment": " chat list unread badge text"
+    },
+    "dialogsOnlineBadgeFg": {
+        "value": "#0ae7d2",
+        "comment": " chat list online status"
+    },
+    "dialogsBgOver": {
+        "value": "#353c43",
+        "comment": " chat list background with mouse over"
+    },
+    "dialogsNameFgOver": {
+        "value": {
+            "equals": "windowBoldFgOver"
+        },
+        "comment": " chat list name text with mouse over"
+    },
+    "dialogsChatIconFgOver": {
+        "value": {
+            "equals": "dialogsNameFgOver"
+        },
+        "comment": " chat list group or channel icon with mouse over"
+    },
+    "dialogsDateFgOver": {
+        "value": "#6d727c",
+        "comment": " chat list date text with mouse over"
+    },
+    "dialogsTextFgOver": {
+        "value": "#a3a7ae",
+        "comment": " chat list message text with mouse over"
+    },
+    "dialogsTextFgServiceOver": {
+        "value": "#f0f0f0",
+        "comment": " chat list group sender name text with mouse over"
+    },
+    "dialogsDraftFgOver": {
+        "value": {
+            "equals": "dialogsDraftFg"
+        },
+        "comment": " chat list draft label with mouse over"
+    },
+    "dialogsVerifiedIconBgOver": {
+        "value": "#53edde",
+        "comment": " chat list verified icon background with mouse over"
+    },
+    "dialogsVerifiedIconFgOver": {
+        "value": {
+            "equals": "dialogsVerifiedIconFg"
+        },
+        "comment": " chat list verified icon check with mouse over"
+    },
+    "dialogsSendingIconFgOver": {
+        "value": {
+            "equals": "dialogsSendingIconFg"
+        },
+        "comment": " chat list sending message icon (clock) with mouse over"
+    },
+    "dialogsSentIconFgOver": {
+        "value": "#41f0df",
+        "comment": " chat list sent message tick / double tick icon with mouse over"
+    },
+    "dialogsUnreadBgOver": {
+        "value": "#009687",
+        "comment": " chat list unread badge background for not muted chat with mouse over"
+    },
+    "dialogsUnreadBgMutedOver": {
+        "value": "#555e67",
+        "comment": " chat list unread badge background for muted chat with mouse over"
+    },
+    "dialogsUnreadFgOver": {
+        "value": {
+            "equals": "dialogsUnreadFg"
+        },
+        "comment": " chat list unread badge text with mouse over"
+    },
+    "dialogsBgActive": {
+        "value": "#009687",
+        "comment": " chat list background for current (active) chat"
+    },
+    "dialogsNameFgActive": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " chat list name text for current (active) chat"
+    },
+    "dialogsChatIconFgActive": {
+        "value": {
+            "equals": "dialogsNameFgActive"
+        },
+        "comment": " chat list group or channel icon for current (active) chat"
+    },
+    "dialogsDateFgActive": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " chat list date text for current (active) chat"
+    },
+    "dialogsTextFgActive": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " chat list message text for current (active) chat"
+    },
+    "dialogsTextFgServiceActive": {
+        "value": {
+            "equals": "dialogsTextFgActive"
+        },
+        "comment": " chat list group sender name text for current (active) chat"
+    },
+    "dialogsDraftFgActive": {
+        "value": "#c6f7f3",
+        "comment": " chat list draft label for current (active) chat"
+    },
+    "dialogsVerifiedIconBgActive": {
+        "value": {
+            "equals": "dialogsTextFgActive"
+        },
+        "comment": " chat list verified icon background for current (active) chat"
+    },
+    "dialogsVerifiedIconFgActive": {
+        "value": {
+            "equals": "dialogsBgActive"
+        },
+        "comment": " chat list verified icon check for current (active) chat"
+    },
+    "dialogsSendingIconFgActive": {
+        "value": "#ffffff99",
+        "comment": " chat list sending message icon (clock) for current (active) chat"
+    },
+    "dialogsSentIconFgActive": {
+        "value": {
+            "equals": "dialogsTextFgActive"
+        },
+        "comment": " chat list sent message tick / double tick icon for current (active) chat"
+    },
+    "dialogsUnreadBgActive": {
+        "value": {
+            "equals": "dialogsTextFgActive"
+        },
+        "comment": " chat list unread badge background for not muted chat for current (active) chat"
+    },
+    "dialogsUnreadBgMutedActive": {
+        "value": "#cbf7e9",
+        "comment": " chat list unread badge background for muted chat for current (active) chat"
+    },
+    "dialogsUnreadFgActive": {
+        "value": "#039d8e",
+        "comment": " chat list unread badge text for current (active) chat"
+    },
+    "dialogsOnlineBadgeFgActive": {
+        "value": "#ffffff",
+        "comment": " chat list online status for current (active) chat"
+    },
+    "dialogsRippleBg": {
+        "value": "#43474d",
+        "comment": " "
+    },
+    "dialogsRippleBgActive": {
+        "value": "#12a798",
+        "comment": " "
+    },
+    "dialogsForwardBg": {
+        "value": {
+            "equals": "dialogsBgActive"
+        },
+        "comment": " forwarding panel background (when forwarding messages in the smallest window size)"
+    },
+    "dialogsForwardFg": {
+        "value": {
+            "equals": "dialogsNameFgActive"
+        },
+        "comment": " forwarding panel text (when forwarding messages in the smallest window size)"
+    },
+    "searchedBarBg": {
+        "value": "#3a4047",
+        "comment": " search results bar background (in chats list, contacts box..)"
+    },
+    "searchedBarFg": {
+        "value": "#a8a8a8",
+        "comment": " search results bar text (in chats list, contacts box..)"
+    },
+    "topBarBg": {
+        "value": "#282e33",
+        "comment": " top bar background (in chat view, media overview..)"
+    },
+    "emojiPanBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " emoji panel background"
+    },
+    "emojiPanCategories": {
+        "value": "#20262b",
+        "comment": " emoji panel categories background"
+    },
+    "emojiPanHeaderFg": {
+        "value": "#90949a",
+        "comment": " emoji panel section header text"
+    },
+    "emojiPanHeaderBg": {
+        "value": "#fffffff2",
+        "comment": " emoji panel section header background"
+    },
+    "stickerPanDeleteBg": {
+        "value": "#000000cc",
+        "comment": " delete X button background for custom sent stickers in stickers panel (legacy)"
+    },
+    "stickerPanDeleteFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " delete X button icon for custom sent stickers in stickers panel (legacy)"
+    },
+    "stickerPreviewBg": {
+        "value": "#000000b0",
+        "comment": " sticker and GIF preview background (when you press and hold on a sticker)"
+    },
+    "historyTextInFg": {
+        "value": {
+            "equals": "windowFg"
+        },
+        "comment": " inbox message text"
+    },
+    "historyTextInFgSelected": {
+        "value": "#ffffff",
+        "comment": " inbox message selected text or text in a selected message"
+    },
+    "historyTextOutFg": {
+        "value": "#e4ecf2",
+        "comment": " outbox message text"
+    },
+    "historyTextOutFgSelected": {
+        "value": "#ffffff",
+        "comment": " outbox message selected text or text in a selected message"
+    },
+    "historyLinkInFg": {
+        "value": "#37e1cb",
+        "comment": " inbox message link"
+    },
+    "historyLinkInFgSelected": {
+        "value": "#a7fff4",
+        "comment": " inbox message link in a selected text or message"
+    },
+    "historyLinkOutFg": {
+        "value": "#37e1cb",
+        "comment": " outbox message link"
+    },
+    "historyLinkOutFgSelected": {
+        "value": "#a7fff4",
+        "comment": " outbox message link in a selected text or message"
+    },
+    "historyFileNameInFg": {
+        "value": {
+            "equals": "historyTextInFg"
+        },
+        "comment": " inbox media filename text"
+    },
+    "historyFileNameInFgSelected": {
+        "value": "#ffffff",
+        "comment": " inbox media filename text in a selected message"
+    },
+    "historyFileNameOutFg": {
+        "value": {
+            "equals": "historyTextOutFg"
+        },
+        "comment": " outbox media filename text"
+    },
+    "historyFileNameOutFgSelected": {
+        "value": "#ffffff",
+        "comment": " outbox media filename text in a selected message"
+    },
+    "historyOutIconFg": {
+        "value": "#40e6c5",
+        "comment": " outbox message tick / double tick icon"
+    },
+    "historyOutIconFgSelected": {
+        "value": "#ffffff",
+        "comment": " outbox message tick / double tick icon in a selected message"
+    },
+    "historyIconFgInverted": {
+        "value": "#40e6c5",
+        "comment": " media message tick / double tick icon (like in sent photo)"
+    },
+    "historySendingOutIconFg": {
+        "value": "#9eface",
+        "comment": " outbox sending message icon (clock)"
+    },
+    "historySendingInIconFg": {
+        "value": "#76838b",
+        "comment": " inbox sending message icon (clock) (like in sent messages to yourself or in sent messages to a channel)"
+    },
+    "historySendingInvertedIconFg": {
+        "value": "#ffffffc8",
+        "comment": " media sending message icon (clock) (like in sent photo)"
+    },
+    "historyCallArrowInFg": {
+        "value": "#26c2ad",
+        "comment": " received phone call arrow"
+    },
+    "historyCallArrowInFgSelected": {
+        "value": "#ffffff",
+        "comment": " received phone call arrow in a selected message"
+    },
+    "historyCallArrowMissedInFg": {
+        "value": {
+            "equals": "callArrowMissedFg"
+        },
+        "comment": " missed phone call arrow"
+    },
+    "historyCallArrowMissedInFgSelected": {
+        "value": "#ffffff",
+        "comment": " missed phone call arrow in a selected message"
+    },
+    "historyCallArrowOutFg": {
+        "value": "#ffffff",
+        "comment": " outgoing phone call arrow"
+    },
+    "historyCallArrowOutFgSelected": {
+        "value": "#ffffff",
+        "comment": " outgoing phone call arrow"
+    },
+    "historyUnreadBarBg": {
+        "value": "#33393f",
+        "comment": " new unread messages bar background"
+    },
+    "historyUnreadBarBorder": {
+        "value": {
+            "equals": "shadowFg"
+        },
+        "comment": " new unread messages bar shadow"
+    },
+    "historyUnreadBarFg": {
+        "value": "#3cd3bf",
+        "comment": " new unread messages bar text"
+    },
+    "historyForwardChooseBg": {
+        "value": "#0000004c",
+        "comment": " forwarding messages in a large window size \"choose recipient\" background"
+    },
+    "historyForwardChooseFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " forwarding messages in a large window size \"choose recipient\" text"
+    },
+    "historyPeer1NameFg": {
+        "value": "#ec7577",
+        "comment": " red group member name"
+    },
+    "historyPeer1NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " red group member name in a selected message"
+    },
+    "historyPeer1UserpicBg": {
+        "value": "#e17076",
+        "comment": " red userpic background"
+    },
+    "historyPeer2NameFg": {
+        "value": "#86d67f",
+        "comment": " green group member name"
+    },
+    "historyPeer2NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " green group member name in a selected message"
+    },
+    "historyPeer2UserpicBg": {
+        "value": "#7bc862",
+        "comment": " green userpic background"
+    },
+    "historyPeer3NameFg": {
+        "value": "#e4c054",
+        "comment": " yellow group member name"
+    },
+    "historyPeer3NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " yellow group member name in a selected message"
+    },
+    "historyPeer3UserpicBg": {
+        "value": "#ccad4f",
+        "comment": " yellow userpic background"
+    },
+    "historyPeer4NameFg": {
+        "value": "#68c7f3",
+        "comment": " blue group member name"
+    },
+    "historyPeer4NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " blue group member name in a selected message"
+    },
+    "historyPeer4UserpicBg": {
+        "value": "#65aadd",
+        "comment": " blue userpic background"
+    },
+    "historyPeer5NameFg": {
+        "value": "#b383f3",
+        "comment": " purple group member name"
+    },
+    "historyPeer5NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " purple group member name in a selected message"
+    },
+    "historyPeer5UserpicBg": {
+        "value": "#a695e7",
+        "comment": " purple userpic background"
+    },
+    "historyPeer6NameFg": {
+        "value": "#e16794",
+        "comment": " pink group member name"
+    },
+    "historyPeer6NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " pink group member name in a selected message"
+    },
+    "historyPeer6UserpicBg": {
+        "value": "#ee7aae",
+        "comment": " pink userpic background"
+    },
+    "historyPeer7NameFg": {
+        "value": "#57c9e0",
+        "comment": " sea group member name"
+    },
+    "historyPeer7NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " sea group member name in a selected message"
+    },
+    "historyPeer7UserpicBg": {
+        "value": "#6ec9cb",
+        "comment": " sea userpic background"
+    },
+    "historyPeer8NameFg": {
+        "value": "#efb05d",
+        "comment": " orange group member name"
+    },
+    "historyPeer8NameFgSelected": {
+        "value": "#ffffff",
+        "comment": " orange group member name in a selected message"
+    },
+    "historyPeer8UserpicBg": {
+        "value": "#eda86c",
+        "comment": " orange userpic background"
+    },
+    "historyPeerUserpicFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " default userpic initials"
+    },
+    "historyScrollBarBg": {
+        "value": "#8989897a",
+        "comment": " scroll bar current rectangle, the bar itself in the chat view (adjusted)"
+    },
+    "historyScrollBarBgOver": {
+        "value": "#6b6b6bbc",
+        "comment": " scroll bar current rectangle with mouse over it in the chat view (adjusted)"
+    },
+    "historyScrollBg": {
+        "value": "#5f5f5f4c",
+        "comment": " scroll bar background (adjusted)"
+    },
+    "historyScrollBgOver": {
+        "value": "#6262626b",
+        "comment": " scroll bar background with mouse over the scroll bar (adjusted)"
+    },
+    "msgInBg": {
+        "value": "#33393f",
+        "comment": " inbox message background"
+    },
+    "msgInBgSelected": {
+        "value": "#009687",
+        "comment": " inbox selected message background (and background of selected text in those messages)"
+    },
+    "msgOutBg": {
+        "value": "#2a2f33",
+        "comment": " outbox message background"
+    },
+    "msgOutBgSelected": {
+        "value": "#009687",
+        "comment": " outbox selected message background (and background of selected text in those messages)"
+    },
+    "msgSelectOverlay": {
+        "value": "#35d4bf4c",
+        "comment": " overlay which is filling the media parts of selected messages (like in selected photo message)"
+    },
+    "msgStickerOverlay": {
+        "value": "#35d4bf7f",
+        "comment": " overlay which is filling the selected sticker message"
+    },
+    "msgInServiceFg": {
+        "value": {
+            "equals": "windowActiveTextFg"
+        },
+        "comment": " inbox message information text (like information about a forwarded message original sender)"
+    },
+    "msgInServiceFgSelected": {
+        "value": "#ffffff",
+        "comment": " inbox selected message information text (like information about a forwarded message original sender)"
+    },
+    "msgOutServiceFg": {
+        "value": "#60e5cb",
+        "comment": " outbox message information text (like information about a forwarded message original sender)"
+    },
+    "msgOutServiceFgSelected": {
+        "value": "#ffffff",
+        "comment": " outbox message information text (like information about a forwarded message original sender)"
+    },
+    "msgInShadow": {
+        "value": "#748ea200",
+        "comment": " inbox message shadow (below the bubble)"
+    },
+    "msgInShadowSelected": {
+        "value": "#538ebb00",
+        "comment": " inbox selected message shadow (below the bubble)"
+    },
+    "msgOutShadow": {
+        "value": "#00000000",
+        "comment": " outbox message shadow (below the bubble)"
+    },
+    "msgOutShadowSelected": {
+        "value": "#37a78d00",
+        "comment": " outbox selected message shadow (below the bubble)"
+    },
+    "msgInDateFg": {
+        "value": "#828d94",
+        "comment": " inbox message time text"
+    },
+    "msgInDateFgSelected": {
+        "value": "#ffffff",
+        "comment": " inbox selected message time text"
+    },
+    "msgOutDateFg": {
+        "value": "#737f87",
+        "comment": " outbox message time text"
+    },
+    "msgOutDateFgSelected": {
+        "value": "#ffffff",
+        "comment": " outbox selected message time text"
+    },
+    "msgServiceFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " service message text (like date dividers or service message about the group title being changed)"
+    },
+    "msgServiceBg": {
+        "value": "#363c43c8",
+        "comment": " service message background (like in a service message about group title being changed) (adjusted)"
+    },
+    "msgServiceBgSelected": {
+        "value": "#009687",
+        "comment": " service message selected text background (like in a service message about group title being changed) (adjusted)"
+    },
+    "msgInReplyBarColor": {
+        "value": "#32ceb9",
+        "comment": " inbox message reply outline"
+    },
+    "msgInReplyBarSelColor": {
+        "value": "#ffffff",
+        "comment": " inbox selected message reply outline"
+    },
+    "msgOutReplyBarColor": {
+        "value": "#32ceb9",
+        "comment": " outbox message reply outline"
+    },
+    "msgOutReplyBarSelColor": {
+        "value": "#ffffff",
+        "comment": " outbox selected message reply outline"
+    },
+    "msgImgReplyBarColor": {
+        "value": {
+            "equals": "msgServiceFg"
+        },
+        "comment": " sticker message reply outline"
+    },
+    "msgInMonoFg": {
+        "value": "#5aaba0",
+        "comment": " inbox message monospace text (like a message sent with `test` text)"
+    },
+    "msgOutMonoFg": {
+        "value": "#c2f2ec",
+        "comment": " outbox message monospace text"
+    },
+    "msgInMonoFgSelected": {
+        "value": "#a7fff4",
+        "comment": " inbox message monospace text in a selected text or message"
+    },
+    "msgOutMonoFgSelected": {
+        "value": "#c9fff8",
+        "comment": " outbox message monospace text in a selected text or message"
+    },
+    "msgDateImgFg": {
+        "value": {
+            "equals": "msgServiceFg"
+        },
+        "comment": " media message time text (like time text in a sent photo)"
+    },
+    "msgDateImgBg": {
+        "value": "#00000054",
+        "comment": " media message time bubble background (like time bubble in a sent photo) or file with thumbnail download icon circle background"
+    },
+    "msgDateImgBgOver": {
+        "value": "#00000074",
+        "comment": " media message download icon circle background with mouse over (like file with thumbnail download icon)"
+    },
+    "msgDateImgBgSelected": {
+        "value": "#1c706587",
+        "comment": " selected media message time bubble background"
+    },
+    "msgFileThumbLinkInFg": {
+        "value": {
+            "equals": "lightButtonFg"
+        },
+        "comment": " inbox media file message with thumbnail download / open with button text"
+    },
+    "msgFileThumbLinkInFgSelected": {
+        "value": {
+            "equals": "lightButtonFgOver"
+        },
+        "comment": " inbox selected media file message with thumbnail download / open with button text"
+    },
+    "msgFileThumbLinkOutFg": {
+        "value": "#60e5cb",
+        "comment": " outbox media file message with thumbnail download / open with button text"
+    },
+    "msgFileThumbLinkOutFgSelected": {
+        "value": "#ffffff",
+        "comment": " outbox selected media file message with thumbnail download / open with button text"
+    },
+    "msgFileInBg": {
+        "value": "#50d4c3",
+        "comment": " inbox audio file download circle background"
+    },
+    "msgFileInBgOver": {
+        "value": "#48cfbd",
+        "comment": " inbox audio file download circle background with mouse over"
+    },
+    "msgFileInBgSelected": {
+        "value": "#ffffff",
+        "comment": " inbox selected audio file download circle background"
+    },
+    "msgFileOutBg": {
+        "value": "#11bfab",
+        "comment": " outbox audio file download circle background"
+    },
+    "msgFileOutBgOver": {
+        "value": "#ffffff",
+        "comment": " outbox audio file download circle background with mouse over"
+    },
+    "msgFileOutBgSelected": {
+        "value": "#ffffff",
+        "comment": " outbox selected audio file download circle background"
+    },
+    "msgFile1Bg": {
+        "value": "#3fbbab",
+        "comment": " blue shared links / files without image square thumbnail"
+    },
+    "msgFile1BgDark": {
+        "value": "#269f8f",
+        "comment": " blue shared files without image download circle background"
+    },
+    "msgFile1BgOver": {
+        "value": "#52c4b5",
+        "comment": " blue shared files without image download circle background with mouse over"
+    },
+    "msgFile1BgSelected": {
+        "value": "#ffffff",
+        "comment": " blue shared files without image download circle background if file is selected"
+    },
+    "msgFile2Bg": {
+        "value": "#8ef5e8",
+        "comment": " green shared links / shared files without image square thumbnail"
+    },
+    "msgFile2BgDark": {
+        "value": "#7ef7e7",
+        "comment": " green shared files without image download circle background"
+    },
+    "msgFile2BgOver": {
+        "value": "#8df7e9",
+        "comment": " green shared files without image download circle background with mouse over"
+    },
+    "msgFile2BgSelected": {
+        "value": "#ffffff",
+        "comment": " green shared files without image download circle background if file is selected"
+    },
+    "msgFile3Bg": {
+        "value": "#e47272",
+        "comment": " red shared links / shared files without image square thumbnail"
+    },
+    "msgFile3BgDark": {
+        "value": "#cd5b5e",
+        "comment": " red shared files without image download circle background"
+    },
+    "msgFile3BgOver": {
+        "value": "#c35154",
+        "comment": " red shared files without image download circle background with mouse over"
+    },
+    "msgFile3BgSelected": {
+        "value": "#9f6a82",
+        "comment": " red shared files without image download circle background if file is selected"
+    },
+    "msgFile4Bg": {
+        "value": "#efc274",
+        "comment": " yellow shared links / shared files without image square thumbnail"
+    },
+    "msgFile4BgDark": {
+        "value": "#e6a561",
+        "comment": " yellow shared files without image download circle background"
+    },
+    "msgFile4BgOver": {
+        "value": "#dc9c5a",
+        "comment": " yellow shared files without image download circle background with mouse over"
+    },
+    "msgFile4BgSelected": {
+        "value": "#b19d84",
+        "comment": " yellow shared files without image download circle background if file is selected"
+    },
+    "historyFileInIconFg": {
+        "value": "#33393f",
+        "comment": " inbox file without thumbnail (like audio file) download arrow icon"
+    },
+    "historyFileInIconFgSelected": {
+        "value": "#009687",
+        "comment": " inbox selected file without thumbnail (like audio file) download arrow icon"
+    },
+    "historyFileInRadialFg": {
+        "value": "#33393f",
+        "comment": " inbox file without thumbnail (like audio file) radial download animation line"
+    },
+    "historyFileInRadialFgSelected": {
+        "value": {
+            "equals": "historyFileInIconFgSelected"
+        },
+        "comment": " inbox selected file without thumbnail (like audio file) radial download animation line"
+    },
+    "historyFileOutIconFg": {
+        "value": "#33393f",
+        "comment": " outbox file without thumbnail (like audio file) download arrow icon"
+    },
+    "historyFileOutIconFgSelected": {
+        "value": "#009687",
+        "comment": " outbox selected file without thumbnail (like audio file) download arrow icon"
+    },
+    "historyFileOutRadialFg": {
+        "value": {
+            "equals": "historyFileOutIconFg"
+        },
+        "comment": " outbox file without thumbnail (like audio file) radial download animation line"
+    },
+    "historyFileOutRadialFgSelected": {
+        "value": "#009687",
+        "comment": " outbox selected file without thumbnail (like audio file) radial download animation line"
+    },
+    "historyFileThumbIconFg": {
+        "value": "#efefef",
+        "comment": " file with thumbnail (or photo / video) download arrow icon"
+    },
+    "historyFileThumbIconFgSelected": {
+        "value": "#ffffff",
+        "comment": " selected file with thumbnail (or photo / video) download arrow icon"
+    },
+    "historyFileThumbRadialFg": {
+        "value": {
+            "equals": "historyFileThumbIconFg"
+        },
+        "comment": " file with thumbnail (or photo / video) radial download animation line"
+    },
+    "historyFileThumbRadialFgSelected": {
+        "value": "#ffffff",
+        "comment": " selected file with thumbnail (or photo / video) radial download animation line"
+    },
+    "historyVideoMessageProgressFg": {
+        "value": {
+            "equals": "historyFileThumbIconFg"
+        },
+        "comment": " radial playback progress in round video messages"
+    },
+    "msgWaveformInActive": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " inbox voice message active waveform lines (like played part of currently playing voice message)"
+    },
+    "msgWaveformInActiveSelected": {
+        "value": "#ffffff",
+        "comment": " inbox selected voice message active waveform lines (like played part of currently playing voice message)"
+    },
+    "msgWaveformInInactive": {
+        "value": "#5d6b76",
+        "comment": " inbox voice message inactive waveform lines (like upcoming part of currently playing voice message)"
+    },
+    "msgWaveformInInactiveSelected": {
+        "value": "#41d1c0",
+        "comment": " inbox selected voice message inactive waveform lines (like upcoming part of currently playing voice message)"
+    },
+    "msgWaveformOutActive": {
+        "value": "#11bfab",
+        "comment": " outbox voice message active waveform lines (like played part of currently playing voice message)"
+    },
+    "msgWaveformOutActiveSelected": {
+        "value": "#ffffff",
+        "comment": " outbox selected voice message active waveform lines (like played part of currently playing voice message)"
+    },
+    "msgWaveformOutInactive": {
+        "value": "#596874",
+        "comment": " outbox voice message inactive waveform lines (like upcoming part of currently playing voice message)"
+    },
+    "msgWaveformOutInactiveSelected": {
+        "value": "#41d1c0",
+        "comment": " outbox selected voice message inactive waveform lines (like upcoming part of currently playing voice message)"
+    },
+    "msgBotKbOverBgAdd": {
+        "value": "#ffffff14",
+        "comment": " this is painted over a bot inline keyboard button (which has msgServiceBg background) when mouse is over that button"
+    },
+    "msgBotKbIconFg": {
+        "value": {
+            "equals": "msgServiceFg"
+        },
+        "comment": " bot inline keyboard button icon in the top-right corner (like in @vote bot when a poll is ready to be shared)"
+    },
+    "msgBotKbRippleBg": {
+        "value": "#9e9d9d10",
+        "comment": " bot inline keyboard button ripple effect"
+    },
+    "mediaInFg": {
+        "value": {
+            "equals": "msgInDateFg"
+        },
+        "comment": " inbox media message status text (like in file that is being downloaded)"
+    },
+    "mediaInFgSelected": {
+        "value": {
+            "equals": "msgInDateFgSelected"
+        },
+        "comment": " inbox selected media message status text (like in file that is being downloaded)"
+    },
+    "mediaOutFg": {
+        "value": {
+            "equals": "msgOutDateFg"
+        },
+        "comment": " outbox media message status text (like in file that is being downloaded)"
+    },
+    "mediaOutFgSelected": {
+        "value": {
+            "equals": "msgOutDateFgSelected"
+        },
+        "comment": " outbox selected media message status text (like in file that is being downloaded)"
+    },
+    "youtubePlayIconBg": {
+        "value": "#e83131c8",
+        "comment": " youtube play icon background (when a link to a youtube video with a webpage preview is sent)"
+    },
+    "youtubePlayIconFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " youtube play icon arrow (when a link to a youtube video with a webpage preview is sent)"
+    },
+    "videoPlayIconBg": {
+        "value": "#0000007f",
+        "comment": " other video play icon background (like when a link to a vimeo video with a webpage preview is sent)"
+    },
+    "videoPlayIconFg": {
+        "value": "#ffffff",
+        "comment": " other video play icon arrow (like when a link to a vimeo video with a webpage preview is sent)"
+    },
+    "toastBg": {
+        "value": "#000000b2",
+        "comment": " toast notification background (like when you click on your t.me link when editing your username)"
+    },
+    "toastFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " toast notification text (like when you click on your t.me link when editing your username)"
+    },
+    "reportSpamBg": {
+        "value": "#363c42",
+        "comment": " report spam panel background (like a non contact user writes your for the first time)"
+    },
+    "reportSpamFg": {
+        "value": {
+            "equals": "windowFg"
+        },
+        "comment": " report spam panel text (when you send a report from that panel)"
+    },
+    "historyToDownBg": {
+        "value": "#434d57",
+        "comment": " arrow button background (to scroll to the end of the viewed chat)"
+    },
+    "historyToDownBgOver": {
+        "value": "#515b65",
+        "comment": " arrow button background with mouse over"
+    },
+    "historyToDownBgRipple": {
+        "value": "#636d77",
+        "comment": " arrow button ripple effect"
+    },
+    "historyToDownFg": {
+        "value": "#adb4ba",
+        "comment": " arrow button icon"
+    },
+    "historyToDownFgOver": {
+        "value": {
+            "equals": "menuIconFgOver"
+        },
+        "comment": " arrow button icon with mouse over"
+    },
+    "historyToDownShadow": {
+        "value": "#00000040",
+        "comment": " arrow button shadow"
+    },
+    "historyComposeAreaBg": {
+        "value": "#282e33",
+        "comment": " history compose area background (message write area / reply information / forwarding information)"
+    },
+    "historyComposeAreaFg": {
+        "value": {
+            "equals": "historyTextInFg"
+        },
+        "comment": " history compose area text"
+    },
+    "historyComposeAreaFgService": {
+        "value": {
+            "equals": "msgInDateFg"
+        },
+        "comment": " history compose area text when replying to a media message"
+    },
+    "historyComposeIconFg": {
+        "value": {
+            "equals": "menuIconFg"
+        },
+        "comment": " history compose area icon (like emoji, attach, bot command..)"
+    },
+    "historyComposeIconFgOver": {
+        "value": {
+            "equals": "menuIconFgOver"
+        },
+        "comment": " history compose area icon with mouse over"
+    },
+    "historySendIconFg": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " send message icon"
+    },
+    "historySendIconFgOver": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " send message icon with mouse over"
+    },
+    "historyPinnedBg": {
+        "value": {
+            "equals": "historyComposeAreaBg"
+        },
+        "comment": " pinned message area background"
+    },
+    "historyReplyBg": {
+        "value": {
+            "equals": "historyComposeAreaBg"
+        },
+        "comment": " reply / forward / edit message area background"
+    },
+    "historyReplyIconFg": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " reply / forward / edit message left icon"
+    },
+    "historyReplyCancelFg": {
+        "value": {
+            "equals": "cancelIconFg"
+        },
+        "comment": " reply / forward / edit message cancel button"
+    },
+    "historyReplyCancelFgOver": {
+        "value": {
+            "equals": "cancelIconFgOver"
+        },
+        "comment": " reply / forward / edit message cancel button with mouse over"
+    },
+    "historyComposeButtonBg": {
+        "value": {
+            "equals": "historyComposeAreaBg"
+        },
+        "comment": " unblock / join channel / mute channel button background"
+    },
+    "historyComposeButtonBgOver": {
+        "value": "#31363c",
+        "comment": " unblock / join channel / mute channel button background with mouse over"
+    },
+    "historyComposeButtonBgRipple": {
+        "value": "#272b2f",
+        "comment": " unblock / join channel / mute channel button ripple effect"
+    },
+    "overviewCheckBg": {
+        "value": "#00000040",
+        "comment": " shared files / links checkbox background for not selected rows when some rows are selected"
+    },
+    "overviewCheckFg": {
+        "value": "#ffffff",
+        "comment": " shared files / links checkbox icon for not selected rows when some rows are selected"
+    },
+    "overviewCheckFgActive": {
+        "value": "#ffffff",
+        "comment": " shared files / links checkbox icon for selected rows"
+    },
+    "overviewPhotoSelectOverlay": {
+        "value": "#40ace333",
+        "comment": " shared photos / videos / links fill for selected rows"
+    },
+    "profileStatusFgOver": {
+        "value": "#9c9c9c",
+        "comment": " group members list in group profile user last seen text with mouse over"
+    },
+    "profileVerifiedCheckBg": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " profile verified check icon background"
+    },
+    "profileVerifiedCheckFg": {
+        "value": "#ffffff",
+        "comment": " profile verified check icon tick"
+    },
+    "profileAdminStartFg": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " group members list admin star icon"
+    },
+    "notificationsBoxMonitorFg": {
+        "value": {
+            "equals": "windowFg"
+        },
+        "comment": " custom notifications settings box monitor color"
+    },
+    "notificationsBoxScreenBg": {
+        "value": {
+            "equals": "dialogsBgActive"
+        },
+        "comment": " #6389a8; // custom notifications settings box monitor screen background"
+    },
+    "notificationSampleUserpicFg": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " custom notifications settings box small sample userpic placeholder"
+    },
+    "notificationSampleCloseFg": {
+        "value": "#d7d7d7",
+        "comment": " custom notifications settings box small sample close button placeholder"
+    },
+    "notificationSampleTextFg": {
+        "value": "#d7d7d7",
+        "comment": " custom notifications settings box small sample text placeholder"
+    },
+    "notificationSampleNameFg": {
+        "value": "#939393",
+        "comment": " custom notifications settings box small sample name placeholder"
+    },
+    "changePhoneSimcardFrom": {
+        "value": {
+            "equals": "notificationSampleTextFg"
+        },
+        "comment": " change phone number box left simcard icon"
+    },
+    "changePhoneSimcardTo": {
+        "value": {
+            "equals": "notificationSampleNameFg"
+        },
+        "comment": " change phone number box right simcard and plane icons"
+    },
+    "mainMenuBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " main menu background"
+    },
+    "mainMenuCoverBg": {
+        "value": "#009687",
+        "comment": " main menu top cover background"
+    },
+    "mainMenuCoverFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " main menu top cover text"
+    },
+    "mainMenuCloudFg": {
+        "value": {
+            "equals": "activeButtonFg"
+        },
+        "comment": " "
+    },
+    "mainMenuCloudBg": {
+        "value": "#0e837f",
+        "comment": " "
+    },
+    "mediaPlayerBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " audio file player background"
+    },
+    "mediaPlayerActiveFg": {
+        "value": {
+            "equals": "windowBgActive"
+        },
+        "comment": " audio file player playback progress already played part"
+    },
+    "mediaPlayerInactiveFg": {
+        "value": {
+            "equals": "sliderBgInactive"
+        },
+        "comment": " audio file player playback progress upcoming (not played yet) part with mouse over"
+    },
+    "mediaPlayerDisabledFg": {
+        "value": "#9dd1ef",
+        "comment": " audio file player loading progress (when you're playing an audio file and switch to the previous one which is not loaded yet)"
+    },
+    "mediaviewFileBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " file rectangle background (when you view a png file in Media Viewer and go to a previous, not loaded yet, file)"
+    },
+    "mediaviewFileNameFg": {
+        "value": {
+            "equals": "windowFg"
+        },
+        "comment": " file name in file rectangle"
+    },
+    "mediaviewFileSizeFg": {
+        "value": {
+            "equals": "windowSubTextFg"
+        },
+        "comment": " file size text in file rectangle"
+    },
+    "mediaviewFileRedCornerFg": {
+        "value": "#d55959",
+        "comment": " red file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .pdf)"
+    },
+    "mediaviewFileYellowCornerFg": {
+        "value": "#e8a659",
+        "comment": " yellow file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .zip)"
+    },
+    "mediaviewFileGreenCornerFg": {
+        "value": "#49a957",
+        "comment": " green file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .exe)"
+    },
+    "mediaviewFileBlueCornerFg": {
+        "value": "#599dcf",
+        "comment": " blue file thumbnail placeholder corner in file rectangle (for a file without thumbnail, like .dmg)"
+    },
+    "mediaviewFileExtFg": {
+        "value": {
+            "equals": "activeButtonFg"
+        },
+        "comment": " file extension text in file thumbnail placeholder in file rectangle"
+    },
+    "mediaviewMenuBg": {
+        "value": "#383838",
+        "comment": " context menu in Media Viewer background"
+    },
+    "mediaviewMenuBgOver": {
+        "value": "#505050",
+        "comment": " context menu item background with mouse over"
+    },
+    "mediaviewMenuBgRipple": {
+        "value": "#676767",
+        "comment": " context menu item ripple effect"
+    },
+    "mediaviewMenuFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " context menu item text"
+    },
+    "mediaviewBg": {
+        "value": "#222222eb",
+        "comment": " Media Viewer background"
+    },
+    "mediaviewVideoBg": {
+        "value": {
+            "equals": "imageBg"
+        },
+        "comment": " Media Viewer background when viewing a video in full screen"
+    },
+    "mediaviewControlBg": {
+        "value": "#0000003c",
+        "comment": " controls background (like next photo / previous photo)"
+    },
+    "mediaviewControlFg": {
+        "value": {
+            "equals": "windowFgActive"
+        },
+        "comment": " controls icon (like next photo / previous photo)"
+    },
+    "mediaviewCaptionBg": {
+        "value": "#11111180",
+        "comment": " caption text background (when viewing photo with caption)"
+    },
+    "mediaviewCaptionFg": {
+        "value": {
+            "equals": "mediaviewControlFg"
+        },
+        "comment": " caption text"
+    },
+    "mediaviewTextLinkFg": {
+        "value": "#66f7e4",
+        "comment": " caption text link"
+    },
+    "mediaviewSaveMsgBg": {
+        "value": {
+            "equals": "toastBg"
+        },
+        "comment": " save to file toast message background in Media Viewer"
+    },
+    "mediaviewSaveMsgFg": {
+        "value": {
+            "equals": "toastFg"
+        },
+        "comment": " save to file toast message text"
+    },
+    "mediaviewPlaybackActive": {
+        "value": "#c7c7c7",
+        "comment": " video playback progress already played part"
+    },
+    "mediaviewPlaybackInactive": {
+        "value": "#252525",
+        "comment": " video playback progress upcoming (not played yet) part"
+    },
+    "mediaviewPlaybackActiveOver": {
+        "value": "#ffffff",
+        "comment": " video playback progress already played part with mouse over"
+    },
+    "mediaviewPlaybackInactiveOver": {
+        "value": "#474747",
+        "comment": " video playback progress upcoming (not played yet) part with mouse over"
+    },
+    "mediaviewPlaybackProgressFg": {
+        "value": "#ffffffc7",
+        "comment": " video playback progress text"
+    },
+    "mediaviewPlaybackIconFg": {
+        "value": {
+            "equals": "mediaviewPlaybackActive"
+        },
+        "comment": " video playback controls icon"
+    },
+    "mediaviewPlaybackIconFgOver": {
+        "value": {
+            "equals": "mediaviewPlaybackActiveOver"
+        },
+        "comment": " video playback controls icon with mouse over"
+    },
+    "mediaviewTransparentBg": {
+        "value": "#ffffff",
+        "comment": " transparent filling part (when viewing a transparent .png file in Media Viewer)"
+    },
+    "mediaviewTransparentFg": {
+        "value": "#cccccc",
+        "comment": " another transparent filling part"
+    },
+    "notificationBg": {
+        "value": {
+            "equals": "windowBg"
+        },
+        "comment": " custom notification window background"
+    },
+    "callBg": {
+        "value": "#26282cf2",
+        "comment": " phone call popup background"
+    },
+    "callNameFg": {
+        "value": "#ffffff",
+        "comment": " phone call popup name text"
+    },
+    "callFingerprintBg": {
+        "value": "#00000066",
+        "comment": " phone call popup emoji fingerprint background"
+    },
+    "callStatusFg": {
+        "value": "#aaabac",
+        "comment": " phone call popup status text"
+    },
+    "callIconFg": {
+        "value": "#ffffff",
+        "comment": " phone call popup answer, hangup and mute mic icon"
+    },
+    "callAnswerBg": {
+        "value": "#5ad1c1",
+        "comment": " phone call popup answer button background"
+    },
+    "callAnswerRipple": {
+        "value": "#42c2b1",
+        "comment": " phone call popup answer button ripple effect"
+    },
+    "callAnswerBgOuter": {
+        "value": "#3febc926",
+        "comment": " phone call popup answer button outer ripple effect"
+    },
+    "callHangupBg": {
+        "value": "#d75a5a",
+        "comment": " phone call popup hangup button background"
+    },
+    "callHangupRipple": {
+        "value": "#c04646",
+        "comment": " phone call popup hangup button ripple effect"
+    },
+    "callCancelBg": {
+        "value": "#ffffff",
+        "comment": " phone call popup line busy cancel button background"
+    },
+    "callCancelFg": {
+        "value": "#777777",
+        "comment": " phone call popup line busy cancel button icon"
+    },
+    "callCancelRipple": {
+        "value": "#f1f1f1",
+        "comment": " phone call popup line busy cancel button ripple effect"
+    },
+    "callMuteRipple": {
+        "value": "#ffffff12",
+        "comment": " phone call popup mute mic ripple effect"
+    },
+    "callBarBg": {
+        "value": {
+            "equals": "dialogsBgActive"
+        },
+        "comment": " active phone call bar background"
+    },
+    "callBarMuteRipple": {
+        "value": {
+            "equals": "dialogsRippleBgActive"
+        },
+        "comment": " active phone call bar mute and hangup button ripple effect"
+    },
+    "callBarBgMuted": {
+        "value": "#8f8f8f",
+        "comment": " phone call bar with muted mic background"
+    },
+    "callBarUnmuteRipple": {
+        "value": "#7f7f7f",
+        "comment": " phone call bar with muted mic mute and hangup button ripple effect"
+    },
+    "callBarFg": {
+        "value": {
+            "equals": "dialogsNameFgActive"
+        },
+        "comment": " phone call bar text and icons"
+    },
+    "importantTooltipBg": {
+        "value": {
+            "equals": "toastBg"
+        },
+        "comment": " "
+    },
+    "importantTooltipFg": {
+        "value": {
+            "equals": "toastFg"
+        },
+        "comment": " "
+    },
+    "importantTooltipFgLink": {
+        "value": "#65fce8",
+        "comment": " "
+    },
+    "filterInputActiveBg": {
+        "value": "#3d444b",
+        "comment": " default rounded input field active background (like in chats list search field when field is focused)"
+    },
+    "botKbBg": {
+        "value": "#3d444b",
+        "comment": " bot keyboard button background"
+    },
+    "botKbDownBg": {
+        "value": "#494f55",
+        "comment": " bot keyboard button ripple effect"
+    },
+    "emojiIconFg": {
+        "value": "#6c7278",
+        "comment": " emoji category icon"
+    },
+    "emojiIconFgActive": {
+        "value": "#36cdb9",
+        "comment": " active emoji category icon"
+    },
+    "overviewCheckBorder": {
+        "value": "#e4eaef",
+        "comment": " shared media round checkbox border"
+    },
+    "sideBarBg": {
+        "value": "#18191d",
+        "comment": " filters side bar background"
+    },
+    "sideBarBgActive": {
+        "value": "#282e33",
+        "comment": " filters side bar active background"
+    },
+    "sideBarBgRipple": {
+        "value": "#22272b",
+        "comment": " filters side bar ripple effect"
+    },
+    "sideBarTextFg": {
+        "value": "#8d939e",
+        "comment": " filters side bar text"
+    },
+    "sideBarTextFgActive": {
+        "value": "#24c9b9",
+        "comment": " filters side bar active item text"
+    },
+    "sideBarIconFg": {
+        "value": "#8d939e",
+        "comment": " filters side bar icon"
+    },
+    "sideBarIconFgActive": {
+        "value": "#25dbca",
+        "comment": " filters side bar active item icon"
+    },
+    "sideBarBadgeBg": {
+        "value": "#25dbca",
+        "comment": " filters side bar badge background"
+    },
+    "sideBarBadgeBgMuted": {
+        "value": "#8d939e",
+        "comment": " filters side bar unimportant badge background"
+    }
+}
