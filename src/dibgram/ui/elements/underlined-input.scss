@@ -1,24 +1,28 @@
-.underlined-input{
+.underlined-input {
     text-align: center;
     position: relative;
+
     .title {
         text-align: left;
         position: absolute;
         font-weight: 500;
         display: none; // Hidden by default
-        transition: color       150ms linear,
-                    font-size   150ms linear,
-                    top         150ms linear,
-                    left        150ms linear;
+        transition:
+            color       150ms linear,
+            font-size   150ms linear,
+            top         150ms linear,
+            left        150ms linear;
     }
-    .title.top{
+
+    .title.top {
         display: block;
         color: var(--theme-color-windowBgActive);
         font-size: 13px;
         top: -8px;
         left: 3px;
     }
-    .title.placeholder{
+
+    .title.placeholder {
         display: block;
         color: var(--theme-color-placeholderFg);
         font-size: 14px;
@@ -26,6 +30,7 @@
         left: 4px;
         pointer-events: none;
     }
+
     input {
         text-align: initial;
         border: none;
@@ -37,13 +42,7 @@
         color: var(--theme-color-windowFg);
         font-weight: 300;
     }
-    input:focus+.underline {
-        animation: {
-            name: underlined-input-focus;
-            duration: 200ms;
-            fill-mode: forwards;
-        };
-    }
+
     .underline {
         position: absolute;
         bottom: 0;
@@ -56,20 +55,32 @@
         text-align: center;
         opacity: 0;
     }
+
+    input:focus + .underline {
+        animation: {
+            name: underlined-input-focus;
+            duration: 200ms;
+            fill-mode: forwards;
+        };
+    }
 }
+
 .underlined-input.invalid {
     .underline.underline { // Specificity trick
         background-color: var(--theme-color-activeLineFgError) !important;
         animation-name: none !important;
         opacity: 1 !important;
         width: 100% !important;
-        left: 0px !important;
-        right: 0px !important;
-    };
+        left: 0 !important;
+        right: 0 !important;
+    }
+
     .title {
         color: var(--theme-color-activeLineFgError) !important;
-    };
+    }
 }
+
+//stylelint-disable-next-line no-descending-specificity
 .underlined-input.inactive .underline {
     animation: {
         name: underlined-input-blur !important;
@@ -77,30 +88,35 @@
         fill-mode: forwards !important;
     };
 }
+
+//stylelint-disable-next-line no-descending-specificity
 .underlined-input.autoFocus .underline {
     animation: none;
 }
 @keyframes underlined-input-focus {
     from {
         opacity: 1;
-        width: 0px;
+        width: 0;
         left: var(--mouse-left);
         right: calc(100% - var(--mouse-left));
     }
+
     to {
         opacity: 1;
         width: 100%;
-        left: 0px;
-        right: 0px;
+        left: 0;
+        right: 0;
     }
 }
+
 @keyframes underlined-input-blur {
     from {
         opacity: 1;
-        width: 100px !important;
+        width: 100%;
     }
+
     to {
         opacity: 0;
-        width: 100% !important;
+        width: 100%;
     }
 }

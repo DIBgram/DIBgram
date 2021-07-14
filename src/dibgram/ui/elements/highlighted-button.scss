@@ -11,7 +11,7 @@
 
     text-transform: uppercase;
     font: {
-        family: OpenSans;
+        family: var(--font-family);
         size: 16px;
         weight: 500;
     }
@@ -25,11 +25,15 @@
     // These are to make sure the ripple effect works correctly
     position: relative;
     overflow: hidden;
+
     .content {
         z-index: 1; // Bring to front
 
         // Use absolute position so z-index works
-        top: 0; left: 0; right: 0; bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         position: absolute;
 
         // And center content
