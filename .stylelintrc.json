@@ -5,5 +5,8 @@
         "declaration-empty-line-before": null,
         "at-rule-empty-line-before": null,
         "at-rule-no-unknown": null
-    }
+    },
+    "ignoreFiles": [
+      "**/*.js"
+    ]
 }
