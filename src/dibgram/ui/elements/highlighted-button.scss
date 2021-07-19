@@ -42,3 +42,8 @@
         justify-content: center;
     }
 }
+
+#app[data-theme-is-dark=true] .big-highlighted-button {
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}

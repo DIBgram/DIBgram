@@ -118,3 +118,7 @@
         }
     }
 }
+
+#app[data-theme-is-dark=true] #auth h2 {
+    font-weight: 400;
+}

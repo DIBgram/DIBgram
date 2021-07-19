@@ -1,13 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import CurrentThemeCSS from './dibgram/ui/themes/theme';
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <React.StrictMode>
         <App />
-        <CurrentThemeCSS/>
     </React.StrictMode>,
     document.getElementById('root')
 );

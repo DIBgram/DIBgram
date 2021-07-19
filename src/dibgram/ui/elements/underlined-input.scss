@@ -40,7 +40,7 @@
         box-sizing: border-box;
         width: 100%;
         color: var(--theme-color-windowFg);
-        font-weight: 300;
+        font-weight: 400;
     }
 
     .underline {
@@ -78,6 +78,10 @@
     .title {
         color: var(--theme-color-activeLineFgError) !important;
     }
+}
+
+#app[data-theme-is-dark=true] .underlined-input input {
+    font-weight: 300;
 }
 
 //stylelint-disable-next-line no-descending-specificity

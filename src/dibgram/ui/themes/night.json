@@ -1,4 +1,8 @@
 {
+    "isDark": {
+        "value": "true",
+        "comment": "a boolean value that indicates whether the theme is dark or light."
+    },
     "windowBg": {
         "value": "#282e33",
         "comment": " white: fallback for background"

@@ -4,6 +4,7 @@ import {MainApp, setInitialAuthState} from './dibgram/auth/ui';
 import TdLib from './dibgram/TdWeb/tdlib';
 import Dialogs, {dialogStore} from './dibgram/ui/dialog/dialogs';
 import './dibgram/ui/main.scss';
+import CurrentThemeCSS, {isThemeDark} from './dibgram/ui/themes/theme';
 
 TdLib.initializeTdLib().then(function (res) {
     setInitialAuthState(res);
@@ -14,11 +15,12 @@ TdLib.initializeTdLib().then(function (res) {
  */
 function App() {
     return (
-        <div data-theme="classic" id="app">
+        <div data-theme-is-dark={isThemeDark? 'true': 'false'} id="app">
             <Provider store={dialogStore}>
                 <Dialogs/>
             </Provider>
             <MainApp/>
+            <CurrentThemeCSS/>
         </div>
     );
 }
