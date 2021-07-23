@@ -10,5 +10,41 @@
         list-style: none;
         margin: 0;
         padding: 0;
+
+        li {
+            padding: 6px;
+            user-select: none;
+            text-align: center;
+            box-sizing: border-box;
+            cursor: pointer;
+            font-weight: 600;
+            line-height: 16px;
+
+            .icon svg {
+                fill: var(--theme-color-sideBarIconFg);
+                height: 36px;
+                width: 36px;
+            }
+
+            .title {
+                font-size: 11px;
+                line-height: 8px;
+                font-weight: 500;
+                margin-bottom: 4px;
+                color: var(--theme-color-sideBarTextFg);
+            }
+
+            &.active {
+                background: var(--theme-color-sideBarBgActive);
+
+                .icon svg {
+                    fill: var(--theme-color-sideBarIconFgActive);
+                }
+
+                .title {
+                    color: var(--theme-color-sideBarTextFgActive);
+                }
+            }
+        }
     }
 }
