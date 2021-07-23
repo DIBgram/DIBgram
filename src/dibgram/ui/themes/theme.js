@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from './night.json';
+import theme from './classic.json';
 import { convertThemeToCSS } from './dibgram-theme-to-css';
 
 export default function CurrentThemeCSS(){
