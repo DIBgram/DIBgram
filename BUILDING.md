@@ -5,10 +5,12 @@ This repository has two workflows to build the project:
 - **Release:** Automatically builds, releases and deploys when a new tag is pushed
   1. The project is compiled for production
   2. A new release gets posted in the GitHub repository, using contents of `latest-version-changelog.md` as release body and a zip of build results as an attachment
-  3. The build compiled project is pushed to `gh-pages` branch
-- **Production build:** A manual workflow that just builds and uploads an artifact build results. It can be run by repo admins from workflow page and the use of test dc and TdLib update and query logs can be configured.
+  3. The build compiled project is pushed to [the DIBgram GitHub Pages repository](github.com/DIBgram/dibgram.github.io)
+- **Build and deploy to beta GH pages:** Automatically builds DIBgram after each commit and deploys to https://DIBgram.github.io/beta
+  1. The project is compiled
+  2. Compilations results are pushed to [beta GH Pages repo](https://github.com/DIBgram/beta)
 
-These workflows use GitHub secrets `API_ID` and `API_HASH`, which should be obtained from my.telegram.org for forks.
+These workflows use GitHub secrets `API_ID` and `API_HASH`, which should be obtained from https://my.telegram.org for forks.
 
 ## Creating config file
 
@@ -47,7 +49,7 @@ It is needed to compile DIBgram, but is automatically created in build workflows
 
 ## Running app in test mode
 
-You can run the app in test mode which is faster and better suited for development, and automatically re-compiles and updates when source code files change.
+You can run the app in test mode which is faster and better suited for development, and supports hot reload (changes are applied while the app is running).
 
 1. Clone DIBgram repository
 
