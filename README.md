@@ -11,10 +11,10 @@ So I am developing this app so these users can have the same experience as Teleg
 
 ## Technologies, libraries and other software used in this project
 
+- **Telegram Desktop**: The basis of the design and look of DIBgram
 - **HTML, JS, CSS**: The languages of the web
 - **TdLib**: Telegram Database Library. Takes care of networking, encryption and storage
 - **React**: UI framework used in project
-- **Babel**: Compiler of the source code
 - **Sass**: CSS preprocessor
 - **ESLint**: Used to detect problems, warnings and enforce code style
 - **VSCode**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
