@@ -27,3 +27,11 @@
         }
     }
 }
+
+#app[data-theme-is-dark=true] .modal-dialog {
+    font-weight: 300;
+
+    & > div.options {
+        font-weight: 400;
+    }
+}
