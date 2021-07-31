@@ -15,7 +15,7 @@ TdLib.initializeTdLib().then(function (res) {
  */
 function App() {
     return (
-        <div data-theme-is-dark={isThemeDark? 'true': 'false'} id="app">
+        <div data-theme-is-dark={isThemeDark} id="app">
             <Provider store={dialogStore}>
                 <Dialogs/>
             </Provider>

@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from './classic.json';
+import theme from './night.json';
 import { convertThemeToCSS } from './dibgram-theme-to-css';
 
 export default function CurrentThemeCSS(){
@@ -10,5 +10,5 @@ export default function CurrentThemeCSS(){
     );
 }
 
-const isThemeDark=theme.isDark;
+const isThemeDark=theme.isDark.value;
 export {isThemeDark};
