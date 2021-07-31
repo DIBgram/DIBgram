@@ -14,4 +14,28 @@ button.small-button {
         background-color: var(--theme-color-lightButtonBgOver);
         color: var(--theme-color-lightButtonFgOver);
     }
+
+    // These are to make sure the ripple effect works correctly
+    position: relative;
+    overflow: hidden;
+
+    .content {
+        z-index: 1; // Bring to front
+
+        // Use absolute position so z-index works
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+
+        // And center content
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .invisibleText {
+        visibility: hidden;
+    }
 }
