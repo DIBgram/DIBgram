@@ -7,7 +7,9 @@ import RippleEffect from './ripple-effect';
  */
 export default class BigHighlightedButton extends React.Component{
     static propTypes= {
+        /** Fires when the button is clicked */
         onClick: PropTypes.func,
+        /** The button's content */
         children: PropTypes.node.isRequired
     };
     state= {
