@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RippleEffect from './ripple-effect';
+import RippleEffect, {handleMyMouseEvents} from './ripple-effect';
 
 /**
  * Renders a small button with accent color
@@ -17,40 +17,9 @@ export default class SmallButton extends React.Component {
             state: 'off'
         }
     }
-    /**@param e {React.SyntheticEvent} */
-    mouseDown= (e) => {
-        this.setState({
-            ripple: {
-                state: 'pressed',
-                X: e.nativeEvent.offsetX,
-                Y: e.nativeEvent.offsetY,
-                width: e.target.clientWidth,
-                height: e.target.clientHeight
-            }
-        });
-    }
-    mouseUp= (e) => {
-        this.setState({
-            ripple: { 
-                state: 'released',
-                X: e.nativeEvent.offsetX,
-                Y: e.nativeEvent.offsetY,
-                width: e.target.clientWidth,
-                height: e.target.clientHeight 
-            }
-        });
-        setTimeout(() => {
-            if(this.state.ripple.state=='released'){
-                this.setState({
-                    ripple: { state: 'off' }
-                });
-            }
-        }, 750);
-    }
-    mouseLeave= () => {
-        if(this.state.ripple.state=='pressed') {
-            this.mouseUp();
-        }
+    constructor() {
+        super();
+        [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this);
     }
     render() {
         return (

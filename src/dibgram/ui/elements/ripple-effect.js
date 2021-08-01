@@ -20,6 +20,7 @@ export default class RippleEffect extends React.Component {
         Y: PropTypes.number,
         width: PropTypes.number,
         height: PropTypes.number,
+        /** The color to show in the ripple (same as `:active` if you used CSS) */
         color: PropTypes.string.isRequired,
     }
 
@@ -54,4 +55,45 @@ export default class RippleEffect extends React.Component {
                 }}/>
         );
     }
+}
+
+// Assign your `mouseDown`, `mouseUp` and `mouseLeave` to the returned functions.
+export function handleMyMouseEvents(This) {
+    return [
+        /**@param e {React.SyntheticEvent} */
+        (function(e) {
+            this.setState({
+                ripple: {
+                    state: 'pressed',
+                    X: e.nativeEvent.offsetX,
+                    Y: e.nativeEvent.offsetY,
+                    width: e.target.clientWidth,
+                    height: e.target.clientHeight
+                }
+            });
+        }).bind(This),
+        (function(e) {
+            this.setState({
+                ripple: { 
+                    state: 'released',
+                    X: e.nativeEvent.offsetX,
+                    Y: e.nativeEvent.offsetY,
+                    width: e.target.clientWidth,
+                    height: e.target.clientHeight 
+                }
+            });
+            setTimeout(() => {
+                if(this.state.ripple.state=='released'){
+                    this.setState({
+                        ripple: { state: 'off' }
+                    });
+                }
+            }, 750);
+        }).bind(This),
+        (function(e) {
+            if(this.state.ripple.state=='pressed') {
+                this.mouseUp(e);
+            }
+        }).bind(This)
+    ];
 }
