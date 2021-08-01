@@ -62,6 +62,25 @@ export function handleMyMouseEvents(This) {
     return [
         /**@param e {React.SyntheticEvent} */
         (function(e) {
+            // Reset the ripple effect if it's not off
+            if(this.state.ripple.state!='off'){
+                console.log('turning off');
+                this.setState({
+                    ripple: { state: 'off' }
+                });
+                setTimeout(() => {
+                    this.setState({
+                        ripple: {
+                            state: 'pressed',
+                            X: e.nativeEvent.offsetX,
+                            Y: e.nativeEvent.offsetY,
+                            width: e.target.clientWidth,
+                            height: e.target.clientHeight
+                        }
+                    });
+                }, 10);
+                return;
+            }
             this.setState({
                 ripple: {
                     state: 'pressed',
@@ -72,6 +91,7 @@ export function handleMyMouseEvents(This) {
                 }
             });
         }).bind(This),
+
         (function(e) {
             this.setState({
                 ripple: { 
@@ -82,14 +102,8 @@ export function handleMyMouseEvents(This) {
                     height: e.target.clientHeight 
                 }
             });
-            setTimeout(() => {
-                if(this.state.ripple.state=='released'){
-                    this.setState({
-                        ripple: { state: 'off' }
-                    });
-                }
-            }, 750);
         }).bind(This),
+
         (function(e) {
             if(this.state.ripple.state=='pressed') {
                 this.mouseUp(e);
