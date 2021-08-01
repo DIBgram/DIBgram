@@ -12,13 +12,25 @@
         padding: 0;
 
         li {
-            padding: 6px;
             user-select: none;
             text-align: center;
             box-sizing: border-box;
-            cursor: pointer;
             font-weight: 600;
             line-height: 16px;
+            position: relative;
+            overflow: hidden;
+
+            button {
+                background: none;
+                border: none;
+                padding: 6px;
+                width: 100%;
+                margin: 0;
+                position: relative;
+                z-index: 1;
+                cursor: pointer;
+                * { pointer-events: none; }
+            }
 
             .icon svg {
                 fill: var(--theme-color-sideBarIconFg);
