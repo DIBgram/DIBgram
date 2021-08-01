@@ -1,14 +1,13 @@
 .connectionState {
     position: absolute;
     left: 10px;
-    bottom: 0;
-    margin-bottom: 10px;
+    bottom: 10px;
     padding: 5px;
     box-shadow: 0 0.5px 3px #777;
     border-radius: 100%;
-    transition: margin-bottom 100ms linear;
+    transition: bottom 100ms linear;
 
     &.connected {
-        margin-bottom: -30px;
+        bottom: -32px;
     }
 }
