@@ -5,8 +5,10 @@
 
 .ripple {
     position: absolute;
+    opacity: 1;
 
-    &.pressed {
+    &.pressed,
+    &.released {
         animation: {
             name: ripple-press;
             fill-mode: forwards;
@@ -16,17 +18,8 @@
     }
 
     &.released {
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        animation: {
-            name: ripple-release;
-            fill-mode: forwards;
-            duration: 200ms;
-            timing-function: linear;
-        };
+        transition: opacity 200ms;
+        opacity: 0;
     }
 }
 @keyframes ripple-press {

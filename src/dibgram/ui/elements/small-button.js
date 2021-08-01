@@ -29,9 +29,15 @@ export default class SmallButton extends React.Component {
             }
         });
     }
-    mouseUp= () => {
+    mouseUp= (e) => {
         this.setState({
-            ripple: { state: 'released' }
+            ripple: { 
+                state: 'released',
+                X: e.nativeEvent.offsetX,
+                Y: e.nativeEvent.offsetY,
+                width: e.target.clientWidth,
+                height: e.target.clientHeight 
+            }
         });
         setTimeout(() => {
             if(this.state.ripple.state=='released'){
@@ -39,7 +45,7 @@ export default class SmallButton extends React.Component {
                     ripple: { state: 'off' }
                 });
             }
-        }, 1000);
+        }, 750);
     }
     mouseLeave= () => {
         if(this.state.ripple.state=='pressed') {
