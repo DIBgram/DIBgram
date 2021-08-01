@@ -6,6 +6,7 @@
 .ripple {
     position: absolute;
     opacity: 1;
+    pointer-events: none;
 
     &.pressed,
     &.released {

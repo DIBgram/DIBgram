@@ -3,17 +3,25 @@
     background: transparent;
     cursor: pointer;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    overflow: hidden;
+    position: relative;
 
-    span {
-        height: 2px;
-        width: 18px;
-        display: block;
-        background: var(--theme-color-dialogsMenuIconFg);
-        margin: 1.5px;
+    #bars {
+        position: relative;
+        z-index: 1;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            height: 2px;
+            width: 18px;
+            display: block;
+            background: var(--theme-color-dialogsMenuIconFg);
+            margin: 1.5px;
+        }
     }
 }
 
