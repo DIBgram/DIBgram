@@ -64,7 +64,6 @@ export function handleMyMouseEvents(This) {
         (function(e) {
             // Reset the ripple effect if it's not off
             if(this.state.ripple.state!='off'){
-                console.log('turning off');
                 this.setState({
                     ripple: { state: 'off' }
                 });
