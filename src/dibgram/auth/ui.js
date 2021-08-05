@@ -250,7 +250,8 @@ class AuthWindowStepCode extends React.Component {
 
         var message= (this.props.info.type['@type']=='authenticationCodeTypeSms') ?
             (<p className="description">
-                A code was sent <strong>via SMS</strong> to your phone number.
+                We&apos;ve sent an activation code to your phone. <br/>
+                Please enter it below.
             </p>) 
             :
             (<p className="description">
