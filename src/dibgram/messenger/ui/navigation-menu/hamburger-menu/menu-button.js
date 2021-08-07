@@ -3,7 +3,7 @@ import RippleEffect, {handleMyMouseEvents} from '../../../../ui/elements/ripple-
 /**
  * Renders the button which opens the hamburger menu
  */
-export default class HamburgerMenuButton extends React.Component {
+export default class HamburgerMenuButton_WithFolders extends React.Component {
     state= {
         ripple: {
             state: 'off'

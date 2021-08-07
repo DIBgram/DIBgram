@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import filters from '../../../ui/icon/chat_filters/chat-filters';
 import RippleEffect, {handleMyMouseEvents} from '../../../ui/elements/ripple-effect';
+import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
 
 /**
  * Renders a chat folder button
@@ -44,14 +45,18 @@ export {ChatFolder};
  * Renders the chat folders list
  */
 function ChatFolderList(props) {
+    if(!props.folders || props.folders.length==0) return null;
     return (
-        <ul>
-            <ChatFolder active={true} folder={{
-                title: 'All chats',
-                icon: 'all'
-            }}/>
-            {props.folders.map(folder=><ChatFolder folder={folder} active={false} key={folder.id}/>)}
-        </ul>
+        <div id="chat-folders-list">
+            <HamburgerMenuButton_WithFolders/>
+            <ul>
+                <ChatFolder active={true} folder={{
+                    title: 'All chats',
+                    icon: 'all'
+                }}/>
+                {props.folders.map(folder=><ChatFolder folder={folder} active={false} key={folder.id}/>)}
+            </ul>
+        </div>
     );
 }
 ChatFolderList.propTypes={
