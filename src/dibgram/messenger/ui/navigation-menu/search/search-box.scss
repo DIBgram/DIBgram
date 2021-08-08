@@ -1,0 +1,26 @@
+#search-box {
+    margin: 11px;
+
+    input {
+        width: 100%;
+        box-sizing: border-box;
+        height: 32px;
+        border-radius: 3px;
+        background-color: var(--theme-color-filterInputInactiveBg);
+        border: 2px solid transparent;
+        font-family: var(--font-family);
+        padding: 10px;
+        margin: 0;
+        transition: background-color 200ms, border-color 200ms;
+        color: var(--theme-color-windowFg);
+
+        &:focus {
+            border: var(--theme-color-filterInputBorderFg) solid 2px;
+            background-color: var(--theme-color-filterInputActiveBg);
+        }
+
+        &::placeholder {
+            color: var(--theme-color-placeholderFg);
+        }
+    }
+}
