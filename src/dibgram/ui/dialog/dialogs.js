@@ -62,7 +62,7 @@ function Wrapper(props){
  */
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
-})(function (props) {
+})(function Dialogs(props) {
     return props.dialogs.map(el => <Wrapper key={el.id}>{el.element}</Wrapper>) || null;
 }));
 
