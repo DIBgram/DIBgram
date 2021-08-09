@@ -9,9 +9,10 @@ import SearchBox from './search/search-box';
 const ChatListBar = connect(function (state) {
     return {useFolders: (state||[]).length!=0};
 })(function ChatListBar() {
+    var [searchText, setSearchText] = React.useState('');
     return (
         <div id="chat-list-bar">
-            <SearchBox/>
+            <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
             <ConnectionState/>
         </div>
     );

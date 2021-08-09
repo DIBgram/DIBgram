@@ -1,5 +1,6 @@
 #search-box {
     margin: 11px;
+    position: relative;
 
     input {
         width: 100%;
@@ -22,5 +23,31 @@
         &::placeholder {
             color: var(--theme-color-placeholderFg);
         }
+    }
+
+    button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: transparent;
+        border: none;
+        padding: 2px;
+        height: 32px;
+        width: 32px;
+        fill: var(--theme-color-dialogsMenuIconFg);
+        cursor: pointer;
+
+        &:hover {
+            fill: var(--theme-color-dialogsMenuIconFgOver);
+        }
+
+        svg {
+            height: 28px;
+            width: 28px;
+        }
+    }
+
+    button[data-visible="0"] {
+        display: none;
     }
 }
