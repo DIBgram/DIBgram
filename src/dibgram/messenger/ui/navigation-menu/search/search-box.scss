@@ -15,13 +15,18 @@
         transition: background-color 200ms, border-color 200ms;
         color: var(--theme-color-windowFg);
 
+        &::placeholder {
+            color: var(--theme-color-placeholderFg);
+            transition: color 200ms;
+        }
+
         &:focus {
             border: var(--theme-color-filterInputBorderFg) solid 2px;
             background-color: var(--theme-color-filterInputActiveBg);
-        }
 
-        &::placeholder {
-            color: var(--theme-color-placeholderFg);
+            &::placeholder {
+                color: var(--theme-color-placeholderFgActive);
+            }
         }
     }
 
