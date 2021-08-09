@@ -23,17 +23,17 @@ It is needed to compile DIBgram, but is automatically created in build workflows
     ```js
     export function getCredentials() {
         return {
-            api_id: <API ID here>,
+            api_id: API ID here,
             api_hash: '<API Hash here>'
         };
     }
 
     export function getConfig() {
         return {
-            use_test_dc: <true or false>,
+            use_test_dc: true or false,
             log: {
-                log_updates: <true or false>,
-                log_queries: <true or false>
+                log_updates: true or false,
+                log_queries: true or false
             }
         };
     }
