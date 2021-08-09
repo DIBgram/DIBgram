@@ -6,6 +6,12 @@
 
 DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies.
 
+## Usage
+
+You can open the stable release of DIBgram at <https://DIBgram.github.io>, or the commitly(?) build at <https://DIBgram.github.io/beta>.
+
+You can also build DIBgram yourself, as described [here](BUILDING.md).
+
 ## Why make it
 
 Many people like the official Telegram Desktop. But not all desktop users have Windows, MacOS or Linux, or they don't want to install anything on their device.  
