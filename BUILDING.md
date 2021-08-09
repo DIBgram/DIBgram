@@ -71,6 +71,8 @@ You can run the app in test mode which is faster and better suited for developme
    npm start
    ```
 
+After doing this, DIBgram will automatically open by opening a browser window at <http://localhost:3000>.
+
 ## Building for production
 
 You can create an optimized build of DIBgram, for use in production.
