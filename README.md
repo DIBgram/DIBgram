@@ -22,4 +22,4 @@ So I am developing this app so these users can have the same experience as Teleg
 - **VSCode**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
 
 ***
-For updates, subscribe to our Telegram channel at https://t.me/DIBgram.
+For updates, subscribe to our Telegram channel at <https://t.me/DIBgram>.

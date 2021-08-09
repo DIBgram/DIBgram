@@ -6,11 +6,11 @@ This repository has two workflows to build the project:
   1. The project is compiled for production
   2. A new release gets posted in the GitHub repository, using contents of `latest-version-changelog.md` as release body and a zip of build results as an attachment
   3. The build compiled project is pushed to [the DIBgram GitHub Pages repository](github.com/DIBgram/dibgram.github.io)
-- **Build and deploy to beta GH pages:** Automatically builds DIBgram after each commit and deploys to https://DIBgram.github.io/beta
+- **Build and deploy to beta GH pages:** Automatically builds DIBgram after each commit and deploys to <https://DIBgram.github.io/beta>
   1. The project is compiled
   2. Compilations results are pushed to [beta GH Pages repo](https://github.com/DIBgram/beta)
 
-These workflows use GitHub secrets `API_ID` and `API_HASH`, which should be obtained from https://my.telegram.org for forks.
+These workflows use GitHub secrets `API_ID` and `API_HASH`, which should be obtained from <https://my.telegram.org> for forks.
 
 ## Creating config file
 
