@@ -2,7 +2,7 @@
 
 [License](LICENSE) | [Building](BUILDING.md) | [Contributing](CONTRIBUTING.md) | [Code of conduct](CODE_OF_CONDUCT.md)
 
-*[DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=sort%3Acreated-asc) section to see the progress]*
+*DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the progress*
 
 DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies.
 
@@ -14,8 +14,14 @@ You can also build DIBgram yourself, as described [here](BUILDING.md).
 
 ## Why make it
 
-Many people like the official Telegram Desktop. But not all desktop users have Windows, MacOS or Linux, or they don't want to install anything on their device.  
-So I am developing this app so these users can have the same experience as Telegram Desktop using their browsers.
+Many people like the official Telegram Desktop. But there are users who prefer to use Telegram on their browsers because of either security, work conditions or something else.
+
+Also, most web versions either look bad or have missing features ([Webk][] and [Webz][] are better though)
+
+[Webk]: https://webk.telegram.org
+[Webz]: https://webz.telegram.org
+
+I am developing this app so there is a web version that not only has most features and looks good, but also looks familiar to those who use Telegram Desktop.
 
 ## Technologies, libraries and other software used in this project
 
