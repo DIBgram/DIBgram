@@ -41,6 +41,7 @@
         width: 32px;
         fill: var(--theme-color-dialogsMenuIconFg);
         cursor: pointer;
+        transition: transform 100ms linear, opacity 100ms linear;
 
         &:hover {
             fill: var(--theme-color-dialogsMenuIconFgOver);
@@ -53,6 +54,8 @@
     }
 
     button[data-visible="0"] {
-        display: none;
+        pointer-events: none;
+        opacity: 0;
+        transform: rotate(45deg) scale(0.7);
     }
 }
