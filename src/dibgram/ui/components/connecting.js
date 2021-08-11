@@ -36,3 +36,20 @@ export default class ConnectionState extends React.Component {
     }
 
 }
+
+addEventListener('online', () => {
+    TdLib.sendQuery({
+        '@type':'setNetworkType',
+        'type': {
+            '@type': 'networkTypeOther'
+        }
+    });
+});
+addEventListener('offline', () => {
+    TdLib.sendQuery({
+        '@type':'setNetworkType',
+        'type': {
+            '@type': 'networkTypeNone'
+        }
+    });
+});
