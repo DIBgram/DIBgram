@@ -86,6 +86,15 @@ TdLib.registerUpdateHandler('updateChatLastMessage', update => {
         });
     }
 });
+TdLib.registerUpdateHandler('updateChatDraftMessage', update => {
+    for (let position of update.positions) {
+        chatStore.dispatch({
+            type: 'UPDATE_CHAT_POSITION',
+            chat_id: update.chat_id,
+            position: position
+        });
+    }
+});
 
 export default chatStore;
 
