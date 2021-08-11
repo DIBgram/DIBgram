@@ -1,6 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import ConnectionState from '../../../ui/components/connecting';
+import chatStore from '../../chat-store';
+import ChatList from './chat-list';
 import SearchBox from './search/search-box';
 
 /**
@@ -13,6 +15,9 @@ const ChatListBar = connect(function (state) {
     return (
         <div id="chat-list-bar">
             <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
+            <Provider store={chatStore}>
+                <ChatList/>
+            </Provider>
             <ConnectionState/>
         </div>
     );
