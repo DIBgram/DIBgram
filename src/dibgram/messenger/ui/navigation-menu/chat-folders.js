@@ -8,7 +8,13 @@ import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
 /**
  * Renders a chat folder button
  */
-class ChatFolder extends React.Component {
+export class ChatFolder extends React.Component {
+    static propTypes= {
+        /** The folder object provided by TdLib */
+        folder: PropTypes.object,
+        /** A boolean indicating if the folder is currently selected */
+        active: PropTypes.bool
+    }
     state= {
         ripple: {
             state: 'off'
@@ -33,13 +39,6 @@ class ChatFolder extends React.Component {
         );
     }
 }
-ChatFolder.propTypes= {
-    /** The folder object provided by TdLib */
-    folder: PropTypes.object,
-    /** A boolean indicating if the folder is currently selected */
-    active: PropTypes.bool
-};
-export {ChatFolder};
 
 /**
  * Renders the chat folders list
