@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
+import ProfilePhoto from '../profile-photo';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -56,6 +57,7 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
                 <ul id="chat-list">
                     {this.getChatsFromList(this.props.chats, this.props.list).map(chat=>
                         <li className="chat" key={chat.id}>
+                            <ProfilePhoto name={chat.title} photo={chat.photo?.small}/>
                             {chat.title}
                         </li>
                     )}
