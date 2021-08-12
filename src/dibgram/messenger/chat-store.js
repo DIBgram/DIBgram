@@ -6,7 +6,8 @@ const chatStore= createStore(reducer,
     
 function reducer(state= {
     currentChatList: {'@type': 'chatListMain'},
-    chats: []
+    chats: [],
+    filters: []
 }, action) {
     switch (action.type) {
     case 'SET_CURRENT_CHAT_LIST':
@@ -57,6 +58,11 @@ function reducer(state= {
             ...state,
             chats: state.chats.filter(chat => chat.id !== action.chat.id)
         };
+    case 'REPLACE_CHAT_FILTERS':
+        return {
+            ...state,
+            filters: action.payload
+        };
     default:
         return state;
     }
@@ -92,6 +98,15 @@ TdLib.registerUpdateHandler('updateChatDraftMessage', update => {
             type: 'UPDATE_CHAT_POSITION',
             chat_id: update.chat_id,
             position: position
+        });
+    }
+});
+
+TdLib.registerUpdateHandler('updateChatFilters', update=> {
+    if(update.chat_filters) {
+        chatStore.dispatch({
+            type: 'REPLACE_CHAT_FILTERS',
+            payload: update.chat_filters
         });
     }
 });

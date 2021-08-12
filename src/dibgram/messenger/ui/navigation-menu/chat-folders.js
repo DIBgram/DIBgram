@@ -62,4 +62,4 @@ function ChatFolderList(props) {
 ChatFolderList.propTypes={
     folders: PropTypes.arrayOf(PropTypes.object)
 };
-export default connect(state=>({folders:state}))(ChatFolderList);
+export default connect(state=>({folders:state.filters}))(ChatFolderList);
