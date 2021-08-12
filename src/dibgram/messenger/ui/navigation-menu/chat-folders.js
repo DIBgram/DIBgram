@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import filters from '../../../ui/icon/chat_filters/chat-filters';
 import RippleEffect, {handleMyMouseEvents} from '../../../ui/elements/ripple-effect';
 import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
+import { compareChatList } from '../../chat-store';
+import TdLib from '../../../TdWeb/tdlib';
 
 /**
  * Renders a chat folder button
@@ -11,9 +13,11 @@ import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
 export class ChatFolder extends React.Component {
     static propTypes= {
         /** The folder object provided by TdLib */
-        folder: PropTypes.object,
+        folder: PropTypes.object.isRequired,
         /** A boolean indicating if the folder is currently selected */
-        active: PropTypes.bool
+        active: PropTypes.bool.isRequired,
+        /** A function to call when the folder is clicked */
+        onClick: PropTypes.func.isRequired
     }
     state= {
         ripple: {
@@ -24,6 +28,20 @@ export class ChatFolder extends React.Component {
         super();
         [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this);
     }
+
+    componentDidMount(){
+        TdLib.sendQuery({
+            '@type': 'getChats',
+            'chat_list': {
+                '@type': 'chatListFilter',
+                'chat_filter_id': this.props.folder.id,
+            },
+            'offset_order': '9223372036854775807',
+            'offset_chat_id': 0,
+            'limit': 50
+        });
+    }
+
     render(){
         return (
             <li className={this.props.active ? 'active' : ''}>
@@ -31,7 +49,9 @@ export class ChatFolder extends React.Component {
                 <button
                     onMouseDown={this.mouseDown}
                     onMouseUp={this.mouseUp}
-                    onMouseLeave={this.mouseLeave}>
+                    onMouseLeave={this.mouseLeave}
+                    onClick={this.props.onClick}>
+
                     <div className="icon" dangerouslySetInnerHTML={{__html:filters.all[this.props.active+0]}}></div>
                     <div className="title">{this.props.folder.title}</div>
                 </button>
@@ -43,22 +63,42 @@ export class ChatFolder extends React.Component {
 /**
  * Renders the chat folders list
  */
-function ChatFolderList(props) {
-    if(!props.folders || props.folders.length==0) return null;
+function ChatFolderList({folders, currentFolder, dispatch}) {
+    if(!folders || folders.length==0) return null;
     return (
         <div id="chat-folders-list">
             <HamburgerMenuButton_WithFolders/>
             <ul>
-                <ChatFolder active={true} folder={{
-                    title: 'All chats',
-                    icon: 'all'
-                }}/>
-                {props.folders.map(folder=><ChatFolder folder={folder} active={false} key={folder.id}/>)}
+                <ChatFolder 
+                    active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
+                    folder={{ title: 'All chats', icon: 'all' }}
+                    onClick={()=> dispatch({
+                        type: 'SET_CURRENT_CHAT_LIST',
+                        chatList: { '@type': 'chatListMain' }
+                    })}/>
+                
+                {folders.map(folder=> (
+                    <ChatFolder folder={folder} key={folder.id}
+                        active={compareChatList(currentFolder, 
+                            {'@type': 'chatListFilter', 'chat_filter_id': folder.id})}
+                        onClick={()=> dispatch({
+                            type: 'SET_CURRENT_CHAT_LIST',
+                            chatList: { 
+                                '@type': 'chatListFilter',
+                                chat_filter_id: folder.id
+                            }
+                        })}/>
+                ))}
             </ul>
         </div>
     );
 }
 ChatFolderList.propTypes={
-    folders: PropTypes.arrayOf(PropTypes.object)
+    folders: PropTypes.arrayOf(PropTypes.object),
+    currentFolder: PropTypes.object,
+    dispatch: PropTypes.func
 };
-export default connect(state=>({folders:state.filters}))(ChatFolderList);
+export default connect(state=>({
+    folders:state.filters, 
+    currentFolder: state.currentChatList
+}))(ChatFolderList);
