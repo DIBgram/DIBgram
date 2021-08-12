@@ -1,6 +1,5 @@
 import TdClient from 'tdweb';
 import {getConfig} from './config';
-import '../../remove-item-from-array';
 
 /**
  * Provides options to communicate with the Tdweb library
