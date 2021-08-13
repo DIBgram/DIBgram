@@ -26,6 +26,7 @@ I am developing this app so there is a web version that not only has most featur
 ## Technologies, libraries and other software used in this project
 
 - **[Telegram Desktop][]**: The basis of the design and look of DIBgram
+- **Open Sans and [Vazir][] fonts**: Font families used in Telegram Desktop
 - **HTML, JS, CSS**: The languages of the web
 - **[TdLib][]**: Telegram Database Library. Takes care of networking, encryption and storage
 - **[React][]**: UI framework used in project
@@ -34,6 +35,7 @@ I am developing this app so there is a web version that not only has most featur
 - **[VSCode][]**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
 
 [Telegram Desktop]: https://github.com/telegramdesktop/tdesktop
+[Vazir]: https://github.com/rastikerdar/vazir-font
 [TdLib]: https://github.com/tdlib/td
 [React]: https://github.com/facebook/react
 [ESLint]: https://github.com/eslint/eslint
