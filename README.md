@@ -25,13 +25,20 @@ I am developing this app so there is a web version that not only has most featur
 
 ## Technologies, libraries and other software used in this project
 
-- **Telegram Desktop**: The basis of the design and look of DIBgram
+- **[Telegram Desktop][]**: The basis of the design and look of DIBgram
 - **HTML, JS, CSS**: The languages of the web
-- **TdLib**: Telegram Database Library. Takes care of networking, encryption and storage
-- **React**: UI framework used in project
-- **Sass**: CSS preprocessor
-- **ESLint**: Used to detect problems, warnings and enforce code style
-- **VSCode**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
+- **[TdLib][]**: Telegram Database Library. Takes care of networking, encryption and storage
+- **[React][]**: UI framework used in project
+- **[Sass][]**: CSS preprocessor
+- **[ESLint][]**: Used to detect problems, warnings and enforce code style
+- **[VSCode][]**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
+
+[Telegram Desktop]: https://github.com/telegramdesktop/tdesktop
+[TdLib]: https://github.com/tdlib/td
+[React]: https://github.com/facebook/react
+[ESLint]: https://github.com/eslint/eslint
+[VSCode]: https://github.com/microsoft/vscode
+[Sass]: https://github.com/sass/sass
 
 ***
 For updates, subscribe to our Telegram channel at <https://t.me/DIBgram>.
