@@ -14,7 +14,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: black;
+        color: var(--theme-color-historyPeerUserpicFg);
+        font-size: 18px;
+
         &.color_1 { background-color: var(--theme-color-historyPeer1UserpicBg); }
         &.color_2 { background-color: var(--theme-color-historyPeer8UserpicBg); }
         &.color_3 { background-color: var(--theme-color-historyPeer5UserpicBg); }

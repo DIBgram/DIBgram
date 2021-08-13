@@ -79,7 +79,19 @@ export function ChatListItem({chat}){
     return(
         <li className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
-            {chat.title}
+            <div className="content">
+                <div className="top">
+                    <div className="left">
+                        <div className="title">{chat.title}</div>
+                    </div>
+                    <div className="right"></div>
+                </div>
+                <div className="bottom">
+                    <div className="left">
+                        <div className="last-message"></div>
+                    </div>
+                </div>
+            </div>
         </li>
     );
 }

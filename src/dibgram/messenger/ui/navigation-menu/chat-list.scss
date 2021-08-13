@@ -1,3 +1,56 @@
 #chat-list {
     color: white;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    .chat {
+        padding: 8px 10px;
+        display: flex;
+        flex-direction: row;
+
+        .profile-photo {
+            width: 46px;
+            height: 46px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .content {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 400;
+            overflow: hidden;
+
+            .top {
+                margin-top: 2px;
+            }
+
+            .top,
+            .bottom {
+                display: flex;
+                overflow: hidden;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .left,
+            .right {
+                overflow: hidden;
+            }
+
+            .right {
+                flex-shrink: 0;
+            }
+
+            .title,
+            .last-message {
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+            }
+
+
+        }
+    }
 }
