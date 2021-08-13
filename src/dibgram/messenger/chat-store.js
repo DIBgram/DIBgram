@@ -63,6 +63,19 @@ function reducer(state= {
             ...state,
             filters: action.payload
         };
+    case 'UPDATE_CHAT_PHOTO':
+        return {
+            ...state,
+            chats: state.chats.map((chat) => {
+                if (chat.id === action.chat_id) {
+                    return {
+                        ...chat,
+                        photo: action.photo
+                    };
+                }
+                return chat;
+            })
+        };
     default:
         return state;
     }
@@ -109,6 +122,13 @@ TdLib.registerUpdateHandler('updateChatFilters', update=> {
             payload: update.chat_filters
         });
     }
+});
+TdLib.registerUpdateHandler('updateChatPhoto', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PHOTO',
+        chat_id: update.chat_id,
+        photo: update.photo
+    });
 });
 
 export default chatStore;

@@ -21,22 +21,33 @@ export default class ProfilePhoto extends React.Component {
         photo: PropTypes.object
     }
     state= {
-        photo: null
+        photo: null,
+        photoObj: null
     }
 
-    componentDidMount(){
+    componentDidUpdate(){
         if(this.props.photo){
-            getFileContent(this.props.photo, 8).then(file=> {
-                this.setState({
-                    photo: blobToUrl(file.data)
+            if(this.state.photoObj!=this.props.photo){
+                getFileContent(this.props.photo, 8).then(file=> {
+                    this.setState({
+                        photo: blobToUrl(file.data),
+                        photoObj: this.props.photo
+                    });
                 });
-            });
+            }
+        } else {
+            this.state.photo && this.state.photoObj
+                && this.setState({
+                    photo: null,
+                    photoObj: null
+                });
         }
     }
+
     render(){
         return (
             <div className="profile-photo">
-                {this.state.photo ? 
+                {(this.props.photo && this.state.photo) ? 
                     <img src={this.state.photo}/> 
                     : 
                     <span className={'initials color_'+ ((Math.abs(this.props.id || 0) % 7) + 1)}>
