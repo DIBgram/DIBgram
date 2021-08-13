@@ -17,6 +17,7 @@ export function profileNameToInitials(name) {
 export default class ProfilePhoto extends React.Component {
     static propTypes = {
         name: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         photo: PropTypes.object
     }
     state= {
@@ -38,10 +39,27 @@ export default class ProfilePhoto extends React.Component {
                 {this.state.photo ? 
                     <img src={this.state.photo}/> 
                     : 
-                    <span className="initials">
+                    <span className={'initials color_'+ ((Math.abs(this.props.id || 0) % 7) + 1)}>
                         {profileNameToInitials(this.props.name)}
-                    </span>}
+                    </span>
+                }
             </div>
         );
     }
+}
+
+export function getChatTypeId(chat) {
+    switch (chat?.type?.['@type']) {
+    case 'chatTypeSupergroup': {
+        return chat?.type?.supergroup_id;
+    }
+    case 'chatTypeBasicGroup': {
+        return chat?.type?.basic_group_id;
+    }
+    case 'chatTypePrivate':
+    case 'chatTypeSecret': {
+        return chat?.type?.user_id;
+    }
+    }
+    return null;
 }

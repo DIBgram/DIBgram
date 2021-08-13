@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
-import ProfilePhoto from '../profile-photo';
+import ProfilePhoto, { getChatTypeId } from '../profile-photo';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -55,12 +55,7 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
         render() {
             return (
                 <ul id="chat-list">
-                    {this.getChatsFromList(this.props.chats, this.props.list).map(chat=>
-                        <li className="chat" key={chat.id}>
-                            <ProfilePhoto name={chat.title} photo={chat.photo?.small}/>
-                            {chat.title}
-                        </li>
-                    )}
+                    {this.getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />)}
                 </ul>
             );
         }
@@ -79,3 +74,15 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
     }
 );
 export default ChatList;
+
+export function ChatListItem({chat}){
+    return(
+        <li className="chat">
+            <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
+            {chat.title}
+        </li>
+    );
+}
+ChatListItem.propTypes = {
+    chat: PropTypes.object.isRequired
+};
