@@ -5,6 +5,7 @@ import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../profile-photo';
+import { dialogs_chat, dialogs_channel } from '../../../ui/icon/icons';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -76,12 +77,22 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
 export default ChatList;
 
 export function ChatListItem({chat}){
+    var chatType= '';
+    if ( chat.type?.['@type'] == 'chatTypeBasicGroup' ||
+        (chat.type?.['@type'] == 'chatTypeSupergroup' &&
+         chat.type?.is_channel == false)){
+        chatType= dialogs_chat;
+    } else if (chat.type?.['@type'] == 'chatTypeSupergroup' &&
+               chat.type?.is_channel == true){
+        chatType= dialogs_channel;
+    }
     return(
         <li className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
             <div className="content">
                 <div className="top">
                     <div className="left">
+                        <div className="type-icon" dangerouslySetInnerHTML={{__html: chatType}}></div>
                         <div className="title">{chat.title}</div>
                     </div>
                     <div className="right"></div>

@@ -37,6 +37,7 @@
             .left,
             .right {
                 overflow: hidden;
+                display: flex;
             }
 
             .right {
@@ -50,7 +51,15 @@
                 overflow: hidden;
             }
 
+            .title {
+                color: var(--theme-color-dialogsNameFg);
+            }
 
+            .type-icon svg {
+                width: 18px;
+                height: 13px;
+                fill: var(--theme-color-dialogsNameFg);
+            }
         }
     }
 }

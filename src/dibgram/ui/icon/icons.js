@@ -2,4 +2,8 @@
 
 import raw from 'raw.macro';
 
+export const dialogs_bot = raw('./dialogs_bot.svg');
+export const dialogs_channel = raw('./dialogs_channel.svg');
+export const dialogs_chat = raw('./dialogs_chat.svg');
+//export const dialogs_search_cancel = raw('./dialogs_search_cancel.svg');
 export const info_close = raw('./info_close.svg');
