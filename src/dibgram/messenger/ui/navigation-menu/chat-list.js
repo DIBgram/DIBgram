@@ -5,7 +5,8 @@ import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../profile-photo';
-import { dialogs_chat, dialogs_channel } from '../../../ui/icon/icons';
+import { dialogs_chat, dialogs_channel, dialogs_bot } from '../../../ui/icon/icons';
+import usersStore from '../../users-store';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -85,6 +86,9 @@ export function ChatListItem({chat}){
     } else if (chat.type?.['@type'] == 'chatTypeSupergroup' &&
                chat.type?.is_channel == true){
         chatType= dialogs_channel;
+    } else if ((chat.type?.['@type'] == 'chatTypePrivate') &&
+               (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
+        chatType= dialogs_bot;
     }
     return(
         <li className="chat">
