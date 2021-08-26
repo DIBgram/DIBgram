@@ -76,6 +76,19 @@ function reducer(state= {
                 return chat;
             })
         };
+    case 'UPDATE_CHAT_TITLE':
+        return {
+            ...state,
+            chats: state.chats.map((chat) => {
+                if (chat.id === action.chat_id) {
+                    return {
+                        ...chat,
+                        title: action.title
+                    };
+                }
+                return chat;
+            })
+        };
     default:
         return state;
     }
@@ -128,6 +141,13 @@ TdLib.registerUpdateHandler('updateChatPhoto', update=> {
         type: 'UPDATE_CHAT_PHOTO',
         chat_id: update.chat_id,
         photo: update.photo
+    });
+});
+TdLib.registerUpdateHandler('updateChatTitle', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_TITLE',
+        chat_id: update.chat_id,
+        title: update.title
     });
 });
 
