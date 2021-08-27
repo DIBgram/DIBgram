@@ -2273,6 +2273,11 @@
   "resolved" "https://registry.npmjs.org/acorn/-/acorn-8.4.0.tgz"
   "version" "8.4.0"
 
+"add-px-to-style@1.0.0":
+  "integrity" "sha1-0ME1RB+oAUqBN5BFMQlvZ/KPJjo="
+  "resolved" "https://registry.npmjs.org/add-px-to-style/-/add-px-to-style-1.0.0.tgz"
+  "version" "1.0.0"
+
 "address@^1.0.1", "address@1.1.2":
   "integrity" "sha512-aT6camzM4xEA54YVJYSqxz1kv4IHnQZRtThJJHhUMRExaU5spC7jX5ugSwTaTgJliIgs4VhZOk7htClvQ/LmRA=="
   "resolved" "https://registry.npmjs.org/address/-/address-1.1.2.tgz"
@@ -4339,6 +4344,15 @@
   "version" "0.2.0"
   dependencies:
     "utila" "~0.4"
+
+"dom-css@^2.0.0":
+  "integrity" "sha1-/bwtWgFdCj4YcuEUcrvQ57nmogI="
+  "resolved" "https://registry.npmjs.org/dom-css/-/dom-css-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "add-px-to-style" "1.0.0"
+    "prefix-style" "2.0.1"
+    "to-camel-case" "1.0.0"
 
 "dom-serializer@^1.0.1":
   "integrity" "sha512-5c54Bk5Dw4qAxNOI1pFEizPSjVsx5+bpJKmL2kPn8JhBUq2q09tTCa3mjijun2NfK78NMouDYNMBkOrPZiS+ig=="
@@ -9302,6 +9316,11 @@
     "nanoid" "^3.1.23"
     "source-map-js" "^0.6.2"
 
+"prefix-style@2.0.1":
+  "integrity" "sha1-ZrupqHDP2jCKXcIOhekSCTLJWgY="
+  "resolved" "https://registry.npmjs.org/prefix-style/-/prefix-style-2.0.1.tgz"
+  "version" "2.0.1"
+
 "prelude-ls@^1.2.1":
   "integrity" "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="
   "resolved" "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
@@ -9383,7 +9402,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.7.2":
+"prop-types@^15.5.10", "prop-types@^15.7.2":
   "integrity" "sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
   "version" "15.7.2"
@@ -9510,7 +9529,7 @@
   "resolved" "https://registry.npmjs.org/quick-lru/-/quick-lru-4.0.1.tgz"
   "version" "4.0.1"
 
-"raf@^3.4.1":
+"raf@^3.1.0", "raf@^3.4.1":
   "integrity" "sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA=="
   "resolved" "https://registry.npmjs.org/raf/-/raf-3.4.1.tgz"
   "version" "3.4.1"
@@ -9565,6 +9584,15 @@
     "raf" "^3.4.1"
     "regenerator-runtime" "^0.13.7"
     "whatwg-fetch" "^3.4.1"
+
+"react-custom-scrollbars@^4.2.1":
+  "integrity" "sha1-gw/ZUCkn6X6KeMIIaBOJmyqLZts="
+  "resolved" "https://registry.npmjs.org/react-custom-scrollbars/-/react-custom-scrollbars-4.2.1.tgz"
+  "version" "4.2.1"
+  dependencies:
+    "dom-css" "^2.0.0"
+    "prop-types" "^15.5.10"
+    "raf" "^3.1.0"
 
 "react-dev-utils@^11.0.3":
   "integrity" "sha512-dx0LvIGHcOPtKbeiSUM4jqpBl3TcY7CDjZdfOIcKeznE7BWr9dg0iPG90G5yfVQ+p/rGNMXdbfStvzQZEVEi4A=="
@@ -11404,10 +11432,22 @@
   "resolved" "https://registry.npmjs.org/to-arraybuffer/-/to-arraybuffer-1.0.1.tgz"
   "version" "1.0.1"
 
+"to-camel-case@1.0.0":
+  "integrity" "sha1-GlYFSy+daWKYzmamCJcyK29CPkY="
+  "resolved" "https://registry.npmjs.org/to-camel-case/-/to-camel-case-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "to-space-case" "^1.0.0"
+
 "to-fast-properties@^2.0.0":
   "integrity" "sha1-3F5pjL0HkmW8c+A3doGk5Og/YW4="
   "resolved" "https://registry.npmjs.org/to-fast-properties/-/to-fast-properties-2.0.0.tgz"
   "version" "2.0.0"
+
+"to-no-case@^1.0.0":
+  "integrity" "sha1-xyKQcWTvaxeBMsjmmTAhLRtKoWo="
+  "resolved" "https://registry.npmjs.org/to-no-case/-/to-no-case-1.0.2.tgz"
+  "version" "1.0.2"
 
 "to-object-path@^0.3.0":
   "integrity" "sha1-KXWIt7Dn4KwI4E5nL4XB9JmeF68="
@@ -11440,6 +11480,13 @@
     "extend-shallow" "^3.0.2"
     "regex-not" "^1.0.2"
     "safe-regex" "^1.1.0"
+
+"to-space-case@^1.0.0":
+  "integrity" "sha1-sFLar7Gysp3HcM6gFj5ewOvJ/Bc="
+  "resolved" "https://registry.npmjs.org/to-space-case/-/to-space-case-1.0.0.tgz"
+  "version" "1.0.0"
+  dependencies:
+    "to-no-case" "^1.0.0"
 
 "toidentifier@1.0.0":
   "integrity" "sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw=="
