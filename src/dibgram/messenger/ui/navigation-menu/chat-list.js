@@ -7,6 +7,7 @@ import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../profile-photo';
 import { dialogs_chat, dialogs_channel, dialogs_bot } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
+import ScrollView from '../../../ui/scroll/scrollbar';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -56,9 +57,9 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
 
         render() {
             return (
-                <ul id="chat-list">
+                <ScrollView id="chat-list" scrollBarWidth="4">
                     {this.getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />)}
-                </ul>
+                </ScrollView>
             );
         }
 
@@ -91,7 +92,7 @@ export function ChatListItem({chat}){
         chatType= dialogs_bot;
     }
     return(
-        <li className="chat">
+        <div className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
             <div className="content">
                 <div className="top">
@@ -107,7 +108,7 @@ export function ChatListItem({chat}){
                     </div>
                 </div>
             </div>
-        </li>
+        </div>
     );
 }
 ChatListItem.propTypes = {
