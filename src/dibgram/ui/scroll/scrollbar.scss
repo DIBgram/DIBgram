@@ -1,6 +1,8 @@
 .scrollbar {
-    height: unset !important;
-    width: unset !important;
+    &:not(.full-size) {
+        height: unset !important;
+        width: unset !important;
+    }
 
     & > div {
         -ms-overflow-style: none;  /* Internet Explorer 10+ */

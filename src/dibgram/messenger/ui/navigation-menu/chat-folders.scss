@@ -6,12 +6,12 @@
     width: 72px;
     flex-shrink: 0;
 
-    ul {
+    .list {
         list-style: none;
         margin: 0;
         padding: 0;
 
-        li {
+        .item {
             user-select: none;
             text-align: center;
             box-sizing: border-box;

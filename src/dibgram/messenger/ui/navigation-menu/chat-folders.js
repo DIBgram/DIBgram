@@ -6,6 +6,7 @@ import RippleEffect, {handleMyMouseEvents} from '../../../ui/elements/ripple-eff
 import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
 import { compareChatList } from '../../chat-store';
 import TdLib from '../../../TdWeb/tdlib';
+import ScrollView from '../../../ui/scroll/scrollbar';
 
 /**
  * Renders a chat folder button
@@ -44,7 +45,7 @@ export class ChatFolder extends React.Component {
 
     render(){
         return (
-            <li className={this.props.active ? 'active' : ''}>
+            <div className={this.props.active ? 'item active' : 'item'}>
                 <RippleEffect {...this.state.ripple} color="var(--theme-color-sideBarBgRipple)"/>
                 <button
                     onMouseDown={this.mouseDown}
@@ -55,7 +56,7 @@ export class ChatFolder extends React.Component {
                     <div className="icon" dangerouslySetInnerHTML={{__html:filters.all[this.props.active+0]}}></div>
                     <div className="title">{this.props.folder.title}</div>
                 </button>
-            </li>
+            </div>
         );
     }
 }
@@ -68,7 +69,7 @@ function ChatFolderList({folders, currentFolder, dispatch}) {
     return (
         <div id="chat-folders-list">
             <HamburgerMenuButton_WithFolders/>
-            <ul>
+            <ScrollView scrollBarWidth="4" className="list scrollbar full-size">
                 <ChatFolder 
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
                     folder={{ title: 'All chats', icon: 'all' }}
@@ -89,7 +90,7 @@ function ChatFolderList({folders, currentFolder, dispatch}) {
                             }
                         })}/>
                 ))}
-            </ul>
+            </ScrollView>
         </div>
     );
 }
