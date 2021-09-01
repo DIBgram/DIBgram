@@ -9,7 +9,7 @@ export default function ScrollView(props) {
     return (
         <Scrollbars
             className="scrollbar"
-            style= {{ '--bar-width': props.scrollBarWidth+'px' }}
+            style= {{ '--bar-width': (props.scrollBarWidth || 4)+'px' }}
             data-mouse-entered={mouseEntered}
             renderTrackHorizontal={props => <div {...props} className="track-horizontal" />}
             renderTrackVertical={props => <div {...props} className="track-vertical" />}
@@ -32,5 +32,5 @@ export default function ScrollView(props) {
     );
 }
 ScrollView.propTypes = {
-    scrollBarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+    scrollBarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
