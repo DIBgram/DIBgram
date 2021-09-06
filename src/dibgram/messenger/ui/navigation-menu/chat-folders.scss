@@ -34,6 +34,7 @@
                 position: relative;
                 z-index: 1;
                 cursor: pointer;
+                word-break: break-word;
                 * { pointer-events: none; }
             }
 
@@ -45,9 +46,9 @@
 
             .title {
                 font-size: 11px;
-                line-height: 16px;
+                line-height: 15px;
                 font-weight: 500;
-                margin-top: -5px;
+                margin-top: -4px;
                 color: var(--theme-color-sideBarTextFg);
             }
 
