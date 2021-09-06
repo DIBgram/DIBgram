@@ -27,6 +27,7 @@ export default function ScrollView(props) {
             }}
             autoHide
             autoHideTimeout={1000}
+            hideTracksWhenNotNeeded={true}
             {...props}
         />
     );
