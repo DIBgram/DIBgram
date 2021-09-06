@@ -11,6 +11,11 @@
         margin: 0;
         padding: 0;
 
+        .track-horizontal,
+        .track-vertical {
+            z-index: 2;
+        }
+
         .item {
             user-select: none;
             text-align: center;
