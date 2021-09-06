@@ -4,12 +4,13 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import './scrollbar.scss';
 
 export default function ScrollView(props) {
-    var [mouseEntered, setMouseEntered] = React.useState(false);
-    var [timeoutId, setTimeoutId] = React.useState(null);
+    const [mouseEntered, setMouseEntered] = React.useState(false);
+    const [timeoutId, setTimeoutId] = React.useState(null);
+    const {scrollBarWidth, ...propsRest} = props;
     return (
         <Scrollbars
             className="scrollbar"
-            style= {{ '--bar-width': (props.scrollBarWidth || 4)+'px' }}
+            style= {{ '--bar-width': (scrollBarWidth || 4)+'px' }}
             data-mouse-entered={mouseEntered}
             renderTrackHorizontal={props => <div {...props} className="track-horizontal" />}
             renderTrackVertical={props => <div {...props} className="track-vertical" />}
@@ -28,7 +29,7 @@ export default function ScrollView(props) {
             autoHide
             autoHideTimeout={1000}
             hideTracksWhenNotNeeded={true}
-            {...props}
+            {...propsRest}
         />
     );
 }
