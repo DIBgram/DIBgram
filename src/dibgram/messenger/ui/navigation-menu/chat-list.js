@@ -8,6 +8,7 @@ import ProfilePhoto, { getChatTypeId } from '../profile-photo';
 import { dialogs_chat, dialogs_channel, dialogs_bot } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
+import getMessageSummary from '../../message/message-summary';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -91,6 +92,9 @@ export function ChatListItem({chat}){
                (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
         chatType= dialogs_bot;
     }
+    if(chat.last_message){
+        var lastMessage= getMessageSummary(chat.last_message, chat);
+    }
     return(
         <div className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
@@ -104,7 +108,11 @@ export function ChatListItem({chat}){
                 </div>
                 <div className="bottom">
                     <div className="left">
-                        <div className="last-message"></div>
+                        {lastMessage? 
+                            <div className="last-message">
+                                <span className="part-1">{lastMessage[0] || null}</span> <span className="part-2">{lastMessage[1] || null}</span>
+                            </div> 
+                            : null}
                     </div>
                 </div>
             </div>

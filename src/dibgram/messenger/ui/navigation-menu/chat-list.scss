@@ -32,12 +32,17 @@
                 margin-top: 2px;
             }
 
+            .bottom {
+                margin-top: 6px;
+            }
+
             .top,
             .bottom {
                 display: flex;
                 overflow: hidden;
                 flex-direction: row;
                 justify-content: space-between;
+                height: 18px;
             }
 
             .left,
@@ -67,6 +72,16 @@
                 fill: var(--theme-color-dialogsChatIconFg);
                 margin-right: 4px;
                 margin-top: 3px;
+            }
+
+            .last-message {
+                .part-1 {
+                    color: var(--theme-color-dialogsTextFgService);
+                }
+
+                .part-2 {
+                    color: var(--theme-color-dialogsTextFg);
+                }
             }
         }
     }

@@ -89,6 +89,19 @@ function reducer(state= {
                 return chat;
             })
         };
+    case 'UPDATE_CHAT_LAST_MESSAGE':
+        return {
+            ...state,
+            chats: state.chats.map((chat) => {
+                if (chat.id === action.chat_id) {
+                    return {
+                        ...chat,
+                        last_message: action.last_message
+                    };
+                }
+                return chat;
+            })
+        };
     default:
         return state;
     }
@@ -110,6 +123,11 @@ TdLib.registerUpdateHandler('updateChatPosition', update => {
 });
 
 TdLib.registerUpdateHandler('updateChatLastMessage', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_LAST_MESSAGE',
+        chat_id: update.chat_id,
+        last_message: update.last_message
+    });
     for (let position of update.positions) {
         chatStore.dispatch({
             type: 'UPDATE_CHAT_POSITION',
