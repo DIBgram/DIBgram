@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
@@ -8,7 +8,7 @@ import ProfilePhoto, { getChatTypeId } from '../profile-photo';
 import { dialogs_chat, dialogs_channel, dialogs_bot } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
-import getMessageSummary from '../../message/message-summary';
+import MessageSummaryWithoutIcon, { MessageSummarySender } from '../../message/message-summary-noicon';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -92,9 +92,6 @@ export function ChatListItem({chat}){
                (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
         chatType= dialogs_bot;
     }
-    if(chat.last_message){
-        var lastMessage= getMessageSummary(chat.last_message, chat);
-    }
     return(
         <div className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
@@ -108,11 +105,10 @@ export function ChatListItem({chat}){
                 </div>
                 <div className="bottom">
                     <div className="left">
-                        {lastMessage? 
-                            <div className="last-message">
-                                <span className="part-1">{lastMessage[0] || null}</span> <span className="part-2">{lastMessage[1] || null}</span>
-                            </div> 
-                            : null}
+                        <Provider store={usersStore}>
+                            <MessageSummarySender message={chat.last_message} chat={chat}/>&nbsp;
+                            <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
+                        </Provider>
                     </div>
                 </div>
             </div>
