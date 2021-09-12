@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import { blobToUrl, getFileContent } from '../../TdWeb/file';
 import options from '../../TdWeb/options';
 import './profile-photo.scss';
-import raw from 'raw.macro';
-
-const tgLogo = raw('../../ui/img/TgLogo.svg');
+import tgLogo from '../../ui/img/TgLogo.png';
 
 export function profileNameToInitials(name) {
     const words=name.replace(/[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007F]/g,'').toUpperCase().split(' ');
@@ -57,14 +55,19 @@ export default class ProfilePhoto extends React.Component {
     render(){
         var customIcon; 
         if((!this.state.photo) && this.state.isServiceMessages) {
-            customIcon = tgLogo;
+            customIcon = [1, tgLogo];
         }
         return (
             <div className="profile-photo">
                 {(this.props.photo && this.state.photo) ? 
                     <img src={this.state.photo}/> 
                     : 
-                    customIcon? <div dangerouslySetInnerHTML={{__html: customIcon}}/> : (
+                    customIcon? (
+                        customIcon[0]?
+                            <img src={customIcon[1]}/>
+                            :
+                            <div dangerouslySetInnerHTML={{__html: customIcon}}/>
+                    ) : (
                         <span className={'initials color_'+ ((Math.abs(this.props.id || 0) % 7) + 1)}>
                             {profileNameToInitials(this.props.name)}
                         </span>
