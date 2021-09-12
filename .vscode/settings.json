@@ -1,0 +1,16 @@
+{
+    "cSpell.words": [
+        "Supergroup",
+        "Tdweb",
+        "Vazir",
+        "dibgram",
+        "stylelint",
+        "tdlib"
+    ],
+    "eslint.rules.customizations": [
+        { "rule": "indent", "severity": "info" },
+        { "rule": "quotes", "severity": "info" },
+        { "rule": "semi", "severity": "info" },
+        { "rule": "no-unused-vars", "severity": "warn" },
+    ],
+}
