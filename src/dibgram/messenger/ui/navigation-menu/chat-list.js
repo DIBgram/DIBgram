@@ -8,7 +8,7 @@ import ProfilePhoto, { getChatTypeId } from '../profile-photo';
 import { dialogs_chat, dialogs_channel, dialogs_bot } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
-import MessageSummaryWithoutIcon, { MessageSummarySender } from '../../message/message-summary-noicon';
+import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -106,7 +106,6 @@ export function ChatListItem({chat}){
                 <div className="bottom">
                     <div className="left">
                         <Provider store={usersStore}>
-                            <MessageSummarySender message={chat.last_message} chat={chat}/>&nbsp;
                             <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
                         </Provider>
                     </div>
