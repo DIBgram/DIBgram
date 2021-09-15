@@ -27,7 +27,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             var creator= users[message.content.member_user_ids[0]];
             return (
                 <span className={className}>
-                    <span className="part-1">{creator.first_name} {creator.last_name} created the group «{message.content.title}</span>
+                    <span className="part-1">{creator.first_name} {creator.last_name} created the group «{message.content.title}»</span>
                 </span>
             );
         case 'messageCall':
