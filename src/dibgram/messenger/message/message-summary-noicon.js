@@ -65,17 +65,72 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             } else {
                 members= members[0];
             }
-            var sender;
-            if(message.sender['@type']=='messageSenderUser') {
-                sender= users[message.sender.user_id].first_name +' '+ users[message.sender.user_id].last_name;
-            } else if(message.sender['@type']=='messageSenderChat') {
-                sender= chat.title;
-            }
             return (
                 <span className={className}>
-                    {sender} added {members}
+                    <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/> added {members}</span>
                 </span>
             );
+        case 'messageChatChangePhoto':
+            return (
+                <span className={className}>
+                    <span className="part-1">Photo</span>
+                </span>
+            );
+        case 'messageChatChangeTitle': // I can't believe copilot can fill these lines without having access to API docs
+            if(message.is_channel_post) {
+                return (
+                    <span className={className}>
+                        <span className="part-1">Channel name was changed to «{message.content.title}»</span>
+                    </span>
+                );
+            } else {
+                return (
+                    <span className={className}>
+                        <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                        &nbsp;changed group name to «{message.content.title}»</span>
+                    </span>
+                );
+            }
+        case 'messageChatDeleteMember':
+            var deletedMember= users[message.content.user_id];
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                    &nbsp;removed {deletedMember.first_name+' '+ deletedMember.last_name}</span>
+                </span>
+            );
+        case 'messageChatDeletePhoto':
+            if(message.is_channel_post) {
+                return (
+                    <span className={className}>
+                        <span className="part-1">Channel photo removed</span>
+                    </span>
+                );
+            } else {
+                return (
+                    <span className={className}>
+                        <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                        &nbsp;removed group photo</span>
+                    </span>
+                );
+            }
+        case 'messageChatJoinByLink':
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                    &nbsp;joined the group via invite link</span>
+                </span>
+            );
+        case 'messageChatSetTtl':
+            // seconds to day, week and month
+            var timeConversionTable= {86400: 'day', 604800: 'week', 2678400: 'month'};
+            var ttlSetterName= message.is_outgoing ? 'You' : <SenderFullName sender={message.sender} chat={chat} users={users}/>;
+            return (
+                <span className={className}>
+                    <span className="part-1">{ttlSetterName} set messages to auto-delete in 1 {timeConversionTable[message.content.ttl]}</span>
+                </span>
+            );
+
         default:
             return null;
         }
@@ -103,6 +158,14 @@ MayHaveCaption.propTypes= {
     message: PropTypes.object,
     chat: PropTypes.object
 };
+
+function SenderFullName({sender, chat, users}) {
+    if(sender['@type']=='messageSenderUser') {
+        return users[sender.user_id].first_name +' '+ users[sender.user_id].last_name;
+    } else if(sender['@type']=='messageSenderChat') {
+        return chat.title;
+    }
+}
 
 export const MessageSummarySender= connect(state=> ({users: state}))(
     function MessageSummarySender ({message, chat, users}) {
