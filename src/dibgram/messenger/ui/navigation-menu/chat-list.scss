@@ -10,6 +10,18 @@
     top: 54px;
     bottom: 0;
 
+    .empty {
+        text-align: center;
+        color: var(--theme-color-windowSubTextFg);
+        margin-top: 53px;
+        font-size: 13px;
+        letter-spacing: -0.15px;
+
+        .link-button {
+            margin-top: 17px;
+        }
+    }
+
     .chat {
         padding: 8px 10px;
         display: flex;

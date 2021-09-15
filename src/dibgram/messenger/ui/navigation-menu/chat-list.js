@@ -9,6 +9,7 @@ import { dialogs_chat, dialogs_channel, dialogs_bot } from '../../../ui/icon/ico
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
+import LinkButton from '../../../ui/elements/link-button';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -57,9 +58,20 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
 
 
         render() {
+            const array= this.getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />);
             return (
                 <ScrollView id="chat-list" scrollBarWidth="4">
-                    {this.getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />)}
+                    {array.length ? array : ( (this.props.list['@type']=='chatListFilter')? (
+                        <div className="empty">
+                            <div>No chats currently belong to this folder.</div>
+                            <LinkButton>Edit Folder</LinkButton>
+                        </div>
+                    ):(
+                        <div className="empty">
+                            <div>Your chats will be here</div>
+                            <LinkButton>New contact</LinkButton>
+                        </div>
+                    ) ) }
                 </ScrollView>
             );
         }
