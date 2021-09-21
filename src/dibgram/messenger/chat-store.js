@@ -180,3 +180,20 @@ export function compareChatList(list1, list2) {
     }
     return true;
 }
+
+/**
+ * Gets a chat from a chat ID. Has caching.
+ */
+export function getChat(id) {
+    let res;
+    for(let chat of chatStore.getState()?.chats) {
+        if(chat.id==id) res = Promise.resolve(chat);
+    }
+    if(!res){
+        res = TdLib.sendQuery({
+            '@type': 'getChat',
+            'chat_id': id
+        });
+    }
+    return res;
+}
