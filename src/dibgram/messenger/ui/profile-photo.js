@@ -16,67 +16,56 @@ export function profileNameToInitials(name) {
     }
 }
 
-export default class ProfilePhoto extends React.Component {
-    static propTypes = {
-        name: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
-        photo: PropTypes.object
-    }
-
-    constructor(props){
-        super(props);
-
-        this.state = {
-            photo: null,
-            photoObj: null,
-            isServiceMessages: this.props.id==options['telegram_service_notifications_chat_id']
-        };
-    }
-
-    componentDidUpdate(){
-        if(this.props.photo){
-            if(this.state.photoObj!=this.props.photo){
-                getFileContent(this.props.photo, 8).then(file=> {
-                    this.setState({
-                        photo: blobToUrl(file.data),
-                        photoObj: this.props.photo
-                    });
+export default function ProfilePhoto (props) {
+    const [photo, setPhoto] = React.useState(null);
+    const [photoObj, setPhotoObj] = React.useState(null);
+    const isServiceMessages= props.id==options['telegram_service_notifications_chat_id'];
+    
+    React.useEffect(() => {
+        if(props.photo){
+            if(photoObj!=props.photo){
+                getFileContent(props.photo, 8).then(file=> {
+                    setPhoto(blobToUrl(file.data));
+                    setPhotoObj(props.photo);
                 });
             }
         } else {
-            this.state.photo && this.state.photoObj
-                && this.setState({
-                    photo: null,
-                    photoObj: null
-                });
+            if(photo && photoObj){
+                setPhoto(null);
+                setPhotoObj(null);
+            }
         }
-    }
+    }, [props.photo]);
 
-    render(){
-        var customIcon; 
-        if((!this.state.photo) && this.state.isServiceMessages) {
-            customIcon = [1, tgLogo];
-        }
-        return (
-            <div className="profile-photo">
-                {(this.props.photo && this.state.photo) ? 
-                    <img src={this.state.photo}/> 
-                    : 
-                    customIcon? (
-                        customIcon[0]?
-                            <img src={customIcon[1]}/>
-                            :
-                            <div dangerouslySetInnerHTML={{__html: customIcon}}/>
-                    ) : (
-                        <span className={'initials color_'+ ((Math.abs(this.props.id || 0) % 7) + 1)}>
-                            {profileNameToInitials(this.props.name)}
-                        </span>
-                    )
-                }
-            </div>
-        );
+    var customIcon; 
+    if((!photo) && isServiceMessages) {
+        customIcon = [1, tgLogo];
     }
+    return (
+        <div className="profile-photo">
+            {(props.photo && photo) ? 
+                <img src={photo}/> 
+                : 
+                customIcon? (
+                    customIcon[0]?
+                        <img src={customIcon[1]}/>
+                        :
+                        <div dangerouslySetInnerHTML={{__html: customIcon}}/>
+                ) : (
+                    <span className={'initials color_'+ ((Math.abs(props.id || 0) % 7) + 1)}>
+                        {profileNameToInitials(props.name)}
+                    </span>
+                )
+            }
+        </div>
+    );
 }
+
+ProfilePhoto.propTypes = {
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    photo: PropTypes.object
+};
 
 export function getChatTypeId(chat) {
     switch (chat?.type?.['@type']) {
