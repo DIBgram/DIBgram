@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Start React app without browser",
+            "type": "shell",
+            "command": "BROWSER=none npm start",
+            "isBackground": true,
+            "detail": "Start the app in development mode without opening a browser",
+            "windows": {
+                "command": "set BROWSER=none && npm start"
+            }
+        }
+    ]
+}
