@@ -73,7 +73,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             }
             return (
                 <span className={className}>
-                    <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/> added {members}</span>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> added {members}</span>
                 </span>
             );
 
