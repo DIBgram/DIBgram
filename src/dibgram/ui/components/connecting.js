@@ -2,6 +2,8 @@ import React from 'react';
 import TdLib from '../../TdWeb/tdlib';
 import LoadingSpinner from '../elements/loading-spinner';
 
+export var currentConnectionState;
+
 /**
  * Renders the connecting spinner at the bottom left corner, which is hidden when connected
  */
@@ -27,6 +29,7 @@ export default class ConnectionState extends React.Component {
         this.setState({
             cState: update.state['@type']
         });
+        currentConnectionState = update.state['@type'];
     }
     componentDidMount () {
         TdLib.registerUpdateHandler('updateConnectionState', this.handleUpdate);

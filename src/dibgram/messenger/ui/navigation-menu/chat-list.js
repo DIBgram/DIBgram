@@ -10,6 +10,7 @@ import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
 import LinkButton from '../../../ui/elements/link-button';
+import { currentConnectionState } from '../../../ui/components/connecting';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -61,17 +62,7 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
             const array= this.getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />);
             return (
                 <ScrollView id="chat-list" scrollBarWidth="4">
-                    {array.length ? array : ( (this.props.list['@type']=='chatListFilter')? (
-                        <div className="empty">
-                            <div>No chats currently belong to this folder.</div>
-                            <LinkButton>Edit Folder</LinkButton>
-                        </div>
-                    ):(
-                        <div className="empty">
-                            <div>Your chats will be here</div>
-                            <LinkButton>New contact</LinkButton>
-                        </div>
-                    ) ) }
+                    {array.length ? array :  <EmptyChatList list={this.props.list} />}
                 </ScrollView>
             );
         }
@@ -129,3 +120,28 @@ export function ChatListItem({chat}){
 ChatListItem.propTypes = {
     chat: PropTypes.object.isRequired
 };
+
+function EmptyChatList({list}) {
+    if(currentConnectionState!='connectionStateReady') {
+        return (
+            <div className="empty">
+                <div>Loading...</div>
+            </div>
+        );
+    }
+    if(list['@type']=='chatListFilter'){
+        return (
+            <div className="empty">
+                <div>No chats currently belong to this folder.</div>
+                <LinkButton>Edit Folder</LinkButton>
+            </div>
+        );
+    } else {
+        return (
+            <div className="empty">
+                <div>Your chats will be here</div>
+                <LinkButton>New contact</LinkButton>
+            </div>
+        );
+    }
+}
