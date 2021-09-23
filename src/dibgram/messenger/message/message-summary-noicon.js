@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import TdLib from '../../TdWeb/tdlib';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -16,13 +17,16 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
     function MessageSummaryWithoutIcon({message, className, users, chat}) {
         if(!message) return null;
         switch(message.content['@type']) {
+        
         case 'messageAnimation':
             return <MayHaveCaption type="GIF" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+        
         case 'messageAudio':
             var title= message.content.audio.title || message.content.audio.file_name;
             if(message.content.audio.performer)
                 title= message.content.audio.performer+ ' ­­– ' + title;
             return <MayHaveCaption type={title} caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+
         case 'messageBasicGroupChatCreate':
             var creator= users[message.content.member_user_ids[0]];
             return (
@@ -30,6 +34,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     <span className="part-1">{creator.first_name} {creator.last_name} created the group «{message.content.title}»</span>
                 </span>
             );
+
         case 'messageCall':
             var text='';
             if(message.is_outgoing) {
@@ -58,6 +63,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     <span className="part-1">{text}</span>
                 </span>
             );
+
         case 'messageChatAddMembers':
             var members= message.content.member_user_ids.map(id=> users[id].first_name+' '+ users[id].last_name);
             if(members.length>1){
@@ -70,12 +76,14 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/> added {members}</span>
                 </span>
             );
+
         case 'messageChatChangePhoto':
             return (
                 <span className={className}>
                     <span className="part-1">Photo</span>
                 </span>
             );
+
         case 'messageChatChangeTitle': // I can't believe copilot can fill these lines without having access to API docs
             if(message.is_channel_post) {
                 return (
@@ -86,19 +94,21 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             } else {
                 return (
                     <span className={className}>
-                        <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                        <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
                         &nbsp;changed group name to «{message.content.title}»</span>
                     </span>
                 );
             }
+
         case 'messageChatDeleteMember':
             var deletedMember= users[message.content.user_id];
             return (
                 <span className={className}>
-                    <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
                     &nbsp;removed {deletedMember.first_name+' '+ deletedMember.last_name}</span>
                 </span>
             );
+
         case 'messageChatDeletePhoto':
             if(message.is_channel_post) {
                 return (
@@ -109,26 +119,116 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             } else {
                 return (
                     <span className={className}>
-                        <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                        <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
                         &nbsp;removed group photo</span>
                     </span>
                 );
             }
+
         case 'messageChatJoinByLink':
             return (
                 <span className={className}>
-                    <span className="part-1"><SenderFullName sender={message.sender} chat={chat} users={users}/>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
                     &nbsp;joined the group via invite link</span>
                 </span>
             );
+
         case 'messageChatSetTtl':
             // seconds to day, week and month
             var timeConversionTable= {86400: 'day', 604800: 'week', 2678400: 'month'};
-            var ttlSetterName= message.is_outgoing ? 'You' : <SenderFullName sender={message.sender} chat={chat} users={users}/>;
             return (
                 <span className={className}>
-                    <span className="part-1">{ttlSetterName} set messages to auto-delete in 1 {timeConversionTable[message.content.ttl]}</span>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> set messages to auto-delete in 1 {timeConversionTable[message.content.ttl]}</span>
                 </span>
+            );
+
+        case 'messageChatUpgradeFrom':
+        case 'messageChatUpgradeTo':
+            return (
+                <span className={className}>
+                    <span className="part-1">Group was upgraded to a super-group</span>
+                </span>
+            );
+
+        case 'messageContact':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">Contact</span>
+                </span>
+            );
+
+        case 'messageContactRegistered':
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
+                    &nbsp;joined Telegram</span>
+                </span>
+            );
+
+        case 'messageCustomServiceAction':
+            return (
+                <span className={className}>
+                    <span className="part-1">{message.content.text}</span>
+                </span>
+            );
+
+        case 'messageDice':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">{message.content.emoji}</span>
+                </span>
+            );
+
+        case 'messageDocument':
+            return <MayHaveCaption type={message.content.document.file_name} caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+        
+        // case 'messageExpiredPhoto':
+        // case 'messageExpiredVideo':
+        case 'messageGame':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">🎮 {message.content.game.title}</span>
+                </span>
+            );
+
+        case 'messageGameScore':
+            var noGameTitleFallback= (
+                <span className={className}>
+                    <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>
+                    <span className="part-1"> scored {message.content.score}</span>
+                </span>
+            );
+
+            // Get game message
+            var GameScoreWithTitle= React.lazy(()=>new Promise(resolve=> {
+                TdLib.sendQuery({
+                    '@type': 'getMessage',
+                    chat_id: chat.id,
+                    message_id: message.content.game_message_id
+                }).then(
+                    result=> { 
+                        //eslint-disable-next-line react/display-name
+                        resolve({ default: ()=> (
+                            <span className={className}>
+                                <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>
+                                <span className="part-1"> scored {message.content.score} in {result.content.game.title}</span>
+                            </span>
+                        )});
+                    },
+                    ()=> { 
+                        //eslint-disable-next-line react/display-name
+                        resolve({ default: ()=> noGameTitleFallback});
+                    }
+                );
+            }));
+
+            return (
+                <React.Suspense fallback={noGameTitleFallback}>
+                    <GameScoreWithTitle/>
+                </React.Suspense>
             );
 
         default:
@@ -140,6 +240,7 @@ MessageSummaryWithoutIcon.propTypes= {
     message: PropTypes.object,
     className: PropTypes.string
 };
+
 
 // If caption has a value, add a comma to type and return type
 function MayHaveCaption({type, caption, className, message, chat}) {
@@ -159,7 +260,11 @@ MayHaveCaption.propTypes= {
     chat: PropTypes.object
 };
 
-function SenderFullName({sender, chat, users}) {
+function SenderFullName({message, chat, users, includeYou}) {
+    if(includeYou) {
+        return message.is_outgoing ? 'You' : <SenderFullName sender={message.sender} chat={chat} users={users}/>;
+    }
+    const sender=message.sender;
     if(sender['@type']=='messageSenderUser') {
         return users[sender.user_id].first_name +' '+ users[sender.user_id].last_name;
     } else if(sender['@type']=='messageSenderChat') {
