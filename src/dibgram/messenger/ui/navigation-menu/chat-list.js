@@ -5,7 +5,7 @@ import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../profile-photo';
-import { dialogs_chat, dialogs_channel, dialogs_bot } from '../../../ui/icon/icons';
+import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
@@ -108,6 +108,9 @@ export function ChatListItem({chat}){
                         <Provider store={usersStore}>
                             <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
                         </Provider>
+                    </div>
+                    <div className="right">
+                        {chat.position?.is_pinned ? <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span> : null}
                     </div>
                 </div>
             </div>

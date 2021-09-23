@@ -98,6 +98,12 @@
                     color: var(--theme-color-dialogsTextFg);
                 }
             }
+
+            .pinned_icon svg {
+                width: 20px;
+                height: 20px;
+                fill: var(--theme-color-dialogsUnreadBgMuted);
+            }
         }
     }
 }
