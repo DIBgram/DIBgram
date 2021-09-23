@@ -22,39 +22,36 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
 
         /**
          * Returns a sorted list of all chats in the given chat list
+         * 
+         * Also for every chat, sets `chat.position` to the matching position (creates copy instead of modifying original object)
          * @param {import('tdweb').TdObject[]} chats
          * @param {import('tdweb').TdObject} list
          */
         getChatsFromList(chats, list) {
-            return chats.filter(chat => {
+            return chats.map(chat => {
                 for( const position of chat.positions ) {
                     if( position.order=='0' ) return false;
                     if (compareChatList(list, position.list)) {
-                        return true;
+                        return {
+                            ...chat,
+                            position: position
+                        };
                     }
                 }
-                return false;
-            }).sort((a, b) => {
-                let order1, order2;
-                for( const position of a.positions ) {
-                    if (compareChatList(list, position.list)) {
-                        order1= position.order;
-                    }
-                }
-                for( const position of b.positions ) {
-                    if (compareChatList(list, position.list)) {
-                        order2= position.order;
-                    }
-                }
+                return chat;
+            })
+                .filter(chat => !!chat.position)
+                .sort((a, b) => {
+                    let order1= a.position.order, order2= b.position.order;
 
-                if (order1 == order2) {
-                    return 0;
-                }
-                if (order1 < order2) {
-                    return 1;
-                }
-                return -1;
-            });
+                    if (order1 == order2) {
+                        return 0;
+                    }
+                    if (order1 < order2) {
+                        return 1;
+                    }
+                    return -1;
+                });
         }
 
 
