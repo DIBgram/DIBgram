@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TdLib from '../../TdWeb/tdlib';
+import currencyAmountToString from '../payments/currency-tostring';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -196,10 +197,9 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
 
         case 'messageGameScore':
             var noGameTitleFallback= (
-                <span className={className}>
-                    <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>
-                    <span className="part-1"> scored {message.content.score}</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    <SenderFullName message={message} chat={chat} users={users} includeYou={true}/> scored {message.content.score}
+                </span></span>
             );
 
             // Get game message
@@ -212,10 +212,9 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     result=> { 
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> (
-                            <span className={className}>
-                                <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>
-                                <span className="part-1"> scored {message.content.score} in {result.content.game.title}</span>
-                            </span>
+                            <span className={className}><span className="part-1">
+                                <SenderFullName message={message} chat={chat} users={users} includeYou={true}/> scored {message.content.score} in {result.content.game.title}
+                            </span></span>
                         )});
                     },
                     ()=> { 
@@ -230,6 +229,109 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     <GameScoreWithTitle/>
                 </React.Suspense>
             );
+
+        case 'messageInvoice':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">{message.content.title}</span>
+                </span>
+            );
+
+        case 'messageLocation':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">{message.content.title}</span>
+                </span>
+            );
+
+        case 'messagePassportDataSent':
+            var passportDataTypeToString= {
+                'passportElementTypeAddress': 'address',
+                'passportElementTypeBankStatement': 'bank statement',
+                'passportElementTypeDriverLicense': 'driver license',
+                'passportElementTypeEmailAddress': 'email address',
+                'passportElementTypeIdentityCard': 'identity card',
+                'passportElementTypeInternalPassport': 'internal passport',
+                'passportElementTypePassport': 'passport',
+                'passportElementTypePassportRegistration': 'passport registration',
+                'passportElementTypePersonalDetails': 'personal details',
+                'passportElementTypePhoneNumber': 'phone number',
+                'passportElementTypeRentalAgreement': 'rental agreement',
+                'passportElementTypeTemporaryRegistration': 'temporary registration',
+                'passportElementTypeUtilityBill': 'utility bill',
+            };
+            var passportDataTypes= message.content.types.map(type=> passportDataTypeToString[type['@type']]);
+            return (
+                <span className={className}>
+                    <span className="part-1">
+                        {chat.title} received the following documents: {passportDataTypes.join(', ')}
+                    </span>
+                </span>
+            );
+
+        case 'messagePaymentSuccessful':
+            var noInvoiceTitleFallback= (
+                <span className={className}>
+                    <span className="part-1">
+                        You successfully transferred 
+                        {currencyAmountToString(message.content.currency, message.content.total_amount)} 
+                        to {chat.title}
+                    </span>
+                </span>
+            );
+
+            // Get invoice message
+            var PaymentInfoWithInvoiceTitle= React.lazy(()=>new Promise(resolve=> {
+                TdLib.sendQuery({
+                    '@type': 'getMessage',
+                    chat_id: chat.id,
+                    message_id: message.content.invoice_message_id
+                }).then(
+                    result=> { 
+                        //eslint-disable-next-line react/display-name
+                        resolve({ default: ()=> (
+                            <span className={className}>
+                                <span className="part-1">
+                                    You successfully transferred 
+                                    {currencyAmountToString(message.content.currency, message.content.total_amount)} 
+                                    to {chat.title} for {result.content.title}
+                                </span>
+                            </span>
+                        )});
+                    },
+                    (error)=> { 
+                        console.log(error);
+                        resolve({ default: ()=> noInvoiceTitleFallback});
+                    }
+                );
+            }));
+
+            return (
+                <React.Suspense fallback={noInvoiceTitleFallback}>
+                    <PaymentInfoWithInvoiceTitle/>
+                </React.Suspense>
+            );
+
+        case 'messagePhoto':
+            if(message.content.is_secret) {
+                if(message.is_outgoing) {
+                    return (
+                        <span className={className}>
+                            <span className="part-1">You sent a self-destructing photo</span>
+                        </span>
+                    );
+                } else {
+                    return (
+                        <span className={className}><span className="part-1">
+                            <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing photo. Please view it on your mobile.
+                        </span></span>
+                    );
+                }
+            } else {
+                return <MayHaveCaption type="Photo" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+            }
 
         default:
             return null;
