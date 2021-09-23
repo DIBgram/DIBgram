@@ -262,7 +262,7 @@ MayHaveCaption.propTypes= {
 
 function SenderFullName({message, chat, users, includeYou}) {
     if(includeYou) {
-        return message.is_outgoing ? 'You' : <SenderFullName sender={message.sender} chat={chat} users={users}/>;
+        return message.is_outgoing ? 'You' : <SenderFullName message={message} chat={chat} users={users}/>;
     }
     const sender=message.sender;
     if(sender['@type']=='messageSenderUser') {
