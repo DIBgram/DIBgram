@@ -29,10 +29,9 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             return <MayHaveCaption type={title} caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
 
         case 'messageBasicGroupChatCreate':
-            var creator= users[message.content.member_user_ids[0]];
             return (
                 <span className={className}>
-                    <span className="part-1">{creator.first_name} {creator.last_name} created the group «{message.content.title}»</span>
+                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> created the group «{message.content.title}»</span>
                 </span>
             );
 
@@ -375,8 +374,9 @@ function SenderFullName({message, chat, users, includeYou}) {
         return message.is_outgoing ? 'You' : <SenderFullName message={message} chat={chat} users={users}/>;
     }
     const sender=message.sender;
+    const user=users[sender.user_id];
     if(sender['@type']=='messageSenderUser') {
-        return users[sender.user_id].first_name +' '+ users[sender.user_id].last_name;
+        return user.last_name ? (user.first_name +' '+ user.last_name) : user.first_name;
     } else if(sender['@type']=='messageSenderChat') {
         return chat.title;
     }
