@@ -81,15 +81,18 @@ export default ChatList;
 
 export function ChatListItem({chat}){
     var chatType= '';
-    if ( chat.type?.['@type'] == 'chatTypeBasicGroup' ||
-        (chat.type?.['@type'] == 'chatTypeSupergroup' &&
-         chat.type?.is_channel == false)){
+    if (chat.type?.['@type'] == 'chatTypeBasicGroup' ||
+            (chat.type?.['@type'] == 'chatTypeSupergroup' &&
+            chat.type?.is_channel == false)
+    ){
         chatType= dialogs_chat;
-    } else if (chat.type?.['@type'] == 'chatTypeSupergroup' &&
-               chat.type?.is_channel == true){
+    } 
+    else if (chat.type?.['@type'] == 'chatTypeSupergroup' &&
+             chat.type?.is_channel == true){
         chatType= dialogs_channel;
-    } else if ((chat.type?.['@type'] == 'chatTypePrivate') &&
-               (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
+    } 
+    else if ((chat.type?.['@type'] == 'chatTypePrivate') &&
+             (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
         chatType= dialogs_bot;
     }
     return(
