@@ -66,11 +66,19 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             );
 
         case 'messageChatAddMembers':
-            var members= message.content.member_user_ids.map(id=> users[id].first_name+' '+ users[id].last_name);
+            var members= message.content.member_user_ids.map(id=> 
+                users[id].last_name ? (users[id].first_name+' '+ users[id].last_name) : users[id].first_name);
             if(members.length>1){
                 members= members.slice(0, members.length - 1) .join(', ') + ' and ' + members[members.length - 1];
             } else {
                 members= members[0];
+            }
+            if(message.content.member_user_ids[0] == message.sender?.user_id) {
+                return (
+                    <span className={className}>
+                        <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> joined the group</span>
+                    </span>
+                );
             }
             return (
                 <span className={className}>
