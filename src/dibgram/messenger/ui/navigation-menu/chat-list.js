@@ -31,8 +31,8 @@ const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatLis
         getChatsFromList(chats, list) {
             return chats.map(chat => {
                 for( const position of chat.positions ) {
-                    if( position.order=='0' ) return false;
                     if (compareChatList(list, position.list)) {
+                        if( position.order=='0' ) return false;
                         return {
                             ...chat,
                             position: position
