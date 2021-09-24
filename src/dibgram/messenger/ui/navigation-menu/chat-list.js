@@ -11,6 +11,7 @@ import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
 import LinkButton from '../../../ui/elements/link-button';
 import { currentConnectionState } from '../../../ui/components/connecting';
+import { isChatWithDeletedAccount } from '../../chat-misc';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -95,6 +96,11 @@ export function ChatListItem({chat}){
              (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
         chatType= dialogs_bot;
     }
+
+    if(isChatWithDeletedAccount(chat)) {
+        chat.title= 'Deleted Account';
+    }
+
     return(
         <div className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
