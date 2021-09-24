@@ -38,7 +38,7 @@ export default function ProfilePhoto (props) {
     }, [props.photo]);
 
     var customIcon; 
-    if((!photo) && isServiceMessages) {
+    if((!props.photo) && isServiceMessages) {
         customIcon = [1, tgLogo];
     }
     return (
@@ -48,23 +48,35 @@ export default function ProfilePhoto (props) {
                 : 
                 customIcon? (
                     customIcon[0]?
-                        <img src={customIcon[1]}/>
+                        <React.Fragment>
+                            <Initials id={props.id} name={props.name}/>
+                            <img src={customIcon[1]}/>
+                        </React.Fragment>
                         :
-                        <div dangerouslySetInnerHTML={{__html: customIcon}}/>
+                        <div dangerouslySetInnerHTML={{__html: customIcon[1]}}/>
                 ) : (
-                    <span className={'initials color_'+ ((Math.abs(props.id || 0) % 7) + 1)}>
-                        {profileNameToInitials(props.name)}
-                    </span>
+                    <Initials id={props.id} name={props.name}/>
                 )
             }
         </div>
     );
 }
-
 ProfilePhoto.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     photo: PropTypes.object
+};
+
+function Initials({id, name}) {
+    return (
+        <span className={'initials color_'+ ((Math.abs(id || 0) % 7) + 1)}>
+            {profileNameToInitials(name)}
+        </span>
+    );
+}
+Initials.propTypes = {
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired
 };
 
 export function getChatTypeId(chat) {
