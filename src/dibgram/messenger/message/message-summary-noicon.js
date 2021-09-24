@@ -339,6 +339,85 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             } else {
                 return <MayHaveCaption type="Photo" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
             }
+        
+        // case 'messagePinMessage':
+        case 'messagePoll':
+            return (
+                <span className={className}>
+                    <span className="part-1">{message.content.poll.question}</span>
+                </span>
+            );
+        
+        // case 'messageProximityAlertTriggered':
+        // case 'messageScreenshotTaken':
+        case 'messageSticker':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">{message.content.sticker.emoji} Sticker</span>
+                </span>
+            );
+
+        case 'messageSupergroupChatCreate':
+            if(message.is_channel_post) {
+                return (
+                    <span className={className}>
+                        <span className="part-1">Channel created</span>
+                    </span>
+                );
+            } else {
+                return (
+                    <span className={className}>
+                        <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> created the group «{message.content.title}»</span>
+                    </span>
+                );
+            }
+
+        case 'messageText':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-2">{message.content.text.text.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
+                </span>
+            );
+
+        case 'messageUnsupported':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-2">This message is not supported by your version of DIBgram. Please update to the latest version.</span>
+                </span>
+            );
+        
+        case 'messageVenue':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">Location, </span>
+                    <span className="part-2">{message.content.venue.title}</span>
+                </span>
+            );
+
+        case 'messageVideo':
+            return <MayHaveCaption type="Video" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+
+        case 'messageVideoNote':
+            return (
+                <span className={className}>
+                    <MessageSummarySender message={message} chat={chat}/>
+                    <span className="part-1">Video message</span>
+                </span>
+            );
+
+        case 'messageVoiceNote':
+            return <MayHaveCaption type="Voice message" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+
+        case 'messageWebsiteConnected':
+            return (
+                <span className={className}>
+                    <span className="part-1">You allowed this bot to message you when you logged in on {message.content.domain_name}</span>
+                </span>
+            );
 
         default:
             return null;
