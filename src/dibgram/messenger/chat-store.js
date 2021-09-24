@@ -63,6 +63,19 @@ function reducer(state= {
             ...state,
             filters: action.payload
         };
+    case 'UPDATE_CHAT_PROPERTY':
+        return {
+            ...state,
+            chats: state.chats.map((chat) => {
+                if (chat.id === action.chat_id) {
+                    return {
+                        ...chat,
+                        [action.property]: action.value
+                    };
+                }
+                return chat;
+            })
+        };
     case 'UPDATE_CHAT_PHOTO':
         return {
             ...state,
@@ -124,9 +137,10 @@ TdLib.registerUpdateHandler('updateChatPosition', update => {
 
 TdLib.registerUpdateHandler('updateChatLastMessage', update => {
     chatStore.dispatch({
-        type: 'UPDATE_CHAT_LAST_MESSAGE',
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'last_message',
         chat_id: update.chat_id,
-        last_message: update.last_message
+        value: update.last_message
     });
     for (let position of update.positions) {
         chatStore.dispatch({
@@ -137,6 +151,12 @@ TdLib.registerUpdateHandler('updateChatLastMessage', update => {
     }
 });
 TdLib.registerUpdateHandler('updateChatDraftMessage', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'draft_message',
+        chat_id: update.chat_id,
+        value: update.title
+    });
     for (let position of update.positions) {
         chatStore.dispatch({
             type: 'UPDATE_CHAT_POSITION',
@@ -156,16 +176,18 @@ TdLib.registerUpdateHandler('updateChatFilters', update=> {
 });
 TdLib.registerUpdateHandler('updateChatPhoto', update=> {
     chatStore.dispatch({
-        type: 'UPDATE_CHAT_PHOTO',
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'photo',
         chat_id: update.chat_id,
-        photo: update.photo
+        value: update.photo
     });
 });
 TdLib.registerUpdateHandler('updateChatTitle', update=> {
     chatStore.dispatch({
-        type: 'UPDATE_CHAT_TITLE',
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'title',
         chat_id: update.chat_id,
-        title: update.title
+        value: update.title
     });
 });
 
