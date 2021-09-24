@@ -350,7 +350,7 @@ function MayHaveCaption({type, caption, className, message, chat}) {
     return (
         <span className={className}>
             <MessageSummarySender message={message} chat={chat}/>
-            <span className="part-1">{type}</span> <span className="part-2">{caption}</span>
+            <span className="part-1">{type}</span> <span className="part-2">{caption.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
         </span>
     );
 }

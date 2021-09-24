@@ -92,10 +92,12 @@
                 .sender,
                 .part-1 {
                     color: var(--theme-color-dialogsTextFgService);
+                    white-space: pre;
                 }
 
                 .part-2 {
                     color: var(--theme-color-dialogsTextFg);
+                    white-space: pre;
                 }
             }
 
