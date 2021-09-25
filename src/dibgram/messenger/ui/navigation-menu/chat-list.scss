@@ -114,6 +114,8 @@
                 position: relative;
                 float: right;
                 margin-left: 2px;
+                flex-shrink: 0;
+                margin-right: 5px;
 
                 .verified-icon-star svg {
                     position: absolute;
@@ -136,6 +138,7 @@
 
             .date {
                 color: var(--theme-color-dialogsDateFg);
+                letter-spacing: -0.2px;
             }
         }
     }
