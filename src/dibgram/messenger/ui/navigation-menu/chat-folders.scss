@@ -6,12 +6,17 @@
     width: 72px;
     flex-shrink: 0;
 
-    ul {
+    .list {
         list-style: none;
         margin: 0;
         padding: 0;
 
-        li {
+        .track-horizontal,
+        .track-vertical {
+            z-index: 2;
+        }
+
+        .item {
             user-select: none;
             text-align: center;
             box-sizing: border-box;
@@ -29,6 +34,8 @@
                 position: relative;
                 z-index: 1;
                 cursor: pointer;
+                word-break: break-word;
+                font-family: var(--font-family);
                 * { pointer-events: none; }
             }
 
@@ -40,9 +47,10 @@
 
             .title {
                 font-size: 11px;
-                line-height: 16px;
+                line-height: 15px;
                 font-weight: 500;
-                margin-top: -4px;
+                margin-top: -6px;
+                margin-bottom: 1px;
                 color: var(--theme-color-sideBarTextFg);
             }
 

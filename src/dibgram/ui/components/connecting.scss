@@ -6,6 +6,7 @@
     box-shadow: 0 0.5px 3px #777;
     border-radius: 100%;
     transition: bottom 100ms linear;
+    background: inherit;
 
     &.connected {
         bottom: -32px;

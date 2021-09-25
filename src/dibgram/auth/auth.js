@@ -21,11 +21,19 @@ TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
                 'device_model': 'Web',
                 'application_version': '0.0.1',
                 'enable_storage_optimizer': true,
-                'use_test_dc': getConfig().use_test_dc,
+                'use_test_dc': getUseTestDc(),
             }
         });
     }
 });
+
+function getUseTestDc(){
+    var urlPar=new URL(window.location.href).searchParams.get('test');
+    if(urlPar){
+        return urlPar==='1' || urlPar==='true';
+    }
+    return getConfig().use_test_dc;
+}
 
 /**
  * Provides functions to pass required authorization data to Telegram

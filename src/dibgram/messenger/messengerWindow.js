@@ -3,7 +3,7 @@ import TdLib from '../TdWeb/tdlib';
 import BigHighlightedButton from '../ui/elements/highlighted-button';
 import ChatFoldersList from './ui/navigation-menu/chat-folders';
 import ChatListBar from './ui/navigation-menu/chat-list-bar';
-import chatFiltersStore from './chat-filters';
+import chatStore from './chat-store';
 import { Provider } from 'react-redux';
 
 /**
@@ -17,7 +17,7 @@ export function MessengerWindow () {
     }
     return (
         <div id="messenger-screen">
-            <Provider store={chatFiltersStore}>
+            <Provider store={chatStore}>
                 <ChatFoldersList/>
                 <ChatListBar/>
             </Provider>

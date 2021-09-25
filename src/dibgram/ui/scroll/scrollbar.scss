@@ -1,0 +1,85 @@
+.scrollbar {
+    &:not(.full-size) {
+        height: unset !important;
+        width: unset !important;
+    }
+
+    & > div {
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+        scrollbar-width: none;  /* Firefox */
+        &::-webkit-scrollbar {
+            display: none;  /* Safari and Chrome */
+        }
+        margin: 0 !important;
+    }
+
+    .track-horizontal,
+    .thumb-horizontal {
+        display: none;
+    }
+
+    .track-vertical {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: calc(var(--bar-width) + 6px) !important;
+        transition-timing-function: linear;
+
+        &::before {
+            content: '';
+            background-color: var(--theme-color-scrollBg);
+            border-radius: 999em;
+            width: var(--bar-width);
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: 3px;
+            transition: background-color 0.2s linear;
+        }
+
+        &:hover::before,
+        &:active::before {
+            background-color: var(--theme-color-scrollBgOver);
+        }
+
+        .thumb-vertical {
+            width: calc(var(--bar-width) + 6px) !important;
+
+            &::before {
+                content: '';
+                background-color: var(--theme-color-scrollBarBg);
+                border-radius: 999em;
+                width: var(--bar-width);
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: 3px;
+                transition: background-color 0.2s linear;
+            }
+
+            &:hover::before,
+            &:active::before {
+                background-color: var(--theme-color-scrollBarBgOver);
+            }
+        }
+    }
+
+    &[data-mouse-entered=true] {
+        .track-horizontal,
+        .track-vertical {
+            opacity: 1 !important;
+        }
+    }
+
+    &:not(:hover) {
+        .track-horizontal:not(:active),
+        .track-vertical:not(:active) {
+            opacity: 0 !important;
+        }
+    }
+}
