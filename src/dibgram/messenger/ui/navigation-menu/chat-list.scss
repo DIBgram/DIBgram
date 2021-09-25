@@ -27,6 +27,29 @@
         display: flex;
         flex-direction: row;
 
+        &,
+        * {
+            cursor: pointer;
+        }
+
+        &:hover {
+            background-color: var(--theme-color-dialogsBgOver);
+
+            --theme-color-dialogsNameFg: var(--theme-color-dialogsNameFgOver);
+            --theme-color-dialogsChatIconFg: var(--theme-color-dialogsChatIconFgOver);
+            --theme-color-dialogsTextFgService: var(--theme-color-dialogsTextFgServiceOver);
+            --theme-color-dialogsTextFg: var(--theme-color-dialogsTextFgOver);
+            --theme-color-dialogsUnreadBgMuted: var(--theme-color-dialogsUnreadBgMutedOver);
+            --theme-color-dialogsSentIconFg: var(--theme-color-dialogsSentIconFgOver);
+            --theme-color-dialogsSendingIconFg: var(--theme-color-dialogsSendingIconFgOver);
+            --theme-color-dialogsVerifiedIconBg: var(--theme-color-dialogsVerifiedIconBgOver);
+            --theme-color-dialogsVerifiedIconFg: var(--theme-color-dialogsVerifiedIconFgOver);
+            --theme-color-dialogsDateFg: var(--theme-color-dialogsDateFgOver);
+            --theme-color-dialogsUnreadBg: var(--theme-color-dialogsUnreadBgOver);
+            --theme-color-dialogsUnreadFg: var(--theme-color-dialogsUnreadFgOver);
+            --theme-color-dialogsDraftFg: var(--theme-color-dialogsDraftFgOver);
+        }
+
         .profile-photo {
             width: 46px;
             height: 46px;
