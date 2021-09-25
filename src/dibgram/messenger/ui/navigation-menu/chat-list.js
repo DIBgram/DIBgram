@@ -5,7 +5,7 @@ import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../profile-photo';
-import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check } from '../../../ui/icon/icons';
+import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check, dialogs_sending, dialogs_sent, dialogs_received } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
@@ -13,6 +13,7 @@ import LinkButton from '../../../ui/elements/link-button';
 import { currentConnectionState } from '../../../ui/components/connecting';
 import { isChatWithDeletedAccount, isChatVerified } from '../../chat-misc';
 import { smallDateTimeToString } from '../../../time-tostring';
+import { getMessageStatus } from '../../message-misc';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -104,6 +105,19 @@ export function ChatListItem({chat}){
 
     const isVerified= isChatVerified(chat);
 
+    var messageStatus = null;
+    switch(getMessageStatus(chat, chat.last_message)) {
+    case 'sending': 
+        messageStatus = <span className="message-status-icon sending" dangerouslySetInnerHTML={{__html: dialogs_sending}}/>;
+        break;
+    case 'sent': 
+        messageStatus = <span className="message-status-icon sent" dangerouslySetInnerHTML={{__html: dialogs_sent}}/>;
+        break;
+    case 'seen': 
+        messageStatus = <span className="message-status-icon seen" dangerouslySetInnerHTML={{__html: dialogs_received}}/>;
+        break;
+    }
+
     return(
         <div className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
@@ -118,6 +132,7 @@ export function ChatListItem({chat}){
                         </span>}
                     </div>
                     <div className="right">
+                        {messageStatus}
                         {chat.last_message?.date && <span className="date">{smallDateTimeToString(chat.last_message.date)}</span>}
                     </div>
                 </div>

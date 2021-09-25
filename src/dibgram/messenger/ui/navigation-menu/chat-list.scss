@@ -108,6 +108,27 @@
                 fill: var(--theme-color-dialogsUnreadBgMuted);
             }
 
+            .message-status-icon {
+                svg {
+                    width: 14px;
+                    height: 12px;
+                    fill: var(--theme-color-dialogsSentIconFg);
+                    margin-top: 3px;
+                    margin-right: 2px;
+                }
+
+                &.seen svg {
+                    width: 19px;
+                }
+
+                &.sending svg {
+                    fill: var(--theme-color-dialogsSendingIconFg);
+                    width: 13px;
+                    height: 13px;
+                    margin-right: 5px;
+                }
+            }
+
             .verified-icon {
                 width: 15px;
                 height: 15px;
