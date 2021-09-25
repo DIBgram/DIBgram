@@ -14,6 +14,7 @@ import { currentConnectionState } from '../../../ui/components/connecting';
 import { isChatWithDeletedAccount, isChatVerified } from '../../chat-misc';
 import { smallDateTimeToString } from '../../../time-tostring';
 import { getMessageStatus } from '../../message-misc';
+import options from '../../../TdWeb/options';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -98,12 +99,19 @@ export function ChatListItem({chat}){
              (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
         chatType= dialogs_bot;
     }
+    if (chat.id==options['replies_bot_chat_id']) {
+        chatType= '';
+    }
 
     if(isChatWithDeletedAccount(chat)) {
-        chat.title= 'Deleted Account';
+        chat.title= 'Deleted Account'; // Chat object is a copy, so there is no problem with mutating it.
     }
 
     const isVerified= isChatVerified(chat);
+
+    if (chat.id==options['my_id']) {
+        chat.title= 'Saved Messages';
+    }
 
     var messageStatus = null;
     switch(getMessageStatus(chat, chat.last_message)) {

@@ -33,4 +33,20 @@
         width: 100%;
         height: 100%;
     }
+
+    .svg {
+        background-color: var(--theme-color-historyPeerSavedMessagesBg);
+        fill: var(--theme-color-historyPeerUserpicFg);
+        height: 100%;
+        width: 100%;
+
+        svg {
+            height: 100%;
+            width: 100%;
+
+            path {
+                stroke: var(--theme-color-historyPeerUserpicFg);
+            }
+        }
+    }
 }

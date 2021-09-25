@@ -13,3 +13,5 @@ export const dialogs_sending = raw('./dialogs_sending.svg');
 export const dialogs_sent = raw('./dialogs_sent.svg');
 export const dialogs_received = raw('./dialogs_received.svg');
 export const info_close = raw('./info_close.svg');
+export const replies_userpic = raw('./replies_userpic.svg');
+export const saved_messages = raw('./saved_messages.svg');

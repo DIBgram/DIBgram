@@ -4,6 +4,7 @@ import { blobToUrl, getFileContent } from '../../TdWeb/file';
 import options from '../../TdWeb/options';
 import './profile-photo.scss';
 import tgLogo from '../../ui/img/TgLogo.png';
+import { saved_messages, replies_userpic } from '../../ui/icon/icons';
 
 export function profileNameToInitials(name) {
     const words=name.replace(/[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007F]/g,'').toUpperCase().split(' ');
@@ -20,6 +21,8 @@ export default function ProfilePhoto (props) {
     const [photo, setPhoto] = React.useState(null);
     const [photoObj, setPhotoObj] = React.useState(null);
     const isServiceMessages= props.id==options['telegram_service_notifications_chat_id'];
+    const isSavedMessages= props.id==options['my_id'];
+    const isReplies= props.id==options['replies_bot_chat_id'];
     
     React.useEffect(() => {
         if(props.photo){
@@ -38,14 +41,18 @@ export default function ProfilePhoto (props) {
     }, [props.photo]);
 
     var customIcon; 
+    if(isSavedMessages){
+        customIcon= [0, saved_messages];
+    }
+    if(isReplies){
+        customIcon= [0, replies_userpic];
+    }
     if((!props.photo) && isServiceMessages) {
         customIcon = [1, tgLogo];
     }
     return (
         <div className="profile-photo">
-            {(props.photo && photo) ? 
-                <img src={photo}/> 
-                : 
+            {
                 customIcon? (
                     customIcon[0]?
                         <React.Fragment>
@@ -53,9 +60,12 @@ export default function ProfilePhoto (props) {
                             <img src={customIcon[1]}/>
                         </React.Fragment>
                         :
-                        <div dangerouslySetInnerHTML={{__html: customIcon[1]}}/>
+                        <div className="svg" dangerouslySetInnerHTML={{__html: customIcon[1]}}/>
                 ) : (
-                    <Initials id={props.id} name={props.name}/>
+                    (props.photo && photo) ? 
+                        <img src={photo}/> 
+                        : 
+                        <Initials id={props.id} name={props.name}/>
                 )
             }
         </div>
