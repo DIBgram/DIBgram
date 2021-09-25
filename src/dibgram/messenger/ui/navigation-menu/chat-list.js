@@ -171,9 +171,15 @@ export function ChatListItem({chat}){
                 </div>
                 <div className="bottom">
                     <div className="left">
-                        <Provider store={usersStore}>
-                            <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
-                        </Provider>
+                        {chat.draft_message ? 
+                            <span className="last-message">
+                                <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
+                            </span> 
+                            : 
+                            <Provider store={usersStore}>
+                                <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
+                            </Provider>
+                        }
                     </div>
                     <div className="right">
                         {unreadBadge}

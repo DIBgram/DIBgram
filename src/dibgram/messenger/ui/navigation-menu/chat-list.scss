@@ -99,6 +99,10 @@
                     color: var(--theme-color-dialogsTextFg);
                     white-space: pre;
                 }
+
+                .draft {
+                    color: var(--theme-color-dialogsDraftFg);
+                }
             }
 
             .pinned_icon svg {

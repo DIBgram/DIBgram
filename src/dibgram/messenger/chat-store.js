@@ -150,7 +150,7 @@ TdLib.registerUpdateHandler('updateChatDraftMessage', update => {
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'draft_message',
         chat_id: update.chat_id,
-        value: update.title
+        value: update.draft_message
     });
     for (let position of update.positions) {
         chatStore.dispatch({
