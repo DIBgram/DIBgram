@@ -127,6 +127,7 @@ export function ChatListItem({chat}){
     }
 
     var unreadBadge = null;
+    const unreadBadgeClass= chat.notification_settings.mute_for ? 'unread-badge muted' : 'unread-badge';
     // Show the mention badge alone if there is exactly one mention and no other unread messages
     if (chat.unread_mention_count == 1 && chat.unread_count == chat.unread_mention_count) {
         unreadBadge = <span className="unread-badge mention">@</span>;
@@ -135,16 +136,16 @@ export function ChatListItem({chat}){
     else if (chat.unread_mention_count > 0 && chat.unread_count > 1 ) {
         unreadBadge = <React.Fragment>
             <span className="unread-badge mention">@</span>
-            <span className="unread-badge">{chat.unread_count}</span>
+            <span className={unreadBadgeClass}>{chat.unread_count}</span>
         </React.Fragment>;
     }
     // Show the unread badge alone if there are no mentions and there are unread messages
     else if (chat.unread_count > 0 && chat.unread_mention_count == 0) {
-        unreadBadge = <span className="unread-badge">{chat.unread_count}</span>;
+        unreadBadge = <span className={unreadBadgeClass}>{chat.unread_count}</span>;
     }
     // Show an empty badge if chat is manually marked as unread
     else if (chat.is_marked_as_unread) {
-        unreadBadge = <span className="unread-badge"></span>;
+        unreadBadge = <span className={unreadBadgeClass}></span>;
     }
     else {
         unreadBadge = chat.position?.is_pinned && <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span>;
