@@ -133,6 +133,10 @@
                     fill: var(--theme-color-dialogsVerifiedIconFg);
                 }
             }
+
+            .date {
+                color: var(--theme-color-dialogsDateFg);
+            }
         }
     }
 }

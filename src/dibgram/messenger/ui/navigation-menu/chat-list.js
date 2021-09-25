@@ -12,6 +12,7 @@ import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
 import LinkButton from '../../../ui/elements/link-button';
 import { currentConnectionState } from '../../../ui/components/connecting';
 import { isChatWithDeletedAccount, isChatVerified } from '../../chat-misc';
+import { smallDateTimeToString } from '../../../time-tostring';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -116,8 +117,9 @@ export function ChatListItem({chat}){
                             <span className="verified-icon-check" dangerouslySetInnerHTML={{__html: dialogs_verified_check}}></span>
                         </span>}
                     </div>
+                    <div className="right">
+                        {chat.last_message?.date && <span className="date">{smallDateTimeToString(chat.last_message.date)}</span>}
                     </div>
-                    <div className="right"></div>
                 </div>
                 <div className="bottom">
                     <div className="left">
