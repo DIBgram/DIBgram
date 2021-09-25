@@ -1,7 +1,7 @@
 
 /**
  * Converts a date and time to a short string.
- * - If the date is in the last 24 hours, the time is displayed in the format HH:MM.
+ * - If the date is in the last 20 hours, the time is displayed in the format HH:MM.
  * - If the date is in the last 7 days, the weekday is displayed.
  * - If the date is older, the date is displayed in the format DD.MM.YY.
  * @param {Date|Number} date Input date
@@ -9,7 +9,7 @@
 export function smallDateTimeToString(date) {
     if(typeof date == 'number') date= TdLibDateToDate(date);
     const now = new Date();
-    const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const yesterday = new Date(now.getTime() - 20 * 60 * 60 * 1000);
     const lastWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
     if (date.getTime() >= yesterday.getTime()) {
@@ -52,9 +52,15 @@ export function weekdayToString(date) {
  */
 export function dateToString(date) {
     if(typeof date == 'number') date= TdLibDateToDate(date);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
     const year = String(date.getFullYear()).slice(2);
+    if (day < 10) {
+        day = `0${day}`;
+    }
+    if (month < 10) {
+        month = `0${month}`;
+    }
     return `${day}.${month}.${year}`;
 }
 
