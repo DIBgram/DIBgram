@@ -308,6 +308,15 @@ TdLib.registerUpdateHandler('updateChatUnreadMentionCount', update=> {
     });
 });
 
+TdLib.registerUpdateHandler('updateMessageMentionRead', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'unread_mention_count',
+        chat_id: update.chat_id,
+        value: update.unread_mention_count
+    });
+});
+
 export default chatStore;
 
 export function compareChatList(list1, list2) {

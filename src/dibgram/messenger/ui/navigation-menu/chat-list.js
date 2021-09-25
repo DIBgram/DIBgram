@@ -126,6 +126,30 @@ export function ChatListItem({chat}){
         break;
     }
 
+    var unreadBadge = null;
+    // Show the mention badge alone if there is exactly one mention and no other unread messages
+    if (chat.unread_mention_count == 1 && chat.unread_count == chat.unread_mention_count) {
+        unreadBadge = <span className="unread-badge mention">@</span>;
+    } 
+    // Show the mention badge with unread badge together if there are more than one unread messages and there are mentions
+    else if (chat.unread_mention_count > 0 && chat.unread_count > 1 ) {
+        unreadBadge = <React.Fragment>
+            <span className="unread-badge mention">@</span>
+            <span className="unread-badge">{chat.unread_count}</span>
+        </React.Fragment>;
+    }
+    // Show the unread badge alone if there are no mentions and there are unread messages
+    else if (chat.unread_count > 0 && chat.unread_mention_count == 0) {
+        unreadBadge = <span className="unread-badge">{chat.unread_count}</span>;
+    }
+    // Show an empty badge if chat is manually marked as unread
+    else if (chat.is_marked_as_unread) {
+        unreadBadge = <span className="unread-badge"></span>;
+    }
+    else {
+        unreadBadge = chat.position?.is_pinned && <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span>;
+    }
+
     return(
         <div className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
@@ -151,7 +175,7 @@ export function ChatListItem({chat}){
                         </Provider>
                     </div>
                     <div className="right">
-                        {chat.position?.is_pinned && <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span>}
+                        {unreadBadge}
                     </div>
                 </div>
             </div>

@@ -51,20 +51,19 @@
             .top,
             .bottom {
                 display: flex;
-                overflow: hidden;
                 flex-direction: row;
                 justify-content: space-between;
                 height: 18px;
             }
 
-            .left,
-            .right {
+            .left {
                 overflow: hidden;
                 display: flex;
             }
 
             .right {
                 flex-shrink: 0;
+                display: flex;
             }
 
             .title,
@@ -160,6 +159,27 @@
             .date {
                 color: var(--theme-color-dialogsDateFg);
                 letter-spacing: -0.2px;
+            }
+
+            .unread-badge {
+                background-color: var(--theme-color-dialogsUnreadBg);
+                color: var(--theme-color-dialogsUnreadFg);
+                padding: 0 4.5px;
+                padding-bottom: 1px;
+                margin-left: 5px;
+                min-width: 19px;
+                height: 19px;
+                text-align: center;
+                box-sizing: border-box;
+                border-radius: 9px;
+
+                &.mention {
+                    padding: 0;
+                }
+
+                &.muted {
+                    background-color: var(--theme-color-dialogsUnreadBgMuted);
+                }
             }
         }
     }
