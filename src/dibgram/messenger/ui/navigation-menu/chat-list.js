@@ -5,13 +5,13 @@ import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../profile-photo';
-import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned } from '../../../ui/icon/icons';
+import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
 import LinkButton from '../../../ui/elements/link-button';
 import { currentConnectionState } from '../../../ui/components/connecting';
-import { isChatWithDeletedAccount } from '../../chat-misc';
+import { isChatWithDeletedAccount, isChatVerified } from '../../chat-misc';
 
 const ChatList= connect(state=> ({chats: state.chats, list: state.currentChatList}))(
     class ChatList extends React.Component { 
@@ -101,6 +101,8 @@ export function ChatListItem({chat}){
         chat.title= 'Deleted Account';
     }
 
+    const isVerified= isChatVerified(chat);
+
     return(
         <div className="chat">
             <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
@@ -109,6 +111,11 @@ export function ChatListItem({chat}){
                     <div className="left">
                         <div className="type-icon" dangerouslySetInnerHTML={{__html: chatType}}></div>
                         <div className="title">{chat.title}</div>
+                        {isVerified && <span className="verified-icon">
+                            <span className="verified-icon-star" dangerouslySetInnerHTML={{__html: dialogs_verified_star}}></span>
+                            <span className="verified-icon-check" dangerouslySetInnerHTML={{__html: dialogs_verified_check}}></span>
+                        </span>}
+                    </div>
                     </div>
                     <div className="right"></div>
                 </div>
@@ -119,7 +126,7 @@ export function ChatListItem({chat}){
                         </Provider>
                     </div>
                     <div className="right">
-                        {chat.position?.is_pinned ? <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span> : null}
+                        {chat.position?.is_pinned && <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span>}
                     </div>
                 </div>
             </div>

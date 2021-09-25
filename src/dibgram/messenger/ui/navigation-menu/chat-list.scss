@@ -76,6 +76,7 @@
 
             .title {
                 color: var(--theme-color-dialogsNameFg);
+                letter-spacing: 0.2px;
             }
 
             .type-icon svg {
@@ -105,6 +106,32 @@
                 width: 20px;
                 height: 20px;
                 fill: var(--theme-color-dialogsUnreadBgMuted);
+            }
+
+            .verified-icon {
+                width: 15px;
+                height: 15px;
+                position: relative;
+                float: right;
+                margin-left: 2px;
+
+                .verified-icon-star svg {
+                    position: absolute;
+                    top: 1px;
+                    left: 1px;
+                    width: 15px;
+                    height: 15px;
+                    fill: var(--theme-color-dialogsVerifiedIconBg);
+                }
+
+                .verified-icon-check svg {
+                    position: absolute;
+                    top: 4px;
+                    left: 4px;
+                    width: 10px;
+                    height: 10px;
+                    fill: var(--theme-color-dialogsVerifiedIconFg);
+                }
             }
         }
     }
