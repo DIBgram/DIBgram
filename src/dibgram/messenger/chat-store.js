@@ -127,29 +127,24 @@ TdLib.registerUpdateHandler('updateNewChat', update => {
     });
 });
 
-TdLib.registerUpdateHandler('updateChatPosition', update => {
+TdLib.registerUpdateHandler('updateChatActionBar', update=> {
     chatStore.dispatch({
-        type: 'UPDATE_CHAT_POSITION',
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'action_bar',
         chat_id: update.chat_id,
-        position: update.position
+        value: update.action_bar
     });
 });
 
-TdLib.registerUpdateHandler('updateChatLastMessage', update => {
+TdLib.registerUpdateHandler('updateChatDefaultDisableNotification', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
-        property: 'last_message',
+        property: 'default_disable_notification',
         chat_id: update.chat_id,
-        value: update.last_message
+        value: update.default_disable_notification
     });
-    for (let position of update.positions) {
-        chatStore.dispatch({
-            type: 'UPDATE_CHAT_POSITION',
-            chat_id: update.chat_id,
-            position: position
-        });
-    }
 });
+
 TdLib.registerUpdateHandler('updateChatDraftMessage', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
@@ -174,6 +169,77 @@ TdLib.registerUpdateHandler('updateChatFilters', update=> {
         });
     }
 });
+
+TdLib.registerUpdateHandler('updateChatHasScheduledMessages', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'has_scheduled_messages',
+        chat_id: update.chat_id,
+        value: update.has_scheduled_messages
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatIsBlocked', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'is_blocked',
+        chat_id: update.chat_id,
+        value: update.is_blocked
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatIsMarkedAsUnread', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'is_marked_as_unread',
+        chat_id: update.chat_id,
+        value: update.is_marked_as_unread
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatLastMessage', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'last_message',
+        chat_id: update.chat_id,
+        value: update.last_message
+    });
+    for (let position of update.positions) {
+        chatStore.dispatch({
+            type: 'UPDATE_CHAT_POSITION',
+            chat_id: update.chat_id,
+            position: position
+        });
+    }
+});
+
+TdLib.registerUpdateHandler('updateChatNotificationSettings', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'notification_settings',
+        chat_id: update.chat_id,
+        value: update.notification_settings
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatOnlineMemberCount', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'online_member_count',
+        chat_id: update.chat_id,
+        value: update.online_member_count
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatPermissions', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'permissions',
+        chat_id: update.chat_id,
+        value: update.permissions
+    });
+});
+
 TdLib.registerUpdateHandler('updateChatPhoto', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
@@ -182,12 +248,63 @@ TdLib.registerUpdateHandler('updateChatPhoto', update=> {
         value: update.photo
     });
 });
+
+TdLib.registerUpdateHandler('updateChatPosition', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_POSITION',
+        chat_id: update.chat_id,
+        position: update.position
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatReadInbox', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'unread_count',
+        chat_id: update.chat_id,
+        value: update.unread_count
+    });
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'last_read_inbox_message_id',
+        chat_id: update.chat_id,
+        value: update.last_read_inbox_message_id
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatReadOutbox', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'last_read_outbox_message_id',
+        chat_id: update.chat_id,
+        value: update.last_read_outbox_message_id
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatReplyMarkup', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'reply_markup_message_id',
+        chat_id: update.chat_id,
+        value: update.reply_markup_message_id
+    });
+});
+
 TdLib.registerUpdateHandler('updateChatTitle', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'title',
         chat_id: update.chat_id,
         value: update.title
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatUnreadMentionCount', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'unread_mention_count',
+        chat_id: update.chat_id,
+        value: update.unread_mention_count
     });
 });
 
