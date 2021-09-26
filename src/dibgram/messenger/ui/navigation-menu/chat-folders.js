@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import filters from '../../../ui/icon/chat_filters/chat-filters';
-import RippleEffect, {handleMyMouseEvents} from '../../../ui/elements/ripple-effect';
+import RippleEffect, {handleMyMouseEventsFunction} from '../../../ui/elements/ripple-effect';
 import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
 import { compareChatList } from '../../chat-store';
 import TdLib from '../../../TdWeb/tdlib';
@@ -11,55 +11,64 @@ import ScrollView from '../../../ui/scroll/scrollbar';
 /**
  * Renders a chat folder button
  */
-export class ChatFolder extends React.Component {
-    static propTypes= {
-        /** The folder object provided by TdLib */
-        folder: PropTypes.object.isRequired,
-        /** A boolean indicating if the folder is currently selected */
-        active: PropTypes.bool.isRequired,
-        /** A function to call when the folder is clicked */
-        onClick: PropTypes.func.isRequired
-    }
-    state= {
-        ripple: {
-            state: 'off'
-        }
-    }
-    constructor() {
-        super();
-        [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this);
-    }
+export function ChatFolder({folder, active, onClick}) {
+    const ripple= React.useState({state: 'off'});
+    const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
+    const [iconName, setIconName]= React.useState(folder.icon_name);
 
-    componentDidMount(){
+    React.useEffect(()=> {
         TdLib.sendQuery({
             '@type': 'getChats',
             'chat_list': {
                 '@type': 'chatListFilter',
-                'chat_filter_id': this.props.folder.id,
+                'chat_filter_id': folder.id,
             },
             'offset_order': '9223372036854775807',
             'offset_chat_id': 0,
             'limit': 50
         });
-    }
+    }, []);
 
-    render(){
-        return (
-            <div className={this.props.active ? 'item active' : 'item'}>
-                <RippleEffect {...this.state.ripple} color="var(--theme-color-sideBarBgRipple)"/>
-                <button
-                    onMouseDown={this.mouseDown}
-                    onMouseUp={this.mouseUp}
-                    onMouseLeave={this.mouseLeave}
-                    onClick={this.props.onClick}>
+    React.useEffect(()=> {
+        if(!folder.icon_name) {
+            TdLib.sendQuery({
+                '@type': 'getChatFilter',
+                'chat_filter_id': folder.id
+            }).then(folder=> {
+                TdLib.sendQuery({
+                    '@type': 'getChatFilterDefaultIconName',
+                    'filter': folder
+                }).then(result=> setIconName(result.text));
+            });
+        }
+    }, [folder]);
 
-                    <div className="icon" dangerouslySetInnerHTML={{__html:filters.all[this.props.active+0]}}></div>
-                    <div className="title">{this.props.folder.title}</div>
-                </button>
-            </div>
-        );
-    }
+    var icon= (filters[iconName] || filters['Custom']);
+    icon= icon[active+0] || icon[0];
+    return (
+        <div className={active ? 'item active' : 'item'}>
+            <RippleEffect {...ripple[0]} color="var(--theme-color-sideBarBgRipple)"/>
+            <button
+                onMouseDown={mouseDown}
+                onMouseUp={mouseUp}
+                onMouseLeave={mouseLeave}
+                onClick={onClick}>
+
+                <div className="icon" dangerouslySetInnerHTML={{__html: icon}}></div>
+                <div className="title">{folder.title}</div>
+            </button>
+        </div>
+    );
 }
+
+ChatFolder.propTypes= {
+    /** The folder object provided by TdLib */
+    folder: PropTypes.object.isRequired,
+    /** A boolean indicating if the folder is currently selected */
+    active: PropTypes.bool.isRequired,
+    /** A function to call when the folder is clicked */
+    onClick: PropTypes.func.isRequired
+};
 
 /**
  * Renders the chat folders list
@@ -72,7 +81,7 @@ function ChatFolderList({folders, currentFolder, dispatch}) {
             <ScrollView scrollBarWidth="4" className="list scrollbar full-size">
                 <ChatFolder 
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
-                    folder={{ title: 'All chats', icon: 'all' }}
+                    folder={{ title: 'All chats', icon_name: 'All' }}
                     onClick={()=> dispatch({
                         type: 'SET_CURRENT_CHAT_LIST',
                         chatList: { '@type': 'chatListMain' }

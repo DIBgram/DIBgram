@@ -110,3 +110,47 @@ export function handleMyMouseEvents(This) {
         }).bind(This)
     ];
 }
+// Assign your `mouseDown`, `mouseUp` and `mouseLeave` to the returned functions.
+export function handleMyMouseEventsFunction([ripple, setRipple]) {
+    function down(e) {
+        // Reset the ripple effect if it's not off
+        if(ripple.state!='off'){
+            setRipple({ state: 'off' });
+            setTimeout(() => {
+                setRipple ({
+                    state: 'pressed',
+                    X: e.nativeEvent.offsetX,
+                    Y: e.nativeEvent.offsetY,
+                    width: e.target.clientWidth,
+                    height: e.target.clientHeight
+                });
+            }, 10);
+            return;
+        }
+        setRipple ({
+            state: 'pressed',
+            X: e.nativeEvent.offsetX,
+            Y: e.nativeEvent.offsetY,
+            width: e.target.clientWidth,
+            height: e.target.clientHeight
+        });
+    }
+
+    function up(e) {
+        setRipple ({
+            state: 'released',
+            X: e.nativeEvent.offsetX,
+            Y: e.nativeEvent.offsetY,
+            width: e.target.clientWidth,
+            height: e.target.clientHeight 
+        });
+    }
+
+    function leave(e) {
+        if(ripple.state=='pressed') {
+            up(e);
+        }
+    }
+    
+    return [down, up, leave];
+}
