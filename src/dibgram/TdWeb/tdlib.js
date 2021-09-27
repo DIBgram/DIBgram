@@ -63,6 +63,19 @@ export default class TdLib {
         if(log.log_queries) {
             console.log('Query: ',query);
         }
-        return TdLib.#tdClient.send(query);
+        return new Promise((resolve, reject) => {
+            TdLib.#tdClient.send(query).then(result=> {
+                if(log.log_queries) {
+                    console.log('Query result: ', result);
+                }
+                resolve(result);
+            }, error=> {
+                if(log.log_queries) {
+                    console.error('Query failed: ', error);
+                }
+                reject(error);
+            }
+            );
+        });
     }
 }
