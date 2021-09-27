@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import ConnectionState from '../../../ui/components/connecting';
 import ChatList from './chat-list';
 import SearchBox from './search/search-box';
+import './chat-list-bar.scss';
 
 /**
  * Renders the navigation menu, containing chat list, search field and search results, chat folders and the hamburger menu

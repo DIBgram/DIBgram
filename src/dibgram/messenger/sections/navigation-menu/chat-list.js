@@ -4,7 +4,7 @@ import { connect, Provider } from 'react-redux';
 import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
-import ProfilePhoto, { getChatTypeId } from '../profile-photo';
+import ProfilePhoto, { getChatTypeId } from '../../../ui/components/profile-photo';
 import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check, dialogs_sending, dialogs_sent, dialogs_received } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';

@@ -7,6 +7,7 @@ import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
 import { compareChatList } from '../../chat-store';
 import TdLib from '../../../TdWeb/tdlib';
 import ScrollView from '../../../ui/scroll/scrollbar';
+import './chat-folders.scss';
 
 /**
  * Renders a chat folder button

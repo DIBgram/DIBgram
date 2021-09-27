@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import {MainApp, setInitialAuthState} from './dibgram/auth/ui';
+import {MainApp, setInitialAuthState} from './dibgram/auth/auth-screen';
 import TdLib from './dibgram/TdWeb/tdlib';
 import Dialogs, {dialogStore} from './dibgram/ui/dialog/dialogs';
 import './dibgram/ui/main.scss';

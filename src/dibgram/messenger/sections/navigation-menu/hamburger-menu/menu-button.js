@@ -1,5 +1,6 @@
 import React from 'react';
 import RippleEffect, {handleMyMouseEvents} from '../../../../ui/elements/ripple-effect';
+import './menu-button.scss';
 /**
  * Renders the button which opens the hamburger menu
  */

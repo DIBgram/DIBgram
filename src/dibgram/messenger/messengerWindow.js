@@ -1,10 +1,11 @@
 import React from 'react';
 import TdLib from '../TdWeb/tdlib';
 import BigHighlightedButton from '../ui/elements/highlighted-button';
-import ChatFoldersList from './ui/navigation-menu/chat-folders';
-import ChatListBar from './ui/navigation-menu/chat-list-bar';
+import ChatFoldersList from './sections/navigation-menu/chat-folders';
+import ChatListBar from './sections/navigation-menu/chat-list-bar';
 import chatStore from './chat-store';
 import { Provider } from 'react-redux';
+import './messengerWindow.scss';
 
 /**
  * Renders the messenger screen

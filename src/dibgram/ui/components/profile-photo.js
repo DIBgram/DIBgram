@@ -4,7 +4,7 @@ import { blobToUrl, getFileContent } from '../../TdWeb/file';
 import options from '../../TdWeb/options';
 import './profile-photo.scss';
 import tgLogo from '../../ui/img/TgLogo.png';
-import { saved_messages, replies_userpic } from '../../ui/icon/icons';
+import { saved_messages, replies_userpic } from '../icon/icons';
 
 export function profileNameToInitials(name) {
     const words=name.replace(/[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007F]/g,'').toUpperCase().split(' ');

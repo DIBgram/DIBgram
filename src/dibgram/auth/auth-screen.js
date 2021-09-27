@@ -10,6 +10,8 @@ import ConnectionState from '../ui/components/connecting';
 import { addDialog } from '../ui/dialog/dialogs';
 import ConfirmDialog from '../ui/dialog/confirm-dialog';
 
+import './auth.scss';
+
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
     initialAuthState=state;
