@@ -1,10 +1,15 @@
 import React from 'react';
+import IconButton from '../../../../ui/elements/icon-button';
 import RippleEffect, {handleMyMouseEvents} from '../../../../ui/elements/ripple-effect';
+import { dialogs_menu } from '../../../../ui/icon/icons';
 import './menu-button.scss';
+
+var HamburgerMenuButton= {};
+
 /**
  * Renders the button which opens the hamburger menu
  */
-export default class HamburgerMenuButton_WithFolders extends React.Component {
+HamburgerMenuButton.WithFolders= class WithFolders extends React.Component {
     state= {
         ripple: {
             state: 'off'
@@ -16,7 +21,7 @@ export default class HamburgerMenuButton_WithFolders extends React.Component {
     }
     render() {
         return (
-            <button id="hamburger-menu-button"
+            <button id="hamburger-menu-button" className="uses-folders"
                 onMouseDown={this.mouseDown}
                 onMouseUp={this.mouseUp}
                 onMouseLeave={this.mouseLeave}>
@@ -25,4 +30,18 @@ export default class HamburgerMenuButton_WithFolders extends React.Component {
             </button>
         );
     }
-}
+};
+
+/**
+ * Renders the button which opens the hamburger menu
+ */
+HamburgerMenuButton.WithoutFolders= function WithoutFolders () {
+    return (
+        <IconButton 
+            icon={dialogs_menu}
+            id="hamburger-menu-button"
+            className="icon-button no-folders"/>
+    );
+};
+
+export default HamburgerMenuButton;

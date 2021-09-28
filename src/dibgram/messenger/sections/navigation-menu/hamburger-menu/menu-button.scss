@@ -23,13 +23,19 @@
             margin: 1.5px;
         }
     }
-}
 
-#chat-folders-list #hamburger-menu-button {
-    width: 100%;
-    min-height: 54px;
-    height: 54px;
-    padding: 0;
+    &.uses-folders {
+        width: 100%;
+        min-height: 54px;
+        height: 54px;
+        padding: 0;
 
-    --theme-color-dialogsMenuIconFg: var(--theme-color-sideBarIconFg);
+        --theme-color-dialogsMenuIconFg: var(--theme-color-sideBarIconFg);
+    }
+
+    &.no-folders {
+        margin-left: 7px;
+        margin-right: -4px;
+        flex-shrink: 0;
+    }
 }

@@ -1,0 +1,26 @@
+.icon-button {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    fill: var(--theme-color-menuIconFg);
+    position: relative;
+
+    span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: +1;
+        pointer-events: none;
+    }
+
+    &:hover {
+        fill: var(--theme-color-menuIconFgOver);
+    }
+}

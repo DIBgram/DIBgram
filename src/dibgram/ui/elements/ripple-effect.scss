@@ -22,6 +22,11 @@
         transition: opacity 200ms;
         opacity: 0;
     }
+
+    &.small {
+        --ripple-duration: 200ms;
+        --ripple-timing-function: linear;
+    }
 }
 @keyframes ripple-press {
     // It starts from a point in the same location as where the user clicked ...

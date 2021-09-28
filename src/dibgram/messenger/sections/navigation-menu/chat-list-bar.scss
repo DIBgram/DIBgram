@@ -3,4 +3,9 @@
     min-width: 260px;
     position: relative;
     background: var(--theme-color-dialogsBg);
+
+    .chat-list-header {
+        display: flex;
+        align-items: center;
+    }
 }

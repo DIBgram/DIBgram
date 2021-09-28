@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import filters from '../../../ui/icon/chat_filters/chat-filters';
 import RippleEffect, {handleMyMouseEventsFunction} from '../../../ui/elements/ripple-effect';
-import HamburgerMenuButton_WithFolders from './hamburger-menu/menu-button';
+import HamburgerMenuButton from './hamburger-menu/menu-button';
 import { compareChatList } from '../../chat-store';
 import TdLib from '../../../TdWeb/tdlib';
 import ScrollView from '../../../ui/scroll/scrollbar';
@@ -78,7 +78,7 @@ function ChatFolderList({folders, currentFolder, dispatch}) {
     if(!folders || folders.length==0) return null;
     return (
         <div id="chat-folders-list">
-            <HamburgerMenuButton_WithFolders/>
+            <HamburgerMenuButton.WithFolders/>
             <ScrollView scrollBarWidth="4" className="list scrollbar full-size">
                 <ChatFolder 
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
