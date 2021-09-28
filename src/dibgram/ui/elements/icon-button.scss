@@ -18,6 +18,11 @@
         align-items: center;
         z-index: +1;
         pointer-events: none;
+
+        svg {
+            height: 32px;
+            width: 32px;
+        }
     }
 
     &:hover {
