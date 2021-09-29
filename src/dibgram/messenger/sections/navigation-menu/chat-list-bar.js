@@ -20,7 +20,9 @@ const ChatListBar = connect(function (state) {
                 <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
             </div>
             <ChatList/>
-            <ConnectionState/>
+            <Provider store={connectionStore}>
+                <ConnectionState/>
+            </Provider>
         </div>
     );
 });

@@ -11,6 +11,8 @@ import { addDialog } from '../ui/dialog/dialogs';
 import ConfirmDialog from '../ui/dialog/confirm-dialog';
 
 import './auth.scss';
+import { Provider } from 'react-redux';
+import connectionStore from '../TdWeb/connectionStore';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
@@ -196,7 +198,9 @@ class AuthWindowStepPhoneNumber extends React.Component {
                     NEXT
                 </BigHighlightedButton>
 
-                <ConnectionState/>
+                <Provider store={connectionStore}>
+                    <ConnectionState/>
+                </Provider>
             </div>
         );
     }
@@ -284,7 +288,9 @@ class AuthWindowStepCode extends React.Component {
                     NEXT
                 </BigHighlightedButton>
 
-                <ConnectionState/>
+                <Provider store={connectionStore}>
+                    <ConnectionState/>
+                </Provider>
             </div>
         );
     }
@@ -363,7 +369,9 @@ class AuthWindowStepPassword extends React.Component {
                         SUBMIT
                     </BigHighlightedButton>
 
-                    <ConnectionState/>
+                    <Provider store={connectionStore}>
+                        <ConnectionState/>
+                    </Provider>
                 </div>
             </div>
         );
@@ -422,7 +430,9 @@ class AuthWindowStepRegister extends React.Component {
                         SIGN UP
                     </BigHighlightedButton>
 
-                    <ConnectionState/>
+                    <Provider store={connectionStore}>
+                        <ConnectionState/>
+                    </Provider>
                 </div>
             </div>
         );
