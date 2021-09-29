@@ -25,9 +25,11 @@ export default function ProfilePhoto (props) {
     const isReplies= props.id==options['replies_bot_chat_id'];
     
     React.useEffect(() => {
+        var mounted=true;
         if(props.photo){
             if(photoObj!=props.photo){
                 getFileContent(props.photo, 8).then(file=> {
+                    if(!mounted) return;
                     setPhoto(blobToUrl(file.data));
                     setPhotoObj(props.photo);
                 });
@@ -38,6 +40,7 @@ export default function ProfilePhoto (props) {
                 setPhotoObj(null);
             }
         }
+        return ()=> mounted=false;
     }, [props.photo]);
 
     var customIcon; 
