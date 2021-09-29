@@ -5,12 +5,15 @@
     overflow: hidden;
     border-radius: 50%;
 
-    .initials {
+    & > * {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+    }
+
+    .initials {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -24,14 +27,6 @@
         &.color_5 { background-color: var(--theme-color-historyPeer4UserpicBg); }
         &.color_6 { background-color: var(--theme-color-historyPeer4UserpicBg); }
         &.color_7 { background-color: var(--theme-color-historyPeer6UserpicBg); }
-    }
-
-    img {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
     }
 
     .svg {
