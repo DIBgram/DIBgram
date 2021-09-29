@@ -12,6 +12,24 @@ You can open the stable release of DIBgram at <https://DIBgram.github.io>, or th
 
 You can also build DIBgram yourself, as described [here](BUILDING.md).
 
+## Differences with Telegram Desktop
+
+### Advantages
+
+- Does not need to be installed
+- Works on any desktop platform with a decent browser (mobile is also supported but not optimized for it)
+- Uses TDLib, which doesn't have so many problems with server<->client sync
+- Interface can be zoomed as much as the browser allows without quality loss (about 25%-500% instead of 100%-300%)
+- Caches messages locally, reducing bandwidth usage
+
+### Disadvantages
+
+- Is not native, so it will be slower
+- Some animations might be missing
+- Does not support proxies (system proxy does work)
+- It is less integrated with the operating system
+- Probably won't support streaming
+
 ## Why make it
 
 Many people like the official Telegram Desktop. But there are users who prefer to use Telegram on their browsers because of either security, work conditions or something else.
