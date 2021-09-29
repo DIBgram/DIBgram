@@ -55,6 +55,7 @@ export default function ProfilePhoto (props) {
     }
     return (
         <div className="profile-photo">
+            <Initials id={props.id} name={props.name}/>
             {
                 customIcon? (
                     customIcon[0]?
@@ -65,10 +66,7 @@ export default function ProfilePhoto (props) {
                         :
                         <div className="svg" dangerouslySetInnerHTML={{__html: customIcon[1]}}/>
                 ) : (
-                    (props.photo && photo) ? 
-                        <img src={photo}/> 
-                        : 
-                        <Initials id={props.id} name={props.name}/>
+                    (props.photo && photo) && <img src={photo}/> 
                 )
             }
         </div>
