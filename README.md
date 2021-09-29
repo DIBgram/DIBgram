@@ -1,6 +1,6 @@
 # DIBgram
 
-[License](LICENSE) | [Building](BUILDING.md) | [Contributing](CONTRIBUTING.md) | [Code of conduct](CODE_OF_CONDUCT.md)
+[License](LICENSE) | [Building](BUILDING.md) | [Contributing](CONTRIBUTING.md) | [Code of conduct](CODE_OF_CONDUCT.md) | [Telegram channel](https://t.me/DIBgram) | [Discussion group](https://t.me/DIBgramChat)
 
 *DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the progress*
 
@@ -41,6 +41,3 @@ I am developing this app so there is a web version that not only has most featur
 [ESLint]: https://github.com/eslint/eslint
 [VSCode]: https://github.com/microsoft/vscode
 [Sass]: https://github.com/sass/sass
-
-***
-For updates, subscribe to our Telegram channel at <https://t.me/DIBgram>.
