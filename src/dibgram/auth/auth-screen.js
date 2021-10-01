@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TdLib from '../TdWeb/tdlib';
-import Auth from './auth';
+import Auth from '../TdWeb/auth';
 import {MessengerWindow} from '../messenger/messengerWindow';
 
 import BigHighlightedButton from '../ui/elements/highlighted-button';

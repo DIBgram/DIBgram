@@ -1,5 +1,5 @@
-import TdLib from '../TdWeb/tdlib';
-import {getCredentials, getConfig} from '../TdWeb/config';
+import TdLib from './tdlib';
+import {getCredentials, getConfig} from './config';
 
 TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
     const credentials= getCredentials();
