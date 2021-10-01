@@ -9,7 +9,7 @@ var HamburgerMenuButton= {};
 /**
  * Renders the button which opens the hamburger menu
  */
-HamburgerMenuButton.WithFolders= class WithFolders extends React.Component {
+HamburgerMenuButton.WithFolders= class WithFolders extends React.PureComponent {
     state= {
         ripple: {
             state: 'off'
