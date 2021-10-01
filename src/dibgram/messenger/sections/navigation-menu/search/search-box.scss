@@ -15,6 +15,7 @@
         margin: 0;
         transition: background-color 200ms, border-color 200ms;
         color: var(--theme-color-windowFg);
+        padding-right: 26px;
 
         &::placeholder {
             color: var(--theme-color-placeholderFg);
