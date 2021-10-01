@@ -8,6 +8,7 @@
     color: var(--theme-color-activeButtonFg);
     border-radius: 5px;
     cursor: pointer;
+    user-select: none;
 
     text-transform: uppercase;
     font: {

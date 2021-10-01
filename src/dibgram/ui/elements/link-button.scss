@@ -6,6 +6,7 @@
     font-weight: 300;
     letter-spacing: 0.5px;
     font-family: var(--font-family);
+    user-select: none;
 
     &:hover {
         text-decoration: underline;

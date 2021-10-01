@@ -21,6 +21,7 @@
             transition: color 200ms;
             letter-spacing: -0.4px;
             text-indent: 2px;
+            user-select: none;
         }
 
         &:focus {

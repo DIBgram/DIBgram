@@ -30,6 +30,7 @@
         &,
         * {
             cursor: pointer;
+            user-select: none;
         }
 
         &:hover {

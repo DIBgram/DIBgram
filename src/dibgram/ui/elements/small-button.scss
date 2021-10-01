@@ -9,6 +9,7 @@ button.small-button {
     font-weight: 500;
     font-size: 14px;
     cursor: pointer;
+    user-select: none;
 
     &:hover {
         background-color: var(--theme-color-lightButtonBgOver);
