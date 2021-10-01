@@ -16,12 +16,12 @@ const ChatListBar = connect(function (state) {
         chats: state.chats, 
         list: state.currentChatList
     };
-})(function ChatListBar({useFolders, chats, list}) {
+})(function ChatListBar({useFolders, chats, list, onHamburgerMenuOpened}) {
     var [searchText, setSearchText] = React.useState('');
     return (
         <div id="chat-list-bar">
             <div className="chat-list-header">
-                {(!useFolders) && <HamburgerMenuButton.WithoutFolders/>}
+                {(!useFolders) && <HamburgerMenuButton.WithoutFolders onClick={onHamburgerMenuOpened}/>}
                 <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
             </div>
             <Provider store={connectionStore}>

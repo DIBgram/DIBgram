@@ -6,6 +6,7 @@ import ChatListBar from './sections/navigation-menu/chat-list-bar';
 import chatStore from './chat-store';
 import { Provider } from 'react-redux';
 import './messengerWindow.scss';
+import HamburgerMenu from './sections/navigation-menu/hamburger-menu/menu';
 
 /**
  * Renders the messenger screen
@@ -16,11 +17,15 @@ export function MessengerWindow () {
             '@type': 'logOut'
         });
     }
+
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
     return (
         <div id="messenger-screen">
+            <HamburgerMenu visible={isMenuOpen} onClose={()=> setIsMenuOpen(false)}/>
             <Provider store={chatStore}>
-                <ChatFoldersList/>
-                <ChatListBar/>
+                <ChatFoldersList onHamburgerMenuOpened={()=> setIsMenuOpen(true)}/>
+                <ChatListBar onHamburgerMenuOpened={()=> setIsMenuOpen(true)}/>
             </Provider>
             <div id="chat-container">
                 This is messenger window. You&apos;ve authenticated successfully!

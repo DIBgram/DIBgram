@@ -74,11 +74,11 @@ ChatFolder.propTypes= {
 /**
  * Renders the chat folders list
  */
-function ChatFolderList({folders, currentFolder, dispatch}) {
+function ChatFolderList({folders, currentFolder, dispatch, onHamburgerMenuOpened}) {
     if(!folders || folders.length==0) return null;
     return (
         <div id="chat-folders-list">
-            <HamburgerMenuButton.WithFolders/>
+            <HamburgerMenuButton.WithFolders onClick={onHamburgerMenuOpened}/>
             <ScrollView scrollBarWidth="4" className="list scrollbar full-size">
                 <ChatFolder 
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
@@ -107,7 +107,8 @@ function ChatFolderList({folders, currentFolder, dispatch}) {
 ChatFolderList.propTypes={
     folders: PropTypes.arrayOf(PropTypes.object),
     currentFolder: PropTypes.object,
-    dispatch: PropTypes.func
+    dispatch: PropTypes.func,
+    onHamburgerMenuOpened: PropTypes.func
 };
 export default connect(state=>({
     folders:state.filters, 
