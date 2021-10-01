@@ -99,6 +99,7 @@ export class ChatListItem extends React.Component {
     shouldComponentUpdate(nextProps) {
         return nextProps.chat.id !== this.props.chat.id
             || nextProps.chat.last_message !== this.props.chat.last_message
+            || nextProps.chat.draft_message !== this.props.chat.draft_message
             || nextProps.chat.unread_count !== this.props.chat.unread_count
             || nextProps.chat.unread_mention_count !== this.props.chat.unread_mention_count
             || nextProps.chat.position.is_pinned !== this.props.chat.position.is_pinned
