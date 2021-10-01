@@ -20,13 +20,29 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         switch(message.content['@type']) {
         
         case 'messageAnimation':
-            return <MayHaveCaption type="GIF" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+            return (
+                <MayHaveCaption
+                    type="GIF" 
+                    caption={message.content.caption?.text} 
+                    className={className} 
+                    message={message} 
+                    chat={chat}
+                    users={users}/>
+            );
         
         case 'messageAudio':
             var title= message.content.audio.title || message.content.audio.file_name;
             if(message.content.audio.performer)
                 title= message.content.audio.performer+ ' ­­– ' + title;
-            return <MayHaveCaption type={title} caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+            return (
+                <MayHaveCaption 
+                    type={title} 
+                    caption={message.content.caption?.text} 
+                    className={className} 
+                    message={message} 
+                    chat={chat}
+                    users={users}/>
+            );
 
         case 'messageBasicGroupChatCreate':
             return (
@@ -59,7 +75,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             } 
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">{text}</span>
                 </span>
             );
@@ -161,7 +177,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageContact':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">Contact</span>
                 </span>
             );
@@ -184,20 +200,28 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageDice':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">{message.content.emoji}</span>
                 </span>
             );
 
         case 'messageDocument':
-            return <MayHaveCaption type={message.content.document.file_name} caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+            return (
+                <MayHaveCaption 
+                    type={message.content.document.file_name} 
+                    caption={message.content.caption?.text} 
+                    className={className} 
+                    message={message} 
+                    chat={chat}
+                    users={users}/>
+            );
         
         // case 'messageExpiredPhoto':
         // case 'messageExpiredVideo':
         case 'messageGame':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">🎮 {message.content.game.title}</span>
                 </span>
             );
@@ -240,7 +264,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageInvoice':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">{message.content.title}</span>
                 </span>
             );
@@ -248,7 +272,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageLocation':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">{message.content.title}</span>
                 </span>
             );
@@ -337,7 +361,15 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     );
                 }
             } else {
-                return <MayHaveCaption type="Photo" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+                return (
+                    <MayHaveCaption 
+                        type="Photo" 
+                        caption={message.content.caption?.text} 
+                        className={className} 
+                        message={message} 
+                        chat={chat}
+                        users={users}/>
+                );
             }
         
         // case 'messagePinMessage':
@@ -353,7 +385,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageSticker':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">{message.content.sticker.emoji} Sticker</span>
                 </span>
             );
@@ -376,7 +408,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageText':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-2">{message.content.text.text.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
                 </span>
             );
@@ -384,7 +416,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageUnsupported':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-2">This message is not supported by your version of DIBgram. Please update to the latest version.</span>
                 </span>
             );
@@ -392,25 +424,41 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         case 'messageVenue':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">Location, </span>
                     <span className="part-2">{message.content.venue.title}</span>
                 </span>
             );
 
         case 'messageVideo':
-            return <MayHaveCaption type="Video" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+            return (
+                <MayHaveCaption 
+                    type="Video" 
+                    caption={message.content.caption?.text} 
+                    className={className} 
+                    message={message} 
+                    chat={chat}
+                    users={users}/>
+            );
 
         case 'messageVideoNote':
             return (
                 <span className={className}>
-                    <MessageSummarySender message={message} chat={chat}/>
+                    <MessageSummarySender message={message} chat={chat} users={users}/>
                     <span className="part-1">Video message</span>
                 </span>
             );
 
         case 'messageVoiceNote':
-            return <MayHaveCaption type="Voice message" caption={message.content.caption?.text} className={className} message={message} chat={chat}/>;
+            return (
+                <MayHaveCaption 
+                    type="Voice message" 
+                    caption={message.content.caption?.text} 
+                    className={className} 
+                    message={message} 
+                    chat={chat}
+                    users={users}/>
+            );
 
         case 'messageWebsiteConnected':
             return (
@@ -431,11 +479,11 @@ MessageSummaryWithoutIcon.propTypes= {
 
 
 // If caption has a value, add a comma to type and return type
-function MayHaveCaption({type, caption, className, message, chat}) {
+function MayHaveCaption({type, caption, className, message, chat, users}) {
     if(caption) type+=',';
     return (
         <span className={className}>
-            <MessageSummarySender message={message} chat={chat}/>
+            <MessageSummarySender message={message} chat={chat} users={users}/>
             <span className="part-1">{type}</span> <span className="part-2">{caption.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
         </span>
     );
@@ -445,7 +493,8 @@ MayHaveCaption.propTypes= {
     caption: PropTypes.string,
     className: PropTypes.string,
     message: PropTypes.object,
-    chat: PropTypes.object
+    chat: PropTypes.object,
+    users: PropTypes.object.isRequired
 };
 
 function SenderFullName({message, chat, users, includeYou}) {
@@ -461,7 +510,7 @@ function SenderFullName({message, chat, users, includeYou}) {
     }
 }
 
-export const MessageSummarySender= connect(state=> ({users: state}))(
+export const MessageSummarySender= 
     function MessageSummarySender ({message, chat, users}) {
         if(!message) return null;
         var part1;
@@ -478,8 +527,9 @@ export const MessageSummarySender= connect(state=> ({users: state}))(
             }
         }
         return part1? <span className="sender">{part1}</span> : null;
-    });
+    };
 MessageSummarySender.propTypes= {
     message: PropTypes.object.isRequired,
-    chat: PropTypes.object.isRequired
+    chat: PropTypes.object.isRequired,
+    users: PropTypes.object.isRequired
 };

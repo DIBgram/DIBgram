@@ -75,7 +75,9 @@ const ChatList= connect(state=> ({connectionState: state}))(
             const array= this.getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />);
             return (
                 <ScrollView id="chat-list" scrollBarWidth="4">
-                    {array.length ? array :  <EmptyChatList list={this.props.list} connectionState={this.props.connectionState}/>}
+                    <Provider store={usersStore}>
+                        {array.length ? array :  <EmptyChatList list={this.props.list} connectionState={this.props.connectionState}/>}
+                    </Provider>
                 </ScrollView>
             );
         }
@@ -202,9 +204,7 @@ export class ChatListItem extends React.Component {
                                     <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
                                 </span> 
                                 : 
-                                <Provider store={usersStore}>
-                                    <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
-                                </Provider>
+                                <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
                             }
                         </div>
                         <div className="right">
