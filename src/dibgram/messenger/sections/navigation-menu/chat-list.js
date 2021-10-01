@@ -64,7 +64,6 @@ const ChatList= connect(state=> ({connectionState: state}))(
         // However, we can workaround it by not re-rendering 
         // until all updates have arrived.
         shouldComponentUpdate(nextProps) {
-            console.log(this.props, nextProps);
             return (nextProps.chats !== this.props.chats 
                 || nextProps.list !== this.props.list 
                 || nextProps.connectionState !== this.props.connectionState)
@@ -111,7 +110,6 @@ export class ChatListItem extends React.Component {
     }
     render(){
         const chat= {...this.props.chat}; // Clone chat object to avoid mutating it. Mutating it causes Saved messages and Deleted account chats to get past shouldComponentUpdate.
-        console.log('rendering', chat.id);
         var chatType= '';
         if (chat.type?.['@type'] == 'chatTypeBasicGroup' ||
                 (chat.type?.['@type'] == 'chatTypeSupergroup' &&

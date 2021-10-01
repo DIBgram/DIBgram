@@ -332,8 +332,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                             </span>
                         )});
                     },
-                    (error)=> { 
-                        console.log(error);
+                    (error)=> {
                         resolve({ default: ()=> noInvoiceTitleFallback});
                     }
                 );
