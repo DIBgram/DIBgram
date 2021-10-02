@@ -44,7 +44,7 @@ export default function ProfilePhoto (props) {
     }, [props.photo]);
 
     var customIcon; 
-    if(isSavedMessages){
+    if(isSavedMessages && (!props?.disableSavedMessages)){
         customIcon= [0, saved_messages];
     }
     if(isReplies){
@@ -75,7 +75,8 @@ export default function ProfilePhoto (props) {
 ProfilePhoto.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
-    photo: PropTypes.object
+    photo: PropTypes.object,
+    disableSavedMessages: PropTypes.bool
 };
 
 function Initials({id, name}) {
