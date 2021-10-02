@@ -22,14 +22,22 @@ export default function HamburgerMenu ({visible, onClose}) {
             else setMe(result);
         });
     }, []);
+
     /**@type React.KeyboardEventHandler<HTMLDivElement> */
     function onKeyDown (e){
         if(e.key === 'Escape') {
             onClose();
         }
     }
+    var ref = React.useRef(null);
+    React.useEffect(() => {
+        if(visible) {
+            ref.current.focus();
+        }
+    }, [visible]);
+
     return (
-        <div id="hamburger-menu" className={visible ? 'visible' : ''} 
+        <div id="hamburger-menu" ref={ref} className={visible ? 'visible' : ''} 
             onKeyDown={onKeyDown} tabIndex={0}>
             <div className="content">
                 <div className="header">
