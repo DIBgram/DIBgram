@@ -21,7 +21,7 @@
         & > div.options {
             text-align: right;
 
-            button {
+            button:not(.left) {
                 margin-left: 8px;
             }
         }

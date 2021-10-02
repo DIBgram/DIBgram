@@ -21,7 +21,13 @@ export default class ConfirmDialog extends React.Component{
         /** Called when the OK button is pressed */
         onOK: PropTypes.func,
         /** Called when the cancel button is pressed */
-        onCancel: PropTypes.func
+        onCancel: PropTypes.func,
+        /** Third button text (optional) */
+        thirdButton: PropTypes.string,
+        /** Pass true if third button click closes dialog */
+        thirdButtonClosesDialog: PropTypes.bool,
+        /** Called when third button is pressed */
+        onThirdButtonClick: PropTypes.func
     };
     state= {
         closing: false
@@ -34,6 +40,10 @@ export default class ConfirmDialog extends React.Component{
         this.closeDialog();
         this.props.onCancel && this.props.onCancel();
     }
+    handleButton =(handler)=>{
+        this.closeDialog();
+        handler && handler();
+    }
     render() {
         return (
             <div className={'modal-dialog confirm-dialog' + ((this.state.closing) ? ' closing' : '')}>
@@ -45,12 +55,23 @@ export default class ConfirmDialog extends React.Component{
                         {this.props.children}
                     </div>
                     <div className="options">
+                        {this.props.thirdButton ?  (
+                            <SmallButton 
+                                className="small-button left"
+                                style={{'float': 'left'}}
+                                onClick={
+                                    this.props.thirdButtonClosesDialog ?
+                                        ()=>this.handleButton(this.props.onThirdButtonClick)
+                                        : this.props.onThirdButtonClick}>
+                                {this.props.thirdButton}
+                            </SmallButton>
+                        ) : null}
                         {this.props.hideCancelButton ? null : (
-                            <SmallButton onClick={this.handleCancel}>
+                            <SmallButton onClick={()=>this.handleButton(this.props.onCancel)}>
                                 Cancel
                             </SmallButton>
                         )}
-                        <SmallButton onClick={this.handleOK}>
+                        <SmallButton onClick={()=>this.handleButton(this.props.onOK)}>
                             {this.props.OKButtonText || 'OK'}
                         </SmallButton>
                     </div>

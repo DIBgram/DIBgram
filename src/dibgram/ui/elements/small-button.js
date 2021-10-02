@@ -17,26 +17,28 @@ export default class SmallButton extends React.Component {
             state: 'off'
         }
     }
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this);
+        var {children, ...rest}= props;
+        [this.children, this.rest]= [children, rest];
     }
     render() {
         return (
             <button 
                 className="small-button" 
-                onClick={this.props.onClick}
                 onMouseDown={this.mouseDown}
                 onMouseUp={this.mouseUp}
-                onMouseLeave={this.mouseLeave}>
+                onMouseLeave={this.mouseLeave}
+                {...this.rest}>
 
                 <RippleEffect {...this.state.ripple} color="var(--theme-color-lightButtonBgRipple)"/>
 
                 <div className="invisibleText">
-                    {this.props.children}
+                    {this.children}
                 </div>
                 <div className="content">
-                    {this.props.children}
+                    {this.children}
                 </div>
                 
             </button>
