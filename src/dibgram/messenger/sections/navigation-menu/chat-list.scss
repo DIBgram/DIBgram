@@ -58,7 +58,7 @@
             flex-shrink: 0;
         }
 
-        .content {
+        .details {
             flex: 1;
             font-size: 13px;
             font-weight: 400;
@@ -227,7 +227,7 @@
         }
     }
 
-    .archived {
+    .archived:not(.chat) {
         font-size: 13px;
         padding: 9px 10px 10px;
         letter-spacing: 0.2px;

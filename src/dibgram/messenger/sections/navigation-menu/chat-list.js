@@ -180,7 +180,7 @@ export class ChatListItem extends React.Component {
         return(
             <div className="chat">
                 <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
-                <div className="content">
+                <div className="details">
                     <div className="top">
                         <div className="left">
                             <div className="type-icon" dangerouslySetInnerHTML={{__html: chatType}}></div>
@@ -230,7 +230,7 @@ function ArchivedChatsItem({chats}) {
                 <div className="profile-photo">
                     <div className="svg" dangerouslySetInnerHTML={{__html: archive_userpic}}/>
                 </div>
-                <div className="content">
+                <div className="details">
                     <div className="top">
                         <div className="left">
                             <div className="title">Archived chats</div>
