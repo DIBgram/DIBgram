@@ -248,6 +248,16 @@ function ArchivedChatsItem({chats}) {
                 </div>
             </div>
         );
+
+    case 'collapsed':
+        return (
+            <div className="archived">
+                Archived chats
+            </div>
+        );
+    case 'hidden-expanded':
+    case 'hidden-collapsed':
+        return null;
     }
 }
 ArchivedChatsItem.propTypes = {

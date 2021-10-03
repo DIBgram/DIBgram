@@ -226,4 +226,17 @@
             }
         }
     }
+
+    .archived {
+        font-size: 13px;
+        padding: 9px 10px 10px;
+        letter-spacing: 0.2px;
+        color: var(--theme-color-dialogsNameFg);
+        user-select: none;
+
+        &:hover {
+            background-color: var(--theme-color-dialogsBgOver);
+            color: var(--theme-color-dialogsNameFgOver);
+        }
+    }
 }
