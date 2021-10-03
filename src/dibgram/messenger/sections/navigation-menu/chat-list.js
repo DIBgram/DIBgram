@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect, Provider } from 'react-redux';
 import TdLib from '../../../TdWeb/tdlib';
-import { compareChatList } from '../../chat-store';
+import chatStore, { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../../../ui/components/profile-photo';
 import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check, dialogs_sending, dialogs_sent, dialogs_received, archive_userpic } from '../../../ui/icon/icons';
@@ -241,13 +241,20 @@ function ArchivedChatsItem({chats}) {
     const ripple= React.useState({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
 
+    function onArchiveOpen() {
+        chatStore.dispatch({
+            type: 'SET_ARCHIVE_STATE',
+            archiveState: 'open'
+        });
+    }
+
     const [type, setType]= React.useState(localStorage.getItem('dibgram-archived-chats-button-mode'));
     switch(type) {
     case 'expanded':
     default:
         return (
             <div 
-                className="chat archived" 
+                className="chat archived" onClick={onArchiveOpen}
                 onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
                 onContextMenu={e=> createContextMenu(e, (
                     <Menu.MenuContents>
@@ -293,7 +300,7 @@ function ArchivedChatsItem({chats}) {
     case 'collapsed':
         return (
             <div
-                className="archived" 
+                className="archived" onClick={onArchiveOpen}
                 onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
                 onContextMenu={e=> createContextMenu(e, (
                     <Menu.MenuContents>

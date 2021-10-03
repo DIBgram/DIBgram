@@ -6,9 +6,10 @@
 
     position: absolute !important;
     left: 0;
-    right: 0;
+    width: 100% !important;
     top: 54px;
     bottom: 0;
+    transition: margin-left 200ms;
 
     .empty {
         text-align: center;

@@ -5,6 +5,9 @@
     overflow: hidden;
     fill: var(--theme-color-menuIconFg);
     position: relative;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
 
     span {
         position: absolute;
@@ -25,7 +28,7 @@
         }
     }
 
-    &:hover {
-        fill: var(--theme-color-menuIconFgOver);
+    &:hover svg {
+        fill: var(--theme-color-menuIconFgOver) !important;
     }
 }

@@ -6,6 +6,7 @@ const chatStore= createStore(reducer,
     
 function reducer(state= {
     currentChatList: {'@type': 'chatListMain'},
+    archiveState: 'closed',
     chats: [],
     filters: []
 }, action) {
@@ -14,6 +15,11 @@ function reducer(state= {
         return {
             ...state,
             currentChatList: action.chatList
+        };
+    case 'SET_ARCHIVE_STATE':
+        return {
+            ...state,
+            archiveState: action.archiveState
         };
     case 'ADD_CHAT':
         return {

@@ -3,9 +3,54 @@
     min-width: 260px;
     position: relative;
     background: var(--theme-color-dialogsBg);
+    overflow: hidden;
 
     .chat-list-header {
         display: flex;
         align-items: center;
+        transition: margin 200ms;
+    }
+
+    .archived-chats {
+        position: absolute;
+        top: 0;
+        left: 100%;
+        bottom: 0;
+        width: 100%;
+        transition: left 200ms;
+        background: var(--theme-color-dialogsBg);
+
+        .chat-list-header {
+            display: flex;
+
+            .icon-button svg {
+                fill: var(--theme-color-cancelIconFg);
+            }
+
+            .icon-button {
+                margin: 7px;
+                flex-shrink: 0;
+            }
+
+            .title {
+                flex-grow: 1;
+                font-size: 14px;
+                padding-bottom: 1px;
+                margin-left: -2px;
+                letter-spacing: 0.3px;
+            }
+        }
+    }
+
+    &.archive-open {
+        .archived-chats {
+            left: 0;
+        }
+
+        & > #chat-list,
+        & > .chat-list-header {
+            margin-left: -50%;
+            margin-right: 50%;
+        }
     }
 }
