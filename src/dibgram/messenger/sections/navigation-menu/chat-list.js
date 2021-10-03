@@ -14,6 +14,7 @@ import { isChatWithDeletedAccount, isChatVerified } from '../../chat-misc';
 import { smallDateTimeToString } from '../../../time-tostring';
 import { getMessageStatus } from '../../message-misc';
 import options from '../../../TdWeb/options';
+import RippleEffect, { handleMyMouseEvents, handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
 
 /**
  * Returns a sorted list of all chats in the given chat list
@@ -97,7 +98,16 @@ const ChatList= connect(state=> ({connectionState: state}))(
 export default ChatList;
 
 export class ChatListItem extends React.Component {
-    shouldComponentUpdate(nextProps) {
+    constructor(props) {
+        super(props);
+        [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this);
+    }
+    state= {
+        ripple: {
+            state: 'off'
+        }
+    };
+    shouldComponentUpdate(nextProps, nextState) {
         return nextProps.chat.id !== this.props.chat.id
             || nextProps.chat.last_message !== this.props.chat.last_message
             || nextProps.chat.draft_message !== this.props.chat.draft_message
@@ -106,7 +116,8 @@ export class ChatListItem extends React.Component {
             || nextProps.chat.position.is_pinned !== this.props.chat.position.is_pinned
             || nextProps.chat.photo?.small?.id !== this.props.chat.photo?.small?.id
             || nextProps.chat.title !== this.props.chat.title
-            || nextProps.chat.last_read_outbox_message_id !== this.props.chat.last_read_outbox_message_id;
+            || nextProps.chat.last_read_outbox_message_id !== this.props.chat.last_read_outbox_message_id
+            || nextState.ripple !== this.state.ripple;
     }
     render(){
         const chat= {...this.props.chat}; // Clone chat object to avoid mutating it. Mutating it causes Saved messages and Deleted account chats to get past shouldComponentUpdate.
@@ -178,35 +189,38 @@ export class ChatListItem extends React.Component {
         }
 
         return(
-            <div className="chat">
-                <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
-                <div className="details">
-                    <div className="top">
-                        <div className="left">
-                            <div className="type-icon" dangerouslySetInnerHTML={{__html: chatType}}></div>
-                            <div className="title">{chat.title}</div>
-                            {isVerified && <span className="verified-icon">
-                                <span className="verified-icon-star" dangerouslySetInnerHTML={{__html: dialogs_verified_star}}></span>
-                                <span className="verified-icon-check" dangerouslySetInnerHTML={{__html: dialogs_verified_check}}></span>
-                            </span>}
+            <div className="chat" onMouseDown={this.mouseDown} onMouseUp={this.mouseUp} onMouseLeave={this.mouseLeave}>
+                <RippleEffect {...this.state.ripple} color="var(--theme-color-dialogsRippleBg)"/>
+                <div className="content">
+                    <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
+                    <div className="details">
+                        <div className="top">
+                            <div className="left">
+                                <div className="type-icon" dangerouslySetInnerHTML={{__html: chatType}}></div>
+                                <div className="title">{chat.title}</div>
+                                {isVerified && <span className="verified-icon">
+                                    <span className="verified-icon-star" dangerouslySetInnerHTML={{__html: dialogs_verified_star}}></span>
+                                    <span className="verified-icon-check" dangerouslySetInnerHTML={{__html: dialogs_verified_check}}></span>
+                                </span>}
+                            </div>
+                            <div className="right">
+                                {messageStatus}
+                                {chat.last_message?.date && <span className="date">{smallDateTimeToString(chat.last_message.date)}</span>}
+                            </div>
                         </div>
-                        <div className="right">
-                            {messageStatus}
-                            {chat.last_message?.date && <span className="date">{smallDateTimeToString(chat.last_message.date)}</span>}
-                        </div>
-                    </div>
-                    <div className="bottom">
-                        <div className="left">
-                            {chat.draft_message ? 
-                                <span className="last-message">
-                                    <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
-                                </span> 
-                                : 
-                                <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
-                            }
-                        </div>
-                        <div className="right">
-                            {unreadBadge}
+                        <div className="bottom">
+                            <div className="left">
+                                {chat.draft_message ? 
+                                    <span className="last-message">
+                                        <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
+                                    </span> 
+                                    : 
+                                    <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
+                                }
+                            </div>
+                            <div className="right">
+                                {unreadBadge}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -223,25 +237,32 @@ function ArchivedChatsItem({chats}) {
     if(!chatsInList.length) return null; // There are no archived chats
 
     switch(localStorage.getItem('dibgram-archived-chats-button-mode')) {
+    const ripple= React.useState({state: 'off'});
+    const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
     case 'expanded':
     default:
         return (
-            <div className="chat archived">
-                <div className="profile-photo">
-                    <div className="svg" dangerouslySetInnerHTML={{__html: archive_userpic}}/>
-                </div>
-                <div className="details">
-                    <div className="top">
-                        <div className="left">
-                            <div className="title">Archived chats</div>
-                        </div>
+            <div 
+                className="chat archived" 
+                onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
+                <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
+                <div className="content">
+                    <div className="profile-photo">
+                        <div className="svg" dangerouslySetInnerHTML={{__html: archive_userpic}}/>
                     </div>
-                    <div className="bottom">
-                        <div className="left">
-                            <div className="last-message">
-                                <span className="part-2">
-                                    {chatsInList.map(chat => chat.title || 'Deleted Account').join(', ')}
-                                </span>
+                    <div className="details">
+                        <div className="top">
+                            <div className="left">
+                                <div className="title">Archived chats</div>
+                            </div>
+                        </div>
+                        <div className="bottom">
+                            <div className="left">
+                                <div className="last-message">
+                                    <span className="part-2">
+                                        {chatsInList.map(chat => chat.title || 'Deleted Account').join(', ')}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -251,8 +272,13 @@ function ArchivedChatsItem({chats}) {
 
     case 'collapsed':
         return (
-            <div className="archived">
-                Archived chats
+            <div
+                className="archived" 
+                onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
+                <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
+                <div className="content">
+                    Archived chats
+                </div>
             </div>
         );
     case 'hidden-expanded':

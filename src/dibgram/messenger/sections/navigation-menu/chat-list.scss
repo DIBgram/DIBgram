@@ -23,14 +23,29 @@
     }
 
     .chat {
-        padding: 8px 10px;
-        display: flex;
-        flex-direction: row;
+        position: relative;
+        overflow: hidden;
+        height: 62px;
 
         &,
         * {
             cursor: pointer;
             user-select: none;
+        }
+
+        * {
+            pointer-events: none;
+        }
+
+        .content {
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
 
         &:hover {
@@ -228,11 +243,24 @@
     }
 
     .archived:not(.chat) {
-        font-size: 13px;
-        padding: 9px 10px 10px;
-        letter-spacing: 0.2px;
-        color: var(--theme-color-dialogsNameFg);
-        user-select: none;
+        height: 37px;
+        position: relative;
+        overflow: hidden;
+
+        .content {
+            font-size: 13px;
+            padding: 9px 10px 10px;
+            letter-spacing: 0.2px;
+            color: var(--theme-color-dialogsNameFg);
+            user-select: none;
+
+            position: absolute;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
 
         &:hover {
             background-color: var(--theme-color-dialogsBgOver);
