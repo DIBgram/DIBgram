@@ -1,0 +1,51 @@
+.menu {
+    background-color: var(--theme-color-menuBg);
+    border-radius: 3px;
+    box-shadow: 0 0 7px -3px var(--theme-color-windowShadowFg);
+    overflow: hidden;
+
+    .menu-contents {
+        width: 180px;
+        padding: 8px 0;
+        animation: menu-appear 100ms forwards;
+
+        .menu-item {
+            background-color: var(--theme-color-windowBg);
+            padding: 8px 17px 7px;
+            cursor: pointer;
+            font-size: 13px;
+
+            &:hover {
+                background-color: var(--theme-color-windowBgOver);
+            }
+        }
+    }
+}
+
+.context-menu {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .menu {
+        background-color: var(--theme-color-windowBg);
+        position: absolute;
+        left: var(--x);
+        top: var(--y);
+    }
+}
+
+@keyframes menu-appear {
+    from {
+        margin-right: -50px;
+        margin-bottom: -50px;
+    }
+
+    to {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}

@@ -5,6 +5,7 @@ import TdLib from './dibgram/TdWeb/tdlib';
 import ConfirmDialog from './dibgram/ui/dialog/confirm-dialog';
 import Dialogs, {dialogStore, addDialog} from './dibgram/ui/dialog/dialogs';
 import './dibgram/ui/main.scss';
+import { ContextMenus, contextMenusStore, onAnywhereClicked } from './dibgram/ui/menu/context-menu';
 import { ThemeProvider } from './dibgram/ui/themes/theme';
 
 TdLib.initializeTdLib().then(function (res) {
@@ -43,11 +44,14 @@ function App() {
     }, []);
 
     return (
-        <ThemeProvider id="app">
+        <ThemeProvider id="app" onClick={onAnywhereClicked}>
             <Provider store={dialogStore}>
                 <Dialogs/>
             </Provider>
             <MainApp/>
+            <Provider store={contextMenusStore}>
+                <ContextMenus/>
+            </Provider>
         </ThemeProvider>
     );
 }
