@@ -5,7 +5,7 @@ import TdLib from '../../../TdWeb/tdlib';
 import { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../../../ui/components/profile-photo';
-import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check, dialogs_sending, dialogs_sent, dialogs_received } from '../../../ui/icon/icons';
+import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check, dialogs_sending, dialogs_sent, dialogs_received, archive_userpic } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
@@ -15,47 +15,46 @@ import { smallDateTimeToString } from '../../../time-tostring';
 import { getMessageStatus } from '../../message-misc';
 import options from '../../../TdWeb/options';
 
+/**
+ * Returns a sorted list of all chats in the given chat list
+ * 
+ * Also for every chat, sets `chat.position` to the matching position (creates copy instead of modifying original object)
+ * @param {import('tdweb').TdObject[]} chats
+ * @param {import('tdweb').TdObject} list
+ */
+function getChatsFromList(chats, list) {
+    return chats.map(chat => {
+        for( const position of chat.positions ) {
+            if (compareChatList(list, position.list)) {
+                if( position.order=='0' ) return false;
+                return {
+                    ...chat,
+                    position: position
+                };
+            }
+        }
+        return chat;
+    })
+        .filter(chat => !!chat.position)
+        .sort((a, b) => {
+            let order1= a.position.order, order2= b.position.order;
+
+            if (order1 == order2) {
+                return 0;
+            }
+            if (order1 < order2) {
+                return 1;
+            }
+            return -1;
+        });
+}
+
 const ChatList= connect(state=> ({connectionState: state}))(
     class ChatList extends React.Component { 
         static propTypes = {
             chats: PropTypes.array.isRequired,
             list: PropTypes.object.isRequired,
             connectionState: PropTypes.string.isRequired
-        }
-
-
-        /**
-         * Returns a sorted list of all chats in the given chat list
-         * 
-         * Also for every chat, sets `chat.position` to the matching position (creates copy instead of modifying original object)
-         * @param {import('tdweb').TdObject[]} chats
-         * @param {import('tdweb').TdObject} list
-         */
-        getChatsFromList(chats, list) {
-            return chats.map(chat => {
-                for( const position of chat.positions ) {
-                    if (compareChatList(list, position.list)) {
-                        if( position.order=='0' ) return false;
-                        return {
-                            ...chat,
-                            position: position
-                        };
-                    }
-                }
-                return chat;
-            })
-                .filter(chat => !!chat.position)
-                .sort((a, b) => {
-                    let order1= a.position.order, order2= b.position.order;
-
-                    if (order1 == order2) {
-                        return 0;
-                    }
-                    if (order1 < order2) {
-                        return 1;
-                    }
-                    return -1;
-                });
         }
 
         // When updating, TDLib sends updates of type
@@ -71,10 +70,11 @@ const ChatList= connect(state=> ({connectionState: state}))(
         }
 
         render() {
-            const array= this.getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />);
+            const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />);
             return (
                 <ScrollView id="chat-list" scrollBarWidth="4">
                     <Provider store={usersStore}>
+                        {this.props.list['@type']=='chatListMain' && <ArchivedChatsItem chats={this.props.chats}/>}
                         {array.length ? array :  <EmptyChatList list={this.props.list} connectionState={this.props.connectionState}/>}
                     </Provider>
                 </ScrollView>
@@ -216,6 +216,42 @@ export class ChatListItem extends React.Component {
 }
 ChatListItem.propTypes = {
     chat: PropTypes.object.isRequired
+};
+
+function ArchivedChatsItem({chats}) {
+    const chatsInList = getChatsFromList(chats, {'@type': 'chatListArchive'});
+    if(!chatsInList.length) return null; // There are no archived chats
+
+    switch(localStorage.getItem('dibgram-archived-chats-button-mode')) {
+    case 'expanded':
+    default:
+        return (
+            <div className="chat archived">
+                <div className="profile-photo">
+                    <div className="svg" dangerouslySetInnerHTML={{__html: archive_userpic}}/>
+                </div>
+                <div className="content">
+                    <div className="top">
+                        <div className="left">
+                            <div className="title">Archived chats</div>
+                        </div>
+                    </div>
+                    <div className="bottom">
+                        <div className="left">
+                            <div className="last-message">
+                                <span className="part-2">
+                                    {chatsInList.map(chat => chat.title || 'Deleted Account').join(', ')}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+ArchivedChatsItem.propTypes = {
+    chats: PropTypes.array.isRequired
 };
 
 function EmptyChatList({list, connectionState}) {

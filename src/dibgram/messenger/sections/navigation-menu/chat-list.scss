@@ -210,5 +210,20 @@
                 }
             }
         }
+
+        &.archived {
+            .profile-photo .svg {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--theme-color-historyPeerArchiveUserpicBg);
+
+                svg {
+                    height: 24px;
+                    width: 24px;
+                    position: unset;
+                }
+            }
+        }
     }
 }

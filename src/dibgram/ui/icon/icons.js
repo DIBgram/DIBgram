@@ -2,6 +2,7 @@
 
 import raw from 'raw.macro';
 
+export const archive_userpic = raw('./archive_userpic.svg');
 export const dialogs_bot = raw('./dialogs_bot.svg');
 export const dialogs_channel = raw('./dialogs_channel.svg');
 export const dialogs_chat = raw('./dialogs_chat.svg');
