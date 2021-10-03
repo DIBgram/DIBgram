@@ -15,6 +15,8 @@ import { smallDateTimeToString } from '../../../time-tostring';
 import { getMessageStatus } from '../../message-misc';
 import options from '../../../TdWeb/options';
 import RippleEffect, { handleMyMouseEvents, handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
+import { createContextMenu } from '../../../ui/menu/context-menu';
+import Menu from '../../../ui/menu/menu';
 
 /**
  * Returns a sorted list of all chats in the given chat list
@@ -236,15 +238,33 @@ function ArchivedChatsItem({chats}) {
     const chatsInList = getChatsFromList(chats, {'@type': 'chatListArchive'});
     if(!chatsInList.length) return null; // There are no archived chats
 
-    switch(localStorage.getItem('dibgram-archived-chats-button-mode')) {
     const ripple= React.useState({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
+
+    const [type, setType]= React.useState(localStorage.getItem('dibgram-archived-chats-button-mode'));
+    switch(type) {
     case 'expanded':
     default:
         return (
             <div 
                 className="chat archived" 
                 onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
+                onContextMenu={e=> createContextMenu(e, (
+                    <Menu.MenuContents>
+                        <Menu.MenuItem onClick={()=>{
+                            setType('collapsed');
+                            localStorage.setItem('dibgram-archived-chats-button-mode', 'collapsed');
+                        }}>
+                            Collapse
+                        </Menu.MenuItem>
+                        <Menu.MenuItem onClick={()=>{
+                            setType('hidden-expanded');
+                            localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-expanded');
+                        }}>
+                            Move to main menu
+                        </Menu.MenuItem>
+                    </Menu.MenuContents>
+                ))}>
                 <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
                 <div className="content">
                     <div className="profile-photo">
@@ -275,6 +295,22 @@ function ArchivedChatsItem({chats}) {
             <div
                 className="archived" 
                 onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
+                onContextMenu={e=> createContextMenu(e, (
+                    <Menu.MenuContents>
+                        <Menu.MenuItem onClick={()=>{
+                            setType('expanded');
+                            localStorage.setItem('dibgram-archived-chats-button-mode', 'expanded');
+                        }}>
+                            Expand
+                        </Menu.MenuItem>
+                        <Menu.MenuItem onClick={()=>{
+                            setType('hidden-collapsed');
+                            localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-collapsed');
+                        }}>
+                            Move to main menu
+                        </Menu.MenuItem>
+                    </Menu.MenuContents>
+                ))}>
                 <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
                 <div className="content">
                     Archived chats
