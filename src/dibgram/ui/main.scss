@@ -22,8 +22,6 @@ body {
     font-family: var(--font-family);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background: var(--theme-color-windowBg);
-    color: var(--theme-color-windowFg);
 }
 
 button {
@@ -41,6 +39,8 @@ code {
 
 #app {
     display: flex;
+    background: var(--theme-color-windowBg);
+    color: var(--theme-color-windowFg);
 }
 
 :focus {
