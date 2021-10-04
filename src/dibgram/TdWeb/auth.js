@@ -1,5 +1,6 @@
 import TdLib from './tdlib';
-import {getCredentials, getConfig} from './config';
+import {getCredentials} from './config';
+import {getUseTestDc} from './tdlib';
 
 TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
     const credentials= getCredentials();
@@ -26,14 +27,6 @@ TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
         });
     }
 });
-
-function getUseTestDc(){
-    var urlPar=new URL(window.location.href).searchParams.get('test');
-    if(urlPar){
-        return urlPar==='1' || urlPar==='true';
-    }
-    return getConfig().use_test_dc;
-}
 
 /**
  * Provides functions to pass required authorization data to Telegram

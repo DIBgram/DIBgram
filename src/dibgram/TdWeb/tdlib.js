@@ -1,6 +1,18 @@
 import TdClient from 'tdweb';
 import {getConfig} from './config';
 
+export function getUseTestDc() {
+    var urlPar=new URL(window.location.href).searchParams.get('test');
+    if(urlPar){
+        return urlPar==='1' || urlPar==='true';
+    }
+    return false;
+}
+
+export function getCurrentSession() {
+    return new URL(window.location.href).searchParams.get('account') || 1;
+}
+
 /**
  * Provides options to communicate with the Tdweb library
  */
@@ -17,6 +29,7 @@ export default class TdLib {
         const {log}= getConfig();
         TdLib.#tdClient= new TdClient({
             useDatabase: true,
+            instanceName: ( getCurrentSession().toString() ) + (getUseTestDc() ? 'test' : 'production'),
             onUpdate: function (update) {
                 if(log.log_updates) {
                     console.log('Update: ',update);
