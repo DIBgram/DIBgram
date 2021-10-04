@@ -19,6 +19,20 @@
         width: 100%;
         transition: left 200ms;
         background: var(--theme-color-dialogsBg);
+        z-index: 2;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 100%;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--theme-color-layerBg);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 200ms;
+        }
 
         .chat-list-header {
             display: flex;
@@ -45,12 +59,41 @@
     &.archive-open {
         .archived-chats {
             left: 0;
+            animation: archived-chats-swipe 200ms;
+        }
+
+        .archived-chats::before {
+            opacity: 1;
+            animation: archived-chats-shadow 200ms;
         }
 
         & > #chat-list,
         & > .chat-list-header {
-            margin-left: -50%;
-            margin-right: 50%;
+            margin-left: -35%;
+            margin-right: 35%;
+            animation: chat-list-background-swipe 200ms;
         }
+    }
+}
+
+@keyframes archived-chats-swipe {
+    from { left: 100%; }
+    to { left: 0; }
+}
+
+@keyframes archived-chats-shadow {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes archived-chats-background-swipe {
+    from {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    to {
+        margin-left: -35%;
+        margin-right: 35%;
     }
 }
