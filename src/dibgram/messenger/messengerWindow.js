@@ -22,8 +22,8 @@ export function MessengerWindow () {
 
     return (
         <div id="messenger-screen">
-            <HamburgerMenu visible={isMenuOpen} onClose={()=> setIsMenuOpen(false)}/>
             <Provider store={chatStore}>
+                <HamburgerMenu visible={isMenuOpen} onClose={()=> setIsMenuOpen(false)}/>
                 <ChatFoldersList onHamburgerMenuOpened={()=> setIsMenuOpen(true)}/>
                 <ChatListBar onHamburgerMenuOpened={()=> setIsMenuOpen(true)}/>
             </Provider>

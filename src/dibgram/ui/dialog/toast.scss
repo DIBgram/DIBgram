@@ -1,0 +1,38 @@
+.toast {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    pointer-events: none;
+    transition: opacity 1500ms;
+
+    .toast-content {
+        margin: auto;
+        padding: 13px 20px 12px;
+        background-color: var(--theme-color-toastBg);
+        color: var(--theme-color-toastFg);
+        animation: toast-appear 300ms;
+        max-width: 364px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-size: 13px;
+        letter-spacing: -0.2px;
+    }
+
+    &.closed {
+        opacity: 0;
+    }
+}
+
+@keyframes toast-appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

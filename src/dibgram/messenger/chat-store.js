@@ -7,6 +7,7 @@ const chatStore= createStore(reducer,
 function reducer(state= {
     currentChatList: {'@type': 'chatListMain'},
     archiveState: 'closed',
+    archiveButtonState: localStorage.getItem('dibgram-archived-chats-button-mode'),
     chats: [],
     filters: []
 }, action) {
@@ -20,6 +21,11 @@ function reducer(state= {
         return {
             ...state,
             archiveState: action.archiveState
+        };
+    case 'SET_ARCHIVE_BUTTON_STATE':
+        return {
+            ...state,
+            archiveButtonState: action.archiveButtonState
         };
     case 'ADD_CHAT':
         return {

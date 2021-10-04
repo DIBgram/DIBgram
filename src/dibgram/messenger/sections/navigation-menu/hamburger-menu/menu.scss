@@ -20,11 +20,33 @@
             color: var(--theme-color-mainMenuCoverFg);
 
             .row-1 {
-                padding: 20px 24px 16px;
+                padding: 20px 16px 16px 24px;
+                height: 48px;
 
                 .profile-photo {
                     height: 48px;
                     width: 48px;
+                    display: inline-block;
+                }
+
+                .buttons {
+                    float: right;
+
+                    button {
+                        border: none;
+                        background-color: var(--theme-color-mainMenuCloudBg);
+                        padding: 7px;
+                        border-radius: 100%;
+                        height: 32px;
+                        width: 32px;
+                        cursor: pointer;
+
+                        svg {
+                            height: 18px;
+                            width: 18px;
+                            fill: var(--theme-color-mainMenuCloudFg);
+                        }
+                    }
                 }
             }
 

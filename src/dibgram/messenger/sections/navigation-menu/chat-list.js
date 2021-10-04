@@ -17,6 +17,8 @@ import options from '../../../TdWeb/options';
 import RippleEffect, { handleMyMouseEvents, handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
 import { createContextMenu } from '../../../ui/menu/context-menu';
 import Menu from '../../../ui/menu/menu';
+import Toast from '../../../ui/dialog/toast';
+import { addDialog } from '../../../ui/dialog/dialogs';
 
 /**
  * Returns a sorted list of all chats in the given chat list
@@ -25,7 +27,7 @@ import Menu from '../../../ui/menu/menu';
  * @param {import('tdweb').TdObject[]} chats
  * @param {import('tdweb').TdObject} list
  */
-function getChatsFromList(chats, list) {
+export function getChatsFromList(chats, list) {
     return chats.map(chat => {
         for( const position of chat.positions ) {
             if (compareChatList(list, position.list)) {
@@ -76,8 +78,12 @@ const ChatList= connect(state=> ({connectionState: state}))(
             const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />);
             return (
                 <ScrollView id="chat-list" scrollBarWidth="4">
+                    {this.props.list['@type']=='chatListMain' && (
+                        <Provider store={chatStore}>
+                            <ArchivedChatsItem chats={this.props.chats}/>
+                        </Provider>
+                    )}
                     <Provider store={usersStore}>
-                        {this.props.list['@type']=='chatListMain' && <ArchivedChatsItem chats={this.props.chats}/>}
                         {array.length ? array :  <EmptyChatList list={this.props.list} connectionState={this.props.connectionState}/>}
                     </Provider>
                 </ScrollView>
@@ -234,7 +240,7 @@ ChatListItem.propTypes = {
     chat: PropTypes.object.isRequired
 };
 
-function ArchivedChatsItem({chats}) {
+const ArchivedChatsItem= connect(state=> ({archiveButtonState: state.archiveButtonState})) (function ArchivedChatsItem({chats, archiveButtonState}) {
     const chatsInList = getChatsFromList(chats, {'@type': 'chatListArchive'});
     if(!chatsInList.length) return null; // There are no archived chats
 
@@ -248,8 +254,19 @@ function ArchivedChatsItem({chats}) {
         });
     }
 
-    const [type, setType]= React.useState(localStorage.getItem('dibgram-archived-chats-button-mode'));
-    switch(type) {
+    function setButtonState(state) {
+        chatStore.dispatch({
+            type: 'SET_ARCHIVE_BUTTON_STATE',
+            archiveButtonState: state
+        });
+    }
+
+    const moveToMainMenuToast= <Toast id="moveToMainMenuToast" >
+        Archive moved to the main menu! <br/>
+        You can return it from the context menu of the archive button.
+    </Toast>;
+
+    switch(archiveButtonState) {
     case 'expanded':
     default:
         return (
@@ -259,14 +276,15 @@ function ArchivedChatsItem({chats}) {
                 onContextMenu={e=> createContextMenu(e, (
                     <Menu.MenuContents>
                         <Menu.MenuItem onClick={()=>{
-                            setType('collapsed');
+                            setButtonState('collapsed');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'collapsed');
                         }}>
                             Collapse
                         </Menu.MenuItem>
                         <Menu.MenuItem onClick={()=>{
-                            setType('hidden-expanded');
+                            setButtonState('hidden-expanded');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-expanded');
+                            addDialog('moveToMainMenuToast', moveToMainMenuToast);
                         }}>
                             Move to main menu
                         </Menu.MenuItem>
@@ -305,14 +323,15 @@ function ArchivedChatsItem({chats}) {
                 onContextMenu={e=> createContextMenu(e, (
                     <Menu.MenuContents>
                         <Menu.MenuItem onClick={()=>{
-                            setType('expanded');
+                            setButtonState('expanded');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'expanded');
                         }}>
                             Expand
                         </Menu.MenuItem>
                         <Menu.MenuItem onClick={()=>{
-                            setType('hidden-collapsed');
+                            setButtonState('hidden-collapsed');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-collapsed');
+                            addDialog('moveToMainMenuToast', moveToMainMenuToast);
                         }}>
                             Move to main menu
                         </Menu.MenuItem>
@@ -328,7 +347,7 @@ function ArchivedChatsItem({chats}) {
     case 'hidden-collapsed':
         return null;
     }
-}
+});
 ArchivedChatsItem.propTypes = {
     chats: PropTypes.array.isRequired
 };
