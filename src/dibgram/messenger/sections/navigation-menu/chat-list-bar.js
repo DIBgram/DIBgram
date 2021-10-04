@@ -29,10 +29,12 @@ const ChatListBar = connect(function (state) {
             archiveState: 'closing'
         });
         setTimeout(() => {
-            chatStore.dispatch({
-                type: 'SET_ARCHIVE_STATE',
-                archiveState: 'closed'
-            });
+            if(chatStore.getState().archiveState == 'closing') {
+                chatStore.dispatch({
+                    type: 'SET_ARCHIVE_STATE',
+                    archiveState: 'closed'
+                });
+            }
         }, 2000);
     }
 
