@@ -21,6 +21,7 @@ You can also build DIBgram yourself, as described [here](BUILDING.md).
 - Uses TDLib, which doesn't have so many problems with server<->client sync
 - Interface can be zoomed as much as the browser allows without quality loss (about 25%-500% instead of 100%-300%)
 - Caches messages locally, reducing bandwidth usage
+- Does not limit accounts to 3
 
 ### Disadvantages
 
