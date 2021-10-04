@@ -100,6 +100,15 @@ const ChatList= connect(state=> ({connectionState: state}))(
                 'offset_chat_id': 0,
                 'limit': 50
             });
+            TdLib.sendQuery({
+                '@type': 'getChats',
+                'chat_list': {
+                    '@type': 'chatListArchive'
+                },
+                'offset_order': '9223372036854775807',
+                'offset_chat_id': 0,
+                'limit': 50
+            });
         }
     }
 );
