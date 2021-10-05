@@ -65,6 +65,37 @@
                     color: var(--theme-color-sideBarTextFgActive);
                 }
             }
+
+            .unread-badge {
+                position: absolute;
+                top: 5px;
+                left: 37px;
+                padding: 0 3px 0 4px;
+                min-width: 10px;
+                height: 17px;
+                border-radius: 999em;
+                background-color: var(--theme-color-sideBarBadgeBg);
+                color: var(--theme-color-sideBarBadgeFg);
+                border: 2px solid var(--theme-color-sideBarBg);
+
+                span {
+                    position: relative;
+                    top: -1px;
+                }
+
+                &[data-muted="true"] {
+                    background-color: var(--theme-color-sideBarBadgeBgMuted);
+                }
+            }
+
+            &.active .unread-badge {
+                background-color: var(--theme-color-sideBarBadgeBg);
+                border-color: var(--theme-color-sideBarBgActive);
+            }
+
+            &:active .unread-badge {
+                border-color: var(--theme-color-sideBarBgRipple);
+            }
         }
     }
 }

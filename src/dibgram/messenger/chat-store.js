@@ -9,7 +9,12 @@ function reducer(state= {
     archiveState: 'closed',
     archiveButtonState: localStorage.getItem('dibgram-archived-chats-button-mode'),
     chats: [],
-    filters: []
+    filters: [],
+    unread: {
+        main: {},
+        archive: {},
+        filters: {}
+    }
 }, action) {
     switch (action.type) {
     case 'SET_CURRENT_CHAT_LIST':
@@ -22,6 +27,100 @@ function reducer(state= {
             ...state,
             archiveState: action.archiveState
         };
+    case 'UPDATE_UNREAD_MESSAGE_COUNT':
+        if(action.chat_list['@type'] === 'chatListMain') {
+            return {
+                ...state,
+                unread: {
+                    ...state.unread,
+                    main: {
+                        ...state.unread.main,
+                        unread_messages_count: action.unread_count,
+                        unread_unmuted_messages_count: action.unread_unmuted_count
+                    }
+                }
+            };
+        } else if(action.chat_list['@type'] === 'chatListArchive') {
+            return {
+                ...state,
+                unread: {
+                    ...state.unread,
+                    archive: {
+                        ...state.unread.archive,
+                        unread_messages_count: action.unread_count,
+                        unread_unmuted_messages_count: action.unread_unmuted_count
+                    }
+                }
+            };
+        } else if(action.chat_list['@type'] === 'chatListFilter') {
+            return {
+                ...state,
+                unread: {
+                    ...state.unread,
+                    filters: {
+                        ...state.unread.filters,
+                        [action.chat_list.chat_filter_id]: {
+                            ...state.unread.filters[action.chat_list.chat_filter_id],
+                            unread_messages_count: action.unread_count,
+                            unread_unmuted_messages_count: action.unread_unmuted_count
+                        }
+                    }
+                }
+            };
+        }
+        return state;
+    case 'UPDATE_UNREAD_CHAT_COUNT':
+        if(action.chat_list['@type'] === 'chatListMain') {
+            return {
+                ...state,
+                unread: {
+                    ...state.unread,
+                    main: {
+                        ...state.unread.main,
+                        total_chats_count: action.total_count,
+                        unread_chats_count: action.unread_count,
+                        unread_unmuted_chats_count: action.unread_unmuted_count,
+                        marked_as_unread_chats_count: action.marked_as_unread_count,
+                        marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
+                    }
+                }
+            };
+        } else if(action.chat_list['@type'] === 'chatListArchive') {
+            return {
+                ...state,
+                unread: {
+                    ...state.unread,
+                    archive: {
+                        ...state.unread.archive,
+                        total_chats_count: action.total_count,
+                        unread_chats_count: action.unread_count,
+                        unread_unmuted_chats_count: action.unread_unmuted_count,
+                        marked_as_unread_chats_count: action.marked_as_unread_count,
+                        marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
+                    }
+                }
+            };
+        } else if(action.chat_list['@type'] === 'chatListFilter') {
+            return {
+                ...state,
+                unread: {
+                    ...state.unread,
+                    filters: {
+                        ...state.unread.filters,
+                        [action.chat_list.chat_filter_id]: {
+                            ...state.unread.filters[action.chat_list.chat_filter_id],
+                            total_chats_count: action.total_count,
+                            unread_chats_count: action.unread_count,
+                            unread_unmuted_chats_count: action.unread_unmuted_count,
+                            marked_as_unread_chats_count: action.marked_as_unread_count,
+                            marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
+                        }
+                    }
+                }
+            };
+        }
+        return state;
+
     case 'SET_ARCHIVE_BUTTON_STATE':
         return {
             ...state,
@@ -131,6 +230,20 @@ function reducer(state= {
         return state;
     }
 }
+
+TdLib.registerUpdateHandler('updateUnreadChatCount', (update) => {
+    chatStore.dispatch({
+        type: 'UPDATE_UNREAD_CHAT_COUNT',
+        ...update
+    });
+});
+
+TdLib.registerUpdateHandler('updateUnreadMessageCount', (update) => {
+    chatStore.dispatch({
+        type: 'UPDATE_UNREAD_MESSAGE_COUNT',
+        ...update
+    });
+});
 
 TdLib.registerUpdateHandler('updateNewChat', update => {
     chatStore.dispatch({

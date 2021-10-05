@@ -12,7 +12,7 @@ import './chat-folders.scss';
 /**
  * Renders a chat folder button
  */
-export function ChatFolder({folder, active, onClick}) {
+export function ChatFolder({folder, active, onClick, unread}) {
     const ripple= React.useState({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
     const [iconName, setIconName]= React.useState(folder.icon_name);
@@ -57,6 +57,12 @@ export function ChatFolder({folder, active, onClick}) {
 
                 <div className="icon" dangerouslySetInnerHTML={{__html: icon}}></div>
                 <div className="title">{folder.title}</div>
+                {unread?.unread_chats_count? (
+                    <div className="unread-badge" 
+                        data-muted={(unread?.unread_unmuted_chats_count==0) ? 'true' : 'false'}>
+                        <span>{unread?.unread_chats_count}</span>
+                    </div>
+                ): null}
             </button>
         </div>
     );
@@ -68,13 +74,15 @@ ChatFolder.propTypes= {
     /** A boolean indicating if the folder is currently selected */
     active: PropTypes.bool.isRequired,
     /** A function to call when the folder is clicked */
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    /** An object containing unread messages and chats count, from `chatStore` */
+    unread: PropTypes.object
 };
 
 /**
  * Renders the chat folders list
  */
-function ChatFolderList({folders, currentFolder, dispatch, onHamburgerMenuOpened}) {
+function ChatFolderList({folders, currentFolder, unread, dispatch, onHamburgerMenuOpened}) {
     if(!folders || folders.length==0) return null;
     return (
         <div id="chat-folders-list">
@@ -83,6 +91,7 @@ function ChatFolderList({folders, currentFolder, dispatch, onHamburgerMenuOpened
                 <ChatFolder 
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
                     folder={{ title: 'All chats', icon_name: 'All' }}
+                    unread={unread.main}
                     onClick={()=> dispatch({
                         type: 'SET_CURRENT_CHAT_LIST',
                         chatList: { '@type': 'chatListMain' }
@@ -90,6 +99,7 @@ function ChatFolderList({folders, currentFolder, dispatch, onHamburgerMenuOpened
                 
                 {folders.map(folder=> (
                     <ChatFolder folder={folder} key={folder.id}
+                        unread={unread.filters[folder.id]}
                         active={compareChatList(currentFolder, 
                             {'@type': 'chatListFilter', 'chat_filter_id': folder.id})}
                         onClick={()=> dispatch({
@@ -107,10 +117,12 @@ function ChatFolderList({folders, currentFolder, dispatch, onHamburgerMenuOpened
 ChatFolderList.propTypes={
     folders: PropTypes.arrayOf(PropTypes.object),
     currentFolder: PropTypes.object,
+    unread: PropTypes.object,
     dispatch: PropTypes.func,
     onHamburgerMenuOpened: PropTypes.func
 };
 export default connect(state=>({
     folders:state.filters, 
-    currentFolder: state.currentChatList
+    currentFolder: state.currentChatList,
+    unread: state.unread
 }))(ChatFolderList);
