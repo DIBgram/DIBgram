@@ -19,6 +19,7 @@ import { createContextMenu } from '../../../ui/menu/context-menu';
 import Menu from '../../../ui/menu/menu';
 import Toast from '../../../ui/dialog/toast';
 import { addDialog } from '../../../ui/dialog/dialogs';
+import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 
 /**
  * Returns a sorted list of all chats in the given chat list
@@ -206,7 +207,8 @@ export class ChatListItem extends React.Component {
         }
 
         return(
-            <div className="chat" onMouseDown={this.mouseDown} onMouseUp={this.mouseUp} onMouseLeave={this.mouseLeave}>
+            <div className="chat" onContextMenu={e=> createContextMenu(e, <ChatContextMenu chat={chat}/>)}
+                onMouseDown={this.mouseDown} onMouseUp={this.mouseUp} onMouseLeave={this.mouseLeave}>
                 <RippleEffect {...this.state.ripple} color="var(--theme-color-dialogsRippleBg)"/>
                 <div className="content">
                     <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
@@ -246,6 +248,77 @@ export class ChatListItem extends React.Component {
     }
 }
 ChatListItem.propTypes = {
+    chat: PropTypes.object.isRequired
+};
+
+function ChatContextMenu({chat}) {
+    const [movableChatLists, setMovableChatLists] = React.useState([]);
+
+    React.useEffect(() => {
+        TdLib.sendQuery({
+            '@type': 'getChatListsToAddChat',
+            chat_id: chat.id
+        }).then(result => {
+            setMovableChatLists(result.chat_lists.map(chatList=> {
+                const text= {'chatListMain': 'Unarchive chat', 'chatListArchive': 'Archive chat'}[chatList['@type']];
+                if(!text) return;
+                return (
+                    <Menu.MenuItem key={chatList.chat_filter_id || chatList['@type']} onClick={() => {
+                        TdLib.sendQuery({
+                            '@type': 'addChatToList',
+                            chat_id: chat.id,
+                            chat_list: chatList
+                        }).then(() => {
+                            if(chatList['@type'] == 'chatListMain') {
+                                addDialog('chat-un-archived-toast', (
+                                    <Toast id="chat-un-archived-toast">
+                                        Chat restored from your archive.
+                                    </Toast>
+                                ));
+                            } 
+                            else if(chatList['@type'] == 'chatListArchive') {
+                                addDialog('chat-archived-toast', (
+                                    <Toast id="chat-archived-toast">
+                                        Chat archived. <br/>
+                                        Muted chats stay archived when new messages arrive.
+                                    </Toast>
+                                ));
+                            }
+                        });
+                    }}>
+                        {text}
+                    </Menu.MenuItem>
+                );
+            }));
+        });
+    }, []);
+
+    return (
+        <Menu.MenuContents>
+            {movableChatLists}
+            <Menu.MenuItem onClick={()=> {
+                TdLib.sendQuery({
+                    '@type': 'toggleChatIsPinned',
+                    chat_list: chat.position.list,
+                    chat_id: chat.id,
+                    is_pinned: !chat.position.is_pinned
+                }).catch(error=> {
+                    if(error.code == 400) {
+                        const max= chat.position.list['@type'] == 'chatListMain'? options['pinned_chat_count_max'] : options['pinned_archived_chat_count_max'];
+                        addDialog('maximum-pinned-chats-reached', (
+                            <ConfirmDialog id="maximum-pinned-chats-reached" hideCancelButton={true}>
+                                Sorry, you can only pin {max} chats to the top.
+                            </ConfirmDialog>
+                        ));
+                    }
+                });
+            }}>
+                {chat.position.is_pinned? 'Unpin from top' : 'Pin to top'}
+            </Menu.MenuItem>
+        </Menu.MenuContents>
+    );
+}
+ChatContextMenu.propTypes = {
     chat: PropTypes.object.isRequired
 };
 
