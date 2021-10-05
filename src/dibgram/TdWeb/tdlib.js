@@ -9,8 +9,8 @@ export function getUseTestDc() {
     return false;
 }
 
-export function getCurrentSession() {
-    return new URL(window.location.href).searchParams.get('account') || 1;
+export function getCurrentSessionId() {
+    return new URL(window.location.href).searchParams.get('account') || '1';
 }
 
 /**
@@ -29,7 +29,7 @@ export default class TdLib {
         const {log}= getConfig();
         TdLib.#tdClient= new TdClient({
             useDatabase: true,
-            instanceName: ( getCurrentSession().toString() ) + (getUseTestDc() ? 'test' : 'production'),
+            instanceName: ( getCurrentSessionId() ) + (getUseTestDc() ? 'test' : 'production'),
             onUpdate: function (update) {
                 if(log.log_updates) {
                     console.log('Update: ',update);
@@ -70,6 +70,7 @@ export default class TdLib {
      * Send a request to the TdLib instance
      * If the query contains an `@extra` field, the same field will be added to the result
      * @param {import('tdweb').TdObject} query The request to send. Consult TdLib & JSON interface API for help.
+     * @returns {Promise<import('tdweb').TdObject | import('tdweb').TdError>} The result of the request
      */
     static sendQuery(query) {
         const {log}= getConfig();
