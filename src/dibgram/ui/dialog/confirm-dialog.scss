@@ -5,6 +5,7 @@
         font-size: 14px;
         line-height: 22px;
         letter-spacing: 0.23px;
+        font-weight: 200;
 
         & > h1 {
             font-size: 16px;
@@ -17,6 +18,7 @@
 
         & > div.content {
             margin: 10px;
+            margin-bottom: 20px;
         }
 
         & > div.options {
