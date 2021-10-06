@@ -7,6 +7,7 @@
     border-radius: 100%;
     transition: bottom 100ms linear;
     background: inherit;
+    z-index: 2;
 
     &.connected {
         bottom: -32px;
