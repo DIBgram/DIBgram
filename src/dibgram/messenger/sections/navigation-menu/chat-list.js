@@ -322,7 +322,10 @@ ChatContextMenu.propTypes = {
     chat: PropTypes.object.isRequired
 };
 
-const ArchivedChatsItem= connect(state=> ({archiveButtonState: state.archiveButtonState})) (function ArchivedChatsItem({chats, archiveButtonState}) {
+const ArchivedChatsItem= connect(state=> ({
+    archiveButtonState: state.archiveButtonState,
+    unread: state.unread.archive
+})) (function ArchivedChatsItem({chats, unread, archiveButtonState}) {
     const chatsInList = getChatsFromList(chats, {'@type': 'chatListArchive'});
     if(!chatsInList.length) return null; // There are no archived chats
 
@@ -386,10 +389,22 @@ const ArchivedChatsItem= connect(state=> ({archiveButtonState: state.archiveButt
                         <div className="bottom">
                             <div className="left">
                                 <div className="last-message">
+                                    <span className="part-1">
+                                        {chatsInList
+                                            .filter(chat=> chat.unread_count > 0)
+                                            .map(chat => chat.title || 'Deleted Account')
+                                            .join(', ')}
+                                    </span>
                                     <span className="part-2">
-                                        {chatsInList.map(chat => chat.title || 'Deleted Account').join(', ')}
+                                        , {chatsInList
+                                            .filter(chat=> chat.unread_count == 0)
+                                            .map(chat => chat.title || 'Deleted Account')
+                                            .join(', ')}
                                     </span>
                                 </div>
+                            </div>
+                            <div className="right">
+                                <span className="unread-badge muted">{unread.unread_messages_count}</span>
                             </div>
                         </div>
                     </div>
@@ -400,7 +415,7 @@ const ArchivedChatsItem= connect(state=> ({archiveButtonState: state.archiveButt
     case 'collapsed':
         return (
             <div
-                className="archived" onClick={onArchiveOpen}
+                className="chat archived collapsed" onClick={onArchiveOpen}
                 onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
                 onContextMenu={e=> createContextMenu(e, (
                     <Menu.MenuContents>
@@ -422,6 +437,9 @@ const ArchivedChatsItem= connect(state=> ({archiveButtonState: state.archiveButt
                 <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
                 <div className="content">
                     Archived chats
+                    <div className="details">
+                        <span className="unread-badge muted">{unread.unread_messages_count}</span>
+                    </div>
                 </div>
             </div>
         );

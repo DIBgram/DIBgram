@@ -240,13 +240,18 @@
                     position: unset;
                 }
             }
+
+            .details .last-message .part-1 {
+                font-weight: 500;
+            }
         }
     }
 
-    .archived:not(.chat) {
+    .archived.collapsed {
         height: 37px;
         position: relative;
         overflow: hidden;
+        cursor: default;
 
         .content {
             font-size: 13px;
@@ -261,6 +266,14 @@
             left: 0;
             right: 0;
             bottom: 0;
+        }
+
+        .details {
+            overflow: visible;
+
+            .unread-badge {
+                float: right;
+            }
         }
 
         &:hover {
