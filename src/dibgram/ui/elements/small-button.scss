@@ -39,4 +39,17 @@ button.small-button {
     .invisibleText {
         visibility: hidden;
     }
+
+    &[data-attention=true] {
+        color: var(--theme-color-attentionButtonFg);
+
+        &:hover {
+            color: var(--theme-color-attentionButtonFgOver);
+            background-color: var(--theme-color-attentionButtonBgOver);
+        }
+
+        .ripple {
+            background-color: var(--theme-color-attentionButtonBgRipple) !important;
+        }
+    }
 }

@@ -10,7 +10,9 @@ export default class SmallButton extends React.Component {
         /** The button's content */
         children: PropTypes.node.isRequired,
         /** Fires when the button is clicked */
-        onClick: PropTypes.func
+        onClick: PropTypes.func,
+        /** Setting to true causes the button to become red */
+        attention: PropTypes.bool
     };
     state= {
         ripple: {
@@ -27,6 +29,7 @@ export default class SmallButton extends React.Component {
         return (
             <button 
                 className="small-button" 
+                data-attention={this.props.attention? 'true': 'false'}
                 onMouseDown={this.mouseDown}
                 onMouseUp={this.mouseUp}
                 onMouseLeave={this.mouseLeave}

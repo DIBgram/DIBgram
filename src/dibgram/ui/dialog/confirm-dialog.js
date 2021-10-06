@@ -27,7 +27,9 @@ export default class ConfirmDialog extends React.Component{
         /** Pass true if third button click closes dialog */
         thirdButtonClosesDialog: PropTypes.bool,
         /** Called when third button is pressed */
-        onThirdButtonClick: PropTypes.func
+        onThirdButtonClick: PropTypes.func,
+        /** If true, the OK button will become red, meaning the user should pay attention */
+        attention: PropTypes.bool
     };
     state= {
         closing: false
@@ -72,7 +74,7 @@ export default class ConfirmDialog extends React.Component{
                                 Cancel
                             </SmallButton>
                         )}
-                        <SmallButton onClick={()=>this.handleButton(this.props.onOK)}>
+                        <SmallButton onClick={()=>this.handleButton(this.props.onOK)} attention={this.props.attention}>
                             {this.props.OKButtonText || 'OK'}
                         </SmallButton>
                     </div>
