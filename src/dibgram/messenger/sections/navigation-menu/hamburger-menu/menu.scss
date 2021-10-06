@@ -14,8 +14,11 @@
         height: 100%;
         flex-shrink: 0;
         transition: margin-left 200ms;
+        display: flex;
+        flex-direction: column;
 
         .header {
+            flex-shrink: 0;
             background-color: var(--theme-color-mainMenuCoverBg);
             color: var(--theme-color-mainMenuCoverFg);
 
@@ -64,6 +67,32 @@
                 }
             }
         }
+
+        .scrollbar {
+            flex-grow: 1;
+
+            .about {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 20px 30px;
+                color: var(--theme-color-windowSubTextFg);
+                letter-spacing: -1px;
+
+                button {
+                    padding: 0;
+                    color: var(--theme-color-windowSubTextFg);
+                    font-weight: 400;
+                    letter-spacing: -0.4px;
+                }
+
+                .row-1 button {
+                    font-weight: 500;
+                    letter-spacing: -0.3px;
+                }
+            }
+        }
     }
 
     .shadow {
@@ -82,6 +111,35 @@
 
         .shadow {
             opacity: 0;
+        }
+    }
+}
+
+.modal-dialog.modal-dialog [data-id=main-menu-about-dibgram-dialog] {
+    & > .content {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    h1 {
+        margin-bottom: 12px;
+    }
+
+    .link-button {
+        padding: 0;
+
+        &.version {
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+    }
+
+    p {
+        margin-top: 14px;
+        margin-bottom: 0;
+
+        &:first-of-type {
+            margin-top: 17px;
         }
     }
 }

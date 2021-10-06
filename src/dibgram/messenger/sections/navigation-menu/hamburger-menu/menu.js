@@ -9,6 +9,11 @@ import { archive_userpic } from '../../../../ui/icon/icons';
 import { connect } from 'react-redux';
 import { createContextMenu } from '../../../../ui/menu/context-menu';
 import Menu from '../../../../ui/menu/menu';
+import ScrollView from '../../../../ui/scroll/scrollbar';
+import LinkButton from '../../../../ui/elements/link-button';
+import version from '../../../../../version';
+import { addDialog } from '../../../../ui/dialog/dialogs';
+import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 
 const HamburgerMenu= connect(state=> ({
     chats: state.chats,
@@ -98,6 +103,42 @@ const HamburgerMenu= connect(state=> ({
                             </div>
                         </div>
                     </div>
+                    <ScrollView>
+                        <div className="options">
+                            
+                        </div>
+                        <div className="about">
+                            <div className="row-1">
+                                <LinkButton href="https://github.com/DIBgram/DIBgram">DIBgram</LinkButton>
+                            </div>
+                            <div className="row-2">
+                                <LinkButton href="https://github.com/DIBgram/DIBgram/releases/">Version {version}</LinkButton> ­– <LinkButton onClick={()=> {
+                                    onClose();
+                                    addDialog('main-menu-about-dibgram-dialog', (
+                                        <ConfirmDialog id="main-menu-about-dibgram-dialog"
+                                            width="390px" title="DIBgram" OKButtonText="CLOSE"
+                                            hideCancelButton={true}>
+
+                                            <LinkButton className="version link-button"
+                                                style={{color: 'var(--theme-color-windowSubTextFg)'}} 
+                                                href="https://github.com/DIBgram/DIBgram/releases/">
+                                                    version {version}
+                                            </LinkButton>
+
+                                            <p>Unofficial Telegram app based on <LinkButton href="https://core.telegram.org/tdlib">TDLib</LinkButton> for speed and security.</p>
+
+                                            <p>This software is licensed under <LinkButton href="https://github.com/DIBgram/DIBgram/blob/main/LICENSE">GNU GPL</LinkButton> version 3.<br/>
+                                            Source code is available on <LinkButton href="https://github.com/DIBgram/DIBgram">GitHub</LinkButton>.</p>
+
+                                            <p>Visit the <LinkButton href="https://telegram.org/faq">Telegram FAQ</LinkButton> for more info.</p>
+                                        </ConfirmDialog>
+                                    ));
+                                }}>
+                                    About
+                                </LinkButton>
+                            </div>
+                        </div>
+                    </ScrollView>
                 </div>
                 <div className="shadow" onClick={onClose}></div>
             </div>
