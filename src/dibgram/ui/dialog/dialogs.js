@@ -53,17 +53,13 @@ export function removeDialog(id) {
     });
 }
 
-function Wrapper(props){
-    return props.children;
-}
-
 /**
  * Renders all dialogs.
  */
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
 })(function Dialogs(props) {
-    return props.dialogs.map(el => <Wrapper key={el.id}>{el.element}</Wrapper>) || null;
+    return props.dialogs.map(el => <React.Fragment key={el.id}>{el.element}</React.Fragment>) || null;
 }));
 
 export default Dialogs;
