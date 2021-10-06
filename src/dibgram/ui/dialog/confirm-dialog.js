@@ -49,7 +49,8 @@ export default class ConfirmDialog extends React.Component{
             <div className={'modal-dialog confirm-dialog' + ((this.state.closing) ? ' closing' : '')}>
                 <div style={{
                     'width': this.props.width || '320px'
-                }}>
+                }}
+                data-id={this.props.id}>
                     <h1>{this.props.title || ''}</h1>
                     <div className="content">
                         {this.props.children}

@@ -1,6 +1,7 @@
 import TdLib from './tdlib';
 import {getCredentials} from './config';
 import {getUseTestDc} from './tdlib';
+import version from '../../version';
 
 TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
     const credentials= getCredentials();
@@ -20,7 +21,7 @@ TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
                 'api_hash': credentials.api_hash,
                 'system_language_code': 'en',
                 'device_model': 'Web',
-                'application_version': '0.0.1',
+                'application_version': version,
                 'enable_storage_optimizer': true,
                 'use_test_dc': getUseTestDc(),
             }
