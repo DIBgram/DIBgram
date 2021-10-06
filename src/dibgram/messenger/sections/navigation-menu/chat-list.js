@@ -131,6 +131,7 @@ export class ChatListItem extends React.Component {
             || nextProps.chat.draft_message !== this.props.chat.draft_message
             || nextProps.chat.unread_count !== this.props.chat.unread_count
             || nextProps.chat.unread_mention_count !== this.props.chat.unread_mention_count
+            || nextProps.chat.is_marked_as_unread !== this.props.chat.is_marked_as_unread
             || nextProps.chat.position.is_pinned !== this.props.chat.position.is_pinned
             || nextProps.chat.photo?.small?.id !== this.props.chat.photo?.small?.id
             || nextProps.chat.title !== this.props.chat.title
@@ -202,9 +203,6 @@ export class ChatListItem extends React.Component {
         else if (chat.is_marked_as_unread) {
             unreadBadge = <span className={unreadBadgeClass}></span>;
         }
-        else {
-            unreadBadge = chat.position?.is_pinned && <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span>;
-        }
 
         return(
             <div className="chat" onContextMenu={e=> createContextMenu(e, <ChatContextMenu chat={chat}/>)}
@@ -229,7 +227,7 @@ export class ChatListItem extends React.Component {
                         </div>
                         <div className="bottom">
                             <div className="left">
-                                {chat.draft_message ? 
+                                {(chat.draft_message && !unreadBadge) ?  // I don't know why, but Telegram Desktop does not show the draft message if the chat is unread.
                                     <span className="last-message">
                                         <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
                                     </span> 
@@ -238,7 +236,9 @@ export class ChatListItem extends React.Component {
                                 }
                             </div>
                             <div className="right">
-                                {unreadBadge}
+                                {unreadBadge || (
+                                    chat.position?.is_pinned && <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span>
+                                )}
                             </div>
                         </div>
                     </div>
