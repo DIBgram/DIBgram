@@ -19,8 +19,9 @@ const ChatListBar = connect(function (state) {
         chats: state.chats, 
         list: state.currentChatList,
         archiveState: state.archiveState,
+        unread: state.unread
     };
-})(function ChatListBar({useFolders, chats, list, archiveState, onHamburgerMenuOpened}) {
+})(function ChatListBar({useFolders, chats, list, archiveState, unread, onHamburgerMenuOpened}) {
     var [searchText, setSearchText] = React.useState('');
     
     function closeArchive() {
@@ -50,6 +51,11 @@ const ChatListBar = connect(function (state) {
                     <div className="archived-chats">
                         <div className="chat-list-header">
                             <IconButton icon={info_back} onClick={closeArchive}/>
+                            {unread.main.unread_unmuted_messages_count? (
+                                <div className="unread-badge">
+                                    <span>{unread.main.unread_unmuted_messages_count}</span>
+                                </div>
+                            ): null}
                             <div className="title">Archived chats</div>
                         </div>
                         <ChatList chats={chats} list={{'@type': 'chatListArchive'}}/>

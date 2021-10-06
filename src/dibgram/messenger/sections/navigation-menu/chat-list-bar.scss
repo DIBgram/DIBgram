@@ -36,6 +36,7 @@
 
         .chat-list-header {
             display: flex;
+            position: relative;
 
             .icon-button svg {
                 fill: var(--theme-color-cancelIconFg);
@@ -44,6 +45,32 @@
             .icon-button {
                 margin: 7px;
                 flex-shrink: 0;
+            }
+
+            .unread-badge {
+                span {
+                    // Copied from ./chat-list.scss #chat-list .chat .details .unread-badge
+                    background-color: var(--theme-color-dialogsUnreadBg);
+                    color: var(--theme-color-dialogsUnreadFg);
+                    padding: 0 4.5px;
+                    padding-bottom: 1px;
+                    margin-left: 5px;
+                    min-width: 19px;
+                    height: 19px;
+                    text-align: center;
+                    box-sizing: border-box;
+                    border-radius: 9px;
+                    font-size: 13px;
+                    display: inline-block;
+                }
+
+                position: absolute;
+                z-index: +1;
+                left: 0;
+                width: 52px;
+                top: 3px;
+                text-align: right;
+                pointer-events: none;
             }
 
             .title {
