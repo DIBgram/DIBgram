@@ -25,7 +25,9 @@ const HamburgerMenu= connect(state=> ({
                         '@type': 'getPhoneNumberInfo',
                         phone_number_prefix: result.phone_number
                     }).then(info => {
-                        result.phone_number= `+${info.country_calling_code} ${info.formatted_phone_number}`;
+                        if(info.country_calling_code){
+                            result.phone_number= `+${info.country_calling_code} ${info.formatted_phone_number}`;
+                        }
                         setMe(result);
                     });
                 } 
