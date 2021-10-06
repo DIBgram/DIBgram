@@ -392,20 +392,22 @@ const ArchivedChatsItem= connect(state=> ({
                                     <span className="part-1">
                                         {chatsInList
                                             .filter(chat=> chat.unread_count > 0)
-                                            .map(chat => chat.title || 'Deleted Account')
-                                            .join(', ')}
+                                            .map(chat => (chat.title || 'Deleted Account') + ', ')
+                                            .join('')}
                                     </span>
                                     <span className="part-2">
-                                        , {chatsInList
+                                        {chatsInList
                                             .filter(chat=> chat.unread_count == 0)
                                             .map(chat => chat.title || 'Deleted Account')
                                             .join(', ')}
                                     </span>
                                 </div>
                             </div>
-                            <div className="right">
-                                <span className="unread-badge muted">{unread.unread_messages_count}</span>
-                            </div>
+                            {unread.unread_messages_count? (
+                                <div className="right">
+                                    <span className="unread-badge muted">{unread.unread_messages_count}</span>
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                 </div>
@@ -437,9 +439,11 @@ const ArchivedChatsItem= connect(state=> ({
                 <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
                 <div className="content">
                     Archived chats
-                    <div className="details">
-                        <span className="unread-badge muted">{unread.unread_messages_count}</span>
-                    </div>
+                    {unread.unread_messages_count? (
+                        <div className="details">
+                            <span className="unread-badge muted">{unread.unread_messages_count}</span>
+                        </div>
+                    ) : null}
                 </div>
             </div>
         );
