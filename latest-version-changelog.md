@@ -1,3 +1,7 @@
-- Added app logo
-- Fixed some bugs
-- Update some dependencies
+- Chat list
+  - Main chat list
+  - Chat folders
+  - Archived
+  - Last message
+  - Unread badges
+- **Many** other small improvements
