@@ -1,0 +1,41 @@
+.tool-strip-button {
+    position: relative;
+    overflow: hidden;
+    height: 44px;
+    cursor: pointer;
+
+    .content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 8px;
+        padding-left: 26px;
+        pointer-events: none;
+    }
+
+    .icon {
+        display: inline-block;
+        vertical-align: middle;
+        width: 28px;
+        height: 28px;
+
+        svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--theme-color-menuIconFg);
+        }
+    }
+
+    .title {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 13px;
+        margin-left: 22px;
+    }
+
+    &:hover {
+        background-color: var(--theme-color-windowBgOver);
+    }
+}

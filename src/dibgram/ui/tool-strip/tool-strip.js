@@ -1,0 +1,17 @@
+/**
+ * There are 3 ways to import the items
+ * 1. import each component from the respective file
+ * 2. import each component from tool-strip.js
+ * 3. import the default export from tool-strip.js and access the object members
+ * You can use whichever you want.
+ */
+
+import ToolStripButton from './button';
+import ToolStripSection from './section';
+
+const ToolStrip = {
+    Button: ToolStripButton,
+    Section: ToolStripSection
+};
+export default ToolStrip;
+export { ToolStripButton, ToolStripSection };
