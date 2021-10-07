@@ -16,7 +16,7 @@ TdLib.registerUpdateHandler('updateAuthorizationState',function (update) {
             'parameters': {
                 'database_directory': 'tdlib',
                 'use_message_database': true,
-                'use_secret_chats': true,
+                'use_secret_chats': false,
                 'api_id': credentials.api_id,
                 'api_hash': credentials.api_hash,
                 'system_language_code': 'en',
