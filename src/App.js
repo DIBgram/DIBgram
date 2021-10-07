@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import {MainApp, setInitialAuthState} from './dibgram/auth/auth-screen';
+import setInitialOnlineStatus from './dibgram/TdWeb/online-handler';
 import TdLib from './dibgram/TdWeb/tdlib';
 import ConfirmDialog from './dibgram/ui/dialog/confirm-dialog';
 import Dialogs, {dialogStore, addDialog} from './dibgram/ui/dialog/dialogs';
@@ -10,6 +11,7 @@ import { ThemeProvider } from './dibgram/ui/themes/theme';
 
 TdLib.initializeTdLib().then(function (res) {
     setInitialAuthState(res);
+    setInitialOnlineStatus();
 });
 
 /**
