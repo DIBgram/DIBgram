@@ -1,7 +1,7 @@
 import supergroupStore from './supergroup-store';
 import usersStore from './users-store';
 
-export function isChatWithDeletedAccount(chat) {
+export function isChatWithDeletedAccount(chat, users) {
     switch (chat.type['@type']) {
     case 'chatTypeBasicGroup':
     case 'chatTypeSupergroup':
@@ -9,7 +9,7 @@ export function isChatWithDeletedAccount(chat) {
     
     case 'chatTypeSecret':
     case 'chatTypePrivate': 
-        var user= usersStore.getState()?.[chat.type.user_id];
+        var user= (users || usersStore.getState())?.[chat.type.user_id];
         return user && user.type['@type'] === 'userTypeDeleted';
     }
     return false;

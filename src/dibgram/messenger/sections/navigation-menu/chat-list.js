@@ -76,7 +76,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
         }
 
         render() {
-            const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><ChatListItem key={chat.id} chat={chat} />);
+            const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><Chat key={chat.id} chat={chat} />);
             return (
                 <ScrollView id="chat-list" scrollBarWidth="4">
                     {this.props.list['@type']=='chatListMain' && (
@@ -115,7 +115,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
 );
 export default ChatList;
 
-export class ChatListItem extends React.Component {
+class ChatListItem extends React.Component {
     constructor(props) {
         super(props);
         [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this);
@@ -126,6 +126,12 @@ export class ChatListItem extends React.Component {
         }
     };
     shouldComponentUpdate(nextProps, nextState) {
+        function getUser(props){
+            if(props.chat.type['@type']=='chatTypePrivate') {
+                return props.users[props.chat.type.user_id];
+            }
+            return null;
+        }
         return nextProps.chat.id !== this.props.chat.id
             || nextProps.chat.last_message !== this.props.chat.last_message
             || nextProps.chat.draft_message !== this.props.chat.draft_message
@@ -136,7 +142,8 @@ export class ChatListItem extends React.Component {
             || nextProps.chat.photo?.small?.id !== this.props.chat.photo?.small?.id
             || nextProps.chat.title !== this.props.chat.title
             || nextProps.chat.last_read_outbox_message_id !== this.props.chat.last_read_outbox_message_id
-            || nextState.ripple !== this.state.ripple;
+            || nextState.ripple !== this.state.ripple
+            || getUser(nextProps) !== getUser(this.props);
     }
     render(){
         const chat= {...this.props.chat}; // Clone chat object to avoid mutating it. Mutating it causes Saved messages and Deleted account chats to get past shouldComponentUpdate.
@@ -152,14 +159,14 @@ export class ChatListItem extends React.Component {
             chatType= dialogs_channel;
         } 
         else if ((chat.type?.['@type'] == 'chatTypePrivate') &&
-                (usersStore.getState()[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
+                (this.props.users[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
             chatType= dialogs_bot;
         }
         if (chat.id==options['replies_bot_chat_id']) {
             chatType= '';
         }
 
-        if(isChatWithDeletedAccount(chat)) {
+        if(isChatWithDeletedAccount(chat, this.props.users)) {
             chat.title= 'Deleted Account'; // Chat object is a copy, so there is no problem with mutating it.
         }
 
@@ -204,11 +211,19 @@ export class ChatListItem extends React.Component {
             unreadBadge = <span className={unreadBadgeClass}></span>;
         }
 
+        var isOnline= false;
+        if((chat.type['@type']== 'chatTypePrivate') && (chat.id!=options['my_id']) && (chat.id!=options['telegram_service_notifications_chat_id']) ){ 
+            const user= this.props.users[chat.type.user_id];
+            if(user) {
+                isOnline= user.type['@type'] == 'userTypeRegular' && user.status['@type'] == 'userStatusOnline';
+            }
+        }
+
         return(
             <div className="chat" onContextMenu={e=> createContextMenu(e, <ChatContextMenu chat={chat}/>)}
                 onMouseDown={this.mouseDown} onMouseUp={this.mouseUp} onMouseLeave={this.mouseLeave}>
                 <RippleEffect {...this.state.ripple} color="var(--theme-color-dialogsRippleBg)"/>
-                <div className="content">
+                <div className="content" data-online={isOnline ? 'true' : 'false'}>
                     <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
                     <div className="details">
                         <div className="top">
@@ -248,8 +263,10 @@ export class ChatListItem extends React.Component {
     }
 }
 ChatListItem.propTypes = {
-    chat: PropTypes.object.isRequired
+    chat: PropTypes.object.isRequired,
+    users: PropTypes.object.isRequired
 };
+const Chat = connect(state=> ({users: state}))(ChatListItem);
 
 function ChatContextMenu({chat}) {
     const [movableChatLists, setMovableChatLists] = React.useState([]);

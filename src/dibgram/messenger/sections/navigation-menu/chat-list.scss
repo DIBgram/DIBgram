@@ -28,6 +28,8 @@
         overflow: hidden;
         height: 62px;
 
+        --online-badge-border: var(--theme-color-dialogsBg);
+
         &,
         * {
             cursor: pointer;
@@ -47,11 +49,33 @@
             left: 0;
             right: 0;
             bottom: 0;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 47px;
+                left: 51px;
+                height: 0;
+                width: 0;
+                box-sizing: border-box;
+                background: var(--theme-color-dialogsOnlineBadgeFg);
+                border-radius: 50%;
+                border: 2px solid var(--online-badge-border);
+                transition: top 300ms, left 300ms, height 300ms, width 300ms;
+            }
+
+            &[data-online=true]::after {
+                top: 41px;
+                left: 45px;
+                height: 12px;
+                width: 12px;
+            }
         }
 
         &:hover {
             background-color: var(--theme-color-dialogsBgOver);
 
+            --online-badge-border: var(--theme-color-dialogsBgOver);
             --theme-color-dialogsNameFg: var(--theme-color-dialogsNameFgOver);
             --theme-color-dialogsChatIconFg: var(--theme-color-dialogsChatIconFgOver);
             --theme-color-dialogsTextFgService: var(--theme-color-dialogsTextFgServiceOver);
@@ -65,6 +89,10 @@
             --theme-color-dialogsUnreadBg: var(--theme-color-dialogsUnreadBgOver);
             --theme-color-dialogsUnreadFg: var(--theme-color-dialogsUnreadFgOver);
             --theme-color-dialogsDraftFg: var(--theme-color-dialogsDraftFgOver);
+        }
+
+        &:active { // not to be confused with active chat
+            --online-badge-border: var(--theme-color-dialogsBgRipple);
         }
 
         .profile-photo {

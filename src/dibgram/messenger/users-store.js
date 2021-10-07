@@ -8,6 +8,14 @@ const usersStore = createStore((state = {}, action) => {
             ...state,
             [action.user.id]: action.user
         };
+    case 'UPD_USER_STATUS':
+        return {
+            ...state,
+            [action.userId]: {
+                ...state[action.userId],
+                status: action.status
+            }
+        };
     default:
         return state;
     }
@@ -17,6 +25,14 @@ TdLib.registerUpdateHandler('updateUser', (update) => {
     usersStore.dispatch({
         type: 'UPD_USER',
         user: update.user
+    });
+});
+
+TdLib.registerUpdateHandler('updateUserStatus', (update) => {
+    usersStore.dispatch({
+        type: 'UPD_USER_STATUS',
+        userId: update.user_id,
+        status: update.status
     });
 });
 
