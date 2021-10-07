@@ -8,7 +8,7 @@
     display: flex;
     z-index: 50;
 
-    .content {
+    & > .content {
         background-color: var(--theme-color-mainMenuBg);
         width: 274px;
         height: 100%;
@@ -71,14 +71,20 @@
         .scrollbar {
             flex-grow: 1;
 
+            .scroll-content {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                justify-content: space-between;
+            }
+
             .about {
-                position: absolute;
-                bottom: 0;
                 width: 100%;
                 box-sizing: border-box;
-                padding: 20px 30px;
+                padding: 0 30px 20px;
                 color: var(--theme-color-windowSubTextFg);
                 letter-spacing: -1px;
+                margin-top: -3px;
 
                 button {
                     padding: 0;
