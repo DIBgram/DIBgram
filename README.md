@@ -1,10 +1,12 @@
 # DIBgram
 
+DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies. 
+
 [License](LICENSE) | [Building](BUILDING.md) | [Contributing](CONTRIBUTING.md) | [Code of conduct](CODE_OF_CONDUCT.md) | [Telegram channel](https://t.me/DIBgram) | [Discussion group](https://t.me/DIBgramChat)
 
-*DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the progress*
+**DIB**gram = telegram **D**esktop **I**n a **B**rowser gram
 
-DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies.
+*DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the progress*
 
 ## Usage
 
