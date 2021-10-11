@@ -104,21 +104,8 @@
             margin-bottom: 35px;
         }
 
-        // TODO: Remove this when refactored code to use LinkButton
         .forgot-password {
-            font-size: 13px;
             margin-left: 5px;
-            width: max-content;
-
-            a {
-                color: var(--theme-color-windowActiveTextFg);
-                text-decoration: none;
-            }
-
-            &:hover {
-                text-decoration: underline;
-                text-decoration-skip-ink: none;
-            }
         }
     }
 }

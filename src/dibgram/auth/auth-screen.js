@@ -13,6 +13,7 @@ import ConfirmDialog from '../ui/dialog/confirm-dialog';
 import './auth.scss';
 import { Provider } from 'react-redux';
 import connectionStore from '../TdWeb/connectionStore';
+import LinkButton from '../ui/elements/link-button';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
@@ -398,9 +399,8 @@ class AuthWindowStepPassword extends React.Component {
                         {this.props.info.password_hint?'Hint: ':<span>&nbsp;</span>}{this.props.info.password_hint}
                     </div>
 
-                    {/* TODO: Use <LinkButton> instead */}
                     <div className="forgot-password">
-                        <a href="#">Forgot password?</a>
+                        <LinkButton>Forgot password?</LinkButton>
                     </div>
 
                     <Status/>
