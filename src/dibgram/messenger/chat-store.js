@@ -20,7 +20,6 @@ function reducer(state= {
         filters: {}
     }
 }, action) {
-    //TODO: Cleanup unused action types
     switch (action.type) {
     case 'SET_CURRENT_CHAT_LIST':
         return {
@@ -169,11 +168,6 @@ function reducer(state= {
                 return chat;
             })
         };
-    case 'REMOVE_CHAT':
-        return {
-            ...state,
-            chats: state.chats.filter(chat => chat.id !== action.chat.id)
-        };
     case 'REPLACE_CHAT_FILTERS':
         return {
             ...state,
@@ -187,45 +181,6 @@ function reducer(state= {
                     return {
                         ...chat,
                         [action.property]: action.value
-                    };
-                }
-                return chat;
-            })
-        };
-    case 'UPDATE_CHAT_PHOTO':
-        return {
-            ...state,
-            chats: state.chats.map((chat) => {
-                if (chat.id === action.chat_id) {
-                    return {
-                        ...chat,
-                        photo: action.photo
-                    };
-                }
-                return chat;
-            })
-        };
-    case 'UPDATE_CHAT_TITLE':
-        return {
-            ...state,
-            chats: state.chats.map((chat) => {
-                if (chat.id === action.chat_id) {
-                    return {
-                        ...chat,
-                        title: action.title
-                    };
-                }
-                return chat;
-            })
-        };
-    case 'UPDATE_CHAT_LAST_MESSAGE':
-        return {
-            ...state,
-            chats: state.chats.map((chat) => {
-                if (chat.id === action.chat_id) {
-                    return {
-                        ...chat,
-                        last_message: action.last_message
                     };
                 }
                 return chat;
