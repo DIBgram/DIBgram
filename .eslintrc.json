@@ -1,14 +1,28 @@
 {
+    "overrides": [
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+            "extends": [
+                "eslint:recommended",
+                "plugin:react/recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "plugins": [
+                "react",
+                "@typescript-eslint"
+            ],
+            "parser": "@typescript-eslint/parser"
+        }
+    ],
     "env": {
         "browser": true,
         "es2021": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:react/recommended"
     ],
-    "parser": "@typescript-eslint/parser",
+    "parser": "@babel/eslint-parser",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -18,8 +32,7 @@
         "configFile": "${workspaceFolder}/babel.config.json"
     },
     "plugins": [
-        "react",
-        "@typescript-eslint"
+        "react"
     ],
     "rules": {
         "indent": [
