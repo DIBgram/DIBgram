@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TdLib from '../../TdWeb/tdlib';
 import currencyAmountToString from '../payments/currency-tostring';
+import {getUserFullName} from '../user-misc';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -80,7 +81,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
 
         case 'messageChatAddMembers': // X added Y
             var members= message.content.member_user_ids.map(id=> // convert user IDs to names
-                users[id].last_name ? (users[id].first_name+' '+ users[id].last_name) : users[id].first_name);
+                getUserFullName(users[id]));
             if(members.length>1){ // X and Y // X, Y and Z
                 members= members.slice(0, members.length - 1) .join(', ') + ' and ' + members[members.length - 1];
             } else {
@@ -130,7 +131,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             return (
                 <span className={className}>
                     <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                    &nbsp;removed {deletedMember.first_name+' '+ deletedMember.last_name}</span>
+                    &nbsp;removed {getUserFullName(deletedMember)}</span>
                 </span>
             );
 
@@ -515,7 +516,7 @@ function SenderFullName({message, chat, users, includeYou}) {
     const sender=message.sender;
     const user=users[sender.user_id];
     if(sender['@type']=='messageSenderUser') {
-        return user.last_name ? (user.first_name +' '+ user.last_name) : user.first_name; //TODO: Extract this line to a function in user-misc.js
+        return getUserFullName(user); 
     } else if(sender['@type']=='messageSenderChat') { // Anonymous admin
         return chat.title;
     }
