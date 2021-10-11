@@ -18,7 +18,7 @@ TdLib.initializeTdLib().then(function (res) {
  * Renders the whole React app
  */
 function App() {
-    React.useEffect(() => {
+    React.useEffect(() => { // A fatal error occurred in TdLib
         TdLib.registerUpdateHandler('updateFatalError', window.simulateFatalError=  function (update) {
             console.error('Fatal error:', update.error);
             

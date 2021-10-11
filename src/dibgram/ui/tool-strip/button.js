@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import RippleEffect, {handleMyMouseEventsFunction} from '../elements/ripple-effect';
 import './button.scss';
 
+/**
+ * Renders a tool strip button. Has an icon and children, if provided will align to the right.
+ */
 export default function ToolStripButton({icon, text, children, ...rest}) {
     const ripple = React.useState({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);

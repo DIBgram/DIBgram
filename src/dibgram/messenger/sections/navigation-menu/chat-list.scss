@@ -1,5 +1,6 @@
 #chat-list {
-    color: white;
+    color: white; //TODO: Remove this line. There should be no hardcoded colors in the code.
+
     margin: 0;
     padding: 0;
     list-style: none;
@@ -13,8 +14,9 @@
 
     .empty {
         text-align: center;
-        color: var(--theme-color-windowSubTextFg);
         margin-top: 53px;
+
+        color: var(--theme-color-windowSubTextFg);
         font-size: 13px;
         letter-spacing: -0.15px;
 
@@ -41,21 +43,22 @@
         }
 
         .content {
-            padding: 8px 10px;
             display: flex;
             flex-direction: row;
+
+            padding: 8px 10px;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
 
-            &::after {
+            &::after { // Online badge
                 content: "";
                 position: absolute;
                 top: 47px;
                 left: 51px;
-                height: 0;
+                height: 0; // Size is 0 by default (to hide it)
                 width: 0;
                 box-sizing: border-box;
                 background: var(--theme-color-dialogsOnlineBadgeFg);
@@ -67,7 +70,7 @@
             &[data-online=true]::after {
                 top: 41px;
                 left: 45px;
-                height: 12px;
+                height: 12px; // Show badge
                 width: 12px;
             }
         }
@@ -102,8 +105,8 @@
             flex-shrink: 0;
         }
 
-        .details {
-            flex: 1;
+        .details { // Contains everything besides photo
+            flex: 1; // Grow
             font-size: 13px;
             font-weight: 400;
             overflow: hidden;
@@ -136,6 +139,8 @@
 
             .title,
             .last-message {
+                // Place 3 dots when text overflo...
+                //TODO: Find a way to make the dots the same color as the text which overflowed
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;

@@ -10,7 +10,7 @@
     cursor: pointer;
     user-select: none;
 
-    text-transform: uppercase;
+    text-transform: uppercase; // Becomes uppercase even if the text is set to lowercase
     font: {
         family: var(--font-family);
         size: 16px;

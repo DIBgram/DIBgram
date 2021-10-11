@@ -8,18 +8,16 @@ import currencyAmountToString from '../payments/currency-tostring';
  * Gets a textual representation of the message without a thumbnail.
  * Usage examples: 
  * - Last message in chat list
- * - Pinned message
- * - Replies
- * - Search results
+ * - Search results 
+ * TODO: add possibility to hide sender name (for search results)
  * @returns A span element containing a textual representation of the message. Contains span.part-1 and span.part-2
  */
-
 const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
     function MessageSummaryWithoutIcon({message, className, users, chat}) {
         if(!message) return null;
+
         switch(message.content['@type']) {
-        
-        case 'messageAnimation':
+        case 'messageAnimation': // GIF
             return (
                 <MayHaveCaption
                     type="GIF" 
@@ -30,9 +28,9 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     users={users}/>
             );
         
-        case 'messageAudio':
-            var title= message.content.audio.title || message.content.audio.file_name;
-            if(message.content.audio.performer)
+        case 'messageAudio': // Audio/music file
+            var title= message.content.audio.title || message.content.audio.file_name; // If there is no title, use file name instead
+            if(message.content.audio.performer) // Prepend performer name
                 title= message.content.audio.performer+ ' ­­– ' + title;
             return (
                 <MayHaveCaption 
@@ -44,16 +42,16 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     users={users}/>
             );
 
-        case 'messageBasicGroupChatCreate':
+        case 'messageBasicGroupChatCreate': // X created the group «xxxx»
             return (
                 <span className={className}>
                     <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> created the group «{message.content.title}»</span>
                 </span>
             );
 
-        case 'messageCall':
+        case 'messageCall': // Call
             var text='';
-            if(message.is_outgoing) {
+            if(message.is_outgoing) { // You made the call
                 switch(message.content.discard_reason?.['@type']) {
                 case 'callDiscardReasonMissed':
                     text= 'Cancelled call';
@@ -61,7 +59,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 default:
                     text= 'Outgoing call';
                 }
-            } else {
+            } else { // The other user called you
                 switch(message.content.discard_reason?.['@type']) {
                 case 'callDiscardReasonDeclined':
                     text= 'Declined call';
@@ -80,14 +78,15 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageChatAddMembers':
-            var members= message.content.member_user_ids.map(id=> 
+        case 'messageChatAddMembers': // X added Y
+            var members= message.content.member_user_ids.map(id=> // convert user IDs to names
                 users[id].last_name ? (users[id].first_name+' '+ users[id].last_name) : users[id].first_name);
-            if(members.length>1){
+            if(members.length>1){ // X and Y // X, Y and Z
                 members= members.slice(0, members.length - 1) .join(', ') + ' and ' + members[members.length - 1];
             } else {
                 members= members[0];
             }
+            // If the user joined the group by themselves, it appears as 'X added X' and that is not accurate.
             if(message.content.member_user_ids[0] == message.sender?.user_id) {
                 return (
                     <span className={className}>
@@ -95,20 +94,22 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     </span>
                 );
             }
+
             return (
                 <span className={className}>
                     <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> added {members}</span>
                 </span>
             );
 
-        case 'messageChatChangePhoto':
+        case 'messageChatChangePhoto': // Chat photo changed
+            // Telegram Desktop shows chat photo change events as 'Photo' instead of 'X changed group photo' or 'Channel photo changed'
             return (
                 <span className={className}>
-                    <span className="part-1">Photo</span>
+                    <span className="part-1">Photo</span> 
                 </span>
             );
 
-        case 'messageChatChangeTitle': // I can't believe copilot can fill these lines without having access to API docs
+        case 'messageChatChangeTitle': // Chat was renamed
             if(message.is_channel_post) {
                 return (
                     <span className={className}>
@@ -124,7 +125,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 );
             }
 
-        case 'messageChatDeleteMember':
+        case 'messageChatDeleteMember': // X removed Y
             var deletedMember= users[message.content.user_id];
             return (
                 <span className={className}>
@@ -133,7 +134,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageChatDeletePhoto':
+        case 'messageChatDeletePhoto': // Chat photo was deleted
             if(message.is_channel_post) {
                 return (
                     <span className={className}>
@@ -149,7 +150,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 );
             }
 
-        case 'messageChatJoinByLink':
+        case 'messageChatJoinByLink': // X joined the group via invite link
             return (
                 <span className={className}>
                     <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
@@ -157,24 +158,23 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageChatSetTtl':
-            // seconds to day, week and month
-            var timeConversionTable= {86400: 'day', 604800: 'week', 2678400: 'month'};
+        case 'messageChatSetTtl': // Auto-delete / self-destruct timer changed
+            var timeConversionTable= {86400: 'day', 604800: 'week', 2678400: 'month'}; // seconds to day, week and month
             return (
                 <span className={className}>
                     <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> set messages to auto-delete in 1 {timeConversionTable[message.content.ttl]}</span>
                 </span>
             );
 
-        case 'messageChatUpgradeFrom':
-        case 'messageChatUpgradeTo':
+        case 'messageChatUpgradeFrom': // It is too complicated to get basic group last message.
+        case 'messageChatUpgradeTo': // TODO: It's complicated, but it should be done.
             return (
                 <span className={className}>
                     <span className="part-1">Group was upgraded to a super-group</span>
                 </span>
             );
 
-        case 'messageContact':
+        case 'messageContact': // Shared contact
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -182,7 +182,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageContactRegistered':
+        case 'messageContactRegistered': // X joined Telegram
             return (
                 <span className={className}>
                     <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
@@ -190,14 +190,14 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageCustomServiceAction':
+        case 'messageCustomServiceAction': // ¯\_(ツ)_/¯
             return (
                 <span className={className}>
                     <span className="part-1">{message.content.text}</span>
                 </span>
             );
 
-        case 'messageDice':
+        case 'messageDice': // Dice (🎲🎯🎳⚽🏀)
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -205,7 +205,8 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageDocument':
+        case 'messageDocument': // File/document
+            // TODO: Implement thumbnails
             return (
                 <MayHaveCaption 
                     type={message.content.document.file_name} 
@@ -216,9 +217,9 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     users={users}/>
             );
         
-        // case 'messageExpiredPhoto':
+        // case 'messageExpiredPhoto': // TODO: Find a way to reproduce these messages and implement them
         // case 'messageExpiredVideo':
-        case 'messageGame':
+        case 'messageGame': // Game
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -226,7 +227,8 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageGameScore':
+        case 'messageGameScore': // X scored {score} in {game}
+            // Text to use if game message is not available
             var noGameTitleFallback= (
                 <span className={className}><span className="part-1">
                     <SenderFullName message={message} chat={chat} users={users} includeYou={true}/> scored {message.content.score}
@@ -248,7 +250,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                             </span></span>
                         )});
                     },
-                    ()=> { 
+                    ()=> { // Failed
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> noGameTitleFallback});
                     }
@@ -261,7 +263,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </React.Suspense>
             );
 
-        case 'messageInvoice':
+        case 'messageInvoice': // Invoice (a buyable product)
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -269,7 +271,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageLocation':
+        case 'messageLocation': // Location
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -277,7 +279,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messagePassportDataSent':
+        case 'messagePassportDataSent': // You sent some Telegram passport data
             var passportDataTypeToString= {
                 'passportElementTypeAddress': 'address',
                 'passportElementTypeBankStatement': 'bank statement',
@@ -302,7 +304,8 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messagePaymentSuccessful':
+        case 'messagePaymentSuccessful': // You paid [real] money
+            // To be shown if invoice is not available
             var noInvoiceTitleFallback= (
                 <span className={className}>
                     <span className="part-1">
@@ -332,7 +335,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                             </span>
                         )});
                     },
-                    ()=> {
+                    ()=> { // Failed
                         resolve({ default: ()=> noInvoiceTitleFallback});
                     }
                 );
@@ -344,22 +347,23 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </React.Suspense>
             );
 
-        case 'messagePhoto':
-            if(message.content.is_secret) {
-                if(message.is_outgoing) {
+        case 'messagePhoto': // A photo
+            if(message.content.is_secret) { // Self-destructing photo, not implemented
+                if(message.is_outgoing) { // You sent it
                     return (
                         <span className={className}>
                             <span className="part-1">You sent a self-destructing photo</span>
                         </span>
                     );
-                } else {
+                } else { // You received it
+                    // TODO: Implement mini-thumbnails for photos (and albums)
                     return (
                         <span className={className}><span className="part-1">
                             <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing photo. Please view it on your mobile.
                         </span></span>
                     );
                 }
-            } else {
+            } else { // Normal photo
                 return (
                     <MayHaveCaption 
                         type="Photo" 
@@ -371,7 +375,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 );
             }
         
-        // case 'messagePinMessage':
+        // case 'messagePinMessage': // TODO: Implement it
         case 'messagePoll':
             return (
                 <span className={className}>
@@ -379,9 +383,9 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
         
-        // case 'messageProximityAlertTriggered':
+        // case 'messageProximityAlertTriggered': // TODO: Reproduce this message and implement it
         // case 'messageScreenshotTaken':
-        case 'messageSticker':
+        case 'messageSticker': // Sticker
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -389,7 +393,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageSupergroupChatCreate':
+        case 'messageSupergroupChatCreate': // Supergroup created
             if(message.is_channel_post) {
                 return (
                     <span className={className}>
@@ -412,7 +416,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageUnsupported':
+        case 'messageUnsupported': // Is not supported :(
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -420,7 +424,7 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
         
-        case 'messageVenue':
+        case 'messageVenue': // Venue/location
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
@@ -429,7 +433,9 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 </span>
             );
 
-        case 'messageVideo':
+        case 'messageVideo': // Video
+            // TODO: Implement self-destructing videos (notices)
+            // TODO: Implement mini-thumbnails and albums
             return (
                 <MayHaveCaption 
                     type="Video" 
@@ -477,7 +483,7 @@ MessageSummaryWithoutIcon.propTypes= {
 };
 
 
-// If caption has a value, add a comma to type and return type
+/** If caption has a value, adds a comma to type and returns type */ 
 function MayHaveCaption({type, caption, className, message, chat, users}) {
     if(caption) type+=',';
     return (
@@ -488,47 +494,58 @@ function MayHaveCaption({type, caption, className, message, chat, users}) {
     );
 }
 MayHaveCaption.propTypes= {
+    /** Message type, e.g. 'GIF', 'Video' */
     type: PropTypes.string.isRequired,
+    /** Message caption, can be empty */
     caption: PropTypes.string,
     className: PropTypes.string,
+    /** Message object */
     message: PropTypes.object,
+    /** The chat in which the message was sent */
     chat: PropTypes.object,
+    /** A dictionary of all users */
     users: PropTypes.object.isRequired
 };
 
+/** Sender's first name + last name */
 function SenderFullName({message, chat, users, includeYou}) {
-    if(includeYou) {
+    if(includeYou) { // Use 'You' if the message is outgoing?
         return message.is_outgoing ? 'You' : <SenderFullName message={message} chat={chat} users={users}/>;
     }
     const sender=message.sender;
     const user=users[sender.user_id];
     if(sender['@type']=='messageSenderUser') {
-        return user.last_name ? (user.first_name +' '+ user.last_name) : user.first_name;
-    } else if(sender['@type']=='messageSenderChat') {
+        return user.last_name ? (user.first_name +' '+ user.last_name) : user.first_name; //TODO: Extract this line to a function in user-misc.js
+    } else if(sender['@type']=='messageSenderChat') { // Anonymous admin
         return chat.title;
     }
 }
 
+/** Short sender names in the beginning of message previews */
 export const MessageSummarySender= 
     function MessageSummarySender ({message, chat, users}) {
         if(!message) return null;
+
         var part1;
-        if(chat && (!message.is_channel_post)) {
+        if(chat && (!message.is_channel_post)) { // Channel posts dont have sender names
             if(message.is_outgoing) {
                 part1= 'You: ';
-            } else if(['chatTypeBasicGroup', 'chatTypeSupergroup'].includes(chat.type['@type'])) {
+            } else if(['chatTypeBasicGroup', 'chatTypeSupergroup'].includes(chat.type['@type'])) { // Message is sent in a group
                 if(message.sender['@type']=='messageSenderUser') {
                     part1= users[message.sender.user_id].first_name + ': ';
                 }
             }
-            if(message.sender['@type']=='messageSenderChat') {
+            if(message.sender['@type']=='messageSenderChat') { // TODO: Fix channel posts
                 part1= chat.title+': ';
             }
         }
         return part1? <span className="sender">{part1}</span> : null;
     };
 MessageSummarySender.propTypes= {
+    /** Message to check the sender */
     message: PropTypes.object.isRequired,
+    /** Chat in which the message was sent */
     chat: PropTypes.object.isRequired,
+    /** A dictionary of all users */
     users: PropTypes.object.isRequired
 };

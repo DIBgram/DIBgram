@@ -58,7 +58,7 @@ export function removeDialog(id) {
  */
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
-})(function Dialogs(props) {
+})(function Dialogs(props) { //TODO: Refactor dialogs to support the animation when opening a dialog from the main menu
     return props.dialogs.map(el => <React.Fragment key={el.id}>{el.element}</React.Fragment>) || null;
 }));
 

@@ -4,7 +4,7 @@ import SmallButton from '../elements/small-button';
 import { removeDialog } from './dialogs';
 /**
  * Renders a modal dialog with a title and cancel and OK button. OK button text can be changed.
- */
+ */ //TODO: Try to inherit from Dialog component
 export default class ConfirmDialog extends React.Component{
     static propTypes= {
         children: PropTypes.node.isRequired,
@@ -38,7 +38,7 @@ export default class ConfirmDialog extends React.Component{
         this.closeDialog();
         this.props.onOK && this.props.onOK();
     }
-    handleCancel =()=>{
+    handleCancel =()=>{ //TODO: Clicking outside of the dialog should close it
         this.closeDialog();
         this.props.onCancel && this.props.onCancel();
     }
@@ -49,10 +49,7 @@ export default class ConfirmDialog extends React.Component{
     render() {
         return (
             <div className={'modal-dialog confirm-dialog' + ((this.state.closing) ? ' closing' : '')}>
-                <div style={{
-                    'width': this.props.width || '320px'
-                }}
-                data-id={this.props.id}>
+                <div style={{ 'width': this.props.width || '320px' }} data-id={this.props.id}>
                     <h1>{this.props.title || ''}</h1>
                     <div className="content">
                         {this.props.children}
@@ -62,10 +59,9 @@ export default class ConfirmDialog extends React.Component{
                             <SmallButton 
                                 className="small-button left"
                                 style={{'float': 'left'}}
-                                onClick={
-                                    this.props.thirdButtonClosesDialog ?
-                                        ()=>this.handleButton(this.props.onThirdButtonClick)
-                                        : this.props.onThirdButtonClick}>
+                                onClick={ this.props.thirdButtonClosesDialog ?
+                                    ()=>this.handleButton(this.props.onThirdButtonClick)
+                                    : this.props.onThirdButtonClick}>
                                 {this.props.thirdButton}
                             </SmallButton>
                         ) : null}

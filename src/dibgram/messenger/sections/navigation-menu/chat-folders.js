@@ -13,30 +13,33 @@ import './chat-folders.scss';
  * Renders a chat folder button
  */
 export function ChatFolder({folder, active, onClick, unread}) {
+    // Ripple effect
     const ripple= React.useState({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
+
     const [iconName, setIconName]= React.useState(folder.icon_name);
 
-    React.useEffect(()=> {
+    React.useEffect(()=> { // Get folder chats, TDLib won't show them if this request isn't sent
         TdLib.sendQuery({
             '@type': 'getChats',
             'chat_list': {
                 '@type': 'chatListFilter',
                 'chat_filter_id': folder.id,
             },
-            'offset_order': '9223372036854775807',
+            'offset_order': '9223372036854775807', // Maximum 64-bit value
             'offset_chat_id': 0,
-            'limit': 50
+            'limit': 50 // Only get 50 chats //TODO: Implement loading more chats
         });
     }, []);
 
     React.useEffect(()=> {
         if(!folder.icon_name) {
-            TdLib.sendQuery({
+            // Default icon is used and we don't know what it is.
+            TdLib.sendQuery({ // Get chat filter info so we can get an idea what it is
                 '@type': 'getChatFilter',
                 'chat_filter_id': folder.id
             }).then(folder=> {
-                TdLib.sendQuery({
+                TdLib.sendQuery({ // Ask TDLib what the icon should be
                     '@type': 'getChatFilterDefaultIconName',
                     'filter': folder
                 }).then(result=> setIconName(result.text));
@@ -44,8 +47,8 @@ export function ChatFolder({folder, active, onClick, unread}) {
         }
     }, [folder]);
 
-    var icon= (filters[iconName] || filters['Custom']);
-    icon= icon[active+0] || icon[0];
+    var icon= (filters[iconName] || filters['Custom']); // If the icon was empty, show a generic icon instead.
+    icon= icon[active+0] || icon[0]; // Some icons dont have active variant
     return (
         <div className={active ? 'item active' : 'item'}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-sideBarBgRipple)"/>
@@ -84,15 +87,17 @@ ChatFolder.propTypes= {
  */
 function ChatFolderList({folders, currentFolder, unread, dispatch, onHamburgerMenuOpened}) {
     if(!folders || folders.length==0) return null;
+
     return (
         <div id="chat-folders-list">
             <HamburgerMenuButton.WithFolders onClick={onHamburgerMenuOpened}/>
+
             <ScrollView scrollBarWidth="4" className="list scrollbar full-size">
                 <ChatFolder 
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
                     folder={{ title: 'All chats', icon_name: 'All' }}
                     unread={unread.main}
-                    onClick={()=> dispatch({
+                    onClick={()=> dispatch({ // TODO: Scroll to top when active chat is clicked
                         type: 'SET_CURRENT_CHAT_LIST',
                         chatList: { '@type': 'chatListMain' }
                     })}/>
@@ -115,10 +120,15 @@ function ChatFolderList({folders, currentFolder, unread, dispatch, onHamburgerMe
     );
 }
 ChatFolderList.propTypes={
+    /** An array of chat filters */
     folders: PropTypes.arrayOf(PropTypes.object),
+    /** Current chat list */
     currentFolder: PropTypes.object,
+    /** A list of unread messages info for each chat list */
     unread: PropTypes.object,
+    
     dispatch: PropTypes.func,
+    /** Fires when main menu is triggered */
     onHamburgerMenuOpened: PropTypes.func
 };
 export default connect(state=>({

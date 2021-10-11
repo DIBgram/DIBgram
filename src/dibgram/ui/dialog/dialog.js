@@ -30,7 +30,7 @@ export default class Dialog extends React.Component{
             </div>
         );
     }
-    componentDidMount() {
+    componentDidMount() { // Transfer onClose to the parent
         this.props.receiveCloseFunction && this.props.receiveCloseFunction( ()=>{
             this.setState({
                 closing: true

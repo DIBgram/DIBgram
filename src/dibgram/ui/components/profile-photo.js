@@ -6,8 +6,14 @@ import './profile-photo.scss';
 import tgLogo from '../../ui/img/TgLogo.png';
 import { saved_messages, replies_userpic } from '../icon/icons';
 
+/**
+ * Converts a name to initials.
+ * @param {string} name Input name
+ * @returns {string} One or two uppercase letters
+ */
 export function profileNameToInitials(name) {
-    const words=name.replace(/[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007F]/g,'').toUpperCase().split(' ');
+    const words=name.replace(/[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007F]/g,'') // Remove non-word characters
+        .toUpperCase().split(' ');
     if(words[0].length==0){
         return '';
     } else if(words.length===1) {
@@ -17,6 +23,9 @@ export function profileNameToInitials(name) {
     }
 }
 
+/**
+ * Renders a chat / profile photo.
+ */
 export default function ProfilePhoto (props) {
     const [photo, setPhoto] = React.useState(null);
     const [photoObj, setPhotoObj] = React.useState(null);
@@ -24,17 +33,17 @@ export default function ProfilePhoto (props) {
     const isSavedMessages= props.id==options['my_id'];
     const isReplies= props.id==options['replies_bot_chat_id'];
     
-    React.useEffect(() => {
+    React.useEffect(() => { // Fetch image data
         var mounted=true;
         if(props.photo){
-            if(photoObj!=props.photo){
+            if(photoObj!=props.photo){ // No need for any fetch if the same photo is already loaded
                 getFileContent(props.photo, 8).then(file=> {
                     if(!mounted) return;
                     setPhoto(blobToUrl(file.data));
                     setPhotoObj(props.photo);
                 });
             }
-        } else {
+        } else { // No photo
             if(photo && photoObj){
                 setPhoto(null);
                 setPhotoObj(null);
@@ -44,13 +53,13 @@ export default function ProfilePhoto (props) {
     }, [props.photo]);
 
     var customIcon; 
-    if(isSavedMessages && (!props?.disableSavedMessages)){
+    if(isSavedMessages && (!props?.disableSavedMessages)){ // Use saved messages icon instead of user pic (if not disabled)
         customIcon= [0, saved_messages];
     }
-    if(isReplies){
+    if(isReplies){ // Replies chat has no icons and we supply one ourselves
         customIcon= [0, replies_userpic];
     }
-    if((!props.photo) && isServiceMessages) {
+    if((!props.photo) && isServiceMessages) { // Service messages may have no photo (e.g. on test DC)
         customIcon = [1, tgLogo];
     }
     return (
@@ -73,12 +82,17 @@ export default function ProfilePhoto (props) {
     );
 }
 ProfilePhoto.propTypes = {
+    /** Chat/user name, used for initials */
     name: PropTypes.string.isRequired,
+    /** Chat type id (supergroup id, user id, etc.), used for initials background */
     id: PropTypes.number.isRequired,
+    /** Chat / user photo (e.g. `chat.photo?.small`) */
     photo: PropTypes.object,
+    /** If false, saved messages icon will be used when user_id = my_id */
     disableSavedMessages: PropTypes.bool
 };
 
+/** Renders photo initials fallback */
 function Initials({id, name}) {
     return (
         <span className={'initials color_'+ ((Math.abs(id || 0) % 7) + 1)}>
@@ -87,10 +101,17 @@ function Initials({id, name}) {
     );
 }
 Initials.propTypes = {
+    /** Chat/user name, used to generate initials */
     name: PropTypes.string.isRequired,
+    /** Chat type ID, used to generate background color */
     id: PropTypes.number.isRequired
 };
 
+/**
+ * Returns a chat's type ID. (supergroup Id / basic group ID / user ID)
+ * @param {import('tdweb').TdObject} chat Input chat
+ * @returns Chat type ID
+ */
 export function getChatTypeId(chat) {
     switch (chat?.type?.['@type']) {
     case 'chatTypeSupergroup': {

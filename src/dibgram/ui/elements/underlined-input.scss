@@ -1,5 +1,5 @@
 .underlined-input {
-    text-align: center;
+    text-align: center; //TODO: This line seems to be unnecessary. Check it out.
     position: relative;
 
     .title {
@@ -56,6 +56,18 @@
         opacity: 0;
     }
 
+    &.inactive .underline {
+        animation: {
+            name: underlined-input-blur !important;
+            duration: 200ms !important;
+            fill-mode: forwards !important;
+        };
+    }
+
+    &.autoFocus .underline {
+        animation: none;
+    }
+
     input:focus + .underline {
         animation: {
             name: underlined-input-focus;
@@ -63,20 +75,20 @@
             fill-mode: forwards;
         };
     }
-}
 
-.underlined-input.invalid {
-    .underline.underline { // Specificity trick
-        background-color: var(--theme-color-activeLineFgError) !important;
-        animation-name: none !important;
-        opacity: 1 !important;
-        width: 100% !important;
-        left: 0 !important;
-        right: 0 !important;
-    }
+    &.invalid {
+        .underline.underline { // Specificity trick
+            background-color: var(--theme-color-activeLineFgError) !important;
+            animation-name: none !important;
+            opacity: 1 !important;
+            width: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+        }
 
-    .title {
-        color: var(--theme-color-activeLineFgError) !important;
+        .title {
+            color: var(--theme-color-activeLineFgError) !important;
+        }
     }
 }
 
@@ -84,19 +96,6 @@
     font-weight: 300;
 }
 
-//stylelint-disable-next-line no-descending-specificity
-.underlined-input.inactive .underline {
-    animation: {
-        name: underlined-input-blur !important;
-        duration: 200ms !important;
-        fill-mode: forwards !important;
-    };
-}
-
-//stylelint-disable-next-line no-descending-specificity
-.underlined-input.autoFocus .underline {
-    animation: none;
-}
 @keyframes underlined-input-focus {
     from {
         opacity: 1;

@@ -1,10 +1,13 @@
-.icon-button {
+.icon-button { //TODO: Some styles might not be there. Check it.
     height: 40px;
     width: 40px;
     border-radius: 50%;
+
     overflow: hidden;
-    fill: var(--theme-color-menuIconFg);
     position: relative;
+
+    fill: var(--theme-color-menuIconFg);
+
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -19,6 +22,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         z-index: +1;
         pointer-events: none;
 

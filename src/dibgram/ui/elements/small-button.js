@@ -37,9 +37,11 @@ export default class SmallButton extends React.Component {
 
                 <RippleEffect {...this.state.ripple} color="var(--theme-color-lightButtonBgRipple)"/>
 
+                {/* Because we use absolute positioning on the actual content, we need a copy of it without absolute position to get the correct parent size. */}
                 <div className="invisibleText">
                     {this.children}
                 </div>
+
                 <div className="content">
                     {this.children}
                 </div>

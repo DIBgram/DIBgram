@@ -1,5 +1,8 @@
 import TdLib from './tdlib';
 
+/**
+ * Sets initial online state
+ */
 export default function setInitialOnlineStatus(){
     TdLib.sendQuery({
         '@type': 'setOption',
@@ -11,7 +14,7 @@ export default function setInitialOnlineStatus(){
     });
 }
 
-window.onfocus = () => {
+window.onfocus = () => { // Become online when tab/window focuses
     TdLib.sendQuery({
         '@type': 'setOption',
         name: 'online',
@@ -22,7 +25,7 @@ window.onfocus = () => {
     });
 };
 
-window.onblur = () => {
+window.onblur = () => { // Become offline when switching tabs/windows
     TdLib.sendQuery({
         '@type': 'setOption',
         name: 'online',

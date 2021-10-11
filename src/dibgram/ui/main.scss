@@ -24,7 +24,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-button {
+button { // Buttons use another font family. It is overrided here.
     font-family: var(--font-family);
 }
 

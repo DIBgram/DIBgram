@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100%; // Covers the whole screen, to be able to center the actual toast
     z-index: 100;
     display: flex;
     pointer-events: none;

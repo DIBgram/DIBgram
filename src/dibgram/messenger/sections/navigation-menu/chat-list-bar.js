@@ -11,7 +11,7 @@ import { info_back } from '../../../ui/icon/icons';
 import chatStore from '../../chat-store';
 
 /**
- * Renders the navigation menu, containing chat list, search field and search results, chat folders and the hamburger menu
+ * Renders the navigation menu, containing chat list, search field and search results [and the main menu button]
  */
 const ChatListBar = connect(function (state) {
     return {
@@ -24,13 +24,14 @@ const ChatListBar = connect(function (state) {
 })(function ChatListBar({useFolders, chats, list, archiveState, unread, onHamburgerMenuOpened}) {
     var [searchText, setSearchText] = React.useState('');
     
-    function closeArchive() {
+    function closeArchive() { //TODO: Move the slide animation to a dedicated component, because it is used in many places
+        // First set state to closing, which triggers the closing animation. After that, we can delete the element.
         chatStore.dispatch({
             type: 'SET_ARCHIVE_STATE',
             archiveState: 'closing'
         });
         setTimeout(() => {
-            if(chatStore.getState().archiveState == 'closing') {
+            if(chatStore.getState().archiveState == 'closing') { // This condition is to prevent glitches when archive is opened again before 2s
                 chatStore.dispatch({
                     type: 'SET_ARCHIVE_STATE',
                     archiveState: 'closed'

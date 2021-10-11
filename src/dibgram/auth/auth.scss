@@ -1,5 +1,7 @@
 #auth {
     background-color: var(--theme-color-introBg);
+
+    // Center content
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,7 +35,7 @@
     .status {
         @extend .description;
         text-align: center;
-        min-height: 20px;
+        min-height: 20px; // Does not collapse if it is not shown
         transition: opacity 250ms;
         color: var(--theme-color-introErrorFg);
 
@@ -60,7 +62,7 @@
             margin-top: 40px;
         }
 
-        .status.status {
+        .status.status { // Increase specificity by using class two times
             height: 16px;
             line-height: unset;
             margin-bottom: 25px;
@@ -77,7 +79,7 @@
         .underlined-input {
             input {
                 padding: 11px 3px;
-                -webkit-text-security: disc;
+                -webkit-text-security: disc; // TODO: Make sure the dots are big in Chrome (fine in firefox)
             }
         }
 
@@ -102,6 +104,7 @@
             margin-bottom: 35px;
         }
 
+        // TODO: Remove this when refactored code to use LinkButton
         .forgot-password {
             font-size: 13px;
             margin-left: 5px;

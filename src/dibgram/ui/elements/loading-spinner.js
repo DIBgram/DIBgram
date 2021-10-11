@@ -8,12 +8,15 @@ import PropTypes from 'prop-types';
  */
 export default class LoadingSpinner extends React.Component {
     static props= {
+        /** Spinner circle size */
         size: PropTypes.number.isRequired,
+        /** Spinner thickness */
         lineWidth: PropTypes.number.isRequired,
+        /** Spinner color */
         progressColor: PropTypes.string.isRequired
     }
     state= {
-        percentage: 10
+        percentage: 10 // From 10 to 90, this specifies how much the spinner grows and shrinks while spinning (reversed)
     }
     render () {
         return (
@@ -30,7 +33,7 @@ export default class LoadingSpinner extends React.Component {
     }
 
     componentDidMount () {
-        this.intervalNum= setInterval(() => {
+        this.intervalNum= setInterval(() => { // Spinner grows and shrinks while spinning
             this.setState({
                 percentage: (90 - this.state.percentage)
             });

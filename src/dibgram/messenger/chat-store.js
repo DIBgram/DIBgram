@@ -1,6 +1,10 @@
 import { createStore } from 'redux';
 import TdLib from '../TdWeb/tdlib';
 
+/**
+ * It is recommended to use the outline view or find tool to navigate this file.
+ */
+
 const chatStore= createStore(reducer, 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
     
@@ -16,6 +20,7 @@ function reducer(state= {
         filters: {}
     }
 }, action) {
+    //TODO: Cleanup unused action types
     switch (action.type) {
     case 'SET_CURRENT_CHAT_LIST':
         return {
@@ -444,18 +449,24 @@ TdLib.registerUpdateHandler('updateMessageMentionRead', update => {
 
 export default chatStore;
 
+/**
+ * Check if two chat lists are equal
+ * @param {import('tdweb').TdObject} list1 
+ * @param {import('tdweb').TdObject} list2 
+ * @returns True if the provided objects refer to the same list. Otherwise false
+ */
 export function compareChatList(list1, list2) {
-    if (list1['@type'] != list2['@type']) {
+    if (list1['@type'] != list2['@type']) { // First compare type
         return false;
     }
-    if (list1['@type'] == 'chatListFilter') {
+    if (list1['@type'] == 'chatListFilter') { // Then Compare folder ID
         return list1.chat_filter_id == list2.chat_filter_id;
     }
     return true;
 }
 
 /**
- * Gets a chat from a chat ID. Has caching.
+ * Gets a chat from a chat ID. Supports caching.
  */
 export function getChat(id) {
     let res;

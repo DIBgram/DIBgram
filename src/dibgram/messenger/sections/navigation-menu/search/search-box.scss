@@ -7,21 +7,24 @@
         width: 100%;
         box-sizing: border-box;
         height: 32px;
+        padding: 10px;
+        padding-right: 26px; // Make space for close button
+        margin: 0;
+
         border-radius: 3px;
         background-color: var(--theme-color-filterInputInactiveBg);
         border: 2px solid transparent;
+
         font-family: var(--font-family);
-        padding: 10px;
-        margin: 0;
-        transition: background-color 200ms, border-color 200ms;
         color: var(--theme-color-windowFg);
-        padding-right: 26px;
+
+        transition: background-color 200ms, border-color 200ms;
 
         &::placeholder {
             color: var(--theme-color-placeholderFg);
             transition: color 200ms;
             letter-spacing: -0.4px;
-            text-indent: 2px;
+            text-indent: 2px; // Move a little to right
             user-select: none;
         }
 
@@ -36,16 +39,21 @@
     }
 
     button {
+        // Position to the right of the field
         position: absolute;
         right: 0;
         top: 0;
-        background-color: transparent;
+
         border: none;
         padding: 2px;
         height: 32px;
         width: 32px;
+
+        background-color: transparent;
         fill: var(--theme-color-dialogsMenuIconFg);
+
         cursor: pointer;
+
         transition: transform 100ms linear, opacity 100ms linear;
 
         &:hover {
@@ -61,6 +69,6 @@
     button[data-visible="0"] {
         pointer-events: none;
         opacity: 0;
-        transform: rotate(45deg) scale(0.7);
+        transform: rotate(45deg) scale(0.7); // A small rotating animation
     }
 }

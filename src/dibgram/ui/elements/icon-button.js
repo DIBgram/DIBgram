@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import RippleEffect, {handleMyMouseEventsFunction} from '../../ui/elements/ripple-effect';
 import './icon-button.scss';
 
+/**
+ * Renders a round button with an icon in it, and a special ripple effect.
+ */
 export default function IconButton({icon, ...rest}) {
     const ripple= React.useState({state: 'off'});
     const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);

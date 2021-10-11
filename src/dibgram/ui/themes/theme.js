@@ -8,6 +8,9 @@ import { convertThemeToCSS } from './dibgram-theme-to-css';
 const themes = { day, classic, tinted, night };
 export var currentTheme= 'night';
 
+/**
+ * All children of this component will be rendered with the theme. Can be treated as a div.
+ */
 export function ThemeProvider(props) {
     return (
         <div 

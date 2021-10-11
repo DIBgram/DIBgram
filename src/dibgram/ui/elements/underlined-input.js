@@ -80,16 +80,25 @@ export default class UnderlinedInput extends React.Component {
         }
     }
 
-    static propTypes = {
-        type: PropTypes.oneOf(['text', 'number', 'password', 'email', 'url']).isRequired,
-        onChange: PropTypes.func,
-        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-        maxLength: PropTypes.number,
-        active: PropTypes.bool,
-        autoFocus: PropTypes.bool,
-        onEnterKeyPressed: PropTypes.func,
-        title: PropTypes.string,
-        invalid: PropTypes.bool,
-        disableCopy: PropTypes.bool,
-    }
 }
+UnderlinedInput.propTypes = {
+    /** Input type, can be `text`, `number`, `password`, `email`, `url` */
+    type: PropTypes.oneOf(['text', 'number', 'password', 'email', 'url']).isRequired,
+    /** Fired when input is modified */
+    onChange: PropTypes.func,
+    /** Input value */
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /** The maximum number of characters the input can have */
+    maxLength: PropTypes.number,
+    active: PropTypes.bool,
+    /** If set to true, the input will gain focus when it renders */
+    autoFocus: PropTypes.bool,
+    /** Fires when the 'Enter' key is pressed */
+    onEnterKeyPressed: PropTypes.func,
+    /** Input title/placeholder */
+    title: PropTypes.string,
+    /** If true, the input will become red */
+    invalid: PropTypes.bool,
+    /** If true, text cannot be copied from the input */
+    disableCopy: PropTypes.bool,
+};

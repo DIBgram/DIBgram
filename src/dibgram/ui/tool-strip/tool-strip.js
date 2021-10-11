@@ -9,6 +9,11 @@
 import ToolStripButton from './button';
 import ToolStripSection from './section';
 
+/**
+ * A collection of different components to create a generic menu.
+ * 
+ * Contains sections, menu-items, two kinds of separators, switches, check-boxes, etc.s
+ */
 const ToolStrip = {
     Button: ToolStripButton,
     Section: ToolStripSection

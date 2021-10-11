@@ -1,12 +1,13 @@
 .profile-photo {
     position: relative;
-    height: 30px;
+    height: 30px; // Default size
     width: 30px;
+
     overflow: hidden;
     border-radius: 50%;
 
     & > * {
-        position: absolute;
+        position: absolute; // Any child fills its parent
         top: 0;
         left: 0;
         width: 100%;
@@ -15,12 +16,13 @@
 
     .initials {
         display: flex;
-        align-items: center;
+        align-items: center; // Align to center
         justify-content: center;
+
         color: var(--theme-color-historyPeerUserpicFg);
         font-size: 18px;
 
-        &.color_1 { background-color: var(--theme-color-historyPeer1UserpicBg); }
+        &.color_1 { background-color: var(--theme-color-historyPeer1UserpicBg); } // These colors were intentionally reordered
         &.color_2 { background-color: var(--theme-color-historyPeer8UserpicBg); }
         &.color_3 { background-color: var(--theme-color-historyPeer5UserpicBg); }
         &.color_4 { background-color: var(--theme-color-historyPeer2UserpicBg); }
@@ -30,7 +32,7 @@
     }
 
     .svg {
-        background-color: var(--theme-color-historyPeerSavedMessagesBg);
+        background-color: var(--theme-color-historyPeerSavedMessagesBg); // The only 2 cases where SVG is used is for saved messages and replies.
         fill: var(--theme-color-historyPeerUserpicFg);
         height: 100%;
         width: 100%;

@@ -1,10 +1,10 @@
 .scrollbar {
-    &:not(.full-size) {
+    &:not(.full-size) { // Disable scrollbar inline CSS
         height: unset !important;
         width: unset !important;
     }
 
-    & > div {
+    & > div { // Hide scroll-bars
         -ms-overflow-style: none;  /* Internet Explorer 10+ */
         scrollbar-width: none;  /* Firefox */
         &::-webkit-scrollbar {
@@ -13,7 +13,7 @@
         margin: 0 !important;
     }
 
-    .track-horizontal,
+    .track-horizontal, // Horizontal scrollbar should be hidden
     .thumb-horizontal {
         display: none;
     }

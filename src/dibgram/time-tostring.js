@@ -64,6 +64,9 @@ export function dateToString(date) {
     return `${day}.${month}.${year}`;
 }
 
+/**
+ * Converts a TDLIb unix time to a `Date` object.
+ */
 export function TdLibDateToDate(tdLibDate) {
     return new Date(tdLibDate * 1000);
 }

@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import './scrollbar.scss';
 
+/**
+ * A scrollable container. Sizing might need to be tweaked by CSS.
+ */
 export default function ScrollView(props) {
     const [mouseEntered, setMouseEntered] = React.useState(false);
     const [timeoutId, setTimeoutId] = React.useState(null);
@@ -34,5 +37,6 @@ export default function ScrollView(props) {
     );
 }
 ScrollView.propTypes = {
+    /** Scroll-bar thickness, in pixels (default: 4) */
     scrollBarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };

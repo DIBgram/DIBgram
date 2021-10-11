@@ -3,13 +3,16 @@
     background: transparent;
     cursor: pointer;
 
+    // Styles for ripple effect
     overflow: hidden;
     position: relative;
 
-    #bars {
+    #bars { // The three bars (container)
         position: relative;
         z-index: 1;
-        pointer-events: none;
+        pointer-events: none; // This is to make sure ripple effect gets correct position
+
+        // Center the children
         display: flex;
         flex-direction: column;
         justify-content: center;

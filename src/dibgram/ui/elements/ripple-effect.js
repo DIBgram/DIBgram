@@ -69,7 +69,7 @@ export default class RippleEffect extends React.Component {
 // Assign your `mouseDown`, `mouseUp` and `mouseLeave` to the returned functions.
 export function handleMyMouseEvents(This) {
     return [
-        /**@param e {React.SyntheticEvent} */
+        // mouseDown
         (function(e) {
             // Reset the ripple effect if it's not off
             if(this.state.ripple.state!='off'){
@@ -99,7 +99,7 @@ export function handleMyMouseEvents(This) {
                 }
             });
         }).bind(This),
-
+        // mouseUp
         (function(e) {
             this.setState({
                 ripple: { 
@@ -111,7 +111,7 @@ export function handleMyMouseEvents(This) {
                 }
             });
         }).bind(This),
-
+        // mouseLeave
         (function(e) {
             if(this.state.ripple.state=='pressed') {
                 this.mouseUp(e);

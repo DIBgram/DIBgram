@@ -29,7 +29,7 @@ export default class TdLib {
         const {log}= getConfig();
         TdLib.#tdClient= new TdClient({
             useDatabase: true,
-            instanceName: ( getCurrentSessionId() ) + (getUseTestDc() ? 'test' : 'production'),
+            instanceName: ( getCurrentSessionId() ) + (getUseTestDc() ? 'test' : 'production'), // e.g. ?account=1&test=1 = '1test' or ?account=1&test=0 = '1production'
             onUpdate: function (update) {
                 if(log.log_updates) {
                     console.log('Update: ',update);
@@ -39,7 +39,7 @@ export default class TdLib {
                 }
             }
         });
-        return await TdLib.sendQuery({'@type': 'getAuthorizationState'});
+        return await TdLib.sendQuery({'@type': 'getAuthorizationState'}); // It both starts TDLib and returns the authorization state
     }
 
     /**

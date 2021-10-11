@@ -21,6 +21,10 @@ import Toast from '../../../ui/dialog/toast';
 import { addDialog } from '../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 
+/**********************************************************************************************
+ * Because of the length of this file, it is recommended to use a tool to view document outline
+ **********************************************************************************************/
+
 /**
  * Returns a sorted list of all chats in the given chat list
  * 
@@ -29,20 +33,20 @@ import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
  * @param {import('tdweb').TdObject} list
  */
 export function getChatsFromList(chats, list) {
-    return chats.map(chat => {
+    return chats.map(chat => { // Step 1 - get the chat positions which refer to the current list
         for( const position of chat.positions ) {
             if (compareChatList(list, position.list)) {
-                if( position.order=='0' ) return false;
+                if( position.order=='0' ) return false; // Replace a chat without a suitable position with `false`
                 return {
                     ...chat,
-                    position: position
+                    position: position // Store the position in chat object
                 };
             }
         }
         return chat;
     })
-        .filter(chat => !!chat.position)
-        .sort((a, b) => {
+        .filter(chat => !!chat.position) // Step 2 - Remove `false` values (chats outside the list)
+        .sort((a, b) => { // Step 3 - Sort it by position.order
             let order1= a.position.order, order2= b.position.order;
 
             if (order1 == order2) {
@@ -55,6 +59,9 @@ export function getChatsFromList(chats, list) {
         });
 }
 
+/**
+ * Renders the chats within a chat list
+ */
 const ChatList= connect(state=> ({connectionState: state}))(
     class ChatList extends React.Component { 
         static propTypes = {
@@ -63,21 +70,21 @@ const ChatList= connect(state=> ({connectionState: state}))(
             connectionState: PropTypes.string.isRequired
         }
 
-        // When updating, TDLib sends updates of type
-        // updateChatLastMessage, where only the last one is needed.
+        // When updating, TDLib sends updates of type updateChatLastMessage, where only the last one is needed.
         // This greatly hurts performance.
-        // However, we can workaround it by not re-rendering 
-        // until all updates have arrived.
+        // However, we can workaround it by not re-rendering until all updates have arrived.
         shouldComponentUpdate(nextProps) {
             return (nextProps.chats !== this.props.chats 
                 || nextProps.list !== this.props.list 
                 || nextProps.connectionState !== this.props.connectionState)
-                && nextProps.connectionState != 'connectionStateUpdating';
+                && nextProps.connectionState != 'connectionStateUpdating'; // Do not re-render if updating
         }
 
         render() {
+            // Get chats from the list (this needs to be repeated on every modification)
             const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><Chat key={chat.id} chat={chat} />);
-            return (
+            
+            return ( //TODO: Show a jump to top button when scroll position is >480px
                 <ScrollView id="chat-list" scrollBarWidth="4">
                     {this.props.list['@type']=='chatListMain' && (
                         <Provider store={chatStore}>
@@ -92,6 +99,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
         }
 
         componentDidMount() {
+            // Request TDLib to return chats in main list and archive list
             TdLib.sendQuery({
                 '@type': 'getChats',
                 'chat_list': {
@@ -115,6 +123,9 @@ const ChatList= connect(state=> ({connectionState: state}))(
 );
 export default ChatList;
 
+/**
+ * Renders a single chat
+ */
 class ChatListItem extends React.Component {
     constructor(props) {
         super(props);
@@ -126,7 +137,7 @@ class ChatListItem extends React.Component {
         }
     };
     shouldComponentUpdate(nextProps, nextState) {
-        function getUser(props){
+        function getUser(props){ // Gets the user which is the other party of the chat. Used to see if the needed user has changed
             if(props.chat.type['@type']=='chatTypePrivate') {
                 return props.users[props.chat.type.user_id];
             }
@@ -148,21 +159,21 @@ class ChatListItem extends React.Component {
     render(){
         const chat= {...this.props.chat}; // Clone chat object to avoid mutating it. Mutating it causes Saved messages and Deleted account chats to get past shouldComponentUpdate.
         var chatType= '';
-        if (chat.type?.['@type'] == 'chatTypeBasicGroup' ||
+        if (chat.type?.['@type'] == 'chatTypeBasicGroup' ||      // Groups are basic groups and non-channel supergroups
                 (chat.type?.['@type'] == 'chatTypeSupergroup' &&
                 chat.type?.is_channel == false)
         ){
             chatType= dialogs_chat;
         } 
-        else if (chat.type?.['@type'] == 'chatTypeSupergroup' &&
+        else if (chat.type?.['@type'] == 'chatTypeSupergroup' && // Channels are supergroups with is_channel set to true
                 chat.type?.is_channel == true){
             chatType= dialogs_channel;
         } 
-        else if ((chat.type?.['@type'] == 'chatTypePrivate') &&
+        else if ((chat.type?.['@type'] == 'chatTypePrivate') &&  // Bots are private chats with bot user type
                 (this.props.users[chat.type?.user_id]?.type?.['@type'] == 'userTypeBot')){
             chatType= dialogs_bot;
         }
-        if (chat.id==options['replies_bot_chat_id']) {
+        if (chat.id==options['replies_bot_chat_id']) { // Replies bot does not have a type icon
             chatType= '';
         }
 
@@ -177,7 +188,7 @@ class ChatListItem extends React.Component {
         }
 
         var messageStatus = null;
-        switch(getMessageStatus(chat, chat.last_message)) {
+        switch(getMessageStatus(chat, chat.last_message)) { // Is the message sending, sent or seen?
         case 'sending': 
             messageStatus = <span className="message-status-icon sending" dangerouslySetInnerHTML={{__html: dialogs_sending}}/>;
             break;
@@ -211,11 +222,12 @@ class ChatListItem extends React.Component {
             unreadBadge = <span className={unreadBadgeClass}></span>;
         }
 
-        var isOnline= false;
-        if((chat.type['@type']== 'chatTypePrivate') && (chat.id!=options['my_id']) && (chat.id!=options['telegram_service_notifications_chat_id']) ){ 
+        var isOnline= false; // User online status
+        if((chat.type['@type']== 'chatTypePrivate') && // Only private chats (except saved messages and service notifications)
+            (chat.id!=options['my_id']) && (chat.id!=options['telegram_service_notifications_chat_id']) ){ 
             const user= this.props.users[chat.type.user_id];
             if(user) {
-                isOnline= user.type['@type'] == 'userTypeRegular' && user.status['@type'] == 'userStatusOnline';
+                isOnline= user.type['@type'] == 'userTypeRegular' && user.status['@type'] == 'userStatusOnline'; // Shouldn't be a bot
             }
         }
 
@@ -246,12 +258,12 @@ class ChatListItem extends React.Component {
                                     <span className="last-message">
                                         <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
                                     </span> 
-                                    : 
+                                    : //TODO: Disconnect it and use direct props for users
                                     <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
                                 }
                             </div>
                             <div className="right">
-                                {unreadBadge || (
+                                {unreadBadge || ( // Unread badge overrides pinned icon
                                     chat.position?.is_pinned && <span className="pinned_icon" dangerouslySetInnerHTML={{__html: dialogs_pinned}}></span>
                                 )}
                             </div>
@@ -263,21 +275,28 @@ class ChatListItem extends React.Component {
     }
 }
 ChatListItem.propTypes = {
+    /** The chat (TdObject) */
     chat: PropTypes.object.isRequired,
+    /** A dictionary of all users */
     users: PropTypes.object.isRequired
 };
 const Chat = connect(state=> ({users: state}))(ChatListItem);
 
+/** Renders the context menu of a chat */
 function ChatContextMenu({chat}) {
     const [movableChatLists, setMovableChatLists] = React.useState([]);
 
+    // Archive/unarchive chats
     React.useEffect(() => {
-        TdLib.sendQuery({
+        TdLib.sendQuery({ // Only TDLib can know what lists we can add the chat to
             '@type': 'getChatListsToAddChat',
             chat_id: chat.id
         }).then(result => {
             setMovableChatLists(result.chat_lists.map(chatList=> {
-                const text= {'chatListMain': 'Unarchive chat', 'chatListArchive': 'Archive chat'}[chatList['@type']];
+                const text= { // Only archive / unarchive
+                    'chatListMain': 'Unarchive chat', 
+                    'chatListArchive': 'Archive chat'
+                }[chatList['@type']];
                 if(!text) return;
                 return (
                     <Menu.MenuItem key={chatList.chat_filter_id || chatList['@type']} onClick={() => {
@@ -312,14 +331,15 @@ function ChatContextMenu({chat}) {
 
     return (
         <Menu.MenuContents>
-            {movableChatLists}
-            <Menu.MenuItem onClick={()=> {
+            {movableChatLists /* Archive/unarchive */}
+            <Menu.MenuItem onClick={()=> { // Pin/unpin
                 TdLib.sendQuery({
                     '@type': 'toggleChatIsPinned',
                     chat_list: chat.position.list,
                     chat_id: chat.id,
                     is_pinned: !chat.position.is_pinned
                 }).catch(error=> {
+                    // Maximum pinned messages
                     if(error.code == 400) {
                         const max= chat.position.list['@type'] == 'chatListMain'? options['pinned_chat_count_max'] : options['pinned_archived_chat_count_max'];
                         addDialog('maximum-pinned-chats-reached', (
@@ -343,9 +363,10 @@ const ArchivedChatsItem= connect(state=> ({
     archiveButtonState: state.archiveButtonState,
     unread: state.unread.archive
 })) (function ArchivedChatsItem({chats, unread, archiveButtonState}) {
-    const chatsInList = getChatsFromList(chats, {'@type': 'chatListArchive'});
-    if(!chatsInList.length) return null; // There are no archived chats
+    const chatsInList = getChatsFromList(chats, {'@type': 'chatListArchive'}); // Check if there are any archved chats
+    if(!chatsInList.length) return null; // If there are no archived chats, render nothing
 
+    // Ripple
     const ripple= React.useState({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
 
@@ -356,6 +377,7 @@ const ArchivedChatsItem= connect(state=> ({
         });
     }
 
+    // Change button type to collapsed/expanded/moved to main menu
     function setButtonState(state) {
         chatStore.dispatch({
             type: 'SET_ARCHIVE_BUTTON_STATE',
@@ -369,7 +391,7 @@ const ArchivedChatsItem= connect(state=> ({
     </Toast>;
 
     switch(archiveButtonState) {
-    case 'expanded':
+    case 'expanded': // Looks like a regular chat
     default:
         return (
             <div 
@@ -409,7 +431,7 @@ const ArchivedChatsItem= connect(state=> ({
                                     <span className="part-1">
                                         {chatsInList
                                             .filter(chat=> chat.unread_count > 0)
-                                            .map(chat => (chat.title || 'Deleted Account') + ', ')
+                                            .map(chat => (chat.title || 'Deleted Account') + ', ') //TODO: Check user to see if it is deleted account
                                             .join('')}
                                     </span>
                                     <span className="part-2">
@@ -431,7 +453,7 @@ const ArchivedChatsItem= connect(state=> ({
             </div>
         );
 
-    case 'collapsed':
+    case 'collapsed': // Only title / tiny icon
         return (
             <div
                 className="chat archived collapsed" onClick={onArchiveOpen}
@@ -464,31 +486,34 @@ const ArchivedChatsItem= connect(state=> ({
                 </div>
             </div>
         );
-    case 'hidden-expanded':
+    case 'hidden-expanded': // Not here, it's in main menu
     case 'hidden-collapsed':
         return null;
     }
 });
 ArchivedChatsItem.propTypes = {
+    /** A list of all chats (not just current list) */
     chats: PropTypes.array.isRequired
 };
 
+/** Renders the empty chat list fallback */
 function EmptyChatList({list, connectionState}) {
-    if(connectionState!='connectionStateReady') {
+    //TODO: Use getChats result to see if chat is loaded or not
+    if(connectionState!='connectionStateReady') { // Chat list is not loaded yet 
         return (
             <div className="empty">
                 <div>Loading...</div>
             </div>
         );
     }
-    if(list['@type']=='chatListFilter'){
+    if(list['@type']=='chatListFilter'){ // Empty filter
         return (
             <div className="empty">
                 <div>No chats currently belong to this folder.</div>
                 <LinkButton>Edit Folder</LinkButton>
             </div>
         );
-    } else {
+    } else { // There are no chats at all
         return (
             <div className="empty">
                 <div>Your chats will be here</div>

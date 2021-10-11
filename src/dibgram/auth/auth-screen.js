@@ -23,13 +23,26 @@ export function setInitialAuthState(state) {
  * Start managing a status text block with fade effects.  
  * Usage:
  * ```js
+ * // constructor
  * manageStatusTextContent(this);
+ * 
+ * // render
+ * <Status/>
+ * 
+ * // TdLib.sendQuery({...}).then
+ * this.changeStatus("Wrong code")
+ * 
+ * // state
+ * {
+ *   statusContent: '',
+ *   statusVisible: false
+ * }
  * ```
  * 
  * @param {React.Component} thisClass pass `this` as this argument
  * @returns Store this function and call it to change 
  */
-function manageStatusTextContent(thisClass) {
+function manageStatusTextContent(thisClass) { //TODO: there seems to be a bug in it: the status disappears right after appearing
     thisClass.Status= function Status(){
         return (
             <div className={'status'+ (thisClass.state.statusVisible?'':' hidden')}>{thisClass.state.statusContent}</div>
@@ -55,7 +68,7 @@ function manageStatusTextContent(thisClass) {
 }
 
 /**
- * Renders the messenger or authorization screens. Does not include dialogs and toasts
+ * Renders the messenger or authorization screens (layer 1). Does not include dialogs and toasts
  */
 export class MainApp extends React.Component {
     state= {
@@ -63,15 +76,18 @@ export class MainApp extends React.Component {
     };
 
     componentDidMount(){
+        // Change `setInitialAuthState` to update state, because we don't use `initialAuthState` anymore
         // eslint-disable-next-line no-func-assign
         setInitialAuthState= state=> {
             this.setState({step: state});
         };
 
+        // Handle authorization state updates
         TdLib.registerUpdateHandler('updateAuthorizationState', this.handleAuthStateUpdate);
     }
 
     handleAuthStateUpdate= update => {
+        // Some authorization states are handled without the user knowing. We don't change what's shown to the users if that happens.
         const states= [
             'authorizationStateWaitPhoneNumber',
             'authorizationStateWaitCode',
@@ -89,37 +105,44 @@ export class MainApp extends React.Component {
     render () {
         switch (this.state.step['@type']) {
         case 'authorizationStateWaitPhoneNumber':
+            // Enter your phone number
             return (
                 <AuthWindowStepPhoneNumber/>
             );
 
         case 'authorizationStateWaitCode':
+            // Enter the verification code sent to you
             return (
                 <AuthWindowStepCode info={this.state.step.code_info}/>
             );
 
         case 'authorizationStateWaitPassword':
+            // Enter your 2-factor auth password
             return (
                 <AuthWindowStepPassword info={this.state.step}/>
             );
 
         case 'authorizationStateWaitRegistration':
+            // There isn't an account on this number, you need to sign up
             return (
                 <AuthWindowStepRegister/>
             );
 
         case 'authorizationStateReady':
+            // Logged in
             return (
                 <MessengerWindow/>
             );
 
         case 'authorizationStateClosed':
+            // TDLib session is closed.
             window.location.reload();
             return (
                 <p>This session is closed. Please wait till DIBgram reloads automatically...</p>
             );
         
         default:
+            // TDLib is still loading
             return <p>Loading...</p>;
         }
     }
@@ -142,9 +165,9 @@ class AuthWindowStepPhoneNumber extends React.Component {
     handlePNFieldChange = (event) => {
         this.setState({
             number: event.target.value,
-            invalid: false
+            invalid: false // We shouldn't show the phone number as invalid, since it has changed after submission
         });
-        this.changeStatus('');
+        this.changeStatus(''); // The same
     }
     submitNumber= async () => {
         Auth.givePhoneNumber(this.state.number).catch(reason=> {
@@ -158,14 +181,17 @@ class AuthWindowStepPhoneNumber extends React.Component {
                 );
                 this.changeStatus('');
                 break;
+
             case 'PHONE_NUMBER_INVALID':
                 this.setState({invalid: true});
                 this.changeStatus('Invalid phone number. Please try again.');
-                
                 break;
+
             case 'Another authorization query has started': 
                 break;
+
             default:
+                // We don't know what error it is, so just show it to the user, he/she might understand it.
                 this.setState({invalid: false});
                 this.changeStatus(reason.message);
                 break;
@@ -183,6 +209,12 @@ class AuthWindowStepPhoneNumber extends React.Component {
                     Please confirm your country code and enter your mobile phone number.
                 </p>
 
+                {
+                    //TODO: Add a country code selector  
+                    //TODO: Separate the country code from the phone number
+                    //TODO: Add phone number placeholder
+                    //TODO: Use a number input instead of a text input  
+                }
                 <UnderlinedInput 
                     type="text" 
                     value={this.state.number} 
@@ -223,22 +255,25 @@ class AuthWindowStepCode extends React.Component {
         statusContent: '',
         statusVisible: false
     };
+
     handleCodeFieldChange= (event) => {
         this.setState({
             code: event.target.value,
-            invalid: false
+            invalid: false // Verification code is changed, and we don't know if it is correct or not. Do not show it as invalid anymore
         });
         this.changeStatus('');
-        if(event.target.value.length==this.props.info.type.length) {
+        if(event.target.value.length==this.props.info.type.length) { // Automatically submit code if it is filled in
             this.handleContinueButton(event.target.value);
         }
     }
     handleContinueButton= (code) => {
+        // `code` might be the authorization code, or an event object. If it is not the authorization code, get it ourselves
         if(typeof code != 'string') {
             code= undefined;
         }
         code = code || this.state.code;
-        if(code.length!=this.props.info.type.length) return;
+
+        if(code.length!=this.props.info.type.length) return; // The code is not complete. It is definitely wrong.
 
         Auth.checkAuthCode(code).catch(reason=> {
             if(reason.message==='PHONE_CODE_INVALID'){
@@ -246,6 +281,7 @@ class AuthWindowStepCode extends React.Component {
                 this.changeStatus('You have entered an invalid code.');
             }
             else {
+                // We don't know the error, all we can do is to just inform the user about it
                 this.setState({invalid: true});
                 this.changeStatus(reason.message);
             }
@@ -316,9 +352,9 @@ class AuthWindowStepPassword extends React.Component {
     handlePasswordFieldChange= (event) => {
         this.setState({
             password: event.target.value,
-            invalid: false,
+            invalid: false, // Password was changed, and we don't know if it is wrong or not. We should not show it as wrong
         });
-        this.changeStatus('');
+        this.changeStatus(''); // Same
     }
     handleContinueButton= async () => {
         Auth.check2FACode(this.state.password).catch(reason=> {
@@ -327,6 +363,7 @@ class AuthWindowStepPassword extends React.Component {
                 this.changeStatus('You have entered a wrong password.');
             }
             else {
+                // We don't know what the error is, so all we can do is to show it to the user
                 this.setState({invalid: true});
                 this.changeStatus(reason.message);
             }
@@ -358,6 +395,7 @@ class AuthWindowStepPassword extends React.Component {
                         {this.props.info.password_hint?'Hint: ':<span>&nbsp;</span>}{this.props.info.password_hint}
                     </div>
 
+                    {/* TODO: Use <LinkButton> instead */}
                     <div className="forgot-password">
                         <a href="#">Forgot password?</a>
                     </div>

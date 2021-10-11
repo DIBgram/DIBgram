@@ -5,10 +5,10 @@ import RippleEffect, {handleMyMouseEvents} from '../../../../ui/elements/ripple-
 import { dialogs_menu } from '../../../../ui/icon/icons';
 import './menu-button.scss';
 
-var HamburgerMenuButton= {};
+var HamburgerMenuButton= {}; // Store component classes here
 
 /**
- * Renders the button which opens the hamburger menu
+ * Renders the button which opens the hamburger menu (when there are folders)
  */
 HamburgerMenuButton.WithFolders= class WithFolders extends React.PureComponent {
     static propTypes= {
@@ -21,7 +21,7 @@ HamburgerMenuButton.WithFolders= class WithFolders extends React.PureComponent {
     }
     constructor() {
         super();
-        [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this);
+        [this.mouseDown, this.mouseUp, this.mouseLeave]= handleMyMouseEvents(this); // Ripple effect events
     }
     render() {
         return (
@@ -38,7 +38,7 @@ HamburgerMenuButton.WithFolders= class WithFolders extends React.PureComponent {
 };
 
 /**
- * Renders the button which opens the hamburger menu
+ * Renders the button which opens the hamburger menu (when there are no folders)
  */
 HamburgerMenuButton.WithoutFolders= function WithoutFolders (props) {
     return (

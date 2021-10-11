@@ -1,18 +1,18 @@
 .chat-list-bar-container {
-    flex-shrink: 1 !important;
+    flex-shrink: 1 !important; // If it is 0, it can be resized indefinitely, and chat history will become under its minimum size.
 }
 
 .chat-list-bar-resize-handle {
-    right: -10px !important;
-    cursor: e-resize !important;
+    right: -10px !important; // The handle is entirely on the right
+    cursor: e-resize !important; // use <--> ( default is <|> )
 }
 
 #chat-list-bar {
     height: 100%;
-    min-width: 260px;
+    min-width: 260px; // Resize component already has a minimum width, but it's not bad to have it here too
     position: relative;
     background: var(--theme-color-dialogsBg);
-    overflow: hidden;
+    overflow: hidden; // The animation will create TechGore if outside of it is visible.
 
     .chat-list-header {
         display: flex;
@@ -23,20 +23,22 @@
     .archived-chats {
         position: absolute;
         top: 0;
-        left: 100%;
+        left: 100%; // Out of bounds by default
         bottom: 0;
         width: 100%;
         transition: left 200ms;
         background: var(--theme-color-dialogsBg);
         z-index: 2;
 
-        &::before {
+        &::before { // Shadow
             content: '';
+
             position: absolute;
             top: 0;
             right: 100%;
             bottom: 0;
             width: 100%;
+
             background-color: var(--theme-color-layerBg);
             opacity: 0;
             pointer-events: none;
@@ -61,14 +63,17 @@
                     // Copied from ./chat-list.scss #chat-list .chat .details .unread-badge
                     background-color: var(--theme-color-dialogsUnreadBg);
                     color: var(--theme-color-dialogsUnreadFg);
+
                     padding: 0 4.5px;
                     padding-bottom: 1px;
                     margin-left: 5px;
+
                     min-width: 19px;
                     height: 19px;
-                    text-align: center;
                     box-sizing: border-box;
                     border-radius: 9px;
+
+                    text-align: center;
                     font-size: 13px;
                     display: inline-block;
                 }

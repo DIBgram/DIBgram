@@ -16,6 +16,9 @@ import { addDialog } from '../../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 
+/**
+ * Renders the main menu (always rendered but not always visible)
+ */
 const HamburgerMenu= connect(state=> ({
     chats: state.chats,
     archiveButtonState: state.archiveButtonState,
@@ -23,14 +26,16 @@ const HamburgerMenu= connect(state=> ({
     function HamburgerMenu ({visible, onClose, chats, archiveButtonState}) {
         const [me, setMe] = React.useState(null);
         React.useEffect(() => {
-            TdLib.sendQuery({
+            TdLib.sendQuery({ // Get current user info
                 '@type': 'getMe'
             }).then(result => {
+                // Format phone number and put it in state
                 if(result.phone_number) {
                     TdLib.sendQuery({
                         '@type': 'getPhoneNumberInfo',
                         phone_number_prefix: result.phone_number
                     }).then(info => {
+                        // Format phone number
                         if(info.country_calling_code){
                             result.phone_number= `+${info.country_calling_code} ${info.formatted_phone_number}`;
                         }
@@ -39,14 +44,16 @@ const HamburgerMenu= connect(state=> ({
                 } 
                 else setMe(result);
             });
-        }, []);
+        }, []); // equivalent to componentDidMount
 
         /**@type React.KeyboardEventHandler<HTMLDivElement> */
         function onKeyDown (e){
+            // `Esc` closes the menu
             if(e.key === 'Escape') {
                 onClose();
             }
         }
+        // Autofocus menu
         var ref = React.useRef(null);
         React.useEffect(() => {
             if(visible) {
@@ -54,6 +61,7 @@ const HamburgerMenu= connect(state=> ({
             }
         }, [visible]);
 
+        // Get chats from archive to see if archive button should be shown
         const showArchivedChats = getChatsFromList(chats, {'@type': 'chatListArchive'}).length > 0;
 
         return (
@@ -109,6 +117,7 @@ const HamburgerMenu= connect(state=> ({
                             <div className="options">
                                 <ToolStrip.Section>
                                     <ToolStrip.Button icon={menu_settings} text={'Log out'} onClick={()=> {
+                                        // Log out
                                         onClose();
                                         addDialog('log-out-from-main-menu-confirm-dialog',
                                             <ConfirmDialog 
@@ -130,6 +139,7 @@ const HamburgerMenu= connect(state=> ({
                                 </div>
                                 <div className="row-2">
                                     <LinkButton href="https://github.com/DIBgram/DIBgram/releases/">Version {version}</LinkButton> ­– <LinkButton onClick={()=> {
+                                        // About DIBgram
                                         onClose();
                                         addDialog('main-menu-about-dibgram-dialog', (
                                             <ConfirmDialog id="main-menu-about-dibgram-dialog"

@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './link-button.scss';
 
+/**
+ * Renders a button looking like a link.
+ */
 export default function LinkButton({href, children, onClick, ...rest}) {
     const click= href ? ()=> window.open(href) : onClick;
     return (

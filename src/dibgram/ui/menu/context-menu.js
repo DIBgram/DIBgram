@@ -4,6 +4,9 @@ import { createStore } from 'redux';
 import Menu from './menu';
 import { connect } from 'react-redux';
 
+/**
+ * A context menu (right click menu)
+ */
 export function ContextMenu({x, y, children}) {
     return (
         <div className="context-menu" style={{'--x': x+'px', '--y': y+'px'}}>
@@ -14,7 +17,9 @@ export function ContextMenu({x, y, children}) {
     );
 }
 ContextMenu.propTypes = {
+    /** Position relative to viewport */
     x: PropTypes.number.isRequired,
+    /** Position relative to viewport */
     y: PropTypes.number.isRequired,
     children: PropTypes.node.isRequired
 };
