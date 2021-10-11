@@ -215,15 +215,15 @@ class AuthWindowStepPhoneNumber extends React.Component {
                     //TODO: Add a country code selector  
                     //TODO: Separate the country code from the phone number
                     //TODO: Add phone number placeholder
-                    //TODO: Use a number input instead of a text input  
                 }
                 <UnderlinedInput 
-                    type="text" 
+                    type="number" 
                     value={this.state.number} 
                     autoFocus={true}
                     onChange={this.handlePNFieldChange}
                     onEnterKeyPressed={this.submitNumber}
-                    invalid={this.state.invalid}/>
+                    invalid={this.state.invalid}
+                    preventNumberScrolling={false}/>
 
                 <Status/>
 
@@ -310,14 +310,15 @@ class AuthWindowStepCode extends React.Component {
                 {message}
 
                 <UnderlinedInput 
-                    type="text" 
+                    type="number" 
                     value={this.state.code} 
                     onChange={this.handleCodeFieldChange}
                     autoFocus={true}
                     title="Code"
                     maxLength={this.props.info.type.length}
                     onEnterKeyPressed={this.handleContinueButton}
-                    invalid={this.state.invalid}/>
+                    invalid={this.state.invalid}
+                    preventNumberScrolling={true}/>
 
                 <Status/>
 

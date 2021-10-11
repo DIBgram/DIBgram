@@ -41,6 +41,16 @@
         width: 100%;
         color: var(--theme-color-windowFg);
         font-weight: 400;
+
+        &[type=number] {
+            -moz-appearance: textfield;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                appearance: none;
+                margin: 0;
+            }
+        }
     }
 
     .underline {

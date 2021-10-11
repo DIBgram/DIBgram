@@ -78,6 +78,11 @@ export default class UnderlinedInput extends React.Component {
         if(e.key=='Enter') {
             this.props.onEnterKeyPressed && this.props.onEnterKeyPressed();
         }
+        if(this.props.preventNumberScrolling) {
+            if(e.key=='ArrowUp' || e.key=='ArrowDown') {
+                e.preventDefault();
+            }
+        }
     }
 
 }
@@ -101,4 +106,6 @@ UnderlinedInput.propTypes = {
     invalid: PropTypes.bool,
     /** If true, text cannot be copied from the input */
     disableCopy: PropTypes.bool,
+    /** If true, up and down buttons cannot change input value */
+    preventNumberScrolling: PropTypes.bool
 };
