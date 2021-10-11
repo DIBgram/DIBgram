@@ -42,7 +42,7 @@ export function setInitialAuthState(state) {
  * @param {React.Component} thisClass pass `this` as this argument
  * @returns Store this function and call it to change 
  */
-function manageStatusTextContent(thisClass) { //TODO: there seems to be a bug in it: the status disappears right after appearing
+function manageStatusTextContent(thisClass) {
     thisClass.Status= function Status(){
         return (
             <div className={'status'+ (thisClass.state.statusVisible?'':' hidden')}>{thisClass.state.statusContent}</div>
@@ -59,9 +59,11 @@ function manageStatusTextContent(thisClass) { //TODO: there seems to be a bug in
                 statusVisible: false
             });
             setTimeout(() => {
-                thisClass.setState({
-                    statusContent: null
-                });
+                if(!thisClass.state.statusVisible) { // Prevent timeout overlapping with later status changes
+                    thisClass.setState({
+                        statusContent: null
+                    });
+                }
             }, 1000);
         }
     };
