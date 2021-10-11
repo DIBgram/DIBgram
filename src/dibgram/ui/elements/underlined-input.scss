@@ -1,6 +1,7 @@
 .underlined-input {
     text-align: center; //TODO: This line seems to be unnecessary. Check it out.
     position: relative;
+    border-bottom: 1px solid var(--theme-color-inputBorderFg);
 
     .title {
         text-align: left;
@@ -34,7 +35,6 @@
     input {
         text-align: initial;
         border: none;
-        border-bottom: 1px solid var(--theme-color-inputBorderFg);
         background-color: transparent;
         font-family: var(--font-family);
         box-sizing: border-box;
@@ -55,7 +55,7 @@
 
     .underline {
         position: absolute;
-        bottom: 0;
+        bottom: -1px;
         height: 2px;
         background-color: var(--theme-color-activeLineFg);
         margin-left: auto;
@@ -72,6 +72,10 @@
             duration: 200ms !important;
             fill-mode: forwards !important;
         };
+    }
+
+    &.inactive .title {
+        color: var(--theme-color-placeholderFg);
     }
 
     &.autoFocus .underline {

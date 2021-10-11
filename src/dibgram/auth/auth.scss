@@ -79,7 +79,16 @@
         .underlined-input {
             input {
                 padding: 11px 3px;
-                -webkit-text-security: disc; // TODO: Make sure the dots are big in Chrome (fine in firefox)
+
+                &[type=text] {
+                    -webkit-text-security: disc;
+                    margin: 11px 0;
+                    line-height: 0;
+                    font-size: 2em;
+                    height: 25px;
+                    padding: 0 3px;
+                    letter-spacing: -2px;
+                }
             }
         }
 
