@@ -37,5 +37,9 @@
 
     &:hover { //TODO: Icon should become white on hover
         background-color: var(--theme-color-windowBgOver);
+
+        .icon svg {
+            fill: var(--theme-color-menuIconFgOver);
+        }
     }
 }
