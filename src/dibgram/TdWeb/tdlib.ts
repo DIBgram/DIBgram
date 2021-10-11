@@ -1,6 +1,8 @@
-import TdClient from 'tdweb';
+/* eslint-disable */
+import { createTdClient } from './tdweb';
 import {getConfig} from './config';
-
+import TdApi from './td_api';
+import removeItemFromArray from '../../remove-item-from-array';
 export function getUseTestDc() {
     var urlPar=new URL(window.location.href).searchParams.get('test');
     if(urlPar){
@@ -17,20 +19,19 @@ export function getCurrentSessionId() {
  * Provides options to communicate with the Tdweb library
  */
 export default class TdLib {
-    /** @type TdClient */
-    static #tdClient;
+    static #tdClient: any;
     /** @type {[string: Array<Function>]} */
-    static #updateHandlers={};
+    static #updateHandlers: {[key: string]: ((update: TdApi.td_Update) => void)[]}={};
 
     /**
      * Creates the instance of Tdweb
      */
     static async initializeTdLib() {
         const {log}= getConfig();
-        TdLib.#tdClient= new TdClient({
+        TdLib.#tdClient= createTdClient({
             useDatabase: true,
             instanceName: ( getCurrentSessionId() ) + (getUseTestDc() ? 'test' : 'production'), // e.g. ?account=1&test=1 = '1test' or ?account=1&test=0 = '1production'
-            onUpdate: function (update) {
+            onUpdate: function (update: TdApi.td_Update) {
                 if(log.log_updates) {
                     console.log('Update: ',update);
                 }
@@ -47,7 +48,7 @@ export default class TdLib {
      * @param {string} type The type of the update to listen to. Look for TdLib API docs for types
      * @param {Function} handler The function that gets called with the update object when the update is received
      */
-    static registerUpdateHandler(type, handler) {
+    static registerUpdateHandler(type: string, handler: (update: TdApi.td_Update) => void) {
         if(TdLib.#updateHandlers[type]===undefined){
             TdLib.#updateHandlers[type]= [];
         }
@@ -59,31 +60,31 @@ export default class TdLib {
      * @param {string} type The type of the update to remove handler from. Look for TdLib API docs for types
      * @param {Function} handler The handler to remove
      */
-    static unRegisterUpdateHandler(type, handler) {
+    static unRegisterUpdateHandler(type: string, handler: (update: TdApi.td_Update) => void) {
         if(TdLib.#updateHandlers[type]===undefined){
             return;
         }
-        TdLib.#updateHandlers[type].remove(handler);
+        removeItemFromArray.call(TdLib.#updateHandlers[type], handler);
     }
 
     /**
      * Send a request to the TdLib instance
      * If the query contains an `@extra` field, the same field will be added to the result
-     * @param {import('tdweb').TdObject} query The request to send. Consult TdLib & JSON interface API for help.
-     * @returns {Promise<import('tdweb').TdObject | import('tdweb').TdError>} The result of the request
+     * @param query The request to send. Consult TdLib & JSON interface API for help.
+     * @returns The result of the request
      */
-    static sendQuery(query) {
+    static sendQuery<T extends TdApi.TdFunction>(query: T): Promise<TdApi.TdFunctionReturn<T> | TdApi.td_Error> {
         const {log}= getConfig();
         if(log.log_queries) {
             console.log('Query: ',query);
         }
         return new Promise((resolve, reject) => {
-            TdLib.#tdClient.send(query).then(result=> {
+            TdLib.#tdClient.send(query).then((result: TdApi.TdFunctionReturn<T>)=> {
                 if(log.log_queries) {
                     console.log('Query result: ', result);
                 }
                 resolve(result);
-            }, error=> {
+            }, (error: TdApi.td_Error)=> {
                 if(log.log_queries) {
                     console.error('Query failed: ', error);
                 }

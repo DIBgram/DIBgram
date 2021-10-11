@@ -1,0 +1,13034 @@
+
+namespace TdApi {
+    type td_double = number;
+    type td_string = string;
+    type td_int32 = number;
+    type td_int53 = number;
+    type td_int64 = string;
+    type td_bytes = string;
+
+    type td_Bool = boolean;
+
+    type td_vector<t> = t[];
+
+    
+    /** An object of this type can be returned on every function call, in case of an error */
+    export interface td_error {
+        '@type': 'error';
+        /** Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user */
+        code?: td_int32;
+        /** Error message; subject to future changes */
+        message?: td_string;
+    }
+    
+    
+    /** An object of this type is returned on a successful function call for certain functions */
+    export interface td_ok {
+        '@type': 'ok';
+    }
+    
+    
+    /** Contains parameters for TDLib initialization */
+    export interface td_tdlibParameters {
+        '@type': 'tdlibParameters';
+        /** If set to true, the Telegram test environment will be used instead of the production environment */
+        use_test_dc?: td_Bool;
+        /** The path to the directory for the persistent database; if empty, the current working directory will be used */
+        database_directory?: td_string;
+        /** The path to the directory for storing files; if empty, database_directory will be used */
+        files_directory?: td_string;
+        /** If set to true, information about downloaded and uploaded files will be saved between application restarts */
+        use_file_database?: td_Bool;
+        /** If set to true, the library will maintain a cache of users, basic groups, supergroups, channels and secret chats. Implies use_file_database */
+        use_chat_info_database?: td_Bool;
+        /** If set to true, the library will maintain a cache of chats and messages. Implies use_chat_info_database */
+        use_message_database?: td_Bool;
+        /** If set to true, support for secret chats will be enabled */
+        use_secret_chats?: td_Bool;
+        /** Application identifier for Telegram API access, which can be obtained at https://my.telegram.org */
+        api_id?: td_int32;
+        /** Application identifier hash for Telegram API access, which can be obtained at https://my.telegram.org */
+        api_hash?: td_string;
+        /** IETF language tag of the user's operating system language; must be non-empty */
+        system_language_code?: td_string;
+        /** Model of the device the application is being run on; must be non-empty */
+        device_model?: td_string;
+        /** Version of the operating system the application is being run on. If empty, the version is automatically detected by TDLib */
+        system_version?: td_string;
+        /** Application version; must be non-empty */
+        application_version?: td_string;
+        /** If set to true, old files will automatically be deleted */
+        enable_storage_optimizer?: td_Bool;
+        /** If set to true, original file names will be ignored. Otherwise, downloaded files will be saved under names as close as possible to the original name */
+        ignore_file_names?: td_Bool;
+    }
+    
+    
+    /** An authentication code is delivered via a private Telegram message, which can be viewed from another active session */
+    export interface td_authenticationCodeTypeTelegramMessage {
+        '@type': 'authenticationCodeTypeTelegramMessage';
+        /** Length of the code */
+        length?: td_int32;
+    }
+    
+    
+    /** An authentication code is delivered via an SMS message to the specified phone number */
+    export interface td_authenticationCodeTypeSms {
+        '@type': 'authenticationCodeTypeSms';
+        /** Length of the code */
+        length?: td_int32;
+    }
+    
+    
+    /** An authentication code is delivered via a phone call to the specified phone number */
+    export interface td_authenticationCodeTypeCall {
+        '@type': 'authenticationCodeTypeCall';
+        /** Length of the code */
+        length?: td_int32;
+    }
+    
+    
+    /** An authentication code is delivered by an immediately cancelled call to the specified phone number. The number from which the call was made is the code */
+    export interface td_authenticationCodeTypeFlashCall {
+        '@type': 'authenticationCodeTypeFlashCall';
+        /** Pattern of the phone number from which the call will be made */
+        pattern?: td_string;
+    }
+    
+    
+    /** Information about the authentication code that was sent */
+    export interface td_authenticationCodeInfo {
+        '@type': 'authenticationCodeInfo';
+        /** A phone number that is being authenticated */
+        phone_number?: td_string;
+        /** Describes the way the code was sent to the user */
+        type?: td_AuthenticationCodeType;
+        /** Describes the way the next code will be sent to the user; may be null */
+        next_type?: td_AuthenticationCodeType;
+        /** Timeout before the code should be re-sent, in seconds */
+        timeout?: td_int32;
+    }
+    
+    
+    /** Information about the email address authentication code that was sent */
+    export interface td_emailAddressAuthenticationCodeInfo {
+        '@type': 'emailAddressAuthenticationCodeInfo';
+        /** Pattern of the email address to which an authentication code was sent */
+        email_address_pattern?: td_string;
+        /** Length of the code; 0 if unknown */
+        length?: td_int32;
+    }
+    
+    
+    /** Represents a part of the text that needs to be formatted in some unusual way */
+    export interface td_textEntity {
+        '@type': 'textEntity';
+        /** Offset of the entity, in UTF-16 code units */
+        offset?: td_int32;
+        /** Length of the entity, in UTF-16 code units */
+        length?: td_int32;
+        /** Type of the entity */
+        type?: td_TextEntityType;
+    }
+    
+    
+    /** Contains a list of text entities */
+    export interface td_textEntities {
+        '@type': 'textEntities';
+        /** List of text entities */
+        entities?: td_vector<td_textEntity>;
+    }
+    
+    
+    /** A text with some entities */
+    export interface td_formattedText {
+        '@type': 'formattedText';
+        /** The text */
+        text?: td_string;
+        /** Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. -Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline and Strikethrough entities can contain and to be contained in all other entities. All other entities can't contain each other */
+        entities?: td_vector<td_textEntity>;
+    }
+    
+    
+    /** Contains Telegram terms of service */
+    export interface td_termsOfService {
+        '@type': 'termsOfService';
+        /** Text of the terms of service */
+        text?: td_formattedText;
+        /** The minimum age of a user to be able to accept the terms; 0 if any */
+        min_user_age?: td_int32;
+        /** True, if a blocking popup with terms of service must be shown to the user */
+        show_popup?: td_Bool;
+    }
+    
+    
+    /** TDLib needs TdlibParameters for initialization */
+    export interface td_authorizationStateWaitTdlibParameters {
+        '@type': 'authorizationStateWaitTdlibParameters';
+    }
+    
+    
+    /** TDLib needs an encryption key to decrypt the local database */
+    export interface td_authorizationStateWaitEncryptionKey {
+        '@type': 'authorizationStateWaitEncryptionKey';
+        /** True, if the database is currently encrypted */
+        is_encrypted?: td_Bool;
+    }
+    
+    
+    /** TDLib needs the user's phone number to authorize. Call `setAuthenticationPhoneNumber` to provide the phone number, or use `requestQrCodeAuthentication`, or `checkAuthenticationBotToken` for other authentication options */
+    export interface td_authorizationStateWaitPhoneNumber {
+        '@type': 'authorizationStateWaitPhoneNumber';
+    }
+    
+    
+    /** TDLib needs the user's authentication code to authorize */
+    export interface td_authorizationStateWaitCode {
+        '@type': 'authorizationStateWaitCode';
+        /** Information about the authorization code that was sent */
+        code_info?: td_authenticationCodeInfo;
+    }
+    
+    
+    /** The user needs to confirm authorization on another logged in device by scanning a QR code with the provided link */
+    export interface td_authorizationStateWaitOtherDeviceConfirmation {
+        '@type': 'authorizationStateWaitOtherDeviceConfirmation';
+        /** A tg:// URL for the QR code. The link will be updated frequently */
+        link?: td_string;
+    }
+    
+    
+    /** The user is unregistered and need to accept terms of service and enter their first name and last name to finish registration */
+    export interface td_authorizationStateWaitRegistration {
+        '@type': 'authorizationStateWaitRegistration';
+        /** Telegram terms of service */
+        terms_of_service?: td_termsOfService;
+    }
+    
+    
+    /** The user has been authorized, but needs to enter a password to start using the application */
+    export interface td_authorizationStateWaitPassword {
+        '@type': 'authorizationStateWaitPassword';
+        /** Hint for the password; may be empty */
+        password_hint?: td_string;
+        /** True, if a recovery email address has been set up */
+        has_recovery_email_address?: td_Bool;
+        /** Pattern of the email address to which the recovery email was sent; empty until a recovery email has been sent */
+        recovery_email_address_pattern?: td_string;
+    }
+    
+    
+    /** The user has been successfully authorized. TDLib is now ready to answer queries */
+    export interface td_authorizationStateReady {
+        '@type': 'authorizationStateReady';
+    }
+    
+    
+    /** The user is currently logging out */
+    export interface td_authorizationStateLoggingOut {
+        '@type': 'authorizationStateLoggingOut';
+    }
+    
+    
+    /** TDLib is closing, all subsequent queries will be answered with the error 500. Note that closing TDLib can take a while. All resources will be freed only after authorizationStateClosed has been received */
+    export interface td_authorizationStateClosing {
+        '@type': 'authorizationStateClosing';
+    }
+    
+    
+    /** TDLib client is in its final state. All databases are closed and all resources are released. No other updates will be received after this. All queries will be responded to -with error code 500. To continue working, one should create a new instance of the TDLib client */
+    export interface td_authorizationStateClosed {
+        '@type': 'authorizationStateClosed';
+    }
+    
+    
+    /** Represents the current state of 2-step verification */
+    export interface td_passwordState {
+        '@type': 'passwordState';
+        /** True, if a 2-step verification password is set */
+        has_password?: td_Bool;
+        /** Hint for the password; may be empty */
+        password_hint?: td_string;
+        /** True, if a recovery email is set */
+        has_recovery_email_address?: td_Bool;
+        /** True, if some Telegram Passport elements were saved */
+        has_passport_data?: td_Bool;
+        /** Information about the recovery email address to which the confirmation email was sent; may be null */
+        recovery_email_address_code_info?: td_emailAddressAuthenticationCodeInfo;
+    }
+    
+    
+    /** Contains information about the current recovery email address */
+    export interface td_recoveryEmailAddress {
+        '@type': 'recoveryEmailAddress';
+        /** Recovery email address */
+        recovery_email_address?: td_string;
+    }
+    
+    
+    /** Returns information about the availability of a temporary password, which can be used for payments */
+    export interface td_temporaryPasswordState {
+        '@type': 'temporaryPasswordState';
+        /** True, if a temporary password is available */
+        has_password?: td_Bool;
+        /** Time left before the temporary password expires, in seconds */
+        valid_for?: td_int32;
+    }
+    
+    
+    /** Represents a local file */
+    export interface td_localFile {
+        '@type': 'localFile';
+        /** Local path to the locally available file part; may be empty */
+        path?: td_string;
+        /** True, if it is possible to try to download or generate the file */
+        can_be_downloaded?: td_Bool;
+        /** True, if the file can be deleted */
+        can_be_deleted?: td_Bool;
+        /** True, if the file is currently being downloaded (or a local copy is being generated by some other means) */
+        is_downloading_active?: td_Bool;
+        /** True, if the local copy is fully available */
+        is_downloading_completed?: td_Bool;
+        /** Download will be started from this offset. downloaded_prefix_size is calculated from this offset */
+        download_offset?: td_int32;
+        /** If is_downloading_completed is false, then only some prefix of the file starting from download_offset is ready to be read. downloaded_prefix_size is the size of that prefix */
+        downloaded_prefix_size?: td_int32;
+        /** Total downloaded file bytes. Should be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage */
+        downloaded_size?: td_int32;
+    }
+    
+    
+    /** Represents a remote file */
+    export interface td_remoteFile {
+        '@type': 'remoteFile';
+        /** Remote file identifier; may be empty. Can be used by the current user across application restarts or even from other devices. Uniquely identifies a file, but a file can have a lot of different valid identifiers. -If the ID starts with "http://" or "https://", it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. -If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the original_path and "#url#" as the conversion string. Application should generate the file by downloading it to the specified location */
+        id?: td_string;
+        /** Unique file identifier; may be empty if unknown. The unique file identifier which is the same for the same file even for different users and is persistent over time */
+        unique_id?: td_string;
+        /** True, if the file is currently being uploaded (or a remote copy is being generated by some other means) */
+        is_uploading_active?: td_Bool;
+        /** True, if a remote copy is fully available */
+        is_uploading_completed?: td_Bool;
+        /** Size of the remote available part of the file; 0 if unknown */
+        uploaded_size?: td_int32;
+    }
+    
+    
+    /** Represents a file */
+    export interface td_file {
+        '@type': 'file';
+        /** Unique file identifier */
+        id?: td_int32;
+        /** File size; 0 if unknown */
+        size?: td_int32;
+        /** Expected file size in case the exact file size is unknown, but an approximate size is known. Can be used to show download/upload progress */
+        expected_size?: td_int32;
+        /** Information about the local copy of the file */
+        local?: td_localFile;
+        /** Information about the remote copy of the file */
+        remote?: td_remoteFile;
+    }
+    
+    
+    /** A file defined by its unique ID */
+    export interface td_inputFileId {
+        '@type': 'inputFileId';
+        /** Unique file identifier */
+        id?: td_int32;
+    }
+    
+    
+    /** A file defined by its remote ID. The remote ID is guaranteed to be usable only if the corresponding file is still accessible to the user and known to TDLib. -For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application */
+    export interface td_inputFileRemote {
+        '@type': 'inputFileRemote';
+        /** Remote file identifier */
+        id?: td_string;
+    }
+    
+    
+    /** A file defined by a local path */
+    export interface td_inputFileLocal {
+        '@type': 'inputFileLocal';
+        /** Local path to the file */
+        path?: td_string;
+    }
+    
+    
+    /** A file generated by the application */
+    export interface td_inputFileGenerated {
+        '@type': 'inputFileGenerated';
+        /** Local path to a file from which the file is generated; may be empty if there is no such file */
+        original_path?: td_string;
+        /** String specifying the conversion applied to the original file; should be persistent across application restarts. Conversions beginning with '#' are reserved for internal TDLib usage */
+        conversion?: td_string;
+        /** Expected size of the generated file; 0 if unknown */
+        expected_size?: td_int32;
+    }
+    
+    
+    /** Describes an image in JPEG format */
+    export interface td_photoSize {
+        '@type': 'photoSize';
+        /** Image type (see https://core.telegram.org/constructor/photoSize) */
+        type?: td_string;
+        /** Information about the image file */
+        photo?: td_file;
+        /** Image width */
+        width?: td_int32;
+        /** Image height */
+        height?: td_int32;
+        /** Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image */
+        progressive_sizes?: td_vector<td_int32>;
+    }
+    
+    
+    /** Thumbnail image of a very poor quality and low resolution */
+    export interface td_minithumbnail {
+        '@type': 'minithumbnail';
+        /** Thumbnail width, usually doesn't exceed 40 */
+        width?: td_int32;
+        /** Thumbnail height, usually doesn't exceed 40 */
+        height?: td_int32;
+        /** The thumbnail in JPEG format */
+        data?: td_bytes;
+    }
+    
+    
+    /** The thumbnail is in JPEG format */
+    export interface td_thumbnailFormatJpeg {
+        '@type': 'thumbnailFormatJpeg';
+    }
+    
+    
+    /** The thumbnail is in PNG format. It will be used only for background patterns */
+    export interface td_thumbnailFormatPng {
+        '@type': 'thumbnailFormatPng';
+    }
+    
+    
+    /** The thumbnail is in WEBP format. It will be used only for some stickers */
+    export interface td_thumbnailFormatWebp {
+        '@type': 'thumbnailFormatWebp';
+    }
+    
+    
+    /** The thumbnail is in static GIF format. It will be used only for some bot inline results */
+    export interface td_thumbnailFormatGif {
+        '@type': 'thumbnailFormatGif';
+    }
+    
+    
+    /** The thumbnail is in TGS format. It will be used only for animated sticker sets */
+    export interface td_thumbnailFormatTgs {
+        '@type': 'thumbnailFormatTgs';
+    }
+    
+    
+    /** The thumbnail is in MPEG4 format. It will be used only for some animations and videos */
+    export interface td_thumbnailFormatMpeg4 {
+        '@type': 'thumbnailFormatMpeg4';
+    }
+    
+    
+    /** Represents a thumbnail */
+    export interface td_thumbnail {
+        '@type': 'thumbnail';
+        /** Thumbnail format */
+        format?: td_ThumbnailFormat;
+        /** Thumbnail width */
+        width?: td_int32;
+        /** Thumbnail height */
+        height?: td_int32;
+        /** The thumbnail */
+        file?: td_file;
+    }
+    
+    
+    /** A mask should be placed relatively to the forehead */
+    export interface td_maskPointForehead {
+        '@type': 'maskPointForehead';
+    }
+    
+    
+    /** A mask should be placed relatively to the eyes */
+    export interface td_maskPointEyes {
+        '@type': 'maskPointEyes';
+    }
+    
+    
+    /** A mask should be placed relatively to the mouth */
+    export interface td_maskPointMouth {
+        '@type': 'maskPointMouth';
+    }
+    
+    
+    /** A mask should be placed relatively to the chin */
+    export interface td_maskPointChin {
+        '@type': 'maskPointChin';
+    }
+    
+    
+    /** Position on a photo where a mask should be placed */
+    export interface td_maskPosition {
+        '@type': 'maskPosition';
+        /** Part of the face, relative to which the mask should be placed */
+        point?: td_MaskPoint;
+        /** Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position) */
+        x_shift?: td_double;
+        /** Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. (For example, 1.0 will place the mask just below the default mask position) */
+        y_shift?: td_double;
+        /** Mask scaling coefficient. (For example, 2.0 means a doubled size) */
+        scale?: td_double;
+    }
+    
+    
+    /** Describes one answer option of a poll */
+    export interface td_pollOption {
+        '@type': 'pollOption';
+        /** Option text, 1-100 characters */
+        text?: td_string;
+        /** Number of voters for this option, available only for closed or voted polls */
+        voter_count?: td_int32;
+        /** The percentage of votes for this option, 0-100 */
+        vote_percentage?: td_int32;
+        /** True, if the option was chosen by the user */
+        is_chosen?: td_Bool;
+        /** True, if the option is being chosen by a pending setPollAnswer request */
+        is_being_chosen?: td_Bool;
+    }
+    
+    
+    /** A regular poll */
+    export interface td_pollTypeRegular {
+        '@type': 'pollTypeRegular';
+        /** True, if multiple answer options can be chosen simultaneously */
+        allow_multiple_answers?: td_Bool;
+    }
+    
+    
+    /** A poll in quiz mode, which has exactly one correct answer option and can be answered only once */
+    export interface td_pollTypeQuiz {
+        '@type': 'pollTypeQuiz';
+        /** 0-based identifier of the correct answer option; -1 for a yet unanswered poll */
+        correct_option_id?: td_int32;
+        /** Text that is shown when the user chooses an incorrect answer or taps on the lamp icon, 0-200 characters with at most 2 line feeds; empty for a yet unanswered poll */
+        explanation?: td_formattedText;
+    }
+    
+    
+    /** Describes an animation file. The animation must be encoded in GIF or MPEG4 format */
+    export interface td_animation {
+        '@type': 'animation';
+        /** Duration of the animation, in seconds; as defined by the sender */
+        duration?: td_int32;
+        /** Width of the animation */
+        width?: td_int32;
+        /** Height of the animation */
+        height?: td_int32;
+        /** Original name of the file; as defined by the sender */
+        file_name?: td_string;
+        /** MIME type of the file, usually "image/gif" or "video/mp4" */
+        mime_type?: td_string;
+        /** True, if stickers were added to the animation. The list of corresponding sticker set can be received using getAttachedStickerSets */
+        has_stickers?: td_Bool;
+        /** Animation minithumbnail; may be null */
+        minithumbnail?: td_minithumbnail;
+        /** Animation thumbnail in JPEG or MPEG4 format; may be null */
+        thumbnail?: td_thumbnail;
+        /** File containing the animation */
+        animation?: td_file;
+    }
+    
+    
+    /** Describes an audio file. Audio is usually in MP3 or M4A format */
+    export interface td_audio {
+        '@type': 'audio';
+        /** Duration of the audio, in seconds; as defined by the sender */
+        duration?: td_int32;
+        /** Title of the audio; as defined by the sender */
+        title?: td_string;
+        /** Performer of the audio; as defined by the sender */
+        performer?: td_string;
+        /** Original name of the file; as defined by the sender */
+        file_name?: td_string;
+        /** The MIME type of the file; as defined by the sender */
+        mime_type?: td_string;
+        /** The minithumbnail of the album cover; may be null */
+        album_cover_minithumbnail?: td_minithumbnail;
+        /** The thumbnail of the album cover in JPEG format; as defined by the sender. The full size thumbnail should be extracted from the downloaded file; may be null */
+        album_cover_thumbnail?: td_thumbnail;
+        /** File containing the audio */
+        audio?: td_file;
+    }
+    
+    
+    /** Describes a document of any type */
+    export interface td_document {
+        '@type': 'document';
+        /** Original name of the file; as defined by the sender */
+        file_name?: td_string;
+        /** MIME type of the file; as defined by the sender */
+        mime_type?: td_string;
+        /** Document minithumbnail; may be null */
+        minithumbnail?: td_minithumbnail;
+        /** Document thumbnail in JPEG or PNG format (PNG will be used only for background patterns); as defined by the sender; may be null */
+        thumbnail?: td_thumbnail;
+        /** File containing the document */
+        document?: td_file;
+    }
+    
+    
+    /** Describes a photo */
+    export interface td_photo {
+        '@type': 'photo';
+        /** True, if stickers were added to the photo. The list of corresponding sticker sets can be received using getAttachedStickerSets */
+        has_stickers?: td_Bool;
+        /** Photo minithumbnail; may be null */
+        minithumbnail?: td_minithumbnail;
+        /** Available variants of the photo, in different sizes */
+        sizes?: td_vector<td_photoSize>;
+    }
+    
+    
+    /** Describes a sticker */
+    export interface td_sticker {
+        '@type': 'sticker';
+        /** The identifier of the sticker set to which the sticker belongs; 0 if none */
+        set_id?: td_int64;
+        /** Sticker width; as defined by the sender */
+        width?: td_int32;
+        /** Sticker height; as defined by the sender */
+        height?: td_int32;
+        /** Emoji corresponding to the sticker */
+        emoji?: td_string;
+        /** True, if the sticker is an animated sticker in TGS format */
+        is_animated?: td_Bool;
+        /** True, if the sticker is a mask */
+        is_mask?: td_Bool;
+        /** Position where the mask should be placed; may be null */
+        mask_position?: td_maskPosition;
+        /** Sticker thumbnail in WEBP or JPEG format; may be null */
+        thumbnail?: td_thumbnail;
+        /** File containing the sticker */
+        sticker?: td_file;
+    }
+    
+    
+    /** Describes a video file */
+    export interface td_video {
+        '@type': 'video';
+        /** Duration of the video, in seconds; as defined by the sender */
+        duration?: td_int32;
+        /** Video width; as defined by the sender */
+        width?: td_int32;
+        /** Video height; as defined by the sender */
+        height?: td_int32;
+        /** Original name of the file; as defined by the sender */
+        file_name?: td_string;
+        /** MIME type of the file; as defined by the sender */
+        mime_type?: td_string;
+        /** True, if stickers were added to the video. The list of corresponding sticker sets can be received using getAttachedStickerSets */
+        has_stickers?: td_Bool;
+        /** True, if the video should be tried to be streamed */
+        supports_streaming?: td_Bool;
+        /** Video minithumbnail; may be null */
+        minithumbnail?: td_minithumbnail;
+        /** Video thumbnail in JPEG or MPEG4 format; as defined by the sender; may be null */
+        thumbnail?: td_thumbnail;
+        /** File containing the video */
+        video?: td_file;
+    }
+    
+    
+    /** Describes a video note. The video must be equal in width and height, cropped to a circle, and stored in MPEG4 format */
+    export interface td_videoNote {
+        '@type': 'videoNote';
+        /** Duration of the video, in seconds; as defined by the sender */
+        duration?: td_int32;
+        /** Video width and height; as defined by the sender */
+        length?: td_int32;
+        /** Video minithumbnail; may be null */
+        minithumbnail?: td_minithumbnail;
+        /** Video thumbnail in JPEG format; as defined by the sender; may be null */
+        thumbnail?: td_thumbnail;
+        /** File containing the video */
+        video?: td_file;
+    }
+    
+    
+    /** Describes a voice note. The voice note must be encoded with the Opus codec, and stored inside an OGG container. Voice notes can have only a single audio channel */
+    export interface td_voiceNote {
+        '@type': 'voiceNote';
+        /** Duration of the voice note, in seconds; as defined by the sender */
+        duration?: td_int32;
+        /** A waveform representation of the voice note in 5-bit format */
+        waveform?: td_bytes;
+        /** MIME type of the file; as defined by the sender */
+        mime_type?: td_string;
+        /** File containing the voice note */
+        voice?: td_file;
+    }
+    
+    
+    /** Describes a user contact */
+    export interface td_contact {
+        '@type': 'contact';
+        /** Phone number of the user */
+        phone_number?: td_string;
+        /** First name of the user; 1-255 characters in length */
+        first_name?: td_string;
+        /** Last name of the user */
+        last_name?: td_string;
+        /** Additional data about the user in a form of vCard; 0-2048 bytes in length */
+        vcard?: td_string;
+        /** Identifier of the user, if known; otherwise 0 */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Describes a location on planet Earth */
+    export interface td_location {
+        '@type': 'location';
+        /** Latitude of the location in degrees; as defined by the sender */
+        latitude?: td_double;
+        /** Longitude of the location, in degrees; as defined by the sender */
+        longitude?: td_double;
+        /** The estimated horizontal accuracy of the location, in meters; as defined by the sender. 0 if unknown */
+        horizontal_accuracy?: td_double;
+    }
+    
+    
+    /** Describes a venue */
+    export interface td_venue {
+        '@type': 'venue';
+        /** Venue location; as defined by the sender */
+        location?: td_location;
+        /** Venue name; as defined by the sender */
+        title?: td_string;
+        /** Venue address; as defined by the sender */
+        address?: td_string;
+        /** Provider of the venue database; as defined by the sender. Currently only "foursquare" and "gplaces" (Google Places) need to be supported */
+        provider?: td_string;
+        /** Identifier of the venue in the provider database; as defined by the sender */
+        id?: td_string;
+        /** Type of the venue in the provider database; as defined by the sender */
+        type?: td_string;
+    }
+    
+    
+    /** Describes a game */
+    export interface td_game {
+        '@type': 'game';
+        /** Game ID */
+        id?: td_int64;
+        /** Game short name. To share a game use the URL https://t.me/{bot_username}?game={game_short_name} */
+        short_name?: td_string;
+        /** Game title */
+        title?: td_string;
+        /** Game text, usually containing scoreboards for a game */
+        text?: td_formattedText;
+        /** Describes a game */
+        description?: td_string;
+        /** Game photo */
+        photo?: td_photo;
+        /** Game animation; may be null */
+        animation?: td_animation;
+    }
+    
+    
+    /** Describes a poll */
+    export interface td_poll {
+        '@type': 'poll';
+        /** Unique poll identifier */
+        id?: td_int64;
+        /** Poll question, 1-300 characters */
+        question?: td_string;
+        /** List of poll answer options */
+        options?: td_vector<td_pollOption>;
+        /** Total number of voters, participating in the poll */
+        total_voter_count?: td_int32;
+        /** User identifiers of recent voters, if the poll is non-anonymous */
+        recent_voter_user_ids?: td_vector<td_int32>;
+        /** True, if the poll is anonymous */
+        is_anonymous?: td_Bool;
+        /** Type of the poll */
+        type?: td_PollType;
+        /** Amount of time the poll will be active after creation, in seconds */
+        open_period?: td_int32;
+        /** Point in time (Unix timestamp) when the poll will be automatically closed */
+        close_date?: td_int32;
+        /** True, if the poll is closed */
+        is_closed?: td_Bool;
+    }
+    
+    
+    /** Describes a user profile photo */
+    export interface td_profilePhoto {
+        '@type': 'profilePhoto';
+        /** Photo identifier; 0 for an empty photo. Can be used to find a photo in a list of user profile photos */
+        id?: td_int64;
+        /** A small (160x160) user profile photo. The file can be downloaded only before the photo is changed */
+        small?: td_file;
+        /** A big (640x640) user profile photo. The file can be downloaded only before the photo is changed */
+        big?: td_file;
+        /** True, if the photo has animated variant */
+        has_animation?: td_Bool;
+    }
+    
+    
+    /** Contains basic information about the photo of a chat */
+    export interface td_chatPhotoInfo {
+        '@type': 'chatPhotoInfo';
+        /** A small (160x160) chat photo variant in JPEG format. The file can be downloaded only before the photo is changed */
+        small?: td_file;
+        /** A big (640x640) chat photo variant in JPEG format. The file can be downloaded only before the photo is changed */
+        big?: td_file;
+        /** True, if the photo has animated variant */
+        has_animation?: td_Bool;
+    }
+    
+    
+    /** A regular user */
+    export interface td_userTypeRegular {
+        '@type': 'userTypeRegular';
+    }
+    
+    
+    /** A deleted user or deleted bot. No information on the user besides the user identifier is available. It is not possible to perform any active actions on this type of user */
+    export interface td_userTypeDeleted {
+        '@type': 'userTypeDeleted';
+    }
+    
+    
+    /** A bot (see https://core.telegram.org/bots) */
+    export interface td_userTypeBot {
+        '@type': 'userTypeBot';
+        /** True, if the bot can be invited to basic group and supergroup chats */
+        can_join_groups?: td_Bool;
+        /** True, if the bot can read all messages in basic group or supergroup chats and not just those addressed to the bot. In private and channel chats a bot can always read all messages */
+        can_read_all_group_messages?: td_Bool;
+        /** True, if the bot supports inline queries */
+        is_inline?: td_Bool;
+        /** Placeholder for inline queries (displayed on the application input field) */
+        inline_query_placeholder?: td_string;
+        /** True, if the location of the user should be sent with every inline query to this bot */
+        need_location?: td_Bool;
+    }
+    
+    
+    /** No information on the user besides the user identifier is available, yet this user has not been deleted. This object is extremely rare and must be handled like a deleted user. It is not possible to perform any actions on users of this type */
+    export interface td_userTypeUnknown {
+        '@type': 'userTypeUnknown';
+    }
+    
+    
+    /** Represents a command supported by a bot */
+    export interface td_botCommand {
+        '@type': 'botCommand';
+        /** Text of the bot command */
+        command?: td_string;
+        /** Represents a command supported by a bot */
+        description?: td_string;
+    }
+    
+    
+    /** Provides information about a bot and its supported commands */
+    export interface td_botInfo {
+        '@type': 'botInfo';
+        /** Provides information about a bot and its supported commands */
+        description?: td_string;
+        /** A list of commands supported by the bot */
+        commands?: td_vector<td_botCommand>;
+    }
+    
+    
+    /** Represents a location to which a chat is connected */
+    export interface td_chatLocation {
+        '@type': 'chatLocation';
+        /** The location */
+        location?: td_location;
+        /** Location address; 1-64 characters, as defined by the chat owner */
+        address?: td_string;
+    }
+    
+    
+    /** Animated variant of a chat photo in MPEG4 format */
+    export interface td_animatedChatPhoto {
+        '@type': 'animatedChatPhoto';
+        /** Animation width and height */
+        length?: td_int32;
+        /** Information about the animation file */
+        file?: td_file;
+        /** Timestamp of the frame, used as a static chat photo */
+        main_frame_timestamp?: td_double;
+    }
+    
+    
+    /** Describes a chat or user profile photo */
+    export interface td_chatPhoto {
+        '@type': 'chatPhoto';
+        /** Unique photo identifier */
+        id?: td_int64;
+        /** Point in time (Unix timestamp) when the photo has been added */
+        added_date?: td_int32;
+        /** Photo minithumbnail; may be null */
+        minithumbnail?: td_minithumbnail;
+        /** Available variants of the photo in JPEG format, in different size */
+        sizes?: td_vector<td_photoSize>;
+        /** Animated variant of the photo in MPEG4 format; may be null */
+        animation?: td_animatedChatPhoto;
+    }
+    
+    
+    /** Contains a list of chat or user profile photos */
+    export interface td_chatPhotos {
+        '@type': 'chatPhotos';
+        /** Total number of photos */
+        total_count?: td_int32;
+        /** List of photos */
+        photos?: td_vector<td_chatPhoto>;
+    }
+    
+    
+    /** A previously used profile photo of the current user */
+    export interface td_inputChatPhotoPrevious {
+        '@type': 'inputChatPhotoPrevious';
+        /** Identifier of the profile photo to reuse */
+        chat_photo_id?: td_int64;
+    }
+    
+    
+    /** A static photo in JPEG format */
+    export interface td_inputChatPhotoStatic {
+        '@type': 'inputChatPhotoStatic';
+        /** Photo to be set as profile photo. Only inputFileLocal and inputFileGenerated are allowed */
+        photo?: td_InputFile;
+    }
+    
+    
+    /** An animation in MPEG4 format; must be square, at most 10 seconds long, have width between 160 and 800 and be at most 2MB in size */
+    export interface td_inputChatPhotoAnimation {
+        '@type': 'inputChatPhotoAnimation';
+        /** Animation to be set as profile photo. Only inputFileLocal and inputFileGenerated are allowed */
+        animation?: td_InputFile;
+        /** Timestamp of the frame, which will be used as static chat photo */
+        main_frame_timestamp?: td_double;
+    }
+    
+    
+    /** Represents a user */
+    export interface td_user {
+        '@type': 'user';
+        /** User identifier */
+        id?: td_int32;
+        /** First name of the user */
+        first_name?: td_string;
+        /** Last name of the user */
+        last_name?: td_string;
+        /** Username of the user */
+        username?: td_string;
+        /** Phone number of the user */
+        phone_number?: td_string;
+        /** Current online status of the user */
+        status?: td_UserStatus;
+        /** Profile photo of the user; may be null */
+        profile_photo?: td_profilePhoto;
+        /** The user is a contact of the current user */
+        is_contact?: td_Bool;
+        /** The user is a contact of the current user and the current user is a contact of the user */
+        is_mutual_contact?: td_Bool;
+        /** True, if the user is verified */
+        is_verified?: td_Bool;
+        /** True, if the user is Telegram support account */
+        is_support?: td_Bool;
+        /** If non-empty, it contains a human-readable description of the reason why access to this user must be restricted */
+        restriction_reason?: td_string;
+        /** True, if many users reported this user as a scam */
+        is_scam?: td_Bool;
+        /** If false, the user is inaccessible, and the only information known about the user is inside this class. It can't be passed to any method except GetUser */
+        have_access?: td_Bool;
+        /** Type of the user */
+        type?: td_UserType;
+        /** IETF language tag of the user's language; only available to bots */
+        language_code?: td_string;
+    }
+    
+    
+    /** Contains full information about a user */
+    export interface td_userFullInfo {
+        '@type': 'userFullInfo';
+        /** User profile photo; may be null */
+        photo?: td_chatPhoto;
+        /** True, if the user is blocked by the current user */
+        is_blocked?: td_Bool;
+        /** True, if the user can be called */
+        can_be_called?: td_Bool;
+        /** True, if a video call can be created with the user */
+        supports_video_calls?: td_Bool;
+        /** True, if the user can't be called due to their privacy settings */
+        has_private_calls?: td_Bool;
+        /** True, if the current user needs to explicitly allow to share their phone number with the user when the method addContact is used */
+        need_phone_number_privacy_exception?: td_Bool;
+        /** A short user bio */
+        bio?: td_string;
+        /** For bots, the text that is included with the link when users share the bot */
+        share_text?: td_string;
+        /** Number of group chats where both the other user and the current user are a member; 0 for the current user */
+        group_in_common_count?: td_int32;
+        /** If the user is a bot, information about the bot; may be null */
+        bot_info?: td_botInfo;
+    }
+    
+    
+    /** Represents a list of users */
+    export interface td_users {
+        '@type': 'users';
+        /** Approximate total count of users found */
+        total_count?: td_int32;
+        /** A list of user identifiers */
+        user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Contains information about a chat administrator */
+    export interface td_chatAdministrator {
+        '@type': 'chatAdministrator';
+        /** User identifier of the administrator */
+        user_id?: td_int32;
+        /** Custom title of the administrator */
+        custom_title?: td_string;
+        /** True, if the user is the owner of the chat */
+        is_owner?: td_Bool;
+    }
+    
+    
+    /** Represents a list of chat administrators */
+    export interface td_chatAdministrators {
+        '@type': 'chatAdministrators';
+        /** A list of chat administrators */
+        administrators?: td_vector<td_chatAdministrator>;
+    }
+    
+    
+    /** Describes actions that a user is allowed to take in a chat */
+    export interface td_chatPermissions {
+        '@type': 'chatPermissions';
+        /** True, if the user can send text messages, contacts, locations, and venues */
+        can_send_messages?: td_Bool;
+        /** True, if the user can send audio files, documents, photos, videos, video notes, and voice notes. Implies can_send_messages permissions */
+        can_send_media_messages?: td_Bool;
+        /** True, if the user can send polls. Implies can_send_messages permissions */
+        can_send_polls?: td_Bool;
+        /** True, if the user can send animations, games, stickers, and dice and use inline bots. Implies can_send_messages permissions */
+        can_send_other_messages?: td_Bool;
+        /** True, if the user may add a web page preview to their messages. Implies can_send_messages permissions */
+        can_add_web_page_previews?: td_Bool;
+        /** True, if the user can change the chat title, photo, and other settings */
+        can_change_info?: td_Bool;
+        /** True, if the user can invite new users to the chat */
+        can_invite_users?: td_Bool;
+        /** True, if the user can pin messages */
+        can_pin_messages?: td_Bool;
+    }
+    
+    
+    /** The user is the owner of a chat and has all the administrator privileges */
+    export interface td_chatMemberStatusCreator {
+        '@type': 'chatMemberStatusCreator';
+        /** A custom title of the owner; 0-16 characters without emojis; applicable to supergroups only */
+        custom_title?: td_string;
+        /** True, if the creator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only */
+        is_anonymous?: td_Bool;
+        /** True, if the user is a member of the chat */
+        is_member?: td_Bool;
+    }
+    
+    
+    /** The user is a member of a chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, and ban unprivileged members. In supergroups and channels, there are more detailed options for administrator privileges */
+    export interface td_chatMemberStatusAdministrator {
+        '@type': 'chatMemberStatusAdministrator';
+        /** A custom title of the administrator; 0-16 characters without emojis; applicable to supergroups only */
+        custom_title?: td_string;
+        /** True, if the current user can edit the administrator privileges for the called user */
+        can_be_edited?: td_Bool;
+        /** True, if the administrator can change the chat title, photo, and other settings */
+        can_change_info?: td_Bool;
+        /** True, if the administrator can create channel posts; applicable to channels only */
+        can_post_messages?: td_Bool;
+        /** True, if the administrator can edit messages of other users and pin messages; applicable to channels only */
+        can_edit_messages?: td_Bool;
+        /** True, if the administrator can delete messages of other users */
+        can_delete_messages?: td_Bool;
+        /** True, if the administrator can invite new users to the chat */
+        can_invite_users?: td_Bool;
+        /** True, if the administrator can restrict, ban, or unban chat members */
+        can_restrict_members?: td_Bool;
+        /** True, if the administrator can pin messages; applicable to groups only */
+        can_pin_messages?: td_Bool;
+        /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them */
+        can_promote_members?: td_Bool;
+        /** True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only */
+        is_anonymous?: td_Bool;
+    }
+    
+    
+    /** The user is a member of a chat, without any additional privileges or restrictions */
+    export interface td_chatMemberStatusMember {
+        '@type': 'chatMemberStatusMember';
+    }
+    
+    
+    /** The user is under certain restrictions in the chat. Not supported in basic groups and channels */
+    export interface td_chatMemberStatusRestricted {
+        '@type': 'chatMemberStatusRestricted';
+        /** True, if the user is a member of the chat */
+        is_member?: td_Bool;
+        /** Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever */
+        restricted_until_date?: td_int32;
+        /** User permissions in the chat */
+        permissions?: td_chatPermissions;
+    }
+    
+    
+    /** The user is not a chat member */
+    export interface td_chatMemberStatusLeft {
+        '@type': 'chatMemberStatusLeft';
+    }
+    
+    
+    /** The user was banned (and hence is not a member of the chat). Implies the user can't return to the chat or view messages */
+    export interface td_chatMemberStatusBanned {
+        '@type': 'chatMemberStatusBanned';
+        /** Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever */
+        banned_until_date?: td_int32;
+    }
+    
+    
+    /** A user with information about joining/leaving a chat */
+    export interface td_chatMember {
+        '@type': 'chatMember';
+        /** User identifier of the chat member */
+        user_id?: td_int32;
+        /** Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown */
+        inviter_user_id?: td_int32;
+        /** Point in time (Unix timestamp) when the user joined the chat */
+        joined_chat_date?: td_int32;
+        /** Status of the member in the chat */
+        status?: td_ChatMemberStatus;
+        /** If the user is a bot, information about the bot; may be null. Can be null even for a bot if the bot is not the chat member */
+        bot_info?: td_botInfo;
+    }
+    
+    
+    /** Contains a list of chat members */
+    export interface td_chatMembers {
+        '@type': 'chatMembers';
+        /** Approximate total count of chat members found */
+        total_count?: td_int32;
+        /** A list of chat members */
+        members?: td_vector<td_chatMember>;
+    }
+    
+    
+    /** Returns contacts of the user */
+    export interface td_chatMembersFilterContacts {
+        '@type': 'chatMembersFilterContacts';
+    }
+    
+    
+    /** Returns the owner and administrators */
+    export interface td_chatMembersFilterAdministrators {
+        '@type': 'chatMembersFilterAdministrators';
+    }
+    
+    
+    /** Returns all chat members, including restricted chat members */
+    export interface td_chatMembersFilterMembers {
+        '@type': 'chatMembersFilterMembers';
+    }
+    
+    
+    /** Returns users which can be mentioned in the chat */
+    export interface td_chatMembersFilterMention {
+        '@type': 'chatMembersFilterMention';
+        /** If non-zero, the identifier of the current message thread */
+        message_thread_id?: td_int53;
+    }
+    
+    
+    /** Returns users under certain restrictions in the chat; can be used only by administrators in a supergroup */
+    export interface td_chatMembersFilterRestricted {
+        '@type': 'chatMembersFilterRestricted';
+    }
+    
+    
+    /** Returns users banned from the chat; can be used only by administrators in a supergroup or in a channel */
+    export interface td_chatMembersFilterBanned {
+        '@type': 'chatMembersFilterBanned';
+    }
+    
+    
+    /** Returns bot members of the chat */
+    export interface td_chatMembersFilterBots {
+        '@type': 'chatMembersFilterBots';
+    }
+    
+    
+    /** Returns recently active users in reverse chronological order */
+    export interface td_supergroupMembersFilterRecent {
+        '@type': 'supergroupMembersFilterRecent';
+    }
+    
+    
+    /** Returns contacts of the user, which are members of the supergroup or channel */
+    export interface td_supergroupMembersFilterContacts {
+        '@type': 'supergroupMembersFilterContacts';
+        /** Query to search for */
+        query?: td_string;
+    }
+    
+    
+    /** Returns the owner and administrators */
+    export interface td_supergroupMembersFilterAdministrators {
+        '@type': 'supergroupMembersFilterAdministrators';
+    }
+    
+    
+    /** Used to search for supergroup or channel members via a (string) query */
+    export interface td_supergroupMembersFilterSearch {
+        '@type': 'supergroupMembersFilterSearch';
+        /** Query to search for */
+        query?: td_string;
+    }
+    
+    
+    /** Returns restricted supergroup members; can be used only by administrators */
+    export interface td_supergroupMembersFilterRestricted {
+        '@type': 'supergroupMembersFilterRestricted';
+        /** Query to search for */
+        query?: td_string;
+    }
+    
+    
+    /** Returns users banned from the supergroup or channel; can be used only by administrators */
+    export interface td_supergroupMembersFilterBanned {
+        '@type': 'supergroupMembersFilterBanned';
+        /** Query to search for */
+        query?: td_string;
+    }
+    
+    
+    /** Returns users which can be mentioned in the supergroup */
+    export interface td_supergroupMembersFilterMention {
+        '@type': 'supergroupMembersFilterMention';
+        /** Query to search for */
+        query?: td_string;
+        /** If non-zero, the identifier of the current message thread */
+        message_thread_id?: td_int53;
+    }
+    
+    
+    /** Returns bot members of the supergroup or channel */
+    export interface td_supergroupMembersFilterBots {
+        '@type': 'supergroupMembersFilterBots';
+    }
+    
+    
+    /** Represents a basic group of 0-200 users (must be upgraded to a supergroup to accommodate more than 200 users) */
+    export interface td_basicGroup {
+        '@type': 'basicGroup';
+        /** Group identifier */
+        id?: td_int32;
+        /** Number of members in the group */
+        member_count?: td_int32;
+        /** Status of the current user in the group */
+        status?: td_ChatMemberStatus;
+        /** True, if the group is active */
+        is_active?: td_Bool;
+        /** Identifier of the supergroup to which this group was upgraded; 0 if none */
+        upgraded_to_supergroup_id?: td_int32;
+    }
+    
+    
+    /** Contains full information about a basic group */
+    export interface td_basicGroupFullInfo {
+        '@type': 'basicGroupFullInfo';
+        /** Chat photo; may be null */
+        photo?: td_chatPhoto;
+        /** Contains full information about a basic group */
+        description?: td_string;
+        /** User identifier of the creator of the group; 0 if unknown */
+        creator_user_id?: td_int32;
+        /** Group members */
+        members?: td_vector<td_chatMember>;
+        /** Invite link for this group; available only after it has been generated at least once and only for the group creator */
+        invite_link?: td_string;
+    }
+    
+    
+    /** Represents a supergroup or channel with zero or more members (subscribers in the case of channels). From the point of view of the system, a channel is a special kind of a supergroup: only administrators can post and see the list of members, and posts from all administrators use the name and photo of the channel instead of individual names and profile photos. Unlike supergroups, channels can have an unlimited number of subscribers */
+    export interface td_supergroup {
+        '@type': 'supergroup';
+        /** Supergroup or channel identifier */
+        id?: td_int32;
+        /** Username of the supergroup or channel; empty for private supergroups or channels */
+        username?: td_string;
+        /** Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member */
+        date?: td_int32;
+        /** Status of the current user in the supergroup or channel; custom title will be always empty */
+        status?: td_ChatMemberStatus;
+        /** Number of members in the supergroup or channel; 0 if unknown. Currently it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules */
+        member_count?: td_int32;
+        /** True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel */
+        has_linked_chat?: td_Bool;
+        /** True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup */
+        has_location?: td_Bool;
+        /** True, if messages sent to the channel should contain information about the sender. This field is only applicable to channels */
+        sign_messages?: td_Bool;
+        /** True, if the slow mode is enabled in the supergroup */
+        is_slow_mode_enabled?: td_Bool;
+        /** True, if the supergroup is a channel */
+        is_channel?: td_Bool;
+        /** True, if the supergroup or channel is verified */
+        is_verified?: td_Bool;
+        /** If non-empty, contains a human-readable description of the reason why access to this supergroup or channel must be restricted */
+        restriction_reason?: td_string;
+        /** True, if many users reported this supergroup as a scam */
+        is_scam?: td_Bool;
+    }
+    
+    
+    /** Contains full information about a supergroup or channel */
+    export interface td_supergroupFullInfo {
+        '@type': 'supergroupFullInfo';
+        /** Chat photo; may be null */
+        photo?: td_chatPhoto;
+        /** Contains full information about a supergroup or channel */
+        description?: td_string;
+        /** Number of members in the supergroup or channel; 0 if unknown */
+        member_count?: td_int32;
+        /** Number of privileged users in the supergroup or channel; 0 if unknown */
+        administrator_count?: td_int32;
+        /** Number of restricted users in the supergroup; 0 if unknown */
+        restricted_count?: td_int32;
+        /** Number of users banned from chat; 0 if unknown */
+        banned_count?: td_int32;
+        /** Chat identifier of a discussion group for the channel, or a channel, for which the supergroup is the designated discussion group; 0 if none or unknown */
+        linked_chat_id?: td_int53;
+        /** Delay between consecutive sent messages for non-administrator supergroup members, in seconds */
+        slow_mode_delay?: td_int32;
+        /** Time left before next message can be sent in the supergroup, in seconds. An updateSupergroupFullInfo update is not triggered when value of this field changes, but both new and old values are non-zero */
+        slow_mode_delay_expires_in?: td_double;
+        /** True, if members of the chat can be retrieved */
+        can_get_members?: td_Bool;
+        /** True, if the chat username can be changed */
+        can_set_username?: td_Bool;
+        /** True, if the supergroup sticker set can be changed */
+        can_set_sticker_set?: td_Bool;
+        /** True, if the supergroup location can be changed */
+        can_set_location?: td_Bool;
+        /** True, if the supergroup or channel statistics are available */
+        can_get_statistics?: td_Bool;
+        /** True, if new chat members will have access to old messages. In public or discussion groups and both public and private channels, old messages are always available, so this option affects only private supergroups without a linked chat. The value of this field is only available for chat administrators */
+        is_all_history_available?: td_Bool;
+        /** Identifier of the supergroup sticker set; 0 if none */
+        sticker_set_id?: td_int64;
+        /** Location to which the supergroup is connected; may be null */
+        location?: td_chatLocation;
+        /** Invite link for this chat */
+        invite_link?: td_string;
+        /** Identifier of the basic group from which supergroup was upgraded; 0 if none */
+        upgraded_from_basic_group_id?: td_int32;
+        /** Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none */
+        upgraded_from_max_message_id?: td_int53;
+    }
+    
+    
+    /** The secret chat is not yet created; waiting for the other user to get online */
+    export interface td_secretChatStatePending {
+        '@type': 'secretChatStatePending';
+    }
+    
+    
+    /** The secret chat is ready to use */
+    export interface td_secretChatStateReady {
+        '@type': 'secretChatStateReady';
+    }
+    
+    
+    /** The secret chat is closed */
+    export interface td_secretChatStateClosed {
+        '@type': 'secretChatStateClosed';
+    }
+    
+    
+    /** Represents a secret chat */
+    export interface td_secretChat {
+        '@type': 'secretChat';
+        /** Secret chat identifier */
+        id?: td_int32;
+        /** Identifier of the chat partner */
+        user_id?: td_int32;
+        /** State of the secret chat */
+        state?: td_SecretChatState;
+        /** True, if the chat was created by the current user; otherwise false */
+        is_outbound?: td_Bool;
+        /** Current message Time To Live setting (self-destruct timer) for the chat, in seconds */
+        ttl?: td_int32;
+        /** Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9. -The pixels must be used to make a 12x12 square image filled from left to right, top to bottom. Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers */
+        key_hash?: td_bytes;
+        /** Secret chat layer; determines features supported by the chat partner's application. Video notes are supported if the layer >= 66; nested text entities and underline and strikethrough entities are supported if the layer >= 101 */
+        layer?: td_int32;
+    }
+    
+    
+    /** The message was sent by a known user */
+    export interface td_messageSenderUser {
+        '@type': 'messageSenderUser';
+        /** Identifier of the user that sent the message */
+        user_id?: td_int32;
+    }
+    
+    
+    /** The message was sent on behalf of a chat */
+    export interface td_messageSenderChat {
+        '@type': 'messageSenderChat';
+        /** Identifier of the chat that sent the message */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Represents a list of message senders */
+    export interface td_messageSenders {
+        '@type': 'messageSenders';
+        /** Approximate total count of messages senders found */
+        total_count?: td_int32;
+        /** List of message senders */
+        senders?: td_vector<td_MessageSender>;
+    }
+    
+    
+    /** The message was originally sent by a known user */
+    export interface td_messageForwardOriginUser {
+        '@type': 'messageForwardOriginUser';
+        /** Identifier of the user that originally sent the message */
+        sender_user_id?: td_int32;
+    }
+    
+    
+    /** The message was originally sent by an anonymous chat administrator on behalf of the chat */
+    export interface td_messageForwardOriginChat {
+        '@type': 'messageForwardOriginChat';
+        /** Identifier of the chat that originally sent the message */
+        sender_chat_id?: td_int53;
+        /** Original message author signature */
+        author_signature?: td_string;
+    }
+    
+    
+    /** The message was originally sent by a user, which is hidden by their privacy settings */
+    export interface td_messageForwardOriginHiddenUser {
+        '@type': 'messageForwardOriginHiddenUser';
+        /** Name of the sender */
+        sender_name?: td_string;
+    }
+    
+    
+    /** The message was originally a post in a channel */
+    export interface td_messageForwardOriginChannel {
+        '@type': 'messageForwardOriginChannel';
+        /** Identifier of the chat from which the message was originally forwarded */
+        chat_id?: td_int53;
+        /** Message identifier of the original message */
+        message_id?: td_int53;
+        /** Original post author signature */
+        author_signature?: td_string;
+    }
+    
+    
+    /** Contains information about a forwarded message */
+    export interface td_messageForwardInfo {
+        '@type': 'messageForwardInfo';
+        /** Origin of a forwarded message */
+        origin?: td_MessageForwardOrigin;
+        /** Point in time (Unix timestamp) when the message was originally sent */
+        date?: td_int32;
+        /** The type of a public service announcement for the forwarded message */
+        public_service_announcement_type?: td_string;
+        /** For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the chat from which the message was forwarded last time; 0 if unknown */
+        from_chat_id?: td_int53;
+        /** For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the original message from which the new message was forwarded last time; 0 if unknown */
+        from_message_id?: td_int53;
+    }
+    
+    
+    /** Contains information about replies to a message */
+    export interface td_messageReplyInfo {
+        '@type': 'messageReplyInfo';
+        /** Number of times the message was directly or indirectly replied */
+        reply_count?: td_int32;
+        /** Recent repliers to the message; available in channels with a discussion supergroup */
+        recent_repliers?: td_vector<td_MessageSender>;
+        /** Identifier of the last read incoming reply to the message */
+        last_read_inbox_message_id?: td_int53;
+        /** Identifier of the last read outgoing reply to the message */
+        last_read_outbox_message_id?: td_int53;
+        /** Identifier of the last reply to the message */
+        last_message_id?: td_int53;
+    }
+    
+    
+    /** Contains information about interactions with a message */
+    export interface td_messageInteractionInfo {
+        '@type': 'messageInteractionInfo';
+        /** Number of times the message was viewed */
+        view_count?: td_int32;
+        /** Number of times the message was forwarded */
+        forward_count?: td_int32;
+        /** Contains information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself */
+        reply_info?: td_messageReplyInfo;
+    }
+    
+    
+    /** The message is being sent now, but has not yet been delivered to the server */
+    export interface td_messageSendingStatePending {
+        '@type': 'messageSendingStatePending';
+    }
+    
+    
+    /** The message failed to be sent */
+    export interface td_messageSendingStateFailed {
+        '@type': 'messageSendingStateFailed';
+        /** An error code; 0 if unknown */
+        error_code?: td_int32;
+        /** Error message */
+        error_message?: td_string;
+        /** True, if the message can be re-sent */
+        can_retry?: td_Bool;
+        /** Time left before the message can be re-sent, in seconds. No update is sent when this field changes */
+        retry_after?: td_double;
+    }
+    
+    
+    /** Describes a message */
+    export interface td_message {
+        '@type': 'message';
+        /** Message identifier; unique for the chat to which the message belongs */
+        id?: td_int53;
+        /** The sender of the message */
+        sender?: td_MessageSender;
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Information about the sending state of the message; may be null */
+        sending_state?: td_MessageSendingState;
+        /** Information about the scheduling state of the message; may be null */
+        scheduling_state?: td_MessageSchedulingState;
+        /** True, if the message is outgoing */
+        is_outgoing?: td_Bool;
+        /** True, if the message is pinned */
+        is_pinned?: td_Bool;
+        /** True, if the message can be edited. For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application */
+        can_be_edited?: td_Bool;
+        /** True, if the message can be forwarded */
+        can_be_forwarded?: td_Bool;
+        /** True, if the message can be deleted only for the current user while other users will continue to see it */
+        can_be_deleted_only_for_self?: td_Bool;
+        /** True, if the message can be deleted for all users */
+        can_be_deleted_for_all_users?: td_Bool;
+        /** True, if the message statistics are available */
+        can_get_statistics?: td_Bool;
+        /** True, if the message thread info is available */
+        can_get_message_thread?: td_Bool;
+        /** True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts */
+        is_channel_post?: td_Bool;
+        /** True, if the message contains an unread mention for the current user */
+        contains_unread_mention?: td_Bool;
+        /** Point in time (Unix timestamp) when the message was sent */
+        date?: td_int32;
+        /** Point in time (Unix timestamp) when the message was last edited */
+        edit_date?: td_int32;
+        /** Information about the initial message sender; may be null */
+        forward_info?: td_messageForwardInfo;
+        /** Information about interactions with the message; may be null */
+        interaction_info?: td_messageInteractionInfo;
+        /** If non-zero, the identifier of the chat to which the replied message belongs; Currently, only messages in the Replies chat can have different reply_in_chat_id and chat_id */
+        reply_in_chat_id?: td_int53;
+        /** If non-zero, the identifier of the message this message is replying to; can be the identifier of a deleted message */
+        reply_to_message_id?: td_int53;
+        /** If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs */
+        message_thread_id?: td_int53;
+        /** For self-destructing messages, the message's TTL (Time To Live), in seconds; 0 if none. TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires */
+        ttl?: td_int32;
+        /** Time left before the message expires, in seconds */
+        ttl_expires_in?: td_double;
+        /** If non-zero, the user identifier of the bot through which this message was sent */
+        via_bot_user_id?: td_int32;
+        /** For channel posts and anonymous group messages, optional author signature */
+        author_signature?: td_string;
+        /** Unique identifier of an album this message belongs to. Only photos and videos can be grouped together in albums */
+        media_album_id?: td_int64;
+        /** If non-empty, contains a human-readable description of the reason why access to this message must be restricted */
+        restriction_reason?: td_string;
+        /** Content of the message */
+        content?: td_MessageContent;
+        /** Reply markup for the message; may be null */
+        reply_markup?: td_ReplyMarkup;
+    }
+    
+    
+    /** Contains a list of messages */
+    export interface td_messages {
+        '@type': 'messages';
+        /** Approximate total count of messages found */
+        total_count?: td_int32;
+        /** List of messages; messages may be null */
+        messages?: td_vector<td_message>;
+    }
+    
+    
+    /** Contains a list of messages found by a search */
+    export interface td_foundMessages {
+        '@type': 'foundMessages';
+        /** Approximate total count of messages found; -1 if unknown */
+        total_count?: td_int32;
+        /** List of messages */
+        messages?: td_vector<td_message>;
+        /** The offset for the next request. If empty, there are no more results */
+        next_offset?: td_string;
+    }
+    
+    
+    /** Notification settings applied to all private and secret chats when the corresponding chat setting has a default value */
+    export interface td_notificationSettingsScopePrivateChats {
+        '@type': 'notificationSettingsScopePrivateChats';
+    }
+    
+    
+    /** Notification settings applied to all basic groups and supergroups when the corresponding chat setting has a default value */
+    export interface td_notificationSettingsScopeGroupChats {
+        '@type': 'notificationSettingsScopeGroupChats';
+    }
+    
+    
+    /** Notification settings applied to all channels when the corresponding chat setting has a default value */
+    export interface td_notificationSettingsScopeChannelChats {
+        '@type': 'notificationSettingsScopeChannelChats';
+    }
+    
+    
+    /** Contains information about notification settings for a chat */
+    export interface td_chatNotificationSettings {
+        '@type': 'chatNotificationSettings';
+        /** If true, mute_for is ignored and the value for the relevant type of chat is used instead */
+        use_default_mute_for?: td_Bool;
+        /** Time left before notifications will be unmuted, in seconds */
+        mute_for?: td_int32;
+        /** If true, sound is ignored and the value for the relevant type of chat is used instead */
+        use_default_sound?: td_Bool;
+        /** The name of an audio file to be used for notification sounds; only applies to iOS applications */
+        sound?: td_string;
+        /** If true, show_preview is ignored and the value for the relevant type of chat is used instead */
+        use_default_show_preview?: td_Bool;
+        /** True, if message content should be displayed in notifications */
+        show_preview?: td_Bool;
+        /** If true, disable_pinned_message_notifications is ignored and the value for the relevant type of chat is used instead */
+        use_default_disable_pinned_message_notifications?: td_Bool;
+        /** If true, notifications for incoming pinned messages will be created as for an ordinary unread message */
+        disable_pinned_message_notifications?: td_Bool;
+        /** If true, disable_mention_notifications is ignored and the value for the relevant type of chat is used instead */
+        use_default_disable_mention_notifications?: td_Bool;
+        /** If true, notifications for messages with mentions will be created as for an ordinary unread message */
+        disable_mention_notifications?: td_Bool;
+    }
+    
+    
+    /** Contains information about notification settings for several chats */
+    export interface td_scopeNotificationSettings {
+        '@type': 'scopeNotificationSettings';
+        /** Time left before notifications will be unmuted, in seconds */
+        mute_for?: td_int32;
+        /** The name of an audio file to be used for notification sounds; only applies to iOS applications */
+        sound?: td_string;
+        /** True, if message content should be displayed in notifications */
+        show_preview?: td_Bool;
+        /** True, if notifications for incoming pinned messages will be created as for an ordinary unread message */
+        disable_pinned_message_notifications?: td_Bool;
+        /** True, if notifications for messages with mentions will be created as for an ordinary unread message */
+        disable_mention_notifications?: td_Bool;
+    }
+    
+    
+    /** Contains information about a message draft */
+    export interface td_draftMessage {
+        '@type': 'draftMessage';
+        /** Identifier of the message to reply to; 0 if none */
+        reply_to_message_id?: td_int53;
+        /** Point in time (Unix timestamp) when the draft was created */
+        date?: td_int32;
+        /** Content of the message draft; this should always be of type inputMessageText */
+        input_message_text?: td_InputMessageContent;
+    }
+    
+    
+    /** An ordinary chat with a user */
+    export interface td_chatTypePrivate {
+        '@type': 'chatTypePrivate';
+        /** User identifier */
+        user_id?: td_int32;
+    }
+    
+    
+    /** A basic group (i.e., a chat with 0-200 other users) */
+    export interface td_chatTypeBasicGroup {
+        '@type': 'chatTypeBasicGroup';
+        /** Basic group identifier */
+        basic_group_id?: td_int32;
+    }
+    
+    
+    /** A supergroup (i.e. a chat with up to GetOption("supergroup_max_size") other users), or channel (with unlimited members) */
+    export interface td_chatTypeSupergroup {
+        '@type': 'chatTypeSupergroup';
+        /** Supergroup or channel identifier */
+        supergroup_id?: td_int32;
+        /** True, if the supergroup is a channel */
+        is_channel?: td_Bool;
+    }
+    
+    
+    /** A secret chat with a user */
+    export interface td_chatTypeSecret {
+        '@type': 'chatTypeSecret';
+        /** Secret chat identifier */
+        secret_chat_id?: td_int32;
+        /** User identifier of the secret chat peer */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Represents a filter of user chats */
+    export interface td_chatFilter {
+        '@type': 'chatFilter';
+        /** The title of the filter; 1-12 characters without line feeds */
+        title?: td_string;
+        /** The icon name for short filter representation. If non-empty, must be one of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work". -If empty, use getChatFilterDefaultIconName to get default icon name for the filter */
+        icon_name?: td_string;
+        /** The chat identifiers of pinned chats in the filtered chat list */
+        pinned_chat_ids?: td_vector<td_int53>;
+        /** The chat identifiers of always included chats in the filtered chat list */
+        included_chat_ids?: td_vector<td_int53>;
+        /** The chat identifiers of always excluded chats in the filtered chat list */
+        excluded_chat_ids?: td_vector<td_int53>;
+        /** True, if muted chats need to be excluded */
+        exclude_muted?: td_Bool;
+        /** True, if read chats need to be excluded */
+        exclude_read?: td_Bool;
+        /** True, if archived chats need to be excluded */
+        exclude_archived?: td_Bool;
+        /** True, if contacts need to be included */
+        include_contacts?: td_Bool;
+        /** True, if non-contact users need to be included */
+        include_non_contacts?: td_Bool;
+        /** True, if bots need to be included */
+        include_bots?: td_Bool;
+        /** True, if basic groups and supergroups need to be included */
+        include_groups?: td_Bool;
+        /** True, if channels need to be included */
+        include_channels?: td_Bool;
+    }
+    
+    
+    /** Contains basic information about a chat filter */
+    export interface td_chatFilterInfo {
+        '@type': 'chatFilterInfo';
+        /** Unique chat filter identifier */
+        id?: td_int32;
+        /** The title of the filter; 1-12 characters without line feeds */
+        title?: td_string;
+        /** The icon name for short filter representation. One of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work" */
+        icon_name?: td_string;
+    }
+    
+    
+    /** Describes a recommended chat filter */
+    export interface td_recommendedChatFilter {
+        '@type': 'recommendedChatFilter';
+        /** The chat filter */
+        filter?: td_chatFilter;
+        /** Describes a recommended chat filter */
+        description?: td_string;
+    }
+    
+    
+    /** Contains a list of recommended chat filters */
+    export interface td_recommendedChatFilters {
+        '@type': 'recommendedChatFilters';
+        /** List of recommended chat filters */
+        chat_filters?: td_vector<td_recommendedChatFilter>;
+    }
+    
+    
+    /** A main list of chats */
+    export interface td_chatListMain {
+        '@type': 'chatListMain';
+    }
+    
+    
+    /** A list of chats usually located at the top of the main chat list. Unmuted chats are automatically moved from the Archive to the Main chat list when a new message arrives */
+    export interface td_chatListArchive {
+        '@type': 'chatListArchive';
+    }
+    
+    
+    /** A list of chats belonging to a chat filter */
+    export interface td_chatListFilter {
+        '@type': 'chatListFilter';
+        /** Chat filter identifier */
+        chat_filter_id?: td_int32;
+    }
+    
+    
+    /** Contains a list of chat lists */
+    export interface td_chatLists {
+        '@type': 'chatLists';
+        /** List of chat lists */
+        chat_lists?: td_vector<td_ChatList>;
+    }
+    
+    
+    /** The chat is sponsored by the user's MTProxy server */
+    export interface td_chatSourceMtprotoProxy {
+        '@type': 'chatSourceMtprotoProxy';
+    }
+    
+    
+    /** The chat contains a public service announcement */
+    export interface td_chatSourcePublicServiceAnnouncement {
+        '@type': 'chatSourcePublicServiceAnnouncement';
+        /** The type of the announcement */
+        type?: td_string;
+        /** The text of the announcement */
+        text?: td_string;
+    }
+    
+    
+    /** Describes a position of a chat in a chat list */
+    export interface td_chatPosition {
+        '@type': 'chatPosition';
+        /** The chat list */
+        list?: td_ChatList;
+        /** A parameter used to determine order of the chat in the chat list. Chats must be sorted by the pair (order, chat.id) in descending order */
+        order?: td_int64;
+        /** True, if the chat is pinned in the chat list */
+        is_pinned?: td_Bool;
+        /** Source of the chat in the chat list; may be null */
+        source?: td_ChatSource;
+    }
+    
+    
+    /** A chat. (Can be a private chat, basic group, supergroup, or secret chat) */
+    export interface td_chat {
+        '@type': 'chat';
+        /** Chat unique identifier */
+        id?: td_int53;
+        /** Type of the chat */
+        type?: td_ChatType;
+        /** Chat title */
+        title?: td_string;
+        /** Chat photo; may be null */
+        photo?: td_chatPhotoInfo;
+        /** Actions that non-administrator chat members are allowed to take in the chat */
+        permissions?: td_chatPermissions;
+        /** Last message in the chat; may be null */
+        last_message?: td_message;
+        /** Positions of the chat in chat lists */
+        positions?: td_vector<td_chatPosition>;
+        /** True, if the chat is marked as unread */
+        is_marked_as_unread?: td_Bool;
+        /** True, if the chat is blocked by the current user and private messages from the chat can't be received */
+        is_blocked?: td_Bool;
+        /** True, if the chat has scheduled messages */
+        has_scheduled_messages?: td_Bool;
+        /** True, if the chat messages can be deleted only for the current user while other users will continue to see the messages */
+        can_be_deleted_only_for_self?: td_Bool;
+        /** True, if the chat messages can be deleted for all users */
+        can_be_deleted_for_all_users?: td_Bool;
+        /** True, if the chat can be reported to Telegram moderators through reportChat */
+        can_be_reported?: td_Bool;
+        /** Default value of the disable_notification parameter, used when a message is sent to the chat */
+        default_disable_notification?: td_Bool;
+        /** Number of unread messages in the chat */
+        unread_count?: td_int32;
+        /** Identifier of the last read incoming message */
+        last_read_inbox_message_id?: td_int53;
+        /** Identifier of the last read outgoing message */
+        last_read_outbox_message_id?: td_int53;
+        /** Number of unread messages with a mention/reply in the chat */
+        unread_mention_count?: td_int32;
+        /** Notification settings for this chat */
+        notification_settings?: td_chatNotificationSettings;
+        /** Describes actions which should be possible to do through a chat action bar; may be null */
+        action_bar?: td_ChatActionBar;
+        /** Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat */
+        reply_markup_message_id?: td_int53;
+        /** A draft of a message in the chat; may be null */
+        draft_message?: td_draftMessage;
+        /** Contains application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used */
+        client_data?: td_string;
+    }
+    
+    
+    /** Represents a list of chats */
+    export interface td_chats {
+        '@type': 'chats';
+        /** Approximate total count of chats found */
+        total_count?: td_int32;
+        /** List of chat identifiers */
+        chat_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** Describes a chat located nearby */
+    export interface td_chatNearby {
+        '@type': 'chatNearby';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Distance to the chat location, in meters */
+        distance?: td_int32;
+    }
+    
+    
+    /** Represents a list of chats located nearby */
+    export interface td_chatsNearby {
+        '@type': 'chatsNearby';
+        /** List of users nearby */
+        users_nearby?: td_vector<td_chatNearby>;
+        /** List of location-based supergroups nearby */
+        supergroups_nearby?: td_vector<td_chatNearby>;
+    }
+    
+    
+    /** Contains a chat invite link */
+    export interface td_chatInviteLink {
+        '@type': 'chatInviteLink';
+        /** Chat invite link */
+        invite_link?: td_string;
+    }
+    
+    
+    /** Contains information about a chat invite link */
+    export interface td_chatInviteLinkInfo {
+        '@type': 'chatInviteLinkInfo';
+        /** Chat identifier of the invite link; 0 if the user has no access to the chat before joining */
+        chat_id?: td_int53;
+        /** If non-zero, the amount of time for which read access to the chat will remain available, in seconds */
+        accessible_for?: td_int32;
+        /** Contains information about the type of the chat */
+        type?: td_ChatType;
+        /** Title of the chat */
+        title?: td_string;
+        /** Chat photo; may be null */
+        photo?: td_chatPhotoInfo;
+        /** Number of members in the chat */
+        member_count?: td_int32;
+        /** User identifiers of some chat members that may be known to the current user */
+        member_user_ids?: td_vector<td_int32>;
+        /** True, if the chat is a public supergroup or channel, i.e. it has a username or it is a location-based supergroup */
+        is_public?: td_Bool;
+    }
+    
+    
+    /** The chat is public, because it has username */
+    export interface td_publicChatTypeHasUsername {
+        '@type': 'publicChatTypeHasUsername';
+    }
+    
+    
+    /** The chat is public, because it is a location-based supergroup */
+    export interface td_publicChatTypeIsLocationBased {
+        '@type': 'publicChatTypeIsLocationBased';
+    }
+    
+    
+    /** The chat can be reported as spam using the method reportChat with the reason chatReportReasonSpam */
+    export interface td_chatActionBarReportSpam {
+        '@type': 'chatActionBarReportSpam';
+        /** If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings */
+        can_unarchive?: td_Bool;
+    }
+    
+    
+    /** The chat is a location-based supergroup, which can be reported as having unrelated location using the method reportChat with the reason chatReportReasonUnrelatedLocation */
+    export interface td_chatActionBarReportUnrelatedLocation {
+        '@type': 'chatActionBarReportUnrelatedLocation';
+    }
+    
+    
+    /** The chat is a private or secret chat, which can be reported using the method reportChat, or the other user can be blocked using the method blockUser, or the other user can be added to the contact list using the method addContact */
+    export interface td_chatActionBarReportAddBlock {
+        '@type': 'chatActionBarReportAddBlock';
+        /** If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings */
+        can_unarchive?: td_Bool;
+        /** If non-negative, the current user was found by the peer through searchChatsNearby and this is the distance between the users */
+        distance?: td_int32;
+    }
+    
+    
+    /** The chat is a private or secret chat and the other user can be added to the contact list using the method addContact */
+    export interface td_chatActionBarAddContact {
+        '@type': 'chatActionBarAddContact';
+    }
+    
+    
+    /** The chat is a private or secret chat with a mutual contact and the user's phone number can be shared with the other user using the method sharePhoneNumber */
+    export interface td_chatActionBarSharePhoneNumber {
+        '@type': 'chatActionBarSharePhoneNumber';
+    }
+    
+    
+    /** A simple button, with text that should be sent when the button is pressed */
+    export interface td_keyboardButtonTypeText {
+        '@type': 'keyboardButtonTypeText';
+    }
+    
+    
+    /** A button that sends the user's phone number when pressed; available only in private chats */
+    export interface td_keyboardButtonTypeRequestPhoneNumber {
+        '@type': 'keyboardButtonTypeRequestPhoneNumber';
+    }
+    
+    
+    /** A button that sends the user's location when pressed; available only in private chats */
+    export interface td_keyboardButtonTypeRequestLocation {
+        '@type': 'keyboardButtonTypeRequestLocation';
+    }
+    
+    
+    /** A button that allows the user to create and send a poll when pressed; available only in private chats */
+    export interface td_keyboardButtonTypeRequestPoll {
+        '@type': 'keyboardButtonTypeRequestPoll';
+        /** If true, only regular polls must be allowed to create */
+        force_regular?: td_Bool;
+        /** If true, only polls in quiz mode must be allowed to create */
+        force_quiz?: td_Bool;
+    }
+    
+    
+    /** Represents a single button in a bot keyboard */
+    export interface td_keyboardButton {
+        '@type': 'keyboardButton';
+        /** Text of the button */
+        text?: td_string;
+        /** Type of the button */
+        type?: td_KeyboardButtonType;
+    }
+    
+    
+    /** A button that opens a specified URL */
+    export interface td_inlineKeyboardButtonTypeUrl {
+        '@type': 'inlineKeyboardButtonTypeUrl';
+        /** HTTP or tg:// URL to open */
+        url?: td_string;
+    }
+    
+    
+    /** A button that opens a specified URL and automatically logs in in current user if they allowed to do that */
+    export interface td_inlineKeyboardButtonTypeLoginUrl {
+        '@type': 'inlineKeyboardButtonTypeLoginUrl';
+        /** An HTTP URL to open */
+        url?: td_string;
+        /** Unique button identifier */
+        id?: td_int32;
+        /** If non-empty, new text of the button in forwarded messages */
+        forward_text?: td_string;
+    }
+    
+    
+    /** A button that sends a callback query to a bot */
+    export interface td_inlineKeyboardButtonTypeCallback {
+        '@type': 'inlineKeyboardButtonTypeCallback';
+        /** Data to be sent to the bot via a callback query */
+        data?: td_bytes;
+    }
+    
+    
+    /** A button that asks for password of the current user and then sends a callback query to a bot */
+    export interface td_inlineKeyboardButtonTypeCallbackWithPassword {
+        '@type': 'inlineKeyboardButtonTypeCallbackWithPassword';
+        /** Data to be sent to the bot via a callback query */
+        data?: td_bytes;
+    }
+    
+    
+    /** A button with a game that sends a callback query to a bot. This button must be in the first column and row of the keyboard and can be attached only to a message with content of the type messageGame */
+    export interface td_inlineKeyboardButtonTypeCallbackGame {
+        '@type': 'inlineKeyboardButtonTypeCallbackGame';
+    }
+    
+    
+    /** A button that forces an inline query to the bot to be inserted in the input field */
+    export interface td_inlineKeyboardButtonTypeSwitchInline {
+        '@type': 'inlineKeyboardButtonTypeSwitchInline';
+        /** Inline query to be sent to the bot */
+        query?: td_string;
+        /** True, if the inline query should be sent from the current chat */
+        in_current_chat?: td_Bool;
+    }
+    
+    
+    /** A button to buy something. This button must be in the first column and row of the keyboard and can be attached only to a message with content of the type messageInvoice */
+    export interface td_inlineKeyboardButtonTypeBuy {
+        '@type': 'inlineKeyboardButtonTypeBuy';
+    }
+    
+    
+    /** Represents a single button in an inline keyboard */
+    export interface td_inlineKeyboardButton {
+        '@type': 'inlineKeyboardButton';
+        /** Text of the button */
+        text?: td_string;
+        /** Type of the button */
+        type?: td_InlineKeyboardButtonType;
+    }
+    
+    
+    /** Instructs application to remove the keyboard once this message has been received. This kind of keyboard can't be received in an incoming message; instead, UpdateChatReplyMarkup with message_id == 0 will be sent */
+    export interface td_replyMarkupRemoveKeyboard {
+        '@type': 'replyMarkupRemoveKeyboard';
+        /** True, if the keyboard is removed only for the mentioned users or the target user of a reply */
+        is_personal?: td_Bool;
+    }
+    
+    
+    /** Instructs application to force a reply to this message */
+    export interface td_replyMarkupForceReply {
+        '@type': 'replyMarkupForceReply';
+        /** True, if a forced reply must automatically be shown to the current user. For outgoing messages, specify true to show the forced reply only for the mentioned users and for the target user of a reply */
+        is_personal?: td_Bool;
+    }
+    
+    
+    /** Contains a custom keyboard layout to quickly reply to bots */
+    export interface td_replyMarkupShowKeyboard {
+        '@type': 'replyMarkupShowKeyboard';
+        /** A list of rows of bot keyboard buttons */
+        rows?: td_vector<td_vector<td_keyboardButton>>;
+        /** True, if the application needs to resize the keyboard vertically */
+        resize_keyboard?: td_Bool;
+        /** True, if the application needs to hide the keyboard after use */
+        one_time?: td_Bool;
+        /** True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply */
+        is_personal?: td_Bool;
+    }
+    
+    
+    /** Contains an inline keyboard layout */
+    export interface td_replyMarkupInlineKeyboard {
+        '@type': 'replyMarkupInlineKeyboard';
+        /** A list of rows of inline keyboard buttons */
+        rows?: td_vector<td_vector<td_inlineKeyboardButton>>;
+    }
+    
+    
+    /** An HTTP url needs to be open */
+    export interface td_loginUrlInfoOpen {
+        '@type': 'loginUrlInfoOpen';
+        /** The URL to open */
+        url?: td_string;
+        /** True, if there is no need to show an ordinary open URL confirm */
+        skip_confirm?: td_Bool;
+    }
+    
+    
+    /** An authorization confirmation dialog needs to be shown to the user */
+    export interface td_loginUrlInfoRequestConfirmation {
+        '@type': 'loginUrlInfoRequestConfirmation';
+        /** An HTTP URL to be opened */
+        url?: td_string;
+        /** A domain of the URL */
+        domain?: td_string;
+        /** User identifier of a bot linked with the website */
+        bot_user_id?: td_int32;
+        /** True, if the user needs to be requested to give the permission to the bot to send them messages */
+        request_write_access?: td_Bool;
+    }
+    
+    
+    /** Contains information about a message thread */
+    export interface td_messageThreadInfo {
+        '@type': 'messageThreadInfo';
+        /** Identifier of the chat to which the message thread belongs */
+        chat_id?: td_int53;
+        /** Message thread identifier, unique within the chat */
+        message_thread_id?: td_int53;
+        /** Contains information about the message thread */
+        reply_info?: td_messageReplyInfo;
+        /** The messages from which the thread starts. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id) */
+        messages?: td_vector<td_message>;
+        /** A draft of a message in the message thread; may be null */
+        draft_message?: td_draftMessage;
+    }
+    
+    
+    /** A plain text */
+    export interface td_richTextPlain {
+        '@type': 'richTextPlain';
+        /** Text */
+        text?: td_string;
+    }
+    
+    
+    /** A bold rich text */
+    export interface td_richTextBold {
+        '@type': 'richTextBold';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** An italicized rich text */
+    export interface td_richTextItalic {
+        '@type': 'richTextItalic';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** An underlined rich text */
+    export interface td_richTextUnderline {
+        '@type': 'richTextUnderline';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** A strikethrough rich text */
+    export interface td_richTextStrikethrough {
+        '@type': 'richTextStrikethrough';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** A fixed-width rich text */
+    export interface td_richTextFixed {
+        '@type': 'richTextFixed';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** A rich text URL link */
+    export interface td_richTextUrl {
+        '@type': 'richTextUrl';
+        /** Text */
+        text?: td_RichText;
+        /** URL */
+        url?: td_string;
+        /** True, if the URL has cached instant view server-side */
+        is_cached?: td_Bool;
+    }
+    
+    
+    /** A rich text email link */
+    export interface td_richTextEmailAddress {
+        '@type': 'richTextEmailAddress';
+        /** Text */
+        text?: td_RichText;
+        /** Email address */
+        email_address?: td_string;
+    }
+    
+    
+    /** A subscript rich text */
+    export interface td_richTextSubscript {
+        '@type': 'richTextSubscript';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** A superscript rich text */
+    export interface td_richTextSuperscript {
+        '@type': 'richTextSuperscript';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** A marked rich text */
+    export interface td_richTextMarked {
+        '@type': 'richTextMarked';
+        /** Text */
+        text?: td_RichText;
+    }
+    
+    
+    /** A rich text phone number */
+    export interface td_richTextPhoneNumber {
+        '@type': 'richTextPhoneNumber';
+        /** Text */
+        text?: td_RichText;
+        /** Phone number */
+        phone_number?: td_string;
+    }
+    
+    
+    /** A small image inside the text */
+    export interface td_richTextIcon {
+        '@type': 'richTextIcon';
+        /** The image represented as a document. The image can be in GIF, JPEG or PNG format */
+        document?: td_document;
+        /** Width of a bounding box in which the image should be shown; 0 if unknown */
+        width?: td_int32;
+        /** Height of a bounding box in which the image should be shown; 0 if unknown */
+        height?: td_int32;
+    }
+    
+    
+    /** A reference to a richTexts object on the same web page */
+    export interface td_richTextReference {
+        '@type': 'richTextReference';
+        /** The text */
+        text?: td_RichText;
+        /** The name of a richTextAnchor object, which is the first element of the target richTexts object */
+        anchor_name?: td_string;
+        /** An HTTP URL, opening the reference */
+        url?: td_string;
+    }
+    
+    
+    /** An anchor */
+    export interface td_richTextAnchor {
+        '@type': 'richTextAnchor';
+        /** Anchor name */
+        name?: td_string;
+    }
+    
+    
+    /** A link to an anchor on the same web page */
+    export interface td_richTextAnchorLink {
+        '@type': 'richTextAnchorLink';
+        /** The link text */
+        text?: td_RichText;
+        /** The anchor name. If the name is empty, the link should bring back to top */
+        anchor_name?: td_string;
+        /** An HTTP URL, opening the anchor */
+        url?: td_string;
+    }
+    
+    
+    /** A concatenation of rich texts */
+    export interface td_richTexts {
+        '@type': 'richTexts';
+        /** Texts */
+        texts?: td_vector<td_RichText>;
+    }
+    
+    
+    /** Contains a caption of an instant view web page block, consisting of a text and a trailing credit */
+    export interface td_pageBlockCaption {
+        '@type': 'pageBlockCaption';
+        /** Content of the caption */
+        text?: td_RichText;
+        /** Block credit (like HTML tag <cite>) */
+        credit?: td_RichText;
+    }
+    
+    
+    /** Describes an item of a list page block */
+    export interface td_pageBlockListItem {
+        '@type': 'pageBlockListItem';
+        /** Item label */
+        label?: td_string;
+        /** Item blocks */
+        page_blocks?: td_vector<td_PageBlock>;
+    }
+    
+    
+    /** The content should be left-aligned */
+    export interface td_pageBlockHorizontalAlignmentLeft {
+        '@type': 'pageBlockHorizontalAlignmentLeft';
+    }
+    
+    
+    /** The content should be center-aligned */
+    export interface td_pageBlockHorizontalAlignmentCenter {
+        '@type': 'pageBlockHorizontalAlignmentCenter';
+    }
+    
+    
+    /** The content should be right-aligned */
+    export interface td_pageBlockHorizontalAlignmentRight {
+        '@type': 'pageBlockHorizontalAlignmentRight';
+    }
+    
+    
+    /** The content should be top-aligned */
+    export interface td_pageBlockVerticalAlignmentTop {
+        '@type': 'pageBlockVerticalAlignmentTop';
+    }
+    
+    
+    /** The content should be middle-aligned */
+    export interface td_pageBlockVerticalAlignmentMiddle {
+        '@type': 'pageBlockVerticalAlignmentMiddle';
+    }
+    
+    
+    /** The content should be bottom-aligned */
+    export interface td_pageBlockVerticalAlignmentBottom {
+        '@type': 'pageBlockVerticalAlignmentBottom';
+    }
+    
+    
+    /** Represents a cell of a table */
+    export interface td_pageBlockTableCell {
+        '@type': 'pageBlockTableCell';
+        /** Cell text; may be null. If the text is null, then the cell should be invisible */
+        text?: td_RichText;
+        /** True, if it is a header cell */
+        is_header?: td_Bool;
+        /** The number of columns the cell should span */
+        colspan?: td_int32;
+        /** The number of rows the cell should span */
+        rowspan?: td_int32;
+        /** Horizontal cell content alignment */
+        align?: td_PageBlockHorizontalAlignment;
+        /** Vertical cell content alignment */
+        valign?: td_PageBlockVerticalAlignment;
+    }
+    
+    
+    /** Contains information about a related article */
+    export interface td_pageBlockRelatedArticle {
+        '@type': 'pageBlockRelatedArticle';
+        /** Related article URL */
+        url?: td_string;
+        /** Article title; may be empty */
+        title?: td_string;
+        /** Contains information about a related article */
+        description?: td_string;
+        /** Article photo; may be null */
+        photo?: td_photo;
+        /** Article author; may be empty */
+        author?: td_string;
+        /** Point in time (Unix timestamp) when the article was published; 0 if unknown */
+        publish_date?: td_int32;
+    }
+    
+    
+    /** The title of a page */
+    export interface td_pageBlockTitle {
+        '@type': 'pageBlockTitle';
+        /** Title */
+        title?: td_RichText;
+    }
+    
+    
+    /** The subtitle of a page */
+    export interface td_pageBlockSubtitle {
+        '@type': 'pageBlockSubtitle';
+        /** Subtitle */
+        subtitle?: td_RichText;
+    }
+    
+    
+    /** The author and publishing date of a page */
+    export interface td_pageBlockAuthorDate {
+        '@type': 'pageBlockAuthorDate';
+        /** Author */
+        author?: td_RichText;
+        /** Point in time (Unix timestamp) when the article was published; 0 if unknown */
+        publish_date?: td_int32;
+    }
+    
+    
+    /** A header */
+    export interface td_pageBlockHeader {
+        '@type': 'pageBlockHeader';
+        /** Header */
+        header?: td_RichText;
+    }
+    
+    
+    /** A subheader */
+    export interface td_pageBlockSubheader {
+        '@type': 'pageBlockSubheader';
+        /** Subheader */
+        subheader?: td_RichText;
+    }
+    
+    
+    /** A kicker */
+    export interface td_pageBlockKicker {
+        '@type': 'pageBlockKicker';
+        /** Kicker */
+        kicker?: td_RichText;
+    }
+    
+    
+    /** A text paragraph */
+    export interface td_pageBlockParagraph {
+        '@type': 'pageBlockParagraph';
+        /** Paragraph text */
+        text?: td_RichText;
+    }
+    
+    
+    /** A preformatted text paragraph */
+    export interface td_pageBlockPreformatted {
+        '@type': 'pageBlockPreformatted';
+        /** Paragraph text */
+        text?: td_RichText;
+        /** Programming language for which the text should be formatted */
+        language?: td_string;
+    }
+    
+    
+    /** The footer of a page */
+    export interface td_pageBlockFooter {
+        '@type': 'pageBlockFooter';
+        /** Footer */
+        footer?: td_RichText;
+    }
+    
+    
+    /** An empty block separating a page */
+    export interface td_pageBlockDivider {
+        '@type': 'pageBlockDivider';
+    }
+    
+    
+    /** An invisible anchor on a page, which can be used in a URL to open the page from the specified anchor */
+    export interface td_pageBlockAnchor {
+        '@type': 'pageBlockAnchor';
+        /** Name of the anchor */
+        name?: td_string;
+    }
+    
+    
+    /** A list of data blocks */
+    export interface td_pageBlockList {
+        '@type': 'pageBlockList';
+        /** The items of the list */
+        items?: td_vector<td_pageBlockListItem>;
+    }
+    
+    
+    /** A block quote */
+    export interface td_pageBlockBlockQuote {
+        '@type': 'pageBlockBlockQuote';
+        /** Quote text */
+        text?: td_RichText;
+        /** Quote credit */
+        credit?: td_RichText;
+    }
+    
+    
+    /** A pull quote */
+    export interface td_pageBlockPullQuote {
+        '@type': 'pageBlockPullQuote';
+        /** Quote text */
+        text?: td_RichText;
+        /** Quote credit */
+        credit?: td_RichText;
+    }
+    
+    
+    /** An animation */
+    export interface td_pageBlockAnimation {
+        '@type': 'pageBlockAnimation';
+        /** Animation file; may be null */
+        animation?: td_animation;
+        /** Animation caption */
+        caption?: td_pageBlockCaption;
+        /** True, if the animation should be played automatically */
+        need_autoplay?: td_Bool;
+    }
+    
+    
+    /** An audio file */
+    export interface td_pageBlockAudio {
+        '@type': 'pageBlockAudio';
+        /** Audio file; may be null */
+        audio?: td_audio;
+        /** Audio file caption */
+        caption?: td_pageBlockCaption;
+    }
+    
+    
+    /** A photo */
+    export interface td_pageBlockPhoto {
+        '@type': 'pageBlockPhoto';
+        /** Photo file; may be null */
+        photo?: td_photo;
+        /** Photo caption */
+        caption?: td_pageBlockCaption;
+        /** URL that needs to be opened when the photo is clicked */
+        url?: td_string;
+    }
+    
+    
+    /** A video */
+    export interface td_pageBlockVideo {
+        '@type': 'pageBlockVideo';
+        /** Video file; may be null */
+        video?: td_video;
+        /** Video caption */
+        caption?: td_pageBlockCaption;
+        /** True, if the video should be played automatically */
+        need_autoplay?: td_Bool;
+        /** True, if the video should be looped */
+        is_looped?: td_Bool;
+    }
+    
+    
+    /** A voice note */
+    export interface td_pageBlockVoiceNote {
+        '@type': 'pageBlockVoiceNote';
+        /** Voice note; may be null */
+        voice_note?: td_voiceNote;
+        /** Voice note caption */
+        caption?: td_pageBlockCaption;
+    }
+    
+    
+    /** A page cover */
+    export interface td_pageBlockCover {
+        '@type': 'pageBlockCover';
+        /** Cover */
+        cover?: td_PageBlock;
+    }
+    
+    
+    /** An embedded web page */
+    export interface td_pageBlockEmbedded {
+        '@type': 'pageBlockEmbedded';
+        /** Web page URL, if available */
+        url?: td_string;
+        /** HTML-markup of the embedded page */
+        html?: td_string;
+        /** Poster photo, if available; may be null */
+        poster_photo?: td_photo;
+        /** Block width; 0 if unknown */
+        width?: td_int32;
+        /** Block height; 0 if unknown */
+        height?: td_int32;
+        /** Block caption */
+        caption?: td_pageBlockCaption;
+        /** True, if the block should be full width */
+        is_full_width?: td_Bool;
+        /** True, if scrolling should be allowed */
+        allow_scrolling?: td_Bool;
+    }
+    
+    
+    /** An embedded post */
+    export interface td_pageBlockEmbeddedPost {
+        '@type': 'pageBlockEmbeddedPost';
+        /** Web page URL */
+        url?: td_string;
+        /** Post author */
+        author?: td_string;
+        /** Post author photo; may be null */
+        author_photo?: td_photo;
+        /** Point in time (Unix timestamp) when the post was created; 0 if unknown */
+        date?: td_int32;
+        /** Post content */
+        page_blocks?: td_vector<td_PageBlock>;
+        /** Post caption */
+        caption?: td_pageBlockCaption;
+    }
+    
+    
+    /** A collage */
+    export interface td_pageBlockCollage {
+        '@type': 'pageBlockCollage';
+        /** Collage item contents */
+        page_blocks?: td_vector<td_PageBlock>;
+        /** Block caption */
+        caption?: td_pageBlockCaption;
+    }
+    
+    
+    /** A slideshow */
+    export interface td_pageBlockSlideshow {
+        '@type': 'pageBlockSlideshow';
+        /** Slideshow item contents */
+        page_blocks?: td_vector<td_PageBlock>;
+        /** Block caption */
+        caption?: td_pageBlockCaption;
+    }
+    
+    
+    /** A link to a chat */
+    export interface td_pageBlockChatLink {
+        '@type': 'pageBlockChatLink';
+        /** Chat title */
+        title?: td_string;
+        /** Chat photo; may be null */
+        photo?: td_chatPhotoInfo;
+        /** Chat username, by which all other information about the chat should be resolved */
+        username?: td_string;
+    }
+    
+    
+    /** A table */
+    export interface td_pageBlockTable {
+        '@type': 'pageBlockTable';
+        /** Table caption */
+        caption?: td_RichText;
+        /** Table cells */
+        cells?: td_vector<td_vector<td_pageBlockTableCell>>;
+        /** True, if the table is bordered */
+        is_bordered?: td_Bool;
+        /** True, if the table is striped */
+        is_striped?: td_Bool;
+    }
+    
+    
+    /** A collapsible block */
+    export interface td_pageBlockDetails {
+        '@type': 'pageBlockDetails';
+        /** Always visible heading for the block */
+        header?: td_RichText;
+        /** Block contents */
+        page_blocks?: td_vector<td_PageBlock>;
+        /** True, if the block is open by default */
+        is_open?: td_Bool;
+    }
+    
+    
+    /** Related articles */
+    export interface td_pageBlockRelatedArticles {
+        '@type': 'pageBlockRelatedArticles';
+        /** Block header */
+        header?: td_RichText;
+        /** List of related articles */
+        articles?: td_vector<td_pageBlockRelatedArticle>;
+    }
+    
+    
+    /** A map */
+    export interface td_pageBlockMap {
+        '@type': 'pageBlockMap';
+        /** Location of the map center */
+        location?: td_location;
+        /** Map zoom level */
+        zoom?: td_int32;
+        /** Map width */
+        width?: td_int32;
+        /** Map height */
+        height?: td_int32;
+        /** Block caption */
+        caption?: td_pageBlockCaption;
+    }
+    
+    
+    /** Describes an instant view page for a web page */
+    export interface td_webPageInstantView {
+        '@type': 'webPageInstantView';
+        /** Content of the web page */
+        page_blocks?: td_vector<td_PageBlock>;
+        /** Number of the instant view views; 0 if unknown */
+        view_count?: td_int32;
+        /** Version of the instant view, currently can be 1 or 2 */
+        version?: td_int32;
+        /** True, if the instant view must be shown from right to left */
+        is_rtl?: td_Bool;
+        /** True, if the instant view contains the full page. A network request might be needed to get the full web page instant view */
+        is_full?: td_Bool;
+    }
+    
+    
+    /** Describes a web page preview */
+    export interface td_webPage {
+        '@type': 'webPage';
+        /** Original URL of the link */
+        url?: td_string;
+        /** URL to display */
+        display_url?: td_string;
+        /** Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else */
+        type?: td_string;
+        /** Short name of the site (e.g., Google Docs, App Store) */
+        site_name?: td_string;
+        /** Title of the content */
+        title?: td_string;
+        /** Describes a web page preview */
+        description?: td_formattedText;
+        /** Image representing the content; may be null */
+        photo?: td_photo;
+        /** URL to show in the embedded preview */
+        embed_url?: td_string;
+        /** MIME type of the embedded preview, (e.g., text/html or video/mp4) */
+        embed_type?: td_string;
+        /** Width of the embedded preview */
+        embed_width?: td_int32;
+        /** Height of the embedded preview */
+        embed_height?: td_int32;
+        /** Duration of the content, in seconds */
+        duration?: td_int32;
+        /** Author of the content */
+        author?: td_string;
+        /** Preview of the content as an animation, if available; may be null */
+        animation?: td_animation;
+        /** Preview of the content as an audio file, if available; may be null */
+        audio?: td_audio;
+        /** Preview of the content as a document, if available (currently only available for small PDF files and ZIP archives); may be null */
+        document?: td_document;
+        /** Preview of the content as a sticker for small WEBP files, if available; may be null */
+        sticker?: td_sticker;
+        /** Preview of the content as a video, if available; may be null */
+        video?: td_video;
+        /** Preview of the content as a video note, if available; may be null */
+        video_note?: td_videoNote;
+        /** Preview of the content as a voice note, if available; may be null */
+        voice_note?: td_voiceNote;
+        /** Version of instant view, available for the web page (currently can be 1 or 2), 0 if none */
+        instant_view_version?: td_int32;
+    }
+    
+    
+    /** Contains information about a country */
+    export interface td_countryInfo {
+        '@type': 'countryInfo';
+        /** A two-letter ISO 3166-1 alpha-2 country code */
+        country_code?: td_string;
+        /** Native name of the country */
+        name?: td_string;
+        /** English name of the country */
+        english_name?: td_string;
+        /** True, if the country should be hidden from the list of all countries */
+        is_hidden?: td_Bool;
+        /** List of country calling codes */
+        calling_codes?: td_vector<td_string>;
+    }
+    
+    
+    /** Contains information about countries */
+    export interface td_countries {
+        '@type': 'countries';
+        /** The list of countries */
+        countries?: td_vector<td_countryInfo>;
+    }
+    
+    
+    /** Contains information about a phone number */
+    export interface td_phoneNumberInfo {
+        '@type': 'phoneNumberInfo';
+        /** Information about the country to which the phone number belongs; may be null */
+        country?: td_countryInfo;
+        /** The part of the phone number denoting country calling code or its part */
+        country_calling_code?: td_string;
+        /** The phone number without country calling code formatted accordingly to local rules */
+        formatted_phone_number?: td_string;
+    }
+    
+    
+    /** Describes an action associated with a bank card number */
+    export interface td_bankCardActionOpenUrl {
+        '@type': 'bankCardActionOpenUrl';
+        /** Action text */
+        text?: td_string;
+        /** The URL to be opened */
+        url?: td_string;
+    }
+    
+    
+    /** Information about a bank card */
+    export interface td_bankCardInfo {
+        '@type': 'bankCardInfo';
+        /** Title of the bank card description */
+        title?: td_string;
+        /** Actions that can be done with the bank card number */
+        actions?: td_vector<td_bankCardActionOpenUrl>;
+    }
+    
+    
+    /** Describes an address */
+    export interface td_address {
+        '@type': 'address';
+        /** A two-letter ISO 3166-1 alpha-2 country code */
+        country_code?: td_string;
+        /** State, if applicable */
+        state?: td_string;
+        /** City */
+        city?: td_string;
+        /** First line of the address */
+        street_line1?: td_string;
+        /** Second line of the address */
+        street_line2?: td_string;
+        /** Address postal code */
+        postal_code?: td_string;
+    }
+    
+    
+    /** Portion of the price of a product (e.g., "delivery cost", "tax amount") */
+    export interface td_labeledPricePart {
+        '@type': 'labeledPricePart';
+        /** Label for this portion of the product price */
+        label?: td_string;
+        /** Currency amount in minimal quantity of the currency */
+        amount?: td_int53;
+    }
+    
+    
+    /** Product invoice */
+    export interface td_invoice {
+        '@type': 'invoice';
+        /** ISO 4217 currency code */
+        currency?: td_string;
+        /** A list of objects used to calculate the total price of the product */
+        price_parts?: td_vector<td_labeledPricePart>;
+        /** True, if the payment is a test payment */
+        is_test?: td_Bool;
+        /** True, if the user's name is needed for payment */
+        need_name?: td_Bool;
+        /** True, if the user's phone number is needed for payment */
+        need_phone_number?: td_Bool;
+        /** True, if the user's email address is needed for payment */
+        need_email_address?: td_Bool;
+        /** True, if the user's shipping address is needed for payment */
+        need_shipping_address?: td_Bool;
+        /** True, if the user's phone number will be sent to the provider */
+        send_phone_number_to_provider?: td_Bool;
+        /** True, if the user's email address will be sent to the provider */
+        send_email_address_to_provider?: td_Bool;
+        /** True, if the total price depends on the shipping method */
+        is_flexible?: td_Bool;
+    }
+    
+    
+    /** Order information */
+    export interface td_orderInfo {
+        '@type': 'orderInfo';
+        /** Name of the user */
+        name?: td_string;
+        /** Phone number of the user */
+        phone_number?: td_string;
+        /** Email address of the user */
+        email_address?: td_string;
+        /** Shipping address for this order; may be null */
+        shipping_address?: td_address;
+    }
+    
+    
+    /** One shipping option */
+    export interface td_shippingOption {
+        '@type': 'shippingOption';
+        /** Shipping option identifier */
+        id?: td_string;
+        /** Option title */
+        title?: td_string;
+        /** A list of objects used to calculate the total shipping costs */
+        price_parts?: td_vector<td_labeledPricePart>;
+    }
+    
+    
+    /** Contains information about saved card credentials */
+    export interface td_savedCredentials {
+        '@type': 'savedCredentials';
+        /** Unique identifier of the saved credentials */
+        id?: td_string;
+        /** Title of the saved credentials */
+        title?: td_string;
+    }
+    
+    
+    /** Applies if a user chooses some previously saved payment credentials. To use their previously saved credentials, the user must have a valid temporary password */
+    export interface td_inputCredentialsSaved {
+        '@type': 'inputCredentialsSaved';
+        /** Identifier of the saved credentials */
+        saved_credentials_id?: td_string;
+    }
+    
+    
+    /** Applies if a user enters new credentials on a payment provider website */
+    export interface td_inputCredentialsNew {
+        '@type': 'inputCredentialsNew';
+        /** Contains JSON-encoded data with a credential identifier from the payment provider */
+        data?: td_string;
+        /** True, if the credential identifier can be saved on the server side */
+        allow_save?: td_Bool;
+    }
+    
+    
+    /** Applies if a user enters new credentials using Android Pay */
+    export interface td_inputCredentialsAndroidPay {
+        '@type': 'inputCredentialsAndroidPay';
+        /** JSON-encoded data with the credential identifier */
+        data?: td_string;
+    }
+    
+    
+    /** Applies if a user enters new credentials using Apple Pay */
+    export interface td_inputCredentialsApplePay {
+        '@type': 'inputCredentialsApplePay';
+        /** JSON-encoded data with the credential identifier */
+        data?: td_string;
+    }
+    
+    
+    /** Stripe payment provider */
+    export interface td_paymentsProviderStripe {
+        '@type': 'paymentsProviderStripe';
+        /** Stripe API publishable key */
+        publishable_key?: td_string;
+        /** True, if the user country must be provided */
+        need_country?: td_Bool;
+        /** True, if the user ZIP/postal code must be provided */
+        need_postal_code?: td_Bool;
+        /** True, if the cardholder name must be provided */
+        need_cardholder_name?: td_Bool;
+    }
+    
+    
+    /** Contains information about an invoice payment form */
+    export interface td_paymentForm {
+        '@type': 'paymentForm';
+        /** Full information of the invoice */
+        invoice?: td_invoice;
+        /** Payment form URL */
+        url?: td_string;
+        /** Contains information about the payment provider, if available, to support it natively without the need for opening the URL; may be null */
+        payments_provider?: td_paymentsProviderStripe;
+        /** Saved server-side order information; may be null */
+        saved_order_info?: td_orderInfo;
+        /** Contains information about saved card credentials; may be null */
+        saved_credentials?: td_savedCredentials;
+        /** True, if the user can choose to save credentials */
+        can_save_credentials?: td_Bool;
+        /** True, if the user will be able to save credentials protected by a password they set up */
+        need_password?: td_Bool;
+    }
+    
+    
+    /** Contains a temporary identifier of validated order information, which is stored for one hour. Also contains the available shipping options */
+    export interface td_validatedOrderInfo {
+        '@type': 'validatedOrderInfo';
+        /** Temporary identifier of the order information */
+        order_info_id?: td_string;
+        /** Available shipping options */
+        shipping_options?: td_vector<td_shippingOption>;
+    }
+    
+    
+    /** Contains the result of a payment request */
+    export interface td_paymentResult {
+        '@type': 'paymentResult';
+        /** True, if the payment request was successful; otherwise the verification_url will be not empty */
+        success?: td_Bool;
+        /** URL for additional payment credentials verification */
+        verification_url?: td_string;
+    }
+    
+    
+    /** Contains information about a successful payment */
+    export interface td_paymentReceipt {
+        '@type': 'paymentReceipt';
+        /** Point in time (Unix timestamp) when the payment was made */
+        date?: td_int32;
+        /** User identifier of the payment provider bot */
+        payments_provider_user_id?: td_int32;
+        /** Contains information about the invoice */
+        invoice?: td_invoice;
+        /** Contains order information; may be null */
+        order_info?: td_orderInfo;
+        /** Chosen shipping option; may be null */
+        shipping_option?: td_shippingOption;
+        /** Title of the saved credentials */
+        credentials_title?: td_string;
+    }
+    
+    
+    /** File with the date it was uploaded */
+    export interface td_datedFile {
+        '@type': 'datedFile';
+        /** The file */
+        file?: td_file;
+        /** Point in time (Unix timestamp) when the file was uploaded */
+        date?: td_int32;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's personal details */
+    export interface td_passportElementTypePersonalDetails {
+        '@type': 'passportElementTypePersonalDetails';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's passport */
+    export interface td_passportElementTypePassport {
+        '@type': 'passportElementTypePassport';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's driver license */
+    export interface td_passportElementTypeDriverLicense {
+        '@type': 'passportElementTypeDriverLicense';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's identity card */
+    export interface td_passportElementTypeIdentityCard {
+        '@type': 'passportElementTypeIdentityCard';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's internal passport */
+    export interface td_passportElementTypeInternalPassport {
+        '@type': 'passportElementTypeInternalPassport';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's address */
+    export interface td_passportElementTypeAddress {
+        '@type': 'passportElementTypeAddress';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's utility bill */
+    export interface td_passportElementTypeUtilityBill {
+        '@type': 'passportElementTypeUtilityBill';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's bank statement */
+    export interface td_passportElementTypeBankStatement {
+        '@type': 'passportElementTypeBankStatement';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's rental agreement */
+    export interface td_passportElementTypeRentalAgreement {
+        '@type': 'passportElementTypeRentalAgreement';
+    }
+    
+    
+    /** A Telegram Passport element containing the registration page of the user's passport */
+    export interface td_passportElementTypePassportRegistration {
+        '@type': 'passportElementTypePassportRegistration';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's temporary registration */
+    export interface td_passportElementTypeTemporaryRegistration {
+        '@type': 'passportElementTypeTemporaryRegistration';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's phone number */
+    export interface td_passportElementTypePhoneNumber {
+        '@type': 'passportElementTypePhoneNumber';
+    }
+    
+    
+    /** A Telegram Passport element containing the user's email address */
+    export interface td_passportElementTypeEmailAddress {
+        '@type': 'passportElementTypeEmailAddress';
+    }
+    
+    
+    /** Represents a date according to the Gregorian calendar */
+    export interface td_date {
+        '@type': 'date';
+        /** Day of the month, 1-31 */
+        day?: td_int32;
+        /** Month, 1-12 */
+        month?: td_int32;
+        /** Year, 1-9999 */
+        year?: td_int32;
+    }
+    
+    
+    /** Contains the user's personal details */
+    export interface td_personalDetails {
+        '@type': 'personalDetails';
+        /** First name of the user written in English; 1-255 characters */
+        first_name?: td_string;
+        /** Middle name of the user written in English; 0-255 characters */
+        middle_name?: td_string;
+        /** Last name of the user written in English; 1-255 characters */
+        last_name?: td_string;
+        /** Native first name of the user; 1-255 characters */
+        native_first_name?: td_string;
+        /** Native middle name of the user; 0-255 characters */
+        native_middle_name?: td_string;
+        /** Native last name of the user; 1-255 characters */
+        native_last_name?: td_string;
+        /** Birthdate of the user */
+        birthdate?: td_date;
+        /** Gender of the user, "male" or "female" */
+        gender?: td_string;
+        /** A two-letter ISO 3166-1 alpha-2 country code of the user's country */
+        country_code?: td_string;
+        /** A two-letter ISO 3166-1 alpha-2 country code of the user's residence country */
+        residence_country_code?: td_string;
+    }
+    
+    
+    /** An identity document */
+    export interface td_identityDocument {
+        '@type': 'identityDocument';
+        /** Document number; 1-24 characters */
+        number?: td_string;
+        /** Document expiry date; may be null */
+        expiry_date?: td_date;
+        /** Front side of the document */
+        front_side?: td_datedFile;
+        /** Reverse side of the document; only for driver license and identity card */
+        reverse_side?: td_datedFile;
+        /** Selfie with the document; may be null */
+        selfie?: td_datedFile;
+        /** List of files containing a certified English translation of the document */
+        translation?: td_vector<td_datedFile>;
+    }
+    
+    
+    /** An identity document to be saved to Telegram Passport */
+    export interface td_inputIdentityDocument {
+        '@type': 'inputIdentityDocument';
+        /** Document number; 1-24 characters */
+        number?: td_string;
+        /** Document expiry date, if available */
+        expiry_date?: td_date;
+        /** Front side of the document */
+        front_side?: td_InputFile;
+        /** Reverse side of the document; only for driver license and identity card */
+        reverse_side?: td_InputFile;
+        /** Selfie with the document, if available */
+        selfie?: td_InputFile;
+        /** List of files containing a certified English translation of the document */
+        translation?: td_vector<td_InputFile>;
+    }
+    
+    
+    /** A personal document, containing some information about a user */
+    export interface td_personalDocument {
+        '@type': 'personalDocument';
+        /** List of files containing the pages of the document */
+        files?: td_vector<td_datedFile>;
+        /** List of files containing a certified English translation of the document */
+        translation?: td_vector<td_datedFile>;
+    }
+    
+    
+    /** A personal document to be saved to Telegram Passport */
+    export interface td_inputPersonalDocument {
+        '@type': 'inputPersonalDocument';
+        /** List of files containing the pages of the document */
+        files?: td_vector<td_InputFile>;
+        /** List of files containing a certified English translation of the document */
+        translation?: td_vector<td_InputFile>;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's personal details */
+    export interface td_passportElementPersonalDetails {
+        '@type': 'passportElementPersonalDetails';
+        /** Personal details of the user */
+        personal_details?: td_personalDetails;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's passport */
+    export interface td_passportElementPassport {
+        '@type': 'passportElementPassport';
+        /** Passport */
+        passport?: td_identityDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's driver license */
+    export interface td_passportElementDriverLicense {
+        '@type': 'passportElementDriverLicense';
+        /** Driver license */
+        driver_license?: td_identityDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's identity card */
+    export interface td_passportElementIdentityCard {
+        '@type': 'passportElementIdentityCard';
+        /** Identity card */
+        identity_card?: td_identityDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's internal passport */
+    export interface td_passportElementInternalPassport {
+        '@type': 'passportElementInternalPassport';
+        /** Internal passport */
+        internal_passport?: td_identityDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's address */
+    export interface td_passportElementAddress {
+        '@type': 'passportElementAddress';
+        /** Address */
+        address?: td_address;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's utility bill */
+    export interface td_passportElementUtilityBill {
+        '@type': 'passportElementUtilityBill';
+        /** Utility bill */
+        utility_bill?: td_personalDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's bank statement */
+    export interface td_passportElementBankStatement {
+        '@type': 'passportElementBankStatement';
+        /** Bank statement */
+        bank_statement?: td_personalDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's rental agreement */
+    export interface td_passportElementRentalAgreement {
+        '@type': 'passportElementRentalAgreement';
+        /** Rental agreement */
+        rental_agreement?: td_personalDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's passport registration pages */
+    export interface td_passportElementPassportRegistration {
+        '@type': 'passportElementPassportRegistration';
+        /** Passport registration pages */
+        passport_registration?: td_personalDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's temporary registration */
+    export interface td_passportElementTemporaryRegistration {
+        '@type': 'passportElementTemporaryRegistration';
+        /** Temporary registration */
+        temporary_registration?: td_personalDocument;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's phone number */
+    export interface td_passportElementPhoneNumber {
+        '@type': 'passportElementPhoneNumber';
+        /** Phone number */
+        phone_number?: td_string;
+    }
+    
+    
+    /** A Telegram Passport element containing the user's email address */
+    export interface td_passportElementEmailAddress {
+        '@type': 'passportElementEmailAddress';
+        /** Email address */
+        email_address?: td_string;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's personal details */
+    export interface td_inputPassportElementPersonalDetails {
+        '@type': 'inputPassportElementPersonalDetails';
+        /** Personal details of the user */
+        personal_details?: td_personalDetails;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's passport */
+    export interface td_inputPassportElementPassport {
+        '@type': 'inputPassportElementPassport';
+        /** The passport to be saved */
+        passport?: td_inputIdentityDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's driver license */
+    export interface td_inputPassportElementDriverLicense {
+        '@type': 'inputPassportElementDriverLicense';
+        /** The driver license to be saved */
+        driver_license?: td_inputIdentityDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's identity card */
+    export interface td_inputPassportElementIdentityCard {
+        '@type': 'inputPassportElementIdentityCard';
+        /** The identity card to be saved */
+        identity_card?: td_inputIdentityDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's internal passport */
+    export interface td_inputPassportElementInternalPassport {
+        '@type': 'inputPassportElementInternalPassport';
+        /** The internal passport to be saved */
+        internal_passport?: td_inputIdentityDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's address */
+    export interface td_inputPassportElementAddress {
+        '@type': 'inputPassportElementAddress';
+        /** The address to be saved */
+        address?: td_address;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's utility bill */
+    export interface td_inputPassportElementUtilityBill {
+        '@type': 'inputPassportElementUtilityBill';
+        /** The utility bill to be saved */
+        utility_bill?: td_inputPersonalDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's bank statement */
+    export interface td_inputPassportElementBankStatement {
+        '@type': 'inputPassportElementBankStatement';
+        /** The bank statement to be saved */
+        bank_statement?: td_inputPersonalDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's rental agreement */
+    export interface td_inputPassportElementRentalAgreement {
+        '@type': 'inputPassportElementRentalAgreement';
+        /** The rental agreement to be saved */
+        rental_agreement?: td_inputPersonalDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's passport registration */
+    export interface td_inputPassportElementPassportRegistration {
+        '@type': 'inputPassportElementPassportRegistration';
+        /** The passport registration page to be saved */
+        passport_registration?: td_inputPersonalDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's temporary registration */
+    export interface td_inputPassportElementTemporaryRegistration {
+        '@type': 'inputPassportElementTemporaryRegistration';
+        /** The temporary registration document to be saved */
+        temporary_registration?: td_inputPersonalDocument;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's phone number */
+    export interface td_inputPassportElementPhoneNumber {
+        '@type': 'inputPassportElementPhoneNumber';
+        /** The phone number to be saved */
+        phone_number?: td_string;
+    }
+    
+    
+    /** A Telegram Passport element to be saved containing the user's email address */
+    export interface td_inputPassportElementEmailAddress {
+        '@type': 'inputPassportElementEmailAddress';
+        /** The email address to be saved */
+        email_address?: td_string;
+    }
+    
+    
+    /** Contains information about saved Telegram Passport elements */
+    export interface td_passportElements {
+        '@type': 'passportElements';
+        /** Telegram Passport elements */
+        elements?: td_vector<td_PassportElement>;
+    }
+    
+    
+    /** The element contains an error in an unspecified place. The error will be considered resolved when new data is added */
+    export interface td_passportElementErrorSourceUnspecified {
+        '@type': 'passportElementErrorSourceUnspecified';
+    }
+    
+    
+    /** One of the data fields contains an error. The error will be considered resolved when the value of the field changes */
+    export interface td_passportElementErrorSourceDataField {
+        '@type': 'passportElementErrorSourceDataField';
+        /** Field name */
+        field_name?: td_string;
+    }
+    
+    
+    /** The front side of the document contains an error. The error will be considered resolved when the file with the front side changes */
+    export interface td_passportElementErrorSourceFrontSide {
+        '@type': 'passportElementErrorSourceFrontSide';
+    }
+    
+    
+    /** The reverse side of the document contains an error. The error will be considered resolved when the file with the reverse side changes */
+    export interface td_passportElementErrorSourceReverseSide {
+        '@type': 'passportElementErrorSourceReverseSide';
+    }
+    
+    
+    /** The selfie with the document contains an error. The error will be considered resolved when the file with the selfie changes */
+    export interface td_passportElementErrorSourceSelfie {
+        '@type': 'passportElementErrorSourceSelfie';
+    }
+    
+    
+    /** One of files with the translation of the document contains an error. The error will be considered resolved when the file changes */
+    export interface td_passportElementErrorSourceTranslationFile {
+        '@type': 'passportElementErrorSourceTranslationFile';
+        /** Index of a file with the error */
+        file_index?: td_int32;
+    }
+    
+    
+    /** The translation of the document contains an error. The error will be considered resolved when the list of translation files changes */
+    export interface td_passportElementErrorSourceTranslationFiles {
+        '@type': 'passportElementErrorSourceTranslationFiles';
+    }
+    
+    
+    /** The file contains an error. The error will be considered resolved when the file changes */
+    export interface td_passportElementErrorSourceFile {
+        '@type': 'passportElementErrorSourceFile';
+        /** Index of a file with the error */
+        file_index?: td_int32;
+    }
+    
+    
+    /** The list of attached files contains an error. The error will be considered resolved when the list of files changes */
+    export interface td_passportElementErrorSourceFiles {
+        '@type': 'passportElementErrorSourceFiles';
+    }
+    
+    
+    /** Contains the description of an error in a Telegram Passport element */
+    export interface td_passportElementError {
+        '@type': 'passportElementError';
+        /** Type of the Telegram Passport element which has the error */
+        type?: td_PassportElementType;
+        /** Error message */
+        message?: td_string;
+        /** Error source */
+        source?: td_PassportElementErrorSource;
+    }
+    
+    
+    /** Contains information about a Telegram Passport element that was requested by a service */
+    export interface td_passportSuitableElement {
+        '@type': 'passportSuitableElement';
+        /** Type of the element */
+        type?: td_PassportElementType;
+        /** True, if a selfie is required with the identity document */
+        is_selfie_required?: td_Bool;
+        /** True, if a certified English translation is required with the document */
+        is_translation_required?: td_Bool;
+        /** True, if personal details must include the user's name in the language of their country of residence */
+        is_native_name_required?: td_Bool;
+    }
+    
+    
+    /** Contains a description of the required Telegram Passport element that was requested by a service */
+    export interface td_passportRequiredElement {
+        '@type': 'passportRequiredElement';
+        /** List of Telegram Passport elements any of which is enough to provide */
+        suitable_elements?: td_vector<td_passportSuitableElement>;
+    }
+    
+    
+    /** Contains information about a Telegram Passport authorization form that was requested */
+    export interface td_passportAuthorizationForm {
+        '@type': 'passportAuthorizationForm';
+        /** Unique identifier of the authorization form */
+        id?: td_int32;
+        /** Information about the Telegram Passport elements that must be provided to complete the form */
+        required_elements?: td_vector<td_passportRequiredElement>;
+        /** URL for the privacy policy of the service; may be empty */
+        privacy_policy_url?: td_string;
+    }
+    
+    
+    /** Contains information about a Telegram Passport elements and corresponding errors */
+    export interface td_passportElementsWithErrors {
+        '@type': 'passportElementsWithErrors';
+        /** Telegram Passport elements */
+        elements?: td_vector<td_PassportElement>;
+        /** Errors in the elements that are already available */
+        errors?: td_vector<td_passportElementError>;
+    }
+    
+    
+    /** Contains encrypted Telegram Passport data credentials */
+    export interface td_encryptedCredentials {
+        '@type': 'encryptedCredentials';
+        /** The encrypted credentials */
+        data?: td_bytes;
+        /** The decrypted data hash */
+        hash?: td_bytes;
+        /** Secret for data decryption, encrypted with the service's public key */
+        secret?: td_bytes;
+    }
+    
+    
+    /** Contains information about an encrypted Telegram Passport element; for bots only */
+    export interface td_encryptedPassportElement {
+        '@type': 'encryptedPassportElement';
+        /** Type of Telegram Passport element */
+        type?: td_PassportElementType;
+        /** Encrypted JSON-encoded data about the user */
+        data?: td_bytes;
+        /** The front side of an identity document */
+        front_side?: td_datedFile;
+        /** The reverse side of an identity document; may be null */
+        reverse_side?: td_datedFile;
+        /** Selfie with the document; may be null */
+        selfie?: td_datedFile;
+        /** List of files containing a certified English translation of the document */
+        translation?: td_vector<td_datedFile>;
+        /** List of attached files */
+        files?: td_vector<td_datedFile>;
+        /** Unencrypted data, phone number or email address */
+        value?: td_string;
+        /** Hash of the entire element */
+        hash?: td_string;
+    }
+    
+    
+    /** The element contains an error in an unspecified place. The error will be considered resolved when new data is added */
+    export interface td_inputPassportElementErrorSourceUnspecified {
+        '@type': 'inputPassportElementErrorSourceUnspecified';
+        /** Current hash of the entire element */
+        element_hash?: td_bytes;
+    }
+    
+    
+    /** A data field contains an error. The error is considered resolved when the field's value changes */
+    export interface td_inputPassportElementErrorSourceDataField {
+        '@type': 'inputPassportElementErrorSourceDataField';
+        /** Field name */
+        field_name?: td_string;
+        /** Current data hash */
+        data_hash?: td_bytes;
+    }
+    
+    
+    /** The front side of the document contains an error. The error is considered resolved when the file with the front side of the document changes */
+    export interface td_inputPassportElementErrorSourceFrontSide {
+        '@type': 'inputPassportElementErrorSourceFrontSide';
+        /** Current hash of the file containing the front side */
+        file_hash?: td_bytes;
+    }
+    
+    
+    /** The reverse side of the document contains an error. The error is considered resolved when the file with the reverse side of the document changes */
+    export interface td_inputPassportElementErrorSourceReverseSide {
+        '@type': 'inputPassportElementErrorSourceReverseSide';
+        /** Current hash of the file containing the reverse side */
+        file_hash?: td_bytes;
+    }
+    
+    
+    /** The selfie contains an error. The error is considered resolved when the file with the selfie changes */
+    export interface td_inputPassportElementErrorSourceSelfie {
+        '@type': 'inputPassportElementErrorSourceSelfie';
+        /** Current hash of the file containing the selfie */
+        file_hash?: td_bytes;
+    }
+    
+    
+    /** One of the files containing the translation of the document contains an error. The error is considered resolved when the file with the translation changes */
+    export interface td_inputPassportElementErrorSourceTranslationFile {
+        '@type': 'inputPassportElementErrorSourceTranslationFile';
+        /** Current hash of the file containing the translation */
+        file_hash?: td_bytes;
+    }
+    
+    
+    /** The translation of the document contains an error. The error is considered resolved when the list of files changes */
+    export interface td_inputPassportElementErrorSourceTranslationFiles {
+        '@type': 'inputPassportElementErrorSourceTranslationFiles';
+        /** Current hashes of all files with the translation */
+        file_hashes?: td_vector<td_bytes>;
+    }
+    
+    
+    /** The file contains an error. The error is considered resolved when the file changes */
+    export interface td_inputPassportElementErrorSourceFile {
+        '@type': 'inputPassportElementErrorSourceFile';
+        /** Current hash of the file which has the error */
+        file_hash?: td_bytes;
+    }
+    
+    
+    /** The list of attached files contains an error. The error is considered resolved when the file list changes */
+    export interface td_inputPassportElementErrorSourceFiles {
+        '@type': 'inputPassportElementErrorSourceFiles';
+        /** Current hashes of all attached files */
+        file_hashes?: td_vector<td_bytes>;
+    }
+    
+    
+    /** Contains the description of an error in a Telegram Passport element; for bots only */
+    export interface td_inputPassportElementError {
+        '@type': 'inputPassportElementError';
+        /** Type of Telegram Passport element that has the error */
+        type?: td_PassportElementType;
+        /** Error message */
+        message?: td_string;
+        /** Error source */
+        source?: td_InputPassportElementErrorSource;
+    }
+    
+    
+    /** A text message */
+    export interface td_messageText {
+        '@type': 'messageText';
+        /** Text of the message */
+        text?: td_formattedText;
+        /** A preview of the web page that's mentioned in the text; may be null */
+        web_page?: td_webPage;
+    }
+    
+    
+    /** An animation message (GIF-style). */
+    export interface td_messageAnimation {
+        '@type': 'messageAnimation';
+        /** The animation description */
+        animation?: td_animation;
+        /** Animation caption */
+        caption?: td_formattedText;
+        /** True, if the animation thumbnail must be blurred and the animation must be shown only while tapped */
+        is_secret?: td_Bool;
+    }
+    
+    
+    /** An audio message */
+    export interface td_messageAudio {
+        '@type': 'messageAudio';
+        /** The audio description */
+        audio?: td_audio;
+        /** Audio caption */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** A document message (general file) */
+    export interface td_messageDocument {
+        '@type': 'messageDocument';
+        /** The document description */
+        document?: td_document;
+        /** Document caption */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** A photo message */
+    export interface td_messagePhoto {
+        '@type': 'messagePhoto';
+        /** The photo description */
+        photo?: td_photo;
+        /** Photo caption */
+        caption?: td_formattedText;
+        /** True, if the photo must be blurred and must be shown only while tapped */
+        is_secret?: td_Bool;
+    }
+    
+    
+    /** An expired photo message (self-destructed after TTL has elapsed) */
+    export interface td_messageExpiredPhoto {
+        '@type': 'messageExpiredPhoto';
+    }
+    
+    
+    /** A sticker message */
+    export interface td_messageSticker {
+        '@type': 'messageSticker';
+        /** The sticker description */
+        sticker?: td_sticker;
+    }
+    
+    
+    /** A video message */
+    export interface td_messageVideo {
+        '@type': 'messageVideo';
+        /** The video description */
+        video?: td_video;
+        /** Video caption */
+        caption?: td_formattedText;
+        /** True, if the video thumbnail must be blurred and the video must be shown only while tapped */
+        is_secret?: td_Bool;
+    }
+    
+    
+    /** An expired video message (self-destructed after TTL has elapsed) */
+    export interface td_messageExpiredVideo {
+        '@type': 'messageExpiredVideo';
+    }
+    
+    
+    /** A video note message */
+    export interface td_messageVideoNote {
+        '@type': 'messageVideoNote';
+        /** The video note description */
+        video_note?: td_videoNote;
+        /** True, if at least one of the recipients has viewed the video note */
+        is_viewed?: td_Bool;
+        /** True, if the video note thumbnail must be blurred and the video note must be shown only while tapped */
+        is_secret?: td_Bool;
+    }
+    
+    
+    /** A voice note message */
+    export interface td_messageVoiceNote {
+        '@type': 'messageVoiceNote';
+        /** The voice note description */
+        voice_note?: td_voiceNote;
+        /** Voice note caption */
+        caption?: td_formattedText;
+        /** True, if at least one of the recipients has listened to the voice note */
+        is_listened?: td_Bool;
+    }
+    
+    
+    /** A message with a location */
+    export interface td_messageLocation {
+        '@type': 'messageLocation';
+        /** The location description */
+        location?: td_location;
+        /** Time relative to the message send date, for which the location can be updated, in seconds */
+        live_period?: td_int32;
+        /** Left time for which the location can be updated, in seconds. updateMessageContent is not sent when this field changes */
+        expires_in?: td_int32;
+        /** For live locations, a direction in which the location moves, in degrees; 1-360. If 0 the direction is unknown */
+        heading?: td_int32;
+        /** For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). 0 if the notification is disabled. Available only for the message sender */
+        proximity_alert_radius?: td_int32;
+    }
+    
+    
+    /** A message with information about a venue */
+    export interface td_messageVenue {
+        '@type': 'messageVenue';
+        /** The venue description */
+        venue?: td_venue;
+    }
+    
+    
+    /** A message with a user contact */
+    export interface td_messageContact {
+        '@type': 'messageContact';
+        /** The contact description */
+        contact?: td_contact;
+    }
+    
+    
+    /** A dice message. The dice value is randomly generated by the server */
+    export interface td_messageDice {
+        '@type': 'messageDice';
+        /** The animated stickers with the initial dice animation; may be null if unknown. updateMessageContent will be sent when the sticker became known */
+        initial_state?: td_DiceStickers;
+        /** The animated stickers with the final dice animation; may be null if unknown. updateMessageContent will be sent when the sticker became known */
+        final_state?: td_DiceStickers;
+        /** Emoji on which the dice throw animation is based */
+        emoji?: td_string;
+        /** The dice value. If the value is 0, the dice don't have final state yet */
+        value?: td_int32;
+        /** Number of frame after which a success animation like a shower of confetti needs to be shown on updateMessageSendSucceeded */
+        success_animation_frame_number?: td_int32;
+    }
+    
+    
+    /** A message with a game */
+    export interface td_messageGame {
+        '@type': 'messageGame';
+        /** The game description */
+        game?: td_game;
+    }
+    
+    
+    /** A message with a poll */
+    export interface td_messagePoll {
+        '@type': 'messagePoll';
+        /** The poll description */
+        poll?: td_poll;
+    }
+    
+    
+    /** A message with an invoice from a bot */
+    export interface td_messageInvoice {
+        '@type': 'messageInvoice';
+        /** Product title */
+        title?: td_string;
+        /** A message with an invoice from a bot */
+        description?: td_string;
+        /** Product photo; may be null */
+        photo?: td_photo;
+        /** Currency for the product price */
+        currency?: td_string;
+        /** Product total price in the minimal quantity of the currency */
+        total_amount?: td_int53;
+        /** Unique invoice bot start_parameter. To share an invoice use the URL https://t.me/{bot_username}?start={start_parameter} */
+        start_parameter?: td_string;
+        /** True, if the invoice is a test invoice */
+        is_test?: td_Bool;
+        /** True, if the shipping address should be specified */
+        need_shipping_address?: td_Bool;
+        /** The identifier of the message with the receipt, after the product has been purchased */
+        receipt_message_id?: td_int53;
+    }
+    
+    
+    /** A message with information about an ended call */
+    export interface td_messageCall {
+        '@type': 'messageCall';
+        /** True, if the call was a video call */
+        is_video?: td_Bool;
+        /** Reason why the call was discarded */
+        discard_reason?: td_CallDiscardReason;
+        /** Call duration, in seconds */
+        duration?: td_int32;
+    }
+    
+    
+    /** A newly created basic group */
+    export interface td_messageBasicGroupChatCreate {
+        '@type': 'messageBasicGroupChatCreate';
+        /** Title of the basic group */
+        title?: td_string;
+        /** User identifiers of members in the basic group */
+        member_user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** A newly created supergroup or channel */
+    export interface td_messageSupergroupChatCreate {
+        '@type': 'messageSupergroupChatCreate';
+        /** Title of the supergroup or channel */
+        title?: td_string;
+    }
+    
+    
+    /** An updated chat title */
+    export interface td_messageChatChangeTitle {
+        '@type': 'messageChatChangeTitle';
+        /** New chat title */
+        title?: td_string;
+    }
+    
+    
+    /** An updated chat photo */
+    export interface td_messageChatChangePhoto {
+        '@type': 'messageChatChangePhoto';
+        /** New chat photo */
+        photo?: td_chatPhoto;
+    }
+    
+    
+    /** A deleted chat photo */
+    export interface td_messageChatDeletePhoto {
+        '@type': 'messageChatDeletePhoto';
+    }
+    
+    
+    /** New chat members were added */
+    export interface td_messageChatAddMembers {
+        '@type': 'messageChatAddMembers';
+        /** User identifiers of the new members */
+        member_user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** A new member joined the chat by invite link */
+    export interface td_messageChatJoinByLink {
+        '@type': 'messageChatJoinByLink';
+    }
+    
+    
+    /** A chat member was deleted */
+    export interface td_messageChatDeleteMember {
+        '@type': 'messageChatDeleteMember';
+        /** User identifier of the deleted chat member */
+        user_id?: td_int32;
+    }
+    
+    
+    /** A basic group was upgraded to a supergroup and was deactivated as the result */
+    export interface td_messageChatUpgradeTo {
+        '@type': 'messageChatUpgradeTo';
+        /** Identifier of the supergroup to which the basic group was upgraded */
+        supergroup_id?: td_int32;
+    }
+    
+    
+    /** A supergroup has been created from a basic group */
+    export interface td_messageChatUpgradeFrom {
+        '@type': 'messageChatUpgradeFrom';
+        /** Title of the newly created supergroup */
+        title?: td_string;
+        /** The identifier of the original basic group */
+        basic_group_id?: td_int32;
+    }
+    
+    
+    /** A message has been pinned */
+    export interface td_messagePinMessage {
+        '@type': 'messagePinMessage';
+        /** Identifier of the pinned message, can be an identifier of a deleted message or 0 */
+        message_id?: td_int53;
+    }
+    
+    
+    /** A screenshot of a message in the chat has been taken */
+    export interface td_messageScreenshotTaken {
+        '@type': 'messageScreenshotTaken';
+    }
+    
+    
+    /** The TTL (Time To Live) setting messages in a secret chat has been changed */
+    export interface td_messageChatSetTtl {
+        '@type': 'messageChatSetTtl';
+        /** New TTL */
+        ttl?: td_int32;
+    }
+    
+    
+    /** A non-standard action has happened in the chat */
+    export interface td_messageCustomServiceAction {
+        '@type': 'messageCustomServiceAction';
+        /** Message text to be shown in the chat */
+        text?: td_string;
+    }
+    
+    
+    /** A new high score was achieved in a game */
+    export interface td_messageGameScore {
+        '@type': 'messageGameScore';
+        /** Identifier of the message with the game, can be an identifier of a deleted message */
+        game_message_id?: td_int53;
+        /** Identifier of the game; may be different from the games presented in the message with the game */
+        game_id?: td_int64;
+        /** New score */
+        score?: td_int32;
+    }
+    
+    
+    /** A payment has been completed */
+    export interface td_messagePaymentSuccessful {
+        '@type': 'messagePaymentSuccessful';
+        /** Identifier of the message with the corresponding invoice; can be an identifier of a deleted message */
+        invoice_message_id?: td_int53;
+        /** Currency for the price of the product */
+        currency?: td_string;
+        /** Total price for the product, in the minimal quantity of the currency */
+        total_amount?: td_int53;
+    }
+    
+    
+    /** A payment has been completed; for bots only */
+    export interface td_messagePaymentSuccessfulBot {
+        '@type': 'messagePaymentSuccessfulBot';
+        /** Identifier of the message with the corresponding invoice; can be an identifier of a deleted message */
+        invoice_message_id?: td_int53;
+        /** Currency for price of the product */
+        currency?: td_string;
+        /** Total price for the product, in the minimal quantity of the currency */
+        total_amount?: td_int53;
+        /** Invoice payload */
+        invoice_payload?: td_bytes;
+        /** Identifier of the shipping option chosen by the user; may be empty if not applicable */
+        shipping_option_id?: td_string;
+        /** Information about the order; may be null */
+        order_info?: td_orderInfo;
+        /** Telegram payment identifier */
+        telegram_payment_charge_id?: td_string;
+        /** Provider payment identifier */
+        provider_payment_charge_id?: td_string;
+    }
+    
+    
+    /** A contact has registered with Telegram */
+    export interface td_messageContactRegistered {
+        '@type': 'messageContactRegistered';
+    }
+    
+    
+    /** The current user has connected a website by logging in using Telegram Login Widget on it */
+    export interface td_messageWebsiteConnected {
+        '@type': 'messageWebsiteConnected';
+        /** Domain name of the connected website */
+        domain_name?: td_string;
+    }
+    
+    
+    /** Telegram Passport data has been sent */
+    export interface td_messagePassportDataSent {
+        '@type': 'messagePassportDataSent';
+        /** List of Telegram Passport element types sent */
+        types?: td_vector<td_PassportElementType>;
+    }
+    
+    
+    /** Telegram Passport data has been received; for bots only */
+    export interface td_messagePassportDataReceived {
+        '@type': 'messagePassportDataReceived';
+        /** List of received Telegram Passport elements */
+        elements?: td_vector<td_encryptedPassportElement>;
+        /** Encrypted data credentials */
+        credentials?: td_encryptedCredentials;
+    }
+    
+    
+    /** A user in the chat came within proximity alert range */
+    export interface td_messageProximityAlertTriggered {
+        '@type': 'messageProximityAlertTriggered';
+        /** The user or chat, which triggered the proximity alert */
+        traveler?: td_MessageSender;
+        /** The user or chat, which subscribed for the proximity alert */
+        watcher?: td_MessageSender;
+        /** The distance between the users */
+        distance?: td_int32;
+    }
+    
+    
+    /** Message content that is not supported in the current TDLib version */
+    export interface td_messageUnsupported {
+        '@type': 'messageUnsupported';
+    }
+    
+    
+    /** A mention of a user by their username */
+    export interface td_textEntityTypeMention {
+        '@type': 'textEntityTypeMention';
+    }
+    
+    
+    /** A hashtag text, beginning with "#" */
+    export interface td_textEntityTypeHashtag {
+        '@type': 'textEntityTypeHashtag';
+    }
+    
+    
+    /** A cashtag text, beginning with "$" and consisting of capital english letters (i.e. "$USD") */
+    export interface td_textEntityTypeCashtag {
+        '@type': 'textEntityTypeCashtag';
+    }
+    
+    
+    /** A bot command, beginning with "/". This shouldn't be highlighted if there are no bots in the chat */
+    export interface td_textEntityTypeBotCommand {
+        '@type': 'textEntityTypeBotCommand';
+    }
+    
+    
+    /** An HTTP URL */
+    export interface td_textEntityTypeUrl {
+        '@type': 'textEntityTypeUrl';
+    }
+    
+    
+    /** An email address */
+    export interface td_textEntityTypeEmailAddress {
+        '@type': 'textEntityTypeEmailAddress';
+    }
+    
+    
+    /** A phone number */
+    export interface td_textEntityTypePhoneNumber {
+        '@type': 'textEntityTypePhoneNumber';
+    }
+    
+    
+    /** A bank card number. The getBankCardInfo method can be used to get information about the bank card */
+    export interface td_textEntityTypeBankCardNumber {
+        '@type': 'textEntityTypeBankCardNumber';
+    }
+    
+    
+    /** A bold text */
+    export interface td_textEntityTypeBold {
+        '@type': 'textEntityTypeBold';
+    }
+    
+    
+    /** An italic text */
+    export interface td_textEntityTypeItalic {
+        '@type': 'textEntityTypeItalic';
+    }
+    
+    
+    /** An underlined text */
+    export interface td_textEntityTypeUnderline {
+        '@type': 'textEntityTypeUnderline';
+    }
+    
+    
+    /** A strikethrough text */
+    export interface td_textEntityTypeStrikethrough {
+        '@type': 'textEntityTypeStrikethrough';
+    }
+    
+    
+    /** Text that must be formatted as if inside a code HTML tag */
+    export interface td_textEntityTypeCode {
+        '@type': 'textEntityTypeCode';
+    }
+    
+    
+    /** Text that must be formatted as if inside a pre HTML tag */
+    export interface td_textEntityTypePre {
+        '@type': 'textEntityTypePre';
+    }
+    
+    
+    /** Text that must be formatted as if inside pre, and code HTML tags */
+    export interface td_textEntityTypePreCode {
+        '@type': 'textEntityTypePreCode';
+        /** Programming language of the code; as defined by the sender */
+        language?: td_string;
+    }
+    
+    
+    /** A text description shown instead of a raw URL */
+    export interface td_textEntityTypeTextUrl {
+        '@type': 'textEntityTypeTextUrl';
+        /** HTTP or tg:// URL to be opened when the link is clicked */
+        url?: td_string;
+    }
+    
+    
+    /** A text shows instead of a raw mention of the user (e.g., when the user has no username) */
+    export interface td_textEntityTypeMentionName {
+        '@type': 'textEntityTypeMentionName';
+        /** Identifier of the mentioned user */
+        user_id?: td_int32;
+    }
+    
+    
+    /** A thumbnail to be sent along with a file; must be in JPEG or WEBP format for stickers, and less than 200 KB in size */
+    export interface td_inputThumbnail {
+        '@type': 'inputThumbnail';
+        /** Thumbnail file to send. Sending thumbnails by file_id is currently not supported */
+        thumbnail?: td_InputFile;
+        /** Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown */
+        width?: td_int32;
+        /** Thumbnail height, usually shouldn't exceed 320. Use 0 if unknown */
+        height?: td_int32;
+    }
+    
+    
+    /** The message will be sent at the specified date */
+    export interface td_messageSchedulingStateSendAtDate {
+        '@type': 'messageSchedulingStateSendAtDate';
+        /** Date the message will be sent. The date must be within 367 days in the future */
+        send_date?: td_int32;
+    }
+    
+    
+    /** The message will be sent when the peer will be online. Applicable to private chats only and when the exact online status of the peer is known */
+    export interface td_messageSchedulingStateSendWhenOnline {
+        '@type': 'messageSchedulingStateSendWhenOnline';
+    }
+    
+    
+    /** Options to be used when a message is sent */
+    export interface td_messageSendOptions {
+        '@type': 'messageSendOptions';
+        /** Pass true to disable notification for the message */
+        disable_notification?: td_Bool;
+        /** Pass true if the message is sent from the background */
+        from_background?: td_Bool;
+        /** Message scheduling state. Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled */
+        scheduling_state?: td_MessageSchedulingState;
+    }
+    
+    
+    /** Options to be used when a message content is copied without a link to the original message */
+    export interface td_messageCopyOptions {
+        '@type': 'messageCopyOptions';
+        /** True, if content of the message needs to be copied without a link to the original message. Always true if the message is forwarded to a secret chat */
+        send_copy?: td_Bool;
+        /** True, if media caption of the message copy needs to be replaced. Ignored if send_copy is false */
+        replace_caption?: td_Bool;
+        /** New message caption. Ignored if replace_caption is false */
+        new_caption?: td_formattedText;
+    }
+    
+    
+    /** A text message */
+    export interface td_inputMessageText {
+        '@type': 'inputMessageText';
+        /** Formatted text to be sent; 1-GetOption("message_text_length_max") characters. Only Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually */
+        text?: td_formattedText;
+        /** True, if rich web page previews for URLs in the message text should be disabled */
+        disable_web_page_preview?: td_Bool;
+        /** True, if a chat message draft should be deleted */
+        clear_draft?: td_Bool;
+    }
+    
+    
+    /** An animation message (GIF-style). */
+    export interface td_inputMessageAnimation {
+        '@type': 'inputMessageAnimation';
+        /** Animation file to be sent */
+        animation?: td_InputFile;
+        /** Animation thumbnail, if available */
+        thumbnail?: td_inputThumbnail;
+        /** File identifiers of the stickers added to the animation, if applicable */
+        added_sticker_file_ids?: td_vector<td_int32>;
+        /** Duration of the animation, in seconds */
+        duration?: td_int32;
+        /** Width of the animation; may be replaced by the server */
+        width?: td_int32;
+        /** Height of the animation; may be replaced by the server */
+        height?: td_int32;
+        /** Animation caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** An audio message */
+    export interface td_inputMessageAudio {
+        '@type': 'inputMessageAudio';
+        /** Audio file to be sent */
+        audio?: td_InputFile;
+        /** Thumbnail of the cover for the album, if available */
+        album_cover_thumbnail?: td_inputThumbnail;
+        /** Duration of the audio, in seconds; may be replaced by the server */
+        duration?: td_int32;
+        /** Title of the audio; 0-64 characters; may be replaced by the server */
+        title?: td_string;
+        /** Performer of the audio; 0-64 characters, may be replaced by the server */
+        performer?: td_string;
+        /** Audio caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** A document message (general file) */
+    export interface td_inputMessageDocument {
+        '@type': 'inputMessageDocument';
+        /** Document to be sent */
+        document?: td_InputFile;
+        /** Document thumbnail, if available */
+        thumbnail?: td_inputThumbnail;
+        /** If true, automatic file type detection will be disabled and the document will be always sent as file. Always true for files sent to secret chats */
+        disable_content_type_detection?: td_Bool;
+        /** Document caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** A photo message */
+    export interface td_inputMessagePhoto {
+        '@type': 'inputMessagePhoto';
+        /** Photo to send */
+        photo?: td_InputFile;
+        /** Photo thumbnail to be sent, this is sent to the other party in secret chats only */
+        thumbnail?: td_inputThumbnail;
+        /** File identifiers of the stickers added to the photo, if applicable */
+        added_sticker_file_ids?: td_vector<td_int32>;
+        /** Photo width */
+        width?: td_int32;
+        /** Photo height */
+        height?: td_int32;
+        /** Photo caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+        /** Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats */
+        ttl?: td_int32;
+    }
+    
+    
+    /** A sticker message */
+    export interface td_inputMessageSticker {
+        '@type': 'inputMessageSticker';
+        /** Sticker to be sent */
+        sticker?: td_InputFile;
+        /** Sticker thumbnail, if available */
+        thumbnail?: td_inputThumbnail;
+        /** Sticker width */
+        width?: td_int32;
+        /** Sticker height */
+        height?: td_int32;
+    }
+    
+    
+    /** A video message */
+    export interface td_inputMessageVideo {
+        '@type': 'inputMessageVideo';
+        /** Video to be sent */
+        video?: td_InputFile;
+        /** Video thumbnail, if available */
+        thumbnail?: td_inputThumbnail;
+        /** File identifiers of the stickers added to the video, if applicable */
+        added_sticker_file_ids?: td_vector<td_int32>;
+        /** Duration of the video, in seconds */
+        duration?: td_int32;
+        /** Video width */
+        width?: td_int32;
+        /** Video height */
+        height?: td_int32;
+        /** True, if the video should be tried to be streamed */
+        supports_streaming?: td_Bool;
+        /** Video caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+        /** Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats */
+        ttl?: td_int32;
+    }
+    
+    
+    /** A video note message */
+    export interface td_inputMessageVideoNote {
+        '@type': 'inputMessageVideoNote';
+        /** Video note to be sent */
+        video_note?: td_InputFile;
+        /** Video thumbnail, if available */
+        thumbnail?: td_inputThumbnail;
+        /** Duration of the video, in seconds */
+        duration?: td_int32;
+        /** Video width and height; must be positive and not greater than 640 */
+        length?: td_int32;
+    }
+    
+    
+    /** A voice note message */
+    export interface td_inputMessageVoiceNote {
+        '@type': 'inputMessageVoiceNote';
+        /** Voice note to be sent */
+        voice_note?: td_InputFile;
+        /** Duration of the voice note, in seconds */
+        duration?: td_int32;
+        /** Waveform representation of the voice note, in 5-bit format */
+        waveform?: td_bytes;
+        /** Voice note caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** A message with a location */
+    export interface td_inputMessageLocation {
+        '@type': 'inputMessageLocation';
+        /** Location to be sent */
+        location?: td_location;
+        /** Period for which the location can be updated, in seconds; should be between 60 and 86400 for a live location and 0 otherwise */
+        live_period?: td_int32;
+        /** For live locations, a direction in which the location moves, in degrees; 1-360. Pass 0 if unknown */
+        heading?: td_int32;
+        /** For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled. Can't be enabled in channels and Saved Messages */
+        proximity_alert_radius?: td_int32;
+    }
+    
+    
+    /** A message with information about a venue */
+    export interface td_inputMessageVenue {
+        '@type': 'inputMessageVenue';
+        /** Venue to send */
+        venue?: td_venue;
+    }
+    
+    
+    /** A message containing a user contact */
+    export interface td_inputMessageContact {
+        '@type': 'inputMessageContact';
+        /** Contact to send */
+        contact?: td_contact;
+    }
+    
+    
+    /** A dice message */
+    export interface td_inputMessageDice {
+        '@type': 'inputMessageDice';
+        /** Emoji on which the dice throw animation is based */
+        emoji?: td_string;
+        /** True, if a chat message draft should be deleted */
+        clear_draft?: td_Bool;
+    }
+    
+    
+    /** A message with a game; not supported for channels or secret chats */
+    export interface td_inputMessageGame {
+        '@type': 'inputMessageGame';
+        /** User identifier of the bot that owns the game */
+        bot_user_id?: td_int32;
+        /** Short name of the game */
+        game_short_name?: td_string;
+    }
+    
+    
+    /** A message with an invoice; can be used only by bots and only in private chats */
+    export interface td_inputMessageInvoice {
+        '@type': 'inputMessageInvoice';
+        /** Invoice */
+        invoice?: td_invoice;
+        /** Product title; 1-32 characters */
+        title?: td_string;
+        /** A message with an invoice; can be used only by bots and only in private chats */
+        description?: td_string;
+        /** Product photo URL; optional */
+        photo_url?: td_string;
+        /** Product photo size */
+        photo_size?: td_int32;
+        /** Product photo width */
+        photo_width?: td_int32;
+        /** Product photo height */
+        photo_height?: td_int32;
+        /** The invoice payload */
+        payload?: td_bytes;
+        /** Payment provider token */
+        provider_token?: td_string;
+        /** JSON-encoded data about the invoice, which will be shared with the payment provider */
+        provider_data?: td_string;
+        /** Unique invoice bot start_parameter for the generation of this invoice */
+        start_parameter?: td_string;
+    }
+    
+    
+    /** A message with a poll. Polls can't be sent to secret chats. Polls can be sent only to a private chat with a bot */
+    export interface td_inputMessagePoll {
+        '@type': 'inputMessagePoll';
+        /** Poll question, 1-255 characters (up to 300 characters for bots) */
+        question?: td_string;
+        /** List of poll answer options, 2-10 strings 1-100 characters each */
+        options?: td_vector<td_string>;
+        /** True, if the poll voters are anonymous. Non-anonymous polls can't be sent or forwarded to channels */
+        is_anonymous?: td_Bool;
+        /** Type of the poll */
+        type?: td_PollType;
+        /** Amount of time the poll will be active after creation, in seconds; for bots only */
+        open_period?: td_int32;
+        /** Point in time (Unix timestamp) when the poll will be automatically closed; for bots only */
+        close_date?: td_int32;
+        /** True, if the poll needs to be sent already closed; for bots only */
+        is_closed?: td_Bool;
+    }
+    
+    
+    /** A forwarded message */
+    export interface td_inputMessageForwarded {
+        '@type': 'inputMessageForwarded';
+        /** Identifier for the chat this forwarded message came from */
+        from_chat_id?: td_int53;
+        /** Identifier of the message to forward */
+        message_id?: td_int53;
+        /** True, if a game message should be shared within a launched game; applies only to game messages */
+        in_game_share?: td_Bool;
+        /** Options to be used to copy content of the message without a link to the original message */
+        copy_options?: td_messageCopyOptions;
+    }
+    
+    
+    /** Returns all found messages, no filter is applied */
+    export interface td_searchMessagesFilterEmpty {
+        '@type': 'searchMessagesFilterEmpty';
+    }
+    
+    
+    /** Returns only animation messages */
+    export interface td_searchMessagesFilterAnimation {
+        '@type': 'searchMessagesFilterAnimation';
+    }
+    
+    
+    /** Returns only audio messages */
+    export interface td_searchMessagesFilterAudio {
+        '@type': 'searchMessagesFilterAudio';
+    }
+    
+    
+    /** Returns only document messages */
+    export interface td_searchMessagesFilterDocument {
+        '@type': 'searchMessagesFilterDocument';
+    }
+    
+    
+    /** Returns only photo messages */
+    export interface td_searchMessagesFilterPhoto {
+        '@type': 'searchMessagesFilterPhoto';
+    }
+    
+    
+    /** Returns only video messages */
+    export interface td_searchMessagesFilterVideo {
+        '@type': 'searchMessagesFilterVideo';
+    }
+    
+    
+    /** Returns only voice note messages */
+    export interface td_searchMessagesFilterVoiceNote {
+        '@type': 'searchMessagesFilterVoiceNote';
+    }
+    
+    
+    /** Returns only photo and video messages */
+    export interface td_searchMessagesFilterPhotoAndVideo {
+        '@type': 'searchMessagesFilterPhotoAndVideo';
+    }
+    
+    
+    /** Returns only messages containing URLs */
+    export interface td_searchMessagesFilterUrl {
+        '@type': 'searchMessagesFilterUrl';
+    }
+    
+    
+    /** Returns only messages containing chat photos */
+    export interface td_searchMessagesFilterChatPhoto {
+        '@type': 'searchMessagesFilterChatPhoto';
+    }
+    
+    
+    /** Returns only call messages */
+    export interface td_searchMessagesFilterCall {
+        '@type': 'searchMessagesFilterCall';
+    }
+    
+    
+    /** Returns only incoming call messages with missed/declined discard reasons */
+    export interface td_searchMessagesFilterMissedCall {
+        '@type': 'searchMessagesFilterMissedCall';
+    }
+    
+    
+    /** Returns only video note messages */
+    export interface td_searchMessagesFilterVideoNote {
+        '@type': 'searchMessagesFilterVideoNote';
+    }
+    
+    
+    /** Returns only voice and video note messages */
+    export interface td_searchMessagesFilterVoiceAndVideoNote {
+        '@type': 'searchMessagesFilterVoiceAndVideoNote';
+    }
+    
+    
+    /** Returns only messages with mentions of the current user, or messages that are replies to their messages */
+    export interface td_searchMessagesFilterMention {
+        '@type': 'searchMessagesFilterMention';
+    }
+    
+    
+    /** Returns only messages with unread mentions of the current user, or messages that are replies to their messages. When using this filter the results can't be additionally filtered by a query, a message thread or by the sending user */
+    export interface td_searchMessagesFilterUnreadMention {
+        '@type': 'searchMessagesFilterUnreadMention';
+    }
+    
+    
+    /** Returns only failed to send messages. This filter can be used only if the message database is used */
+    export interface td_searchMessagesFilterFailedToSend {
+        '@type': 'searchMessagesFilterFailedToSend';
+    }
+    
+    
+    /** Returns only pinned messages */
+    export interface td_searchMessagesFilterPinned {
+        '@type': 'searchMessagesFilterPinned';
+    }
+    
+    
+    /** The user is typing a message */
+    export interface td_chatActionTyping {
+        '@type': 'chatActionTyping';
+    }
+    
+    
+    /** The user is recording a video */
+    export interface td_chatActionRecordingVideo {
+        '@type': 'chatActionRecordingVideo';
+    }
+    
+    
+    /** The user is uploading a video */
+    export interface td_chatActionUploadingVideo {
+        '@type': 'chatActionUploadingVideo';
+        /** Upload progress, as a percentage */
+        progress?: td_int32;
+    }
+    
+    
+    /** The user is recording a voice note */
+    export interface td_chatActionRecordingVoiceNote {
+        '@type': 'chatActionRecordingVoiceNote';
+    }
+    
+    
+    /** The user is uploading a voice note */
+    export interface td_chatActionUploadingVoiceNote {
+        '@type': 'chatActionUploadingVoiceNote';
+        /** Upload progress, as a percentage */
+        progress?: td_int32;
+    }
+    
+    
+    /** The user is uploading a photo */
+    export interface td_chatActionUploadingPhoto {
+        '@type': 'chatActionUploadingPhoto';
+        /** Upload progress, as a percentage */
+        progress?: td_int32;
+    }
+    
+    
+    /** The user is uploading a document */
+    export interface td_chatActionUploadingDocument {
+        '@type': 'chatActionUploadingDocument';
+        /** Upload progress, as a percentage */
+        progress?: td_int32;
+    }
+    
+    
+    /** The user is picking a location or venue to send */
+    export interface td_chatActionChoosingLocation {
+        '@type': 'chatActionChoosingLocation';
+    }
+    
+    
+    /** The user is picking a contact to send */
+    export interface td_chatActionChoosingContact {
+        '@type': 'chatActionChoosingContact';
+    }
+    
+    
+    /** The user has started to play a game */
+    export interface td_chatActionStartPlayingGame {
+        '@type': 'chatActionStartPlayingGame';
+    }
+    
+    
+    /** The user is recording a video note */
+    export interface td_chatActionRecordingVideoNote {
+        '@type': 'chatActionRecordingVideoNote';
+    }
+    
+    
+    /** The user is uploading a video note */
+    export interface td_chatActionUploadingVideoNote {
+        '@type': 'chatActionUploadingVideoNote';
+        /** Upload progress, as a percentage */
+        progress?: td_int32;
+    }
+    
+    
+    /** The user has cancelled the previous action */
+    export interface td_chatActionCancel {
+        '@type': 'chatActionCancel';
+    }
+    
+    
+    /** The user status was never changed */
+    export interface td_userStatusEmpty {
+        '@type': 'userStatusEmpty';
+    }
+    
+    
+    /** The user is online */
+    export interface td_userStatusOnline {
+        '@type': 'userStatusOnline';
+        /** Point in time (Unix timestamp) when the user's online status will expire */
+        expires?: td_int32;
+    }
+    
+    
+    /** The user is offline */
+    export interface td_userStatusOffline {
+        '@type': 'userStatusOffline';
+        /** Point in time (Unix timestamp) when the user was last online */
+        was_online?: td_int32;
+    }
+    
+    
+    /** The user was online recently */
+    export interface td_userStatusRecently {
+        '@type': 'userStatusRecently';
+    }
+    
+    
+    /** The user is offline, but was online last week */
+    export interface td_userStatusLastWeek {
+        '@type': 'userStatusLastWeek';
+    }
+    
+    
+    /** The user is offline, but was online last month */
+    export interface td_userStatusLastMonth {
+        '@type': 'userStatusLastMonth';
+    }
+    
+    
+    /** Represents a list of stickers */
+    export interface td_stickers {
+        '@type': 'stickers';
+        /** List of stickers */
+        stickers?: td_vector<td_sticker>;
+    }
+    
+    
+    /** Represents a list of emoji */
+    export interface td_emojis {
+        '@type': 'emojis';
+        /** List of emojis */
+        emojis?: td_vector<td_string>;
+    }
+    
+    
+    /** Represents a sticker set */
+    export interface td_stickerSet {
+        '@type': 'stickerSet';
+        /** Identifier of the sticker set */
+        id?: td_int64;
+        /** Title of the sticker set */
+        title?: td_string;
+        /** Name of the sticker set */
+        name?: td_string;
+        /** Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed */
+        thumbnail?: td_thumbnail;
+        /** True, if the sticker set has been installed by the current user */
+        is_installed?: td_Bool;
+        /** True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously */
+        is_archived?: td_Bool;
+        /** True, if the sticker set is official */
+        is_official?: td_Bool;
+        /** True, is the stickers in the set are animated */
+        is_animated?: td_Bool;
+        /** True, if the stickers in the set are masks */
+        is_masks?: td_Bool;
+        /** True for already viewed trending sticker sets */
+        is_viewed?: td_Bool;
+        /** List of stickers in this set */
+        stickers?: td_vector<td_sticker>;
+        /** A list of emoji corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object */
+        emojis?: td_vector<td_emojis>;
+    }
+    
+    
+    /** Represents short information about a sticker set */
+    export interface td_stickerSetInfo {
+        '@type': 'stickerSetInfo';
+        /** Identifier of the sticker set */
+        id?: td_int64;
+        /** Title of the sticker set */
+        title?: td_string;
+        /** Name of the sticker set */
+        name?: td_string;
+        /** Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null */
+        thumbnail?: td_thumbnail;
+        /** True, if the sticker set has been installed by current user */
+        is_installed?: td_Bool;
+        /** True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously */
+        is_archived?: td_Bool;
+        /** True, if the sticker set is official */
+        is_official?: td_Bool;
+        /** True, is the stickers in the set are animated */
+        is_animated?: td_Bool;
+        /** True, if the stickers in the set are masks */
+        is_masks?: td_Bool;
+        /** True for already viewed trending sticker sets */
+        is_viewed?: td_Bool;
+        /** Total number of stickers in the set */
+        size?: td_int32;
+        /** Contains up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full set should be requested */
+        covers?: td_vector<td_sticker>;
+    }
+    
+    
+    /** Represents a list of sticker sets */
+    export interface td_stickerSets {
+        '@type': 'stickerSets';
+        /** Approximate total number of sticker sets found */
+        total_count?: td_int32;
+        /** List of sticker sets */
+        sets?: td_vector<td_stickerSetInfo>;
+    }
+    
+    
+    /** The call wasn't discarded, or the reason is unknown */
+    export interface td_callDiscardReasonEmpty {
+        '@type': 'callDiscardReasonEmpty';
+    }
+    
+    
+    /** The call was ended before the conversation started. It was cancelled by the caller or missed by the other party */
+    export interface td_callDiscardReasonMissed {
+        '@type': 'callDiscardReasonMissed';
+    }
+    
+    
+    /** The call was ended before the conversation started. It was declined by the other party */
+    export interface td_callDiscardReasonDeclined {
+        '@type': 'callDiscardReasonDeclined';
+    }
+    
+    
+    /** The call was ended during the conversation because the users were disconnected */
+    export interface td_callDiscardReasonDisconnected {
+        '@type': 'callDiscardReasonDisconnected';
+    }
+    
+    
+    /** The call was ended because one of the parties hung up */
+    export interface td_callDiscardReasonHungUp {
+        '@type': 'callDiscardReasonHungUp';
+    }
+    
+    
+    /** Specifies the supported call protocols */
+    export interface td_callProtocol {
+        '@type': 'callProtocol';
+        /** True, if UDP peer-to-peer connections are supported */
+        udp_p2p?: td_Bool;
+        /** True, if connection through UDP reflectors is supported */
+        udp_reflector?: td_Bool;
+        /** The minimum supported API layer; use 65 */
+        min_layer?: td_int32;
+        /** The maximum supported API layer; use 65 */
+        max_layer?: td_int32;
+        /** List of supported libtgvoip versions */
+        library_versions?: td_vector<td_string>;
+    }
+    
+    
+    /** A Telegram call reflector */
+    export interface td_callServerTypeTelegramReflector {
+        '@type': 'callServerTypeTelegramReflector';
+        /** A peer tag to be used with the reflector */
+        peer_tag?: td_bytes;
+    }
+    
+    
+    /** A WebRTC server */
+    export interface td_callServerTypeWebrtc {
+        '@type': 'callServerTypeWebrtc';
+        /** Username to be used for authentication */
+        username?: td_string;
+        /** Authentication password */
+        password?: td_string;
+        /** True, if the server supports TURN */
+        supports_turn?: td_Bool;
+        /** True, if the server supports STUN */
+        supports_stun?: td_Bool;
+    }
+    
+    
+    /** Describes a server for relaying call data */
+    export interface td_callServer {
+        '@type': 'callServer';
+        /** Server identifier */
+        id?: td_int64;
+        /** Server IPv4 address */
+        ip_address?: td_string;
+        /** Server IPv6 address */
+        ipv6_address?: td_string;
+        /** Server port number */
+        port?: td_int32;
+        /** Server type */
+        type?: td_CallServerType;
+    }
+    
+    
+    /** Contains the call identifier */
+    export interface td_callId {
+        '@type': 'callId';
+        /** Call identifier */
+        id?: td_int32;
+    }
+    
+    
+    /** The call is pending, waiting to be accepted by a user */
+    export interface td_callStatePending {
+        '@type': 'callStatePending';
+        /** True, if the call has already been created by the server */
+        is_created?: td_Bool;
+        /** True, if the call has already been received by the other party */
+        is_received?: td_Bool;
+    }
+    
+    
+    /** The call has been answered and encryption keys are being exchanged */
+    export interface td_callStateExchangingKeys {
+        '@type': 'callStateExchangingKeys';
+    }
+    
+    
+    /** The call is ready to use */
+    export interface td_callStateReady {
+        '@type': 'callStateReady';
+        /** Call protocols supported by the peer */
+        protocol?: td_callProtocol;
+        /** List of available call servers */
+        servers?: td_vector<td_callServer>;
+        /** A JSON-encoded call config */
+        config?: td_string;
+        /** Call encryption key */
+        encryption_key?: td_bytes;
+        /** Encryption key emojis fingerprint */
+        emojis?: td_vector<td_string>;
+        /** True, if peer-to-peer connection is allowed by users privacy settings */
+        allow_p2p?: td_Bool;
+    }
+    
+    
+    /** The call is hanging up after discardCall has been called */
+    export interface td_callStateHangingUp {
+        '@type': 'callStateHangingUp';
+    }
+    
+    
+    /** The call has ended successfully */
+    export interface td_callStateDiscarded {
+        '@type': 'callStateDiscarded';
+        /** The reason, why the call has ended */
+        reason?: td_CallDiscardReason;
+        /** True, if the call rating should be sent to the server */
+        need_rating?: td_Bool;
+        /** True, if the call debug information should be sent to the server */
+        need_debug_information?: td_Bool;
+    }
+    
+    
+    /** The call has ended with an error */
+    export interface td_callStateError {
+        '@type': 'callStateError';
+        /** Error. An error with the code 4005000 will be returned if an outgoing call is missed because of an expired timeout */
+        error?: td_error;
+    }
+    
+    
+    /** The user heard their own voice */
+    export interface td_callProblemEcho {
+        '@type': 'callProblemEcho';
+    }
+    
+    
+    /** The user heard background noise */
+    export interface td_callProblemNoise {
+        '@type': 'callProblemNoise';
+    }
+    
+    
+    /** The other side kept disappearing */
+    export interface td_callProblemInterruptions {
+        '@type': 'callProblemInterruptions';
+    }
+    
+    
+    /** The speech was distorted */
+    export interface td_callProblemDistortedSpeech {
+        '@type': 'callProblemDistortedSpeech';
+    }
+    
+    
+    /** The user couldn't hear the other side */
+    export interface td_callProblemSilentLocal {
+        '@type': 'callProblemSilentLocal';
+    }
+    
+    
+    /** The other side couldn't hear the user */
+    export interface td_callProblemSilentRemote {
+        '@type': 'callProblemSilentRemote';
+    }
+    
+    
+    /** The call ended unexpectedly */
+    export interface td_callProblemDropped {
+        '@type': 'callProblemDropped';
+    }
+    
+    
+    /** The video was distorted */
+    export interface td_callProblemDistortedVideo {
+        '@type': 'callProblemDistortedVideo';
+    }
+    
+    
+    /** The video was pixelated */
+    export interface td_callProblemPixelatedVideo {
+        '@type': 'callProblemPixelatedVideo';
+    }
+    
+    
+    /** Describes a call */
+    export interface td_call {
+        '@type': 'call';
+        /** Call identifier, not persistent */
+        id?: td_int32;
+        /** Peer user identifier */
+        user_id?: td_int32;
+        /** True, if the call is outgoing */
+        is_outgoing?: td_Bool;
+        /** True, if the call is a video call */
+        is_video?: td_Bool;
+        /** Call state */
+        state?: td_CallState;
+    }
+    
+    
+    /** Contains settings for the authentication of the user's phone number */
+    export interface td_phoneNumberAuthenticationSettings {
+        '@type': 'phoneNumberAuthenticationSettings';
+        /** Pass true if the authentication code may be sent via flash call to the specified phone number */
+        allow_flash_call?: td_Bool;
+        /** Pass true if the authenticated phone number is used on the current device */
+        is_current_phone_number?: td_Bool;
+        /** For official applications only. True, if the application can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS. See https://developers.google.com/identity/sms-retriever/ for more details */
+        allow_sms_retriever_api?: td_Bool;
+    }
+    
+    
+    /** Represents a list of animations */
+    export interface td_animations {
+        '@type': 'animations';
+        /** List of animations */
+        animations?: td_vector<td_animation>;
+    }
+    
+    
+    /** A regular animated sticker */
+    export interface td_diceStickersRegular {
+        '@type': 'diceStickersRegular';
+        /** The animated sticker with the dice animation */
+        sticker?: td_sticker;
+    }
+    
+    
+    /** Animated stickers to be combined into a slot machine */
+    export interface td_diceStickersSlotMachine {
+        '@type': 'diceStickersSlotMachine';
+        /** The animated sticker with the slot machine background. The background animation must start playing after all reel animations finish */
+        background?: td_sticker;
+        /** The animated sticker with the lever animation. The lever animation must play once in the initial dice state */
+        lever?: td_sticker;
+        /** The animated sticker with the left reel */
+        left_reel?: td_sticker;
+        /** The animated sticker with the center reel */
+        center_reel?: td_sticker;
+        /** The animated sticker with the right reel */
+        right_reel?: td_sticker;
+    }
+    
+    
+    /** Represents the result of an ImportContacts request */
+    export interface td_importedContacts {
+        '@type': 'importedContacts';
+        /** User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user */
+        user_ids?: td_vector<td_int32>;
+        /** The number of users that imported the corresponding contact; 0 for already registered users or if unavailable */
+        importer_count?: td_vector<td_int32>;
+    }
+    
+    
+    /** Contains an HTTP URL */
+    export interface td_httpUrl {
+        '@type': 'httpUrl';
+        /** The URL */
+        url?: td_string;
+    }
+    
+    
+    /** Represents a link to an animated GIF or an animated (i.e. without sound) H.264/MPEG-4 AVC video */
+    export interface td_inputInlineQueryResultAnimation {
+        '@type': 'inputInlineQueryResultAnimation';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Title of the query result */
+        title?: td_string;
+        /** URL of the result thumbnail (JPEG, GIF, or MPEG4), if it exists */
+        thumbnail_url?: td_string;
+        /** MIME type of the video thumbnail. If non-empty, must be one of "image/jpeg", "image/gif" and "video/mp4" */
+        thumbnail_mime_type?: td_string;
+        /** The URL of the video file (file size must not exceed 1MB) */
+        video_url?: td_string;
+        /** MIME type of the video file. Must be one of "image/gif" and "video/mp4" */
+        video_mime_type?: td_string;
+        /** Duration of the video, in seconds */
+        video_duration?: td_int32;
+        /** Width of the video */
+        video_width?: td_int32;
+        /** Height of the video */
+        video_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageAnimation, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a link to an article or web page */
+    export interface td_inputInlineQueryResultArticle {
+        '@type': 'inputInlineQueryResultArticle';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** URL of the result, if it exists */
+        url?: td_string;
+        /** True, if the URL must be not shown */
+        hide_url?: td_Bool;
+        /** Title of the result */
+        title?: td_string;
+        /** Represents a link to an article or web page */
+        description?: td_string;
+        /** URL of the result thumbnail, if it exists */
+        thumbnail_url?: td_string;
+        /** Thumbnail width, if known */
+        thumbnail_width?: td_int32;
+        /** Thumbnail height, if known */
+        thumbnail_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a link to an MP3 audio file */
+    export interface td_inputInlineQueryResultAudio {
+        '@type': 'inputInlineQueryResultAudio';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Title of the audio file */
+        title?: td_string;
+        /** Performer of the audio file */
+        performer?: td_string;
+        /** The URL of the audio file */
+        audio_url?: td_string;
+        /** Audio file duration, in seconds */
+        audio_duration?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageAudio, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a user contact */
+    export interface td_inputInlineQueryResultContact {
+        '@type': 'inputInlineQueryResultContact';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** User contact */
+        contact?: td_contact;
+        /** URL of the result thumbnail, if it exists */
+        thumbnail_url?: td_string;
+        /** Thumbnail width, if known */
+        thumbnail_width?: td_int32;
+        /** Thumbnail height, if known */
+        thumbnail_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a link to a file */
+    export interface td_inputInlineQueryResultDocument {
+        '@type': 'inputInlineQueryResultDocument';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Title of the resulting file */
+        title?: td_string;
+        /** Represents a link to a file */
+        description?: td_string;
+        /** URL of the file */
+        document_url?: td_string;
+        /** MIME type of the file content; only "application/pdf" and "application/zip" are currently allowed */
+        mime_type?: td_string;
+        /** The URL of the file thumbnail, if it exists */
+        thumbnail_url?: td_string;
+        /** Width of the thumbnail */
+        thumbnail_width?: td_int32;
+        /** Height of the thumbnail */
+        thumbnail_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageDocument, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a game */
+    export interface td_inputInlineQueryResultGame {
+        '@type': 'inputInlineQueryResultGame';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Short name of the game */
+        game_short_name?: td_string;
+        /** Message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+    }
+    
+    
+    /** Represents a point on the map */
+    export interface td_inputInlineQueryResultLocation {
+        '@type': 'inputInlineQueryResultLocation';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Location result */
+        location?: td_location;
+        /** Amount of time relative to the message sent time until the location can be updated, in seconds */
+        live_period?: td_int32;
+        /** Title of the result */
+        title?: td_string;
+        /** URL of the result thumbnail, if it exists */
+        thumbnail_url?: td_string;
+        /** Thumbnail width, if known */
+        thumbnail_width?: td_int32;
+        /** Thumbnail height, if known */
+        thumbnail_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents link to a JPEG image */
+    export interface td_inputInlineQueryResultPhoto {
+        '@type': 'inputInlineQueryResultPhoto';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Title of the result, if known */
+        title?: td_string;
+        /** Represents link to a JPEG image */
+        description?: td_string;
+        /** URL of the photo thumbnail, if it exists */
+        thumbnail_url?: td_string;
+        /** The URL of the JPEG photo (photo size must not exceed 5MB) */
+        photo_url?: td_string;
+        /** Width of the photo */
+        photo_width?: td_int32;
+        /** Height of the photo */
+        photo_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessagePhoto, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a link to a WEBP or TGS sticker */
+    export interface td_inputInlineQueryResultSticker {
+        '@type': 'inputInlineQueryResultSticker';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** URL of the sticker thumbnail, if it exists */
+        thumbnail_url?: td_string;
+        /** The URL of the WEBP or TGS sticker (sticker file size must not exceed 5MB) */
+        sticker_url?: td_string;
+        /** Width of the sticker */
+        sticker_width?: td_int32;
+        /** Height of the sticker */
+        sticker_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, inputMessageSticker, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents information about a venue */
+    export interface td_inputInlineQueryResultVenue {
+        '@type': 'inputInlineQueryResultVenue';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Venue result */
+        venue?: td_venue;
+        /** URL of the result thumbnail, if it exists */
+        thumbnail_url?: td_string;
+        /** Thumbnail width, if known */
+        thumbnail_width?: td_int32;
+        /** Thumbnail height, if known */
+        thumbnail_height?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a link to a page containing an embedded video player or a video file */
+    export interface td_inputInlineQueryResultVideo {
+        '@type': 'inputInlineQueryResultVideo';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Title of the result */
+        title?: td_string;
+        /** Represents a link to a page containing an embedded video player or a video file */
+        description?: td_string;
+        /** The URL of the video thumbnail (JPEG), if it exists */
+        thumbnail_url?: td_string;
+        /** URL of the embedded video player or video file */
+        video_url?: td_string;
+        /** MIME type of the content of the video URL, only "text/html" or "video/mp4" are currently supported */
+        mime_type?: td_string;
+        /** Width of the video */
+        video_width?: td_int32;
+        /** Height of the video */
+        video_height?: td_int32;
+        /** Video duration, in seconds */
+        video_duration?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageVideo, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a link to an opus-encoded audio file within an OGG container, single channel audio */
+    export interface td_inputInlineQueryResultVoiceNote {
+        '@type': 'inputInlineQueryResultVoiceNote';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Title of the voice note */
+        title?: td_string;
+        /** The URL of the voice note file */
+        voice_note_url?: td_string;
+        /** Duration of the voice note, in seconds */
+        voice_note_duration?: td_int32;
+        /** The message reply markup. Must be of type replyMarkupInlineKeyboard or null */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent. Must be one of the following types: InputMessageText, InputMessageVoiceNote, InputMessageLocation, InputMessageVenue or InputMessageContact */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Represents a link to an article or web page */
+    export interface td_inlineQueryResultArticle {
+        '@type': 'inlineQueryResultArticle';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** URL of the result, if it exists */
+        url?: td_string;
+        /** True, if the URL must be not shown */
+        hide_url?: td_Bool;
+        /** Title of the result */
+        title?: td_string;
+        /** Represents a link to an article or web page */
+        description?: td_string;
+        /** Result thumbnail in JPEG format; may be null */
+        thumbnail?: td_thumbnail;
+    }
+    
+    
+    /** Represents a user contact */
+    export interface td_inlineQueryResultContact {
+        '@type': 'inlineQueryResultContact';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** A user contact */
+        contact?: td_contact;
+        /** Result thumbnail in JPEG format; may be null */
+        thumbnail?: td_thumbnail;
+    }
+    
+    
+    /** Represents a point on the map */
+    export interface td_inlineQueryResultLocation {
+        '@type': 'inlineQueryResultLocation';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Location result */
+        location?: td_location;
+        /** Title of the result */
+        title?: td_string;
+        /** Result thumbnail in JPEG format; may be null */
+        thumbnail?: td_thumbnail;
+    }
+    
+    
+    /** Represents information about a venue */
+    export interface td_inlineQueryResultVenue {
+        '@type': 'inlineQueryResultVenue';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Venue result */
+        venue?: td_venue;
+        /** Result thumbnail in JPEG format; may be null */
+        thumbnail?: td_thumbnail;
+    }
+    
+    
+    /** Represents information about a game */
+    export interface td_inlineQueryResultGame {
+        '@type': 'inlineQueryResultGame';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Game result */
+        game?: td_game;
+    }
+    
+    
+    /** Represents an animation file */
+    export interface td_inlineQueryResultAnimation {
+        '@type': 'inlineQueryResultAnimation';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Animation file */
+        animation?: td_animation;
+        /** Animation title */
+        title?: td_string;
+    }
+    
+    
+    /** Represents an audio file */
+    export interface td_inlineQueryResultAudio {
+        '@type': 'inlineQueryResultAudio';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Audio file */
+        audio?: td_audio;
+    }
+    
+    
+    /** Represents a document */
+    export interface td_inlineQueryResultDocument {
+        '@type': 'inlineQueryResultDocument';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Document */
+        document?: td_document;
+        /** Document title */
+        title?: td_string;
+        /** Represents a document */
+        description?: td_string;
+    }
+    
+    
+    /** Represents a photo */
+    export interface td_inlineQueryResultPhoto {
+        '@type': 'inlineQueryResultPhoto';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Photo */
+        photo?: td_photo;
+        /** Title of the result, if known */
+        title?: td_string;
+        /** Represents a photo */
+        description?: td_string;
+    }
+    
+    
+    /** Represents a sticker */
+    export interface td_inlineQueryResultSticker {
+        '@type': 'inlineQueryResultSticker';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Sticker */
+        sticker?: td_sticker;
+    }
+    
+    
+    /** Represents a video */
+    export interface td_inlineQueryResultVideo {
+        '@type': 'inlineQueryResultVideo';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Video */
+        video?: td_video;
+        /** Title of the video */
+        title?: td_string;
+        /** Represents a video */
+        description?: td_string;
+    }
+    
+    
+    /** Represents a voice note */
+    export interface td_inlineQueryResultVoiceNote {
+        '@type': 'inlineQueryResultVoiceNote';
+        /** Unique identifier of the query result */
+        id?: td_string;
+        /** Voice note */
+        voice_note?: td_voiceNote;
+        /** Title of the voice note */
+        title?: td_string;
+    }
+    
+    
+    /** Represents the results of the inline query. Use sendInlineQueryResultMessage to send the result of the query */
+    export interface td_inlineQueryResults {
+        '@type': 'inlineQueryResults';
+        /** Unique identifier of the inline query */
+        inline_query_id?: td_int64;
+        /** The offset for the next request. If empty, there are no more results */
+        next_offset?: td_string;
+        /** Results of the query */
+        results?: td_vector<td_InlineQueryResult>;
+        /** If non-empty, this text should be shown on the button, which opens a private chat with the bot and sends the bot a start message with the switch_pm_parameter */
+        switch_pm_text?: td_string;
+        /** Parameter for the bot start message */
+        switch_pm_parameter?: td_string;
+    }
+    
+    
+    /** The payload for a general callback button */
+    export interface td_callbackQueryPayloadData {
+        '@type': 'callbackQueryPayloadData';
+        /** Data that was attached to the callback button */
+        data?: td_bytes;
+    }
+    
+    
+    /** The payload for a callback button requiring password */
+    export interface td_callbackQueryPayloadDataWithPassword {
+        '@type': 'callbackQueryPayloadDataWithPassword';
+        /** The password for the current user */
+        password?: td_string;
+        /** Data that was attached to the callback button */
+        data?: td_bytes;
+    }
+    
+    
+    /** The payload for a game callback button */
+    export interface td_callbackQueryPayloadGame {
+        '@type': 'callbackQueryPayloadGame';
+        /** A short name of the game that was attached to the callback button */
+        game_short_name?: td_string;
+    }
+    
+    
+    /** Contains a bot's answer to a callback query */
+    export interface td_callbackQueryAnswer {
+        '@type': 'callbackQueryAnswer';
+        /** Text of the answer */
+        text?: td_string;
+        /** True, if an alert should be shown to the user instead of a toast notification */
+        show_alert?: td_Bool;
+        /** URL to be opened */
+        url?: td_string;
+    }
+    
+    
+    /** Contains the result of a custom request */
+    export interface td_customRequestResult {
+        '@type': 'customRequestResult';
+        /** A JSON-serialized result */
+        result?: td_string;
+    }
+    
+    
+    /** Contains one row of the game high score table */
+    export interface td_gameHighScore {
+        '@type': 'gameHighScore';
+        /** Position in the high score table */
+        position?: td_int32;
+        /** User identifier */
+        user_id?: td_int32;
+        /** User score */
+        score?: td_int32;
+    }
+    
+    
+    /** Contains a list of game high scores */
+    export interface td_gameHighScores {
+        '@type': 'gameHighScores';
+        /** A list of game high scores */
+        scores?: td_vector<td_gameHighScore>;
+    }
+    
+    
+    /** A message was edited */
+    export interface td_chatEventMessageEdited {
+        '@type': 'chatEventMessageEdited';
+        /** The original message before the edit */
+        old_message?: td_message;
+        /** The message after it was edited */
+        new_message?: td_message;
+    }
+    
+    
+    /** A message was deleted */
+    export interface td_chatEventMessageDeleted {
+        '@type': 'chatEventMessageDeleted';
+        /** Deleted message */
+        message?: td_message;
+    }
+    
+    
+    /** A poll in a message was stopped */
+    export interface td_chatEventPollStopped {
+        '@type': 'chatEventPollStopped';
+        /** The message with the poll */
+        message?: td_message;
+    }
+    
+    
+    /** A message was pinned */
+    export interface td_chatEventMessagePinned {
+        '@type': 'chatEventMessagePinned';
+        /** Pinned message */
+        message?: td_message;
+    }
+    
+    
+    /** A message was unpinned */
+    export interface td_chatEventMessageUnpinned {
+        '@type': 'chatEventMessageUnpinned';
+        /** Unpinned message */
+        message?: td_message;
+    }
+    
+    
+    /** A new member joined the chat */
+    export interface td_chatEventMemberJoined {
+        '@type': 'chatEventMemberJoined';
+    }
+    
+    
+    /** A member left the chat */
+    export interface td_chatEventMemberLeft {
+        '@type': 'chatEventMemberLeft';
+    }
+    
+    
+    /** A new chat member was invited */
+    export interface td_chatEventMemberInvited {
+        '@type': 'chatEventMemberInvited';
+        /** New member user identifier */
+        user_id?: td_int32;
+        /** New member status */
+        status?: td_ChatMemberStatus;
+    }
+    
+    
+    /** A chat member has gained/lost administrator status, or the list of their administrator privileges has changed */
+    export interface td_chatEventMemberPromoted {
+        '@type': 'chatEventMemberPromoted';
+        /** Chat member user identifier */
+        user_id?: td_int32;
+        /** Previous status of the chat member */
+        old_status?: td_ChatMemberStatus;
+        /** New status of the chat member */
+        new_status?: td_ChatMemberStatus;
+    }
+    
+    
+    /** A chat member was restricted/unrestricted or banned/unbanned, or the list of their restrictions has changed */
+    export interface td_chatEventMemberRestricted {
+        '@type': 'chatEventMemberRestricted';
+        /** Chat member user identifier */
+        user_id?: td_int32;
+        /** Previous status of the chat member */
+        old_status?: td_ChatMemberStatus;
+        /** New status of the chat member */
+        new_status?: td_ChatMemberStatus;
+    }
+    
+    
+    /** The chat title was changed */
+    export interface td_chatEventTitleChanged {
+        '@type': 'chatEventTitleChanged';
+        /** Previous chat title */
+        old_title?: td_string;
+        /** New chat title */
+        new_title?: td_string;
+    }
+    
+    
+    /** The chat permissions was changed */
+    export interface td_chatEventPermissionsChanged {
+        '@type': 'chatEventPermissionsChanged';
+        /** Previous chat permissions */
+        old_permissions?: td_chatPermissions;
+        /** New chat permissions */
+        new_permissions?: td_chatPermissions;
+    }
+    
+    
+    /** The chat description was changed */
+    export interface td_chatEventDescriptionChanged {
+        '@type': 'chatEventDescriptionChanged';
+        /** Previous chat description */
+        old_description?: td_string;
+        /** New chat description */
+        new_description?: td_string;
+    }
+    
+    
+    /** The chat username was changed */
+    export interface td_chatEventUsernameChanged {
+        '@type': 'chatEventUsernameChanged';
+        /** Previous chat username */
+        old_username?: td_string;
+        /** New chat username */
+        new_username?: td_string;
+    }
+    
+    
+    /** The chat photo was changed */
+    export interface td_chatEventPhotoChanged {
+        '@type': 'chatEventPhotoChanged';
+        /** Previous chat photo value; may be null */
+        old_photo?: td_chatPhoto;
+        /** New chat photo value; may be null */
+        new_photo?: td_chatPhoto;
+    }
+    
+    
+    /** The can_invite_users permission of a supergroup chat was toggled */
+    export interface td_chatEventInvitesToggled {
+        '@type': 'chatEventInvitesToggled';
+        /** New value of can_invite_users permission */
+        can_invite_users?: td_Bool;
+    }
+    
+    
+    /** The linked chat of a supergroup was changed */
+    export interface td_chatEventLinkedChatChanged {
+        '@type': 'chatEventLinkedChatChanged';
+        /** Previous supergroup linked chat identifier */
+        old_linked_chat_id?: td_int53;
+        /** New supergroup linked chat identifier */
+        new_linked_chat_id?: td_int53;
+    }
+    
+    
+    /** The slow_mode_delay setting of a supergroup was changed */
+    export interface td_chatEventSlowModeDelayChanged {
+        '@type': 'chatEventSlowModeDelayChanged';
+        /** Previous value of slow_mode_delay */
+        old_slow_mode_delay?: td_int32;
+        /** New value of slow_mode_delay */
+        new_slow_mode_delay?: td_int32;
+    }
+    
+    
+    /** The sign_messages setting of a channel was toggled */
+    export interface td_chatEventSignMessagesToggled {
+        '@type': 'chatEventSignMessagesToggled';
+        /** New value of sign_messages */
+        sign_messages?: td_Bool;
+    }
+    
+    
+    /** The supergroup sticker set was changed */
+    export interface td_chatEventStickerSetChanged {
+        '@type': 'chatEventStickerSetChanged';
+        /** Previous identifier of the chat sticker set; 0 if none */
+        old_sticker_set_id?: td_int64;
+        /** New identifier of the chat sticker set; 0 if none */
+        new_sticker_set_id?: td_int64;
+    }
+    
+    
+    /** The supergroup location was changed */
+    export interface td_chatEventLocationChanged {
+        '@type': 'chatEventLocationChanged';
+        /** Previous location; may be null */
+        old_location?: td_chatLocation;
+        /** New location; may be null */
+        new_location?: td_chatLocation;
+    }
+    
+    
+    /** The is_all_history_available setting of a supergroup was toggled */
+    export interface td_chatEventIsAllHistoryAvailableToggled {
+        '@type': 'chatEventIsAllHistoryAvailableToggled';
+        /** New value of is_all_history_available */
+        is_all_history_available?: td_Bool;
+    }
+    
+    
+    /** Represents a chat event */
+    export interface td_chatEvent {
+        '@type': 'chatEvent';
+        /** Chat event identifier */
+        id?: td_int64;
+        /** Point in time (Unix timestamp) when the event happened */
+        date?: td_int32;
+        /** Identifier of the user who performed the action that triggered the event */
+        user_id?: td_int32;
+        /** Action performed by the user */
+        action?: td_ChatEventAction;
+    }
+    
+    
+    /** Contains a list of chat events */
+    export interface td_chatEvents {
+        '@type': 'chatEvents';
+        /** List of events */
+        events?: td_vector<td_chatEvent>;
+    }
+    
+    
+    /** Represents a set of filters used to obtain a chat event log */
+    export interface td_chatEventLogFilters {
+        '@type': 'chatEventLogFilters';
+        /** True, if message edits should be returned */
+        message_edits?: td_Bool;
+        /** True, if message deletions should be returned */
+        message_deletions?: td_Bool;
+        /** True, if pin/unpin events should be returned */
+        message_pins?: td_Bool;
+        /** True, if members joining events should be returned */
+        member_joins?: td_Bool;
+        /** True, if members leaving events should be returned */
+        member_leaves?: td_Bool;
+        /** True, if invited member events should be returned */
+        member_invites?: td_Bool;
+        /** True, if member promotion/demotion events should be returned */
+        member_promotions?: td_Bool;
+        /** True, if member restricted/unrestricted/banned/unbanned events should be returned */
+        member_restrictions?: td_Bool;
+        /** True, if changes in chat information should be returned */
+        info_changes?: td_Bool;
+        /** True, if changes in chat settings should be returned */
+        setting_changes?: td_Bool;
+    }
+    
+    
+    /** An ordinary language pack string */
+    export interface td_languagePackStringValueOrdinary {
+        '@type': 'languagePackStringValueOrdinary';
+        /** String value */
+        value?: td_string;
+    }
+    
+    
+    /** A language pack string which has different forms based on the number of some object it mentions. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info */
+    export interface td_languagePackStringValuePluralized {
+        '@type': 'languagePackStringValuePluralized';
+        /** Value for zero objects */
+        zero_value?: td_string;
+        /** Value for one object */
+        one_value?: td_string;
+        /** Value for two objects */
+        two_value?: td_string;
+        /** Value for few objects */
+        few_value?: td_string;
+        /** Value for many objects */
+        many_value?: td_string;
+        /** Default value */
+        other_value?: td_string;
+    }
+    
+    
+    /** A deleted language pack string, the value should be taken from the built-in english language pack */
+    export interface td_languagePackStringValueDeleted {
+        '@type': 'languagePackStringValueDeleted';
+    }
+    
+    
+    /** Represents one language pack string */
+    export interface td_languagePackString {
+        '@type': 'languagePackString';
+        /** String key */
+        key?: td_string;
+        /** String value */
+        value?: td_LanguagePackStringValue;
+    }
+    
+    
+    /** Contains a list of language pack strings */
+    export interface td_languagePackStrings {
+        '@type': 'languagePackStrings';
+        /** A list of language pack strings */
+        strings?: td_vector<td_languagePackString>;
+    }
+    
+    
+    /** Contains information about a language pack */
+    export interface td_languagePackInfo {
+        '@type': 'languagePackInfo';
+        /** Unique language pack identifier */
+        id?: td_string;
+        /** Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs */
+        base_language_pack_id?: td_string;
+        /** Language name */
+        name?: td_string;
+        /** Name of the language in that language */
+        native_name?: td_string;
+        /** A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info */
+        plural_code?: td_string;
+        /** True, if the language pack is official */
+        is_official?: td_Bool;
+        /** True, if the language pack strings are RTL */
+        is_rtl?: td_Bool;
+        /** True, if the language pack is a beta language pack */
+        is_beta?: td_Bool;
+        /** True, if the language pack is installed by the current user */
+        is_installed?: td_Bool;
+        /** Total number of non-deleted strings from the language pack */
+        total_string_count?: td_int32;
+        /** Total number of translated strings from the language pack */
+        translated_string_count?: td_int32;
+        /** Total number of non-deleted strings from the language pack available locally */
+        local_string_count?: td_int32;
+        /** Link to language translation interface; empty for custom local language packs */
+        translation_url?: td_string;
+    }
+    
+    
+    /** Contains information about the current localization target */
+    export interface td_localizationTargetInfo {
+        '@type': 'localizationTargetInfo';
+        /** List of available language packs for this application */
+        language_packs?: td_vector<td_languagePackInfo>;
+    }
+    
+    
+    /** A token for Firebase Cloud Messaging */
+    export interface td_deviceTokenFirebaseCloudMessaging {
+        '@type': 'deviceTokenFirebaseCloudMessaging';
+        /** Device registration token; may be empty to de-register a device */
+        token?: td_string;
+        /** True, if push notifications should be additionally encrypted */
+        encrypt?: td_Bool;
+    }
+    
+    
+    /** A token for Apple Push Notification service */
+    export interface td_deviceTokenApplePush {
+        '@type': 'deviceTokenApplePush';
+        /** Device token; may be empty to de-register a device */
+        device_token?: td_string;
+        /** True, if App Sandbox is enabled */
+        is_app_sandbox?: td_Bool;
+    }
+    
+    
+    /** A token for Apple Push Notification service VoIP notifications */
+    export interface td_deviceTokenApplePushVoIP {
+        '@type': 'deviceTokenApplePushVoIP';
+        /** Device token; may be empty to de-register a device */
+        device_token?: td_string;
+        /** True, if App Sandbox is enabled */
+        is_app_sandbox?: td_Bool;
+        /** True, if push notifications should be additionally encrypted */
+        encrypt?: td_Bool;
+    }
+    
+    
+    /** A token for Windows Push Notification Services */
+    export interface td_deviceTokenWindowsPush {
+        '@type': 'deviceTokenWindowsPush';
+        /** The access token that will be used to send notifications; may be empty to de-register a device */
+        access_token?: td_string;
+    }
+    
+    
+    /** A token for Microsoft Push Notification Service */
+    export interface td_deviceTokenMicrosoftPush {
+        '@type': 'deviceTokenMicrosoftPush';
+        /** Push notification channel URI; may be empty to de-register a device */
+        channel_uri?: td_string;
+    }
+    
+    
+    /** A token for Microsoft Push Notification Service VoIP channel */
+    export interface td_deviceTokenMicrosoftPushVoIP {
+        '@type': 'deviceTokenMicrosoftPushVoIP';
+        /** Push notification channel URI; may be empty to de-register a device */
+        channel_uri?: td_string;
+    }
+    
+    
+    /** A token for web Push API */
+    export interface td_deviceTokenWebPush {
+        '@type': 'deviceTokenWebPush';
+        /** Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device */
+        endpoint?: td_string;
+        /** Base64url-encoded P-256 elliptic curve Diffie-Hellman public key */
+        p256dh_base64url?: td_string;
+        /** Base64url-encoded authentication secret */
+        auth_base64url?: td_string;
+    }
+    
+    
+    /** A token for Simple Push API for Firefox OS */
+    export interface td_deviceTokenSimplePush {
+        '@type': 'deviceTokenSimplePush';
+        /** Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device */
+        endpoint?: td_string;
+    }
+    
+    
+    /** A token for Ubuntu Push Client service */
+    export interface td_deviceTokenUbuntuPush {
+        '@type': 'deviceTokenUbuntuPush';
+        /** Token; may be empty to de-register a device */
+        token?: td_string;
+    }
+    
+    
+    /** A token for BlackBerry Push Service */
+    export interface td_deviceTokenBlackBerryPush {
+        '@type': 'deviceTokenBlackBerryPush';
+        /** Token; may be empty to de-register a device */
+        token?: td_string;
+    }
+    
+    
+    /** A token for Tizen Push Service */
+    export interface td_deviceTokenTizenPush {
+        '@type': 'deviceTokenTizenPush';
+        /** Push service registration identifier; may be empty to de-register a device */
+        reg_id?: td_string;
+    }
+    
+    
+    /** Contains a globally unique push receiver identifier, which can be used to identify which account has received a push notification */
+    export interface td_pushReceiverId {
+        '@type': 'pushReceiverId';
+        /** The globally unique identifier of push notification subscription */
+        id?: td_int64;
+    }
+    
+    
+    /** Describes a solid fill of a background */
+    export interface td_backgroundFillSolid {
+        '@type': 'backgroundFillSolid';
+        /** A color of the background in the RGB24 format */
+        color?: td_int32;
+    }
+    
+    
+    /** Describes a gradient fill of a background */
+    export interface td_backgroundFillGradient {
+        '@type': 'backgroundFillGradient';
+        /** A top color of the background in the RGB24 format */
+        top_color?: td_int32;
+        /** A bottom color of the background in the RGB24 format */
+        bottom_color?: td_int32;
+        /** Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45 */
+        rotation_angle?: td_int32;
+    }
+    
+    
+    /** A wallpaper in JPEG format */
+    export interface td_backgroundTypeWallpaper {
+        '@type': 'backgroundTypeWallpaper';
+        /** True, if the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12 */
+        is_blurred?: td_Bool;
+        /** True, if the background needs to be slightly moved when device is tilted */
+        is_moving?: td_Bool;
+    }
+    
+    
+    /** A PNG or TGV (gzipped subset of SVG with MIME type "application/x-tgwallpattern") pattern to be combined with the background fill chosen by the user */
+    export interface td_backgroundTypePattern {
+        '@type': 'backgroundTypePattern';
+        /** Description of the background fill */
+        fill?: td_BackgroundFill;
+        /** Intensity of the pattern when it is shown above the filled background, 0-100 */
+        intensity?: td_int32;
+        /** True, if the background needs to be slightly moved when device is tilted */
+        is_moving?: td_Bool;
+    }
+    
+    
+    /** A filled background */
+    export interface td_backgroundTypeFill {
+        '@type': 'backgroundTypeFill';
+        /** Description of the background fill */
+        fill?: td_BackgroundFill;
+    }
+    
+    
+    /** Describes a chat background */
+    export interface td_background {
+        '@type': 'background';
+        /** Unique background identifier */
+        id?: td_int64;
+        /** True, if this is one of default backgrounds */
+        is_default?: td_Bool;
+        /** True, if the background is dark and is recommended to be used with dark theme */
+        is_dark?: td_Bool;
+        /** Unique background name */
+        name?: td_string;
+        /** Document with the background; may be null. Null only for filled backgrounds */
+        document?: td_document;
+        /** Type of the background */
+        type?: td_BackgroundType;
+    }
+    
+    
+    /** Contains a list of backgrounds */
+    export interface td_backgrounds {
+        '@type': 'backgrounds';
+        /** A list of backgrounds */
+        backgrounds?: td_vector<td_background>;
+    }
+    
+    
+    /** A background from a local file */
+    export interface td_inputBackgroundLocal {
+        '@type': 'inputBackgroundLocal';
+        /** Background file to use. Only inputFileLocal and inputFileGenerated are supported. The file must be in JPEG format for wallpapers and in PNG format for patterns */
+        background?: td_InputFile;
+    }
+    
+    
+    /** A background from the server */
+    export interface td_inputBackgroundRemote {
+        '@type': 'inputBackgroundRemote';
+        /** The background identifier */
+        background_id?: td_int64;
+    }
+    
+    
+    /** Contains a list of hashtags */
+    export interface td_hashtags {
+        '@type': 'hashtags';
+        /** A list of hashtags */
+        hashtags?: td_vector<td_string>;
+    }
+    
+    
+    /** The session can be used */
+    export interface td_canTransferOwnershipResultOk {
+        '@type': 'canTransferOwnershipResultOk';
+    }
+    
+    
+    /** The 2-step verification needs to be enabled first */
+    export interface td_canTransferOwnershipResultPasswordNeeded {
+        '@type': 'canTransferOwnershipResultPasswordNeeded';
+    }
+    
+    
+    /** The 2-step verification was enabled recently, user needs to wait */
+    export interface td_canTransferOwnershipResultPasswordTooFresh {
+        '@type': 'canTransferOwnershipResultPasswordTooFresh';
+        /** Time left before the session can be used to transfer ownership of a chat, in seconds */
+        retry_after?: td_int32;
+    }
+    
+    
+    /** The session was created recently, user needs to wait */
+    export interface td_canTransferOwnershipResultSessionTooFresh {
+        '@type': 'canTransferOwnershipResultSessionTooFresh';
+        /** Time left before the session can be used to transfer ownership of a chat, in seconds */
+        retry_after?: td_int32;
+    }
+    
+    
+    /** The username can be set */
+    export interface td_checkChatUsernameResultOk {
+        '@type': 'checkChatUsernameResultOk';
+    }
+    
+    
+    /** The username is invalid */
+    export interface td_checkChatUsernameResultUsernameInvalid {
+        '@type': 'checkChatUsernameResultUsernameInvalid';
+    }
+    
+    
+    /** The username is occupied */
+    export interface td_checkChatUsernameResultUsernameOccupied {
+        '@type': 'checkChatUsernameResultUsernameOccupied';
+    }
+    
+    
+    /** The user has too much chats with username, one of them should be made private first */
+    export interface td_checkChatUsernameResultPublicChatsTooMuch {
+        '@type': 'checkChatUsernameResultPublicChatsTooMuch';
+    }
+    
+    
+    /** The user can't be a member of a public supergroup */
+    export interface td_checkChatUsernameResultPublicGroupsUnavailable {
+        '@type': 'checkChatUsernameResultPublicGroupsUnavailable';
+    }
+    
+    
+    /** A general message with hidden content */
+    export interface td_pushMessageContentHidden {
+        '@type': 'pushMessageContentHidden';
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** An animation message (GIF-style). */
+    export interface td_pushMessageContentAnimation {
+        '@type': 'pushMessageContentAnimation';
+        /** Message content; may be null */
+        animation?: td_animation;
+        /** Animation caption */
+        caption?: td_string;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** An audio message */
+    export interface td_pushMessageContentAudio {
+        '@type': 'pushMessageContentAudio';
+        /** Message content; may be null */
+        audio?: td_audio;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A message with a user contact */
+    export interface td_pushMessageContentContact {
+        '@type': 'pushMessageContentContact';
+        /** Contact's name */
+        name?: td_string;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A contact has registered with Telegram */
+    export interface td_pushMessageContentContactRegistered {
+        '@type': 'pushMessageContentContactRegistered';
+    }
+    
+    
+    /** A document message (a general file) */
+    export interface td_pushMessageContentDocument {
+        '@type': 'pushMessageContentDocument';
+        /** Message content; may be null */
+        document?: td_document;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A message with a game */
+    export interface td_pushMessageContentGame {
+        '@type': 'pushMessageContentGame';
+        /** Game title, empty for pinned game message */
+        title?: td_string;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A new high score was achieved in a game */
+    export interface td_pushMessageContentGameScore {
+        '@type': 'pushMessageContentGameScore';
+        /** Game title, empty for pinned message */
+        title?: td_string;
+        /** New score, 0 for pinned message */
+        score?: td_int32;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A message with an invoice from a bot */
+    export interface td_pushMessageContentInvoice {
+        '@type': 'pushMessageContentInvoice';
+        /** Product price */
+        price?: td_string;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A message with a location */
+    export interface td_pushMessageContentLocation {
+        '@type': 'pushMessageContentLocation';
+        /** True, if the location is live */
+        is_live?: td_Bool;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A photo message */
+    export interface td_pushMessageContentPhoto {
+        '@type': 'pushMessageContentPhoto';
+        /** Message content; may be null */
+        photo?: td_photo;
+        /** Photo caption */
+        caption?: td_string;
+        /** True, if the photo is secret */
+        is_secret?: td_Bool;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A message with a poll */
+    export interface td_pushMessageContentPoll {
+        '@type': 'pushMessageContentPoll';
+        /** Poll question */
+        question?: td_string;
+        /** True, if the poll is regular and not in quiz mode */
+        is_regular?: td_Bool;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A screenshot of a message in the chat has been taken */
+    export interface td_pushMessageContentScreenshotTaken {
+        '@type': 'pushMessageContentScreenshotTaken';
+    }
+    
+    
+    /** A message with a sticker */
+    export interface td_pushMessageContentSticker {
+        '@type': 'pushMessageContentSticker';
+        /** Message content; may be null */
+        sticker?: td_sticker;
+        /** Emoji corresponding to the sticker; may be empty */
+        emoji?: td_string;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A text message */
+    export interface td_pushMessageContentText {
+        '@type': 'pushMessageContentText';
+        /** Message text */
+        text?: td_string;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A video message */
+    export interface td_pushMessageContentVideo {
+        '@type': 'pushMessageContentVideo';
+        /** Message content; may be null */
+        video?: td_video;
+        /** Video caption */
+        caption?: td_string;
+        /** True, if the video is secret */
+        is_secret?: td_Bool;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A video note message */
+    export interface td_pushMessageContentVideoNote {
+        '@type': 'pushMessageContentVideoNote';
+        /** Message content; may be null */
+        video_note?: td_videoNote;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A voice note message */
+    export interface td_pushMessageContentVoiceNote {
+        '@type': 'pushMessageContentVoiceNote';
+        /** Message content; may be null */
+        voice_note?: td_voiceNote;
+        /** True, if the message is a pinned message with the specified content */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** A newly created basic group */
+    export interface td_pushMessageContentBasicGroupChatCreate {
+        '@type': 'pushMessageContentBasicGroupChatCreate';
+    }
+    
+    
+    /** New chat members were invited to a group */
+    export interface td_pushMessageContentChatAddMembers {
+        '@type': 'pushMessageContentChatAddMembers';
+        /** Name of the added member */
+        member_name?: td_string;
+        /** True, if the current user was added to the group */
+        is_current_user?: td_Bool;
+        /** True, if the user has returned to the group themself */
+        is_returned?: td_Bool;
+    }
+    
+    
+    /** A chat photo was edited */
+    export interface td_pushMessageContentChatChangePhoto {
+        '@type': 'pushMessageContentChatChangePhoto';
+    }
+    
+    
+    /** A chat title was edited */
+    export interface td_pushMessageContentChatChangeTitle {
+        '@type': 'pushMessageContentChatChangeTitle';
+        /** New chat title */
+        title?: td_string;
+    }
+    
+    
+    /** A chat member was deleted */
+    export interface td_pushMessageContentChatDeleteMember {
+        '@type': 'pushMessageContentChatDeleteMember';
+        /** Name of the deleted member */
+        member_name?: td_string;
+        /** True, if the current user was deleted from the group */
+        is_current_user?: td_Bool;
+        /** True, if the user has left the group themself */
+        is_left?: td_Bool;
+    }
+    
+    
+    /** A new member joined the chat by invite link */
+    export interface td_pushMessageContentChatJoinByLink {
+        '@type': 'pushMessageContentChatJoinByLink';
+    }
+    
+    
+    /** A forwarded messages */
+    export interface td_pushMessageContentMessageForwards {
+        '@type': 'pushMessageContentMessageForwards';
+        /** Number of forwarded messages */
+        total_count?: td_int32;
+    }
+    
+    
+    /** A media album */
+    export interface td_pushMessageContentMediaAlbum {
+        '@type': 'pushMessageContentMediaAlbum';
+        /** Number of messages in the album */
+        total_count?: td_int32;
+        /** True, if the album has at least one photo */
+        has_photos?: td_Bool;
+        /** True, if the album has at least one video */
+        has_videos?: td_Bool;
+        /** True, if the album has at least one audio file */
+        has_audios?: td_Bool;
+        /** True, if the album has at least one document */
+        has_documents?: td_Bool;
+    }
+    
+    
+    /** New message was received */
+    export interface td_notificationTypeNewMessage {
+        '@type': 'notificationTypeNewMessage';
+        /** The message */
+        message?: td_message;
+    }
+    
+    
+    /** New secret chat was created */
+    export interface td_notificationTypeNewSecretChat {
+        '@type': 'notificationTypeNewSecretChat';
+    }
+    
+    
+    /** New call was received */
+    export interface td_notificationTypeNewCall {
+        '@type': 'notificationTypeNewCall';
+        /** Call identifier */
+        call_id?: td_int32;
+    }
+    
+    
+    /** New message was received through a push notification */
+    export interface td_notificationTypeNewPushMessage {
+        '@type': 'notificationTypeNewPushMessage';
+        /** The message identifier. The message will not be available in the chat history, but the ID can be used in viewMessages, or as reply_to_message_id */
+        message_id?: td_int53;
+        /** The sender of the message. Corresponding user or chat may be inaccessible */
+        sender?: td_MessageSender;
+        /** Name of the sender */
+        sender_name?: td_string;
+        /** True, if the message is outgoing */
+        is_outgoing?: td_Bool;
+        /** Push message content */
+        content?: td_PushMessageContent;
+    }
+    
+    
+    /** A group containing notifications of type notificationTypeNewMessage and notificationTypeNewPushMessage with ordinary unread messages */
+    export interface td_notificationGroupTypeMessages {
+        '@type': 'notificationGroupTypeMessages';
+    }
+    
+    
+    /** A group containing notifications of type notificationTypeNewMessage and notificationTypeNewPushMessage with unread mentions of the current user, replies to their messages, or a pinned message */
+    export interface td_notificationGroupTypeMentions {
+        '@type': 'notificationGroupTypeMentions';
+    }
+    
+    
+    /** A group containing a notification of type notificationTypeNewSecretChat */
+    export interface td_notificationGroupTypeSecretChat {
+        '@type': 'notificationGroupTypeSecretChat';
+    }
+    
+    
+    /** A group containing notifications of type notificationTypeNewCall */
+    export interface td_notificationGroupTypeCalls {
+        '@type': 'notificationGroupTypeCalls';
+    }
+    
+    
+    /** Contains information about a notification */
+    export interface td_notification {
+        '@type': 'notification';
+        /** Unique persistent identifier of this notification */
+        id?: td_int32;
+        /** Notification date */
+        date?: td_int32;
+        /** True, if the notification was initially silent */
+        is_silent?: td_Bool;
+        /** Notification type */
+        type?: td_NotificationType;
+    }
+    
+    
+    /** Describes a group of notifications */
+    export interface td_notificationGroup {
+        '@type': 'notificationGroup';
+        /** Unique persistent auto-incremented from 1 identifier of the notification group */
+        id?: td_int32;
+        /** Type of the group */
+        type?: td_NotificationGroupType;
+        /** Identifier of a chat to which all notifications in the group belong */
+        chat_id?: td_int53;
+        /** Total number of active notifications in the group */
+        total_count?: td_int32;
+        /** The list of active notifications */
+        notifications?: td_vector<td_notification>;
+    }
+    
+    
+    /** Represents a boolean option */
+    export interface td_optionValueBoolean {
+        '@type': 'optionValueBoolean';
+        /** The value of the option */
+        value?: td_Bool;
+    }
+    
+    
+    /** Represents an unknown option or an option which has a default value */
+    export interface td_optionValueEmpty {
+        '@type': 'optionValueEmpty';
+    }
+    
+    
+    /** Represents an integer option */
+    export interface td_optionValueInteger {
+        '@type': 'optionValueInteger';
+        /** The value of the option */
+        value?: td_int64;
+    }
+    
+    
+    /** Represents a string option */
+    export interface td_optionValueString {
+        '@type': 'optionValueString';
+        /** The value of the option */
+        value?: td_string;
+    }
+    
+    
+    /** Represents one member of a JSON object */
+    export interface td_jsonObjectMember {
+        '@type': 'jsonObjectMember';
+        /** Member's key */
+        key?: td_string;
+        /** Member's value */
+        value?: td_JsonValue;
+    }
+    
+    
+    /** Represents a null JSON value */
+    export interface td_jsonValueNull {
+        '@type': 'jsonValueNull';
+    }
+    
+    
+    /** Represents a boolean JSON value */
+    export interface td_jsonValueBoolean {
+        '@type': 'jsonValueBoolean';
+        /** The value */
+        value?: td_Bool;
+    }
+    
+    
+    /** Represents a numeric JSON value */
+    export interface td_jsonValueNumber {
+        '@type': 'jsonValueNumber';
+        /** The value */
+        value?: td_double;
+    }
+    
+    
+    /** Represents a string JSON value */
+    export interface td_jsonValueString {
+        '@type': 'jsonValueString';
+        /** The value */
+        value?: td_string;
+    }
+    
+    
+    /** Represents a JSON array */
+    export interface td_jsonValueArray {
+        '@type': 'jsonValueArray';
+        /** The list of array elements */
+        values?: td_vector<td_JsonValue>;
+    }
+    
+    
+    /** Represents a JSON object */
+    export interface td_jsonValueObject {
+        '@type': 'jsonValueObject';
+        /** The list of object members */
+        members?: td_vector<td_jsonObjectMember>;
+    }
+    
+    
+    /** A rule to allow all users to do something */
+    export interface td_userPrivacySettingRuleAllowAll {
+        '@type': 'userPrivacySettingRuleAllowAll';
+    }
+    
+    
+    /** A rule to allow all of a user's contacts to do something */
+    export interface td_userPrivacySettingRuleAllowContacts {
+        '@type': 'userPrivacySettingRuleAllowContacts';
+    }
+    
+    
+    /** A rule to allow certain specified users to do something */
+    export interface td_userPrivacySettingRuleAllowUsers {
+        '@type': 'userPrivacySettingRuleAllowUsers';
+        /** The user identifiers, total number of users in all rules must not exceed 1000 */
+        user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** A rule to allow all members of certain specified basic groups and supergroups to doing something */
+    export interface td_userPrivacySettingRuleAllowChatMembers {
+        '@type': 'userPrivacySettingRuleAllowChatMembers';
+        /** The chat identifiers, total number of chats in all rules must not exceed 20 */
+        chat_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** A rule to restrict all users from doing something */
+    export interface td_userPrivacySettingRuleRestrictAll {
+        '@type': 'userPrivacySettingRuleRestrictAll';
+    }
+    
+    
+    /** A rule to restrict all contacts of a user from doing something */
+    export interface td_userPrivacySettingRuleRestrictContacts {
+        '@type': 'userPrivacySettingRuleRestrictContacts';
+    }
+    
+    
+    /** A rule to restrict all specified users from doing something */
+    export interface td_userPrivacySettingRuleRestrictUsers {
+        '@type': 'userPrivacySettingRuleRestrictUsers';
+        /** The user identifiers, total number of users in all rules must not exceed 1000 */
+        user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** A rule to restrict all members of specified basic groups and supergroups from doing something */
+    export interface td_userPrivacySettingRuleRestrictChatMembers {
+        '@type': 'userPrivacySettingRuleRestrictChatMembers';
+        /** The chat identifiers, total number of chats in all rules must not exceed 20 */
+        chat_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** A list of privacy rules. Rules are matched in the specified order. The first matched rule defines the privacy setting for a given user. If no rule matches, the action is not allowed */
+    export interface td_userPrivacySettingRules {
+        '@type': 'userPrivacySettingRules';
+        /** A list of rules */
+        rules?: td_vector<td_UserPrivacySettingRule>;
+    }
+    
+    
+    /** A privacy setting for managing whether the user's online status is visible */
+    export interface td_userPrivacySettingShowStatus {
+        '@type': 'userPrivacySettingShowStatus';
+    }
+    
+    
+    /** A privacy setting for managing whether the user's profile photo is visible */
+    export interface td_userPrivacySettingShowProfilePhoto {
+        '@type': 'userPrivacySettingShowProfilePhoto';
+    }
+    
+    
+    /** A privacy setting for managing whether a link to the user's account is included in forwarded messages */
+    export interface td_userPrivacySettingShowLinkInForwardedMessages {
+        '@type': 'userPrivacySettingShowLinkInForwardedMessages';
+    }
+    
+    
+    /** A privacy setting for managing whether the user's phone number is visible */
+    export interface td_userPrivacySettingShowPhoneNumber {
+        '@type': 'userPrivacySettingShowPhoneNumber';
+    }
+    
+    
+    /** A privacy setting for managing whether the user can be invited to chats */
+    export interface td_userPrivacySettingAllowChatInvites {
+        '@type': 'userPrivacySettingAllowChatInvites';
+    }
+    
+    
+    /** A privacy setting for managing whether the user can be called */
+    export interface td_userPrivacySettingAllowCalls {
+        '@type': 'userPrivacySettingAllowCalls';
+    }
+    
+    
+    /** A privacy setting for managing whether peer-to-peer connections can be used for calls */
+    export interface td_userPrivacySettingAllowPeerToPeerCalls {
+        '@type': 'userPrivacySettingAllowPeerToPeerCalls';
+    }
+    
+    
+    /** A privacy setting for managing whether the user can be found by their phone number. Checked only if the phone number is not known to the other user. Can be set only to "Allow contacts" or "Allow all" */
+    export interface td_userPrivacySettingAllowFindingByPhoneNumber {
+        '@type': 'userPrivacySettingAllowFindingByPhoneNumber';
+    }
+    
+    
+    /** Contains information about the period of inactivity after which the current user's account will automatically be deleted */
+    export interface td_accountTtl {
+        '@type': 'accountTtl';
+        /** Number of days of inactivity before the account will be flagged for deletion; should range from 30-366 days */
+        days?: td_int32;
+    }
+    
+    
+    /** Contains information about one session in a Telegram application used by the current user. Sessions should be shown to the user in the returned order */
+    export interface td_session {
+        '@type': 'session';
+        /** Session identifier */
+        id?: td_int64;
+        /** True, if this session is the current session */
+        is_current?: td_Bool;
+        /** True, if a password is needed to complete authorization of the session */
+        is_password_pending?: td_Bool;
+        /** Telegram API identifier, as provided by the application */
+        api_id?: td_int32;
+        /** Name of the application, as provided by the application */
+        application_name?: td_string;
+        /** The version of the application, as provided by the application */
+        application_version?: td_string;
+        /** True, if the application is an official application or uses the api_id of an official application */
+        is_official_application?: td_Bool;
+        /** Model of the device the application has been run or is running on, as provided by the application */
+        device_model?: td_string;
+        /** Operating system the application has been run or is running on, as provided by the application */
+        platform?: td_string;
+        /** Version of the operating system the application has been run or is running on, as provided by the application */
+        system_version?: td_string;
+        /** Point in time (Unix timestamp) when the user has logged in */
+        log_in_date?: td_int32;
+        /** Point in time (Unix timestamp) when the session was last used */
+        last_active_date?: td_int32;
+        /** IP address from which the session was created, in human-readable format */
+        ip?: td_string;
+        /** A two-letter country code for the country from which the session was created, based on the IP address */
+        country?: td_string;
+        /** Region code from which the session was created, based on the IP address */
+        region?: td_string;
+    }
+    
+    
+    /** Contains a list of sessions */
+    export interface td_sessions {
+        '@type': 'sessions';
+        /** List of sessions */
+        sessions?: td_vector<td_session>;
+    }
+    
+    
+    /** Contains information about one website the current user is logged in with Telegram */
+    export interface td_connectedWebsite {
+        '@type': 'connectedWebsite';
+        /** Website identifier */
+        id?: td_int64;
+        /** The domain name of the website */
+        domain_name?: td_string;
+        /** User identifier of a bot linked with the website */
+        bot_user_id?: td_int32;
+        /** The version of a browser used to log in */
+        browser?: td_string;
+        /** Operating system the browser is running on */
+        platform?: td_string;
+        /** Point in time (Unix timestamp) when the user was logged in */
+        log_in_date?: td_int32;
+        /** Point in time (Unix timestamp) when obtained authorization was last used */
+        last_active_date?: td_int32;
+        /** IP address from which the user was logged in, in human-readable format */
+        ip?: td_string;
+        /** Human-readable description of a country and a region, from which the user was logged in, based on the IP address */
+        location?: td_string;
+    }
+    
+    
+    /** Contains a list of websites the current user is logged in with Telegram */
+    export interface td_connectedWebsites {
+        '@type': 'connectedWebsites';
+        /** List of connected websites */
+        websites?: td_vector<td_connectedWebsite>;
+    }
+    
+    
+    /** The chat contains spam messages */
+    export interface td_chatReportReasonSpam {
+        '@type': 'chatReportReasonSpam';
+    }
+    
+    
+    /** The chat promotes violence */
+    export interface td_chatReportReasonViolence {
+        '@type': 'chatReportReasonViolence';
+    }
+    
+    
+    /** The chat contains pornographic messages */
+    export interface td_chatReportReasonPornography {
+        '@type': 'chatReportReasonPornography';
+    }
+    
+    
+    /** The chat has child abuse related content */
+    export interface td_chatReportReasonChildAbuse {
+        '@type': 'chatReportReasonChildAbuse';
+    }
+    
+    
+    /** The chat contains copyrighted content */
+    export interface td_chatReportReasonCopyright {
+        '@type': 'chatReportReasonCopyright';
+    }
+    
+    
+    /** The location-based chat is unrelated to its stated location */
+    export interface td_chatReportReasonUnrelatedLocation {
+        '@type': 'chatReportReasonUnrelatedLocation';
+    }
+    
+    
+    /** A custom reason provided by the user */
+    export interface td_chatReportReasonCustom {
+        '@type': 'chatReportReasonCustom';
+        /** Report text */
+        text?: td_string;
+    }
+    
+    
+    /** Contains an HTTPS link to a message in a supergroup or channel */
+    export interface td_messageLink {
+        '@type': 'messageLink';
+        /** Message link */
+        link?: td_string;
+        /** True, if the link will work for non-members of the chat */
+        is_public?: td_Bool;
+    }
+    
+    
+    /** Contains information about a link to a message in a chat */
+    export interface td_messageLinkInfo {
+        '@type': 'messageLinkInfo';
+        /** True, if the link is a public link for a message in a chat */
+        is_public?: td_Bool;
+        /** If found, identifier of the chat to which the message belongs, 0 otherwise */
+        chat_id?: td_int53;
+        /** If found, the linked message; may be null */
+        message?: td_message;
+        /** True, if the whole media album to which the message belongs is linked */
+        for_album?: td_Bool;
+        /** True, if the message is linked as a channel post comment or from a message thread */
+        for_comment?: td_Bool;
+    }
+    
+    
+    /** Contains a part of a file */
+    export interface td_filePart {
+        '@type': 'filePart';
+        /** File bytes */
+        data?: td_bytes;
+    }
+    
+    
+    /** The data is not a file */
+    export interface td_fileTypeNone {
+        '@type': 'fileTypeNone';
+    }
+    
+    
+    /** The file is an animation */
+    export interface td_fileTypeAnimation {
+        '@type': 'fileTypeAnimation';
+    }
+    
+    
+    /** The file is an audio file */
+    export interface td_fileTypeAudio {
+        '@type': 'fileTypeAudio';
+    }
+    
+    
+    /** The file is a document */
+    export interface td_fileTypeDocument {
+        '@type': 'fileTypeDocument';
+    }
+    
+    
+    /** The file is a photo */
+    export interface td_fileTypePhoto {
+        '@type': 'fileTypePhoto';
+    }
+    
+    
+    /** The file is a profile photo */
+    export interface td_fileTypeProfilePhoto {
+        '@type': 'fileTypeProfilePhoto';
+    }
+    
+    
+    /** The file was sent to a secret chat (the file type is not known to the server) */
+    export interface td_fileTypeSecret {
+        '@type': 'fileTypeSecret';
+    }
+    
+    
+    /** The file is a thumbnail of a file from a secret chat */
+    export interface td_fileTypeSecretThumbnail {
+        '@type': 'fileTypeSecretThumbnail';
+    }
+    
+    
+    /** The file is a file from Secure storage used for storing Telegram Passport files */
+    export interface td_fileTypeSecure {
+        '@type': 'fileTypeSecure';
+    }
+    
+    
+    /** The file is a sticker */
+    export interface td_fileTypeSticker {
+        '@type': 'fileTypeSticker';
+    }
+    
+    
+    /** The file is a thumbnail of another file */
+    export interface td_fileTypeThumbnail {
+        '@type': 'fileTypeThumbnail';
+    }
+    
+    
+    /** The file type is not yet known */
+    export interface td_fileTypeUnknown {
+        '@type': 'fileTypeUnknown';
+    }
+    
+    
+    /** The file is a video */
+    export interface td_fileTypeVideo {
+        '@type': 'fileTypeVideo';
+    }
+    
+    
+    /** The file is a video note */
+    export interface td_fileTypeVideoNote {
+        '@type': 'fileTypeVideoNote';
+    }
+    
+    
+    /** The file is a voice note */
+    export interface td_fileTypeVoiceNote {
+        '@type': 'fileTypeVoiceNote';
+    }
+    
+    
+    /** The file is a wallpaper or a background pattern */
+    export interface td_fileTypeWallpaper {
+        '@type': 'fileTypeWallpaper';
+    }
+    
+    
+    /** Contains the storage usage statistics for a specific file type */
+    export interface td_storageStatisticsByFileType {
+        '@type': 'storageStatisticsByFileType';
+        /** File type */
+        file_type?: td_FileType;
+        /** Total size of the files */
+        size?: td_int53;
+        /** Total number of files */
+        count?: td_int32;
+    }
+    
+    
+    /** Contains the storage usage statistics for a specific chat */
+    export interface td_storageStatisticsByChat {
+        '@type': 'storageStatisticsByChat';
+        /** Chat identifier; 0 if none */
+        chat_id?: td_int53;
+        /** Total size of the files in the chat */
+        size?: td_int53;
+        /** Total number of files in the chat */
+        count?: td_int32;
+        /** Statistics split by file types */
+        by_file_type?: td_vector<td_storageStatisticsByFileType>;
+    }
+    
+    
+    /** Contains the exact storage usage statistics split by chats and file type */
+    export interface td_storageStatistics {
+        '@type': 'storageStatistics';
+        /** Total size of files */
+        size?: td_int53;
+        /** Total number of files */
+        count?: td_int32;
+        /** Statistics split by chats */
+        by_chat?: td_vector<td_storageStatisticsByChat>;
+    }
+    
+    
+    /** Contains approximate storage usage statistics, excluding files of unknown file type */
+    export interface td_storageStatisticsFast {
+        '@type': 'storageStatisticsFast';
+        /** Approximate total size of files */
+        files_size?: td_int53;
+        /** Approximate number of files */
+        file_count?: td_int32;
+        /** Size of the database */
+        database_size?: td_int53;
+        /** Size of the language pack database */
+        language_pack_database_size?: td_int53;
+        /** Size of the TDLib internal log */
+        log_size?: td_int53;
+    }
+    
+    
+    /** Contains database statistics */
+    export interface td_databaseStatistics {
+        '@type': 'databaseStatistics';
+        /** Database statistics in an unspecified human-readable format */
+        statistics?: td_string;
+    }
+    
+    
+    /** The network is not available */
+    export interface td_networkTypeNone {
+        '@type': 'networkTypeNone';
+    }
+    
+    
+    /** A mobile network */
+    export interface td_networkTypeMobile {
+        '@type': 'networkTypeMobile';
+    }
+    
+    
+    /** A mobile roaming network */
+    export interface td_networkTypeMobileRoaming {
+        '@type': 'networkTypeMobileRoaming';
+    }
+    
+    
+    /** A Wi-Fi network */
+    export interface td_networkTypeWiFi {
+        '@type': 'networkTypeWiFi';
+    }
+    
+    
+    /** A different network type (e.g., Ethernet network) */
+    export interface td_networkTypeOther {
+        '@type': 'networkTypeOther';
+    }
+    
+    
+    /** Contains information about the total amount of data that was used to send and receive files */
+    export interface td_networkStatisticsEntryFile {
+        '@type': 'networkStatisticsEntryFile';
+        /** Type of the file the data is part of */
+        file_type?: td_FileType;
+        /** Type of the network the data was sent through. Call setNetworkType to maintain the actual network type */
+        network_type?: td_NetworkType;
+        /** Total number of bytes sent */
+        sent_bytes?: td_int53;
+        /** Total number of bytes received */
+        received_bytes?: td_int53;
+    }
+    
+    
+    /** Contains information about the total amount of data that was used for calls */
+    export interface td_networkStatisticsEntryCall {
+        '@type': 'networkStatisticsEntryCall';
+        /** Type of the network the data was sent through. Call setNetworkType to maintain the actual network type */
+        network_type?: td_NetworkType;
+        /** Total number of bytes sent */
+        sent_bytes?: td_int53;
+        /** Total number of bytes received */
+        received_bytes?: td_int53;
+        /** Total call duration, in seconds */
+        duration?: td_double;
+    }
+    
+    
+    /** A full list of available network statistic entries */
+    export interface td_networkStatistics {
+        '@type': 'networkStatistics';
+        /** Point in time (Unix timestamp) from which the statistics are collected */
+        since_date?: td_int32;
+        /** Network statistics entries */
+        entries?: td_vector<td_NetworkStatisticsEntry>;
+    }
+    
+    
+    /** Contains auto-download settings */
+    export interface td_autoDownloadSettings {
+        '@type': 'autoDownloadSettings';
+        /** True, if the auto-download is enabled */
+        is_auto_download_enabled?: td_Bool;
+        /** The maximum size of a photo file to be auto-downloaded */
+        max_photo_file_size?: td_int32;
+        /** The maximum size of a video file to be auto-downloaded */
+        max_video_file_size?: td_int32;
+        /** The maximum size of other file types to be auto-downloaded */
+        max_other_file_size?: td_int32;
+        /** The maximum suggested bitrate for uploaded videos */
+        video_upload_bitrate?: td_int32;
+        /** True, if the beginning of video files needs to be preloaded for instant playback */
+        preload_large_videos?: td_Bool;
+        /** True, if the next audio track needs to be preloaded while the user is listening to an audio file */
+        preload_next_audio?: td_Bool;
+        /** True, if "use less data for calls" option needs to be enabled */
+        use_less_data_for_calls?: td_Bool;
+    }
+    
+    
+    /** Contains auto-download settings presets for the user */
+    export interface td_autoDownloadSettingsPresets {
+        '@type': 'autoDownloadSettingsPresets';
+        /** Preset with lowest settings; supposed to be used by default when roaming */
+        low?: td_autoDownloadSettings;
+        /** Preset with medium settings; supposed to be used by default when using mobile data */
+        medium?: td_autoDownloadSettings;
+        /** Preset with highest settings; supposed to be used by default when connected on Wi-Fi */
+        high?: td_autoDownloadSettings;
+    }
+    
+    
+    /** Currently waiting for the network to become available. Use setNetworkType to change the available network type */
+    export interface td_connectionStateWaitingForNetwork {
+        '@type': 'connectionStateWaitingForNetwork';
+    }
+    
+    
+    /** Currently establishing a connection with a proxy server */
+    export interface td_connectionStateConnectingToProxy {
+        '@type': 'connectionStateConnectingToProxy';
+    }
+    
+    
+    /** Currently establishing a connection to the Telegram servers */
+    export interface td_connectionStateConnecting {
+        '@type': 'connectionStateConnecting';
+    }
+    
+    
+    /** Downloading data received while the application was offline */
+    export interface td_connectionStateUpdating {
+        '@type': 'connectionStateUpdating';
+    }
+    
+    
+    /** There is a working connection to the Telegram servers */
+    export interface td_connectionStateReady {
+        '@type': 'connectionStateReady';
+    }
+    
+    
+    /** A category containing frequently used private chats with non-bot users */
+    export interface td_topChatCategoryUsers {
+        '@type': 'topChatCategoryUsers';
+    }
+    
+    
+    /** A category containing frequently used private chats with bot users */
+    export interface td_topChatCategoryBots {
+        '@type': 'topChatCategoryBots';
+    }
+    
+    
+    /** A category containing frequently used basic groups and supergroups */
+    export interface td_topChatCategoryGroups {
+        '@type': 'topChatCategoryGroups';
+    }
+    
+    
+    /** A category containing frequently used channels */
+    export interface td_topChatCategoryChannels {
+        '@type': 'topChatCategoryChannels';
+    }
+    
+    
+    /** A category containing frequently used chats with inline bots sorted by their usage in inline mode */
+    export interface td_topChatCategoryInlineBots {
+        '@type': 'topChatCategoryInlineBots';
+    }
+    
+    
+    /** A category containing frequently used chats used for calls */
+    export interface td_topChatCategoryCalls {
+        '@type': 'topChatCategoryCalls';
+    }
+    
+    
+    /** A category containing frequently used chats used to forward messages */
+    export interface td_topChatCategoryForwardChats {
+        '@type': 'topChatCategoryForwardChats';
+    }
+    
+    
+    /** A URL linking to a user */
+    export interface td_tMeUrlTypeUser {
+        '@type': 'tMeUrlTypeUser';
+        /** Identifier of the user */
+        user_id?: td_int32;
+    }
+    
+    
+    /** A URL linking to a public supergroup or channel */
+    export interface td_tMeUrlTypeSupergroup {
+        '@type': 'tMeUrlTypeSupergroup';
+        /** Identifier of the supergroup or channel */
+        supergroup_id?: td_int53;
+    }
+    
+    
+    /** A chat invite link */
+    export interface td_tMeUrlTypeChatInvite {
+        '@type': 'tMeUrlTypeChatInvite';
+        /** Chat invite link info */
+        info?: td_chatInviteLinkInfo;
+    }
+    
+    
+    /** A URL linking to a sticker set */
+    export interface td_tMeUrlTypeStickerSet {
+        '@type': 'tMeUrlTypeStickerSet';
+        /** Identifier of the sticker set */
+        sticker_set_id?: td_int64;
+    }
+    
+    
+    /** Represents a URL linking to an internal Telegram entity */
+    export interface td_tMeUrl {
+        '@type': 'tMeUrl';
+        /** URL */
+        url?: td_string;
+        /** Type of the URL */
+        type?: td_TMeUrlType;
+    }
+    
+    
+    /** Contains a list of t.me URLs */
+    export interface td_tMeUrls {
+        '@type': 'tMeUrls';
+        /** List of URLs */
+        urls?: td_vector<td_tMeUrl>;
+    }
+    
+    
+    /** Suggests the user to enable "archive_and_mute_new_chats_from_unknown_users" option */
+    export interface td_suggestedActionEnableArchiveAndMuteNewChats {
+        '@type': 'suggestedActionEnableArchiveAndMuteNewChats';
+    }
+    
+    
+    /** Suggests the user to check authorization phone number and change the phone number if it is inaccessible */
+    export interface td_suggestedActionCheckPhoneNumber {
+        '@type': 'suggestedActionCheckPhoneNumber';
+    }
+    
+    
+    /** Contains a counter */
+    export interface td_count {
+        '@type': 'count';
+        /** Count */
+        count?: td_int32;
+    }
+    
+    
+    /** Contains some text */
+    export interface td_text {
+        '@type': 'text';
+        /** Text */
+        text?: td_string;
+    }
+    
+    
+    /** Contains a value representing a number of seconds */
+    export interface td_seconds {
+        '@type': 'seconds';
+        /** Number of seconds */
+        seconds?: td_double;
+    }
+    
+    
+    /** Contains information about a tg:// deep link */
+    export interface td_deepLinkInfo {
+        '@type': 'deepLinkInfo';
+        /** Text to be shown to the user */
+        text?: td_formattedText;
+        /** True, if user should be asked to update the application */
+        need_update_application?: td_Bool;
+    }
+    
+    
+    /** The text uses Markdown-style formatting */
+    export interface td_textParseModeMarkdown {
+        '@type': 'textParseModeMarkdown';
+        /** Version of the parser: 0 or 1 - Telegram Bot API "Markdown" parse mode, 2 - Telegram Bot API "MarkdownV2" parse mode */
+        version?: td_int32;
+    }
+    
+    
+    /** The text uses HTML-style formatting. The same as Telegram Bot API "HTML" parse mode */
+    export interface td_textParseModeHTML {
+        '@type': 'textParseModeHTML';
+    }
+    
+    
+    /** A SOCKS5 proxy server */
+    export interface td_proxyTypeSocks5 {
+        '@type': 'proxyTypeSocks5';
+        /** Username for logging in; may be empty */
+        username?: td_string;
+        /** Password for logging in; may be empty */
+        password?: td_string;
+    }
+    
+    
+    /** A HTTP transparent proxy server */
+    export interface td_proxyTypeHttp {
+        '@type': 'proxyTypeHttp';
+        /** Username for logging in; may be empty */
+        username?: td_string;
+        /** Password for logging in; may be empty */
+        password?: td_string;
+        /** Pass true if the proxy supports only HTTP requests and doesn't support transparent TCP connections via HTTP CONNECT method */
+        http_only?: td_Bool;
+    }
+    
+    
+    /** An MTProto proxy server */
+    export interface td_proxyTypeMtproto {
+        '@type': 'proxyTypeMtproto';
+        /** The proxy's secret in hexadecimal encoding */
+        secret?: td_string;
+    }
+    
+    
+    /** Contains information about a proxy server */
+    export interface td_proxy {
+        '@type': 'proxy';
+        /** Unique identifier of the proxy */
+        id?: td_int32;
+        /** Proxy server IP address */
+        server?: td_string;
+        /** Proxy server port */
+        port?: td_int32;
+        /** Point in time (Unix timestamp) when the proxy was last used; 0 if never */
+        last_used_date?: td_int32;
+        /** True, if the proxy is enabled now */
+        is_enabled?: td_Bool;
+        /** Type of the proxy */
+        type?: td_ProxyType;
+    }
+    
+    
+    /** Represents a list of proxy servers */
+    export interface td_proxies {
+        '@type': 'proxies';
+        /** List of proxy servers */
+        proxies?: td_vector<td_proxy>;
+    }
+    
+    
+    /** A static sticker in PNG format, which will be converted to WEBP server-side */
+    export interface td_inputStickerStatic {
+        '@type': 'inputStickerStatic';
+        /** PNG image with the sticker; must be up to 512 KB in size and fit in a 512x512 square */
+        sticker?: td_InputFile;
+        /** Emojis corresponding to the sticker */
+        emojis?: td_string;
+        /** For masks, position where the mask should be placed; may be null */
+        mask_position?: td_maskPosition;
+    }
+    
+    
+    /** An animated sticker in TGS format */
+    export interface td_inputStickerAnimated {
+        '@type': 'inputStickerAnimated';
+        /** File with the animated sticker. Only local or uploaded within a week files are supported. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements */
+        sticker?: td_InputFile;
+        /** Emojis corresponding to the sticker */
+        emojis?: td_string;
+    }
+    
+    
+    /** Represents a date range */
+    export interface td_dateRange {
+        '@type': 'dateRange';
+        /** Point in time (Unix timestamp) at which the date range begins */
+        start_date?: td_int32;
+        /** Point in time (Unix timestamp) at which the date range ends */
+        end_date?: td_int32;
+    }
+    
+    
+    /** A value with information about its recent changes */
+    export interface td_statisticalValue {
+        '@type': 'statisticalValue';
+        /** The current value */
+        value?: td_double;
+        /** The value for the previous day */
+        previous_value?: td_double;
+        /** The growth rate of the value, as a percentage */
+        growth_rate_percentage?: td_double;
+    }
+    
+    
+    /** A graph data */
+    export interface td_statisticalGraphData {
+        '@type': 'statisticalGraphData';
+        /** Graph data in JSON format */
+        json_data?: td_string;
+        /** If non-empty, a token which can be used to receive a zoomed in graph */
+        zoom_token?: td_string;
+    }
+    
+    
+    /** The graph data to be asynchronously loaded through getStatisticalGraph */
+    export interface td_statisticalGraphAsync {
+        '@type': 'statisticalGraphAsync';
+        /** The token to use for data loading */
+        token?: td_string;
+    }
+    
+    
+    /** An error message to be shown to the user instead of the graph */
+    export interface td_statisticalGraphError {
+        '@type': 'statisticalGraphError';
+        /** The error message */
+        error_message?: td_string;
+    }
+    
+    
+    /** Contains statistics about interactions with a message */
+    export interface td_chatStatisticsMessageInteractionInfo {
+        '@type': 'chatStatisticsMessageInteractionInfo';
+        /** Message identifier */
+        message_id?: td_int53;
+        /** Number of times the message was viewed */
+        view_count?: td_int32;
+        /** Number of times the message was forwarded */
+        forward_count?: td_int32;
+    }
+    
+    
+    /** Contains statistics about messages sent by a user */
+    export interface td_chatStatisticsMessageSenderInfo {
+        '@type': 'chatStatisticsMessageSenderInfo';
+        /** User identifier */
+        user_id?: td_int32;
+        /** Number of sent messages */
+        sent_message_count?: td_int32;
+        /** Average number of characters in sent messages */
+        average_character_count?: td_int32;
+    }
+    
+    
+    /** Contains statistics about administrator actions done by a user */
+    export interface td_chatStatisticsAdministratorActionsInfo {
+        '@type': 'chatStatisticsAdministratorActionsInfo';
+        /** Administrator user identifier */
+        user_id?: td_int32;
+        /** Number of messages deleted by the administrator */
+        deleted_message_count?: td_int32;
+        /** Number of users banned by the administrator */
+        banned_user_count?: td_int32;
+        /** Number of users restricted by the administrator */
+        restricted_user_count?: td_int32;
+    }
+    
+    
+    /** Contains statistics about number of new members invited by a user */
+    export interface td_chatStatisticsInviterInfo {
+        '@type': 'chatStatisticsInviterInfo';
+        /** User identifier */
+        user_id?: td_int32;
+        /** Number of new members invited by the user */
+        added_member_count?: td_int32;
+    }
+    
+    
+    /** A detailed statistics about a supergroup chat */
+    export interface td_chatStatisticsSupergroup {
+        '@type': 'chatStatisticsSupergroup';
+        /** A period to which the statistics applies */
+        period?: td_dateRange;
+        /** Number of members in the chat */
+        member_count?: td_statisticalValue;
+        /** Number of messages sent to the chat */
+        message_count?: td_statisticalValue;
+        /** Number of users who viewed messages in the chat */
+        viewer_count?: td_statisticalValue;
+        /** Number of users who sent messages to the chat */
+        sender_count?: td_statisticalValue;
+        /** A graph containing number of members in the chat */
+        member_count_graph?: td_StatisticalGraph;
+        /** A graph containing number of members joined and left the chat */
+        join_graph?: td_StatisticalGraph;
+        /** A graph containing number of new member joins per source */
+        join_by_source_graph?: td_StatisticalGraph;
+        /** A graph containing distribution of active users per language */
+        language_graph?: td_StatisticalGraph;
+        /** A graph containing distribution of sent messages by content type */
+        message_content_graph?: td_StatisticalGraph;
+        /** A graph containing number of different actions in the chat */
+        action_graph?: td_StatisticalGraph;
+        /** A graph containing distribution of message views per hour */
+        day_graph?: td_StatisticalGraph;
+        /** A graph containing distribution of message views per day of week */
+        week_graph?: td_StatisticalGraph;
+        /** List of users sent most messages in the last week */
+        top_senders?: td_vector<td_chatStatisticsMessageSenderInfo>;
+        /** List of most active administrators in the last week */
+        top_administrators?: td_vector<td_chatStatisticsAdministratorActionsInfo>;
+        /** List of most active inviters of new members in the last week */
+        top_inviters?: td_vector<td_chatStatisticsInviterInfo>;
+    }
+    
+    
+    /** A detailed statistics about a channel chat */
+    export interface td_chatStatisticsChannel {
+        '@type': 'chatStatisticsChannel';
+        /** A period to which the statistics applies */
+        period?: td_dateRange;
+        /** Number of members in the chat */
+        member_count?: td_statisticalValue;
+        /** Mean number of times the recently sent messages was viewed */
+        mean_view_count?: td_statisticalValue;
+        /** Mean number of times the recently sent messages was shared */
+        mean_share_count?: td_statisticalValue;
+        /** A percentage of users with enabled notifications for the chat */
+        enabled_notifications_percentage?: td_double;
+        /** A graph containing number of members in the chat */
+        member_count_graph?: td_StatisticalGraph;
+        /** A graph containing number of members joined and left the chat */
+        join_graph?: td_StatisticalGraph;
+        /** A graph containing number of members muted and unmuted the chat */
+        mute_graph?: td_StatisticalGraph;
+        /** A graph containing number of message views in a given hour in the last two weeks */
+        view_count_by_hour_graph?: td_StatisticalGraph;
+        /** A graph containing number of message views per source */
+        view_count_by_source_graph?: td_StatisticalGraph;
+        /** A graph containing number of new member joins per source */
+        join_by_source_graph?: td_StatisticalGraph;
+        /** A graph containing number of users viewed chat messages per language */
+        language_graph?: td_StatisticalGraph;
+        /** A graph containing number of chat message views and shares */
+        message_interaction_graph?: td_StatisticalGraph;
+        /** A graph containing number of views of associated with the chat instant views */
+        instant_view_interaction_graph?: td_StatisticalGraph;
+        /** Detailed statistics about number of views and shares of recently sent messages */
+        recent_message_interactions?: td_vector<td_chatStatisticsMessageInteractionInfo>;
+    }
+    
+    
+    /** A detailed statistics about a message */
+    export interface td_messageStatistics {
+        '@type': 'messageStatistics';
+        /** A graph containing number of message views and shares */
+        message_interaction_graph?: td_StatisticalGraph;
+    }
+    
+    
+    /** The user authorization state has changed */
+    export interface td_updateAuthorizationState {
+        '@type': 'updateAuthorizationState';
+        /** New authorization state */
+        authorization_state?: td_AuthorizationState;
+    }
+    
+    
+    /** A new message was received; can also be an outgoing message */
+    export interface td_updateNewMessage {
+        '@type': 'updateNewMessage';
+        /** The new message */
+        message?: td_message;
+    }
+    
+    
+    /** A request to send a message has reached the Telegram server. This doesn't mean that the message will be sent successfully or even that the send message request will be processed. This update will be sent only if the option "use_quick_ack" is set to true. This update may be sent multiple times for the same message */
+    export interface td_updateMessageSendAcknowledged {
+        '@type': 'updateMessageSendAcknowledged';
+        /** The chat identifier of the sent message */
+        chat_id?: td_int53;
+        /** A temporary message identifier */
+        message_id?: td_int53;
+    }
+    
+    
+    /** A message has been successfully sent */
+    export interface td_updateMessageSendSucceeded {
+        '@type': 'updateMessageSendSucceeded';
+        /** Information about the sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change */
+        message?: td_message;
+        /** The previous temporary message identifier */
+        old_message_id?: td_int53;
+    }
+    
+    
+    /** A message failed to send. Be aware that some messages being sent can be irrecoverably deleted, in which case updateDeleteMessages will be received instead of this update */
+    export interface td_updateMessageSendFailed {
+        '@type': 'updateMessageSendFailed';
+        /** Contains information about the message which failed to send */
+        message?: td_message;
+        /** The previous temporary message identifier */
+        old_message_id?: td_int53;
+        /** An error code */
+        error_code?: td_int32;
+        /** Error message */
+        error_message?: td_string;
+    }
+    
+    
+    /** The message content has changed */
+    export interface td_updateMessageContent {
+        '@type': 'updateMessageContent';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** New message content */
+        new_content?: td_MessageContent;
+    }
+    
+    
+    /** A message was edited. Changes in the message content will come in a separate updateMessageContent */
+    export interface td_updateMessageEdited {
+        '@type': 'updateMessageEdited';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** Point in time (Unix timestamp) when the message was edited */
+        edit_date?: td_int32;
+        /** New message reply markup; may be null */
+        reply_markup?: td_ReplyMarkup;
+    }
+    
+    
+    /** The message pinned state was changed */
+    export interface td_updateMessageIsPinned {
+        '@type': 'updateMessageIsPinned';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The message identifier */
+        message_id?: td_int53;
+        /** True, if the message is pinned */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** The information about interactions with a message has changed */
+    export interface td_updateMessageInteractionInfo {
+        '@type': 'updateMessageInteractionInfo';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** New information about interactions with the message; may be null */
+        interaction_info?: td_messageInteractionInfo;
+    }
+    
+    
+    /** The message content was opened. Updates voice note messages to "listened", video note messages to "viewed" and starts the TTL timer for self-destructing messages */
+    export interface td_updateMessageContentOpened {
+        '@type': 'updateMessageContentOpened';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+    }
+    
+    
+    /** A message with an unread mention was read */
+    export interface td_updateMessageMentionRead {
+        '@type': 'updateMessageMentionRead';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** The new number of unread mention messages left in the chat */
+        unread_mention_count?: td_int32;
+    }
+    
+    
+    /** A message with a live location was viewed. When the update is received, the application is supposed to update the live location */
+    export interface td_updateMessageLiveLocationViewed {
+        '@type': 'updateMessageLiveLocationViewed';
+        /** Identifier of the chat with the live location message */
+        chat_id?: td_int53;
+        /** Identifier of the message with live location */
+        message_id?: td_int53;
+    }
+    
+    
+    /** A new chat has been loaded/created. This update is guaranteed to come before the chat identifier is returned to the application. The chat field changes will be reported through separate updates */
+    export interface td_updateNewChat {
+        '@type': 'updateNewChat';
+        /** The chat */
+        chat?: td_chat;
+    }
+    
+    
+    /** The title of a chat was changed */
+    export interface td_updateChatTitle {
+        '@type': 'updateChatTitle';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new chat title */
+        title?: td_string;
+    }
+    
+    
+    /** A chat photo was changed */
+    export interface td_updateChatPhoto {
+        '@type': 'updateChatPhoto';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new chat photo; may be null */
+        photo?: td_chatPhotoInfo;
+    }
+    
+    
+    /** Chat permissions was changed */
+    export interface td_updateChatPermissions {
+        '@type': 'updateChatPermissions';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new chat permissions */
+        permissions?: td_chatPermissions;
+    }
+    
+    
+    /** The last message of a chat was changed. If last_message is null, then the last message in the chat became unknown. Some new unknown messages might be added to the chat in this case */
+    export interface td_updateChatLastMessage {
+        '@type': 'updateChatLastMessage';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new last message in the chat; may be null */
+        last_message?: td_message;
+        /** The new chat positions in the chat lists */
+        positions?: td_vector<td_chatPosition>;
+    }
+    
+    
+    /** The position of a chat in a chat list has changed. Instead of this update updateChatLastMessage or updateChatDraftMessage might be sent */
+    export interface td_updateChatPosition {
+        '@type': 'updateChatPosition';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New chat position. If new order is 0, then the chat needs to be removed from the list */
+        position?: td_chatPosition;
+    }
+    
+    
+    /** A chat was marked as unread or was read */
+    export interface td_updateChatIsMarkedAsUnread {
+        '@type': 'updateChatIsMarkedAsUnread';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New value of is_marked_as_unread */
+        is_marked_as_unread?: td_Bool;
+    }
+    
+    
+    /** A chat was blocked or unblocked */
+    export interface td_updateChatIsBlocked {
+        '@type': 'updateChatIsBlocked';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New value of is_blocked */
+        is_blocked?: td_Bool;
+    }
+    
+    
+    /** A chat's has_scheduled_messages field has changed */
+    export interface td_updateChatHasScheduledMessages {
+        '@type': 'updateChatHasScheduledMessages';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New value of has_scheduled_messages */
+        has_scheduled_messages?: td_Bool;
+    }
+    
+    
+    /** The value of the default disable_notification parameter, used when a message is sent to the chat, was changed */
+    export interface td_updateChatDefaultDisableNotification {
+        '@type': 'updateChatDefaultDisableNotification';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new default_disable_notification value */
+        default_disable_notification?: td_Bool;
+    }
+    
+    
+    /** Incoming messages were read or number of unread messages has been changed */
+    export interface td_updateChatReadInbox {
+        '@type': 'updateChatReadInbox';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the last read incoming message */
+        last_read_inbox_message_id?: td_int53;
+        /** The number of unread messages left in the chat */
+        unread_count?: td_int32;
+    }
+    
+    
+    /** Outgoing messages were read */
+    export interface td_updateChatReadOutbox {
+        '@type': 'updateChatReadOutbox';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of last read outgoing message */
+        last_read_outbox_message_id?: td_int53;
+    }
+    
+    
+    /** The chat unread_mention_count has changed */
+    export interface td_updateChatUnreadMentionCount {
+        '@type': 'updateChatUnreadMentionCount';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The number of unread mention messages left in the chat */
+        unread_mention_count?: td_int32;
+    }
+    
+    
+    /** Notification settings for a chat were changed */
+    export interface td_updateChatNotificationSettings {
+        '@type': 'updateChatNotificationSettings';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new notification settings */
+        notification_settings?: td_chatNotificationSettings;
+    }
+    
+    
+    /** Notification settings for some type of chats were updated */
+    export interface td_updateScopeNotificationSettings {
+        '@type': 'updateScopeNotificationSettings';
+        /** Types of chats for which notification settings were updated */
+        scope?: td_NotificationSettingsScope;
+        /** The new notification settings */
+        notification_settings?: td_scopeNotificationSettings;
+    }
+    
+    
+    /** The chat action bar was changed */
+    export interface td_updateChatActionBar {
+        '@type': 'updateChatActionBar';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new value of the action bar; may be null */
+        action_bar?: td_ChatActionBar;
+    }
+    
+    
+    /** The default chat reply markup was changed. Can occur because new messages with reply markup were received or because an old reply markup was hidden by the user */
+    export interface td_updateChatReplyMarkup {
+        '@type': 'updateChatReplyMarkup';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat */
+        reply_markup_message_id?: td_int53;
+    }
+    
+    
+    /** A chat draft has changed. Be aware that the update may come in the currently opened chat but with old content of the draft. If the user has changed the content of the draft, this update shouldn't be applied */
+    export interface td_updateChatDraftMessage {
+        '@type': 'updateChatDraftMessage';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The new draft message; may be null */
+        draft_message?: td_draftMessage;
+        /** The new chat positions in the chat lists */
+        positions?: td_vector<td_chatPosition>;
+    }
+    
+    
+    /** The list of chat filters or a chat filter has changed */
+    export interface td_updateChatFilters {
+        '@type': 'updateChatFilters';
+        /** The new list of chat filters */
+        chat_filters?: td_vector<td_chatFilterInfo>;
+    }
+    
+    
+    /** The number of online group members has changed. This update with non-zero count is sent only for currently opened chats. There is no guarantee that it will be sent just after the count has changed */
+    export interface td_updateChatOnlineMemberCount {
+        '@type': 'updateChatOnlineMemberCount';
+        /** Identifier of the chat */
+        chat_id?: td_int53;
+        /** New number of online members in the chat, or 0 if unknown */
+        online_member_count?: td_int32;
+    }
+    
+    
+    /** A notification was changed */
+    export interface td_updateNotification {
+        '@type': 'updateNotification';
+        /** Unique notification group identifier */
+        notification_group_id?: td_int32;
+        /** Changed notification */
+        notification?: td_notification;
+    }
+    
+    
+    /** A list of active notifications in a notification group has changed */
+    export interface td_updateNotificationGroup {
+        '@type': 'updateNotificationGroup';
+        /** Unique notification group identifier */
+        notification_group_id?: td_int32;
+        /** New type of the notification group */
+        type?: td_NotificationGroupType;
+        /** Identifier of a chat to which all notifications in the group belong */
+        chat_id?: td_int53;
+        /** Chat identifier, which notification settings must be applied to the added notifications */
+        notification_settings_chat_id?: td_int53;
+        /** True, if the notifications should be shown without sound */
+        is_silent?: td_Bool;
+        /** Total number of unread notifications in the group, can be bigger than number of active notifications */
+        total_count?: td_int32;
+        /** List of added group notifications, sorted by notification ID */
+        added_notifications?: td_vector<td_notification>;
+        /** Identifiers of removed group notifications, sorted by notification ID */
+        removed_notification_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Contains active notifications that was shown on previous application launches. This update is sent only if the message database is used. In that case it comes once before any updateNotification and updateNotificationGroup update */
+    export interface td_updateActiveNotifications {
+        '@type': 'updateActiveNotifications';
+        /** Lists of active notification groups */
+        groups?: td_vector<td_notificationGroup>;
+    }
+    
+    
+    /** Describes whether there are some pending notification updates. Can be used to prevent application from killing, while there are some pending notifications */
+    export interface td_updateHavePendingNotifications {
+        '@type': 'updateHavePendingNotifications';
+        /** True, if there are some delayed notification updates, which will be sent soon */
+        have_delayed_notifications?: td_Bool;
+        /** True, if there can be some yet unreceived notifications, which are being fetched from the server */
+        have_unreceived_notifications?: td_Bool;
+    }
+    
+    
+    /** Some messages were deleted */
+    export interface td_updateDeleteMessages {
+        '@type': 'updateDeleteMessages';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifiers of the deleted messages */
+        message_ids?: td_vector<td_int53>;
+        /** True, if the messages are permanently deleted by a user (as opposed to just becoming inaccessible) */
+        is_permanent?: td_Bool;
+        /** True, if the messages are deleted only from the cache and can possibly be retrieved again in the future */
+        from_cache?: td_Bool;
+    }
+    
+    
+    /** User activity in the chat has changed */
+    export interface td_updateUserChatAction {
+        '@type': 'updateUserChatAction';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** If not 0, a message thread identifier in which the action was performed */
+        message_thread_id?: td_int53;
+        /** Identifier of a user performing an action */
+        user_id?: td_int32;
+        /** The action description */
+        action?: td_ChatAction;
+    }
+    
+    
+    /** The user went online or offline */
+    export interface td_updateUserStatus {
+        '@type': 'updateUserStatus';
+        /** User identifier */
+        user_id?: td_int32;
+        /** New status of the user */
+        status?: td_UserStatus;
+    }
+    
+    
+    /** Some data of a user has changed. This update is guaranteed to come before the user identifier is returned to the application */
+    export interface td_updateUser {
+        '@type': 'updateUser';
+        /** New data about the user */
+        user?: td_user;
+    }
+    
+    
+    /** Some data of a basic group has changed. This update is guaranteed to come before the basic group identifier is returned to the application */
+    export interface td_updateBasicGroup {
+        '@type': 'updateBasicGroup';
+        /** New data about the group */
+        basic_group?: td_basicGroup;
+    }
+    
+    
+    /** Some data of a supergroup or a channel has changed. This update is guaranteed to come before the supergroup identifier is returned to the application */
+    export interface td_updateSupergroup {
+        '@type': 'updateSupergroup';
+        /** New data about the supergroup */
+        supergroup?: td_supergroup;
+    }
+    
+    
+    /** Some data of a secret chat has changed. This update is guaranteed to come before the secret chat identifier is returned to the application */
+    export interface td_updateSecretChat {
+        '@type': 'updateSecretChat';
+        /** New data about the secret chat */
+        secret_chat?: td_secretChat;
+    }
+    
+    
+    /** Some data from userFullInfo has been changed */
+    export interface td_updateUserFullInfo {
+        '@type': 'updateUserFullInfo';
+        /** User identifier */
+        user_id?: td_int32;
+        /** New full information about the user */
+        user_full_info?: td_userFullInfo;
+    }
+    
+    
+    /** Some data from basicGroupFullInfo has been changed */
+    export interface td_updateBasicGroupFullInfo {
+        '@type': 'updateBasicGroupFullInfo';
+        /** Identifier of a basic group */
+        basic_group_id?: td_int32;
+        /** New full information about the group */
+        basic_group_full_info?: td_basicGroupFullInfo;
+    }
+    
+    
+    /** Some data from supergroupFullInfo has been changed */
+    export interface td_updateSupergroupFullInfo {
+        '@type': 'updateSupergroupFullInfo';
+        /** Identifier of the supergroup or channel */
+        supergroup_id?: td_int32;
+        /** New full information about the supergroup */
+        supergroup_full_info?: td_supergroupFullInfo;
+    }
+    
+    
+    /** Service notification from the server. Upon receiving this the application must show a popup with the content of the notification */
+    export interface td_updateServiceNotification {
+        '@type': 'updateServiceNotification';
+        /** Notification type. If type begins with "AUTH_KEY_DROP_", then two buttons "Cancel" and "Log out" should be shown under notification; if user presses the second, all local data should be destroyed using Destroy method */
+        type?: td_string;
+        /** Notification content */
+        content?: td_MessageContent;
+    }
+    
+    
+    /** Information about a file was updated */
+    export interface td_updateFile {
+        '@type': 'updateFile';
+        /** New data about the file */
+        file?: td_file;
+    }
+    
+    
+    /** The file generation process needs to be started by the application */
+    export interface td_updateFileGenerationStart {
+        '@type': 'updateFileGenerationStart';
+        /** Unique identifier for the generation process */
+        generation_id?: td_int64;
+        /** The path to a file from which a new file is generated; may be empty */
+        original_path?: td_string;
+        /** The path to a file that should be created and where the new file should be generated */
+        destination_path?: td_string;
+        /** String specifying the conversion applied to the original file. If conversion is "#url#" than original_path contains an HTTP/HTTPS URL of a file, which should be downloaded by the application */
+        conversion?: td_string;
+    }
+    
+    
+    /** File generation is no longer needed */
+    export interface td_updateFileGenerationStop {
+        '@type': 'updateFileGenerationStop';
+        /** Unique identifier for the generation process */
+        generation_id?: td_int64;
+    }
+    
+    
+    /** New call was created or information about a call was updated */
+    export interface td_updateCall {
+        '@type': 'updateCall';
+        /** New data about a call */
+        call?: td_call;
+    }
+    
+    
+    /** New call signaling data arrived */
+    export interface td_updateNewCallSignalingData {
+        '@type': 'updateNewCallSignalingData';
+        /** The call identifier */
+        call_id?: td_int32;
+        /** The data */
+        data?: td_bytes;
+    }
+    
+    
+    /** Some privacy setting rules have been changed */
+    export interface td_updateUserPrivacySettingRules {
+        '@type': 'updateUserPrivacySettingRules';
+        /** The privacy setting */
+        setting?: td_UserPrivacySetting;
+        /** New privacy rules */
+        rules?: td_userPrivacySettingRules;
+    }
+    
+    
+    /** Number of unread messages in a chat list has changed. This update is sent only if the message database is used */
+    export interface td_updateUnreadMessageCount {
+        '@type': 'updateUnreadMessageCount';
+        /** The chat list with changed number of unread messages */
+        chat_list?: td_ChatList;
+        /** Total number of unread messages */
+        unread_count?: td_int32;
+        /** Total number of unread messages in unmuted chats */
+        unread_unmuted_count?: td_int32;
+    }
+    
+    
+    /** Number of unread chats, i.e. with unread messages or marked as unread, has changed. This update is sent only if the message database is used */
+    export interface td_updateUnreadChatCount {
+        '@type': 'updateUnreadChatCount';
+        /** The chat list with changed number of unread messages */
+        chat_list?: td_ChatList;
+        /** Approximate total number of chats in the chat list */
+        total_count?: td_int32;
+        /** Total number of unread chats */
+        unread_count?: td_int32;
+        /** Total number of unread unmuted chats */
+        unread_unmuted_count?: td_int32;
+        /** Total number of chats marked as unread */
+        marked_as_unread_count?: td_int32;
+        /** Total number of unmuted chats marked as unread */
+        marked_as_unread_unmuted_count?: td_int32;
+    }
+    
+    
+    /** An option changed its value */
+    export interface td_updateOption {
+        '@type': 'updateOption';
+        /** The option name */
+        name?: td_string;
+        /** The new option value */
+        value?: td_OptionValue;
+    }
+    
+    
+    /** A sticker set has changed */
+    export interface td_updateStickerSet {
+        '@type': 'updateStickerSet';
+        /** The sticker set */
+        sticker_set?: td_stickerSet;
+    }
+    
+    
+    /** The list of installed sticker sets was updated */
+    export interface td_updateInstalledStickerSets {
+        '@type': 'updateInstalledStickerSets';
+        /** True, if the list of installed mask sticker sets was updated */
+        is_masks?: td_Bool;
+        /** The new list of installed ordinary sticker sets */
+        sticker_set_ids?: td_vector<td_int64>;
+    }
+    
+    
+    /** The list of trending sticker sets was updated or some of them were viewed */
+    export interface td_updateTrendingStickerSets {
+        '@type': 'updateTrendingStickerSets';
+        /** The prefix of the list of trending sticker sets with the newest trending sticker sets */
+        sticker_sets?: td_stickerSets;
+    }
+    
+    
+    /** The list of recently used stickers was updated */
+    export interface td_updateRecentStickers {
+        '@type': 'updateRecentStickers';
+        /** True, if the list of stickers attached to photo or video files was updated, otherwise the list of sent stickers is updated */
+        is_attached?: td_Bool;
+        /** The new list of file identifiers of recently used stickers */
+        sticker_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** The list of favorite stickers was updated */
+    export interface td_updateFavoriteStickers {
+        '@type': 'updateFavoriteStickers';
+        /** The new list of file identifiers of favorite stickers */
+        sticker_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** The list of saved animations was updated */
+    export interface td_updateSavedAnimations {
+        '@type': 'updateSavedAnimations';
+        /** The new list of file identifiers of saved animations */
+        animation_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** The selected background has changed */
+    export interface td_updateSelectedBackground {
+        '@type': 'updateSelectedBackground';
+        /** True, if background for dark theme has changed */
+        for_dark_theme?: td_Bool;
+        /** The new selected background; may be null */
+        background?: td_background;
+    }
+    
+    
+    /** Some language pack strings have been updated */
+    export interface td_updateLanguagePackStrings {
+        '@type': 'updateLanguagePackStrings';
+        /** Localization target to which the language pack belongs */
+        localization_target?: td_string;
+        /** Identifier of the updated language pack */
+        language_pack_id?: td_string;
+        /** List of changed language pack strings */
+        strings?: td_vector<td_languagePackString>;
+    }
+    
+    
+    /** The connection state has changed. This update must be used only to show a human-readable description of the connection state */
+    export interface td_updateConnectionState {
+        '@type': 'updateConnectionState';
+        /** The new connection state */
+        state?: td_ConnectionState;
+    }
+    
+    
+    /** New terms of service must be accepted by the user. If the terms of service are declined, then the deleteAccount method should be called with the reason "Decline ToS update" */
+    export interface td_updateTermsOfService {
+        '@type': 'updateTermsOfService';
+        /** Identifier of the terms of service */
+        terms_of_service_id?: td_string;
+        /** The new terms of service */
+        terms_of_service?: td_termsOfService;
+    }
+    
+    
+    /** The list of users nearby has changed. The update is guaranteed to be sent only 60 seconds after a successful searchChatsNearby request */
+    export interface td_updateUsersNearby {
+        '@type': 'updateUsersNearby';
+        /** The new list of users nearby */
+        users_nearby?: td_vector<td_chatNearby>;
+    }
+    
+    
+    /** The list of supported dice emojis has changed */
+    export interface td_updateDiceEmojis {
+        '@type': 'updateDiceEmojis';
+        /** The new list of supported dice emojis */
+        emojis?: td_vector<td_string>;
+    }
+    
+    
+    /** The parameters of animation search through GetOption("animation_search_bot_username") bot has changed */
+    export interface td_updateAnimationSearchParameters {
+        '@type': 'updateAnimationSearchParameters';
+        /** Name of the animation search provider */
+        provider?: td_string;
+        /** The new list of emojis suggested for searching */
+        emojis?: td_vector<td_string>;
+    }
+    
+    
+    /** The list of suggested to the user actions has changed */
+    export interface td_updateSuggestedActions {
+        '@type': 'updateSuggestedActions';
+        /** Added suggested actions */
+        added_actions?: td_vector<td_SuggestedAction>;
+        /** Removed suggested actions */
+        removed_actions?: td_vector<td_SuggestedAction>;
+    }
+    
+    
+    /** A new incoming inline query; for bots only */
+    export interface td_updateNewInlineQuery {
+        '@type': 'updateNewInlineQuery';
+        /** Unique query identifier */
+        id?: td_int64;
+        /** Identifier of the user who sent the query */
+        sender_user_id?: td_int32;
+        /** User location; may be null */
+        user_location?: td_location;
+        /** Text of the query */
+        query?: td_string;
+        /** Offset of the first entry to return */
+        offset?: td_string;
+    }
+    
+    
+    /** The user has chosen a result of an inline query; for bots only */
+    export interface td_updateNewChosenInlineResult {
+        '@type': 'updateNewChosenInlineResult';
+        /** Identifier of the user who sent the query */
+        sender_user_id?: td_int32;
+        /** User location; may be null */
+        user_location?: td_location;
+        /** Text of the query */
+        query?: td_string;
+        /** Identifier of the chosen result */
+        result_id?: td_string;
+        /** Identifier of the sent inline message, if known */
+        inline_message_id?: td_string;
+    }
+    
+    
+    /** A new incoming callback query; for bots only */
+    export interface td_updateNewCallbackQuery {
+        '@type': 'updateNewCallbackQuery';
+        /** Unique query identifier */
+        id?: td_int64;
+        /** Identifier of the user who sent the query */
+        sender_user_id?: td_int32;
+        /** Identifier of the chat where the query was sent */
+        chat_id?: td_int53;
+        /** Identifier of the message, from which the query originated */
+        message_id?: td_int53;
+        /** Identifier that uniquely corresponds to the chat to which the message was sent */
+        chat_instance?: td_int64;
+        /** Query payload */
+        payload?: td_CallbackQueryPayload;
+    }
+    
+    
+    /** A new incoming callback query from a message sent via a bot; for bots only */
+    export interface td_updateNewInlineCallbackQuery {
+        '@type': 'updateNewInlineCallbackQuery';
+        /** Unique query identifier */
+        id?: td_int64;
+        /** Identifier of the user who sent the query */
+        sender_user_id?: td_int32;
+        /** Identifier of the inline message, from which the query originated */
+        inline_message_id?: td_string;
+        /** An identifier uniquely corresponding to the chat a message was sent to */
+        chat_instance?: td_int64;
+        /** Query payload */
+        payload?: td_CallbackQueryPayload;
+    }
+    
+    
+    /** A new incoming shipping query; for bots only. Only for invoices with flexible price */
+    export interface td_updateNewShippingQuery {
+        '@type': 'updateNewShippingQuery';
+        /** Unique query identifier */
+        id?: td_int64;
+        /** Identifier of the user who sent the query */
+        sender_user_id?: td_int32;
+        /** Invoice payload */
+        invoice_payload?: td_string;
+        /** User shipping address */
+        shipping_address?: td_address;
+    }
+    
+    
+    /** A new incoming pre-checkout query; for bots only. Contains full information about a checkout */
+    export interface td_updateNewPreCheckoutQuery {
+        '@type': 'updateNewPreCheckoutQuery';
+        /** Unique query identifier */
+        id?: td_int64;
+        /** Identifier of the user who sent the query */
+        sender_user_id?: td_int32;
+        /** Currency for the product price */
+        currency?: td_string;
+        /** Total price for the product, in the minimal quantity of the currency */
+        total_amount?: td_int53;
+        /** Invoice payload */
+        invoice_payload?: td_bytes;
+        /** Identifier of a shipping option chosen by the user; may be empty if not applicable */
+        shipping_option_id?: td_string;
+        /** Information about the order; may be null */
+        order_info?: td_orderInfo;
+    }
+    
+    
+    /** A new incoming event; for bots only */
+    export interface td_updateNewCustomEvent {
+        '@type': 'updateNewCustomEvent';
+        /** A JSON-serialized event */
+        event?: td_string;
+    }
+    
+    
+    /** A new incoming query; for bots only */
+    export interface td_updateNewCustomQuery {
+        '@type': 'updateNewCustomQuery';
+        /** The query identifier */
+        id?: td_int64;
+        /** JSON-serialized query data */
+        data?: td_string;
+        /** Query timeout */
+        timeout?: td_int32;
+    }
+    
+    
+    /** A poll was updated; for bots only */
+    export interface td_updatePoll {
+        '@type': 'updatePoll';
+        /** New data about the poll */
+        poll?: td_poll;
+    }
+    
+    
+    /** A user changed the answer to a poll; for bots only */
+    export interface td_updatePollAnswer {
+        '@type': 'updatePollAnswer';
+        /** Unique poll identifier */
+        poll_id?: td_int64;
+        /** The user, who changed the answer to the poll */
+        user_id?: td_int32;
+        /** 0-based identifiers of answer options, chosen by the user */
+        option_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Contains a list of updates */
+    export interface td_updates {
+        '@type': 'updates';
+        /** List of updates */
+        updates?: td_vector<td_Update>;
+    }
+    
+    
+    /** The log is written to stderr or an OS specific log */
+    export interface td_logStreamDefault {
+        '@type': 'logStreamDefault';
+    }
+    
+    
+    /** The log is written to a file */
+    export interface td_logStreamFile {
+        '@type': 'logStreamFile';
+        /** Path to the file to where the internal TDLib log will be written */
+        path?: td_string;
+        /** The maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated */
+        max_file_size?: td_int53;
+        /** Pass true to additionally redirect stderr to the log file. Ignored on Windows */
+        redirect_stderr?: td_Bool;
+    }
+    
+    
+    /** The log is written nowhere */
+    export interface td_logStreamEmpty {
+        '@type': 'logStreamEmpty';
+    }
+    
+    
+    /** Contains a TDLib internal log verbosity level */
+    export interface td_logVerbosityLevel {
+        '@type': 'logVerbosityLevel';
+        /** Log verbosity level */
+        verbosity_level?: td_int32;
+    }
+    
+    
+    /** Contains a list of available TDLib internal log tags */
+    export interface td_logTags {
+        '@type': 'logTags';
+        /** List of log tags */
+        tags?: td_vector<td_string>;
+    }
+    
+    
+    /** A simple object containing a number; for testing only */
+    export interface td_testInt {
+        '@type': 'testInt';
+        /** Number */
+        value?: td_int32;
+    }
+    
+    
+    /** A simple object containing a string; for testing only */
+    export interface td_testString {
+        '@type': 'testString';
+        /** String */
+        value?: td_string;
+    }
+    
+    
+    /** A simple object containing a sequence of bytes; for testing only */
+    export interface td_testBytes {
+        '@type': 'testBytes';
+        /** Bytes */
+        value?: td_bytes;
+    }
+    
+    
+    /** A simple object containing a vector of numbers; for testing only */
+    export interface td_testVectorInt {
+        '@type': 'testVectorInt';
+        /** Vector of numbers */
+        value?: td_vector<td_int32>;
+    }
+    
+    
+    /** A simple object containing a vector of objects that hold a number; for testing only */
+    export interface td_testVectorIntObject {
+        '@type': 'testVectorIntObject';
+        /** Vector of objects */
+        value?: td_vector<td_testInt>;
+    }
+    
+    
+    /** A simple object containing a vector of strings; for testing only */
+    export interface td_testVectorString {
+        '@type': 'testVectorString';
+        /** Vector of strings */
+        value?: td_vector<td_string>;
+    }
+    
+    
+    /** A simple object containing a vector of objects that hold a string; for testing only */
+    export interface td_testVectorStringObject {
+        '@type': 'testVectorStringObject';
+        /** Vector of objects */
+        value?: td_vector<td_testString>;
+    }
+    
+    
+    export type td_Error = td_error;
+    export type td_Ok = td_ok;
+    export type td_TdlibParameters = td_tdlibParameters;
+    export type td_AuthenticationCodeType = td_authenticationCodeTypeTelegramMessage | td_authenticationCodeTypeSms | td_authenticationCodeTypeCall | td_authenticationCodeTypeFlashCall;
+    export type td_AuthenticationCodeInfo = td_authenticationCodeInfo;
+    export type td_EmailAddressAuthenticationCodeInfo = td_emailAddressAuthenticationCodeInfo;
+    export type td_TextEntity = td_textEntity;
+    export type td_TextEntities = td_textEntities;
+    export type td_FormattedText = td_formattedText;
+    export type td_TermsOfService = td_termsOfService;
+    export type td_AuthorizationState = td_authorizationStateWaitTdlibParameters | td_authorizationStateWaitEncryptionKey | td_authorizationStateWaitPhoneNumber | td_authorizationStateWaitCode | td_authorizationStateWaitOtherDeviceConfirmation | td_authorizationStateWaitRegistration | td_authorizationStateWaitPassword | td_authorizationStateReady | td_authorizationStateLoggingOut | td_authorizationStateClosing | td_authorizationStateClosed;
+    export type td_PasswordState = td_passwordState;
+    export type td_RecoveryEmailAddress = td_recoveryEmailAddress;
+    export type td_TemporaryPasswordState = td_temporaryPasswordState;
+    export type td_LocalFile = td_localFile;
+    export type td_RemoteFile = td_remoteFile;
+    export type td_File = td_file;
+    export type td_InputFile = td_inputFileId | td_inputFileRemote | td_inputFileLocal | td_inputFileGenerated;
+    export type td_PhotoSize = td_photoSize;
+    export type td_Minithumbnail = td_minithumbnail;
+    export type td_ThumbnailFormat = td_thumbnailFormatJpeg | td_thumbnailFormatPng | td_thumbnailFormatWebp | td_thumbnailFormatGif | td_thumbnailFormatTgs | td_thumbnailFormatMpeg4;
+    export type td_Thumbnail = td_thumbnail;
+    export type td_MaskPoint = td_maskPointForehead | td_maskPointEyes | td_maskPointMouth | td_maskPointChin;
+    export type td_MaskPosition = td_maskPosition;
+    export type td_PollOption = td_pollOption;
+    export type td_PollType = td_pollTypeRegular | td_pollTypeQuiz;
+    export type td_Animation = td_animation;
+    export type td_Audio = td_audio;
+    export type td_Document = td_document;
+    export type td_Photo = td_photo;
+    export type td_Sticker = td_sticker;
+    export type td_Video = td_video;
+    export type td_VideoNote = td_videoNote;
+    export type td_VoiceNote = td_voiceNote;
+    export type td_Contact = td_contact;
+    export type td_Location = td_location;
+    export type td_Venue = td_venue;
+    export type td_Game = td_game;
+    export type td_Poll = td_poll;
+    export type td_ProfilePhoto = td_profilePhoto;
+    export type td_ChatPhotoInfo = td_chatPhotoInfo;
+    export type td_UserType = td_userTypeRegular | td_userTypeDeleted | td_userTypeBot | td_userTypeUnknown;
+    export type td_BotCommand = td_botCommand;
+    export type td_BotInfo = td_botInfo;
+    export type td_ChatLocation = td_chatLocation;
+    export type td_AnimatedChatPhoto = td_animatedChatPhoto;
+    export type td_ChatPhoto = td_chatPhoto;
+    export type td_ChatPhotos = td_chatPhotos;
+    export type td_InputChatPhoto = td_inputChatPhotoPrevious | td_inputChatPhotoStatic | td_inputChatPhotoAnimation;
+    export type td_User = td_user;
+    export type td_UserFullInfo = td_userFullInfo;
+    export type td_Users = td_users;
+    export type td_ChatAdministrator = td_chatAdministrator;
+    export type td_ChatAdministrators = td_chatAdministrators;
+    export type td_ChatPermissions = td_chatPermissions;
+    export type td_ChatMemberStatus = td_chatMemberStatusCreator | td_chatMemberStatusAdministrator | td_chatMemberStatusMember | td_chatMemberStatusRestricted | td_chatMemberStatusLeft | td_chatMemberStatusBanned;
+    export type td_ChatMember = td_chatMember;
+    export type td_ChatMembers = td_chatMembers;
+    export type td_ChatMembersFilter = td_chatMembersFilterContacts | td_chatMembersFilterAdministrators | td_chatMembersFilterMembers | td_chatMembersFilterMention | td_chatMembersFilterRestricted | td_chatMembersFilterBanned | td_chatMembersFilterBots;
+    export type td_SupergroupMembersFilter = td_supergroupMembersFilterRecent | td_supergroupMembersFilterContacts | td_supergroupMembersFilterAdministrators | td_supergroupMembersFilterSearch | td_supergroupMembersFilterRestricted | td_supergroupMembersFilterBanned | td_supergroupMembersFilterMention | td_supergroupMembersFilterBots;
+    export type td_BasicGroup = td_basicGroup;
+    export type td_BasicGroupFullInfo = td_basicGroupFullInfo;
+    export type td_Supergroup = td_supergroup;
+    export type td_SupergroupFullInfo = td_supergroupFullInfo;
+    export type td_SecretChatState = td_secretChatStatePending | td_secretChatStateReady | td_secretChatStateClosed;
+    export type td_SecretChat = td_secretChat;
+    export type td_MessageSender = td_messageSenderUser | td_messageSenderChat;
+    export type td_MessageSenders = td_messageSenders;
+    export type td_MessageForwardOrigin = td_messageForwardOriginUser | td_messageForwardOriginChat | td_messageForwardOriginHiddenUser | td_messageForwardOriginChannel;
+    export type td_MessageForwardInfo = td_messageForwardInfo;
+    export type td_MessageReplyInfo = td_messageReplyInfo;
+    export type td_MessageInteractionInfo = td_messageInteractionInfo;
+    export type td_MessageSendingState = td_messageSendingStatePending | td_messageSendingStateFailed;
+    export type td_Message = td_message;
+    export type td_Messages = td_messages;
+    export type td_FoundMessages = td_foundMessages;
+    export type td_NotificationSettingsScope = td_notificationSettingsScopePrivateChats | td_notificationSettingsScopeGroupChats | td_notificationSettingsScopeChannelChats;
+    export type td_ChatNotificationSettings = td_chatNotificationSettings;
+    export type td_ScopeNotificationSettings = td_scopeNotificationSettings;
+    export type td_DraftMessage = td_draftMessage;
+    export type td_ChatType = td_chatTypePrivate | td_chatTypeBasicGroup | td_chatTypeSupergroup | td_chatTypeSecret;
+    export type td_ChatFilter = td_chatFilter;
+    export type td_ChatFilterInfo = td_chatFilterInfo;
+    export type td_RecommendedChatFilter = td_recommendedChatFilter;
+    export type td_RecommendedChatFilters = td_recommendedChatFilters;
+    export type td_ChatList = td_chatListMain | td_chatListArchive | td_chatListFilter;
+    export type td_ChatLists = td_chatLists;
+    export type td_ChatSource = td_chatSourceMtprotoProxy | td_chatSourcePublicServiceAnnouncement;
+    export type td_ChatPosition = td_chatPosition;
+    export type td_Chat = td_chat;
+    export type td_Chats = td_chats;
+    export type td_ChatNearby = td_chatNearby;
+    export type td_ChatsNearby = td_chatsNearby;
+    export type td_ChatInviteLink = td_chatInviteLink;
+    export type td_ChatInviteLinkInfo = td_chatInviteLinkInfo;
+    export type td_PublicChatType = td_publicChatTypeHasUsername | td_publicChatTypeIsLocationBased;
+    export type td_ChatActionBar = td_chatActionBarReportSpam | td_chatActionBarReportUnrelatedLocation | td_chatActionBarReportAddBlock | td_chatActionBarAddContact | td_chatActionBarSharePhoneNumber;
+    export type td_KeyboardButtonType = td_keyboardButtonTypeText | td_keyboardButtonTypeRequestPhoneNumber | td_keyboardButtonTypeRequestLocation | td_keyboardButtonTypeRequestPoll;
+    export type td_KeyboardButton = td_keyboardButton;
+    export type td_InlineKeyboardButtonType = td_inlineKeyboardButtonTypeUrl | td_inlineKeyboardButtonTypeLoginUrl | td_inlineKeyboardButtonTypeCallback | td_inlineKeyboardButtonTypeCallbackWithPassword | td_inlineKeyboardButtonTypeCallbackGame | td_inlineKeyboardButtonTypeSwitchInline | td_inlineKeyboardButtonTypeBuy;
+    export type td_InlineKeyboardButton = td_inlineKeyboardButton;
+    export type td_ReplyMarkup = td_replyMarkupRemoveKeyboard | td_replyMarkupForceReply | td_replyMarkupShowKeyboard | td_replyMarkupInlineKeyboard;
+    export type td_LoginUrlInfo = td_loginUrlInfoOpen | td_loginUrlInfoRequestConfirmation;
+    export type td_MessageThreadInfo = td_messageThreadInfo;
+    export type td_RichText = td_richTextPlain | td_richTextBold | td_richTextItalic | td_richTextUnderline | td_richTextStrikethrough | td_richTextFixed | td_richTextUrl | td_richTextEmailAddress | td_richTextSubscript | td_richTextSuperscript | td_richTextMarked | td_richTextPhoneNumber | td_richTextIcon | td_richTextReference | td_richTextAnchor | td_richTextAnchorLink | td_richTexts;
+    export type td_PageBlockCaption = td_pageBlockCaption;
+    export type td_PageBlockListItem = td_pageBlockListItem;
+    export type td_PageBlockHorizontalAlignment = td_pageBlockHorizontalAlignmentLeft | td_pageBlockHorizontalAlignmentCenter | td_pageBlockHorizontalAlignmentRight;
+    export type td_PageBlockVerticalAlignment = td_pageBlockVerticalAlignmentTop | td_pageBlockVerticalAlignmentMiddle | td_pageBlockVerticalAlignmentBottom;
+    export type td_PageBlockTableCell = td_pageBlockTableCell;
+    export type td_PageBlockRelatedArticle = td_pageBlockRelatedArticle;
+    export type td_PageBlock = td_pageBlockTitle | td_pageBlockSubtitle | td_pageBlockAuthorDate | td_pageBlockHeader | td_pageBlockSubheader | td_pageBlockKicker | td_pageBlockParagraph | td_pageBlockPreformatted | td_pageBlockFooter | td_pageBlockDivider | td_pageBlockAnchor | td_pageBlockList | td_pageBlockBlockQuote | td_pageBlockPullQuote | td_pageBlockAnimation | td_pageBlockAudio | td_pageBlockPhoto | td_pageBlockVideo | td_pageBlockVoiceNote | td_pageBlockCover | td_pageBlockEmbedded | td_pageBlockEmbeddedPost | td_pageBlockCollage | td_pageBlockSlideshow | td_pageBlockChatLink | td_pageBlockTable | td_pageBlockDetails | td_pageBlockRelatedArticles | td_pageBlockMap;
+    export type td_WebPageInstantView = td_webPageInstantView;
+    export type td_WebPage = td_webPage;
+    export type td_CountryInfo = td_countryInfo;
+    export type td_Countries = td_countries;
+    export type td_PhoneNumberInfo = td_phoneNumberInfo;
+    export type td_BankCardActionOpenUrl = td_bankCardActionOpenUrl;
+    export type td_BankCardInfo = td_bankCardInfo;
+    export type td_Address = td_address;
+    export type td_LabeledPricePart = td_labeledPricePart;
+    export type td_Invoice = td_invoice;
+    export type td_OrderInfo = td_orderInfo;
+    export type td_ShippingOption = td_shippingOption;
+    export type td_SavedCredentials = td_savedCredentials;
+    export type td_InputCredentials = td_inputCredentialsSaved | td_inputCredentialsNew | td_inputCredentialsAndroidPay | td_inputCredentialsApplePay;
+    export type td_PaymentsProviderStripe = td_paymentsProviderStripe;
+    export type td_PaymentForm = td_paymentForm;
+    export type td_ValidatedOrderInfo = td_validatedOrderInfo;
+    export type td_PaymentResult = td_paymentResult;
+    export type td_PaymentReceipt = td_paymentReceipt;
+    export type td_DatedFile = td_datedFile;
+    export type td_PassportElementType = td_passportElementTypePersonalDetails | td_passportElementTypePassport | td_passportElementTypeDriverLicense | td_passportElementTypeIdentityCard | td_passportElementTypeInternalPassport | td_passportElementTypeAddress | td_passportElementTypeUtilityBill | td_passportElementTypeBankStatement | td_passportElementTypeRentalAgreement | td_passportElementTypePassportRegistration | td_passportElementTypeTemporaryRegistration | td_passportElementTypePhoneNumber | td_passportElementTypeEmailAddress;
+    export type td_Date = td_date;
+    export type td_PersonalDetails = td_personalDetails;
+    export type td_IdentityDocument = td_identityDocument;
+    export type td_InputIdentityDocument = td_inputIdentityDocument;
+    export type td_PersonalDocument = td_personalDocument;
+    export type td_InputPersonalDocument = td_inputPersonalDocument;
+    export type td_PassportElement = td_passportElementPersonalDetails | td_passportElementPassport | td_passportElementDriverLicense | td_passportElementIdentityCard | td_passportElementInternalPassport | td_passportElementAddress | td_passportElementUtilityBill | td_passportElementBankStatement | td_passportElementRentalAgreement | td_passportElementPassportRegistration | td_passportElementTemporaryRegistration | td_passportElementPhoneNumber | td_passportElementEmailAddress;
+    export type td_InputPassportElement = td_inputPassportElementPersonalDetails | td_inputPassportElementPassport | td_inputPassportElementDriverLicense | td_inputPassportElementIdentityCard | td_inputPassportElementInternalPassport | td_inputPassportElementAddress | td_inputPassportElementUtilityBill | td_inputPassportElementBankStatement | td_inputPassportElementRentalAgreement | td_inputPassportElementPassportRegistration | td_inputPassportElementTemporaryRegistration | td_inputPassportElementPhoneNumber | td_inputPassportElementEmailAddress;
+    export type td_PassportElements = td_passportElements;
+    export type td_PassportElementErrorSource = td_passportElementErrorSourceUnspecified | td_passportElementErrorSourceDataField | td_passportElementErrorSourceFrontSide | td_passportElementErrorSourceReverseSide | td_passportElementErrorSourceSelfie | td_passportElementErrorSourceTranslationFile | td_passportElementErrorSourceTranslationFiles | td_passportElementErrorSourceFile | td_passportElementErrorSourceFiles;
+    export type td_PassportElementError = td_passportElementError;
+    export type td_PassportSuitableElement = td_passportSuitableElement;
+    export type td_PassportRequiredElement = td_passportRequiredElement;
+    export type td_PassportAuthorizationForm = td_passportAuthorizationForm;
+    export type td_PassportElementsWithErrors = td_passportElementsWithErrors;
+    export type td_EncryptedCredentials = td_encryptedCredentials;
+    export type td_EncryptedPassportElement = td_encryptedPassportElement;
+    export type td_InputPassportElementErrorSource = td_inputPassportElementErrorSourceUnspecified | td_inputPassportElementErrorSourceDataField | td_inputPassportElementErrorSourceFrontSide | td_inputPassportElementErrorSourceReverseSide | td_inputPassportElementErrorSourceSelfie | td_inputPassportElementErrorSourceTranslationFile | td_inputPassportElementErrorSourceTranslationFiles | td_inputPassportElementErrorSourceFile | td_inputPassportElementErrorSourceFiles;
+    export type td_InputPassportElementError = td_inputPassportElementError;
+    export type td_MessageContent = td_messageText | td_messageAnimation | td_messageAudio | td_messageDocument | td_messagePhoto | td_messageExpiredPhoto | td_messageSticker | td_messageVideo | td_messageExpiredVideo | td_messageVideoNote | td_messageVoiceNote | td_messageLocation | td_messageVenue | td_messageContact | td_messageDice | td_messageGame | td_messagePoll | td_messageInvoice | td_messageCall | td_messageBasicGroupChatCreate | td_messageSupergroupChatCreate | td_messageChatChangeTitle | td_messageChatChangePhoto | td_messageChatDeletePhoto | td_messageChatAddMembers | td_messageChatJoinByLink | td_messageChatDeleteMember | td_messageChatUpgradeTo | td_messageChatUpgradeFrom | td_messagePinMessage | td_messageScreenshotTaken | td_messageChatSetTtl | td_messageCustomServiceAction | td_messageGameScore | td_messagePaymentSuccessful | td_messagePaymentSuccessfulBot | td_messageContactRegistered | td_messageWebsiteConnected | td_messagePassportDataSent | td_messagePassportDataReceived | td_messageProximityAlertTriggered | td_messageUnsupported;
+    export type td_TextEntityType = td_textEntityTypeMention | td_textEntityTypeHashtag | td_textEntityTypeCashtag | td_textEntityTypeBotCommand | td_textEntityTypeUrl | td_textEntityTypeEmailAddress | td_textEntityTypePhoneNumber | td_textEntityTypeBankCardNumber | td_textEntityTypeBold | td_textEntityTypeItalic | td_textEntityTypeUnderline | td_textEntityTypeStrikethrough | td_textEntityTypeCode | td_textEntityTypePre | td_textEntityTypePreCode | td_textEntityTypeTextUrl | td_textEntityTypeMentionName;
+    export type td_InputThumbnail = td_inputThumbnail;
+    export type td_MessageSchedulingState = td_messageSchedulingStateSendAtDate | td_messageSchedulingStateSendWhenOnline;
+    export type td_MessageSendOptions = td_messageSendOptions;
+    export type td_MessageCopyOptions = td_messageCopyOptions;
+    export type td_InputMessageContent = td_inputMessageText | td_inputMessageAnimation | td_inputMessageAudio | td_inputMessageDocument | td_inputMessagePhoto | td_inputMessageSticker | td_inputMessageVideo | td_inputMessageVideoNote | td_inputMessageVoiceNote | td_inputMessageLocation | td_inputMessageVenue | td_inputMessageContact | td_inputMessageDice | td_inputMessageGame | td_inputMessageInvoice | td_inputMessagePoll | td_inputMessageForwarded;
+    export type td_SearchMessagesFilter = td_searchMessagesFilterEmpty | td_searchMessagesFilterAnimation | td_searchMessagesFilterAudio | td_searchMessagesFilterDocument | td_searchMessagesFilterPhoto | td_searchMessagesFilterVideo | td_searchMessagesFilterVoiceNote | td_searchMessagesFilterPhotoAndVideo | td_searchMessagesFilterUrl | td_searchMessagesFilterChatPhoto | td_searchMessagesFilterCall | td_searchMessagesFilterMissedCall | td_searchMessagesFilterVideoNote | td_searchMessagesFilterVoiceAndVideoNote | td_searchMessagesFilterMention | td_searchMessagesFilterUnreadMention | td_searchMessagesFilterFailedToSend | td_searchMessagesFilterPinned;
+    export type td_ChatAction = td_chatActionTyping | td_chatActionRecordingVideo | td_chatActionUploadingVideo | td_chatActionRecordingVoiceNote | td_chatActionUploadingVoiceNote | td_chatActionUploadingPhoto | td_chatActionUploadingDocument | td_chatActionChoosingLocation | td_chatActionChoosingContact | td_chatActionStartPlayingGame | td_chatActionRecordingVideoNote | td_chatActionUploadingVideoNote | td_chatActionCancel;
+    export type td_UserStatus = td_userStatusEmpty | td_userStatusOnline | td_userStatusOffline | td_userStatusRecently | td_userStatusLastWeek | td_userStatusLastMonth;
+    export type td_Stickers = td_stickers;
+    export type td_Emojis = td_emojis;
+    export type td_StickerSet = td_stickerSet;
+    export type td_StickerSetInfo = td_stickerSetInfo;
+    export type td_StickerSets = td_stickerSets;
+    export type td_CallDiscardReason = td_callDiscardReasonEmpty | td_callDiscardReasonMissed | td_callDiscardReasonDeclined | td_callDiscardReasonDisconnected | td_callDiscardReasonHungUp;
+    export type td_CallProtocol = td_callProtocol;
+    export type td_CallServerType = td_callServerTypeTelegramReflector | td_callServerTypeWebrtc;
+    export type td_CallServer = td_callServer;
+    export type td_CallId = td_callId;
+    export type td_CallState = td_callStatePending | td_callStateExchangingKeys | td_callStateReady | td_callStateHangingUp | td_callStateDiscarded | td_callStateError;
+    export type td_CallProblem = td_callProblemEcho | td_callProblemNoise | td_callProblemInterruptions | td_callProblemDistortedSpeech | td_callProblemSilentLocal | td_callProblemSilentRemote | td_callProblemDropped | td_callProblemDistortedVideo | td_callProblemPixelatedVideo;
+    export type td_Call = td_call;
+    export type td_PhoneNumberAuthenticationSettings = td_phoneNumberAuthenticationSettings;
+    export type td_Animations = td_animations;
+    export type td_DiceStickers = td_diceStickersRegular | td_diceStickersSlotMachine;
+    export type td_ImportedContacts = td_importedContacts;
+    export type td_HttpUrl = td_httpUrl;
+    export type td_InputInlineQueryResult = td_inputInlineQueryResultAnimation | td_inputInlineQueryResultArticle | td_inputInlineQueryResultAudio | td_inputInlineQueryResultContact | td_inputInlineQueryResultDocument | td_inputInlineQueryResultGame | td_inputInlineQueryResultLocation | td_inputInlineQueryResultPhoto | td_inputInlineQueryResultSticker | td_inputInlineQueryResultVenue | td_inputInlineQueryResultVideo | td_inputInlineQueryResultVoiceNote;
+    export type td_InlineQueryResult = td_inlineQueryResultArticle | td_inlineQueryResultContact | td_inlineQueryResultLocation | td_inlineQueryResultVenue | td_inlineQueryResultGame | td_inlineQueryResultAnimation | td_inlineQueryResultAudio | td_inlineQueryResultDocument | td_inlineQueryResultPhoto | td_inlineQueryResultSticker | td_inlineQueryResultVideo | td_inlineQueryResultVoiceNote;
+    export type td_InlineQueryResults = td_inlineQueryResults;
+    export type td_CallbackQueryPayload = td_callbackQueryPayloadData | td_callbackQueryPayloadDataWithPassword | td_callbackQueryPayloadGame;
+    export type td_CallbackQueryAnswer = td_callbackQueryAnswer;
+    export type td_CustomRequestResult = td_customRequestResult;
+    export type td_GameHighScore = td_gameHighScore;
+    export type td_GameHighScores = td_gameHighScores;
+    export type td_ChatEventAction = td_chatEventMessageEdited | td_chatEventMessageDeleted | td_chatEventPollStopped | td_chatEventMessagePinned | td_chatEventMessageUnpinned | td_chatEventMemberJoined | td_chatEventMemberLeft | td_chatEventMemberInvited | td_chatEventMemberPromoted | td_chatEventMemberRestricted | td_chatEventTitleChanged | td_chatEventPermissionsChanged | td_chatEventDescriptionChanged | td_chatEventUsernameChanged | td_chatEventPhotoChanged | td_chatEventInvitesToggled | td_chatEventLinkedChatChanged | td_chatEventSlowModeDelayChanged | td_chatEventSignMessagesToggled | td_chatEventStickerSetChanged | td_chatEventLocationChanged | td_chatEventIsAllHistoryAvailableToggled;
+    export type td_ChatEvent = td_chatEvent;
+    export type td_ChatEvents = td_chatEvents;
+    export type td_ChatEventLogFilters = td_chatEventLogFilters;
+    export type td_LanguagePackStringValue = td_languagePackStringValueOrdinary | td_languagePackStringValuePluralized | td_languagePackStringValueDeleted;
+    export type td_LanguagePackString = td_languagePackString;
+    export type td_LanguagePackStrings = td_languagePackStrings;
+    export type td_LanguagePackInfo = td_languagePackInfo;
+    export type td_LocalizationTargetInfo = td_localizationTargetInfo;
+    export type td_DeviceToken = td_deviceTokenFirebaseCloudMessaging | td_deviceTokenApplePush | td_deviceTokenApplePushVoIP | td_deviceTokenWindowsPush | td_deviceTokenMicrosoftPush | td_deviceTokenMicrosoftPushVoIP | td_deviceTokenWebPush | td_deviceTokenSimplePush | td_deviceTokenUbuntuPush | td_deviceTokenBlackBerryPush | td_deviceTokenTizenPush;
+    export type td_PushReceiverId = td_pushReceiverId;
+    export type td_BackgroundFill = td_backgroundFillSolid | td_backgroundFillGradient;
+    export type td_BackgroundType = td_backgroundTypeWallpaper | td_backgroundTypePattern | td_backgroundTypeFill;
+    export type td_Background = td_background;
+    export type td_Backgrounds = td_backgrounds;
+    export type td_InputBackground = td_inputBackgroundLocal | td_inputBackgroundRemote;
+    export type td_Hashtags = td_hashtags;
+    export type td_CanTransferOwnershipResult = td_canTransferOwnershipResultOk | td_canTransferOwnershipResultPasswordNeeded | td_canTransferOwnershipResultPasswordTooFresh | td_canTransferOwnershipResultSessionTooFresh;
+    export type td_CheckChatUsernameResult = td_checkChatUsernameResultOk | td_checkChatUsernameResultUsernameInvalid | td_checkChatUsernameResultUsernameOccupied | td_checkChatUsernameResultPublicChatsTooMuch | td_checkChatUsernameResultPublicGroupsUnavailable;
+    export type td_PushMessageContent = td_pushMessageContentHidden | td_pushMessageContentAnimation | td_pushMessageContentAudio | td_pushMessageContentContact | td_pushMessageContentContactRegistered | td_pushMessageContentDocument | td_pushMessageContentGame | td_pushMessageContentGameScore | td_pushMessageContentInvoice | td_pushMessageContentLocation | td_pushMessageContentPhoto | td_pushMessageContentPoll | td_pushMessageContentScreenshotTaken | td_pushMessageContentSticker | td_pushMessageContentText | td_pushMessageContentVideo | td_pushMessageContentVideoNote | td_pushMessageContentVoiceNote | td_pushMessageContentBasicGroupChatCreate | td_pushMessageContentChatAddMembers | td_pushMessageContentChatChangePhoto | td_pushMessageContentChatChangeTitle | td_pushMessageContentChatDeleteMember | td_pushMessageContentChatJoinByLink | td_pushMessageContentMessageForwards | td_pushMessageContentMediaAlbum;
+    export type td_NotificationType = td_notificationTypeNewMessage | td_notificationTypeNewSecretChat | td_notificationTypeNewCall | td_notificationTypeNewPushMessage;
+    export type td_NotificationGroupType = td_notificationGroupTypeMessages | td_notificationGroupTypeMentions | td_notificationGroupTypeSecretChat | td_notificationGroupTypeCalls;
+    export type td_Notification = td_notification;
+    export type td_NotificationGroup = td_notificationGroup;
+    export type td_OptionValue = td_optionValueBoolean | td_optionValueEmpty | td_optionValueInteger | td_optionValueString;
+    export type td_JsonObjectMember = td_jsonObjectMember;
+    export type td_JsonValue = td_jsonValueNull | td_jsonValueBoolean | td_jsonValueNumber | td_jsonValueString | td_jsonValueArray | td_jsonValueObject;
+    export type td_UserPrivacySettingRule = td_userPrivacySettingRuleAllowAll | td_userPrivacySettingRuleAllowContacts | td_userPrivacySettingRuleAllowUsers | td_userPrivacySettingRuleAllowChatMembers | td_userPrivacySettingRuleRestrictAll | td_userPrivacySettingRuleRestrictContacts | td_userPrivacySettingRuleRestrictUsers | td_userPrivacySettingRuleRestrictChatMembers;
+    export type td_UserPrivacySettingRules = td_userPrivacySettingRules;
+    export type td_UserPrivacySetting = td_userPrivacySettingShowStatus | td_userPrivacySettingShowProfilePhoto | td_userPrivacySettingShowLinkInForwardedMessages | td_userPrivacySettingShowPhoneNumber | td_userPrivacySettingAllowChatInvites | td_userPrivacySettingAllowCalls | td_userPrivacySettingAllowPeerToPeerCalls | td_userPrivacySettingAllowFindingByPhoneNumber;
+    export type td_AccountTtl = td_accountTtl;
+    export type td_Session = td_session;
+    export type td_Sessions = td_sessions;
+    export type td_ConnectedWebsite = td_connectedWebsite;
+    export type td_ConnectedWebsites = td_connectedWebsites;
+    export type td_ChatReportReason = td_chatReportReasonSpam | td_chatReportReasonViolence | td_chatReportReasonPornography | td_chatReportReasonChildAbuse | td_chatReportReasonCopyright | td_chatReportReasonUnrelatedLocation | td_chatReportReasonCustom;
+    export type td_MessageLink = td_messageLink;
+    export type td_MessageLinkInfo = td_messageLinkInfo;
+    export type td_FilePart = td_filePart;
+    export type td_FileType = td_fileTypeNone | td_fileTypeAnimation | td_fileTypeAudio | td_fileTypeDocument | td_fileTypePhoto | td_fileTypeProfilePhoto | td_fileTypeSecret | td_fileTypeSecretThumbnail | td_fileTypeSecure | td_fileTypeSticker | td_fileTypeThumbnail | td_fileTypeUnknown | td_fileTypeVideo | td_fileTypeVideoNote | td_fileTypeVoiceNote | td_fileTypeWallpaper;
+    export type td_StorageStatisticsByFileType = td_storageStatisticsByFileType;
+    export type td_StorageStatisticsByChat = td_storageStatisticsByChat;
+    export type td_StorageStatistics = td_storageStatistics;
+    export type td_StorageStatisticsFast = td_storageStatisticsFast;
+    export type td_DatabaseStatistics = td_databaseStatistics;
+    export type td_NetworkType = td_networkTypeNone | td_networkTypeMobile | td_networkTypeMobileRoaming | td_networkTypeWiFi | td_networkTypeOther;
+    export type td_NetworkStatisticsEntry = td_networkStatisticsEntryFile | td_networkStatisticsEntryCall;
+    export type td_NetworkStatistics = td_networkStatistics;
+    export type td_AutoDownloadSettings = td_autoDownloadSettings;
+    export type td_AutoDownloadSettingsPresets = td_autoDownloadSettingsPresets;
+    export type td_ConnectionState = td_connectionStateWaitingForNetwork | td_connectionStateConnectingToProxy | td_connectionStateConnecting | td_connectionStateUpdating | td_connectionStateReady;
+    export type td_TopChatCategory = td_topChatCategoryUsers | td_topChatCategoryBots | td_topChatCategoryGroups | td_topChatCategoryChannels | td_topChatCategoryInlineBots | td_topChatCategoryCalls | td_topChatCategoryForwardChats;
+    export type td_TMeUrlType = td_tMeUrlTypeUser | td_tMeUrlTypeSupergroup | td_tMeUrlTypeChatInvite | td_tMeUrlTypeStickerSet;
+    export type td_TMeUrl = td_tMeUrl;
+    export type td_TMeUrls = td_tMeUrls;
+    export type td_SuggestedAction = td_suggestedActionEnableArchiveAndMuteNewChats | td_suggestedActionCheckPhoneNumber;
+    export type td_Count = td_count;
+    export type td_Text = td_text;
+    export type td_Seconds = td_seconds;
+    export type td_DeepLinkInfo = td_deepLinkInfo;
+    export type td_TextParseMode = td_textParseModeMarkdown | td_textParseModeHTML;
+    export type td_ProxyType = td_proxyTypeSocks5 | td_proxyTypeHttp | td_proxyTypeMtproto;
+    export type td_Proxy = td_proxy;
+    export type td_Proxies = td_proxies;
+    export type td_InputSticker = td_inputStickerStatic | td_inputStickerAnimated;
+    export type td_DateRange = td_dateRange;
+    export type td_StatisticalValue = td_statisticalValue;
+    export type td_StatisticalGraph = td_statisticalGraphData | td_statisticalGraphAsync | td_statisticalGraphError;
+    export type td_ChatStatisticsMessageInteractionInfo = td_chatStatisticsMessageInteractionInfo;
+    export type td_ChatStatisticsMessageSenderInfo = td_chatStatisticsMessageSenderInfo;
+    export type td_ChatStatisticsAdministratorActionsInfo = td_chatStatisticsAdministratorActionsInfo;
+    export type td_ChatStatisticsInviterInfo = td_chatStatisticsInviterInfo;
+    export type td_ChatStatistics = td_chatStatisticsSupergroup | td_chatStatisticsChannel;
+    export type td_MessageStatistics = td_messageStatistics;
+    export type td_Update = td_updateAuthorizationState | td_updateNewMessage | td_updateMessageSendAcknowledged | td_updateMessageSendSucceeded | td_updateMessageSendFailed | td_updateMessageContent | td_updateMessageEdited | td_updateMessageIsPinned | td_updateMessageInteractionInfo | td_updateMessageContentOpened | td_updateMessageMentionRead | td_updateMessageLiveLocationViewed | td_updateNewChat | td_updateChatTitle | td_updateChatPhoto | td_updateChatPermissions | td_updateChatLastMessage | td_updateChatPosition | td_updateChatIsMarkedAsUnread | td_updateChatIsBlocked | td_updateChatHasScheduledMessages | td_updateChatDefaultDisableNotification | td_updateChatReadInbox | td_updateChatReadOutbox | td_updateChatUnreadMentionCount | td_updateChatNotificationSettings | td_updateScopeNotificationSettings | td_updateChatActionBar | td_updateChatReplyMarkup | td_updateChatDraftMessage | td_updateChatFilters | td_updateChatOnlineMemberCount | td_updateNotification | td_updateNotificationGroup | td_updateActiveNotifications | td_updateHavePendingNotifications | td_updateDeleteMessages | td_updateUserChatAction | td_updateUserStatus | td_updateUser | td_updateBasicGroup | td_updateSupergroup | td_updateSecretChat | td_updateUserFullInfo | td_updateBasicGroupFullInfo | td_updateSupergroupFullInfo | td_updateServiceNotification | td_updateFile | td_updateFileGenerationStart | td_updateFileGenerationStop | td_updateCall | td_updateNewCallSignalingData | td_updateUserPrivacySettingRules | td_updateUnreadMessageCount | td_updateUnreadChatCount | td_updateOption | td_updateStickerSet | td_updateInstalledStickerSets | td_updateTrendingStickerSets | td_updateRecentStickers | td_updateFavoriteStickers | td_updateSavedAnimations | td_updateSelectedBackground | td_updateLanguagePackStrings | td_updateConnectionState | td_updateTermsOfService | td_updateUsersNearby | td_updateDiceEmojis | td_updateAnimationSearchParameters | td_updateSuggestedActions | td_updateNewInlineQuery | td_updateNewChosenInlineResult | td_updateNewCallbackQuery | td_updateNewInlineCallbackQuery | td_updateNewShippingQuery | td_updateNewPreCheckoutQuery | td_updateNewCustomEvent | td_updateNewCustomQuery | td_updatePoll | td_updatePollAnswer;
+    export type td_Updates = td_updates;
+    export type td_LogStream = td_logStreamDefault | td_logStreamFile | td_logStreamEmpty;
+    export type td_LogVerbosityLevel = td_logVerbosityLevel;
+    export type td_LogTags = td_logTags;
+    export type td_TestInt = td_testInt;
+    export type td_TestString = td_testString;
+    export type td_TestBytes = td_testBytes;
+    export type td_TestVectorInt = td_testVectorInt;
+    export type td_TestVectorIntObject = td_testVectorIntObject;
+    export type td_TestVectorString = td_testVectorString;
+    export type td_TestVectorStringObject = td_testVectorStringObject;
+
+    export type TdClass = td_Error | td_Ok | td_TdlibParameters | td_AuthenticationCodeType | td_AuthenticationCodeInfo | td_EmailAddressAuthenticationCodeInfo | td_TextEntity | td_TextEntities | td_FormattedText | td_TermsOfService | td_AuthorizationState | td_PasswordState | td_RecoveryEmailAddress | td_TemporaryPasswordState | td_LocalFile | td_RemoteFile | td_File | td_InputFile | td_PhotoSize | td_Minithumbnail | td_ThumbnailFormat | td_Thumbnail | td_MaskPoint | td_MaskPosition | td_PollOption | td_PollType | td_Animation | td_Audio | td_Document | td_Photo | td_Sticker | td_Video | td_VideoNote | td_VoiceNote | td_Contact | td_Location | td_Venue | td_Game | td_Poll | td_ProfilePhoto | td_ChatPhotoInfo | td_UserType | td_BotCommand | td_BotInfo | td_ChatLocation | td_AnimatedChatPhoto | td_ChatPhoto | td_ChatPhotos | td_InputChatPhoto | td_User | td_UserFullInfo | td_Users | td_ChatAdministrator | td_ChatAdministrators | td_ChatPermissions | td_ChatMemberStatus | td_ChatMember | td_ChatMembers | td_ChatMembersFilter | td_SupergroupMembersFilter | td_BasicGroup | td_BasicGroupFullInfo | td_Supergroup | td_SupergroupFullInfo | td_SecretChatState | td_SecretChat | td_MessageSender | td_MessageSenders | td_MessageForwardOrigin | td_MessageForwardInfo | td_MessageReplyInfo | td_MessageInteractionInfo | td_MessageSendingState | td_Message | td_Messages | td_FoundMessages | td_NotificationSettingsScope | td_ChatNotificationSettings | td_ScopeNotificationSettings | td_DraftMessage | td_ChatType | td_ChatFilter | td_ChatFilterInfo | td_RecommendedChatFilter | td_RecommendedChatFilters | td_ChatList | td_ChatLists | td_ChatSource | td_ChatPosition | td_Chat | td_Chats | td_ChatNearby | td_ChatsNearby | td_ChatInviteLink | td_ChatInviteLinkInfo | td_PublicChatType | td_ChatActionBar | td_KeyboardButtonType | td_KeyboardButton | td_InlineKeyboardButtonType | td_InlineKeyboardButton | td_ReplyMarkup | td_LoginUrlInfo | td_MessageThreadInfo | td_RichText | td_PageBlockCaption | td_PageBlockListItem | td_PageBlockHorizontalAlignment | td_PageBlockVerticalAlignment | td_PageBlockTableCell | td_PageBlockRelatedArticle | td_PageBlock | td_WebPageInstantView | td_WebPage | td_CountryInfo | td_Countries | td_PhoneNumberInfo | td_BankCardActionOpenUrl | td_BankCardInfo | td_Address | td_LabeledPricePart | td_Invoice | td_OrderInfo | td_ShippingOption | td_SavedCredentials | td_InputCredentials | td_PaymentsProviderStripe | td_PaymentForm | td_ValidatedOrderInfo | td_PaymentResult | td_PaymentReceipt | td_DatedFile | td_PassportElementType | td_Date | td_PersonalDetails | td_IdentityDocument | td_InputIdentityDocument | td_PersonalDocument | td_InputPersonalDocument | td_PassportElement | td_InputPassportElement | td_PassportElements | td_PassportElementErrorSource | td_PassportElementError | td_PassportSuitableElement | td_PassportRequiredElement | td_PassportAuthorizationForm | td_PassportElementsWithErrors | td_EncryptedCredentials | td_EncryptedPassportElement | td_InputPassportElementErrorSource | td_InputPassportElementError | td_MessageContent | td_TextEntityType | td_InputThumbnail | td_MessageSchedulingState | td_MessageSendOptions | td_MessageCopyOptions | td_InputMessageContent | td_SearchMessagesFilter | td_ChatAction | td_UserStatus | td_Stickers | td_Emojis | td_StickerSet | td_StickerSetInfo | td_StickerSets | td_CallDiscardReason | td_CallProtocol | td_CallServerType | td_CallServer | td_CallId | td_CallState | td_CallProblem | td_Call | td_PhoneNumberAuthenticationSettings | td_Animations | td_DiceStickers | td_ImportedContacts | td_HttpUrl | td_InputInlineQueryResult | td_InlineQueryResult | td_InlineQueryResults | td_CallbackQueryPayload | td_CallbackQueryAnswer | td_CustomRequestResult | td_GameHighScore | td_GameHighScores | td_ChatEventAction | td_ChatEvent | td_ChatEvents | td_ChatEventLogFilters | td_LanguagePackStringValue | td_LanguagePackString | td_LanguagePackStrings | td_LanguagePackInfo | td_LocalizationTargetInfo | td_DeviceToken | td_PushReceiverId | td_BackgroundFill | td_BackgroundType | td_Background | td_Backgrounds | td_InputBackground | td_Hashtags | td_CanTransferOwnershipResult | td_CheckChatUsernameResult | td_PushMessageContent | td_NotificationType | td_NotificationGroupType | td_Notification | td_NotificationGroup | td_OptionValue | td_JsonObjectMember | td_JsonValue | td_UserPrivacySettingRule | td_UserPrivacySettingRules | td_UserPrivacySetting | td_AccountTtl | td_Session | td_Sessions | td_ConnectedWebsite | td_ConnectedWebsites | td_ChatReportReason | td_MessageLink | td_MessageLinkInfo | td_FilePart | td_FileType | td_StorageStatisticsByFileType | td_StorageStatisticsByChat | td_StorageStatistics | td_StorageStatisticsFast | td_DatabaseStatistics | td_NetworkType | td_NetworkStatisticsEntry | td_NetworkStatistics | td_AutoDownloadSettings | td_AutoDownloadSettingsPresets | td_ConnectionState | td_TopChatCategory | td_TMeUrlType | td_TMeUrl | td_TMeUrls | td_SuggestedAction | td_Count | td_Text | td_Seconds | td_DeepLinkInfo | td_TextParseMode | td_ProxyType | td_Proxy | td_Proxies | td_InputSticker | td_DateRange | td_StatisticalValue | td_StatisticalGraph | td_ChatStatisticsMessageInteractionInfo | td_ChatStatisticsMessageSenderInfo | td_ChatStatisticsAdministratorActionsInfo | td_ChatStatisticsInviterInfo | td_ChatStatistics | td_MessageStatistics | td_Update | td_Updates | td_LogStream | td_LogVerbosityLevel | td_LogTags | td_TestInt | td_TestString | td_TestBytes | td_TestVectorInt | td_TestVectorIntObject | td_TestVectorString | td_TestVectorStringObject;
+    
+    
+    /** Returns the current authorization state; this is an offline request. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization */
+    export interface td_getAuthorizationState {
+        '@type': 'getAuthorizationState';
+    }
+    
+    
+    /** Sets the parameters for TDLib initialization. Works only when the current authorization state is authorizationStateWaitTdlibParameters */
+    export interface td_setTdlibParameters {
+        '@type': 'setTdlibParameters';
+        /** Parameters */
+        parameters?: td_tdlibParameters;
+    }
+    
+    
+    /** Checks the database encryption key for correctness. Works only when the current authorization state is authorizationStateWaitEncryptionKey */
+    export interface td_checkDatabaseEncryptionKey {
+        '@type': 'checkDatabaseEncryptionKey';
+        /** Encryption key to check or set up */
+        encryption_key?: td_bytes;
+    }
+    
+    
+    /** Sets the phone number of the user and sends an authentication code to the user. Works only when the current authorization state is authorizationStateWaitPhoneNumber, -or if there is no pending authentication query and the current authorization state is authorizationStateWaitCode, authorizationStateWaitRegistration, or authorizationStateWaitPassword */
+    export interface td_setAuthenticationPhoneNumber {
+        '@type': 'setAuthenticationPhoneNumber';
+        /** The phone number of the user, in international format */
+        phone_number?: td_string;
+        /** Settings for the authentication of the user's phone number */
+        settings?: td_phoneNumberAuthenticationSettings;
+    }
+    
+    
+    /** Re-sends an authentication code to the user. Works only when the current authorization state is authorizationStateWaitCode and the next_code_type of the result is not null */
+    export interface td_resendAuthenticationCode {
+        '@type': 'resendAuthenticationCode';
+    }
+    
+    
+    /** Checks the authentication code. Works only when the current authorization state is authorizationStateWaitCode */
+    export interface td_checkAuthenticationCode {
+        '@type': 'checkAuthenticationCode';
+        /** The verification code received via SMS, Telegram message, phone call, or flash call */
+        code?: td_string;
+    }
+    
+    
+    /** Requests QR code authentication by scanning a QR code on another logged in device. Works only when the current authorization state is authorizationStateWaitPhoneNumber, -or if there is no pending authentication query and the current authorization state is authorizationStateWaitCode, authorizationStateWaitRegistration, or authorizationStateWaitPassword */
+    export interface td_requestQrCodeAuthentication {
+        '@type': 'requestQrCodeAuthentication';
+        /** List of user identifiers of other users currently using the application */
+        other_user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Finishes user registration. Works only when the current authorization state is authorizationStateWaitRegistration */
+    export interface td_registerUser {
+        '@type': 'registerUser';
+        /** The first name of the user; 1-64 characters */
+        first_name?: td_string;
+        /** The last name of the user; 0-64 characters */
+        last_name?: td_string;
+    }
+    
+    
+    /** Checks the authentication password for correctness. Works only when the current authorization state is authorizationStateWaitPassword */
+    export interface td_checkAuthenticationPassword {
+        '@type': 'checkAuthenticationPassword';
+        /** The password to check */
+        password?: td_string;
+    }
+    
+    
+    /** Requests to send a password recovery code to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword */
+    export interface td_requestAuthenticationPasswordRecovery {
+        '@type': 'requestAuthenticationPasswordRecovery';
+    }
+    
+    
+    /** Recovers the password with a password recovery code sent to an email address that was previously set up. Works only when the current authorization state is authorizationStateWaitPassword */
+    export interface td_recoverAuthenticationPassword {
+        '@type': 'recoverAuthenticationPassword';
+        /** Recovery code to check */
+        recovery_code?: td_string;
+    }
+    
+    
+    /** Checks the authentication token of a bot; to log in as a bot. Works only when the current authorization state is authorizationStateWaitPhoneNumber. Can be used instead of setAuthenticationPhoneNumber and checkAuthenticationCode to log in */
+    export interface td_checkAuthenticationBotToken {
+        '@type': 'checkAuthenticationBotToken';
+        /** The bot token */
+        token?: td_string;
+    }
+    
+    
+    /** Closes the TDLib instance after a proper logout. Requires an available network connection. All local data will be destroyed. After the logout completes, updateAuthorizationState with authorizationStateClosed will be sent */
+    export interface td_logOut {
+        '@type': 'logOut';
+    }
+    
+    
+    /** Closes the TDLib instance. All databases will be flushed to disk and properly closed. After the close completes, updateAuthorizationState with authorizationStateClosed will be sent. Can be called before initialization */
+    export interface td_close {
+        '@type': 'close';
+    }
+    
+    
+    /** Closes the TDLib instance, destroying all local data without a proper logout. The current user session will remain in the list of all active sessions. All local data will be destroyed. After the destruction completes updateAuthorizationState with authorizationStateClosed will be sent. Can be called before authorization */
+    export interface td_destroy {
+        '@type': 'destroy';
+    }
+    
+    
+    /** Confirms QR code authentication on another device. Returns created session on success */
+    export interface td_confirmQrCodeAuthentication {
+        '@type': 'confirmQrCodeAuthentication';
+        /** A link from a QR code. The link must be scanned by the in-app camera */
+        link?: td_string;
+    }
+    
+    
+    /** Returns all updates needed to restore current TDLib state, i.e. all actual UpdateAuthorizationState/UpdateUser/UpdateNewChat and others. This is especially useful if TDLib is run in a separate process. Can be called before initialization */
+    export interface td_getCurrentState {
+        '@type': 'getCurrentState';
+    }
+    
+    
+    /** Changes the database encryption key. Usually the encryption key is never changed and is stored in some OS keychain */
+    export interface td_setDatabaseEncryptionKey {
+        '@type': 'setDatabaseEncryptionKey';
+        /** New encryption key */
+        new_encryption_key?: td_bytes;
+    }
+    
+    
+    /** Returns the current state of 2-step verification */
+    export interface td_getPasswordState {
+        '@type': 'getPasswordState';
+    }
+    
+    
+    /** Changes the password for the user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed */
+    export interface td_setPassword {
+        '@type': 'setPassword';
+        /** Previous password of the user */
+        old_password?: td_string;
+        /** New password of the user; may be empty to remove the password */
+        new_password?: td_string;
+        /** New password hint; may be empty */
+        new_hint?: td_string;
+        /** Pass true if the recovery email address should be changed */
+        set_recovery_email_address?: td_Bool;
+        /** New recovery email address; may be empty */
+        new_recovery_email_address?: td_string;
+    }
+    
+    
+    /** Returns a 2-step verification recovery email address that was previously set up. This method can be used to verify a password provided by the user */
+    export interface td_getRecoveryEmailAddress {
+        '@type': 'getRecoveryEmailAddress';
+        /** The password for the current user */
+        password?: td_string;
+    }
+    
+    
+    /** Changes the 2-step verification recovery email address of the user. If a new recovery email address is specified, then the change will not be applied until the new recovery email address is confirmed. -If new_recovery_email_address is the same as the email address that is currently set up, this call succeeds immediately and aborts all other requests waiting for an email confirmation */
+    export interface td_setRecoveryEmailAddress {
+        '@type': 'setRecoveryEmailAddress';
+        /** Password of the current user */
+        password?: td_string;
+        /** New recovery email address */
+        new_recovery_email_address?: td_string;
+    }
+    
+    
+    /** Checks the 2-step verification recovery email address verification code */
+    export interface td_checkRecoveryEmailAddressCode {
+        '@type': 'checkRecoveryEmailAddressCode';
+        /** Verification code */
+        code?: td_string;
+    }
+    
+    
+    /** Resends the 2-step verification recovery email address verification code */
+    export interface td_resendRecoveryEmailAddressCode {
+        '@type': 'resendRecoveryEmailAddressCode';
+    }
+    
+    
+    /** Requests to send a password recovery code to an email address that was previously set up */
+    export interface td_requestPasswordRecovery {
+        '@type': 'requestPasswordRecovery';
+    }
+    
+    
+    /** Recovers the password using a recovery code sent to an email address that was previously set up */
+    export interface td_recoverPassword {
+        '@type': 'recoverPassword';
+        /** Recovery code to check */
+        recovery_code?: td_string;
+    }
+    
+    
+    /** Creates a new temporary password for processing payments */
+    export interface td_createTemporaryPassword {
+        '@type': 'createTemporaryPassword';
+        /** Persistent user password */
+        password?: td_string;
+        /** Time during which the temporary password will be valid, in seconds; should be between 60 and 86400 */
+        valid_for?: td_int32;
+    }
+    
+    
+    /** Returns information about the current temporary password */
+    export interface td_getTemporaryPasswordState {
+        '@type': 'getTemporaryPasswordState';
+    }
+    
+    
+    /** Returns the current user */
+    export interface td_getMe {
+        '@type': 'getMe';
+    }
+    
+    
+    /** Returns information about a user by their identifier. This is an offline request if the current user is not a bot */
+    export interface td_getUser {
+        '@type': 'getUser';
+        /** User identifier */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Returns full information about a user by their identifier */
+    export interface td_getUserFullInfo {
+        '@type': 'getUserFullInfo';
+        /** User identifier */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Returns information about a basic group by its identifier. This is an offline request if the current user is not a bot */
+    export interface td_getBasicGroup {
+        '@type': 'getBasicGroup';
+        /** Basic group identifier */
+        basic_group_id?: td_int32;
+    }
+    
+    
+    /** Returns full information about a basic group by its identifier */
+    export interface td_getBasicGroupFullInfo {
+        '@type': 'getBasicGroupFullInfo';
+        /** Basic group identifier */
+        basic_group_id?: td_int32;
+    }
+    
+    
+    /** Returns information about a supergroup or a channel by its identifier. This is an offline request if the current user is not a bot */
+    export interface td_getSupergroup {
+        '@type': 'getSupergroup';
+        /** Supergroup or channel identifier */
+        supergroup_id?: td_int32;
+    }
+    
+    
+    /** Returns full information about a supergroup or a channel by its identifier, cached for up to 1 minute */
+    export interface td_getSupergroupFullInfo {
+        '@type': 'getSupergroupFullInfo';
+        /** Supergroup or channel identifier */
+        supergroup_id?: td_int32;
+    }
+    
+    
+    /** Returns information about a secret chat by its identifier. This is an offline request */
+    export interface td_getSecretChat {
+        '@type': 'getSecretChat';
+        /** Secret chat identifier */
+        secret_chat_id?: td_int32;
+    }
+    
+    
+    /** Returns information about a chat by its identifier, this is an offline request if the current user is not a bot */
+    export interface td_getChat {
+        '@type': 'getChat';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Returns information about a message */
+    export interface td_getMessage {
+        '@type': 'getMessage';
+        /** Identifier of the chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message to get */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Returns information about a message, if it is available locally without sending network request. This is an offline request */
+    export interface td_getMessageLocally {
+        '@type': 'getMessageLocally';
+        /** Identifier of the chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message to get */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Returns information about a message that is replied by a given message. Also returns the pinned message, the game message, and the invoice message for messages of the types messagePinMessage, messageGameScore, and messagePaymentSuccessful respectively */
+    export interface td_getRepliedMessage {
+        '@type': 'getRepliedMessage';
+        /** Identifier of the chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message reply to which to get */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Returns information about a newest pinned message in the chat */
+    export interface td_getChatPinnedMessage {
+        '@type': 'getChatPinnedMessage';
+        /** Identifier of the chat the message belongs to */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Returns information about a message with the callback button that originated a callback query; for bots only */
+    export interface td_getCallbackQueryMessage {
+        '@type': 'getCallbackQueryMessage';
+        /** Identifier of the chat the message belongs to */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** Identifier of the callback query */
+        callback_query_id?: td_int64;
+    }
+    
+    
+    /** Returns information about messages. If a message is not found, returns null on the corresponding position of the result */
+    export interface td_getMessages {
+        '@type': 'getMessages';
+        /** Identifier of the chat the messages belong to */
+        chat_id?: td_int53;
+        /** Identifiers of the messages to get */
+        message_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** Returns information about a message thread. Can be used only if message.can_get_message_thread == true */
+    export interface td_getMessageThread {
+        '@type': 'getMessageThread';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Returns information about a file; this is an offline request */
+    export interface td_getFile {
+        '@type': 'getFile';
+        /** Identifier of the file to get */
+        file_id?: td_int32;
+    }
+    
+    
+    /** Returns information about a file by its remote ID; this is an offline request. Can be used to register a URL as a file for further uploading, or sending as a message. Even the request succeeds, the file can be used only if it is still accessible to the user. -For example, if the file is from a message, then the message must be not deleted and accessible to the user. If the file database is disabled, then the corresponding object with the file must be preloaded by the application */
+    export interface td_getRemoteFile {
+        '@type': 'getRemoteFile';
+        /** Remote identifier of the file to get */
+        remote_file_id?: td_string;
+        /** File type, if known */
+        file_type?: td_FileType;
+    }
+    
+    
+    /** Returns an ordered list of chats in a chat list. Chats are sorted by the pair (chat.position.order, chat.id) in descending order. (For example, to get a list of chats from the beginning, the offset_order should be equal to a biggest signed 64-bit number 9223372036854775807 == 2^63 - 1). -For optimal performance the number of returned chats is chosen by the library */
+    export interface td_getChats {
+        '@type': 'getChats';
+        /** The chat list in which to return chats */
+        chat_list?: td_ChatList;
+        /** Chat order to return chats from */
+        offset_order?: td_int64;
+        /** Chat identifier to return chats from */
+        offset_chat_id?: td_int53;
+        /** The maximum number of chats to be returned. It is possible that fewer chats than the limit are returned even if the end of the list is not reached */
+        limit?: td_int32;
+    }
+    
+    
+    /** Searches a public chat by its username. Currently only private chats, supergroups and channels can be public. Returns the chat if found; otherwise an error is returned */
+    export interface td_searchPublicChat {
+        '@type': 'searchPublicChat';
+        /** Username to be resolved */
+        username?: td_string;
+    }
+    
+    
+    /** Searches public chats by looking for specified query in their username and title. Currently only private chats, supergroups and channels can be public. Returns a meaningful number of results. Returns nothing if the length of the searched username prefix is less than 5. Excludes private chats with contacts and chats from the chat list from the results */
+    export interface td_searchPublicChats {
+        '@type': 'searchPublicChats';
+        /** Query to search for */
+        query?: td_string;
+    }
+    
+    
+    /** Searches for the specified query in the title and username of already known chats, this is an offline request. Returns chats in the order seen in the main chat list */
+    export interface td_searchChats {
+        '@type': 'searchChats';
+        /** Query to search for. If the query is empty, returns up to 20 recently found chats */
+        query?: td_string;
+        /** The maximum number of chats to be returned */
+        limit?: td_int32;
+    }
+    
+    
+    /** Searches for the specified query in the title and username of already known chats via request to the server. Returns chats in the order seen in the main chat list */
+    export interface td_searchChatsOnServer {
+        '@type': 'searchChatsOnServer';
+        /** Query to search for */
+        query?: td_string;
+        /** The maximum number of chats to be returned */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns a list of users and location-based supergroups nearby. The list of users nearby will be updated for 60 seconds after the request by the updates updateUsersNearby. The request should be sent again every 25 seconds with adjusted location to not miss new chats */
+    export interface td_searchChatsNearby {
+        '@type': 'searchChatsNearby';
+        /** Current user location */
+        location?: td_location;
+    }
+    
+    
+    /** Returns a list of frequently used chats. Supported only if the chat info database is enabled */
+    export interface td_getTopChats {
+        '@type': 'getTopChats';
+        /** Category of chats to be returned */
+        category?: td_TopChatCategory;
+        /** The maximum number of chats to be returned; up to 30 */
+        limit?: td_int32;
+    }
+    
+    
+    /** Removes a chat from the list of frequently used chats. Supported only if the chat info database is enabled */
+    export interface td_removeTopChat {
+        '@type': 'removeTopChat';
+        /** Category of frequently used chats */
+        category?: td_TopChatCategory;
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Adds a chat to the list of recently found chats. The chat is added to the beginning of the list. If the chat is already in the list, it will be removed from the list first */
+    export interface td_addRecentlyFoundChat {
+        '@type': 'addRecentlyFoundChat';
+        /** Identifier of the chat to add */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Removes a chat from the list of recently found chats */
+    export interface td_removeRecentlyFoundChat {
+        '@type': 'removeRecentlyFoundChat';
+        /** Identifier of the chat to be removed */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Clears the list of recently found chats */
+    export interface td_clearRecentlyFoundChats {
+        '@type': 'clearRecentlyFoundChats';
+    }
+    
+    
+    /** Checks whether a username can be set for a chat */
+    export interface td_checkChatUsername {
+        '@type': 'checkChatUsername';
+        /** Chat identifier; should be identifier of a supergroup chat, or a channel chat, or a private chat with self, or zero if chat is being created */
+        chat_id?: td_int53;
+        /** Username to be checked */
+        username?: td_string;
+    }
+    
+    
+    /** Returns a list of public chats of the specified type, owned by the user */
+    export interface td_getCreatedPublicChats {
+        '@type': 'getCreatedPublicChats';
+        /** Type of the public chats to return */
+        type?: td_PublicChatType;
+    }
+    
+    
+    /** Checks whether the maximum number of owned public chats has been reached. Returns corresponding error if the limit was reached */
+    export interface td_checkCreatedPublicChatsLimit {
+        '@type': 'checkCreatedPublicChatsLimit';
+        /** Type of the public chats, for which to check the limit */
+        type?: td_PublicChatType;
+    }
+    
+    
+    /** Returns a list of basic group and supergroup chats, which can be used as a discussion group for a channel. Returned basic group chats must be first upgraded to supergroups before they can be set as a discussion group. To set a returned supergroup as a discussion group, access to its old messages must be enabled using toggleSupergroupIsAllHistoryAvailable first */
+    export interface td_getSuitableDiscussionChats {
+        '@type': 'getSuitableDiscussionChats';
+    }
+    
+    
+    /** Returns a list of recently inactive supergroups and channels. Can be used when user reaches limit on the number of joined supergroups and channels and receives CHANNELS_TOO_MUCH error */
+    export interface td_getInactiveSupergroupChats {
+        '@type': 'getInactiveSupergroupChats';
+    }
+    
+    
+    /** Returns a list of common group chats with a given user. Chats are sorted by their type and creation date */
+    export interface td_getGroupsInCommon {
+        '@type': 'getGroupsInCommon';
+        /** User identifier */
+        user_id?: td_int32;
+        /** Chat identifier starting from which to return chats; use 0 for the first request */
+        offset_chat_id?: td_int53;
+        /** The maximum number of chats to be returned; up to 100 */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id). -For optimal performance the number of returned messages is chosen by the library. This is an offline request if only_local is true */
+    export interface td_getChatHistory {
+        '@type': 'getChatHistory';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the message starting from which history must be fetched; use 0 to get results from the last message */
+        from_message_id?: td_int53;
+        /** Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages */
+        offset?: td_int32;
+        /** The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached */
+        limit?: td_int32;
+        /** If true, returns only messages that are available locally without sending network requests */
+        only_local?: td_Bool;
+    }
+    
+    
+    /** Returns messages in a message thread of a message. Can be used only if message.can_get_message_thread == true. Message thread of a channel message is in the channel's linked supergroup. -The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id). For optimal performance the number of returned messages is chosen by the library */
+    export interface td_getMessageThreadHistory {
+        '@type': 'getMessageThreadHistory';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Message identifier, which thread history needs to be returned */
+        message_id?: td_int53;
+        /** Identifier of the message starting from which history must be fetched; use 0 to get results from the last message */
+        from_message_id?: td_int53;
+        /** Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages */
+        offset?: td_int32;
+        /** The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. Fewer messages may be returned than specified by the limit, even if the end of the message thread history has not been reached */
+        limit?: td_int32;
+    }
+    
+    
+    /** Deletes all messages in the chat. Use Chat.can_be_deleted_only_for_self and Chat.can_be_deleted_for_all_users fields to find whether and how the method can be applied to the chat */
+    export interface td_deleteChatHistory {
+        '@type': 'deleteChatHistory';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Pass true if the chat should be removed from the chat list */
+        remove_from_chat_list?: td_Bool;
+        /** Pass true to try to delete chat history for all users */
+        revoke?: td_Bool;
+    }
+    
+    
+    /** Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. Cannot be used in secret chats with a non-empty query -(searchSecretMessages should be used instead), or without an enabled message database. For optimal performance the number of returned messages is chosen by the library */
+    export interface td_searchChatMessages {
+        '@type': 'searchChatMessages';
+        /** Identifier of the chat in which to search messages */
+        chat_id?: td_int53;
+        /** Query to search for */
+        query?: td_string;
+        /** If not null, only messages sent by the specified sender will be returned. Not supported in secret chats */
+        sender?: td_MessageSender;
+        /** Identifier of the message starting from which history must be fetched; use 0 to get results from the last message */
+        from_message_id?: td_int53;
+        /** Specify 0 to get results from exactly the from_message_id or a negative offset to get the specified message and some newer messages */
+        offset?: td_int32;
+        /** The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached */
+        limit?: td_int32;
+        /** Filter for message content in the search results */
+        filter?: td_SearchMessagesFilter;
+        /** If not 0, only messages in the specified thread will be returned; supergroups only */
+        message_thread_id?: td_int53;
+    }
+    
+    
+    /** Searches for messages in all chats except secret chats. Returns the results in reverse chronological order (i.e., in order of decreasing (date, chat_id, message_id)). -For optimal performance the number of returned messages is chosen by the library */
+    export interface td_searchMessages {
+        '@type': 'searchMessages';
+        /** Chat list in which to search messages; pass null to search in all chats regardless of their chat list */
+        chat_list?: td_ChatList;
+        /** Query to search for */
+        query?: td_string;
+        /** The date of the message starting from which the results should be fetched. Use 0 or any date in the future to get results from the last message */
+        offset_date?: td_int32;
+        /** The chat identifier of the last found message, or 0 for the first request */
+        offset_chat_id?: td_int53;
+        /** The message identifier of the last found message, or 0 for the first request */
+        offset_message_id?: td_int53;
+        /** The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached */
+        limit?: td_int32;
+        /** Filter for message content in the search results; searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function */
+        filter?: td_SearchMessagesFilter;
+        /** If not 0, the minimum date of the messages to return */
+        min_date?: td_int32;
+        /** If not 0, the maximum date of the messages to return */
+        max_date?: td_int32;
+    }
+    
+    
+    /** Searches for messages in secret chats. Returns the results in reverse chronological order. For optimal performance the number of returned messages is chosen by the library */
+    export interface td_searchSecretMessages {
+        '@type': 'searchSecretMessages';
+        /** Identifier of the chat in which to search. Specify 0 to search in all secret chats */
+        chat_id?: td_int53;
+        /** Query to search for. If empty, searchChatMessages should be used instead */
+        query?: td_string;
+        /** Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results */
+        offset?: td_string;
+        /** The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached */
+        limit?: td_int32;
+        /** A filter for message content in the search results */
+        filter?: td_SearchMessagesFilter;
+    }
+    
+    
+    /** Searches for call messages. Returns the results in reverse chronological order (i. e., in order of decreasing message_id). For optimal performance the number of returned messages is chosen by the library */
+    export interface td_searchCallMessages {
+        '@type': 'searchCallMessages';
+        /** Identifier of the message from which to search; use 0 to get results from the last message */
+        from_message_id?: td_int53;
+        /** The maximum number of messages to be returned; up to 100. Fewer messages may be returned than specified by the limit, even if the end of the message history has not been reached */
+        limit?: td_int32;
+        /** If true, returns only messages with missed calls */
+        only_missed?: td_Bool;
+    }
+    
+    
+    /** Returns information about the recent locations of chat members that were sent to the chat. Returns up to 1 location message per user */
+    export interface td_searchChatRecentLocationMessages {
+        '@type': 'searchChatRecentLocationMessages';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The maximum number of messages to be returned */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns all active live locations that should be updated by the application. The list is persistent across application restarts only if the message database is used */
+    export interface td_getActiveLiveLocationMessages {
+        '@type': 'getActiveLiveLocationMessages';
+    }
+    
+    
+    /** Returns the last message sent in a chat no later than the specified date */
+    export interface td_getChatMessageByDate {
+        '@type': 'getChatMessageByDate';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Point in time (Unix timestamp) relative to which to search for messages */
+        date?: td_int32;
+    }
+    
+    
+    /** Returns approximate number of messages of the specified type in the chat */
+    export interface td_getChatMessageCount {
+        '@type': 'getChatMessageCount';
+        /** Identifier of the chat in which to count messages */
+        chat_id?: td_int53;
+        /** Filter for message content; searchMessagesFilterEmpty is unsupported in this function */
+        filter?: td_SearchMessagesFilter;
+        /** If true, returns count that is available locally without sending network requests, returning -1 if the number of messages is unknown */
+        return_local?: td_Bool;
+    }
+    
+    
+    /** Returns all scheduled messages in a chat. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id) */
+    export interface td_getChatScheduledMessages {
+        '@type': 'getChatScheduledMessages';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Returns forwarded copies of a channel message to different public channels. For optimal performance the number of returned messages is chosen by the library */
+    export interface td_getMessagePublicForwards {
+        '@type': 'getMessagePublicForwards';
+        /** Chat identifier of the message */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results */
+        offset?: td_string;
+        /** The maximum number of messages to be returned; must be positive and can't be greater than 100. Fewer messages may be returned than specified by the limit, even if the end of the list has not been reached */
+        limit?: td_int32;
+    }
+    
+    
+    /** Removes an active notification from notification list. Needs to be called only if the notification is removed by the current user */
+    export interface td_removeNotification {
+        '@type': 'removeNotification';
+        /** Identifier of notification group to which the notification belongs */
+        notification_group_id?: td_int32;
+        /** Identifier of removed notification */
+        notification_id?: td_int32;
+    }
+    
+    
+    /** Removes a group of active notifications. Needs to be called only if the notification group is removed by the current user */
+    export interface td_removeNotificationGroup {
+        '@type': 'removeNotificationGroup';
+        /** Notification group identifier */
+        notification_group_id?: td_int32;
+        /** The maximum identifier of removed notifications */
+        max_notification_id?: td_int32;
+    }
+    
+    
+    /** Returns an HTTPS link to a message in a chat. Available only for already sent messages in supergroups and channels. This is an offline request */
+    export interface td_getMessageLink {
+        '@type': 'getMessageLink';
+        /** Identifier of the chat to which the message belongs */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** Pass true to create a link for the whole media album */
+        for_album?: td_Bool;
+        /** Pass true to create a link to the message as a channel post comment, or from a message thread */
+        for_comment?: td_Bool;
+    }
+    
+    
+    /** Returns an HTML code for embedding the message. Available only for messages in supergroups and channels with a username */
+    export interface td_getMessageEmbeddingCode {
+        '@type': 'getMessageEmbeddingCode';
+        /** Identifier of the chat to which the message belongs */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** Pass true to return an HTML code for embedding of the whole media album */
+        for_album?: td_Bool;
+    }
+    
+    
+    /** Returns information about a public or private message link */
+    export interface td_getMessageLinkInfo {
+        '@type': 'getMessageLinkInfo';
+        /** The message link in the format "https://t.me/c/...", or "tg://privatepost?...", or "https://t.me/username/...", or "tg://resolve?..." */
+        url?: td_string;
+    }
+    
+    
+    /** Sends a message. Returns the sent message */
+    export interface td_sendMessage {
+        '@type': 'sendMessage';
+        /** Target chat */
+        chat_id?: td_int53;
+        /** If not 0, a message thread identifier in which the message will be sent */
+        message_thread_id?: td_int53;
+        /** Identifier of the message to reply to or 0 */
+        reply_to_message_id?: td_int53;
+        /** Options to be used to send the message */
+        options?: td_messageSendOptions;
+        /** Markup for replying to the message; for bots only */
+        reply_markup?: td_ReplyMarkup;
+        /** The content of the message to be sent */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Sends messages grouped together into an album. Currently only audio, document, photo and video messages can be grouped into an album. Documents and audio files can be only grouped in an album with messages of the same type. Returns sent messages */
+    export interface td_sendMessageAlbum {
+        '@type': 'sendMessageAlbum';
+        /** Target chat */
+        chat_id?: td_int53;
+        /** If not 0, a message thread identifier in which the messages will be sent */
+        message_thread_id?: td_int53;
+        /** Identifier of a message to reply to or 0 */
+        reply_to_message_id?: td_int53;
+        /** Options to be used to send the messages */
+        options?: td_messageSendOptions;
+        /** Contents of messages to be sent */
+        input_message_contents?: td_vector<td_InputMessageContent>;
+    }
+    
+    
+    /** Invites a bot to a chat (if it is not yet a member) and sends it the /start command. Bots can't be invited to a private chat other than the chat with the bot. Bots can't be invited to channels (although they can be added as admins) and secret chats. Returns the sent message */
+    export interface td_sendBotStartMessage {
+        '@type': 'sendBotStartMessage';
+        /** Identifier of the bot */
+        bot_user_id?: td_int32;
+        /** Identifier of the target chat */
+        chat_id?: td_int53;
+        /** A hidden parameter sent to the bot for deep linking purposes (https://core.telegram.org/bots#deep-linking) */
+        parameter?: td_string;
+    }
+    
+    
+    /** Sends the result of an inline query as a message. Returns the sent message. Always clears a chat draft message */
+    export interface td_sendInlineQueryResultMessage {
+        '@type': 'sendInlineQueryResultMessage';
+        /** Target chat */
+        chat_id?: td_int53;
+        /** If not 0, a message thread identifier in which the message will be sent */
+        message_thread_id?: td_int53;
+        /** Identifier of a message to reply to or 0 */
+        reply_to_message_id?: td_int53;
+        /** Options to be used to send the message */
+        options?: td_messageSendOptions;
+        /** Identifier of the inline query */
+        query_id?: td_int64;
+        /** Identifier of the inline result */
+        result_id?: td_string;
+        /** If true, there will be no mention of a bot, via which the message is sent. Can be used only for bots GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username") and GetOption("venue_search_bot_username") */
+        hide_via_bot?: td_Bool;
+    }
+    
+    
+    /** Forwards previously sent messages. Returns the forwarded messages in the same order as the message identifiers passed in message_ids. If a message can't be forwarded, null will be returned instead of the message */
+    export interface td_forwardMessages {
+        '@type': 'forwardMessages';
+        /** Identifier of the chat to which to forward messages */
+        chat_id?: td_int53;
+        /** Identifier of the chat from which to forward messages */
+        from_chat_id?: td_int53;
+        /** Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order */
+        message_ids?: td_vector<td_int53>;
+        /** Options to be used to send the messages */
+        options?: td_messageSendOptions;
+        /** True, if content of the messages needs to be copied without links to the original messages. Always true if the messages are forwarded to a secret chat */
+        send_copy?: td_Bool;
+        /** True, if media caption of message copies needs to be removed. Ignored if send_copy is false */
+        remove_caption?: td_Bool;
+    }
+    
+    
+    /** Resends messages which failed to send. Can be called only for messages for which messageSendingStateFailed.can_retry is true and after specified in messageSendingStateFailed.retry_after time passed. -If a message is re-sent, the corresponding failed to send message is deleted. Returns the sent messages in the same order as the message identifiers passed in message_ids. If a message can't be re-sent, null will be returned instead of the message */
+    export interface td_resendMessages {
+        '@type': 'resendMessages';
+        /** Identifier of the chat to send messages */
+        chat_id?: td_int53;
+        /** Identifiers of the messages to resend. Message identifiers must be in a strictly increasing order */
+        message_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** Changes the current TTL setting (sets a new self-destruct timer) in a secret chat and sends the corresponding message */
+    export interface td_sendChatSetTtlMessage {
+        '@type': 'sendChatSetTtlMessage';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New TTL value, in seconds */
+        ttl?: td_int32;
+    }
+    
+    
+    /** Sends a notification about a screenshot taken in a chat. Supported only in private and secret chats */
+    export interface td_sendChatScreenshotTakenNotification {
+        '@type': 'sendChatScreenshotTakenNotification';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Adds a local message to a chat. The message is persistent across application restarts only if the message database is used. Returns the added message */
+    export interface td_addLocalMessage {
+        '@type': 'addLocalMessage';
+        /** Target chat */
+        chat_id?: td_int53;
+        /** The sender sender of the message */
+        sender?: td_MessageSender;
+        /** Identifier of the message to reply to or 0 */
+        reply_to_message_id?: td_int53;
+        /** Pass true to disable notification for the message */
+        disable_notification?: td_Bool;
+        /** The content of the message to be added */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Deletes messages */
+    export interface td_deleteMessages {
+        '@type': 'deleteMessages';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifiers of the messages to be deleted */
+        message_ids?: td_vector<td_int53>;
+        /** Pass true to try to delete messages for all chat members. Always true for supergroups, channels and secret chats */
+        revoke?: td_Bool;
+    }
+    
+    
+    /** Deletes all messages sent by the specified user to a chat. Supported only for supergroups; requires can_delete_messages administrator privileges */
+    export interface td_deleteChatMessagesFromUser {
+        '@type': 'deleteChatMessagesFromUser';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** User identifier */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Edits the text of a message (or a text of a game message). Returns the edited message after the edit is completed on the server side */
+    export interface td_editMessageText {
+        '@type': 'editMessageText';
+        /** The chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** The new message reply markup; for bots only */
+        reply_markup?: td_ReplyMarkup;
+        /** New text content of the message. Should be of type InputMessageText */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Edits the message content of a live location. Messages can be edited for a limited period of time specified in the live location. Returns the edited message after the edit is completed on the server side */
+    export interface td_editMessageLiveLocation {
+        '@type': 'editMessageLiveLocation';
+        /** The chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** The new message reply markup; for bots only */
+        reply_markup?: td_ReplyMarkup;
+        /** New location content of the message; may be null. Pass null to stop sharing the live location */
+        location?: td_location;
+        /** The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown */
+        heading?: td_int32;
+        /** The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled */
+        proximity_alert_radius?: td_int32;
+    }
+    
+    
+    /** Edits the content of a message with an animation, an audio, a document, a photo or a video. The media in the message can't be replaced if the message was set to self-destruct. Media can't be replaced by self-destructing media. Media in an album can be edited only to contain a photo or a video. Returns the edited message after the edit is completed on the server side */
+    export interface td_editMessageMedia {
+        '@type': 'editMessageMedia';
+        /** The chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** The new message reply markup; for bots only */
+        reply_markup?: td_ReplyMarkup;
+        /** New content of the message. Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Edits the message content caption. Returns the edited message after the edit is completed on the server side */
+    export interface td_editMessageCaption {
+        '@type': 'editMessageCaption';
+        /** The chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** The new message reply markup; for bots only */
+        reply_markup?: td_ReplyMarkup;
+        /** New message content caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** Edits the message reply markup; for bots only. Returns the edited message after the edit is completed on the server side */
+    export interface td_editMessageReplyMarkup {
+        '@type': 'editMessageReplyMarkup';
+        /** The chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** The new message reply markup */
+        reply_markup?: td_ReplyMarkup;
+    }
+    
+    
+    /** Edits the text of an inline text or game message sent via a bot; for bots only */
+    export interface td_editInlineMessageText {
+        '@type': 'editInlineMessageText';
+        /** Inline message identifier */
+        inline_message_id?: td_string;
+        /** The new message reply markup */
+        reply_markup?: td_ReplyMarkup;
+        /** New text content of the message. Should be of type InputMessageText */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Edits the content of a live location in an inline message sent via a bot; for bots only */
+    export interface td_editInlineMessageLiveLocation {
+        '@type': 'editInlineMessageLiveLocation';
+        /** Inline message identifier */
+        inline_message_id?: td_string;
+        /** The new message reply markup */
+        reply_markup?: td_ReplyMarkup;
+        /** New location content of the message; may be null. Pass null to stop sharing the live location */
+        location?: td_location;
+        /** The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown */
+        heading?: td_int32;
+        /** The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled */
+        proximity_alert_radius?: td_int32;
+    }
+    
+    
+    /** Edits the content of a message with an animation, an audio, a document, a photo or a video in an inline message sent via a bot; for bots only */
+    export interface td_editInlineMessageMedia {
+        '@type': 'editInlineMessageMedia';
+        /** Inline message identifier */
+        inline_message_id?: td_string;
+        /** The new message reply markup; for bots only */
+        reply_markup?: td_ReplyMarkup;
+        /** New content of the message. Must be one of the following types: InputMessageAnimation, InputMessageAudio, InputMessageDocument, InputMessagePhoto or InputMessageVideo */
+        input_message_content?: td_InputMessageContent;
+    }
+    
+    
+    /** Edits the caption of an inline message sent via a bot; for bots only */
+    export interface td_editInlineMessageCaption {
+        '@type': 'editInlineMessageCaption';
+        /** Inline message identifier */
+        inline_message_id?: td_string;
+        /** The new message reply markup */
+        reply_markup?: td_ReplyMarkup;
+        /** New message content caption; 0-GetOption("message_caption_length_max") characters */
+        caption?: td_formattedText;
+    }
+    
+    
+    /** Edits the reply markup of an inline message sent via a bot; for bots only */
+    export interface td_editInlineMessageReplyMarkup {
+        '@type': 'editInlineMessageReplyMarkup';
+        /** Inline message identifier */
+        inline_message_id?: td_string;
+        /** The new message reply markup */
+        reply_markup?: td_ReplyMarkup;
+    }
+    
+    
+    /** Edits the time when a scheduled message will be sent. Scheduling state of all messages in the same album or forwarded together with the message will be also changed */
+    export interface td_editMessageSchedulingState {
+        '@type': 'editMessageSchedulingState';
+        /** The chat the message belongs to */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** The new message scheduling state. Pass null to send the message immediately */
+        scheduling_state?: td_MessageSchedulingState;
+    }
+    
+    
+    /** Returns all entities (mentions, hashtags, cashtags, bot commands, bank card numbers, URLs, and email addresses) contained in the text. Can be called synchronously */
+    export interface td_getTextEntities {
+        '@type': 'getTextEntities';
+        /** The text in which to look for entites */
+        text?: td_string;
+    }
+    
+    
+    /** Parses Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities contained in the text. Can be called synchronously */
+    export interface td_parseTextEntities {
+        '@type': 'parseTextEntities';
+        /** The text to parse */
+        text?: td_string;
+        /** Text parse mode */
+        parse_mode?: td_TextParseMode;
+    }
+    
+    
+    /** Parses Markdown entities in a human-friendly format, ignoring markup errors. Can be called synchronously */
+    export interface td_parseMarkdown {
+        '@type': 'parseMarkdown';
+        /** The text to parse. For example, "__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**" */
+        text?: td_formattedText;
+    }
+    
+    
+    /** Replaces text entities with Markdown formatting in a human-friendly format. Entities that can't be represented in Markdown unambiguously are kept as is. Can be called synchronously */
+    export interface td_getMarkdownText {
+        '@type': 'getMarkdownText';
+        /** The text */
+        text?: td_formattedText;
+    }
+    
+    
+    /** Returns the MIME type of a file, guessed by its extension. Returns an empty string on failure. Can be called synchronously */
+    export interface td_getFileMimeType {
+        '@type': 'getFileMimeType';
+        /** The name of the file or path to the file */
+        file_name?: td_string;
+    }
+    
+    
+    /** Returns the extension of a file, guessed by its MIME type. Returns an empty string on failure. Can be called synchronously */
+    export interface td_getFileExtension {
+        '@type': 'getFileExtension';
+        /** The MIME type of the file */
+        mime_type?: td_string;
+    }
+    
+    
+    /** Removes potentially dangerous characters from the name of a file. The encoding of the file name is supposed to be UTF-8. Returns an empty string on failure. Can be called synchronously */
+    export interface td_cleanFileName {
+        '@type': 'cleanFileName';
+        /** File name or path to the file */
+        file_name?: td_string;
+    }
+    
+    
+    /** Returns a string stored in the local database from the specified localization target and language pack by its key. Returns a 404 error if the string is not found. Can be called synchronously */
+    export interface td_getLanguagePackString {
+        '@type': 'getLanguagePackString';
+        /** Path to the language pack database in which strings are stored */
+        language_pack_database_path?: td_string;
+        /** Localization target to which the language pack belongs */
+        localization_target?: td_string;
+        /** Language pack identifier */
+        language_pack_id?: td_string;
+        /** Language pack key of the string to be returned */
+        key?: td_string;
+    }
+    
+    
+    /** Converts a JSON-serialized string to corresponding JsonValue object. Can be called synchronously */
+    export interface td_getJsonValue {
+        '@type': 'getJsonValue';
+        /** The JSON-serialized string */
+        json?: td_string;
+    }
+    
+    
+    /** Converts a JsonValue object to corresponding JSON-serialized string. Can be called synchronously */
+    export interface td_getJsonString {
+        '@type': 'getJsonString';
+        /** The JsonValue object */
+        json_value?: td_JsonValue;
+    }
+    
+    
+    /** Changes the user answer to a poll. A poll in quiz mode can be answered only once */
+    export interface td_setPollAnswer {
+        '@type': 'setPollAnswer';
+        /** Identifier of the chat to which the poll belongs */
+        chat_id?: td_int53;
+        /** Identifier of the message containing the poll */
+        message_id?: td_int53;
+        /** 0-based identifiers of answer options, chosen by the user. User can choose more than 1 answer option only is the poll allows multiple answers */
+        option_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Returns users voted for the specified option in a non-anonymous polls. For the optimal performance the number of returned users is chosen by the library */
+    export interface td_getPollVoters {
+        '@type': 'getPollVoters';
+        /** Identifier of the chat to which the poll belongs */
+        chat_id?: td_int53;
+        /** Identifier of the message containing the poll */
+        message_id?: td_int53;
+        /** 0-based identifier of the answer option */
+        option_id?: td_int32;
+        /** Number of users to skip in the result; must be non-negative */
+        offset?: td_int32;
+        /** The maximum number of users to be returned; must be positive and can't be greater than 50. Fewer users may be returned than specified by the limit, even if the end of the voter list has not been reached */
+        limit?: td_int32;
+    }
+    
+    
+    /** Stops a poll. A poll in a message can be stopped when the message has can_be_edited flag set */
+    export interface td_stopPoll {
+        '@type': 'stopPoll';
+        /** Identifier of the chat to which the poll belongs */
+        chat_id?: td_int53;
+        /** Identifier of the message containing the poll */
+        message_id?: td_int53;
+        /** The new message reply markup; for bots only */
+        reply_markup?: td_ReplyMarkup;
+    }
+    
+    
+    /** Hides a suggested action */
+    export interface td_hideSuggestedAction {
+        '@type': 'hideSuggestedAction';
+        /** Suggested action to hide */
+        action?: td_SuggestedAction;
+    }
+    
+    
+    /** Returns information about a button of type inlineKeyboardButtonTypeLoginUrl. The method needs to be called when the user presses the button */
+    export interface td_getLoginUrlInfo {
+        '@type': 'getLoginUrlInfo';
+        /** Chat identifier of the message with the button */
+        chat_id?: td_int53;
+        /** Message identifier of the message with the button */
+        message_id?: td_int53;
+        /** Button identifier */
+        button_id?: td_int32;
+    }
+    
+    
+    /** Returns an HTTP URL which can be used to automatically authorize the user on a website after clicking an inline button of type inlineKeyboardButtonTypeLoginUrl. -Use the method getLoginUrlInfo to find whether a prior user confirmation is needed. If an error is returned, then the button must be handled as an ordinary URL button */
+    export interface td_getLoginUrl {
+        '@type': 'getLoginUrl';
+        /** Chat identifier of the message with the button */
+        chat_id?: td_int53;
+        /** Message identifier of the message with the button */
+        message_id?: td_int53;
+        /** Button identifier */
+        button_id?: td_int32;
+        /** True, if the user allowed the bot to send them messages */
+        allow_write_access?: td_Bool;
+    }
+    
+    
+    /** Sends an inline query to a bot and returns its results. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires */
+    export interface td_getInlineQueryResults {
+        '@type': 'getInlineQueryResults';
+        /** The identifier of the target bot */
+        bot_user_id?: td_int32;
+        /** Identifier of the chat where the query was sent */
+        chat_id?: td_int53;
+        /** Location of the user, only if needed */
+        user_location?: td_location;
+        /** Text of the query */
+        query?: td_string;
+        /** Offset of the first entry to return */
+        offset?: td_string;
+    }
+    
+    
+    /** Sets the result of an inline query; for bots only */
+    export interface td_answerInlineQuery {
+        '@type': 'answerInlineQuery';
+        /** Identifier of the inline query */
+        inline_query_id?: td_int64;
+        /** True, if the result of the query can be cached for the specified user */
+        is_personal?: td_Bool;
+        /** The results of the query */
+        results?: td_vector<td_InputInlineQueryResult>;
+        /** Allowed time to cache the results of the query, in seconds */
+        cache_time?: td_int32;
+        /** Offset for the next inline query; pass an empty string if there are no more results */
+        next_offset?: td_string;
+        /** If non-empty, this text should be shown on the button that opens a private chat with the bot and sends a start message to the bot with the parameter switch_pm_parameter */
+        switch_pm_text?: td_string;
+        /** The parameter for the bot start message */
+        switch_pm_parameter?: td_string;
+    }
+    
+    
+    /** Sends a callback query to a bot and returns an answer. Returns an error with code 502 if the bot fails to answer the query before the query timeout expires */
+    export interface td_getCallbackQueryAnswer {
+        '@type': 'getCallbackQueryAnswer';
+        /** Identifier of the chat with the message */
+        chat_id?: td_int53;
+        /** Identifier of the message from which the query originated */
+        message_id?: td_int53;
+        /** Query payload */
+        payload?: td_CallbackQueryPayload;
+    }
+    
+    
+    /** Sets the result of a callback query; for bots only */
+    export interface td_answerCallbackQuery {
+        '@type': 'answerCallbackQuery';
+        /** Identifier of the callback query */
+        callback_query_id?: td_int64;
+        /** Text of the answer */
+        text?: td_string;
+        /** If true, an alert should be shown to the user instead of a toast notification */
+        show_alert?: td_Bool;
+        /** URL to be opened */
+        url?: td_string;
+        /** Time during which the result of the query can be cached, in seconds */
+        cache_time?: td_int32;
+    }
+    
+    
+    /** Sets the result of a shipping query; for bots only */
+    export interface td_answerShippingQuery {
+        '@type': 'answerShippingQuery';
+        /** Identifier of the shipping query */
+        shipping_query_id?: td_int64;
+        /** Available shipping options */
+        shipping_options?: td_vector<td_shippingOption>;
+        /** An error message, empty on success */
+        error_message?: td_string;
+    }
+    
+    
+    /** Sets the result of a pre-checkout query; for bots only */
+    export interface td_answerPreCheckoutQuery {
+        '@type': 'answerPreCheckoutQuery';
+        /** Identifier of the pre-checkout query */
+        pre_checkout_query_id?: td_int64;
+        /** An error message, empty on success */
+        error_message?: td_string;
+    }
+    
+    
+    /** Updates the game score of the specified user in the game; for bots only */
+    export interface td_setGameScore {
+        '@type': 'setGameScore';
+        /** The chat to which the message with the game belongs */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** True, if the message should be edited */
+        edit_message?: td_Bool;
+        /** User identifier */
+        user_id?: td_int32;
+        /** The new score */
+        score?: td_int32;
+        /** Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table */
+        force?: td_Bool;
+    }
+    
+    
+    /** Updates the game score of the specified user in a game; for bots only */
+    export interface td_setInlineGameScore {
+        '@type': 'setInlineGameScore';
+        /** Inline message identifier */
+        inline_message_id?: td_string;
+        /** True, if the message should be edited */
+        edit_message?: td_Bool;
+        /** User identifier */
+        user_id?: td_int32;
+        /** The new score */
+        score?: td_int32;
+        /** Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table */
+        force?: td_Bool;
+    }
+    
+    
+    /** Returns the high scores for a game and some part of the high score table in the range of the specified user; for bots only */
+    export interface td_getGameHighScores {
+        '@type': 'getGameHighScores';
+        /** The chat that contains the message with the game */
+        chat_id?: td_int53;
+        /** Identifier of the message */
+        message_id?: td_int53;
+        /** User identifier */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Returns game high scores and some part of the high score table in the range of the specified user; for bots only */
+    export interface td_getInlineGameHighScores {
+        '@type': 'getInlineGameHighScores';
+        /** Inline message identifier */
+        inline_message_id?: td_string;
+        /** User identifier */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Deletes the default reply markup from a chat. Must be called after a one-time keyboard or a ForceReply reply markup has been used. UpdateChatReplyMarkup will be sent if the reply markup will be changed */
+    export interface td_deleteChatReplyMarkup {
+        '@type': 'deleteChatReplyMarkup';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The message identifier of the used keyboard */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Sends a notification about user activity in a chat */
+    export interface td_sendChatAction {
+        '@type': 'sendChatAction';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** If not 0, a message thread identifier in which the action was performed */
+        message_thread_id?: td_int53;
+        /** The action description */
+        action?: td_ChatAction;
+    }
+    
+    
+    /** Informs TDLib that the chat is opened by the user. Many useful activities depend on the chat being opened or closed (e.g., in supergroups and channels all updates are received only for opened chats) */
+    export interface td_openChat {
+        '@type': 'openChat';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Informs TDLib that the chat is closed by the user. Many useful activities depend on the chat being opened or closed */
+    export interface td_closeChat {
+        '@type': 'closeChat';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Informs TDLib that messages are being viewed by the user. Many useful activities depend on whether the messages are currently being viewed or not (e.g., marking messages as read, incrementing a view counter, updating a view counter, removing deleted messages in supergroups and channels) */
+    export interface td_viewMessages {
+        '@type': 'viewMessages';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** If not 0, a message thread identifier in which the messages are being viewed */
+        message_thread_id?: td_int53;
+        /** The identifiers of the messages being viewed */
+        message_ids?: td_vector<td_int53>;
+        /** True, if messages in closed chats should be marked as read by the request */
+        force_read?: td_Bool;
+    }
+    
+    
+    /** Informs TDLib that the message content has been opened (e.g., the user has opened a photo, video, document, location or venue, or has listened to an audio file or voice note message). An updateMessageContentOpened update will be generated if something has changed */
+    export interface td_openMessageContent {
+        '@type': 'openMessageContent';
+        /** Chat identifier of the message */
+        chat_id?: td_int53;
+        /** Identifier of the message with the opened content */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Marks all mentions in a chat as read */
+    export interface td_readAllChatMentions {
+        '@type': 'readAllChatMentions';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Returns an existing chat corresponding to a given user */
+    export interface td_createPrivateChat {
+        '@type': 'createPrivateChat';
+        /** User identifier */
+        user_id?: td_int32;
+        /** If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect */
+        force?: td_Bool;
+    }
+    
+    
+    /** Returns an existing chat corresponding to a known basic group */
+    export interface td_createBasicGroupChat {
+        '@type': 'createBasicGroupChat';
+        /** Basic group identifier */
+        basic_group_id?: td_int32;
+        /** If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect */
+        force?: td_Bool;
+    }
+    
+    
+    /** Returns an existing chat corresponding to a known supergroup or channel */
+    export interface td_createSupergroupChat {
+        '@type': 'createSupergroupChat';
+        /** Supergroup or channel identifier */
+        supergroup_id?: td_int32;
+        /** If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect */
+        force?: td_Bool;
+    }
+    
+    
+    /** Returns an existing chat corresponding to a known secret chat */
+    export interface td_createSecretChat {
+        '@type': 'createSecretChat';
+        /** Secret chat identifier */
+        secret_chat_id?: td_int32;
+    }
+    
+    
+    /** Creates a new basic group and sends a corresponding messageBasicGroupChatCreate. Returns the newly created chat */
+    export interface td_createNewBasicGroupChat {
+        '@type': 'createNewBasicGroupChat';
+        /** Identifiers of users to be added to the basic group */
+        user_ids?: td_vector<td_int32>;
+        /** Title of the new basic group; 1-128 characters */
+        title?: td_string;
+    }
+    
+    
+    /** Creates a new supergroup or channel and sends a corresponding messageSupergroupChatCreate. Returns the newly created chat */
+    export interface td_createNewSupergroupChat {
+        '@type': 'createNewSupergroupChat';
+        /** Title of the new chat; 1-128 characters */
+        title?: td_string;
+        /** True, if a channel chat should be created */
+        is_channel?: td_Bool;
+        /** Creates a new supergroup or channel and sends a corresponding messageSupergroupChatCreate. Returns the newly created chat */
+        description?: td_string;
+        /** Chat location if a location-based supergroup is being created */
+        location?: td_chatLocation;
+    }
+    
+    
+    /** Creates a new secret chat. Returns the newly created chat */
+    export interface td_createNewSecretChat {
+        '@type': 'createNewSecretChat';
+        /** Identifier of the target user */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Creates a new supergroup from an existing basic group and sends a corresponding messageChatUpgradeTo and messageChatUpgradeFrom; requires creator privileges. Deactivates the original basic group */
+    export interface td_upgradeBasicGroupChatToSupergroupChat {
+        '@type': 'upgradeBasicGroupChatToSupergroupChat';
+        /** Identifier of the chat to upgrade */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Returns chat lists to which the chat can be added. This is an offline request */
+    export interface td_getChatListsToAddChat {
+        '@type': 'getChatListsToAddChat';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Adds a chat to a chat list. A chat can't be simultaneously in Main and Archive chat lists, so it is automatically removed from another one if needed */
+    export interface td_addChatToList {
+        '@type': 'addChatToList';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The chat list. Use getChatListsToAddChat to get suitable chat lists */
+        chat_list?: td_ChatList;
+    }
+    
+    
+    /** Returns information about a chat filter by its identifier */
+    export interface td_getChatFilter {
+        '@type': 'getChatFilter';
+        /** Chat filter identifier */
+        chat_filter_id?: td_int32;
+    }
+    
+    
+    /** Creates new chat filter. Returns information about the created chat filter */
+    export interface td_createChatFilter {
+        '@type': 'createChatFilter';
+        /** Chat filter */
+        filter?: td_chatFilter;
+    }
+    
+    
+    /** Edits existing chat filter. Returns information about the edited chat filter */
+    export interface td_editChatFilter {
+        '@type': 'editChatFilter';
+        /** Chat filter identifier */
+        chat_filter_id?: td_int32;
+        /** The edited chat filter */
+        filter?: td_chatFilter;
+    }
+    
+    
+    /** Deletes existing chat filter */
+    export interface td_deleteChatFilter {
+        '@type': 'deleteChatFilter';
+        /** Chat filter identifier */
+        chat_filter_id?: td_int32;
+    }
+    
+    
+    /** Changes the order of chat filters */
+    export interface td_reorderChatFilters {
+        '@type': 'reorderChatFilters';
+        /** Identifiers of chat filters in the new correct order */
+        chat_filter_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Returns recommended chat filters for the current user */
+    export interface td_getRecommendedChatFilters {
+        '@type': 'getRecommendedChatFilters';
+    }
+    
+    
+    /** Returns default icon name for a filter. Can be called synchronously */
+    export interface td_getChatFilterDefaultIconName {
+        '@type': 'getChatFilterDefaultIconName';
+        /** Chat filter */
+        filter?: td_chatFilter;
+    }
+    
+    
+    /** Changes the chat title. Supported only for basic groups, supergroups and channels. Requires can_change_info rights */
+    export interface td_setChatTitle {
+        '@type': 'setChatTitle';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New title of the chat; 1-128 characters */
+        title?: td_string;
+    }
+    
+    
+    /** Changes the photo of a chat. Supported only for basic groups, supergroups and channels. Requires can_change_info rights */
+    export interface td_setChatPhoto {
+        '@type': 'setChatPhoto';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New chat photo. Pass null to delete the chat photo */
+        photo?: td_InputChatPhoto;
+    }
+    
+    
+    /** Changes the chat members permissions. Supported only for basic groups and supergroups. Requires can_restrict_members administrator right */
+    export interface td_setChatPermissions {
+        '@type': 'setChatPermissions';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New non-administrator members permissions in the chat */
+        permissions?: td_chatPermissions;
+    }
+    
+    
+    /** Changes the draft message in a chat */
+    export interface td_setChatDraftMessage {
+        '@type': 'setChatDraftMessage';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** If not 0, a message thread identifier in which the draft was changed */
+        message_thread_id?: td_int53;
+        /** New draft message; may be null */
+        draft_message?: td_draftMessage;
+    }
+    
+    
+    /** Changes the notification settings of a chat. Notification settings of a chat with the current user (Saved Messages) can't be changed */
+    export interface td_setChatNotificationSettings {
+        '@type': 'setChatNotificationSettings';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New notification settings for the chat. If the chat is muted for more than 1 week, it is considered to be muted forever */
+        notification_settings?: td_chatNotificationSettings;
+    }
+    
+    
+    /** Changes the marked as unread state of a chat */
+    export interface td_toggleChatIsMarkedAsUnread {
+        '@type': 'toggleChatIsMarkedAsUnread';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New value of is_marked_as_unread */
+        is_marked_as_unread?: td_Bool;
+    }
+    
+    
+    /** Changes the value of the default disable_notification parameter, used when a message is sent to a chat */
+    export interface td_toggleChatDefaultDisableNotification {
+        '@type': 'toggleChatDefaultDisableNotification';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New value of default_disable_notification */
+        default_disable_notification?: td_Bool;
+    }
+    
+    
+    /** Changes application-specific data associated with a chat */
+    export interface td_setChatClientData {
+        '@type': 'setChatClientData';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New value of client_data */
+        client_data?: td_string;
+    }
+    
+    
+    /** Changes information about a chat. Available for basic groups, supergroups, and channels. Requires can_change_info rights */
+    export interface td_setChatDescription {
+        '@type': 'setChatDescription';
+        /** Identifier of the chat */
+        chat_id?: td_int53;
+        /** Changes information about a chat. Available for basic groups, supergroups, and channels. Requires can_change_info rights */
+        description?: td_string;
+    }
+    
+    
+    /** Changes the discussion group of a channel chat; requires can_change_info rights in the channel if it is specified */
+    export interface td_setChatDiscussionGroup {
+        '@type': 'setChatDiscussionGroup';
+        /** Identifier of the channel chat. Pass 0 to remove a link from the supergroup passed in the second argument to a linked channel chat (requires can_pin_messages rights in the supergroup) */
+        chat_id?: td_int53;
+        /** Identifier of a new channel's discussion group. Use 0 to remove the discussion group. -Use the method getSuitableDiscussionChats to find all suitable groups. Basic group chats must be first upgraded to supergroup chats. If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable must be used first to change that */
+        discussion_chat_id?: td_int53;
+    }
+    
+    
+    /** Changes the location of a chat. Available only for some location-based supergroups, use supergroupFullInfo.can_set_location to check whether the method is allowed to use */
+    export interface td_setChatLocation {
+        '@type': 'setChatLocation';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New location for the chat; must be valid and not null */
+        location?: td_chatLocation;
+    }
+    
+    
+    /** Changes the slow mode delay of a chat. Available only for supergroups; requires can_restrict_members rights */
+    export interface td_setChatSlowModeDelay {
+        '@type': 'setChatSlowModeDelay';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** New slow mode delay for the chat; must be one of 0, 10, 30, 60, 300, 900, 3600 */
+        slow_mode_delay?: td_int32;
+    }
+    
+    
+    /** Pins a message in a chat; requires can_pin_messages rights or can_edit_messages rights in the channel */
+    export interface td_pinChatMessage {
+        '@type': 'pinChatMessage';
+        /** Identifier of the chat */
+        chat_id?: td_int53;
+        /** Identifier of the new pinned message */
+        message_id?: td_int53;
+        /** True, if there should be no notification about the pinned message. Notifications are always disabled in channels and private chats */
+        disable_notification?: td_Bool;
+        /** True, if the message needs to be pinned for one side only; private chats only */
+        only_for_self?: td_Bool;
+    }
+    
+    
+    /** Removes a pinned message from a chat; requires can_pin_messages rights in the group or can_edit_messages rights in the channel */
+    export interface td_unpinChatMessage {
+        '@type': 'unpinChatMessage';
+        /** Identifier of the chat */
+        chat_id?: td_int53;
+        /** Identifier of the removed pinned message */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Removes all pinned messages from a chat; requires can_pin_messages rights in the group or can_edit_messages rights in the channel */
+    export interface td_unpinAllChatMessages {
+        '@type': 'unpinAllChatMessages';
+        /** Identifier of the chat */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Adds current user as a new member to a chat. Private and secret chats can't be joined using this method */
+    export interface td_joinChat {
+        '@type': 'joinChat';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Removes current user from chat members. Private and secret chats can't be left using this method */
+    export interface td_leaveChat {
+        '@type': 'leaveChat';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Adds a new member to a chat. Members can't be added to private or secret chats. Members will not be added until the chat state has been synchronized with the server */
+    export interface td_addChatMember {
+        '@type': 'addChatMember';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the user */
+        user_id?: td_int32;
+        /** The number of earlier messages from the chat to be forwarded to the new member; up to 100. Ignored for supergroups and channels */
+        forward_limit?: td_int32;
+    }
+    
+    
+    /** Adds multiple new members to a chat. Currently this option is only available for supergroups and channels. This option can't be used to join a chat. Members can't be added to a channel if it has more than 200 members. Members will not be added until the chat state has been synchronized with the server */
+    export interface td_addChatMembers {
+        '@type': 'addChatMembers';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifiers of the users to be added to the chat */
+        user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Changes the status of a chat member, needs appropriate privileges. This function is currently not suitable for adding new members to the chat and transferring chat ownership; instead, use addChatMember or transferChatOwnership. The chat member status will not be changed until it has been synchronized with the server */
+    export interface td_setChatMemberStatus {
+        '@type': 'setChatMemberStatus';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** User identifier */
+        user_id?: td_int32;
+        /** The new status of the member in the chat */
+        status?: td_ChatMemberStatus;
+    }
+    
+    
+    /** Checks whether the current session can be used to transfer a chat ownership to another user */
+    export interface td_canTransferOwnership {
+        '@type': 'canTransferOwnership';
+    }
+    
+    
+    /** Changes the owner of a chat. The current user must be a current owner of the chat. Use the method canTransferOwnership to check whether the ownership can be transferred from the current session. Available only for supergroups and channel chats */
+    export interface td_transferChatOwnership {
+        '@type': 'transferChatOwnership';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the user to which transfer the ownership. The ownership can't be transferred to a bot or to a deleted user */
+        user_id?: td_int32;
+        /** The password of the current user */
+        password?: td_string;
+    }
+    
+    
+    /** Returns information about a single member of a chat */
+    export interface td_getChatMember {
+        '@type': 'getChatMember';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** User identifier */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Searches for a specified query in the first name, last name and username of the members of a specified chat. Requires administrator rights in channels */
+    export interface td_searchChatMembers {
+        '@type': 'searchChatMembers';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Query to search for */
+        query?: td_string;
+        /** The maximum number of users to be returned */
+        limit?: td_int32;
+        /** The type of users to return. By default, chatMembersFilterMembers */
+        filter?: td_ChatMembersFilter;
+    }
+    
+    
+    /** Returns a list of administrators of the chat with their custom titles */
+    export interface td_getChatAdministrators {
+        '@type': 'getChatAdministrators';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Clears draft messages in all chats */
+    export interface td_clearAllDraftMessages {
+        '@type': 'clearAllDraftMessages';
+        /** If true, local draft messages in secret chats will not be cleared */
+        exclude_secret_chats?: td_Bool;
+    }
+    
+    
+    /** Returns list of chats with non-default notification settings */
+    export interface td_getChatNotificationSettingsExceptions {
+        '@type': 'getChatNotificationSettingsExceptions';
+        /** If specified, only chats from the specified scope will be returned */
+        scope?: td_NotificationSettingsScope;
+        /** If true, also chats with non-default sound will be returned */
+        compare_sound?: td_Bool;
+    }
+    
+    
+    /** Returns the notification settings for chats of a given type */
+    export interface td_getScopeNotificationSettings {
+        '@type': 'getScopeNotificationSettings';
+        /** Types of chats for which to return the notification settings information */
+        scope?: td_NotificationSettingsScope;
+    }
+    
+    
+    /** Changes notification settings for chats of a given type */
+    export interface td_setScopeNotificationSettings {
+        '@type': 'setScopeNotificationSettings';
+        /** Types of chats for which to change the notification settings */
+        scope?: td_NotificationSettingsScope;
+        /** The new notification settings for the given scope */
+        notification_settings?: td_scopeNotificationSettings;
+    }
+    
+    
+    /** Resets all notification settings to their default values. By default, all chats are unmuted, the sound is set to "default" and message previews are shown */
+    export interface td_resetAllNotificationSettings {
+        '@type': 'resetAllNotificationSettings';
+    }
+    
+    
+    /** Changes the pinned state of a chat. There can be up to GetOption("pinned_chat_count_max")/GetOption("pinned_archived_chat_count_max") pinned non-secret chats and the same number of secret chats in the main/arhive chat list */
+    export interface td_toggleChatIsPinned {
+        '@type': 'toggleChatIsPinned';
+        /** Chat list in which to change the pinned state of the chat */
+        chat_list?: td_ChatList;
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** True, if the chat is pinned */
+        is_pinned?: td_Bool;
+    }
+    
+    
+    /** Changes the order of pinned chats */
+    export interface td_setPinnedChats {
+        '@type': 'setPinnedChats';
+        /** Chat list in which to change the order of pinned chats */
+        chat_list?: td_ChatList;
+        /** The new list of pinned chats */
+        chat_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** Downloads a file from the cloud. Download progress and completion of the download will be notified through updateFile updates */
+    export interface td_downloadFile {
+        '@type': 'downloadFile';
+        /** Identifier of the file to download */
+        file_id?: td_int32;
+        /** Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first */
+        priority?: td_int32;
+        /** The starting position from which the file should be downloaded */
+        offset?: td_int32;
+        /** Number of bytes which should be downloaded starting from the "offset" position before the download will be automatically cancelled; use 0 to download without a limit */
+        limit?: td_int32;
+        /** If false, this request returns file state just after the download has been started. If true, this request returns file state only after -the download has succeeded, has failed, has been cancelled or a new downloadFile request with different offset/limit parameters was sent */
+        synchronous?: td_Bool;
+    }
+    
+    
+    /** Returns file downloaded prefix size from a given offset */
+    export interface td_getFileDownloadedPrefixSize {
+        '@type': 'getFileDownloadedPrefixSize';
+        /** Identifier of the file */
+        file_id?: td_int32;
+        /** Offset from which downloaded prefix size should be calculated */
+        offset?: td_int32;
+    }
+    
+    
+    /** Stops the downloading of a file. If a file has already been downloaded, does nothing */
+    export interface td_cancelDownloadFile {
+        '@type': 'cancelDownloadFile';
+        /** Identifier of a file to stop downloading */
+        file_id?: td_int32;
+        /** Pass true to stop downloading only if it hasn't been started, i.e. request hasn't been sent to server */
+        only_if_pending?: td_Bool;
+    }
+    
+    
+    /** Asynchronously uploads a file to the cloud without sending it in a message. updateFile will be used to notify about upload progress and successful completion of the upload. The file will not have a persistent remote identifier until it will be sent in a message */
+    export interface td_uploadFile {
+        '@type': 'uploadFile';
+        /** File to upload */
+        file?: td_InputFile;
+        /** File type */
+        file_type?: td_FileType;
+        /** Priority of the upload (1-32). The higher the priority, the earlier the file will be uploaded. If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first */
+        priority?: td_int32;
+    }
+    
+    
+    /** Stops the uploading of a file. Supported only for files uploaded by using uploadFile. For other files the behavior is undefined */
+    export interface td_cancelUploadFile {
+        '@type': 'cancelUploadFile';
+        /** Identifier of the file to stop uploading */
+        file_id?: td_int32;
+    }
+    
+    
+    /** Writes a part of a generated file. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct write to the destination file */
+    export interface td_writeGeneratedFilePart {
+        '@type': 'writeGeneratedFilePart';
+        /** The identifier of the generation process */
+        generation_id?: td_int64;
+        /** The offset from which to write the data to the file */
+        offset?: td_int32;
+        /** The data to write */
+        data?: td_bytes;
+    }
+    
+    
+    /** Informs TDLib on a file generation progress */
+    export interface td_setFileGenerationProgress {
+        '@type': 'setFileGenerationProgress';
+        /** The identifier of the generation process */
+        generation_id?: td_int64;
+        /** Expected size of the generated file, in bytes; 0 if unknown */
+        expected_size?: td_int32;
+        /** The number of bytes already generated */
+        local_prefix_size?: td_int32;
+    }
+    
+    
+    /** Finishes the file generation */
+    export interface td_finishFileGeneration {
+        '@type': 'finishFileGeneration';
+        /** The identifier of the generation process */
+        generation_id?: td_int64;
+        /** If set, means that file generation has failed and should be terminated */
+        error?: td_error;
+    }
+    
+    
+    /** Reads a part of a file from the TDLib file cache and returns read bytes. This method is intended to be used only if the application has no direct access to TDLib's file system, because it is usually slower than a direct read from the file */
+    export interface td_readFilePart {
+        '@type': 'readFilePart';
+        /** Identifier of the file. The file must be located in the TDLib file cache */
+        file_id?: td_int32;
+        /** The offset from which to read the file */
+        offset?: td_int32;
+        /** Number of bytes to read. An error will be returned if there are not enough bytes available in the file from the specified position. Pass 0 to read all available data from the specified position */
+        count?: td_int32;
+    }
+    
+    
+    /** Deletes a file from the TDLib file cache */
+    export interface td_deleteFile {
+        '@type': 'deleteFile';
+        /** Identifier of the file to delete */
+        file_id?: td_int32;
+    }
+    
+    
+    /** Generates a new invite link for a chat; the previously generated link is revoked. Available for basic groups, supergroups, and channels. Requires administrator privileges and can_invite_users right */
+    export interface td_generateChatInviteLink {
+        '@type': 'generateChatInviteLink';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Checks the validity of an invite link for a chat and returns information about the corresponding chat */
+    export interface td_checkChatInviteLink {
+        '@type': 'checkChatInviteLink';
+        /** Invite link to be checked; should begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/" */
+        invite_link?: td_string;
+    }
+    
+    
+    /** Uses an invite link to add the current user to the chat if possible. The new member will not be added until the chat state has been synchronized with the server */
+    export interface td_joinChatByInviteLink {
+        '@type': 'joinChatByInviteLink';
+        /** Invite link to import; should begin with "https://t.me/joinchat/", "https://telegram.me/joinchat/", or "https://telegram.dog/joinchat/" */
+        invite_link?: td_string;
+    }
+    
+    
+    /** Creates a new call */
+    export interface td_createCall {
+        '@type': 'createCall';
+        /** Identifier of the user to be called */
+        user_id?: td_int32;
+        /** Description of the call protocols supported by the application */
+        protocol?: td_callProtocol;
+        /** True, if a video call needs to be created */
+        is_video?: td_Bool;
+    }
+    
+    
+    /** Accepts an incoming call */
+    export interface td_acceptCall {
+        '@type': 'acceptCall';
+        /** Call identifier */
+        call_id?: td_int32;
+        /** Description of the call protocols supported by the application */
+        protocol?: td_callProtocol;
+    }
+    
+    
+    /** Sends call signaling data */
+    export interface td_sendCallSignalingData {
+        '@type': 'sendCallSignalingData';
+        /** Call identifier */
+        call_id?: td_int32;
+        /** The data */
+        data?: td_bytes;
+    }
+    
+    
+    /** Discards a call */
+    export interface td_discardCall {
+        '@type': 'discardCall';
+        /** Call identifier */
+        call_id?: td_int32;
+        /** True, if the user was disconnected */
+        is_disconnected?: td_Bool;
+        /** The call duration, in seconds */
+        duration?: td_int32;
+        /** True, if the call was a video call */
+        is_video?: td_Bool;
+        /** Identifier of the connection used during the call */
+        connection_id?: td_int64;
+    }
+    
+    
+    /** Sends a call rating */
+    export interface td_sendCallRating {
+        '@type': 'sendCallRating';
+        /** Call identifier */
+        call_id?: td_int32;
+        /** Call rating; 1-5 */
+        rating?: td_int32;
+        /** An optional user comment if the rating is less than 5 */
+        comment?: td_string;
+        /** List of the exact types of problems with the call, specified by the user */
+        problems?: td_vector<td_CallProblem>;
+    }
+    
+    
+    /** Sends debug information for a call */
+    export interface td_sendCallDebugInformation {
+        '@type': 'sendCallDebugInformation';
+        /** Call identifier */
+        call_id?: td_int32;
+        /** Debug information in application-specific format */
+        debug_information?: td_string;
+    }
+    
+    
+    /** Changes the block state of a message sender. Currently, only users and supergroup chats can be blocked */
+    export interface td_toggleMessageSenderIsBlocked {
+        '@type': 'toggleMessageSenderIsBlocked';
+        /** Message Sender */
+        sender?: td_MessageSender;
+        /** New value of is_blocked */
+        is_blocked?: td_Bool;
+    }
+    
+    
+    /** Blocks an original sender of a message in the Replies chat */
+    export interface td_blockMessageSenderFromReplies {
+        '@type': 'blockMessageSenderFromReplies';
+        /** The identifier of an incoming message in the Replies chat */
+        message_id?: td_int53;
+        /** Pass true if the message must be deleted */
+        delete_message?: td_Bool;
+        /** Pass true if all messages from the same sender must be deleted */
+        delete_all_messages?: td_Bool;
+        /** Pass true if the sender must be reported to the Telegram moderators */
+        report_spam?: td_Bool;
+    }
+    
+    
+    /** Returns users and chats that were blocked by the current user */
+    export interface td_getBlockedMessageSenders {
+        '@type': 'getBlockedMessageSenders';
+        /** Number of users and chats to skip in the result; must be non-negative */
+        offset?: td_int32;
+        /** The maximum number of users and chats to return; up to 100 */
+        limit?: td_int32;
+    }
+    
+    
+    /** Adds a user to the contact list or edits an existing contact by their user identifier */
+    export interface td_addContact {
+        '@type': 'addContact';
+        /** The contact to add or edit; phone number can be empty and needs to be specified only if known, vCard is ignored */
+        contact?: td_contact;
+        /** True, if the new contact needs to be allowed to see current user's phone number. A corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed. Use the field UserFullInfo.need_phone_number_privacy_exception to check whether the current user needs to be asked to share their phone number */
+        share_phone_number?: td_Bool;
+    }
+    
+    
+    /** Adds new contacts or edits existing contacts by their phone numbers; contacts' user identifiers are ignored */
+    export interface td_importContacts {
+        '@type': 'importContacts';
+        /** The list of contacts to import or edit; contacts' vCard are ignored and are not imported */
+        contacts?: td_vector<td_contact>;
+    }
+    
+    
+    /** Returns all user contacts */
+    export interface td_getContacts {
+        '@type': 'getContacts';
+    }
+    
+    
+    /** Searches for the specified query in the first names, last names and usernames of the known user contacts */
+    export interface td_searchContacts {
+        '@type': 'searchContacts';
+        /** Query to search for; may be empty to return all contacts */
+        query?: td_string;
+        /** The maximum number of users to be returned */
+        limit?: td_int32;
+    }
+    
+    
+    /** Removes users from the contact list */
+    export interface td_removeContacts {
+        '@type': 'removeContacts';
+        /** Identifiers of users to be deleted */
+        user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Returns the total number of imported contacts */
+    export interface td_getImportedContactCount {
+        '@type': 'getImportedContactCount';
+    }
+    
+    
+    /** Changes imported contacts using the list of current user contacts saved on the device. Imports newly added contacts and, if at least the file database is enabled, deletes recently deleted contacts. -Query result depends on the result of the previous query, so only one query is possible at the same time */
+    export interface td_changeImportedContacts {
+        '@type': 'changeImportedContacts';
+        /** The new list of contacts, contact's vCard are ignored and are not imported */
+        contacts?: td_vector<td_contact>;
+    }
+    
+    
+    /** Clears all imported contacts, contact list remains unchanged */
+    export interface td_clearImportedContacts {
+        '@type': 'clearImportedContacts';
+    }
+    
+    
+    /** Shares the phone number of the current user with a mutual contact. Supposed to be called when the user clicks on chatActionBarSharePhoneNumber */
+    export interface td_sharePhoneNumber {
+        '@type': 'sharePhoneNumber';
+        /** Identifier of the user with whom to share the phone number. The user must be a mutual contact */
+        user_id?: td_int32;
+    }
+    
+    
+    /** Returns the profile photos of a user. The result of this query may be outdated: some photos might have been deleted already */
+    export interface td_getUserProfilePhotos {
+        '@type': 'getUserProfilePhotos';
+        /** User identifier */
+        user_id?: td_int32;
+        /** The number of photos to skip; must be non-negative */
+        offset?: td_int32;
+        /** The maximum number of photos to be returned; up to 100 */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns stickers from the installed sticker sets that correspond to a given emoji. If the emoji is not empty, favorite and recently used stickers may also be returned */
+    export interface td_getStickers {
+        '@type': 'getStickers';
+        /** String representation of emoji. If empty, returns all known installed stickers */
+        emoji?: td_string;
+        /** The maximum number of stickers to be returned */
+        limit?: td_int32;
+    }
+    
+    
+    /** Searches for stickers from public sticker sets that correspond to a given emoji */
+    export interface td_searchStickers {
+        '@type': 'searchStickers';
+        /** String representation of emoji; must be non-empty */
+        emoji?: td_string;
+        /** The maximum number of stickers to be returned */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns a list of installed sticker sets */
+    export interface td_getInstalledStickerSets {
+        '@type': 'getInstalledStickerSets';
+        /** Pass true to return mask sticker sets; pass false to return ordinary sticker sets */
+        is_masks?: td_Bool;
+    }
+    
+    
+    /** Returns a list of archived sticker sets */
+    export interface td_getArchivedStickerSets {
+        '@type': 'getArchivedStickerSets';
+        /** Pass true to return mask stickers sets; pass false to return ordinary sticker sets */
+        is_masks?: td_Bool;
+        /** Identifier of the sticker set from which to return the result */
+        offset_sticker_set_id?: td_int64;
+        /** The maximum number of sticker sets to return */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns a list of trending sticker sets. For the optimal performance the number of returned sticker sets is chosen by the library */
+    export interface td_getTrendingStickerSets {
+        '@type': 'getTrendingStickerSets';
+        /** The offset from which to return the sticker sets; must be non-negative */
+        offset?: td_int32;
+        /** The maximum number of sticker sets to be returned; must be non-negative. Fewer sticker sets may be returned than specified by the limit, even if the end of the list has not been reached */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns a list of sticker sets attached to a file. Currently only photos and videos can have attached sticker sets */
+    export interface td_getAttachedStickerSets {
+        '@type': 'getAttachedStickerSets';
+        /** File identifier */
+        file_id?: td_int32;
+    }
+    
+    
+    /** Returns information about a sticker set by its identifier */
+    export interface td_getStickerSet {
+        '@type': 'getStickerSet';
+        /** Identifier of the sticker set */
+        set_id?: td_int64;
+    }
+    
+    
+    /** Searches for a sticker set by its name */
+    export interface td_searchStickerSet {
+        '@type': 'searchStickerSet';
+        /** Name of the sticker set */
+        name?: td_string;
+    }
+    
+    
+    /** Searches for installed sticker sets by looking for specified query in their title and name */
+    export interface td_searchInstalledStickerSets {
+        '@type': 'searchInstalledStickerSets';
+        /** Pass true to return mask sticker sets; pass false to return ordinary sticker sets */
+        is_masks?: td_Bool;
+        /** Query to search for */
+        query?: td_string;
+        /** The maximum number of sticker sets to return */
+        limit?: td_int32;
+    }
+    
+    
+    /** Searches for ordinary sticker sets by looking for specified query in their title and name. Excludes installed sticker sets from the results */
+    export interface td_searchStickerSets {
+        '@type': 'searchStickerSets';
+        /** Query to search for */
+        query?: td_string;
+    }
+    
+    
+    /** Installs/uninstalls or activates/archives a sticker set */
+    export interface td_changeStickerSet {
+        '@type': 'changeStickerSet';
+        /** Identifier of the sticker set */
+        set_id?: td_int64;
+        /** The new value of is_installed */
+        is_installed?: td_Bool;
+        /** The new value of is_archived. A sticker set can't be installed and archived simultaneously */
+        is_archived?: td_Bool;
+    }
+    
+    
+    /** Informs the server that some trending sticker sets have been viewed by the user */
+    export interface td_viewTrendingStickerSets {
+        '@type': 'viewTrendingStickerSets';
+        /** Identifiers of viewed trending sticker sets */
+        sticker_set_ids?: td_vector<td_int64>;
+    }
+    
+    
+    /** Changes the order of installed sticker sets */
+    export interface td_reorderInstalledStickerSets {
+        '@type': 'reorderInstalledStickerSets';
+        /** Pass true to change the order of mask sticker sets; pass false to change the order of ordinary sticker sets */
+        is_masks?: td_Bool;
+        /** Identifiers of installed sticker sets in the new correct order */
+        sticker_set_ids?: td_vector<td_int64>;
+    }
+    
+    
+    /** Returns a list of recently used stickers */
+    export interface td_getRecentStickers {
+        '@type': 'getRecentStickers';
+        /** Pass true to return stickers and masks that were recently attached to photos or video files; pass false to return recently sent stickers */
+        is_attached?: td_Bool;
+    }
+    
+    
+    /** Manually adds a new sticker to the list of recently used stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list */
+    export interface td_addRecentSticker {
+        '@type': 'addRecentSticker';
+        /** Pass true to add the sticker to the list of stickers recently attached to photo or video files; pass false to add the sticker to the list of recently sent stickers */
+        is_attached?: td_Bool;
+        /** Sticker file to add */
+        sticker?: td_InputFile;
+    }
+    
+    
+    /** Removes a sticker from the list of recently used stickers */
+    export interface td_removeRecentSticker {
+        '@type': 'removeRecentSticker';
+        /** Pass true to remove the sticker from the list of stickers recently attached to photo or video files; pass false to remove the sticker from the list of recently sent stickers */
+        is_attached?: td_Bool;
+        /** Sticker file to delete */
+        sticker?: td_InputFile;
+    }
+    
+    
+    /** Clears the list of recently used stickers */
+    export interface td_clearRecentStickers {
+        '@type': 'clearRecentStickers';
+        /** Pass true to clear the list of stickers recently attached to photo or video files; pass false to clear the list of recently sent stickers */
+        is_attached?: td_Bool;
+    }
+    
+    
+    /** Returns favorite stickers */
+    export interface td_getFavoriteStickers {
+        '@type': 'getFavoriteStickers';
+    }
+    
+    
+    /** Adds a new sticker to the list of favorite stickers. The new sticker is added to the top of the list. If the sticker was already in the list, it is removed from the list first. Only stickers belonging to a sticker set can be added to this list */
+    export interface td_addFavoriteSticker {
+        '@type': 'addFavoriteSticker';
+        /** Sticker file to add */
+        sticker?: td_InputFile;
+    }
+    
+    
+    /** Removes a sticker from the list of favorite stickers */
+    export interface td_removeFavoriteSticker {
+        '@type': 'removeFavoriteSticker';
+        /** Sticker file to delete from the list */
+        sticker?: td_InputFile;
+    }
+    
+    
+    /** Returns emoji corresponding to a sticker. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object */
+    export interface td_getStickerEmojis {
+        '@type': 'getStickerEmojis';
+        /** Sticker file identifier */
+        sticker?: td_InputFile;
+    }
+    
+    
+    /** Searches for emojis by keywords. Supported only if the file database is enabled */
+    export interface td_searchEmojis {
+        '@type': 'searchEmojis';
+        /** Text to search for */
+        text?: td_string;
+        /** True, if only emojis, which exactly match text needs to be returned */
+        exact_match?: td_Bool;
+        /** List of possible IETF language tags of the user's input language; may be empty if unknown */
+        input_language_codes?: td_vector<td_string>;
+    }
+    
+    
+    /** Returns an HTTP URL which can be used to automatically log in to the translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation */
+    export interface td_getEmojiSuggestionsUrl {
+        '@type': 'getEmojiSuggestionsUrl';
+        /** Language code for which the emoji replacements will be suggested */
+        language_code?: td_string;
+    }
+    
+    
+    /** Returns saved animations */
+    export interface td_getSavedAnimations {
+        '@type': 'getSavedAnimations';
+    }
+    
+    
+    /** Manually adds a new animation to the list of saved animations. The new animation is added to the beginning of the list. If the animation was already in the list, it is removed first. Only non-secret video animations with MIME type "video/mp4" can be added to the list */
+    export interface td_addSavedAnimation {
+        '@type': 'addSavedAnimation';
+        /** The animation file to be added. Only animations known to the server (i.e. successfully sent via a message) can be added to the list */
+        animation?: td_InputFile;
+    }
+    
+    
+    /** Removes an animation from the list of saved animations */
+    export interface td_removeSavedAnimation {
+        '@type': 'removeSavedAnimation';
+        /** Animation file to be removed */
+        animation?: td_InputFile;
+    }
+    
+    
+    /** Returns up to 20 recently used inline bots in the order of their last usage */
+    export interface td_getRecentInlineBots {
+        '@type': 'getRecentInlineBots';
+    }
+    
+    
+    /** Searches for recently used hashtags by their prefix */
+    export interface td_searchHashtags {
+        '@type': 'searchHashtags';
+        /** Hashtag prefix to search for */
+        prefix?: td_string;
+        /** The maximum number of hashtags to be returned */
+        limit?: td_int32;
+    }
+    
+    
+    /** Removes a hashtag from the list of recently used hashtags */
+    export interface td_removeRecentHashtag {
+        '@type': 'removeRecentHashtag';
+        /** Hashtag to delete */
+        hashtag?: td_string;
+    }
+    
+    
+    /** Returns a web page preview by the text of the message. Do not call this function too often. Returns a 404 error if the web page has no preview */
+    export interface td_getWebPagePreview {
+        '@type': 'getWebPagePreview';
+        /** Message text with formatting */
+        text?: td_formattedText;
+    }
+    
+    
+    /** Returns an instant view version of a web page if available. Returns a 404 error if the web page has no instant view page */
+    export interface td_getWebPageInstantView {
+        '@type': 'getWebPageInstantView';
+        /** The web page URL */
+        url?: td_string;
+        /** If true, the full instant view for the web page will be returned */
+        force_full?: td_Bool;
+    }
+    
+    
+    /** Changes a profile photo for the current user */
+    export interface td_setProfilePhoto {
+        '@type': 'setProfilePhoto';
+        /** Profile photo to set */
+        photo?: td_InputChatPhoto;
+    }
+    
+    
+    /** Deletes a profile photo */
+    export interface td_deleteProfilePhoto {
+        '@type': 'deleteProfilePhoto';
+        /** Identifier of the profile photo to delete */
+        profile_photo_id?: td_int64;
+    }
+    
+    
+    /** Changes the first and last name of the current user */
+    export interface td_setName {
+        '@type': 'setName';
+        /** The new value of the first name for the user; 1-64 characters */
+        first_name?: td_string;
+        /** The new value of the optional last name for the user; 0-64 characters */
+        last_name?: td_string;
+    }
+    
+    
+    /** Changes the bio of the current user */
+    export interface td_setBio {
+        '@type': 'setBio';
+        /** The new value of the user bio; 0-70 characters without line feeds */
+        bio?: td_string;
+    }
+    
+    
+    /** Changes the username of the current user */
+    export interface td_setUsername {
+        '@type': 'setUsername';
+        /** The new value of the username. Use an empty string to remove the username */
+        username?: td_string;
+    }
+    
+    
+    /** Changes the location of the current user. Needs to be called if GetOption("is_location_visible") is true and location changes for more than 1 kilometer */
+    export interface td_setLocation {
+        '@type': 'setLocation';
+        /** The new location of the user */
+        location?: td_location;
+    }
+    
+    
+    /** Changes the phone number of the user and sends an authentication code to the user's new phone number. On success, returns information about the sent code */
+    export interface td_changePhoneNumber {
+        '@type': 'changePhoneNumber';
+        /** The new phone number of the user in international format */
+        phone_number?: td_string;
+        /** Settings for the authentication of the user's phone number */
+        settings?: td_phoneNumberAuthenticationSettings;
+    }
+    
+    
+    /** Re-sends the authentication code sent to confirm a new phone number for the user. Works only if the previously received authenticationCodeInfo next_code_type was not null */
+    export interface td_resendChangePhoneNumberCode {
+        '@type': 'resendChangePhoneNumberCode';
+    }
+    
+    
+    /** Checks the authentication code sent to confirm a new phone number of the user */
+    export interface td_checkChangePhoneNumberCode {
+        '@type': 'checkChangePhoneNumberCode';
+        /** Verification code received by SMS, phone call or flash call */
+        code?: td_string;
+    }
+    
+    
+    /** Sets the list of commands supported by the bot; for bots only */
+    export interface td_setCommands {
+        '@type': 'setCommands';
+        /** List of the bot's commands */
+        commands?: td_vector<td_botCommand>;
+    }
+    
+    
+    /** Returns all active sessions of the current user */
+    export interface td_getActiveSessions {
+        '@type': 'getActiveSessions';
+    }
+    
+    
+    /** Terminates a session of the current user */
+    export interface td_terminateSession {
+        '@type': 'terminateSession';
+        /** Session identifier */
+        session_id?: td_int64;
+    }
+    
+    
+    /** Terminates all other sessions of the current user */
+    export interface td_terminateAllOtherSessions {
+        '@type': 'terminateAllOtherSessions';
+    }
+    
+    
+    /** Returns all website where the current user used Telegram to log in */
+    export interface td_getConnectedWebsites {
+        '@type': 'getConnectedWebsites';
+    }
+    
+    
+    /** Disconnects website from the current user's Telegram account */
+    export interface td_disconnectWebsite {
+        '@type': 'disconnectWebsite';
+        /** Website identifier */
+        website_id?: td_int64;
+    }
+    
+    
+    /** Disconnects all websites from the current user's Telegram account */
+    export interface td_disconnectAllWebsites {
+        '@type': 'disconnectAllWebsites';
+    }
+    
+    
+    /** Changes the username of a supergroup or channel, requires owner privileges in the supergroup or channel */
+    export interface td_setSupergroupUsername {
+        '@type': 'setSupergroupUsername';
+        /** Identifier of the supergroup or channel */
+        supergroup_id?: td_int32;
+        /** New value of the username. Use an empty string to remove the username */
+        username?: td_string;
+    }
+    
+    
+    /** Changes the sticker set of a supergroup; requires can_change_info rights */
+    export interface td_setSupergroupStickerSet {
+        '@type': 'setSupergroupStickerSet';
+        /** Identifier of the supergroup */
+        supergroup_id?: td_int32;
+        /** New value of the supergroup sticker set identifier. Use 0 to remove the supergroup sticker set */
+        sticker_set_id?: td_int64;
+    }
+    
+    
+    /** Toggles sender signatures messages sent in a channel; requires can_change_info rights */
+    export interface td_toggleSupergroupSignMessages {
+        '@type': 'toggleSupergroupSignMessages';
+        /** Identifier of the channel */
+        supergroup_id?: td_int32;
+        /** New value of sign_messages */
+        sign_messages?: td_Bool;
+    }
+    
+    
+    /** Toggles whether the message history of a supergroup is available to new members; requires can_change_info rights */
+    export interface td_toggleSupergroupIsAllHistoryAvailable {
+        '@type': 'toggleSupergroupIsAllHistoryAvailable';
+        /** The identifier of the supergroup */
+        supergroup_id?: td_int32;
+        /** The new value of is_all_history_available */
+        is_all_history_available?: td_Bool;
+    }
+    
+    
+    /** Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup */
+    export interface td_reportSupergroupSpam {
+        '@type': 'reportSupergroupSpam';
+        /** Supergroup identifier */
+        supergroup_id?: td_int32;
+        /** User identifier */
+        user_id?: td_int32;
+        /** Identifiers of messages sent in the supergroup by the user. This list must be non-empty */
+        message_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** Returns information about members or banned users in a supergroup or channel. Can be used only if SupergroupFullInfo.can_get_members == true; additionally, administrator privileges may be required for some filters */
+    export interface td_getSupergroupMembers {
+        '@type': 'getSupergroupMembers';
+        /** Identifier of the supergroup or channel */
+        supergroup_id?: td_int32;
+        /** The type of users to return. By default, supergroupMembersFilterRecent */
+        filter?: td_SupergroupMembersFilter;
+        /** Number of users to skip */
+        offset?: td_int32;
+        /** The maximum number of users be returned; up to 200 */
+        limit?: td_int32;
+    }
+    
+    
+    /** Deletes a supergroup or channel along with all messages in the corresponding chat. This will release the supergroup or channel username and remove all members; requires owner privileges in the supergroup or channel. Chats with more than 1000 members can't be deleted using this method */
+    export interface td_deleteSupergroup {
+        '@type': 'deleteSupergroup';
+        /** Identifier of the supergroup or channel */
+        supergroup_id?: td_int32;
+    }
+    
+    
+    /** Closes a secret chat, effectively transferring its state to secretChatStateClosed */
+    export interface td_closeSecretChat {
+        '@type': 'closeSecretChat';
+        /** Secret chat identifier */
+        secret_chat_id?: td_int32;
+    }
+    
+    
+    /** Returns a list of service actions taken by chat members and administrators in the last 48 hours. Available only for supergroups and channels. Requires administrator rights. Returns results in reverse chronological order (i. e., in order of decreasing event_id) */
+    export interface td_getChatEventLog {
+        '@type': 'getChatEventLog';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Search query by which to filter events */
+        query?: td_string;
+        /** Identifier of an event from which to return results. Use 0 to get results from the latest events */
+        from_event_id?: td_int64;
+        /** The maximum number of events to return; up to 100 */
+        limit?: td_int32;
+        /** The types of events to return. By default, all types will be returned */
+        filters?: td_chatEventLogFilters;
+        /** User identifiers by which to filter events. By default, events relating to all users will be returned */
+        user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Returns an invoice payment form. This method should be called when the user presses inlineKeyboardButtonBuy */
+    export interface td_getPaymentForm {
+        '@type': 'getPaymentForm';
+        /** Chat identifier of the Invoice message */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Validates the order information provided by a user and returns the available shipping options for a flexible invoice */
+    export interface td_validateOrderInfo {
+        '@type': 'validateOrderInfo';
+        /** Chat identifier of the Invoice message */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** The order information, provided by the user */
+        order_info?: td_orderInfo;
+        /** True, if the order information can be saved */
+        allow_save?: td_Bool;
+    }
+    
+    
+    /** Sends a filled-out payment form to the bot for final verification */
+    export interface td_sendPaymentForm {
+        '@type': 'sendPaymentForm';
+        /** Chat identifier of the Invoice message */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** Identifier returned by ValidateOrderInfo, or an empty string */
+        order_info_id?: td_string;
+        /** Identifier of a chosen shipping option, if applicable */
+        shipping_option_id?: td_string;
+        /** The credentials chosen by user for payment */
+        credentials?: td_InputCredentials;
+    }
+    
+    
+    /** Returns information about a successful payment */
+    export interface td_getPaymentReceipt {
+        '@type': 'getPaymentReceipt';
+        /** Chat identifier of the PaymentSuccessful message */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+    }
+    
+    
+    /** Returns saved order info, if any */
+    export interface td_getSavedOrderInfo {
+        '@type': 'getSavedOrderInfo';
+    }
+    
+    
+    /** Deletes saved order info */
+    export interface td_deleteSavedOrderInfo {
+        '@type': 'deleteSavedOrderInfo';
+    }
+    
+    
+    /** Deletes saved credentials for all payment provider bots */
+    export interface td_deleteSavedCredentials {
+        '@type': 'deleteSavedCredentials';
+    }
+    
+    
+    /** Returns a user that can be contacted to get support */
+    export interface td_getSupportUser {
+        '@type': 'getSupportUser';
+    }
+    
+    
+    /** Returns backgrounds installed by the user */
+    export interface td_getBackgrounds {
+        '@type': 'getBackgrounds';
+        /** True, if the backgrounds must be ordered for dark theme */
+        for_dark_theme?: td_Bool;
+    }
+    
+    
+    /** Constructs a persistent HTTP URL for a background */
+    export interface td_getBackgroundUrl {
+        '@type': 'getBackgroundUrl';
+        /** Background name */
+        name?: td_string;
+        /** Background type */
+        type?: td_BackgroundType;
+    }
+    
+    
+    /** Searches for a background by its name */
+    export interface td_searchBackground {
+        '@type': 'searchBackground';
+        /** The name of the background */
+        name?: td_string;
+    }
+    
+    
+    /** Changes the background selected by the user; adds background to the list of installed backgrounds */
+    export interface td_setBackground {
+        '@type': 'setBackground';
+        /** The input background to use, null for filled backgrounds */
+        background?: td_InputBackground;
+        /** Background type; null for default background. The method will return error 404 if type is null */
+        type?: td_BackgroundType;
+        /** True, if the background is chosen for dark theme */
+        for_dark_theme?: td_Bool;
+    }
+    
+    
+    /** Removes background from the list of installed backgrounds */
+    export interface td_removeBackground {
+        '@type': 'removeBackground';
+        /** The background identifier */
+        background_id?: td_int64;
+    }
+    
+    
+    /** Resets list of installed backgrounds to its default value */
+    export interface td_resetBackgrounds {
+        '@type': 'resetBackgrounds';
+    }
+    
+    
+    /** Returns information about the current localization target. This is an offline request if only_local is true. Can be called before authorization */
+    export interface td_getLocalizationTargetInfo {
+        '@type': 'getLocalizationTargetInfo';
+        /** If true, returns only locally available information without sending network requests */
+        only_local?: td_Bool;
+    }
+    
+    
+    /** Returns information about a language pack. Returned language pack identifier may be different from a provided one. Can be called before authorization */
+    export interface td_getLanguagePackInfo {
+        '@type': 'getLanguagePackInfo';
+        /** Language pack identifier */
+        language_pack_id?: td_string;
+    }
+    
+    
+    /** Returns strings from a language pack in the current localization target by their keys. Can be called before authorization */
+    export interface td_getLanguagePackStrings {
+        '@type': 'getLanguagePackStrings';
+        /** Language pack identifier of the strings to be returned */
+        language_pack_id?: td_string;
+        /** Language pack keys of the strings to be returned; leave empty to request all available strings */
+        keys?: td_vector<td_string>;
+    }
+    
+    
+    /** Fetches the latest versions of all strings from a language pack in the current localization target from the server. This method shouldn't be called explicitly for the current used/base language packs. Can be called before authorization */
+    export interface td_synchronizeLanguagePack {
+        '@type': 'synchronizeLanguagePack';
+        /** Language pack identifier */
+        language_pack_id?: td_string;
+    }
+    
+    
+    /** Adds a custom server language pack to the list of installed language packs in current localization target. Can be called before authorization */
+    export interface td_addCustomServerLanguagePack {
+        '@type': 'addCustomServerLanguagePack';
+        /** Identifier of a language pack to be added; may be different from a name that is used in an "https://t.me/setlanguage/" link */
+        language_pack_id?: td_string;
+    }
+    
+    
+    /** Adds or changes a custom local language pack to the current localization target */
+    export interface td_setCustomLanguagePack {
+        '@type': 'setCustomLanguagePack';
+        /** Information about the language pack. Language pack ID must start with 'X', consist only of English letters, digits and hyphens, and must not exceed 64 characters. Can be called before authorization */
+        info?: td_languagePackInfo;
+        /** Strings of the new language pack */
+        strings?: td_vector<td_languagePackString>;
+    }
+    
+    
+    /** Edits information about a custom local language pack in the current localization target. Can be called before authorization */
+    export interface td_editCustomLanguagePackInfo {
+        '@type': 'editCustomLanguagePackInfo';
+        /** New information about the custom local language pack */
+        info?: td_languagePackInfo;
+    }
+    
+    
+    /** Adds, edits or deletes a string in a custom local language pack. Can be called before authorization */
+    export interface td_setCustomLanguagePackString {
+        '@type': 'setCustomLanguagePackString';
+        /** Identifier of a previously added custom local language pack in the current localization target */
+        language_pack_id?: td_string;
+        /** New language pack string */
+        new_string?: td_languagePackString;
+    }
+    
+    
+    /** Deletes all information about a language pack in the current localization target. The language pack which is currently in use (including base language pack) or is being synchronized can't be deleted. Can be called before authorization */
+    export interface td_deleteLanguagePack {
+        '@type': 'deleteLanguagePack';
+        /** Identifier of the language pack to delete */
+        language_pack_id?: td_string;
+    }
+    
+    
+    /** Registers the currently used device for receiving push notifications. Returns a globally unique identifier of the push notification subscription */
+    export interface td_registerDevice {
+        '@type': 'registerDevice';
+        /** Device token */
+        device_token?: td_DeviceToken;
+        /** List of user identifiers of other users currently using the application */
+        other_user_ids?: td_vector<td_int32>;
+    }
+    
+    
+    /** Handles a push notification. Returns error with code 406 if the push notification is not supported and connection to the server is required to fetch new data. Can be called before authorization */
+    export interface td_processPushNotification {
+        '@type': 'processPushNotification';
+        /** JSON-encoded push notification payload with all fields sent by the server, and "google.sent_time" and "google.notification.sound" fields added */
+        payload?: td_string;
+    }
+    
+    
+    /** Returns a globally unique push notification subscription identifier for identification of an account, which has received a push notification. Can be called synchronously */
+    export interface td_getPushReceiverId {
+        '@type': 'getPushReceiverId';
+        /** JSON-encoded push notification payload */
+        payload?: td_string;
+    }
+    
+    
+    /** Returns t.me URLs recently visited by a newly registered user */
+    export interface td_getRecentlyVisitedTMeUrls {
+        '@type': 'getRecentlyVisitedTMeUrls';
+        /** Google Play referrer to identify the user */
+        referrer?: td_string;
+    }
+    
+    
+    /** Changes user privacy settings */
+    export interface td_setUserPrivacySettingRules {
+        '@type': 'setUserPrivacySettingRules';
+        /** The privacy setting */
+        setting?: td_UserPrivacySetting;
+        /** The new privacy rules */
+        rules?: td_userPrivacySettingRules;
+    }
+    
+    
+    /** Returns the current privacy settings */
+    export interface td_getUserPrivacySettingRules {
+        '@type': 'getUserPrivacySettingRules';
+        /** The privacy setting */
+        setting?: td_UserPrivacySetting;
+    }
+    
+    
+    /** Returns the value of an option by its name. (Check the list of available options on https://core.telegram.org/tdlib/options.) Can be called before authorization */
+    export interface td_getOption {
+        '@type': 'getOption';
+        /** The name of the option */
+        name?: td_string;
+    }
+    
+    
+    /** Sets the value of an option. (Check the list of available options on https://core.telegram.org/tdlib/options.) Only writable options can be set. Can be called before authorization */
+    export interface td_setOption {
+        '@type': 'setOption';
+        /** The name of the option */
+        name?: td_string;
+        /** The new value of the option */
+        value?: td_OptionValue;
+    }
+    
+    
+    /** Changes the period of inactivity after which the account of the current user will automatically be deleted */
+    export interface td_setAccountTtl {
+        '@type': 'setAccountTtl';
+        /** New account TTL */
+        ttl?: td_accountTtl;
+    }
+    
+    
+    /** Returns the period of inactivity after which the account of the current user will automatically be deleted */
+    export interface td_getAccountTtl {
+        '@type': 'getAccountTtl';
+    }
+    
+    
+    /** Deletes the account of the current user, deleting all information associated with the user from the server. The phone number of the account can be used to create a new account. Can be called before authorization when the current authorization state is authorizationStateWaitPassword */
+    export interface td_deleteAccount {
+        '@type': 'deleteAccount';
+        /** The reason why the account was deleted; optional */
+        reason?: td_string;
+    }
+    
+    
+    /** Removes a chat action bar without any other action */
+    export interface td_removeChatActionBar {
+        '@type': 'removeChatActionBar';
+        /** Chat identifier */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Reports a chat to the Telegram moderators. A chat can be reported only from the chat action bar, or if this is a private chats with a bot, a private chat with a user sharing their location, a supergroup, or a channel, since other chats can't be checked by moderators */
+    export interface td_reportChat {
+        '@type': 'reportChat';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The reason for reporting the chat */
+        reason?: td_ChatReportReason;
+        /** Identifiers of reported messages, if any */
+        message_ids?: td_vector<td_int53>;
+    }
+    
+    
+    /** Returns an HTTP URL with the chat statistics. Currently this method of getting the statistics are disabled and can be deleted in the future */
+    export interface td_getChatStatisticsUrl {
+        '@type': 'getChatStatisticsUrl';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Parameters from "tg://statsrefresh?params=******" link */
+        parameters?: td_string;
+        /** Pass true if a URL with the dark theme must be returned */
+        is_dark?: td_Bool;
+    }
+    
+    
+    /** Returns detailed statistics about a chat. Currently this method can be used only for supergroups and channels. Can be used only if SupergroupFullInfo.can_get_statistics == true */
+    export interface td_getChatStatistics {
+        '@type': 'getChatStatistics';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Pass true if a dark theme is used by the application */
+        is_dark?: td_Bool;
+    }
+    
+    
+    /** Returns detailed statistics about a message. Can be used only if Message.can_get_statistics == true */
+    export interface td_getMessageStatistics {
+        '@type': 'getMessageStatistics';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Message identifier */
+        message_id?: td_int53;
+        /** Pass true if a dark theme is used by the application */
+        is_dark?: td_Bool;
+    }
+    
+    
+    /** Loads an asynchronous or a zoomed in statistical graph */
+    export interface td_getStatisticalGraph {
+        '@type': 'getStatisticalGraph';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The token for graph loading */
+        token?: td_string;
+        /** X-value for zoomed in graph or 0 otherwise */
+        x?: td_int53;
+    }
+    
+    
+    /** Returns storage usage statistics. Can be called before authorization */
+    export interface td_getStorageStatistics {
+        '@type': 'getStorageStatistics';
+        /** The maximum number of chats with the largest storage usage for which separate statistics should be returned. All other chats will be grouped in entries with chat_id == 0. If the chat info database is not used, the chat_limit is ignored and is always set to 0 */
+        chat_limit?: td_int32;
+    }
+    
+    
+    /** Quickly returns approximate storage usage statistics. Can be called before authorization */
+    export interface td_getStorageStatisticsFast {
+        '@type': 'getStorageStatisticsFast';
+    }
+    
+    
+    /** Returns database statistics */
+    export interface td_getDatabaseStatistics {
+        '@type': 'getDatabaseStatistics';
+    }
+    
+    
+    /** Optimizes storage usage, i.e. deletes some files and returns new storage usage statistics. Secret thumbnails can't be deleted */
+    export interface td_optimizeStorage {
+        '@type': 'optimizeStorage';
+        /** Limit on the total size of files after deletion. Pass -1 to use the default limit */
+        size?: td_int53;
+        /** Limit on the time that has passed since the last time a file was accessed (or creation time for some filesystems). Pass -1 to use the default limit */
+        ttl?: td_int32;
+        /** Limit on the total count of files after deletion. Pass -1 to use the default limit */
+        count?: td_int32;
+        /** The amount of time after the creation of a file during which it can't be deleted, in seconds. Pass -1 to use the default value */
+        immunity_delay?: td_int32;
+        /** If not empty, only files with the given type(s) are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted */
+        file_types?: td_vector<td_FileType>;
+        /** If not empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos) */
+        chat_ids?: td_vector<td_int53>;
+        /** If not empty, files from the given chats are excluded. Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos) */
+        exclude_chat_ids?: td_vector<td_int53>;
+        /** Pass true if statistics about the files that were deleted must be returned instead of the whole storage usage statistics. Affects only returned statistics */
+        return_deleted_file_statistics?: td_Bool;
+        /** Same as in getStorageStatistics. Affects only returned statistics */
+        chat_limit?: td_int32;
+    }
+    
+    
+    /** Sets the current network type. Can be called before authorization. Calling this method forces all network connections to reopen, mitigating the delay in switching between different networks, so it should be called whenever the network is changed, even if the network type remains the same. -Network type is used to check whether the library can use the network at all and also for collecting detailed network data usage statistics */
+    export interface td_setNetworkType {
+        '@type': 'setNetworkType';
+        /** The new network type. By default, networkTypeOther */
+        type?: td_NetworkType;
+    }
+    
+    
+    /** Returns network data usage statistics. Can be called before authorization */
+    export interface td_getNetworkStatistics {
+        '@type': 'getNetworkStatistics';
+        /** If true, returns only data for the current library launch */
+        only_current?: td_Bool;
+    }
+    
+    
+    /** Adds the specified data to data usage statistics. Can be called before authorization */
+    export interface td_addNetworkStatistics {
+        '@type': 'addNetworkStatistics';
+        /** The network statistics entry with the data to be added to statistics */
+        entry?: td_NetworkStatisticsEntry;
+    }
+    
+    
+    /** Resets all network data usage statistics to zero. Can be called before authorization */
+    export interface td_resetNetworkStatistics {
+        '@type': 'resetNetworkStatistics';
+    }
+    
+    
+    /** Returns auto-download settings presets for the current user */
+    export interface td_getAutoDownloadSettingsPresets {
+        '@type': 'getAutoDownloadSettingsPresets';
+    }
+    
+    
+    /** Sets auto-download settings */
+    export interface td_setAutoDownloadSettings {
+        '@type': 'setAutoDownloadSettings';
+        /** New user auto-download settings */
+        settings?: td_autoDownloadSettings;
+        /** Type of the network for which the new settings are applied */
+        type?: td_NetworkType;
+    }
+    
+    
+    /** Returns information about a bank card */
+    export interface td_getBankCardInfo {
+        '@type': 'getBankCardInfo';
+        /** The bank card number */
+        bank_card_number?: td_string;
+    }
+    
+    
+    /** Returns one of the available Telegram Passport elements */
+    export interface td_getPassportElement {
+        '@type': 'getPassportElement';
+        /** Telegram Passport element type */
+        type?: td_PassportElementType;
+        /** Password of the current user */
+        password?: td_string;
+    }
+    
+    
+    /** Returns all available Telegram Passport elements */
+    export interface td_getAllPassportElements {
+        '@type': 'getAllPassportElements';
+        /** Password of the current user */
+        password?: td_string;
+    }
+    
+    
+    /** Adds an element to the user's Telegram Passport. May return an error with a message "PHONE_VERIFICATION_NEEDED" or "EMAIL_VERIFICATION_NEEDED" if the chosen phone number or the chosen email address must be verified first */
+    export interface td_setPassportElement {
+        '@type': 'setPassportElement';
+        /** Input Telegram Passport element */
+        element?: td_InputPassportElement;
+        /** Password of the current user */
+        password?: td_string;
+    }
+    
+    
+    /** Deletes a Telegram Passport element */
+    export interface td_deletePassportElement {
+        '@type': 'deletePassportElement';
+        /** Element type */
+        type?: td_PassportElementType;
+    }
+    
+    
+    /** Informs the user that some of the elements in their Telegram Passport contain errors; for bots only. The user will not be able to resend the elements, until the errors are fixed */
+    export interface td_setPassportElementErrors {
+        '@type': 'setPassportElementErrors';
+        /** User identifier */
+        user_id?: td_int32;
+        /** The errors */
+        errors?: td_vector<td_inputPassportElementError>;
+    }
+    
+    
+    /** Returns an IETF language tag of the language preferred in the country, which should be used to fill native fields in Telegram Passport personal details. Returns a 404 error if unknown */
+    export interface td_getPreferredCountryLanguage {
+        '@type': 'getPreferredCountryLanguage';
+        /** A two-letter ISO 3166-1 alpha-2 country code */
+        country_code?: td_string;
+    }
+    
+    
+    /** Sends a code to verify a phone number to be added to a user's Telegram Passport */
+    export interface td_sendPhoneNumberVerificationCode {
+        '@type': 'sendPhoneNumberVerificationCode';
+        /** The phone number of the user, in international format */
+        phone_number?: td_string;
+        /** Settings for the authentication of the user's phone number */
+        settings?: td_phoneNumberAuthenticationSettings;
+    }
+    
+    
+    /** Re-sends the code to verify a phone number to be added to a user's Telegram Passport */
+    export interface td_resendPhoneNumberVerificationCode {
+        '@type': 'resendPhoneNumberVerificationCode';
+    }
+    
+    
+    /** Checks the phone number verification code for Telegram Passport */
+    export interface td_checkPhoneNumberVerificationCode {
+        '@type': 'checkPhoneNumberVerificationCode';
+        /** Verification code */
+        code?: td_string;
+    }
+    
+    
+    /** Sends a code to verify an email address to be added to a user's Telegram Passport */
+    export interface td_sendEmailAddressVerificationCode {
+        '@type': 'sendEmailAddressVerificationCode';
+        /** Email address */
+        email_address?: td_string;
+    }
+    
+    
+    /** Re-sends the code to verify an email address to be added to a user's Telegram Passport */
+    export interface td_resendEmailAddressVerificationCode {
+        '@type': 'resendEmailAddressVerificationCode';
+    }
+    
+    
+    /** Checks the email address verification code for Telegram Passport */
+    export interface td_checkEmailAddressVerificationCode {
+        '@type': 'checkEmailAddressVerificationCode';
+        /** Verification code */
+        code?: td_string;
+    }
+    
+    
+    /** Returns a Telegram Passport authorization form for sharing data with a service */
+    export interface td_getPassportAuthorizationForm {
+        '@type': 'getPassportAuthorizationForm';
+        /** User identifier of the service's bot */
+        bot_user_id?: td_int32;
+        /** Telegram Passport element types requested by the service */
+        scope?: td_string;
+        /** Service's public_key */
+        public_key?: td_string;
+        /** Authorization form nonce provided by the service */
+        nonce?: td_string;
+    }
+    
+    
+    /** Returns already available Telegram Passport elements suitable for completing a Telegram Passport authorization form. Result can be received only once for each authorization form */
+    export interface td_getPassportAuthorizationFormAvailableElements {
+        '@type': 'getPassportAuthorizationFormAvailableElements';
+        /** Authorization form identifier */
+        autorization_form_id?: td_int32;
+        /** Password of the current user */
+        password?: td_string;
+    }
+    
+    
+    /** Sends a Telegram Passport authorization form, effectively sharing data with the service. This method must be called after getPassportAuthorizationFormAvailableElements if some previously available elements are going to be reused */
+    export interface td_sendPassportAuthorizationForm {
+        '@type': 'sendPassportAuthorizationForm';
+        /** Authorization form identifier */
+        autorization_form_id?: td_int32;
+        /** Types of Telegram Passport elements chosen by user to complete the authorization form */
+        types?: td_vector<td_PassportElementType>;
+    }
+    
+    
+    /** Sends phone number confirmation code. Should be called when user presses "https://t.me/confirmphone?phone=*******&hash=**********" or "tg://confirmphone?phone=*******&hash=**********" link */
+    export interface td_sendPhoneNumberConfirmationCode {
+        '@type': 'sendPhoneNumberConfirmationCode';
+        /** Value of the "hash" parameter from the link */
+        hash?: td_string;
+        /** Value of the "phone" parameter from the link */
+        phone_number?: td_string;
+        /** Settings for the authentication of the user's phone number */
+        settings?: td_phoneNumberAuthenticationSettings;
+    }
+    
+    
+    /** Resends phone number confirmation code */
+    export interface td_resendPhoneNumberConfirmationCode {
+        '@type': 'resendPhoneNumberConfirmationCode';
+    }
+    
+    
+    /** Checks phone number confirmation code */
+    export interface td_checkPhoneNumberConfirmationCode {
+        '@type': 'checkPhoneNumberConfirmationCode';
+        /** The phone number confirmation code */
+        code?: td_string;
+    }
+    
+    
+    /** Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only */
+    export interface td_setBotUpdatesStatus {
+        '@type': 'setBotUpdatesStatus';
+        /** The number of pending updates */
+        pending_update_count?: td_int32;
+        /** The last error message */
+        error_message?: td_string;
+    }
+    
+    
+    /** Uploads a PNG image with a sticker; for bots only; returns the uploaded file */
+    export interface td_uploadStickerFile {
+        '@type': 'uploadStickerFile';
+        /** Sticker file owner */
+        user_id?: td_int32;
+        /** PNG image with the sticker; must be up to 512 KB in size and fit in 512x512 square */
+        png_sticker?: td_InputFile;
+    }
+    
+    
+    /** Creates a new sticker set; for bots only. Returns the newly created sticker set */
+    export interface td_createNewStickerSet {
+        '@type': 'createNewStickerSet';
+        /** Sticker set owner */
+        user_id?: td_int32;
+        /** Sticker set title; 1-64 characters */
+        title?: td_string;
+        /** Sticker set name. Can contain only English letters, digits and underscores. Must end with *"_by_<bot username>"* (*<bot_username>* is case insensitive); 1-64 characters */
+        name?: td_string;
+        /** True, if stickers are masks. Animated stickers can't be masks */
+        is_masks?: td_Bool;
+        /** List of stickers to be added to the set; must be non-empty. All stickers must be of the same type */
+        stickers?: td_vector<td_InputSticker>;
+    }
+    
+    
+    /** Adds a new sticker to a set; for bots only. Returns the sticker set */
+    export interface td_addStickerToSet {
+        '@type': 'addStickerToSet';
+        /** Sticker set owner */
+        user_id?: td_int32;
+        /** Sticker set name */
+        name?: td_string;
+        /** Sticker to add to the set */
+        sticker?: td_InputSticker;
+    }
+    
+    
+    /** Sets a sticker set thumbnail; for bots only. Returns the sticker set */
+    export interface td_setStickerSetThumbnail {
+        '@type': 'setStickerSetThumbnail';
+        /** Sticker set owner */
+        user_id?: td_int32;
+        /** Sticker set name */
+        name?: td_string;
+        /** Thumbnail to set in PNG or TGS format. Animated thumbnail must be set for animated sticker sets and only for them. Pass a zero InputFileId to delete the thumbnail */
+        thumbnail?: td_InputFile;
+    }
+    
+    
+    /** Changes the position of a sticker in the set to which it belongs; for bots only. The sticker set must have been created by the bot */
+    export interface td_setStickerPositionInSet {
+        '@type': 'setStickerPositionInSet';
+        /** Sticker */
+        sticker?: td_InputFile;
+        /** New position of the sticker in the set, zero-based */
+        position?: td_int32;
+    }
+    
+    
+    /** Removes a sticker from the set to which it belongs; for bots only. The sticker set must have been created by the bot */
+    export interface td_removeStickerFromSet {
+        '@type': 'removeStickerFromSet';
+        /** Sticker */
+        sticker?: td_InputFile;
+    }
+    
+    
+    /** Returns information about a file with a map thumbnail in PNG format. Only map thumbnail files with size less than 1MB can be downloaded */
+    export interface td_getMapThumbnailFile {
+        '@type': 'getMapThumbnailFile';
+        /** Location of the map center */
+        location?: td_location;
+        /** Map zoom level; 13-20 */
+        zoom?: td_int32;
+        /** Map width in pixels before applying scale; 16-1024 */
+        width?: td_int32;
+        /** Map height in pixels before applying scale; 16-1024 */
+        height?: td_int32;
+        /** Map scale; 1-3 */
+        scale?: td_int32;
+        /** Identifier of a chat, in which the thumbnail will be shown. Use 0 if unknown */
+        chat_id?: td_int53;
+    }
+    
+    
+    /** Accepts Telegram terms of services */
+    export interface td_acceptTermsOfService {
+        '@type': 'acceptTermsOfService';
+        /** Terms of service identifier */
+        terms_of_service_id?: td_string;
+    }
+    
+    
+    /** Sends a custom request; for bots only */
+    export interface td_sendCustomRequest {
+        '@type': 'sendCustomRequest';
+        /** The method name */
+        method?: td_string;
+        /** JSON-serialized method parameters */
+        parameters?: td_string;
+    }
+    
+    
+    /** Answers a custom query; for bots only */
+    export interface td_answerCustomQuery {
+        '@type': 'answerCustomQuery';
+        /** Identifier of a custom query */
+        custom_query_id?: td_int64;
+        /** JSON-serialized answer to the query */
+        data?: td_string;
+    }
+    
+    
+    /** Succeeds after a specified amount of time has passed. Can be called before initialization */
+    export interface td_setAlarm {
+        '@type': 'setAlarm';
+        /** Number of seconds before the function returns */
+        seconds?: td_double;
+    }
+    
+    
+    /** Returns information about existing countries. Can be called before authorization */
+    export interface td_getCountries {
+        '@type': 'getCountries';
+    }
+    
+    
+    /** Uses current user IP address to find their country. Returns two-letter ISO 3166-1 alpha-2 country code. Can be called before authorization */
+    export interface td_getCountryCode {
+        '@type': 'getCountryCode';
+    }
+    
+    
+    /** Returns information about a phone number by its prefix. Can be called before authorization */
+    export interface td_getPhoneNumberInfo {
+        '@type': 'getPhoneNumberInfo';
+        /** The phone number prefix */
+        phone_number_prefix?: td_string;
+    }
+    
+    
+    /** Returns the default text for invitation messages to be used as a placeholder when the current user invites friends to Telegram */
+    export interface td_getInviteText {
+        '@type': 'getInviteText';
+    }
+    
+    
+    /** Returns information about a tg:// deep link. Use "tg://need_update_for_some_feature" or "tg:some_unsupported_feature" for testing. Returns a 404 error for unknown links. Can be called before authorization */
+    export interface td_getDeepLinkInfo {
+        '@type': 'getDeepLinkInfo';
+        /** The link */
+        link?: td_string;
+    }
+    
+    
+    /** Returns application config, provided by the server. Can be called before authorization */
+    export interface td_getApplicationConfig {
+        '@type': 'getApplicationConfig';
+    }
+    
+    
+    /** Saves application log event on the server. Can be called before authorization */
+    export interface td_saveApplicationLogEvent {
+        '@type': 'saveApplicationLogEvent';
+        /** Event type */
+        type?: td_string;
+        /** Optional chat identifier, associated with the event */
+        chat_id?: td_int53;
+        /** The log event data */
+        data?: td_JsonValue;
+    }
+    
+    
+    /** Adds a proxy server for network requests. Can be called before authorization */
+    export interface td_addProxy {
+        '@type': 'addProxy';
+        /** Proxy server IP address */
+        server?: td_string;
+        /** Proxy server port */
+        port?: td_int32;
+        /** True, if the proxy should be enabled */
+        enable?: td_Bool;
+        /** Proxy type */
+        type?: td_ProxyType;
+    }
+    
+    
+    /** Edits an existing proxy server for network requests. Can be called before authorization */
+    export interface td_editProxy {
+        '@type': 'editProxy';
+        /** Proxy identifier */
+        proxy_id?: td_int32;
+        /** Proxy server IP address */
+        server?: td_string;
+        /** Proxy server port */
+        port?: td_int32;
+        /** True, if the proxy should be enabled */
+        enable?: td_Bool;
+        /** Proxy type */
+        type?: td_ProxyType;
+    }
+    
+    
+    /** Enables a proxy. Only one proxy can be enabled at a time. Can be called before authorization */
+    export interface td_enableProxy {
+        '@type': 'enableProxy';
+        /** Proxy identifier */
+        proxy_id?: td_int32;
+    }
+    
+    
+    /** Disables the currently enabled proxy. Can be called before authorization */
+    export interface td_disableProxy {
+        '@type': 'disableProxy';
+    }
+    
+    
+    /** Removes a proxy server. Can be called before authorization */
+    export interface td_removeProxy {
+        '@type': 'removeProxy';
+        /** Proxy identifier */
+        proxy_id?: td_int32;
+    }
+    
+    
+    /** Returns list of proxies that are currently set up. Can be called before authorization */
+    export interface td_getProxies {
+        '@type': 'getProxies';
+    }
+    
+    
+    /** Returns an HTTPS link, which can be used to add a proxy. Available only for SOCKS5 and MTProto proxies. Can be called before authorization */
+    export interface td_getProxyLink {
+        '@type': 'getProxyLink';
+        /** Proxy identifier */
+        proxy_id?: td_int32;
+    }
+    
+    
+    /** Computes time needed to receive a response from a Telegram server through a proxy. Can be called before authorization */
+    export interface td_pingProxy {
+        '@type': 'pingProxy';
+        /** Proxy identifier. Use 0 to ping a Telegram server without a proxy */
+        proxy_id?: td_int32;
+    }
+    
+    
+    /** Sets new log stream for internal logging of TDLib. Can be called synchronously */
+    export interface td_setLogStream {
+        '@type': 'setLogStream';
+        /** New log stream */
+        log_stream?: td_LogStream;
+    }
+    
+    
+    /** Returns information about currently used log stream for internal logging of TDLib. Can be called synchronously */
+    export interface td_getLogStream {
+        '@type': 'getLogStream';
+    }
+    
+    
+    /** Sets the verbosity level of the internal logging of TDLib. Can be called synchronously */
+    export interface td_setLogVerbosityLevel {
+        '@type': 'setLogVerbosityLevel';
+        /** New value of the verbosity level for logging. Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging */
+        new_verbosity_level?: td_int32;
+    }
+    
+    
+    /** Returns current verbosity level of the internal logging of TDLib. Can be called synchronously */
+    export interface td_getLogVerbosityLevel {
+        '@type': 'getLogVerbosityLevel';
+    }
+    
+    
+    /** Returns list of available TDLib internal log tags, for example, ["actor", "binlog", "connections", "notifications", "proxy"]. Can be called synchronously */
+    export interface td_getLogTags {
+        '@type': 'getLogTags';
+    }
+    
+    
+    /** Sets the verbosity level for a specified TDLib internal log tag. Can be called synchronously */
+    export interface td_setLogTagVerbosityLevel {
+        '@type': 'setLogTagVerbosityLevel';
+        /** Logging tag to change verbosity level */
+        tag?: td_string;
+        /** New verbosity level; 1-1024 */
+        new_verbosity_level?: td_int32;
+    }
+    
+    
+    /** Returns current verbosity level for a specified TDLib internal log tag. Can be called synchronously */
+    export interface td_getLogTagVerbosityLevel {
+        '@type': 'getLogTagVerbosityLevel';
+        /** Logging tag to change verbosity level */
+        tag?: td_string;
+    }
+    
+    
+    /** Adds a message to TDLib internal log. Can be called synchronously */
+    export interface td_addLogMessage {
+        '@type': 'addLogMessage';
+        /** The minimum verbosity level needed for the message to be logged, 0-1023 */
+        verbosity_level?: td_int32;
+        /** Text of a message to log */
+        text?: td_string;
+    }
+    
+    
+    /** Does nothing; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testCallEmpty {
+        '@type': 'testCallEmpty';
+    }
+    
+    
+    /** Returns the received string; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testCallString {
+        '@type': 'testCallString';
+        /** String to return */
+        x?: td_string;
+    }
+    
+    
+    /** Returns the received bytes; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testCallBytes {
+        '@type': 'testCallBytes';
+        /** Bytes to return */
+        x?: td_bytes;
+    }
+    
+    
+    /** Returns the received vector of numbers; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testCallVectorInt {
+        '@type': 'testCallVectorInt';
+        /** Vector of numbers to return */
+        x?: td_vector<td_int32>;
+    }
+    
+    
+    /** Returns the received vector of objects containing a number; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testCallVectorIntObject {
+        '@type': 'testCallVectorIntObject';
+        /** Vector of objects to return */
+        x?: td_vector<td_testInt>;
+    }
+    
+    
+    /** Returns the received vector of strings; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testCallVectorString {
+        '@type': 'testCallVectorString';
+        /** Vector of strings to return */
+        x?: td_vector<td_string>;
+    }
+    
+    
+    /** Returns the received vector of objects containing a string; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testCallVectorStringObject {
+        '@type': 'testCallVectorStringObject';
+        /** Vector of objects to return */
+        x?: td_vector<td_testString>;
+    }
+    
+    
+    /** Returns the squared received number; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testSquareInt {
+        '@type': 'testSquareInt';
+        /** Number to square */
+        x?: td_int32;
+    }
+    
+    
+    /** Sends a simple network request to the Telegram servers; for testing only. Can be called before authorization */
+    export interface td_testNetwork {
+        '@type': 'testNetwork';
+    }
+    
+    
+    /** Sends a simple network request to the Telegram servers via proxy; for testing only. Can be called before authorization */
+    export interface td_testProxy {
+        '@type': 'testProxy';
+        /** Proxy server IP address */
+        server?: td_string;
+        /** Proxy server port */
+        port?: td_int32;
+        /** Proxy type */
+        type?: td_ProxyType;
+        /** Identifier of a datacenter, with which to test connection */
+        dc_id?: td_int32;
+        /** The maximum overall timeout for the request */
+        timeout?: td_double;
+    }
+    
+    
+    /** Forces an updates.getDifference call to the Telegram servers; for testing only */
+    export interface td_testGetDifference {
+        '@type': 'testGetDifference';
+    }
+    
+    
+    /** Does nothing and ensures that the Update object is used; for testing only. This is an offline method. Can be called before authorization */
+    export interface td_testUseUpdate {
+        '@type': 'testUseUpdate';
+    }
+    
+    
+    /** Returns the specified error and ensures that the Error object is used; for testing only. Can be called synchronously */
+    export interface td_testReturnError {
+        '@type': 'testReturnError';
+        /** The error to be returned */
+        error?: td_error;
+    }
+    
+    export type TdFunction = td_getAuthorizationState | td_setTdlibParameters | td_checkDatabaseEncryptionKey | td_setAuthenticationPhoneNumber | td_resendAuthenticationCode | td_checkAuthenticationCode | td_requestQrCodeAuthentication | td_registerUser | td_checkAuthenticationPassword | td_requestAuthenticationPasswordRecovery | td_recoverAuthenticationPassword | td_checkAuthenticationBotToken | td_logOut | td_close | td_destroy | td_confirmQrCodeAuthentication | td_getCurrentState | td_setDatabaseEncryptionKey | td_getPasswordState | td_setPassword | td_getRecoveryEmailAddress | td_setRecoveryEmailAddress | td_checkRecoveryEmailAddressCode | td_resendRecoveryEmailAddressCode | td_requestPasswordRecovery | td_recoverPassword | td_createTemporaryPassword | td_getTemporaryPasswordState | td_getMe | td_getUser | td_getUserFullInfo | td_getBasicGroup | td_getBasicGroupFullInfo | td_getSupergroup | td_getSupergroupFullInfo | td_getSecretChat | td_getChat | td_getMessage | td_getMessageLocally | td_getRepliedMessage | td_getChatPinnedMessage | td_getCallbackQueryMessage | td_getMessages | td_getMessageThread | td_getFile | td_getRemoteFile | td_getChats | td_searchPublicChat | td_searchPublicChats | td_searchChats | td_searchChatsOnServer | td_searchChatsNearby | td_getTopChats | td_removeTopChat | td_addRecentlyFoundChat | td_removeRecentlyFoundChat | td_clearRecentlyFoundChats | td_checkChatUsername | td_getCreatedPublicChats | td_checkCreatedPublicChatsLimit | td_getSuitableDiscussionChats | td_getInactiveSupergroupChats | td_getGroupsInCommon | td_getChatHistory | td_getMessageThreadHistory | td_deleteChatHistory | td_searchChatMessages | td_searchMessages | td_searchSecretMessages | td_searchCallMessages | td_searchChatRecentLocationMessages | td_getActiveLiveLocationMessages | td_getChatMessageByDate | td_getChatMessageCount | td_getChatScheduledMessages | td_getMessagePublicForwards | td_removeNotification | td_removeNotificationGroup | td_getMessageLink | td_getMessageEmbeddingCode | td_getMessageLinkInfo | td_sendMessage | td_sendMessageAlbum | td_sendBotStartMessage | td_sendInlineQueryResultMessage | td_forwardMessages | td_resendMessages | td_sendChatSetTtlMessage | td_sendChatScreenshotTakenNotification | td_addLocalMessage | td_deleteMessages | td_deleteChatMessagesFromUser | td_editMessageText | td_editMessageLiveLocation | td_editMessageMedia | td_editMessageCaption | td_editMessageReplyMarkup | td_editInlineMessageText | td_editInlineMessageLiveLocation | td_editInlineMessageMedia | td_editInlineMessageCaption | td_editInlineMessageReplyMarkup | td_editMessageSchedulingState | td_getTextEntities | td_parseTextEntities | td_parseMarkdown | td_getMarkdownText | td_getFileMimeType | td_getFileExtension | td_cleanFileName | td_getLanguagePackString | td_getJsonValue | td_getJsonString | td_setPollAnswer | td_getPollVoters | td_stopPoll | td_hideSuggestedAction | td_getLoginUrlInfo | td_getLoginUrl | td_getInlineQueryResults | td_answerInlineQuery | td_getCallbackQueryAnswer | td_answerCallbackQuery | td_answerShippingQuery | td_answerPreCheckoutQuery | td_setGameScore | td_setInlineGameScore | td_getGameHighScores | td_getInlineGameHighScores | td_deleteChatReplyMarkup | td_sendChatAction | td_openChat | td_closeChat | td_viewMessages | td_openMessageContent | td_readAllChatMentions | td_createPrivateChat | td_createBasicGroupChat | td_createSupergroupChat | td_createSecretChat | td_createNewBasicGroupChat | td_createNewSupergroupChat | td_createNewSecretChat | td_upgradeBasicGroupChatToSupergroupChat | td_getChatListsToAddChat | td_addChatToList | td_getChatFilter | td_createChatFilter | td_editChatFilter | td_deleteChatFilter | td_reorderChatFilters | td_getRecommendedChatFilters | td_getChatFilterDefaultIconName | td_setChatTitle | td_setChatPhoto | td_setChatPermissions | td_setChatDraftMessage | td_setChatNotificationSettings | td_toggleChatIsMarkedAsUnread | td_toggleChatDefaultDisableNotification | td_setChatClientData | td_setChatDescription | td_setChatDiscussionGroup | td_setChatLocation | td_setChatSlowModeDelay | td_pinChatMessage | td_unpinChatMessage | td_unpinAllChatMessages | td_joinChat | td_leaveChat | td_addChatMember | td_addChatMembers | td_setChatMemberStatus | td_canTransferOwnership | td_transferChatOwnership | td_getChatMember | td_searchChatMembers | td_getChatAdministrators | td_clearAllDraftMessages | td_getChatNotificationSettingsExceptions | td_getScopeNotificationSettings | td_setScopeNotificationSettings | td_resetAllNotificationSettings | td_toggleChatIsPinned | td_setPinnedChats | td_downloadFile | td_getFileDownloadedPrefixSize | td_cancelDownloadFile | td_uploadFile | td_cancelUploadFile | td_writeGeneratedFilePart | td_setFileGenerationProgress | td_finishFileGeneration | td_readFilePart | td_deleteFile | td_generateChatInviteLink | td_checkChatInviteLink | td_joinChatByInviteLink | td_createCall | td_acceptCall | td_sendCallSignalingData | td_discardCall | td_sendCallRating | td_sendCallDebugInformation | td_toggleMessageSenderIsBlocked | td_blockMessageSenderFromReplies | td_getBlockedMessageSenders | td_addContact | td_importContacts | td_getContacts | td_searchContacts | td_removeContacts | td_getImportedContactCount | td_changeImportedContacts | td_clearImportedContacts | td_sharePhoneNumber | td_getUserProfilePhotos | td_getStickers | td_searchStickers | td_getInstalledStickerSets | td_getArchivedStickerSets | td_getTrendingStickerSets | td_getAttachedStickerSets | td_getStickerSet | td_searchStickerSet | td_searchInstalledStickerSets | td_searchStickerSets | td_changeStickerSet | td_viewTrendingStickerSets | td_reorderInstalledStickerSets | td_getRecentStickers | td_addRecentSticker | td_removeRecentSticker | td_clearRecentStickers | td_getFavoriteStickers | td_addFavoriteSticker | td_removeFavoriteSticker | td_getStickerEmojis | td_searchEmojis | td_getEmojiSuggestionsUrl | td_getSavedAnimations | td_addSavedAnimation | td_removeSavedAnimation | td_getRecentInlineBots | td_searchHashtags | td_removeRecentHashtag | td_getWebPagePreview | td_getWebPageInstantView | td_setProfilePhoto | td_deleteProfilePhoto | td_setName | td_setBio | td_setUsername | td_setLocation | td_changePhoneNumber | td_resendChangePhoneNumberCode | td_checkChangePhoneNumberCode | td_setCommands | td_getActiveSessions | td_terminateSession | td_terminateAllOtherSessions | td_getConnectedWebsites | td_disconnectWebsite | td_disconnectAllWebsites | td_setSupergroupUsername | td_setSupergroupStickerSet | td_toggleSupergroupSignMessages | td_toggleSupergroupIsAllHistoryAvailable | td_reportSupergroupSpam | td_getSupergroupMembers | td_deleteSupergroup | td_closeSecretChat | td_getChatEventLog | td_getPaymentForm | td_validateOrderInfo | td_sendPaymentForm | td_getPaymentReceipt | td_getSavedOrderInfo | td_deleteSavedOrderInfo | td_deleteSavedCredentials | td_getSupportUser | td_getBackgrounds | td_getBackgroundUrl | td_searchBackground | td_setBackground | td_removeBackground | td_resetBackgrounds | td_getLocalizationTargetInfo | td_getLanguagePackInfo | td_getLanguagePackStrings | td_synchronizeLanguagePack | td_addCustomServerLanguagePack | td_setCustomLanguagePack | td_editCustomLanguagePackInfo | td_setCustomLanguagePackString | td_deleteLanguagePack | td_registerDevice | td_processPushNotification | td_getPushReceiverId | td_getRecentlyVisitedTMeUrls | td_setUserPrivacySettingRules | td_getUserPrivacySettingRules | td_getOption | td_setOption | td_setAccountTtl | td_getAccountTtl | td_deleteAccount | td_removeChatActionBar | td_reportChat | td_getChatStatisticsUrl | td_getChatStatistics | td_getMessageStatistics | td_getStatisticalGraph | td_getStorageStatistics | td_getStorageStatisticsFast | td_getDatabaseStatistics | td_optimizeStorage | td_setNetworkType | td_getNetworkStatistics | td_addNetworkStatistics | td_resetNetworkStatistics | td_getAutoDownloadSettingsPresets | td_setAutoDownloadSettings | td_getBankCardInfo | td_getPassportElement | td_getAllPassportElements | td_setPassportElement | td_deletePassportElement | td_setPassportElementErrors | td_getPreferredCountryLanguage | td_sendPhoneNumberVerificationCode | td_resendPhoneNumberVerificationCode | td_checkPhoneNumberVerificationCode | td_sendEmailAddressVerificationCode | td_resendEmailAddressVerificationCode | td_checkEmailAddressVerificationCode | td_getPassportAuthorizationForm | td_getPassportAuthorizationFormAvailableElements | td_sendPassportAuthorizationForm | td_sendPhoneNumberConfirmationCode | td_resendPhoneNumberConfirmationCode | td_checkPhoneNumberConfirmationCode | td_setBotUpdatesStatus | td_uploadStickerFile | td_createNewStickerSet | td_addStickerToSet | td_setStickerSetThumbnail | td_setStickerPositionInSet | td_removeStickerFromSet | td_getMapThumbnailFile | td_acceptTermsOfService | td_sendCustomRequest | td_answerCustomQuery | td_setAlarm | td_getCountries | td_getCountryCode | td_getPhoneNumberInfo | td_getInviteText | td_getDeepLinkInfo | td_getApplicationConfig | td_saveApplicationLogEvent | td_addProxy | td_editProxy | td_enableProxy | td_disableProxy | td_removeProxy | td_getProxies | td_getProxyLink | td_pingProxy | td_setLogStream | td_getLogStream | td_setLogVerbosityLevel | td_getLogVerbosityLevel | td_getLogTags | td_setLogTagVerbosityLevel | td_getLogTagVerbosityLevel | td_addLogMessage | td_testCallEmpty | td_testCallString | td_testCallBytes | td_testCallVectorInt | td_testCallVectorIntObject | td_testCallVectorString | td_testCallVectorStringObject | td_testSquareInt | td_testNetwork | td_testProxy | td_testGetDifference | td_testUseUpdate | td_testReturnError;
+    export type TdFunctionReturn<t> = 
+    t extends td_getAuthorizationState ? td_AuthorizationState :
+        t extends td_setTdlibParameters ? td_Ok :
+        t extends td_checkDatabaseEncryptionKey ? td_Ok :
+        t extends td_setAuthenticationPhoneNumber ? td_Ok :
+        t extends td_resendAuthenticationCode ? td_Ok :
+        t extends td_checkAuthenticationCode ? td_Ok :
+        t extends td_requestQrCodeAuthentication ? td_Ok :
+        t extends td_registerUser ? td_Ok :
+        t extends td_checkAuthenticationPassword ? td_Ok :
+        t extends td_requestAuthenticationPasswordRecovery ? td_Ok :
+        t extends td_recoverAuthenticationPassword ? td_Ok :
+        t extends td_checkAuthenticationBotToken ? td_Ok :
+        t extends td_logOut ? td_Ok :
+        t extends td_close ? td_Ok :
+        t extends td_destroy ? td_Ok :
+        t extends td_confirmQrCodeAuthentication ? td_Session :
+        t extends td_getCurrentState ? td_Updates :
+        t extends td_setDatabaseEncryptionKey ? td_Ok :
+        t extends td_getPasswordState ? td_PasswordState :
+        t extends td_setPassword ? td_PasswordState :
+        t extends td_getRecoveryEmailAddress ? td_RecoveryEmailAddress :
+        t extends td_setRecoveryEmailAddress ? td_PasswordState :
+        t extends td_checkRecoveryEmailAddressCode ? td_PasswordState :
+        t extends td_resendRecoveryEmailAddressCode ? td_PasswordState :
+        t extends td_requestPasswordRecovery ? td_EmailAddressAuthenticationCodeInfo :
+        t extends td_recoverPassword ? td_PasswordState :
+        t extends td_createTemporaryPassword ? td_TemporaryPasswordState :
+        t extends td_getTemporaryPasswordState ? td_TemporaryPasswordState :
+        t extends td_getMe ? td_User :
+        t extends td_getUser ? td_User :
+        t extends td_getUserFullInfo ? td_UserFullInfo :
+        t extends td_getBasicGroup ? td_BasicGroup :
+        t extends td_getBasicGroupFullInfo ? td_BasicGroupFullInfo :
+        t extends td_getSupergroup ? td_Supergroup :
+        t extends td_getSupergroupFullInfo ? td_SupergroupFullInfo :
+        t extends td_getSecretChat ? td_SecretChat :
+        t extends td_getChat ? td_Chat :
+        t extends td_getMessage ? td_Message :
+        t extends td_getMessageLocally ? td_Message :
+        t extends td_getRepliedMessage ? td_Message :
+        t extends td_getChatPinnedMessage ? td_Message :
+        t extends td_getCallbackQueryMessage ? td_Message :
+        t extends td_getMessages ? td_Messages :
+        t extends td_getMessageThread ? td_MessageThreadInfo :
+        t extends td_getFile ? td_File :
+        t extends td_getRemoteFile ? td_File :
+        t extends td_getChats ? td_Chats :
+        t extends td_searchPublicChat ? td_Chat :
+        t extends td_searchPublicChats ? td_Chats :
+        t extends td_searchChats ? td_Chats :
+        t extends td_searchChatsOnServer ? td_Chats :
+        t extends td_searchChatsNearby ? td_ChatsNearby :
+        t extends td_getTopChats ? td_Chats :
+        t extends td_removeTopChat ? td_Ok :
+        t extends td_addRecentlyFoundChat ? td_Ok :
+        t extends td_removeRecentlyFoundChat ? td_Ok :
+        t extends td_clearRecentlyFoundChats ? td_Ok :
+        t extends td_checkChatUsername ? td_CheckChatUsernameResult :
+        t extends td_getCreatedPublicChats ? td_Chats :
+        t extends td_checkCreatedPublicChatsLimit ? td_Ok :
+        t extends td_getSuitableDiscussionChats ? td_Chats :
+        t extends td_getInactiveSupergroupChats ? td_Chats :
+        t extends td_getGroupsInCommon ? td_Chats :
+        t extends td_getChatHistory ? td_Messages :
+        t extends td_getMessageThreadHistory ? td_Messages :
+        t extends td_deleteChatHistory ? td_Ok :
+        t extends td_searchChatMessages ? td_Messages :
+        t extends td_searchMessages ? td_Messages :
+        t extends td_searchSecretMessages ? td_FoundMessages :
+        t extends td_searchCallMessages ? td_Messages :
+        t extends td_searchChatRecentLocationMessages ? td_Messages :
+        t extends td_getActiveLiveLocationMessages ? td_Messages :
+        t extends td_getChatMessageByDate ? td_Message :
+        t extends td_getChatMessageCount ? td_Count :
+        t extends td_getChatScheduledMessages ? td_Messages :
+        t extends td_getMessagePublicForwards ? td_FoundMessages :
+        t extends td_removeNotification ? td_Ok :
+        t extends td_removeNotificationGroup ? td_Ok :
+        t extends td_getMessageLink ? td_MessageLink :
+        t extends td_getMessageEmbeddingCode ? td_Text :
+        t extends td_getMessageLinkInfo ? td_MessageLinkInfo :
+        t extends td_sendMessage ? td_Message :
+        t extends td_sendMessageAlbum ? td_Messages :
+        t extends td_sendBotStartMessage ? td_Message :
+        t extends td_sendInlineQueryResultMessage ? td_Message :
+        t extends td_forwardMessages ? td_Messages :
+        t extends td_resendMessages ? td_Messages :
+        t extends td_sendChatSetTtlMessage ? td_Message :
+        t extends td_sendChatScreenshotTakenNotification ? td_Ok :
+        t extends td_addLocalMessage ? td_Message :
+        t extends td_deleteMessages ? td_Ok :
+        t extends td_deleteChatMessagesFromUser ? td_Ok :
+        t extends td_editMessageText ? td_Message :
+        t extends td_editMessageLiveLocation ? td_Message :
+        t extends td_editMessageMedia ? td_Message :
+        t extends td_editMessageCaption ? td_Message :
+        t extends td_editMessageReplyMarkup ? td_Message :
+        t extends td_editInlineMessageText ? td_Ok :
+        t extends td_editInlineMessageLiveLocation ? td_Ok :
+        t extends td_editInlineMessageMedia ? td_Ok :
+        t extends td_editInlineMessageCaption ? td_Ok :
+        t extends td_editInlineMessageReplyMarkup ? td_Ok :
+        t extends td_editMessageSchedulingState ? td_Ok :
+        t extends td_getTextEntities ? td_TextEntities :
+        t extends td_parseTextEntities ? td_FormattedText :
+        t extends td_parseMarkdown ? td_FormattedText :
+        t extends td_getMarkdownText ? td_FormattedText :
+        t extends td_getFileMimeType ? td_Text :
+        t extends td_getFileExtension ? td_Text :
+        t extends td_cleanFileName ? td_Text :
+        t extends td_getLanguagePackString ? td_LanguagePackStringValue :
+        t extends td_getJsonValue ? td_JsonValue :
+        t extends td_getJsonString ? td_Text :
+        t extends td_setPollAnswer ? td_Ok :
+        t extends td_getPollVoters ? td_Users :
+        t extends td_stopPoll ? td_Ok :
+        t extends td_hideSuggestedAction ? td_Ok :
+        t extends td_getLoginUrlInfo ? td_LoginUrlInfo :
+        t extends td_getLoginUrl ? td_HttpUrl :
+        t extends td_getInlineQueryResults ? td_InlineQueryResults :
+        t extends td_answerInlineQuery ? td_Ok :
+        t extends td_getCallbackQueryAnswer ? td_CallbackQueryAnswer :
+        t extends td_answerCallbackQuery ? td_Ok :
+        t extends td_answerShippingQuery ? td_Ok :
+        t extends td_answerPreCheckoutQuery ? td_Ok :
+        t extends td_setGameScore ? td_Message :
+        t extends td_setInlineGameScore ? td_Ok :
+        t extends td_getGameHighScores ? td_GameHighScores :
+        t extends td_getInlineGameHighScores ? td_GameHighScores :
+        t extends td_deleteChatReplyMarkup ? td_Ok :
+        t extends td_sendChatAction ? td_Ok :
+        t extends td_openChat ? td_Ok :
+        t extends td_closeChat ? td_Ok :
+        t extends td_viewMessages ? td_Ok :
+        t extends td_openMessageContent ? td_Ok :
+        t extends td_readAllChatMentions ? td_Ok :
+        t extends td_createPrivateChat ? td_Chat :
+        t extends td_createBasicGroupChat ? td_Chat :
+        t extends td_createSupergroupChat ? td_Chat :
+        t extends td_createSecretChat ? td_Chat :
+        t extends td_createNewBasicGroupChat ? td_Chat :
+        t extends td_createNewSupergroupChat ? td_Chat :
+        t extends td_createNewSecretChat ? td_Chat :
+        t extends td_upgradeBasicGroupChatToSupergroupChat ? td_Chat :
+        t extends td_getChatListsToAddChat ? td_ChatLists :
+        t extends td_addChatToList ? td_Ok :
+        t extends td_getChatFilter ? td_ChatFilter :
+        t extends td_createChatFilter ? td_ChatFilterInfo :
+        t extends td_editChatFilter ? td_ChatFilterInfo :
+        t extends td_deleteChatFilter ? td_Ok :
+        t extends td_reorderChatFilters ? td_Ok :
+        t extends td_getRecommendedChatFilters ? td_RecommendedChatFilters :
+        t extends td_getChatFilterDefaultIconName ? td_Text :
+        t extends td_setChatTitle ? td_Ok :
+        t extends td_setChatPhoto ? td_Ok :
+        t extends td_setChatPermissions ? td_Ok :
+        t extends td_setChatDraftMessage ? td_Ok :
+        t extends td_setChatNotificationSettings ? td_Ok :
+        t extends td_toggleChatIsMarkedAsUnread ? td_Ok :
+        t extends td_toggleChatDefaultDisableNotification ? td_Ok :
+        t extends td_setChatClientData ? td_Ok :
+        t extends td_setChatDescription ? td_Ok :
+        t extends td_setChatDiscussionGroup ? td_Ok :
+        t extends td_setChatLocation ? td_Ok :
+        t extends td_setChatSlowModeDelay ? td_Ok :
+        t extends td_pinChatMessage ? td_Ok :
+        t extends td_unpinChatMessage ? td_Ok :
+        t extends td_unpinAllChatMessages ? td_Ok :
+        t extends td_joinChat ? td_Ok :
+        t extends td_leaveChat ? td_Ok :
+        t extends td_addChatMember ? td_Ok :
+        t extends td_addChatMembers ? td_Ok :
+        t extends td_setChatMemberStatus ? td_Ok :
+        t extends td_canTransferOwnership ? td_CanTransferOwnershipResult :
+        t extends td_transferChatOwnership ? td_Ok :
+        t extends td_getChatMember ? td_ChatMember :
+        t extends td_searchChatMembers ? td_ChatMembers :
+        t extends td_getChatAdministrators ? td_ChatAdministrators :
+        t extends td_clearAllDraftMessages ? td_Ok :
+        t extends td_getChatNotificationSettingsExceptions ? td_Chats :
+        t extends td_getScopeNotificationSettings ? td_ScopeNotificationSettings :
+        t extends td_setScopeNotificationSettings ? td_Ok :
+        t extends td_resetAllNotificationSettings ? td_Ok :
+        t extends td_toggleChatIsPinned ? td_Ok :
+        t extends td_setPinnedChats ? td_Ok :
+        t extends td_downloadFile ? td_File :
+        t extends td_getFileDownloadedPrefixSize ? td_Count :
+        t extends td_cancelDownloadFile ? td_Ok :
+        t extends td_uploadFile ? td_File :
+        t extends td_cancelUploadFile ? td_Ok :
+        t extends td_writeGeneratedFilePart ? td_Ok :
+        t extends td_setFileGenerationProgress ? td_Ok :
+        t extends td_finishFileGeneration ? td_Ok :
+        t extends td_readFilePart ? td_FilePart :
+        t extends td_deleteFile ? td_Ok :
+        t extends td_generateChatInviteLink ? td_ChatInviteLink :
+        t extends td_checkChatInviteLink ? td_ChatInviteLinkInfo :
+        t extends td_joinChatByInviteLink ? td_Chat :
+        t extends td_createCall ? td_CallId :
+        t extends td_acceptCall ? td_Ok :
+        t extends td_sendCallSignalingData ? td_Ok :
+        t extends td_discardCall ? td_Ok :
+        t extends td_sendCallRating ? td_Ok :
+        t extends td_sendCallDebugInformation ? td_Ok :
+        t extends td_toggleMessageSenderIsBlocked ? td_Ok :
+        t extends td_blockMessageSenderFromReplies ? td_Ok :
+        t extends td_getBlockedMessageSenders ? td_MessageSenders :
+        t extends td_addContact ? td_Ok :
+        t extends td_importContacts ? td_ImportedContacts :
+        t extends td_getContacts ? td_Users :
+        t extends td_searchContacts ? td_Users :
+        t extends td_removeContacts ? td_Ok :
+        t extends td_getImportedContactCount ? td_Count :
+        t extends td_changeImportedContacts ? td_ImportedContacts :
+        t extends td_clearImportedContacts ? td_Ok :
+        t extends td_sharePhoneNumber ? td_Ok :
+        t extends td_getUserProfilePhotos ? td_ChatPhotos :
+        t extends td_getStickers ? td_Stickers :
+        t extends td_searchStickers ? td_Stickers :
+        t extends td_getInstalledStickerSets ? td_StickerSets :
+        t extends td_getArchivedStickerSets ? td_StickerSets :
+        t extends td_getTrendingStickerSets ? td_StickerSets :
+        t extends td_getAttachedStickerSets ? td_StickerSets :
+        t extends td_getStickerSet ? td_StickerSet :
+        t extends td_searchStickerSet ? td_StickerSet :
+        t extends td_searchInstalledStickerSets ? td_StickerSets :
+        t extends td_searchStickerSets ? td_StickerSets :
+        t extends td_changeStickerSet ? td_Ok :
+        t extends td_viewTrendingStickerSets ? td_Ok :
+        t extends td_reorderInstalledStickerSets ? td_Ok :
+        t extends td_getRecentStickers ? td_Stickers :
+        t extends td_addRecentSticker ? td_Stickers :
+        t extends td_removeRecentSticker ? td_Ok :
+        t extends td_clearRecentStickers ? td_Ok :
+        t extends td_getFavoriteStickers ? td_Stickers :
+        t extends td_addFavoriteSticker ? td_Ok :
+        t extends td_removeFavoriteSticker ? td_Ok :
+        t extends td_getStickerEmojis ? td_Emojis :
+        t extends td_searchEmojis ? td_Emojis :
+        t extends td_getEmojiSuggestionsUrl ? td_HttpUrl :
+        t extends td_getSavedAnimations ? td_Animations :
+        t extends td_addSavedAnimation ? td_Ok :
+        t extends td_removeSavedAnimation ? td_Ok :
+        t extends td_getRecentInlineBots ? td_Users :
+        t extends td_searchHashtags ? td_Hashtags :
+        t extends td_removeRecentHashtag ? td_Ok :
+        t extends td_getWebPagePreview ? td_WebPage :
+        t extends td_getWebPageInstantView ? td_WebPageInstantView :
+        t extends td_setProfilePhoto ? td_Ok :
+        t extends td_deleteProfilePhoto ? td_Ok :
+        t extends td_setName ? td_Ok :
+        t extends td_setBio ? td_Ok :
+        t extends td_setUsername ? td_Ok :
+        t extends td_setLocation ? td_Ok :
+        t extends td_changePhoneNumber ? td_AuthenticationCodeInfo :
+        t extends td_resendChangePhoneNumberCode ? td_AuthenticationCodeInfo :
+        t extends td_checkChangePhoneNumberCode ? td_Ok :
+        t extends td_setCommands ? td_Ok :
+        t extends td_getActiveSessions ? td_Sessions :
+        t extends td_terminateSession ? td_Ok :
+        t extends td_terminateAllOtherSessions ? td_Ok :
+        t extends td_getConnectedWebsites ? td_ConnectedWebsites :
+        t extends td_disconnectWebsite ? td_Ok :
+        t extends td_disconnectAllWebsites ? td_Ok :
+        t extends td_setSupergroupUsername ? td_Ok :
+        t extends td_setSupergroupStickerSet ? td_Ok :
+        t extends td_toggleSupergroupSignMessages ? td_Ok :
+        t extends td_toggleSupergroupIsAllHistoryAvailable ? td_Ok :
+        t extends td_reportSupergroupSpam ? td_Ok :
+        t extends td_getSupergroupMembers ? td_ChatMembers :
+        t extends td_deleteSupergroup ? td_Ok :
+        t extends td_closeSecretChat ? td_Ok :
+        t extends td_getChatEventLog ? td_ChatEvents :
+        t extends td_getPaymentForm ? td_PaymentForm :
+        t extends td_validateOrderInfo ? td_ValidatedOrderInfo :
+        t extends td_sendPaymentForm ? td_PaymentResult :
+        t extends td_getPaymentReceipt ? td_PaymentReceipt :
+        t extends td_getSavedOrderInfo ? td_OrderInfo :
+        t extends td_deleteSavedOrderInfo ? td_Ok :
+        t extends td_deleteSavedCredentials ? td_Ok :
+        t extends td_getSupportUser ? td_User :
+        t extends td_getBackgrounds ? td_Backgrounds :
+        t extends td_getBackgroundUrl ? td_HttpUrl :
+        t extends td_searchBackground ? td_Background :
+        t extends td_setBackground ? td_Background :
+        t extends td_removeBackground ? td_Ok :
+        t extends td_resetBackgrounds ? td_Ok :
+        t extends td_getLocalizationTargetInfo ? td_LocalizationTargetInfo :
+        t extends td_getLanguagePackInfo ? td_LanguagePackInfo :
+        t extends td_getLanguagePackStrings ? td_LanguagePackStrings :
+        t extends td_synchronizeLanguagePack ? td_Ok :
+        t extends td_addCustomServerLanguagePack ? td_Ok :
+        t extends td_setCustomLanguagePack ? td_Ok :
+        t extends td_editCustomLanguagePackInfo ? td_Ok :
+        t extends td_setCustomLanguagePackString ? td_Ok :
+        t extends td_deleteLanguagePack ? td_Ok :
+        t extends td_registerDevice ? td_PushReceiverId :
+        t extends td_processPushNotification ? td_Ok :
+        t extends td_getPushReceiverId ? td_PushReceiverId :
+        t extends td_getRecentlyVisitedTMeUrls ? td_TMeUrls :
+        t extends td_setUserPrivacySettingRules ? td_Ok :
+        t extends td_getUserPrivacySettingRules ? td_UserPrivacySettingRules :
+        t extends td_getOption ? td_OptionValue :
+        t extends td_setOption ? td_Ok :
+        t extends td_setAccountTtl ? td_Ok :
+        t extends td_getAccountTtl ? td_AccountTtl :
+        t extends td_deleteAccount ? td_Ok :
+        t extends td_removeChatActionBar ? td_Ok :
+        t extends td_reportChat ? td_Ok :
+        t extends td_getChatStatisticsUrl ? td_HttpUrl :
+        t extends td_getChatStatistics ? td_ChatStatistics :
+        t extends td_getMessageStatistics ? td_MessageStatistics :
+        t extends td_getStatisticalGraph ? td_StatisticalGraph :
+        t extends td_getStorageStatistics ? td_StorageStatistics :
+        t extends td_getStorageStatisticsFast ? td_StorageStatisticsFast :
+        t extends td_getDatabaseStatistics ? td_DatabaseStatistics :
+        t extends td_optimizeStorage ? td_StorageStatistics :
+        t extends td_setNetworkType ? td_Ok :
+        t extends td_getNetworkStatistics ? td_NetworkStatistics :
+        t extends td_addNetworkStatistics ? td_Ok :
+        t extends td_resetNetworkStatistics ? td_Ok :
+        t extends td_getAutoDownloadSettingsPresets ? td_AutoDownloadSettingsPresets :
+        t extends td_setAutoDownloadSettings ? td_Ok :
+        t extends td_getBankCardInfo ? td_BankCardInfo :
+        t extends td_getPassportElement ? td_PassportElement :
+        t extends td_getAllPassportElements ? td_PassportElements :
+        t extends td_setPassportElement ? td_PassportElement :
+        t extends td_deletePassportElement ? td_Ok :
+        t extends td_setPassportElementErrors ? td_Ok :
+        t extends td_getPreferredCountryLanguage ? td_Text :
+        t extends td_sendPhoneNumberVerificationCode ? td_AuthenticationCodeInfo :
+        t extends td_resendPhoneNumberVerificationCode ? td_AuthenticationCodeInfo :
+        t extends td_checkPhoneNumberVerificationCode ? td_Ok :
+        t extends td_sendEmailAddressVerificationCode ? td_EmailAddressAuthenticationCodeInfo :
+        t extends td_resendEmailAddressVerificationCode ? td_EmailAddressAuthenticationCodeInfo :
+        t extends td_checkEmailAddressVerificationCode ? td_Ok :
+        t extends td_getPassportAuthorizationForm ? td_PassportAuthorizationForm :
+        t extends td_getPassportAuthorizationFormAvailableElements ? td_PassportElementsWithErrors :
+        t extends td_sendPassportAuthorizationForm ? td_Ok :
+        t extends td_sendPhoneNumberConfirmationCode ? td_AuthenticationCodeInfo :
+        t extends td_resendPhoneNumberConfirmationCode ? td_AuthenticationCodeInfo :
+        t extends td_checkPhoneNumberConfirmationCode ? td_Ok :
+        t extends td_setBotUpdatesStatus ? td_Ok :
+        t extends td_uploadStickerFile ? td_File :
+        t extends td_createNewStickerSet ? td_StickerSet :
+        t extends td_addStickerToSet ? td_StickerSet :
+        t extends td_setStickerSetThumbnail ? td_StickerSet :
+        t extends td_setStickerPositionInSet ? td_Ok :
+        t extends td_removeStickerFromSet ? td_Ok :
+        t extends td_getMapThumbnailFile ? td_File :
+        t extends td_acceptTermsOfService ? td_Ok :
+        t extends td_sendCustomRequest ? td_CustomRequestResult :
+        t extends td_answerCustomQuery ? td_Ok :
+        t extends td_setAlarm ? td_Ok :
+        t extends td_getCountries ? td_Countries :
+        t extends td_getCountryCode ? td_Text :
+        t extends td_getPhoneNumberInfo ? td_PhoneNumberInfo :
+        t extends td_getInviteText ? td_Text :
+        t extends td_getDeepLinkInfo ? td_DeepLinkInfo :
+        t extends td_getApplicationConfig ? td_JsonValue :
+        t extends td_saveApplicationLogEvent ? td_Ok :
+        t extends td_addProxy ? td_Proxy :
+        t extends td_editProxy ? td_Proxy :
+        t extends td_enableProxy ? td_Ok :
+        t extends td_disableProxy ? td_Ok :
+        t extends td_removeProxy ? td_Ok :
+        t extends td_getProxies ? td_Proxies :
+        t extends td_getProxyLink ? td_Text :
+        t extends td_pingProxy ? td_Seconds :
+        t extends td_setLogStream ? td_Ok :
+        t extends td_getLogStream ? td_LogStream :
+        t extends td_setLogVerbosityLevel ? td_Ok :
+        t extends td_getLogVerbosityLevel ? td_LogVerbosityLevel :
+        t extends td_getLogTags ? td_LogTags :
+        t extends td_setLogTagVerbosityLevel ? td_Ok :
+        t extends td_getLogTagVerbosityLevel ? td_LogVerbosityLevel :
+        t extends td_addLogMessage ? td_Ok :
+        t extends td_testCallEmpty ? td_Ok :
+        t extends td_testCallString ? td_TestString :
+        t extends td_testCallBytes ? td_TestBytes :
+        t extends td_testCallVectorInt ? td_TestVectorInt :
+        t extends td_testCallVectorIntObject ? td_TestVectorIntObject :
+        t extends td_testCallVectorString ? td_TestVectorString :
+        t extends td_testCallVectorStringObject ? td_TestVectorStringObject :
+        t extends td_testSquareInt ? td_TestInt :
+        t extends td_testNetwork ? td_Ok :
+        t extends td_testProxy ? td_Ok :
+        t extends td_testGetDifference ? td_Ok :
+        t extends td_testUseUpdate ? td_Update :
+        t extends td_testReturnError ? td_Error :
+        never;
+}
+export default TdApi;

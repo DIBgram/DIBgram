@@ -3,12 +3,12 @@
  * Removes an item from an array
  * @param {*} item The item to remove
  */
-Array.prototype.remove = function (item) {
+export default function removeItemFromArray(item) {
     for( var i = 0; i < this.length; i++){ 
         if ( this[i] === item) { 
             this.splice(i, 1); 
         }
     }
-};
+}
 
-export default Array.prototype.remove;
+Array.prototype.remove= removeItemFromArray;
