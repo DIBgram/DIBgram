@@ -58,7 +58,7 @@ export function removeDialog(id) {
  */
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
-})(function Dialogs({dialogs, ...rest}) {
+})(function Dialogs({dialogs, dispatch, ...rest}) {
     return (
         <div data-dialog={!!dialogs.length} {...rest}>
             {dialogs.map(el => <React.Fragment key={el.id}>{el.element}</React.Fragment>) || null}
