@@ -6,13 +6,13 @@ import ProfilePhoto from '../../../../ui/components/profile-photo';
 import { getChatsFromList } from '../chat-list';
 import chatStore from '../../../chat-store';
 import { archive_userpic, menu_settings } from '../../../../ui/icon/icons';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { createContextMenu } from '../../../../ui/menu/context-menu';
 import Menu from '../../../../ui/menu/menu';
 import ScrollView from '../../../../ui/scroll/scrollbar';
 import LinkButton from '../../../../ui/elements/link-button';
 import version from '../../../../../version';
-import { addDialog } from '../../../../ui/dialog/dialogs';
+import Dialogs, { addDialog, dialogStore } from '../../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 
@@ -168,7 +168,9 @@ const HamburgerMenu= connect(state=> ({
                         </div>
                     </ScrollView>
                 </div>
-                <div className="shadow" onClick={onClose}></div>
+                <Provider store={dialogStore}>
+                    <Dialogs className="shadow" onClick={onClose}/>
+                </Provider>
             </div>
         );
     });

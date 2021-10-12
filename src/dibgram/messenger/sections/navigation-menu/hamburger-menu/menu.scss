@@ -106,18 +106,25 @@
         background-color: var(--theme-color-layerBg);
         height: 100%;
         flex-grow: 1;
-        transition: opacity 200ms;
+        transition: opacity 200ms, background-color 100ms linear;
+        position: relative;
     }
 
     &:not(.visible) { // Closed
         pointer-events: none;
 
-        .content {
+        & > .content {
             margin-left: -274px;
         }
 
         .shadow {
             opacity: 0;
+            background-color: transparent;
+
+            &[data-dialog=true] {
+                opacity: 1;
+                pointer-events: auto;
+            }
         }
     }
 }

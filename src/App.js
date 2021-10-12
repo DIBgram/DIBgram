@@ -4,7 +4,8 @@ import {MainApp, setInitialAuthState} from './dibgram/auth/auth-screen';
 import setInitialOnlineStatus from './dibgram/TdWeb/online-handler';
 import TdLib from './dibgram/TdWeb/tdlib';
 import ConfirmDialog from './dibgram/ui/dialog/confirm-dialog';
-import Dialogs, {dialogStore, addDialog} from './dibgram/ui/dialog/dialogs';
+import {addDialog} from './dibgram/ui/dialog/dialogs';
+import { toastStore, Toasts } from './dibgram/ui/dialog/toast';
 import './dibgram/ui/main.scss';
 import { ContextMenus, contextMenusStore, onAnywhereClicked } from './dibgram/ui/menu/context-menu';
 import { ThemeProvider } from './dibgram/ui/themes/theme';
@@ -47,8 +48,8 @@ function App() {
 
     return (
         <ThemeProvider id="app" onClick={onAnywhereClicked}>
-            <Provider store={dialogStore}>
-                <Dialogs/>
+            <Provider store={toastStore}>
+                <Toasts/>
             </Provider>
             <MainApp/>
             <Provider store={contextMenusStore}>

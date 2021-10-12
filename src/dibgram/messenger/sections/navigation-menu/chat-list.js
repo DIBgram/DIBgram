@@ -17,7 +17,7 @@ import options from '../../../TdWeb/options';
 import RippleEffect, { handleMyMouseEvents, handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
 import { createContextMenu } from '../../../ui/menu/context-menu';
 import Menu from '../../../ui/menu/menu';
-import Toast from '../../../ui/dialog/toast';
+import Toast, { addToast } from '../../../ui/dialog/toast';
 import { addDialog } from '../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 
@@ -306,19 +306,13 @@ function ChatContextMenu({chat}) {
                             chat_list: chatList
                         }).then(() => {
                             if(chatList['@type'] == 'chatListMain') {
-                                addDialog('chat-un-archived-toast', (
-                                    <Toast id="chat-un-archived-toast">
-                                        Chat restored from your archive.
-                                    </Toast>
-                                ));
+                                addToast(<Toast>Chat restored from your archive.</Toast>);
                             } 
                             else if(chatList['@type'] == 'chatListArchive') {
-                                addDialog('chat-archived-toast', (
-                                    <Toast id="chat-archived-toast">
-                                        Chat archived. <br/>
-                                        Muted chats stay archived when new messages arrive.
-                                    </Toast>
-                                ));
+                                addToast(<Toast>
+                                    Chat archived. <br/>
+                                    Muted chats stay archived when new messages arrive.
+                                </Toast>);
                             }
                         });
                     }}>
@@ -385,7 +379,7 @@ const ArchivedChatsItem= connect(state=> ({
         });
     }
 
-    const moveToMainMenuToast= <Toast id="moveToMainMenuToast" >
+    const moveToMainMenuToast= <Toast>
         Archive moved to the main menu! <br/>
         You can return it from the context menu of the archive button.
     </Toast>;
@@ -408,7 +402,7 @@ const ArchivedChatsItem= connect(state=> ({
                         <Menu.MenuItem onClick={()=>{
                             setButtonState('hidden-expanded');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-expanded');
-                            addDialog('moveToMainMenuToast', moveToMainMenuToast);
+                            addToast(moveToMainMenuToast);
                         }}>
                             Move to main menu
                         </Menu.MenuItem>
@@ -469,7 +463,7 @@ const ArchivedChatsItem= connect(state=> ({
                         <Menu.MenuItem onClick={()=>{
                             setButtonState('hidden-collapsed');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-collapsed');
-                            addDialog('moveToMainMenuToast', moveToMainMenuToast);
+                            addToast(moveToMainMenuToast);
                         }}>
                             Move to main menu
                         </Menu.MenuItem>
