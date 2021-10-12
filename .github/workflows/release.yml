@@ -32,6 +32,8 @@ jobs:
     # Create an optimized build
     - name: Build
       run: npm run build --if-present
+      env:
+        CI: false
 
     # Put build folder in a zip file, so we can upload it to the release
     - name: Zip the build directory
