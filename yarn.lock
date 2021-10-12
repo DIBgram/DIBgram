@@ -4799,13 +4799,6 @@
   dependencies:
     "@typescript-eslint/experimental-utils" "^3.10.1"
 
-"eslint-plugin-typescript@^0.14.0":
-  "integrity" "sha512-2u1WnnDF2mkWWgU1lFQ2RjypUlmRoBEvQN02y9u+IL12mjWlkKFGEBnVsjs9Y8190bfPQCvWly1c2rYYUSOxWw=="
-  "resolved" "https://registry.npmjs.org/eslint-plugin-typescript/-/eslint-plugin-typescript-0.14.0.tgz"
-  "version" "0.14.0"
-  dependencies:
-    "requireindex" "~1.1.0"
-
 "eslint-scope@^4.0.3":
   "integrity" "sha512-p7VutNr1O/QrxysMo3E45FjYDTeXBy0iTltPFNSqKAIfjDSXC+4dj+qfyuD8bfAXrW/y6lW3O76VaYNPKfpKrg=="
   "resolved" "https://registry.npmjs.org/eslint-scope/-/eslint-scope-4.0.3.tgz"
@@ -10037,11 +10030,6 @@
   "integrity" "sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg=="
   "resolved" "https://registry.npmjs.org/require-main-filename/-/require-main-filename-2.0.0.tgz"
   "version" "2.0.0"
-
-"requireindex@~1.1.0":
-  "integrity" "sha1-5UBLgVV+91225JxacgBIk/4D4WI="
-  "resolved" "https://registry.npmjs.org/requireindex/-/requireindex-1.1.0.tgz"
-  "version" "1.1.0"
 
 "requires-port@^1.0.0":
   "integrity" "sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8="

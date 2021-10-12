@@ -1,11 +1,12 @@
 {
     "cSpell.words": [
-        "Supergroup",
-        "Tdweb",
-        "Vazir",
         "dibgram",
+        "precache",
         "stylelint",
-        "tdlib"
+        "Supergroup",
+        "tdlib",
+        "Tdweb",
+        "Vazir"
     ],
     "eslint.rules.customizations": [
         { "rule": "indent", "severity": "info" },
