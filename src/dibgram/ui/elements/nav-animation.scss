@@ -1,0 +1,86 @@
+.nav-animation {
+    overflow: hidden; // The animation will create TechGore if outside of it is visible.
+
+    &,
+    & > .outer,
+    & > .inner {
+        height: 100%;
+        position: relative;
+    }
+
+    & > .inner {
+        background-color: inherit;
+    }
+
+    &.slide-over {
+        & > .outer {
+            transition: margin 200ms;
+        }
+
+        & > .inner {
+            position: absolute;
+            top: 0;
+            left: 100%; // Out of bounds by default
+            bottom: 0;
+            width: 100%;
+            transition: left 200ms;
+            background: var(--theme-color-dialogsBg);
+            z-index: +2;
+
+            &::before { // Shadow
+                content: '';
+
+                position: absolute;
+                top: 0;
+                right: 100%;
+                bottom: 0;
+                width: 100%;
+
+                background-color: var(--theme-color-layerBg);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 200ms;
+            }
+        }
+
+        &.open {
+            & > .inner {
+                left: 0;
+                animation: nav-animation-slide-over-inner 200ms;
+            }
+
+            & > .inner::before {
+                opacity: 1;
+                animation: nav-animation-slide-over-shadow 200ms;
+            }
+
+            & > .outer {
+                margin-left: -35%;
+                margin-right: 35%;
+                animation: nav-animation-slide-over-outer 200ms;
+            }
+        }
+    }
+}
+
+@keyframes nav-animation-slide-over-inner {
+    from { left: 100%; }
+    to { left: 0; }
+}
+
+@keyframes nav-animation-slide-over-shadow {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes nav-animation-slide-over-outer {
+    from {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    to {
+        margin-left: -35%;
+        margin-right: 35%;
+    }
+}
