@@ -13029,6 +13029,89 @@ namespace TdApi {
         t extends td_testGetDifference ? td_Ok :
         t extends td_testUseUpdate ? td_Update :
         t extends td_testReturnError ? td_Error :
+        never
+    
+    export type TdUpdateType<t> = 
+    t extends td_updateAuthorizationState ? "updateAuthorizationState" :
+        t extends td_updateNewMessage ? "updateNewMessage" :
+        t extends td_updateMessageSendAcknowledged ? "updateMessageSendAcknowledged" :
+        t extends td_updateMessageSendSucceeded ? "updateMessageSendSucceeded" :
+        t extends td_updateMessageSendFailed ? "updateMessageSendFailed" :
+        t extends td_updateMessageContent ? "updateMessageContent" :
+        t extends td_updateMessageEdited ? "updateMessageEdited" :
+        t extends td_updateMessageIsPinned ? "updateMessageIsPinned" :
+        t extends td_updateMessageInteractionInfo ? "updateMessageInteractionInfo" :
+        t extends td_updateMessageContentOpened ? "updateMessageContentOpened" :
+        t extends td_updateMessageMentionRead ? "updateMessageMentionRead" :
+        t extends td_updateMessageLiveLocationViewed ? "updateMessageLiveLocationViewed" :
+        t extends td_updateNewChat ? "updateNewChat" :
+        t extends td_updateChatTitle ? "updateChatTitle" :
+        t extends td_updateChatPhoto ? "updateChatPhoto" :
+        t extends td_updateChatPermissions ? "updateChatPermissions" :
+        t extends td_updateChatLastMessage ? "updateChatLastMessage" :
+        t extends td_updateChatPosition ? "updateChatPosition" :
+        t extends td_updateChatIsMarkedAsUnread ? "updateChatIsMarkedAsUnread" :
+        t extends td_updateChatIsBlocked ? "updateChatIsBlocked" :
+        t extends td_updateChatHasScheduledMessages ? "updateChatHasScheduledMessages" :
+        t extends td_updateChatDefaultDisableNotification ? "updateChatDefaultDisableNotification" :
+        t extends td_updateChatReadInbox ? "updateChatReadInbox" :
+        t extends td_updateChatReadOutbox ? "updateChatReadOutbox" :
+        t extends td_updateChatUnreadMentionCount ? "updateChatUnreadMentionCount" :
+        t extends td_updateChatNotificationSettings ? "updateChatNotificationSettings" :
+        t extends td_updateScopeNotificationSettings ? "updateScopeNotificationSettings" :
+        t extends td_updateChatActionBar ? "updateChatActionBar" :
+        t extends td_updateChatReplyMarkup ? "updateChatReplyMarkup" :
+        t extends td_updateChatDraftMessage ? "updateChatDraftMessage" :
+        t extends td_updateChatFilters ? "updateChatFilters" :
+        t extends td_updateChatOnlineMemberCount ? "updateChatOnlineMemberCount" :
+        t extends td_updateNotification ? "updateNotification" :
+        t extends td_updateNotificationGroup ? "updateNotificationGroup" :
+        t extends td_updateActiveNotifications ? "updateActiveNotifications" :
+        t extends td_updateHavePendingNotifications ? "updateHavePendingNotifications" :
+        t extends td_updateDeleteMessages ? "updateDeleteMessages" :
+        t extends td_updateUserChatAction ? "updateUserChatAction" :
+        t extends td_updateUserStatus ? "updateUserStatus" :
+        t extends td_updateUser ? "updateUser" :
+        t extends td_updateBasicGroup ? "updateBasicGroup" :
+        t extends td_updateSupergroup ? "updateSupergroup" :
+        t extends td_updateSecretChat ? "updateSecretChat" :
+        t extends td_updateUserFullInfo ? "updateUserFullInfo" :
+        t extends td_updateBasicGroupFullInfo ? "updateBasicGroupFullInfo" :
+        t extends td_updateSupergroupFullInfo ? "updateSupergroupFullInfo" :
+        t extends td_updateServiceNotification ? "updateServiceNotification" :
+        t extends td_updateFile ? "updateFile" :
+        t extends td_updateFileGenerationStart ? "updateFileGenerationStart" :
+        t extends td_updateFileGenerationStop ? "updateFileGenerationStop" :
+        t extends td_updateCall ? "updateCall" :
+        t extends td_updateNewCallSignalingData ? "updateNewCallSignalingData" :
+        t extends td_updateUserPrivacySettingRules ? "updateUserPrivacySettingRules" :
+        t extends td_updateUnreadMessageCount ? "updateUnreadMessageCount" :
+        t extends td_updateUnreadChatCount ? "updateUnreadChatCount" :
+        t extends td_updateOption ? "updateOption" :
+        t extends td_updateStickerSet ? "updateStickerSet" :
+        t extends td_updateInstalledStickerSets ? "updateInstalledStickerSets" :
+        t extends td_updateTrendingStickerSets ? "updateTrendingStickerSets" :
+        t extends td_updateRecentStickers ? "updateRecentStickers" :
+        t extends td_updateFavoriteStickers ? "updateFavoriteStickers" :
+        t extends td_updateSavedAnimations ? "updateSavedAnimations" :
+        t extends td_updateSelectedBackground ? "updateSelectedBackground" :
+        t extends td_updateLanguagePackStrings ? "updateLanguagePackStrings" :
+        t extends td_updateConnectionState ? "updateConnectionState" :
+        t extends td_updateTermsOfService ? "updateTermsOfService" :
+        t extends td_updateUsersNearby ? "updateUsersNearby" :
+        t extends td_updateDiceEmojis ? "updateDiceEmojis" :
+        t extends td_updateAnimationSearchParameters ? "updateAnimationSearchParameters" :
+        t extends td_updateSuggestedActions ? "updateSuggestedActions" :
+        t extends td_updateNewInlineQuery ? "updateNewInlineQuery" :
+        t extends td_updateNewChosenInlineResult ? "updateNewChosenInlineResult" :
+        t extends td_updateNewCallbackQuery ? "updateNewCallbackQuery" :
+        t extends td_updateNewInlineCallbackQuery ? "updateNewInlineCallbackQuery" :
+        t extends td_updateNewShippingQuery ? "updateNewShippingQuery" :
+        t extends td_updateNewPreCheckoutQuery ? "updateNewPreCheckoutQuery" :
+        t extends td_updateNewCustomEvent ? "updateNewCustomEvent" :
+        t extends td_updateNewCustomQuery ? "updateNewCustomQuery" :
+        t extends td_updatePoll ? "updatePoll" :
+        t extends td_updatePollAnswer ? "updatePollAnswer" :
         never;
 }
 export default TdApi;

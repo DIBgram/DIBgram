@@ -21,7 +21,7 @@ export function getCurrentSessionId() {
 export default class TdLib {
     static #tdClient: any;
     /** @type {[string: Array<Function>]} */
-    static #updateHandlers: {[key: string]: ((update: TdApi.td_Update) => void)[]}={};
+    static #updateHandlers: {[key: string]: ((update: any) => void)[]}={};
 
     /**
      * Creates the instance of Tdweb
@@ -45,10 +45,10 @@ export default class TdLib {
 
     /**
      * Listen for updates from TdLib
-     * @param {string} type The type of the update to listen to. Look for TdLib API docs for types
-     * @param {Function} handler The function that gets called with the update object when the update is received
+     * @param type The type of the update to listen to. Look for TdLib API docs for types
+     * @param handler The function that gets called with the update object when the update is received
      */
-    static registerUpdateHandler(type: string, handler: (update: TdApi.td_Update) => void) {
+    static registerUpdateHandler<T extends TdApi.td_Update>(type: TdApi.TdUpdateType<T>, handler: (update: T) => void): void {
         if(TdLib.#updateHandlers[type]===undefined){
             TdLib.#updateHandlers[type]= [];
         }
@@ -60,7 +60,7 @@ export default class TdLib {
      * @param {string} type The type of the update to remove handler from. Look for TdLib API docs for types
      * @param {Function} handler The handler to remove
      */
-    static unRegisterUpdateHandler(type: string, handler: (update: TdApi.td_Update) => void) {
+    static unRegisterUpdateHandler<T extends TdApi.td_Update>(type: TdApi.TdUpdateType<T>, handler: (update: T) => void): void {
         if(TdLib.#updateHandlers[type]===undefined){
             return;
         }
