@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TdLib from '../../TdWeb/tdlib';
 import currencyAmountToString from '../payments/currency-tostring';
 import {getUserFullName} from '../user-misc';
+import { getChatNoCache } from '../chat-store';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -536,8 +537,8 @@ export const MessageSummarySender=
                     part1= users[message.sender.user_id].first_name + ': ';
                 }
             }
-            if(message.sender['@type']=='messageSenderChat') { // TODO: Fix channel posts
-                part1= chat.title+': ';
+            if(message.sender['@type']=='messageSenderChat') {
+                part1= getChatNoCache(message.sender.chat_id).title+': ';
             }
         }
         return part1? <span className="sender">{part1}</span> : null;

@@ -436,3 +436,12 @@ export function getChat(id) {
     }
     return res;
 }
+
+/**
+ * Gets a chat from a chat ID. Does not support caching to prevent promises complexity.
+ */
+export function getChatNoCache(id) {
+    for(let chat of chatStore.getState()?.chats) {
+        if(chat.id==id) return chat;
+    }
+}
