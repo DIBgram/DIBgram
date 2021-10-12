@@ -36,16 +36,17 @@
     ],
     "rules": {
         "indent": [
-            "error",
+            "warn",
             4
         ],
         "quotes": [
-            "error",
+            "warn",
             "single"
         ],
         "semi": [
-            "error",
+            "warn",
             "always"
-        ]
+        ],
+        "no-unused-vars": "warn"
     }
 }
