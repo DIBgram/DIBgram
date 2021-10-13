@@ -220,8 +220,36 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                     thumbnails={[message.content?.document?.minithumbnail?.data]}/>
             );
         
-        // case 'messageExpiredPhoto': // TODO: Find a way to reproduce these messages and implement them
-        // case 'messageExpiredVideo':
+        case 'messageExpiredPhoto': 
+            if(message.is_outgoing) { // You sent it
+                return (
+                    <span className={className}>
+                        <span className="part-1">You sent a self-destructing photo</span>
+                    </span>
+                );
+            } else { // You received it
+                return (
+                    <span className={className}><span className="part-1">
+                        <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing photo. Please view it on your mobile.
+                    </span></span>
+                );
+            }
+        
+        case 'messageExpiredVideo':
+            if(message.is_outgoing) { // You sent it
+                return (
+                    <span className={className}>
+                        <span className="part-1">You sent a self-destructing video</span>
+                    </span>
+                );
+            } else { // You received it
+                return (
+                    <span className={className}><span className="part-1">
+                        <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing video. Please view it on your mobile.
+                    </span></span>
+                );
+            }
+        
         case 'messageGame': // Game
             return (
                 <span className={className}>
