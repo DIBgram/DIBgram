@@ -517,7 +517,7 @@ function MayHaveCaptionThumbnail({thumbnails, isVideo, type, caption, className,
     return (
         <span className={className}>
             <MessageSummarySender message={message} chat={chat} users={users}/>
-            {thumbnails.map((data, i) => data && <span className={'thumbnail'+ (isVideo? ' video': '')} key={i}><img src={'data:image/png;base64,'+data}/></span>)} 
+            {thumbnails.map((data, i) => data && <span className={'thumbnail'+ (isVideo? ' video': '')} key={i}><img src={'data:image/jpeg;base64,'+data}/></span>)} 
             {caption? 
                 <span className="part-2">{caption.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
                 :<span className="part-1">{type}</span> 
