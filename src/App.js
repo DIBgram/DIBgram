@@ -15,6 +15,10 @@ TdLib.initializeTdLib().then(function (res) {
     setInitialOnlineStatus();
 });
 
+if(process.env.NODE_ENV== 'development') {
+    window['sendQuery']= TdLib.sendQuery;
+}
+
 /**
  * Renders the whole React app
  */
