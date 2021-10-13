@@ -67,7 +67,8 @@ const ChatList= connect(state=> ({connectionState: state}))(
         static propTypes = {
             chats: PropTypes.array.isRequired,
             list: PropTypes.object.isRequired,
-            connectionState: PropTypes.string.isRequired
+            connectionState: PropTypes.string.isRequired,
+            unread: PropTypes.object.isRequired,
         }
 
         // When updating, TDLib sends updates of type updateChatLastMessage, where only the last one is needed.
@@ -76,6 +77,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
         shouldComponentUpdate(nextProps) {
             return (nextProps.chats !== this.props.chats 
                 || nextProps.list !== this.props.list 
+                || nextProps.unread !== this.props.unread
                 || nextProps.connectionState !== this.props.connectionState)
                 && nextProps.connectionState != 'connectionStateUpdating'; // Do not re-render if updating
         }
@@ -92,7 +94,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
                         </Provider>
                     )}
                     <Provider store={usersStore}>
-                        {array.length ? array :  <EmptyChatList list={this.props.list} connectionState={this.props.connectionState}/>}
+                        {array.length ? array :  <EmptyChatList list={this.props.list} unread={this.props.unread}/>}
                     </Provider>
                 </ScrollView>
             );
@@ -491,23 +493,22 @@ ArchivedChatsItem.propTypes = {
 };
 
 /** Renders the empty chat list fallback */
-function EmptyChatList({list, connectionState}) {
-    //TODO: Use getChats result to see if chat is loaded or not
-    if(connectionState!='connectionStateReady') { // Chat list is not loaded yet 
-        return (
-            <div className="empty">
-                <div>Loading...</div>
-            </div>
-        );
-    }
-    if(list['@type']=='chatListFilter'){ // Empty filter
+function EmptyChatList({list, unread}) {
+    const loadingFallBack= (
+        <div className="empty">
+            <div>Loading...</div>
+        </div>
+    );
+    if(list['@type']=='chatListFilter'){ // Empty filter / Filter not loaded
+        if(unread.filters?.[list.chat_filter_id]?.total_chats_count !== 0) return loadingFallBack;
         return (
             <div className="empty">
                 <div>No chats currently belong to this folder.</div>
                 <LinkButton>Edit Folder</LinkButton>
             </div>
         );
-    } else { // There are no chats at all
+    } else { // There are no chats at all / Chats not loaded
+        if(unread.main?.total_chats_count !== 0) return loadingFallBack;
         return (
             <div className="empty">
                 <div>Your chats will be here</div>

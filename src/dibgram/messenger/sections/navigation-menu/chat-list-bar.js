@@ -53,7 +53,7 @@ const ChatListBar = connect(function (state) {
                         ): null}
                         <div className="title">Archived chats</div>
                     </div>
-                    <ChatList chats={chats} list={{'@type': 'chatListArchive'}}/>
+                    <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread}/>
                 </Provider>
             }>
             <div className="chat-list-header">
@@ -61,7 +61,7 @@ const ChatListBar = connect(function (state) {
                 <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
             </div>
             <Provider store={connectionStore}>
-                <ChatList chats={chats} list={list}/>
+                <ChatList chats={chats} list={list} unread={unread}/>
                 <ConnectionState/>
             </Provider>
         </NavAnimation>
