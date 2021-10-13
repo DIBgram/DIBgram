@@ -209,15 +209,15 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             );
 
         case 'messageDocument': // File/document
-            // TODO: Implement thumbnails
             return (
-                <MayHaveCaption 
+                <MayHaveCaptionThumbnail
                     type={message.content.document.file_name} 
                     caption={message.content.caption?.text} 
                     className={className} 
                     message={message} 
                     chat={chat}
-                    users={users}/>
+                    users={users}
+                    thumbnails={[message.content?.document?.minithumbnail?.data]}/>
             );
         
         // case 'messageExpiredPhoto': // TODO: Find a way to reproduce these messages and implement them
