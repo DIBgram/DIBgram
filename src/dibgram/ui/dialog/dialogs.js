@@ -58,6 +58,7 @@ export function removeDialog(id) {
  */
 const Dialogs= (connect(function (state) {
     return {dialogs: state || []};
+    // eslint-disable-next-line no-unused-vars
 })(function Dialogs({dialogs, dispatch, ...rest}) {
     return (
         <div data-dialog={!!dialogs.length} {...rest}>
