@@ -21,13 +21,14 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
         switch(message.content['@type']) {
         case 'messageAnimation': // GIF
             return (
-                <MayHaveCaption
+                <MayHaveCaptionThumbnail
                     type="GIF" 
                     caption={message.content.caption?.text} 
                     className={className} 
                     message={message} 
                     chat={chat}
-                    users={users}/>
+                    users={users}
+                    thumbnails={[message.content?.animation?.minithumbnail?.data]}/>
             );
         
         case 'messageAudio': // Audio/music file
@@ -358,7 +359,6 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                         </span>
                     );
                 } else { // You received it
-                    // TODO: Implement mini-thumbnails for photos (and albums)
                     return (
                         <span className={className}><span className="part-1">
                             <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing photo. Please view it on your mobile.
@@ -367,13 +367,14 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
                 }
             } else { // Normal photo
                 return (
-                    <MayHaveCaption 
+                    <MayHaveCaptionThumbnail 
                         type="Photo" 
                         caption={message.content.caption?.text} 
                         className={className} 
                         message={message} 
                         chat={chat}
-                        users={users}/>
+                        users={users}
+                        thumbnails={[message.content?.photo?.minithumbnail?.data]}/>
                 );
             }
         
@@ -437,15 +438,16 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
 
         case 'messageVideo': // Video
             // TODO: Implement self-destructing videos (notices)
-            // TODO: Implement mini-thumbnails and albums
             return (
-                <MayHaveCaption 
+                <MayHaveCaptionThumbnail
                     type="Video" 
                     caption={message.content.caption?.text} 
                     className={className} 
                     message={message} 
                     chat={chat}
-                    users={users}/>
+                    users={users}
+                    isVideo={true}
+                    thumbnails={[message.content?.video?.minithumbnail?.data]}/>
             );
 
         case 'messageVideoNote':
@@ -496,6 +498,38 @@ function MayHaveCaption({type, caption, className, message, chat, users}) {
     );
 }
 MayHaveCaption.propTypes= {
+    /** Message type, e.g. 'GIF', 'Video' */
+    type: PropTypes.string.isRequired,
+    /** Message caption, can be empty */
+    caption: PropTypes.string,
+    className: PropTypes.string,
+    /** Message object */
+    message: PropTypes.object,
+    /** The chat in which the message was sent */
+    chat: PropTypes.object,
+    /** A dictionary of all users */
+    users: PropTypes.object.isRequired
+};
+
+/** If caption has a value, adds a comma to type and returns type */ 
+function MayHaveCaptionThumbnail({thumbnails, isVideo, type, caption, className, message, chat, users}) {
+    if(!thumbnails?.length) return <MayHaveCaption type={type} caption={caption} className={className} message={message} chat={chat} users={users}/>;
+    return (
+        <span className={className}>
+            <MessageSummarySender message={message} chat={chat} users={users}/>
+            {thumbnails.map((data, i) => data && <span className={'thumbnail'+ (isVideo? ' video': '')} key={i}><img src={'data:image/png;base64,'+data}/></span>)} 
+            {caption? 
+                <span className="part-2">{caption.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
+                :<span className="part-1">{type}</span> 
+            }
+        </span>
+    );
+}
+MayHaveCaptionThumbnail.propTypes= {
+    /** An array of one or more base64-encoded image data */
+    thumbnails: PropTypes.arrayOf(PropTypes.string),
+    /** If true, a tiny play icon will be shown on the image */
+    isVideo: PropTypes.bool,
     /** Message type, e.g. 'GIF', 'Video' */
     type: PropTypes.string.isRequired,
     /** Message caption, can be empty */
