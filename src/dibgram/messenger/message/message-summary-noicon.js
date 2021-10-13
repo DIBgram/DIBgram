@@ -437,18 +437,33 @@ const MessageSummaryWithoutIcon= connect(state=> ({users: state}))(
             );
 
         case 'messageVideo': // Video
-            // TODO: Implement self-destructing videos (notices)
-            return (
-                <MayHaveCaptionThumbnail
-                    type="Video" 
-                    caption={message.content.caption?.text} 
-                    className={className} 
-                    message={message} 
-                    chat={chat}
-                    users={users}
-                    isVideo={true}
-                    thumbnails={[message.content?.video?.minithumbnail?.data]}/>
-            );
+            if(message.content.is_secret) { // Self-destructing photo, not implemented
+                if(message.is_outgoing) { // You sent it
+                    return (
+                        <span className={className}>
+                            <span className="part-1">You sent a self-destructing video</span>
+                        </span>
+                    );
+                } else { // You received it
+                    return (
+                        <span className={className}><span className="part-1">
+                            <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing video. Please view it on your mobile.
+                        </span></span>
+                    );
+                }
+            } else { // Normal photo
+                return (
+                    <MayHaveCaptionThumbnail
+                        type="Video" 
+                        caption={message.content.caption?.text} 
+                        className={className} 
+                        message={message} 
+                        chat={chat}
+                        users={users}
+                        isVideo={true}
+                        thumbnails={[message.content?.video?.minithumbnail?.data]}/>
+                );
+            }
 
         case 'messageVideoNote':
             return (
