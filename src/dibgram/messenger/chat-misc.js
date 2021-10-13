@@ -22,6 +22,18 @@ export function isChatWithDeletedAccount(chat, users) {
 }
 
 /**
+ * Returns the chat's title and handles deleted account
+ * @param {object} chat The chat to get the name of
+ * @param {{[key: number]: object}} users A list of all users (e.g. usersStore state). If not provided, usersStore will be used
+ * @returns Chat title, or 'Deleted Account'
+ */
+export function chatTitleOrDeletedAccount(chat, users) {
+    if(isChatWithDeletedAccount(chat, users))
+        return 'Deleted Account';
+    return chat.title;
+}
+
+/**
  * Checks if a user, bot or channel is verified
  * @param {import('tdweb').TdObject} chat The chat to be checked
  * @returns {boolean} True if the chat is verified, false if not

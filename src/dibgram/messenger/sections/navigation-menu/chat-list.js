@@ -10,7 +10,7 @@ import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
 import LinkButton from '../../../ui/elements/link-button';
-import { isChatWithDeletedAccount, isChatVerified } from '../../chat-misc';
+import { isChatWithDeletedAccount, isChatVerified, chatTitleOrDeletedAccount } from '../../chat-misc';
 import { smallDateTimeToString } from '../../../time-tostring';
 import { getMessageStatus } from '../../message-misc';
 import options from '../../../TdWeb/options';
@@ -425,13 +425,13 @@ const ArchivedChatsItem= connect(state=> ({
                                     <span className="part-1">
                                         {chatsInList
                                             .filter(chat=> chat.unread_count > 0)
-                                            .map(chat => (chat.title || 'Deleted Account') + ', ') //TODO: Check user to see if it is deleted account
+                                            .map(chat => chatTitleOrDeletedAccount(chat) + ', ')
                                             .join('')}
                                     </span>
                                     <span className="part-2">
                                         {chatsInList
                                             .filter(chat=> chat.unread_count == 0)
-                                            .map(chat => chat.title || 'Deleted Account')
+                                            .map(chatTitleOrDeletedAccount)
                                             .join(', ')}
                                     </span>
                                 </div>
