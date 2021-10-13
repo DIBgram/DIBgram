@@ -11,6 +11,7 @@
             display: none;  /* Safari and Chrome */
         }
         margin: 0 !important;
+        scroll-behavior: smooth;
     }
 
     .track-horizontal, // Horizontal scrollbar should be hidden

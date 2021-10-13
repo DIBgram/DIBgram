@@ -10,6 +10,16 @@
     bottom: 0;
     transition: margin-left 200ms;
 
+    & + .history-to-down {
+        svg {
+            transform: rotate(180deg);
+        }
+
+        &.visible {
+            bottom: 7px;
+        }
+    }
+
     .empty {
         text-align: center;
         margin-top: 53px;

@@ -5,7 +5,7 @@ import TdLib from '../../../TdWeb/tdlib';
 import chatStore, { compareChatList } from '../../chat-store';
 import './chat-list.scss';
 import ProfilePhoto, { getChatTypeId } from '../../../ui/components/profile-photo';
-import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check, dialogs_sending, dialogs_sent, dialogs_received, archive_userpic } from '../../../ui/icon/icons';
+import { dialogs_chat, dialogs_channel, dialogs_bot, dialogs_pinned, dialogs_verified_star, dialogs_verified_check, dialogs_sending, dialogs_sent, dialogs_received, archive_userpic, history_to_down } from '../../../ui/icon/icons';
 import usersStore from '../../users-store';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import MessageSummaryWithoutIcon from '../../message/message-summary-noicon';
@@ -20,6 +20,8 @@ import Menu from '../../../ui/menu/menu';
 import Toast, { addToast } from '../../../ui/dialog/toast';
 import { addDialog } from '../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
+import './history-to-down.scss';
+import IconButton from '../../../ui/elements/icon-button';
 
 /**********************************************************************************************
  * Because of the length of this file, it is recommended to use a tool to view document outline
@@ -70,15 +72,27 @@ const ChatList= connect(state=> ({connectionState: state}))(
             connectionState: PropTypes.string.isRequired,
             unread: PropTypes.object.isRequired,
         }
+        state= {
+            scrollToTopVisible: false,
+        }
+        scrollRef= React.createRef();
+
+        onScroll= (e) => {
+            const visible= e.target.scrollTop > 480;
+            if (visible != this.state.scrollToTopVisible) {
+                this.setState({scrollToTopVisible: visible});
+            }
+        }
 
         // When updating, TDLib sends updates of type updateChatLastMessage, where only the last one is needed.
         // This greatly hurts performance.
         // However, we can workaround it by not re-rendering until all updates have arrived.
-        shouldComponentUpdate(nextProps) {
+        shouldComponentUpdate(nextProps, nextState) {
             return (nextProps.chats !== this.props.chats 
                 || nextProps.list !== this.props.list 
                 || nextProps.unread !== this.props.unread
-                || nextProps.connectionState !== this.props.connectionState)
+                || nextProps.connectionState !== this.props.connectionState
+                || nextState.scrollToTopVisible !== this.state.scrollToTopVisible)
                 && nextProps.connectionState != 'connectionStateUpdating'; // Do not re-render if updating
         }
 
@@ -86,17 +100,21 @@ const ChatList= connect(state=> ({connectionState: state}))(
             // Get chats from the list (this needs to be repeated on every modification)
             const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><Chat key={chat.id} chat={chat} />);
             
-            return ( //TODO: Show a jump to top button when scroll position is >480px
-                <ScrollView id="chat-list" scrollBarWidth="4">
-                    {this.props.list['@type']=='chatListMain' && (
-                        <Provider store={chatStore}>
-                            <ArchivedChatsItem chats={this.props.chats}/>
+            return (
+                <React.Fragment>
+                    <ScrollView scrollRef={this.scrollRef} id="chat-list" scrollBarWidth="4" onScroll={this.onScroll}>
+                        {this.props.list['@type']=='chatListMain' && (
+                            <Provider store={chatStore}>
+                                <ArchivedChatsItem chats={this.props.chats}/>
+                            </Provider>
+                        )}
+                        <Provider store={usersStore}>
+                            {array.length ? array :  <EmptyChatList list={this.props.list} unread={this.props.unread}/>}
                         </Provider>
-                    )}
-                    <Provider store={usersStore}>
-                        {array.length ? array :  <EmptyChatList list={this.props.list} unread={this.props.unread}/>}
-                    </Provider>
-                </ScrollView>
+                    </ScrollView>
+                    <IconButton icon={history_to_down} onClick={()=>this.scrollRef.current.scrollTop(0)}
+                        className={'history-to-down '+(this.state.scrollToTopVisible ? 'visible' : '')}/>
+                </React.Fragment>
             );
         }
 

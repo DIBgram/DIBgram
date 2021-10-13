@@ -1,0 +1,52 @@
+.history-to-down {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: none;
+    padding: 0;
+
+    position: absolute;
+    bottom: -42px;
+    right: 17px;
+    transition: bottom 200ms;
+
+    cursor: pointer;
+
+    background-color: var(--theme-color-historyToDownBg);
+    box-shadow: 0 0.5px 3px -1px var(--theme-color-historyToDownShadow);
+
+    span {
+        pointer-events: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    svg {
+        fill: var(--theme-color-historyToDownFg);
+        flex-shrink: 0;
+        height: 58px;
+        width: 58px;
+        position: relative;
+        top: 1px;
+        z-index: +1;
+    }
+
+    &:hover {
+        background-color: var(--theme-color-historyToDownBgOver);
+
+        svg {
+            fill: var(--theme-color-historyToDownFgOver);
+        }
+    }
+
+    &.visible {
+        bottom: 15px;
+    }
+
+    .ripple {
+        background-color: var(--theme-color-historyToDownBgRipple) !important;
+    }
+}

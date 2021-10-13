@@ -20,3 +20,4 @@ export const saved_messages = raw('./saved_messages.svg');
 export const filters_edit = raw('./chat_filters/edit.svg');
 export const info_back = raw('./info_back.svg');
 export const menu_settings = raw('./menu_settings.svg');
+export const history_to_down = raw('./history_to_down.svg');

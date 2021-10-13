@@ -32,11 +32,14 @@ export default function ScrollView(props) {
             autoHide
             autoHideTimeout={1000}
             hideTracksWhenNotNeeded={true}
+            ref={props.scrollRef}
             {...propsRest}
         />
     );
 }
 ScrollView.propTypes = {
     /** Scroll-bar thickness, in pixels (default: 4) */
-    scrollBarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    scrollBarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    /** A React ref that is passed down to the scrollbars component */
+    scrollRef: PropTypes.object
 };

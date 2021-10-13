@@ -37,34 +37,38 @@ const ChatListBar = connect(function (state) {
     }
 
     return (
-        <NavAnimation 
-            mode="slide-over" 
-            id="chat-list-bar"
-            state={archiveState}
-            innerClass="archived-chats"
-            innerScreen={
+        <React.Fragment>
+            <NavAnimation 
+                mode="slide-over" 
+                id="chat-list-bar"
+                state={archiveState}
+                innerClass="archived-chats"
+                innerScreen={
+                    <Provider store={connectionStore}>
+                        <div className="chat-list-header">
+                            <IconButton icon={info_back} onClick={closeArchive}/>
+                            {unread.main.unread_unmuted_messages_count? (
+                                <div className="unread-badge">
+                                    <span>{unread.main.unread_unmuted_messages_count}</span>
+                                </div>
+                            ): null}
+                            <div className="title">Archived chats</div>
+                        </div>
+                        <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread}/>
+                    </Provider>
+                }>
+                <div className="chat-list-header">
+                    {(!useFolders) && <HamburgerMenuButton.WithoutFolders onClick={onHamburgerMenuOpened}/>}
+                    <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
+                </div>
                 <Provider store={connectionStore}>
-                    <div className="chat-list-header">
-                        <IconButton icon={info_back} onClick={closeArchive}/>
-                        {unread.main.unread_unmuted_messages_count? (
-                            <div className="unread-badge">
-                                <span>{unread.main.unread_unmuted_messages_count}</span>
-                            </div>
-                        ): null}
-                        <div className="title">Archived chats</div>
-                    </div>
-                    <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread}/>
+                    <ChatList chats={chats} list={list} unread={unread}/>
                 </Provider>
-            }>
-            <div className="chat-list-header">
-                {(!useFolders) && <HamburgerMenuButton.WithoutFolders onClick={onHamburgerMenuOpened}/>}
-                <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
-            </div>
+            </NavAnimation>
             <Provider store={connectionStore}>
-                <ChatList chats={chats} list={list} unread={unread}/>
                 <ConnectionState/>
             </Provider>
-        </NavAnimation>
+        </React.Fragment>
     );
 });
 export default ChatListBar;

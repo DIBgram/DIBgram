@@ -1,5 +1,6 @@
 .chat-list-bar-container {
     flex-shrink: 1 !important; // If it is 0, it can be resized indefinitely, and chat history will become under its minimum size.
+    background: var(--theme-color-dialogsBg);
 }
 
 .chat-list-bar-resize-handle {
@@ -10,7 +11,6 @@
 #chat-list-bar {
     height: 100%;
     min-width: 260px; // Resize component already has a minimum width, but it's not bad to have it here too
-    background: var(--theme-color-dialogsBg);
 
     .chat-list-header {
         display: flex;
