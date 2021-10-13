@@ -31,6 +31,8 @@ jobs:
     # Create an optimized build
     - name: Build
       run: npm run build --if-present
+      env:
+        CI: false
 
     # Deploy to GitHub Pages
     - name: GitHub Pages
