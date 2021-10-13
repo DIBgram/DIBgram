@@ -3,11 +3,12 @@
     border-radius: 3px;
     box-shadow: 0 0 7px -3px var(--theme-color-windowShadowFg);
     overflow: hidden;
+    animation: menu-appear-opacity 10ms;
 
     .menu-contents {
         width: 180px;
         padding: 8px 0;
-        animation: menu-appear 100ms forwards;
+        animation: menu-appear 100ms forwards cubic-bezier(0, 0, 0, 1);
 
         .menu-item {
             background-color: var(--theme-color-windowBg);
@@ -40,12 +41,18 @@
 
 @keyframes menu-appear {
     from {
-        margin-right: -50px;
-        margin-bottom: -50px;
+        margin-right: -90px;
+        margin-bottom: -50%;
+        opacity: 0;
     }
 
     to {
         margin-right: 0;
         margin-bottom: 0;
     }
+}
+
+@keyframes menu-appear-opacity {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
