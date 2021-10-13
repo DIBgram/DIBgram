@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './menu.scss';
 
 /**
- * A dropdown menu (not to be confused with <select>).
+ * A dropdown menu (not to be confused with `<select>`).
  */
 export default function Menu(props) {
     return (

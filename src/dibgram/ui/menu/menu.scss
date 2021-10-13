@@ -8,7 +8,6 @@
     .menu-contents {
         width: 180px;
         padding: 8px 0;
-        animation: menu-appear 100ms forwards cubic-bezier(0, 0, 0, 1);
 
         .menu-item {
             background-color: var(--theme-color-windowBg);
@@ -21,38 +20,70 @@
             }
         }
     }
-}
 
-.context-menu {
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    .menu {
-        background-color: var(--theme-color-windowBg);
-        position: absolute;
-        left: var(--x);
-        top: var(--y);
-    }
-}
-
-@keyframes menu-appear {
-    from {
-        margin-right: -90px;
-        margin-bottom: -50%;
-        opacity: 0;
+    &.br .menu-contents {
+        animation:
+            menu-appear-bottom 100ms forwards cubic-bezier(0, 0, 0, 1),
+            menu-appear-right 100ms forwards cubic-bezier(0, 0, 0, 1);
     }
 
-    to {
-        margin-right: 0;
-        margin-bottom: 0;
+    &.bl .menu-contents {
+        animation:
+            menu-appear-bottom 100ms forwards cubic-bezier(0, 0, 0, 1),
+            menu-appear-left 100ms forwards cubic-bezier(0, 0, 0, 1);
+    }
+
+    &.tr .menu-contents {
+        animation:
+            menu-appear-top 100ms forwards cubic-bezier(0, 0, 0, 1),
+            menu-appear-right 100ms forwards cubic-bezier(0, 0, 0, 1);
+    }
+
+    &.tl .menu-contents {
+        animation:
+            menu-appear-top 100ms forwards cubic-bezier(0, 0, 0, 1),
+            menu-appear-left 100ms forwards cubic-bezier(0, 0, 0, 1);
+    }
+
+    &.bl,
+    &.tl {
+        right: calc(100vw - var(--x));
+        left: unset;
+    }
+
+    &.tr,
+    &.tl {
+        bottom: calc(100vw - var(--y));
+        top: unset;
     }
 }
 
 @keyframes menu-appear-opacity {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+@keyframes menu-appear-right {
+    from { margin-right: -90px; }
+    to { margin-right: 0; }
+}
+
+@keyframes menu-appear-bottom {
+    from { margin-bottom: -50%; }
+    to { margin-bottom: 0; }
+}
+
+@keyframes menu-appear-right {
+    from { margin-right: -90px; }
+    to { margin-right: 0; }
+}
+
+@keyframes menu-appear-top {
+    from { margin-top: -50%; }
+    to { margin-top: 0; }
+}
+
+@keyframes menu-appear-left {
+    from { margin-left: -90px; }
+    to { margin-left: 0; }
 }

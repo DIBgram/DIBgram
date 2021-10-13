@@ -1,18 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createStore } from 'redux';
-import Menu from './menu';
 import { connect } from 'react-redux';
+import './context-menu.scss';
 
 /**
  * A context menu (right click menu)
  */
 export function ContextMenu({x, y, children}) {
+    const [direction, setDirection] = React.useState('br');
+    const ref = React.useRef();
+    React.useEffect(() => {
+        setTimeout(() => {
+            const rect = ref.current.children[0].getBoundingClientRect();
+            const {width, height} = rect;
+            const {clientWidth, clientHeight} = document.documentElement;
+            var X = 'r', Y = 'b';
+            if (x + width > clientWidth) {
+                X = 'l';
+            }
+            if (y + height > clientHeight) {
+                Y = 't';
+            }
+            setDirection(Y + X);
+        }, 0);
+    }, []);
+
     return (
         <div className="context-menu" style={{'--x': x+'px', '--y': y+'px'}}>
-            <Menu>
+            <div className={'menu ' + direction} ref={ref}>
                 {children}
-            </Menu>
+            </div>
         </div>
     );
 }
