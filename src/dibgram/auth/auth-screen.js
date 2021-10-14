@@ -386,7 +386,7 @@ class AuthWindowStepPassword extends React.Component {
                     </p>
 
                     <UnderlinedInput 
-                        type={'webkitTextSecurity' in document.body.style ? 'text' : 'password'} 
+                        type="password"
                         value={this.state.password} 
                         onChange={this.handlePasswordFieldChange}
                         autoFocus={true} 
