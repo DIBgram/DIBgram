@@ -22,3 +22,7 @@ export const info_back = raw('./info_back.svg');
 export const menu_settings = raw('./menu_settings.svg');
 export const history_to_down = raw('./history_to_down.svg');
 export const menu_night_mode = raw('./menu_night_mode.svg');
+export const menu_new_group = raw('./menu_new_group.svg');
+export const menu_new_channel = raw('./menu_new_channel.svg');
+export const settings_name = raw('./settings_name.svg');
+export const settings_phone_number = raw('./settings_phone_number.svg');

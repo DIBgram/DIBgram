@@ -5,7 +5,7 @@ import TdLib from '../../../../TdWeb/tdlib';
 import ProfilePhoto from '../../../../ui/components/profile-photo';
 import { getChatsFromList } from '../chat-list';
 import chatStore from '../../../chat-store';
-import { archive_userpic, menu_night_mode, menu_settings } from '../../../../ui/icon/icons';
+import { archive_userpic, menu_new_channel, menu_new_group, menu_night_mode, menu_settings, settings_name, settings_phone_number } from '../../../../ui/icon/icons';
 import { connect, Provider } from 'react-redux';
 import { createContextMenu } from '../../../../ui/menu/context-menu';
 import Menu from '../../../../ui/menu/menu';
@@ -119,7 +119,11 @@ const HamburgerMenu= connect(state=> ({
                         <div className="scroll-content">
                             <div className="options">
                                 <ToolStrip.Section>
-                                    <ToolStrip.Button icon={menu_settings} text={'Log out'} onClick={()=> {
+                                    <ToolStrip.Button icon={menu_new_group} text="New Group"/>
+                                    <ToolStrip.Button icon={menu_new_channel} text="New Channel"/>
+                                    <ToolStrip.Button icon={settings_name} text="Contacts"/>
+                                    <ToolStrip.Button icon={settings_phone_number} text="Calls"/>
+                                    <ToolStrip.Button icon={menu_settings} text="Log out" onClick={()=> {
                                         // Log out
                                         onClose();
                                         addDialog('log-out-from-main-menu-confirm-dialog',
