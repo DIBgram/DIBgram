@@ -304,7 +304,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         return (
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
-                <span className="part-1">{message.content.title}</span>
+                <span className="part-1">Location</span>
             </span>
         );
 
