@@ -17,9 +17,16 @@ export default class Dialog extends React.Component{
     state= {
         closing: false
     }
+    ref = React.createRef();
+    /** @param {React.SyntheticEvent} e */
+    onClick= (e) => {
+        if (e.target === this.ref.current) {
+            this.close();
+        }
+    }
     render(){
         return (
-            <div className={'modal-dialog' + ((this.state.closing) ? ' closing ' : ' ') + this.props.className}>
+            <div ref={this.ref} onClick={this.onClick} className={'modal-dialog' + ((this.state.closing) ? ' closing ' : ' ') + this.props.className}>
                 <div style={{
                     'width': this.props.width || 'auto'
                 }}>
@@ -28,7 +35,7 @@ export default class Dialog extends React.Component{
             </div>
         );
     }
-    close=  ()=>{
+    close= ()=>{
         this.setState({
             closing: true
         });

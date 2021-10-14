@@ -11,7 +11,7 @@ export default class ConfirmDialog extends React.Component{
         this.dialogRef.current.close();
         this.props.onOK && this.props.onOK();
     }
-    handleCancel =()=>{ //TODO: Clicking outside of the dialog should close it
+    handleCancel =()=>{
         this.dialogRef.current.close();
         this.props.onCancel && this.props.onCancel();
     }
