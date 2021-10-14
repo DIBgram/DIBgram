@@ -47,7 +47,7 @@ const HamburgerMenu= connect(state=> ({
             });
         }, []); // equivalent to componentDidMount
 
-        const [nightMode, setNightMode] = React.useState(['tinted', 'night'].includes(themeStore.getState().night));
+        const [nightMode, setNightMode] = React.useState(['tinted', 'night'].includes(themeStore.getState().theme));
 
         /**@type React.KeyboardEventHandler<HTMLDivElement> */
         function onKeyDown (e){

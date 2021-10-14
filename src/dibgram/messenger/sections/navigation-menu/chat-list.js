@@ -279,7 +279,7 @@ class ChatListItem extends React.Component {
                                         <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
                                     </span> 
                                     : //TODO: Disconnect it and use direct props for users
-                                    <MessageSummaryWithoutIcon message={chat.last_message} chat={chat} className="last-message"/>
+                                    <MessageSummaryWithoutIcon message={chat.last_message} users={this.props.users} chat={chat} className="last-message"/>
                                 }
                             </div>
                             <div className="right">

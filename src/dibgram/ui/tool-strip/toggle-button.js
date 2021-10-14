@@ -9,7 +9,7 @@ export default function ToolStripToggleButton({icon, text, onChange, isActive}) 
     }
     return (
         <ToolStripButton icon={icon} text={text} onClick={toggle}>
-            <input type="checkbox" className="toggle-button" checked={isActive}/>
+            <input type="checkbox" className="toggle-button" checked={isActive} readOnly/>
         </ToolStripButton>
     );
 }

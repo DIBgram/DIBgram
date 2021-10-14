@@ -35,7 +35,8 @@ export const themeStore = createStore(
  * All children of this component will be rendered with the theme. Can be treated as a div.
  */
 export const ThemeProvider= connect(state=> state) (
-    function ThemeProvider({ theme, ...rest}) {
+    // eslint-disable-next-line no-unused-vars
+    function ThemeProvider({ theme, dispatch, ...rest}) {
         return (
             <div 
                 data-theme-is-dark={themes[theme].isDark.value}

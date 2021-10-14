@@ -6,10 +6,9 @@ import './scrollbar.scss';
 /**
  * A scrollable container. Sizing might need to be tweaked by CSS.
  */
-export default function ScrollView(props) {
+export default function ScrollView({scrollBarWidth, scrollRef, ...propsRest}) {
     const [mouseEntered, setMouseEntered] = React.useState(false);
     const [timeoutId, setTimeoutId] = React.useState(null);
-    const {scrollBarWidth, ...propsRest} = props;
     return (
         <Scrollbars
             className="scrollbar"
@@ -32,7 +31,7 @@ export default function ScrollView(props) {
             autoHide
             autoHideTimeout={1000}
             hideTracksWhenNotNeeded={true}
-            ref={props.scrollRef}
+            ref={scrollRef}
             {...propsRest}
         />
     );
