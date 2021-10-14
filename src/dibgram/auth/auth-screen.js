@@ -218,7 +218,7 @@ class AuthWindowStepPhoneNumber extends React.Component {
                     //TODO: Add phone number placeholder
                 }
                 <UnderlinedInput 
-                    type="number" 
+                    type="tel" 
                     value={this.state.number} 
                     autoFocus={true}
                     onChange={this.handlePNFieldChange}
