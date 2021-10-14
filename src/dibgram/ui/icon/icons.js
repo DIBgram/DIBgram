@@ -21,3 +21,4 @@ export const filters_edit = raw('./chat_filters/edit.svg');
 export const info_back = raw('./info_back.svg');
 export const menu_settings = raw('./menu_settings.svg');
 export const history_to_down = raw('./history_to_down.svg');
+export const menu_night_mode = raw('./menu_night_mode.svg');

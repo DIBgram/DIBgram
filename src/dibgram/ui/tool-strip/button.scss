@@ -3,6 +3,7 @@
     overflow: hidden;
     height: 44px;
     cursor: pointer;
+    background-color: var(--theme-color-windowBg);
 
     .content {
         position: absolute;
@@ -41,5 +42,9 @@
         .icon svg {
             fill: var(--theme-color-menuIconFgOver);
         }
+    }
+
+    .right {
+        float: right;
     }
 }

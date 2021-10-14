@@ -8,6 +8,7 @@
 
 import ToolStripButton from './button';
 import ToolStripSection from './section';
+import ToolStripToggleButton from './toggle-button';
 
 /**
  * A collection of different components to create a generic menu.
@@ -16,7 +17,8 @@ import ToolStripSection from './section';
  */
 const ToolStrip = {
     Button: ToolStripButton,
-    Section: ToolStripSection
+    Section: ToolStripSection,
+    ToggleButton: ToolStripToggleButton
 };
 export default ToolStrip;
-export { ToolStripButton, ToolStripSection };
+export { ToolStripButton, ToolStripSection, ToolStripToggleButton };

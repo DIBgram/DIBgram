@@ -5,7 +5,7 @@ import TdLib from '../../../../TdWeb/tdlib';
 import ProfilePhoto from '../../../../ui/components/profile-photo';
 import { getChatsFromList } from '../chat-list';
 import chatStore from '../../../chat-store';
-import { archive_userpic, menu_settings } from '../../../../ui/icon/icons';
+import { archive_userpic, menu_night_mode, menu_settings } from '../../../../ui/icon/icons';
 import { connect, Provider } from 'react-redux';
 import { createContextMenu } from '../../../../ui/menu/context-menu';
 import Menu from '../../../../ui/menu/menu';
@@ -15,6 +15,7 @@ import version from '../../../../../version';
 import Dialogs, { addDialog, dialogStore } from '../../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
+import { setTheme, themeStore } from '../../../../ui/themes/theme';
 
 /**
  * Renders the main menu (always rendered but not always visible)
@@ -45,6 +46,8 @@ const HamburgerMenu= connect(state=> ({
                 else setMe(result);
             });
         }, []); // equivalent to componentDidMount
+
+        const [nightMode, setNightMode] = React.useState(['tinted', 'night'].includes(themeStore.getState().night));
 
         /**@type React.KeyboardEventHandler<HTMLDivElement> */
         function onKeyDown (e){
@@ -130,6 +133,10 @@ const HamburgerMenu= connect(state=> ({
                                                 Are you sure you want to log out?
                                             </ConfirmDialog>
                                         );
+                                    }}/>
+                                    <ToolStrip.ToggleButton icon={menu_night_mode} text="Night Mode" isActive={nightMode} onChange={(isNight)=> {
+                                        setNightMode(isNight);
+                                        setTheme(isNight ? 'night' : 'day');
                                     }}/>
                                 </ToolStrip.Section>
                             </div>

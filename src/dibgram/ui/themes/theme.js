@@ -4,22 +4,48 @@ import day from './day.json';
 import tinted from './tinted.json';
 import night from './night.json';
 import { convertThemeToCSS } from './dibgram-theme-to-css';
+import { createStore } from 'redux';
+import { connect } from 'react-redux';
 
 const themes = { day, classic, tinted, night };
-export var currentTheme= 'night';
+
+function getThemeFromStorage() {
+    let theme = localStorage.getItem('dibgram-theme');
+    if (!theme) { // if theme is not set in localStorage, use OS theme
+        theme= window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'night' : 'day';
+        localStorage.setItem('dibgram-theme', theme);
+    }
+    return theme;
+}
+
+export const themeStore = createStore(
+    (state = { 
+        theme: getThemeFromStorage(),
+    }, action) => {
+        switch (action.type) {
+        case 'SET_THEME':
+            return { theme: action.theme };
+        default:
+            return state;
+        }
+    }
+);
 
 /**
  * All children of this component will be rendered with the theme. Can be treated as a div.
  */
-export function ThemeProvider(props) {
-    return (
-        <div 
-            data-theme-is-dark={isThemeDark}
-            {...props} 
-            style={convertThemeToCSS({...classic, ...themes[currentTheme]})}
-        />
-    );
-}
+export const ThemeProvider= connect(state=> state) (
+    function ThemeProvider({ theme, ...rest}) {
+        return (
+            <div 
+                data-theme-is-dark={themes[theme].isDark.value}
+                {...rest} 
+                style={convertThemeToCSS({...classic, ...themes[theme]})}
+            />
+        );
+    });
 
-const isThemeDark=themes[currentTheme].isDark.value;
-export {isThemeDark};
+export function setTheme(theme) {
+    localStorage.setItem('dibgram-theme', theme);
+    themeStore.dispatch({ type: 'SET_THEME', theme });
+}

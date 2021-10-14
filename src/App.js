@@ -8,7 +8,7 @@ import {addDialog} from './dibgram/ui/dialog/dialogs';
 import { toastStore, Toasts } from './dibgram/ui/dialog/toast';
 import './dibgram/ui/main.scss';
 import { ContextMenus, contextMenusStore, onAnywhereClicked } from './dibgram/ui/menu/context-menu';
-import { ThemeProvider } from './dibgram/ui/themes/theme';
+import { ThemeProvider, themeStore } from './dibgram/ui/themes/theme';
 
 TdLib.initializeTdLib().then(function (res) {
     setInitialAuthState(res);
@@ -51,15 +51,17 @@ function App() {
     }, []);
 
     return (
-        <ThemeProvider id="app" onClick={onAnywhereClicked}>
-            <Provider store={toastStore}>
-                <Toasts/>
-            </Provider>
-            <MainApp/>
-            <Provider store={contextMenusStore}>
-                <ContextMenus/>
-            </Provider>
-        </ThemeProvider>
+        <Provider store={themeStore}>
+            <ThemeProvider id="app" onClick={onAnywhereClicked}>
+                <Provider store={toastStore}>
+                    <Toasts/>
+                </Provider>
+                <MainApp/>
+                <Provider store={contextMenusStore}>
+                    <ContextMenus/>
+                </Provider>
+            </ThemeProvider>
+        </Provider>
     );
 }
 

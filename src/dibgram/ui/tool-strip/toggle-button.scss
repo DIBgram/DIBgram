@@ -1,0 +1,38 @@
+.tool-strip-button {
+    .toggle-button {
+        position: relative;
+        margin: 7px 12px;
+        width: 28px;
+        height: 14px;
+        appearance: none;
+        background: var(--theme-color-menuIconFg);
+        border-radius: 999em;
+        transition: background-color 200ms linear;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            height: 14px;
+            width: 14px;
+            border: 2px solid var(--theme-color-menuIconFg);
+            border-radius: 50%;
+            background-color: var(--theme-color-windowBg);
+            transition: left 200ms linear, border-color 200ms linear;
+        }
+
+        &:checked {
+            background-color: var(--theme-color-mainMenuCoverBg);
+
+            &::after {
+                border-color: var(--theme-color-mainMenuCoverBg);
+                left: 12px;
+            }
+        }
+    }
+
+    &:hover .toggle-button {
+        --theme-color-menuIconFg: var(--theme-color-menuIconFgOver);
+    }
+}
