@@ -22,6 +22,7 @@ import { addDialog } from '../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 import './history-to-down.scss';
 import IconButton from '../../../ui/elements/icon-button';
+import { chatListScrollToTopEvent } from './chat-folders';
 
 /**********************************************************************************************
  * Because of the length of this file, it is recommended to use a tool to view document outline
@@ -119,6 +120,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
         }
 
         componentDidMount() {
+            chatListScrollToTopEvent[0]= ()=>this.scrollRef.current.scrollTop(0);
             // Request TDLib to return chats in main list and archive list
             TdLib.sendQuery({
                 '@type': 'getChats',

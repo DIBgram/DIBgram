@@ -9,6 +9,8 @@ import TdLib from '../../../TdWeb/tdlib';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import './chat-folders.scss';
 
+export var chatListScrollToTopEvent = [function(){}];
+
 /**
  * Renders a chat folder button
  */
@@ -47,6 +49,11 @@ export function ChatFolder({folder, active, onClick, unread}) {
         }
     }, [folder]);
 
+    function handleClick(e){
+        onClick(e);
+        chatListScrollToTopEvent[0]?.();
+    }
+
     var icon= (filters[iconName] || filters['Custom']); // If the icon was empty, show a generic icon instead.
     icon= icon[active+0] || icon[0]; // Some icons dont have active variant
     return (
@@ -56,7 +63,7 @@ export function ChatFolder({folder, active, onClick, unread}) {
                 onMouseDown={mouseDown}
                 onMouseUp={mouseUp}
                 onMouseLeave={mouseLeave}
-                onClick={onClick}>
+                onClick={handleClick}>
 
                 <div className="icon" dangerouslySetInnerHTML={{__html: icon}}></div>
                 <div className="title">{folder.title}</div>
@@ -97,7 +104,7 @@ function ChatFolderList({folders, currentFolder, unread, dispatch, onHamburgerMe
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
                     folder={{ title: 'All chats', icon_name: 'All' }}
                     unread={unread.main}
-                    onClick={()=> dispatch({ // TODO: Scroll to top when active chat is clicked
+                    onClick={()=> dispatch({
                         type: 'SET_CURRENT_CHAT_LIST',
                         chatList: { '@type': 'chatListMain' }
                     })}/>
