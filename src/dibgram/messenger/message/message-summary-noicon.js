@@ -4,6 +4,7 @@ import TdLib from '../../TdWeb/tdlib';
 import currencyAmountToString from '../payments/currency-tostring';
 import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
+import MessageShortName from './message-short-name';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -404,7 +405,44 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             );
         }
     
-    // case 'messagePinMessage': // TODO: Implement it
+    case 'messagePinMessage':
+
+        // Get pinned message message
+        var PinnedMessageMessage= React.lazy(()=>new Promise(resolve=> {
+            TdLib.sendQuery({
+                '@type': 'getMessage',
+                chat_id: chat.id,
+                message_id: message.content.message_id
+            }).then(
+                result=> { 
+                    //eslint-disable-next-line react/display-name
+                    resolve({ default: ()=> (
+                        <span className={className}><span className="part-1">
+                            <SenderFullName message={message} chat={chat} users={users}/> pinned <MessageShortName message={result}/>
+                        </span></span>
+                    )});
+                },
+                ()=> { // Failed
+                    //eslint-disable-next-line react/display-name
+                    resolve({ default: ()=> (
+                        <span className={className}><span className="part-1">
+                            <SenderFullName message={message} chat={chat} users={users}/> pinned Deleted Message
+                        </span></span>
+                    )});
+                }
+            );
+        }));
+
+        return (
+            <React.Suspense fallback={
+                <span className={className}><span className="part-1">
+                    <SenderFullName message={message} chat={chat} users={users}/> pinned Loading...
+                </span></span>
+            }>
+                <PinnedMessageMessage/>
+            </React.Suspense>
+        );
+    
     case 'messagePoll':
         return (
             <span className={className}>
