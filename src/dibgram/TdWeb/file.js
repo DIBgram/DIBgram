@@ -33,21 +33,39 @@ TdLib.registerUpdateHandler('updateFile', function (update) {
     }
 });
 
+const cachedFiles= {};
+
 /**
  * Gets file content (downloads if necessary). Promise is resolved with a `filePart` object when file content is ready
  * @param {import('tdweb').TdObject} file File object
  * @param {number} priority Download priority from 1 to 32. Higher value = earlier download
+ * @param {boolean} enableCache If true, file content will be stored in a cache in the RAM. Files larger than 500KiB will not be cached whatsoever.
  * @returns {import('tdweb').TdObject} A `filePart` object
+ * 
  */
-export function getFileContent(file, priority) {
+export function getFileContent(file, priority, enableCache=true) {
+    if(file.id in cachedFiles){ // If we have it in cache, we can use that
+        return Promise.resolve({data: cachedFiles[file.id]});
+    }
+
+    function resolveFilePart(filePart){
+        if(enableCache && file.size<=500*1024){
+            cachedFiles[file.id]=filePart.data;
+        }
+        return filePart;
+    }
+
     if(file.local.is_downloading_completed){ // File is already downloaded - only read file
-        return TdLib.sendQuery({
-            '@type': 'readFilePart',
-            'file_id': file.id,
-            'offset': 0,
-            'count': 0
+        return new Promise((resolve, reject) => {
+            TdLib.sendQuery({
+                '@type': 'readFilePart',
+                'file_id': file.id,
+                'offset': 0,
+                'count': 0
+            }).then((f)=>resolve(resolveFilePart(f))).catch(reject);
         });
-    } else if(file.local.is_downloading_active){ // File is already being downloaded - gets quite complex here.
+    } 
+    else if(file.local.is_downloading_active){ // File is already being downloaded - gets quite complex here.
         return new Promise((resolve, reject) => {
             const callback = downloadCallbacks[file.id];
             downloadCallbacks[file.id] = (result) => { // Replace old callback with a new callback that calls the old one and also does its own stuff
@@ -57,7 +75,7 @@ export function getFileContent(file, priority) {
                     'file_id': file.id,
                     'offset': 0,
                     'count': 0
-                }).then(resolve).catch(reject);
+                }).then((f)=>resolve(resolveFilePart(f))).catch(reject);
             };
         });
     } else {
@@ -68,7 +86,7 @@ export function getFileContent(file, priority) {
                     'file_id': file.id,
                     'offset': 0,
                     'count': 0
-                }).then(resolve).catch(reject);
+                }).then((f)=>resolve(resolveFilePart(f))).catch(reject);
             }).catch(reject);
         });
     }
