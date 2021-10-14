@@ -87,8 +87,8 @@ export default class UnderlinedInput extends React.Component {
 
 }
 UnderlinedInput.propTypes = {
-    /** Input type, can be `text`, `number`,`tel`, `password`, `email`, `url` */
-    type: PropTypes.oneOf(['text', 'number','tel', 'password', 'email', 'url']).isRequired,
+    /** Input type, can be `text`, `number`, `tel`, `password`, `email`, `url` */
+    type: PropTypes.oneOf(['text', 'number', 'tel', 'password', 'email', 'url']).isRequired,
     /** Fired when input is modified */
     onChange: PropTypes.func,
     /** Input value */
