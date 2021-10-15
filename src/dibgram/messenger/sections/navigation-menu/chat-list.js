@@ -113,14 +113,21 @@ const ChatList= connect(state=> ({connectionState: state}))(
                             {array.length ? array :  <EmptyChatList list={this.props.list} unread={this.props.unread}/>}
                         </Provider>
                     </ScrollView>
-                    <IconButton icon={history_to_down} onClick={()=>this.scrollRef.current.scrollTop(0)}
+                    <IconButton icon={history_to_down} onClick={this.scrollToTop}
                         className={'history-to-down '+(this.state.scrollToTopVisible ? 'visible' : '')}/>
                 </React.Fragment>
             );
         }
 
+        scrollToTop= () => {
+            this.scrollRef.current.view.scroll({
+                top: 0,
+                behavior: 'smooth',
+            });
+        }
+
         componentDidMount() {
-            chatListScrollToTopEvent[0]= ()=>this.scrollRef.current.scrollTop(0);
+            chatListScrollToTopEvent[0]= this.scrollToTop;
             // Request TDLib to return chats in main list and archive list
             TdLib.sendQuery({
                 '@type': 'getChats',
