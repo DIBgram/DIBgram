@@ -53,7 +53,7 @@
 
     &.tr,
     &.tl {
-        bottom: calc(100vw - var(--y));
+        bottom: calc(100vh - var(--y));
         top: unset;
     }
 }
