@@ -348,3 +348,10 @@
         }
     }
 }
+
+#app[data-theme-is-dark=false] {
+    #chat-list .chat .details .title {
+        letter-spacing: -0.1px;
+        font-weight: 500;
+    }
+}

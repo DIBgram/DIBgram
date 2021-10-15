@@ -48,3 +48,9 @@
         float: right;
     }
 }
+
+#app[data-theme-is-dark=false] {
+    .tool-strip-button {
+        font-weight: 500;
+    }
+}

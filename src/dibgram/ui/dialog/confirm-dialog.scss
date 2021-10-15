@@ -2,10 +2,10 @@
     & > div {
         padding: 12px 13px;
         border-radius: 3px;
-        font-size: 14px;
+        font-size: 13px;
         line-height: 22px;
         letter-spacing: 0.23px;
-        font-weight: 200;
+        font-weight: 400;
 
         & > h1 {
             font-size: 16px;
@@ -31,10 +31,17 @@
     }
 }
 
-#app[data-theme-is-dark=true] .modal-dialog {
+#app[data-theme-is-dark=true] .modal-dialog.modal-dialog > div {
     font-weight: 300;
+    letter-spacing: 0.4px;
 
     & > div.options {
+        font-weight: 400;
+    }
+}
+
+#app[data-theme-is-dark=false] .modal-dialog.confirm-dialog > div {
+    button.link-button {
         font-weight: 400;
     }
 }
