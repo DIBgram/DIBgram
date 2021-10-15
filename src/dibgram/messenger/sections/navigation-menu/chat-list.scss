@@ -169,6 +169,7 @@
 
             .last-message {
                 letter-spacing: -0.1px; // We can't make the text lighter as the closest lighter font is too light. However, we can make it less wide
+                color: var(--theme-color-dialogsTextFg);
 
                 .sender,
                 .part-1 {
@@ -177,7 +178,6 @@
                 }
 
                 .part-2 {
-                    color: var(--theme-color-dialogsTextFg);
                     white-space: pre;
                 }
 
