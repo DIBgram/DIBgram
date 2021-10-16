@@ -7,13 +7,14 @@ import {MessengerWindow} from '../messenger/messengerWindow';
 import BigHighlightedButton from '../ui/elements/highlighted-button';
 import UnderlinedInput from '../ui/elements/underlined-input';
 import ConnectionState from '../ui/components/connecting';
-import { addDialog } from '../ui/dialog/dialogs';
+import Dialogs, { addDialog, dialogStore } from '../ui/dialog/dialogs';
 import ConfirmDialog from '../ui/dialog/confirm-dialog';
 
 import './auth.scss';
 import { Provider } from 'react-redux';
 import connectionStore from '../TdWeb/connectionStore';
 import LinkButton from '../ui/elements/link-button';
+import SignUpProfilePic from './signup-profile-photo';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {
@@ -110,25 +111,45 @@ export class MainApp extends React.Component {
         case 'authorizationStateWaitPhoneNumber':
             // Enter your phone number
             return (
-                <AuthWindowStepPhoneNumber/>
+                <React.Fragment>
+                    <Provider store={dialogStore}>
+                        <Dialogs/>
+                    </Provider>
+                    <AuthWindowStepPhoneNumber/>
+                </React.Fragment>
             );
 
         case 'authorizationStateWaitCode':
             // Enter the verification code sent to you
             return (
-                <AuthWindowStepCode info={this.state.step.code_info}/>
+                <React.Fragment>
+                    <Provider store={dialogStore}>
+                        <Dialogs/>
+                    </Provider>
+                    <AuthWindowStepCode info={this.state.step.code_info}/>
+                </React.Fragment>
             );
 
         case 'authorizationStateWaitPassword':
             // Enter your 2-factor auth password
             return (
-                <AuthWindowStepPassword info={this.state.step}/>
+                <React.Fragment>
+                    <Provider store={dialogStore}>
+                        <Dialogs/>
+                    </Provider>
+                    <AuthWindowStepPassword info={this.state.step}/>
+                </React.Fragment>
             );
 
         case 'authorizationStateWaitRegistration':
             // There isn't an account on this number, you need to sign up
             return (
-                <AuthWindowStepRegister/>
+                <React.Fragment>
+                    <Provider store={dialogStore}>
+                        <Dialogs/>
+                    </Provider>
+                    <AuthWindowStepRegister tos={this.state.step.terms_of_service}/>
+                </React.Fragment>
             );
 
         case 'authorizationStateReady':
@@ -410,10 +431,10 @@ class AuthWindowStepPassword extends React.Component {
                         SUBMIT
                     </BigHighlightedButton>
 
-                    <Provider store={connectionStore}>
-                        <ConnectionState/>
-                    </Provider>
                 </div>
+                <Provider store={connectionStore}>
+                    <ConnectionState/>
+                </Provider>
             </div>
         );
     }

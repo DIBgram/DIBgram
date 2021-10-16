@@ -26,7 +26,7 @@ export default class Dialog extends React.Component{
     }
     render(){
         return (
-            <div ref={this.ref} onClick={this.onClick} className={'modal-dialog' + ((this.state.closing) ? ' closing ' : ' ') + this.props.className}>
+            <div ref={this.ref} onClick={this.onClick} id={this.props.id} className={'modal-dialog' + ((this.state.closing) ? ' closing ' : ' ') + this.props.className}>
                 <div style={{
                     'width': this.props.width || 'auto'
                 }}>

@@ -129,7 +129,7 @@
     }
 }
 
-.modal-dialog.modal-dialog [data-id=main-menu-about-dibgram-dialog] { // About DIBgram dialog
+.modal-dialog.modal-dialog#main-menu-about-dibgram-dialog > div { // About DIBgram dialog
     & > .content {
         font-size: 13px;
         margin-bottom: 12px;
