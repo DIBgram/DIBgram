@@ -75,6 +75,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
         }
         state= {
             scrollToTopVisible: false,
+            chatListFinished: false
         }
         scrollRef= React.createRef();
 
@@ -94,7 +95,8 @@ const ChatList= connect(state=> ({connectionState: state}))(
                 || nextProps.unread !== this.props.unread
                 || nextProps.connectionState !== this.props.connectionState
                 || nextState.scrollToTopVisible !== this.state.scrollToTopVisible)
-                && nextProps.connectionState != 'connectionStateUpdating'; // Do not re-render if updating
+                && nextProps.connectionState != 'connectionStateUpdating'
+                && nextState.chatListFinished; // Do not re-render if updating
         }
 
         render() {
@@ -137,6 +139,10 @@ const ChatList= connect(state=> ({connectionState: state}))(
                 'offset_order': '9223372036854775807',
                 'offset_chat_id': 0,
                 'limit': 50
+            }).then(()=> {
+                this.setState({
+                    chatListFinished: true
+                });
             });
             TdLib.sendQuery({
                 '@type': 'getChats',
