@@ -12,6 +12,10 @@ namespace TdApi {
     type td_vector<t> = t[];
 
     
+    type td_blob= Blob;
+    type td_jsLogLevel= 'error' | 'warning' | 'info' | 'log' | 'debug';
+
+    
     /** An object of this type can be returned on every function call, in case of an error */
     export interface td_error {
         '@type': 'error';
@@ -6934,7 +6938,7 @@ namespace TdApi {
     export interface td_filePart {
         '@type': 'filePart';
         /** File bytes */
-        data?: td_bytes;
+        data?: td_blob;
     }
     
     
@@ -8600,6 +8604,22 @@ namespace TdApi {
     }
     
     
+    /** TDLib has encountered a fatal error */
+    export interface td_updateFatalError {
+        '@type': 'updateFatalError';
+        /** Error message */
+        error?: td_string;
+    }
+    
+    
+    /** A file from a JavaScript Blob */
+    export interface td_inputFileBlob {
+        '@type': 'inputFileBlob';
+        /** JavaScript blob containing file data */
+        data?: td_blob;
+    }
+    
+    
     export type td_Error = td_error;
     export type td_Ok = td_ok;
     export type td_TdlibParameters = td_tdlibParameters;
@@ -8617,7 +8637,7 @@ namespace TdApi {
     export type td_LocalFile = td_localFile;
     export type td_RemoteFile = td_remoteFile;
     export type td_File = td_file;
-    export type td_InputFile = td_inputFileId | td_inputFileRemote | td_inputFileLocal | td_inputFileGenerated;
+    export type td_InputFile = td_inputFileId | td_inputFileRemote | td_inputFileLocal | td_inputFileGenerated | td_inputFileBlob;
     export type td_PhotoSize = td_photoSize;
     export type td_Minithumbnail = td_minithumbnail;
     export type td_ThumbnailFormat = td_thumbnailFormatJpeg | td_thumbnailFormatPng | td_thumbnailFormatWebp | td_thumbnailFormatGif | td_thumbnailFormatTgs | td_thumbnailFormatMpeg4;
@@ -8862,7 +8882,7 @@ namespace TdApi {
     export type td_ChatStatisticsInviterInfo = td_chatStatisticsInviterInfo;
     export type td_ChatStatistics = td_chatStatisticsSupergroup | td_chatStatisticsChannel;
     export type td_MessageStatistics = td_messageStatistics;
-    export type td_Update = td_updateAuthorizationState | td_updateNewMessage | td_updateMessageSendAcknowledged | td_updateMessageSendSucceeded | td_updateMessageSendFailed | td_updateMessageContent | td_updateMessageEdited | td_updateMessageIsPinned | td_updateMessageInteractionInfo | td_updateMessageContentOpened | td_updateMessageMentionRead | td_updateMessageLiveLocationViewed | td_updateNewChat | td_updateChatTitle | td_updateChatPhoto | td_updateChatPermissions | td_updateChatLastMessage | td_updateChatPosition | td_updateChatIsMarkedAsUnread | td_updateChatIsBlocked | td_updateChatHasScheduledMessages | td_updateChatDefaultDisableNotification | td_updateChatReadInbox | td_updateChatReadOutbox | td_updateChatUnreadMentionCount | td_updateChatNotificationSettings | td_updateScopeNotificationSettings | td_updateChatActionBar | td_updateChatReplyMarkup | td_updateChatDraftMessage | td_updateChatFilters | td_updateChatOnlineMemberCount | td_updateNotification | td_updateNotificationGroup | td_updateActiveNotifications | td_updateHavePendingNotifications | td_updateDeleteMessages | td_updateUserChatAction | td_updateUserStatus | td_updateUser | td_updateBasicGroup | td_updateSupergroup | td_updateSecretChat | td_updateUserFullInfo | td_updateBasicGroupFullInfo | td_updateSupergroupFullInfo | td_updateServiceNotification | td_updateFile | td_updateFileGenerationStart | td_updateFileGenerationStop | td_updateCall | td_updateNewCallSignalingData | td_updateUserPrivacySettingRules | td_updateUnreadMessageCount | td_updateUnreadChatCount | td_updateOption | td_updateStickerSet | td_updateInstalledStickerSets | td_updateTrendingStickerSets | td_updateRecentStickers | td_updateFavoriteStickers | td_updateSavedAnimations | td_updateSelectedBackground | td_updateLanguagePackStrings | td_updateConnectionState | td_updateTermsOfService | td_updateUsersNearby | td_updateDiceEmojis | td_updateAnimationSearchParameters | td_updateSuggestedActions | td_updateNewInlineQuery | td_updateNewChosenInlineResult | td_updateNewCallbackQuery | td_updateNewInlineCallbackQuery | td_updateNewShippingQuery | td_updateNewPreCheckoutQuery | td_updateNewCustomEvent | td_updateNewCustomQuery | td_updatePoll | td_updatePollAnswer;
+    export type td_Update = td_updateAuthorizationState | td_updateNewMessage | td_updateMessageSendAcknowledged | td_updateMessageSendSucceeded | td_updateMessageSendFailed | td_updateMessageContent | td_updateMessageEdited | td_updateMessageIsPinned | td_updateMessageInteractionInfo | td_updateMessageContentOpened | td_updateMessageMentionRead | td_updateMessageLiveLocationViewed | td_updateNewChat | td_updateChatTitle | td_updateChatPhoto | td_updateChatPermissions | td_updateChatLastMessage | td_updateChatPosition | td_updateChatIsMarkedAsUnread | td_updateChatIsBlocked | td_updateChatHasScheduledMessages | td_updateChatDefaultDisableNotification | td_updateChatReadInbox | td_updateChatReadOutbox | td_updateChatUnreadMentionCount | td_updateChatNotificationSettings | td_updateScopeNotificationSettings | td_updateChatActionBar | td_updateChatReplyMarkup | td_updateChatDraftMessage | td_updateChatFilters | td_updateChatOnlineMemberCount | td_updateNotification | td_updateNotificationGroup | td_updateActiveNotifications | td_updateHavePendingNotifications | td_updateDeleteMessages | td_updateUserChatAction | td_updateUserStatus | td_updateUser | td_updateBasicGroup | td_updateSupergroup | td_updateSecretChat | td_updateUserFullInfo | td_updateBasicGroupFullInfo | td_updateSupergroupFullInfo | td_updateServiceNotification | td_updateFile | td_updateFileGenerationStart | td_updateFileGenerationStop | td_updateCall | td_updateNewCallSignalingData | td_updateUserPrivacySettingRules | td_updateUnreadMessageCount | td_updateUnreadChatCount | td_updateOption | td_updateStickerSet | td_updateInstalledStickerSets | td_updateTrendingStickerSets | td_updateRecentStickers | td_updateFavoriteStickers | td_updateSavedAnimations | td_updateSelectedBackground | td_updateLanguagePackStrings | td_updateConnectionState | td_updateTermsOfService | td_updateUsersNearby | td_updateDiceEmojis | td_updateAnimationSearchParameters | td_updateSuggestedActions | td_updateNewInlineQuery | td_updateNewChosenInlineResult | td_updateNewCallbackQuery | td_updateNewInlineCallbackQuery | td_updateNewShippingQuery | td_updateNewPreCheckoutQuery | td_updateNewCustomEvent | td_updateNewCustomQuery | td_updatePoll | td_updatePollAnswer | td_updateFatalError;
     export type td_Updates = td_updates;
     export type td_LogStream = td_logStreamDefault | td_logStreamFile | td_logStreamEmpty;
     export type td_LogVerbosityLevel = td_logVerbosityLevel;
@@ -10792,16 +10812,6 @@ namespace TdApi {
     }
     
     
-    /** Returns file downloaded prefix size from a given offset */
-    export interface td_getFileDownloadedPrefixSize {
-        '@type': 'getFileDownloadedPrefixSize';
-        /** Identifier of the file */
-        file_id?: td_int32;
-        /** Offset from which downloaded prefix size should be calculated */
-        offset?: td_int32;
-    }
-    
-    
     /** Stops the downloading of a file. If a file has already been downloaded, does nothing */
     export interface td_cancelDownloadFile {
         '@type': 'cancelDownloadFile';
@@ -11956,47 +11966,9 @@ namespace TdApi {
     }
     
     
-    /** Returns storage usage statistics. Can be called before authorization */
-    export interface td_getStorageStatistics {
-        '@type': 'getStorageStatistics';
-        /** The maximum number of chats with the largest storage usage for which separate statistics should be returned. All other chats will be grouped in entries with chat_id == 0. If the chat info database is not used, the chat_limit is ignored and is always set to 0 */
-        chat_limit?: td_int32;
-    }
-    
-    
-    /** Quickly returns approximate storage usage statistics. Can be called before authorization */
-    export interface td_getStorageStatisticsFast {
-        '@type': 'getStorageStatisticsFast';
-    }
-    
-    
     /** Returns database statistics */
     export interface td_getDatabaseStatistics {
         '@type': 'getDatabaseStatistics';
-    }
-    
-    
-    /** Optimizes storage usage, i.e. deletes some files and returns new storage usage statistics. Secret thumbnails can't be deleted */
-    export interface td_optimizeStorage {
-        '@type': 'optimizeStorage';
-        /** Limit on the total size of files after deletion. Pass -1 to use the default limit */
-        size?: td_int53;
-        /** Limit on the time that has passed since the last time a file was accessed (or creation time for some filesystems). Pass -1 to use the default limit */
-        ttl?: td_int32;
-        /** Limit on the total count of files after deletion. Pass -1 to use the default limit */
-        count?: td_int32;
-        /** The amount of time after the creation of a file during which it can't be deleted, in seconds. Pass -1 to use the default value */
-        immunity_delay?: td_int32;
-        /** If not empty, only files with the given type(s) are considered. By default, all types except thumbnails, profile photos, stickers and wallpapers are deleted */
-        file_types?: td_vector<td_FileType>;
-        /** If not empty, only files from the given chats are considered. Use 0 as chat identifier to delete files not belonging to any chat (e.g., profile photos) */
-        chat_ids?: td_vector<td_int53>;
-        /** If not empty, files from the given chats are excluded. Use 0 as chat identifier to exclude all files not belonging to any chat (e.g., profile photos) */
-        exclude_chat_ids?: td_vector<td_int53>;
-        /** Pass true if statistics about the files that were deleted must be returned instead of the whole storage usage statistics. Affects only returned statistics */
-        return_deleted_file_statistics?: td_Bool;
-        /** Same as in getStorageStatistics. Affects only returned statistics */
-        chat_limit?: td_int32;
     }
     
     
@@ -12398,20 +12370,6 @@ namespace TdApi {
     }
     
     
-    /** Adds a proxy server for network requests. Can be called before authorization */
-    export interface td_addProxy {
-        '@type': 'addProxy';
-        /** Proxy server IP address */
-        server?: td_string;
-        /** Proxy server port */
-        port?: td_int32;
-        /** True, if the proxy should be enabled */
-        enable?: td_Bool;
-        /** Proxy type */
-        type?: td_ProxyType;
-    }
-    
-    
     /** Edits an existing proxy server for network requests. Can be called before authorization */
     export interface td_editProxy {
         '@type': 'editProxy';
@@ -12637,7 +12595,15 @@ namespace TdApi {
         error?: td_error;
     }
     
-    export type TdFunction = td_getAuthorizationState | td_setTdlibParameters | td_checkDatabaseEncryptionKey | td_setAuthenticationPhoneNumber | td_resendAuthenticationCode | td_checkAuthenticationCode | td_requestQrCodeAuthentication | td_registerUser | td_checkAuthenticationPassword | td_requestAuthenticationPasswordRecovery | td_recoverAuthenticationPassword | td_checkAuthenticationBotToken | td_logOut | td_close | td_destroy | td_confirmQrCodeAuthentication | td_getCurrentState | td_setDatabaseEncryptionKey | td_getPasswordState | td_setPassword | td_getRecoveryEmailAddress | td_setRecoveryEmailAddress | td_checkRecoveryEmailAddressCode | td_resendRecoveryEmailAddressCode | td_requestPasswordRecovery | td_recoverPassword | td_createTemporaryPassword | td_getTemporaryPasswordState | td_getMe | td_getUser | td_getUserFullInfo | td_getBasicGroup | td_getBasicGroupFullInfo | td_getSupergroup | td_getSupergroupFullInfo | td_getSecretChat | td_getChat | td_getMessage | td_getMessageLocally | td_getRepliedMessage | td_getChatPinnedMessage | td_getCallbackQueryMessage | td_getMessages | td_getMessageThread | td_getFile | td_getRemoteFile | td_getChats | td_searchPublicChat | td_searchPublicChats | td_searchChats | td_searchChatsOnServer | td_searchChatsNearby | td_getTopChats | td_removeTopChat | td_addRecentlyFoundChat | td_removeRecentlyFoundChat | td_clearRecentlyFoundChats | td_checkChatUsername | td_getCreatedPublicChats | td_checkCreatedPublicChatsLimit | td_getSuitableDiscussionChats | td_getInactiveSupergroupChats | td_getGroupsInCommon | td_getChatHistory | td_getMessageThreadHistory | td_deleteChatHistory | td_searchChatMessages | td_searchMessages | td_searchSecretMessages | td_searchCallMessages | td_searchChatRecentLocationMessages | td_getActiveLiveLocationMessages | td_getChatMessageByDate | td_getChatMessageCount | td_getChatScheduledMessages | td_getMessagePublicForwards | td_removeNotification | td_removeNotificationGroup | td_getMessageLink | td_getMessageEmbeddingCode | td_getMessageLinkInfo | td_sendMessage | td_sendMessageAlbum | td_sendBotStartMessage | td_sendInlineQueryResultMessage | td_forwardMessages | td_resendMessages | td_sendChatSetTtlMessage | td_sendChatScreenshotTakenNotification | td_addLocalMessage | td_deleteMessages | td_deleteChatMessagesFromUser | td_editMessageText | td_editMessageLiveLocation | td_editMessageMedia | td_editMessageCaption | td_editMessageReplyMarkup | td_editInlineMessageText | td_editInlineMessageLiveLocation | td_editInlineMessageMedia | td_editInlineMessageCaption | td_editInlineMessageReplyMarkup | td_editMessageSchedulingState | td_getTextEntities | td_parseTextEntities | td_parseMarkdown | td_getMarkdownText | td_getFileMimeType | td_getFileExtension | td_cleanFileName | td_getLanguagePackString | td_getJsonValue | td_getJsonString | td_setPollAnswer | td_getPollVoters | td_stopPoll | td_hideSuggestedAction | td_getLoginUrlInfo | td_getLoginUrl | td_getInlineQueryResults | td_answerInlineQuery | td_getCallbackQueryAnswer | td_answerCallbackQuery | td_answerShippingQuery | td_answerPreCheckoutQuery | td_setGameScore | td_setInlineGameScore | td_getGameHighScores | td_getInlineGameHighScores | td_deleteChatReplyMarkup | td_sendChatAction | td_openChat | td_closeChat | td_viewMessages | td_openMessageContent | td_readAllChatMentions | td_createPrivateChat | td_createBasicGroupChat | td_createSupergroupChat | td_createSecretChat | td_createNewBasicGroupChat | td_createNewSupergroupChat | td_createNewSecretChat | td_upgradeBasicGroupChatToSupergroupChat | td_getChatListsToAddChat | td_addChatToList | td_getChatFilter | td_createChatFilter | td_editChatFilter | td_deleteChatFilter | td_reorderChatFilters | td_getRecommendedChatFilters | td_getChatFilterDefaultIconName | td_setChatTitle | td_setChatPhoto | td_setChatPermissions | td_setChatDraftMessage | td_setChatNotificationSettings | td_toggleChatIsMarkedAsUnread | td_toggleChatDefaultDisableNotification | td_setChatClientData | td_setChatDescription | td_setChatDiscussionGroup | td_setChatLocation | td_setChatSlowModeDelay | td_pinChatMessage | td_unpinChatMessage | td_unpinAllChatMessages | td_joinChat | td_leaveChat | td_addChatMember | td_addChatMembers | td_setChatMemberStatus | td_canTransferOwnership | td_transferChatOwnership | td_getChatMember | td_searchChatMembers | td_getChatAdministrators | td_clearAllDraftMessages | td_getChatNotificationSettingsExceptions | td_getScopeNotificationSettings | td_setScopeNotificationSettings | td_resetAllNotificationSettings | td_toggleChatIsPinned | td_setPinnedChats | td_downloadFile | td_getFileDownloadedPrefixSize | td_cancelDownloadFile | td_uploadFile | td_cancelUploadFile | td_writeGeneratedFilePart | td_setFileGenerationProgress | td_finishFileGeneration | td_readFilePart | td_deleteFile | td_generateChatInviteLink | td_checkChatInviteLink | td_joinChatByInviteLink | td_createCall | td_acceptCall | td_sendCallSignalingData | td_discardCall | td_sendCallRating | td_sendCallDebugInformation | td_toggleMessageSenderIsBlocked | td_blockMessageSenderFromReplies | td_getBlockedMessageSenders | td_addContact | td_importContacts | td_getContacts | td_searchContacts | td_removeContacts | td_getImportedContactCount | td_changeImportedContacts | td_clearImportedContacts | td_sharePhoneNumber | td_getUserProfilePhotos | td_getStickers | td_searchStickers | td_getInstalledStickerSets | td_getArchivedStickerSets | td_getTrendingStickerSets | td_getAttachedStickerSets | td_getStickerSet | td_searchStickerSet | td_searchInstalledStickerSets | td_searchStickerSets | td_changeStickerSet | td_viewTrendingStickerSets | td_reorderInstalledStickerSets | td_getRecentStickers | td_addRecentSticker | td_removeRecentSticker | td_clearRecentStickers | td_getFavoriteStickers | td_addFavoriteSticker | td_removeFavoriteSticker | td_getStickerEmojis | td_searchEmojis | td_getEmojiSuggestionsUrl | td_getSavedAnimations | td_addSavedAnimation | td_removeSavedAnimation | td_getRecentInlineBots | td_searchHashtags | td_removeRecentHashtag | td_getWebPagePreview | td_getWebPageInstantView | td_setProfilePhoto | td_deleteProfilePhoto | td_setName | td_setBio | td_setUsername | td_setLocation | td_changePhoneNumber | td_resendChangePhoneNumberCode | td_checkChangePhoneNumberCode | td_setCommands | td_getActiveSessions | td_terminateSession | td_terminateAllOtherSessions | td_getConnectedWebsites | td_disconnectWebsite | td_disconnectAllWebsites | td_setSupergroupUsername | td_setSupergroupStickerSet | td_toggleSupergroupSignMessages | td_toggleSupergroupIsAllHistoryAvailable | td_reportSupergroupSpam | td_getSupergroupMembers | td_deleteSupergroup | td_closeSecretChat | td_getChatEventLog | td_getPaymentForm | td_validateOrderInfo | td_sendPaymentForm | td_getPaymentReceipt | td_getSavedOrderInfo | td_deleteSavedOrderInfo | td_deleteSavedCredentials | td_getSupportUser | td_getBackgrounds | td_getBackgroundUrl | td_searchBackground | td_setBackground | td_removeBackground | td_resetBackgrounds | td_getLocalizationTargetInfo | td_getLanguagePackInfo | td_getLanguagePackStrings | td_synchronizeLanguagePack | td_addCustomServerLanguagePack | td_setCustomLanguagePack | td_editCustomLanguagePackInfo | td_setCustomLanguagePackString | td_deleteLanguagePack | td_registerDevice | td_processPushNotification | td_getPushReceiverId | td_getRecentlyVisitedTMeUrls | td_setUserPrivacySettingRules | td_getUserPrivacySettingRules | td_getOption | td_setOption | td_setAccountTtl | td_getAccountTtl | td_deleteAccount | td_removeChatActionBar | td_reportChat | td_getChatStatisticsUrl | td_getChatStatistics | td_getMessageStatistics | td_getStatisticalGraph | td_getStorageStatistics | td_getStorageStatisticsFast | td_getDatabaseStatistics | td_optimizeStorage | td_setNetworkType | td_getNetworkStatistics | td_addNetworkStatistics | td_resetNetworkStatistics | td_getAutoDownloadSettingsPresets | td_setAutoDownloadSettings | td_getBankCardInfo | td_getPassportElement | td_getAllPassportElements | td_setPassportElement | td_deletePassportElement | td_setPassportElementErrors | td_getPreferredCountryLanguage | td_sendPhoneNumberVerificationCode | td_resendPhoneNumberVerificationCode | td_checkPhoneNumberVerificationCode | td_sendEmailAddressVerificationCode | td_resendEmailAddressVerificationCode | td_checkEmailAddressVerificationCode | td_getPassportAuthorizationForm | td_getPassportAuthorizationFormAvailableElements | td_sendPassportAuthorizationForm | td_sendPhoneNumberConfirmationCode | td_resendPhoneNumberConfirmationCode | td_checkPhoneNumberConfirmationCode | td_setBotUpdatesStatus | td_uploadStickerFile | td_createNewStickerSet | td_addStickerToSet | td_setStickerSetThumbnail | td_setStickerPositionInSet | td_removeStickerFromSet | td_getMapThumbnailFile | td_acceptTermsOfService | td_sendCustomRequest | td_answerCustomQuery | td_setAlarm | td_getCountries | td_getCountryCode | td_getPhoneNumberInfo | td_getInviteText | td_getDeepLinkInfo | td_getApplicationConfig | td_saveApplicationLogEvent | td_addProxy | td_editProxy | td_enableProxy | td_disableProxy | td_removeProxy | td_getProxies | td_getProxyLink | td_pingProxy | td_setLogStream | td_getLogStream | td_setLogVerbosityLevel | td_getLogVerbosityLevel | td_getLogTags | td_setLogTagVerbosityLevel | td_getLogTagVerbosityLevel | td_addLogMessage | td_testCallEmpty | td_testCallString | td_testCallBytes | td_testCallVectorInt | td_testCallVectorIntObject | td_testCallVectorString | td_testCallVectorStringObject | td_testSquareInt | td_testNetwork | td_testProxy | td_testGetDifference | td_testUseUpdate | td_testReturnError;
+    
+    /** Changes the verbosity level of TDWeb logging */
+    export interface td_setJsLogVerbosityLevel {
+        '@type': 'setJsLogVerbosityLevel';
+        /** New value of the verbosity level for logging. */
+        new_verbosity_level?: td_jsLogLevel;
+    }
+    
+    export type TdFunction = td_getAuthorizationState | td_setTdlibParameters | td_checkDatabaseEncryptionKey | td_setAuthenticationPhoneNumber | td_resendAuthenticationCode | td_checkAuthenticationCode | td_requestQrCodeAuthentication | td_registerUser | td_checkAuthenticationPassword | td_requestAuthenticationPasswordRecovery | td_recoverAuthenticationPassword | td_checkAuthenticationBotToken | td_logOut | td_close | td_destroy | td_confirmQrCodeAuthentication | td_getCurrentState | td_setDatabaseEncryptionKey | td_getPasswordState | td_setPassword | td_getRecoveryEmailAddress | td_setRecoveryEmailAddress | td_checkRecoveryEmailAddressCode | td_resendRecoveryEmailAddressCode | td_requestPasswordRecovery | td_recoverPassword | td_createTemporaryPassword | td_getTemporaryPasswordState | td_getMe | td_getUser | td_getUserFullInfo | td_getBasicGroup | td_getBasicGroupFullInfo | td_getSupergroup | td_getSupergroupFullInfo | td_getSecretChat | td_getChat | td_getMessage | td_getMessageLocally | td_getRepliedMessage | td_getChatPinnedMessage | td_getCallbackQueryMessage | td_getMessages | td_getMessageThread | td_getFile | td_getRemoteFile | td_getChats | td_searchPublicChat | td_searchPublicChats | td_searchChats | td_searchChatsOnServer | td_searchChatsNearby | td_getTopChats | td_removeTopChat | td_addRecentlyFoundChat | td_removeRecentlyFoundChat | td_clearRecentlyFoundChats | td_checkChatUsername | td_getCreatedPublicChats | td_checkCreatedPublicChatsLimit | td_getSuitableDiscussionChats | td_getInactiveSupergroupChats | td_getGroupsInCommon | td_getChatHistory | td_getMessageThreadHistory | td_deleteChatHistory | td_searchChatMessages | td_searchMessages | td_searchSecretMessages | td_searchCallMessages | td_searchChatRecentLocationMessages | td_getActiveLiveLocationMessages | td_getChatMessageByDate | td_getChatMessageCount | td_getChatScheduledMessages | td_getMessagePublicForwards | td_removeNotification | td_removeNotificationGroup | td_getMessageLink | td_getMessageEmbeddingCode | td_getMessageLinkInfo | td_sendMessage | td_sendMessageAlbum | td_sendBotStartMessage | td_sendInlineQueryResultMessage | td_forwardMessages | td_resendMessages | td_sendChatSetTtlMessage | td_sendChatScreenshotTakenNotification | td_addLocalMessage | td_deleteMessages | td_deleteChatMessagesFromUser | td_editMessageText | td_editMessageLiveLocation | td_editMessageMedia | td_editMessageCaption | td_editMessageReplyMarkup | td_editInlineMessageText | td_editInlineMessageLiveLocation | td_editInlineMessageMedia | td_editInlineMessageCaption | td_editInlineMessageReplyMarkup | td_editMessageSchedulingState | td_getTextEntities | td_parseTextEntities | td_parseMarkdown | td_getMarkdownText | td_getFileMimeType | td_getFileExtension | td_cleanFileName | td_getLanguagePackString | td_getJsonValue | td_getJsonString | td_setPollAnswer | td_getPollVoters | td_stopPoll | td_hideSuggestedAction | td_getLoginUrlInfo | td_getLoginUrl | td_getInlineQueryResults | td_answerInlineQuery | td_getCallbackQueryAnswer | td_answerCallbackQuery | td_answerShippingQuery | td_answerPreCheckoutQuery | td_setGameScore | td_setInlineGameScore | td_getGameHighScores | td_getInlineGameHighScores | td_deleteChatReplyMarkup | td_sendChatAction | td_openChat | td_closeChat | td_viewMessages | td_openMessageContent | td_readAllChatMentions | td_createPrivateChat | td_createBasicGroupChat | td_createSupergroupChat | td_createSecretChat | td_createNewBasicGroupChat | td_createNewSupergroupChat | td_createNewSecretChat | td_upgradeBasicGroupChatToSupergroupChat | td_getChatListsToAddChat | td_addChatToList | td_getChatFilter | td_createChatFilter | td_editChatFilter | td_deleteChatFilter | td_reorderChatFilters | td_getRecommendedChatFilters | td_getChatFilterDefaultIconName | td_setChatTitle | td_setChatPhoto | td_setChatPermissions | td_setChatDraftMessage | td_setChatNotificationSettings | td_toggleChatIsMarkedAsUnread | td_toggleChatDefaultDisableNotification | td_setChatClientData | td_setChatDescription | td_setChatDiscussionGroup | td_setChatLocation | td_setChatSlowModeDelay | td_pinChatMessage | td_unpinChatMessage | td_unpinAllChatMessages | td_joinChat | td_leaveChat | td_addChatMember | td_addChatMembers | td_setChatMemberStatus | td_canTransferOwnership | td_transferChatOwnership | td_getChatMember | td_searchChatMembers | td_getChatAdministrators | td_clearAllDraftMessages | td_getChatNotificationSettingsExceptions | td_getScopeNotificationSettings | td_setScopeNotificationSettings | td_resetAllNotificationSettings | td_toggleChatIsPinned | td_setPinnedChats | td_downloadFile | td_cancelDownloadFile | td_uploadFile | td_cancelUploadFile | td_writeGeneratedFilePart | td_setFileGenerationProgress | td_finishFileGeneration | td_readFilePart | td_deleteFile | td_generateChatInviteLink | td_checkChatInviteLink | td_joinChatByInviteLink | td_createCall | td_acceptCall | td_sendCallSignalingData | td_discardCall | td_sendCallRating | td_sendCallDebugInformation | td_toggleMessageSenderIsBlocked | td_blockMessageSenderFromReplies | td_getBlockedMessageSenders | td_addContact | td_importContacts | td_getContacts | td_searchContacts | td_removeContacts | td_getImportedContactCount | td_changeImportedContacts | td_clearImportedContacts | td_sharePhoneNumber | td_getUserProfilePhotos | td_getStickers | td_searchStickers | td_getInstalledStickerSets | td_getArchivedStickerSets | td_getTrendingStickerSets | td_getAttachedStickerSets | td_getStickerSet | td_searchStickerSet | td_searchInstalledStickerSets | td_searchStickerSets | td_changeStickerSet | td_viewTrendingStickerSets | td_reorderInstalledStickerSets | td_getRecentStickers | td_addRecentSticker | td_removeRecentSticker | td_clearRecentStickers | td_getFavoriteStickers | td_addFavoriteSticker | td_removeFavoriteSticker | td_getStickerEmojis | td_searchEmojis | td_getEmojiSuggestionsUrl | td_getSavedAnimations | td_addSavedAnimation | td_removeSavedAnimation | td_getRecentInlineBots | td_searchHashtags | td_removeRecentHashtag | td_getWebPagePreview | td_getWebPageInstantView | td_setProfilePhoto | td_deleteProfilePhoto | td_setName | td_setBio | td_setUsername | td_setLocation | td_changePhoneNumber | td_resendChangePhoneNumberCode | td_checkChangePhoneNumberCode | td_setCommands | td_getActiveSessions | td_terminateSession | td_terminateAllOtherSessions | td_getConnectedWebsites | td_disconnectWebsite | td_disconnectAllWebsites | td_setSupergroupUsername | td_setSupergroupStickerSet | td_toggleSupergroupSignMessages | td_toggleSupergroupIsAllHistoryAvailable | td_reportSupergroupSpam | td_getSupergroupMembers | td_deleteSupergroup | td_closeSecretChat | td_getChatEventLog | td_getPaymentForm | td_validateOrderInfo | td_sendPaymentForm | td_getPaymentReceipt | td_getSavedOrderInfo | td_deleteSavedOrderInfo | td_deleteSavedCredentials | td_getSupportUser | td_getBackgrounds | td_getBackgroundUrl | td_searchBackground | td_setBackground | td_removeBackground | td_resetBackgrounds | td_getLocalizationTargetInfo | td_getLanguagePackInfo | td_getLanguagePackStrings | td_synchronizeLanguagePack | td_addCustomServerLanguagePack | td_setCustomLanguagePack | td_editCustomLanguagePackInfo | td_setCustomLanguagePackString | td_deleteLanguagePack | td_registerDevice | td_processPushNotification | td_getPushReceiverId | td_getRecentlyVisitedTMeUrls | td_setUserPrivacySettingRules | td_getUserPrivacySettingRules | td_getOption | td_setOption | td_setAccountTtl | td_getAccountTtl | td_deleteAccount | td_removeChatActionBar | td_reportChat | td_getChatStatisticsUrl | td_getChatStatistics | td_getMessageStatistics | td_getStatisticalGraph | td_getDatabaseStatistics | td_setNetworkType | td_getNetworkStatistics | td_addNetworkStatistics | td_resetNetworkStatistics | td_getAutoDownloadSettingsPresets | td_setAutoDownloadSettings | td_getBankCardInfo | td_getPassportElement | td_getAllPassportElements | td_setPassportElement | td_deletePassportElement | td_setPassportElementErrors | td_getPreferredCountryLanguage | td_sendPhoneNumberVerificationCode | td_resendPhoneNumberVerificationCode | td_checkPhoneNumberVerificationCode | td_sendEmailAddressVerificationCode | td_resendEmailAddressVerificationCode | td_checkEmailAddressVerificationCode | td_getPassportAuthorizationForm | td_getPassportAuthorizationFormAvailableElements | td_sendPassportAuthorizationForm | td_sendPhoneNumberConfirmationCode | td_resendPhoneNumberConfirmationCode | td_checkPhoneNumberConfirmationCode | td_setBotUpdatesStatus | td_uploadStickerFile | td_createNewStickerSet | td_addStickerToSet | td_setStickerSetThumbnail | td_setStickerPositionInSet | td_removeStickerFromSet | td_getMapThumbnailFile | td_acceptTermsOfService | td_sendCustomRequest | td_answerCustomQuery | td_setAlarm | td_getCountries | td_getCountryCode | td_getPhoneNumberInfo | td_getInviteText | td_getDeepLinkInfo | td_getApplicationConfig | td_saveApplicationLogEvent | td_editProxy | td_enableProxy | td_disableProxy | td_removeProxy | td_getProxies | td_getProxyLink | td_pingProxy | td_setLogStream | td_getLogStream | td_setLogVerbosityLevel | td_getLogVerbosityLevel | td_getLogTags | td_setLogTagVerbosityLevel | td_getLogTagVerbosityLevel | td_addLogMessage | td_testCallEmpty | td_testCallString | td_testCallBytes | td_testCallVectorInt | td_testCallVectorIntObject | td_testCallVectorString | td_testCallVectorStringObject | td_testSquareInt | td_testNetwork | td_testProxy | td_testGetDifference | td_testUseUpdate | td_testReturnError | td_setJsLogVerbosityLevel;
     export type TdFunctionReturn<t> = 
     t extends td_getAuthorizationState ? td_AuthorizationState :
         t extends td_setTdlibParameters ? td_Ok :
@@ -12825,7 +12791,6 @@ namespace TdApi {
         t extends td_toggleChatIsPinned ? td_Ok :
         t extends td_setPinnedChats ? td_Ok :
         t extends td_downloadFile ? td_File :
-        t extends td_getFileDownloadedPrefixSize ? td_Count :
         t extends td_cancelDownloadFile ? td_Ok :
         t extends td_uploadFile ? td_File :
         t extends td_cancelUploadFile ? td_Ok :
@@ -12952,10 +12917,7 @@ namespace TdApi {
         t extends td_getChatStatistics ? td_ChatStatistics :
         t extends td_getMessageStatistics ? td_MessageStatistics :
         t extends td_getStatisticalGraph ? td_StatisticalGraph :
-        t extends td_getStorageStatistics ? td_StorageStatistics :
-        t extends td_getStorageStatisticsFast ? td_StorageStatisticsFast :
         t extends td_getDatabaseStatistics ? td_DatabaseStatistics :
-        t extends td_optimizeStorage ? td_StorageStatistics :
         t extends td_setNetworkType ? td_Ok :
         t extends td_getNetworkStatistics ? td_NetworkStatistics :
         t extends td_addNetworkStatistics ? td_Ok :
@@ -13000,7 +12962,6 @@ namespace TdApi {
         t extends td_getDeepLinkInfo ? td_DeepLinkInfo :
         t extends td_getApplicationConfig ? td_JsonValue :
         t extends td_saveApplicationLogEvent ? td_Ok :
-        t extends td_addProxy ? td_Proxy :
         t extends td_editProxy ? td_Proxy :
         t extends td_enableProxy ? td_Ok :
         t extends td_disableProxy ? td_Ok :
@@ -13029,6 +12990,7 @@ namespace TdApi {
         t extends td_testGetDifference ? td_Ok :
         t extends td_testUseUpdate ? td_Update :
         t extends td_testReturnError ? td_Error :
+        t extends td_setJsLogVerbosityLevel ? td_Ok :
         never
     
     export type TdUpdateType<t> = 
@@ -13112,6 +13074,7 @@ namespace TdApi {
         t extends td_updateNewCustomQuery ? "updateNewCustomQuery" :
         t extends td_updatePoll ? "updatePoll" :
         t extends td_updatePollAnswer ? "updatePollAnswer" :
+        t extends td_updateFatalError ? "updateFatalError" :
         never;
 }
 export default TdApi;
