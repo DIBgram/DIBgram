@@ -23,7 +23,7 @@ export default class ConfirmDialog extends React.Component{
         return (
             <Dialog className="confirm-dialog" id={this.props.id} ref={this.dialogRef} width={this.props.width || '320px'}>
                 <h1>{this.props.title || ''}</h1>
-                <div className="content">
+                <div className={'content' + (this.props.largeFont? ' large-font' : '')}>
                     {this.props.children}
                 </div>
                 <div className="options">
@@ -73,5 +73,7 @@ ConfirmDialog.propTypes= {
     /** Called when third button is pressed */
     onThirdButtonClick: PropTypes.func,
     /** If true, the OK button will become red, meaning the user should pay attention */
-    attention: PropTypes.bool
+    attention: PropTypes.bool,
+    /** If true, the dialog text will be larger */
+    largeFont: PropTypes.bool
 };

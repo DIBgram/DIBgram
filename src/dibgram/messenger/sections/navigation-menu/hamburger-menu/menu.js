@@ -127,7 +127,7 @@ const HamburgerMenu= connect(state=> ({
                                         // Log out
                                         onClose();
                                         addDialog('log-out-from-main-menu-confirm-dialog',
-                                            <ConfirmDialog 
+                                            <ConfirmDialog largeFont={true}
                                                 id="log-out-from-main-menu-confirm-dialog"
                                                 OKButtonText="Log out" onOK={()=> {
                                                     TdLib.sendQuery({

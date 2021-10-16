@@ -19,6 +19,10 @@
         & > div.content {
             margin: 10px;
             margin-bottom: 20px;
+
+            &.large-font {
+                font-size: 14px;
+            }
         }
 
         & > div.options {

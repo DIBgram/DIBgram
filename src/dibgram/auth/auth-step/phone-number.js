@@ -36,7 +36,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
             switch(reason.message){
             case 'PHONE_NUMBER_FLOOD':
                 addDialog( 'phone_number_flood_error',
-                    <ConfirmDialog width="320px" hideCancelButton={true} id="phone_number_flood_error">
+                    <ConfirmDialog width="320px" hideCancelButton={true} largeFont={true} id="phone_number_flood_error">
                         Sorry, you have deleted and re-created your account too many times recently.<br/>
                         Please wait for a few days before signing up again.
                     </ConfirmDialog>

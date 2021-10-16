@@ -372,7 +372,7 @@ function ChatContextMenu({chat}) {
                     if(error.code == 400) {
                         const max= chat.position.list['@type'] == 'chatListMain'? options['pinned_chat_count_max'] : options['pinned_archived_chat_count_max'];
                         addDialog('maximum-pinned-chats-reached', (
-                            <ConfirmDialog id="maximum-pinned-chats-reached" hideCancelButton={true}>
+                            <ConfirmDialog id="maximum-pinned-chats-reached" largeFont={true} hideCancelButton={true}>
                                 Sorry, you can only pin {max} chats to the top.
                             </ConfirmDialog>
                         ));
