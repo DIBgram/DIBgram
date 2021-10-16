@@ -38,24 +38,24 @@ export default class Auth {
      * @param {string} number The phone number the user entered
      * @returns TdLib query result
      */
-    static async givePhoneNumber(number) {
-        return await TdLib.sendQuery({'@type': 'setAuthenticationPhoneNumber', 'phone_number': number});
+    static givePhoneNumber(number) {
+        return TdLib.sendQuery({'@type': 'setAuthenticationPhoneNumber', 'phone_number': number});
     }
     /**
      * Pass authorization code the user has received
      * @param {string} code The code the user entered
      * @returns TdLib query result
      */
-    static async checkAuthCode(code) {
-        return await TdLib.sendQuery({'@type': 'checkAuthenticationCode', 'code': code});
+    static checkAuthCode(code) {
+        return TdLib.sendQuery({'@type': 'checkAuthenticationCode', 'code': code});
     }
     /**
      * Pass 2FA password of the account
      * @param {string} pass The password the user entered
      * @returns TdLib query result
      */
-    static async check2FACode(pass) {
-        return await TdLib.sendQuery({'@type': 'checkAuthenticationPassword', 'password': pass});
+    static check2FACode(pass) {
+        return TdLib.sendQuery({'@type': 'checkAuthenticationPassword', 'password': pass});
     }
     /**
      * Sign up to Telegram
@@ -63,7 +63,7 @@ export default class Auth {
      * @param {string} last Tha last name to be used in the new account
      * @returns TdLib query result
      */
-    static async registerNewAccount(first, last) {
-        return await TdLib.sendQuery({'@type': 'registerUser', 'first_name': first, 'last_name': last});
+    static registerNewAccount(first, last) {
+        return TdLib.sendQuery({'@type': 'registerUser', 'first_name': first, 'last_name': last});
     }
 }

@@ -1,0 +1,54 @@
+.sign-up-profile-pic {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    height: 76px;
+    width: 76px;
+    background: var(--theme-color-activeButtonBg); // I spent an hour searching for the right theme color, without success. This is the best I could find.
+
+    &:hover {
+        background: var(--theme-color-activeButtonBgOver);
+    }
+
+    svg,
+    &:hover svg {
+        fill: var(--theme-color-activeButtonFg) !important;
+    }
+
+    label {
+        width: 100%;
+        height: 100%;
+        display: block;
+        cursor: pointer;
+    }
+
+    input {
+        display: none;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+    }
+
+    &.has-image {
+        svg {
+            fill: transparent !important;
+        }
+
+        &:hover {
+            span {
+                background: var(--theme-color-msgDateImgBg);
+            }
+
+            svg {
+                fill: var(--theme-color-msgDateImgFg) !important;
+            }
+
+            .ripple {
+                background: var(--theme-color-radialBg) !important;
+            }
+        }
+    }
+}

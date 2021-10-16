@@ -444,11 +444,16 @@ class AuthWindowStepPassword extends React.Component {
  * Render sign up step of authorization screen
  */
 class AuthWindowStepRegister extends React.Component {
+    static propTypes= {
+        tos: PropTypes.object,
+    }
+    
     state= {
         firstName: '',
         lastName: '',
         statusContent: '',
-        statusVisible: false
+        statusVisible: false,
+        image: null,
     };
     handleFirstNameFieldChange= (event) => {
         this.setState({firstName: event.target.value});
@@ -456,45 +461,82 @@ class AuthWindowStepRegister extends React.Component {
     handleLastNameFieldChange= (event) => {
         this.setState({lastName: event.target.value});
     }
-    handleContinueButton= async () => {
-        await Auth.registerNewAccount(this.state.firstName, this.state.lastName).catch(reason=> {
+    handleContinueButton= () => {
+        Auth.registerNewAccount(this.state.firstName, this.state.lastName).catch(reason=> {
             this.setState({textUnderField: reason.message});
+        }).then(()=> {
+            if(this.state.image) {
+                TdLib.sendQuery({
+                    '@type': 'setProfilePhoto',
+                    photo: {
+                        '@type': 'inputChatPhotoStatic',
+                        photo: {
+                            '@type': 'inputFileBlob',
+                            data: this.state.image,
+                        }
+                    }
+                });
+            }
         });
     }
+
+    showTos= () => {
+        addDialog('signup-tos-dialog', (
+            <ConfirmDialog id="signup-tos-dialog" width="364px"
+                hideCancelButton={true} title="Terms of Service">
+                
+                {this.props.tos.text.text}
+            </ConfirmDialog>
+        ));
+    }
+
     render () {
         return (
-            <div id="auth" className="auth-step-signup">
-                <div className="content">
+            <div className="auth-container">
+                <div id="auth" className="auth-step-signup">
+                    <div className="content">
 
-                    <h2>Your info</h2>
+                        <h2>Your info</h2>
 
-                    <p className="description">
-                        Please enter your name and upload a photo.
-                    </p>
+                        <p className="description">
+                            Please enter your name and <br/>
+                            upload a photo.
+                        </p>
 
-                    <UnderlinedInput 
-                        type="text" 
-                        value={this.state.firstName} 
-                        onChange={this.handleFirstNameFieldChange}
-                        autoFocus={true} />
+                        <SignUpProfilePic image={this.state.image} onChange={e=> this.setState({
+                            image: e.target.files[0]
+                        })}/>
 
-                    <UnderlinedInput 
-                        type="text" 
-                        value={this.state.lastName} 
-                        onChange={this.handleLastNameFieldChange} />
+                        <UnderlinedInput 
+                            type="text" 
+                            title="First name"
+                            value={this.state.firstName} 
+                            onChange={this.handleFirstNameFieldChange}
+                            autoFocus={true} />
 
-                    <div className="status">
-                        {this.state.textUnderField || ''}
+                        <UnderlinedInput 
+                            type="text" 
+                            title="Last name"
+                            value={this.state.lastName} 
+                            onChange={this.handleLastNameFieldChange} />
+
+                        <div className="status">
+                            {this.state.textUnderField || ''}
+                        </div>
+
+                        <BigHighlightedButton 
+                            onClick={this.handleContinueButton}>
+                            SIGN UP
+                        </BigHighlightedButton>
+
                     </div>
-
-                    <BigHighlightedButton 
-                        onClick={this.handleContinueButton}>
-                        SIGN UP
-                    </BigHighlightedButton>
-
                     <Provider store={connectionStore}>
                         <ConnectionState/>
                     </Provider>
+                </div>
+                <div className="tos-notice">
+                    By signing up, <br/>
+                    you agree to the <LinkButton onClick={this.showTos}>Terms of Service</LinkButton>
                 </div>
             </div>
         );

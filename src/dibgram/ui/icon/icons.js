@@ -21,6 +21,7 @@ export const menu_new_channel = raw('./menu_new_channel.svg');
 export const menu_new_group = raw('./menu_new_group.svg');
 export const menu_night_mode = raw('./menu_night_mode.svg');
 export const menu_settings = raw('./menu_settings.svg');
+export const new_chat_photo = raw('./new_chat_photo.svg');
 export const replies_userpic = raw('./replies_userpic.svg');
 export const saved_messages = raw('./saved_messages.svg');
 export const settings_name = raw('./settings_name.svg');
