@@ -1,0 +1,20 @@
+#auth.auth-step-code {
+    .underlined-input {
+        input {
+            padding: 11px 3px;
+        }
+        margin-top: 40px;
+    }
+
+    .status.status { // Increase specificity by using class two times
+        height: 16px;
+        line-height: unset;
+        margin-bottom: 25px;
+        margin-top: 25px;
+        text-align: unset;
+    }
+
+    .description {
+        margin-top: 10px;
+    }
+}

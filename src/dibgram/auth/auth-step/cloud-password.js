@@ -8,6 +8,7 @@ import BigHighlightedButton from '../../ui/elements/highlighted-button';
 import { Provider } from 'react-redux';
 import connectionStore from '../../TdWeb/connectionStore';
 import ConnectionState from '../../ui/components/connecting';
+import './cloud-password.scss';
 
 
 /**

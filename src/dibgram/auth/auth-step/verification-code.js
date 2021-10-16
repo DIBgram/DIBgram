@@ -7,6 +7,7 @@ import BigHighlightedButton from '../../ui/elements/highlighted-button';
 import { Provider } from 'react-redux';
 import connectionStore from '../../TdWeb/connectionStore';
 import ConnectionState from '../../ui/components/connecting';
+import './verification-code.scss';
 
 /**
  * Renders verification code step of authorization screen

@@ -11,6 +11,7 @@ import ConnectionState from '../../ui/components/connecting';
 import TdLib from '../../TdWeb/tdlib';
 import LinkButton from '../../ui/elements/link-button';
 import SignUpProfilePic from './signup-profile-photo';
+import './register.scss';
 
 /**
  * Render sign up step of authorization screen

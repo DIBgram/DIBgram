@@ -8,6 +8,7 @@ import BigHighlightedButton from '../../ui/elements/highlighted-button';
 import UnderlinedInput from '../../ui/elements/underlined-input';
 import { manageStatusTextContent } from '../auth-screen';
 import ConnectionState from '../../ui/components/connecting';
+import './phone-number.scss';
 
 /**
  * Renders the phone number step of authorization screen
