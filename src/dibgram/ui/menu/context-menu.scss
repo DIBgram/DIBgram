@@ -5,11 +5,17 @@
     left: 0;
     width: 100%;
     height: 100%;
+    transition: opacity 200ms;
 
     .menu {
         background-color: var(--theme-color-windowBg);
         position: absolute;
         left: var(--x);
         top: var(--y);
+    }
+
+    &.hidden {
+        opacity: 0;
+        pointer-events: none;
     }
 }

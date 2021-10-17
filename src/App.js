@@ -7,7 +7,7 @@ import ConfirmDialog from './dibgram/ui/dialog/confirm-dialog';
 import {addDialog} from './dibgram/ui/dialog/dialogs';
 import { toastStore, Toasts } from './dibgram/ui/dialog/toast';
 import './dibgram/ui/main.scss';
-import { ContextMenus, contextMenusStore, onAnywhereClicked } from './dibgram/ui/menu/context-menu';
+import { ContextMenus, contextMenusStore } from './dibgram/ui/menu/context-menu';
 import { ThemeProvider, themeStore } from './dibgram/ui/themes/theme';
 
 TdLib.initializeTdLib().then(function (res) {
@@ -52,7 +52,7 @@ function App() {
 
     return (
         <Provider store={themeStore}>
-            <ThemeProvider id="app" onClick={onAnywhereClicked}>
+            <ThemeProvider id="app">
                 <Provider store={toastStore}>
                     <Toasts/>
                 </Provider>

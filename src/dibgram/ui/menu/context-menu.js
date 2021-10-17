@@ -9,6 +9,7 @@ import './context-menu.scss';
  */
 export function ContextMenu({x, y, children}) {
     const [direction, setDirection] = React.useState('br');
+    const [hide, setHide] = React.useState(false);
     const ref = React.useRef();
     React.useEffect(() => {
         setTimeout(() => {
@@ -26,8 +27,20 @@ export function ContextMenu({x, y, children}) {
         }, 0);
     }, []);
 
+    function handleMouseDown() {
+        setHide(true);
+        setTimeout(() => {
+            contextMenusStore.dispatch({
+                type: 'REMOVE_CONTEXT_MENUS'
+            });
+        }, 500);
+    }
+
     return (
-        <div className="context-menu" style={{'--x': x+'px', '--y': y+'px'}}>
+        <div className={'context-menu' + (hide? ' hidden' : '')} 
+            style={{'--x': x+'px', '--y': y+'px'}} 
+            onMouseDown={handleMouseDown}>
+
             <div className={'menu ' + direction} ref={ref}>
                 {children}
             </div>
@@ -67,10 +80,4 @@ export function createContextMenu(e, menu) {
             menu: <ContextMenu x={e.nativeEvent.pageX} y={e.nativeEvent.pageY}>{menu}</ContextMenu>
         });
     }, 50); // Human brain cannot notice 50ms delay
-}
-
-export function onAnywhereClicked() {
-    contextMenusStore.dispatch({
-        type: 'REMOVE_CONTEXT_MENUS'
-    });
 }
