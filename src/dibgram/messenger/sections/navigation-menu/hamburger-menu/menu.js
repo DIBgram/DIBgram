@@ -16,6 +16,9 @@ import Dialogs, { addDialog, dialogStore } from '../../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { setTheme, themeStore } from '../../../../ui/themes/theme';
+import UnderlinedInput from '../../../../ui/elements/underlined-input';
+import SignUpProfilePic from '../../../../auth/auth-step/signup-profile-photo';
+import ToolStripDialog from '../../../../ui/dialog/tool-strip-dialog';
 
 /**
  * Renders the main menu (always rendered but not always visible)
@@ -119,23 +122,38 @@ const HamburgerMenu= connect(state=> ({
                         <div className="scroll-content">
                             <div className="options">
                                 <ToolStrip.Section>
-                                    <ToolStrip.Button icon={menu_new_group} text="New Group"/>
+                                    <ToolStrip.Button icon={menu_new_group} text="New Group" onClick={() => {
+                                        addDialog('create-group-confirm-dialog',
+                                            <ConfirmDialog largeFont={false}
+                                                id="create-group-confirm-dialog"
+                                                OKButtonText="NEXT" attention={false}>
+                                                <SignUpProfilePic></SignUpProfilePic>
+                                                <UnderlinedInput title="Group name"></UnderlinedInput>
+                                            </ConfirmDialog>
+                                        );
+                                    }}/>
                                     <ToolStrip.Button icon={menu_new_channel} text="New Channel"/>
                                     <ToolStrip.Button icon={settings_name} text="Contacts"/>
                                     <ToolStrip.Button icon={settings_phone_number} text="Calls"/>
-                                    <ToolStrip.Button icon={menu_settings} text="Log out" onClick={()=> {
-                                        // Log out
-                                        onClose();
-                                        addDialog('log-out-from-main-menu-confirm-dialog',
-                                            <ConfirmDialog largeFont={true}
-                                                id="log-out-from-main-menu-confirm-dialog"
-                                                OKButtonText="Log out" onOK={()=> {
-                                                    TdLib.sendQuery({
-                                                        '@type': 'logOut'
-                                                    });
-                                                }} attention={true}>
-                                                Are you sure you want to log out?
-                                            </ConfirmDialog>
+                                    <ToolStrip.Button icon={menu_settings} text="Settings" onClick={()=> {
+                                        addDialog('full-settings-tool-strip-dialog',
+                                            <ToolStripDialog id="full-settings-tool-strip-dialog" title="Settings">
+                                                <ToolStrip.Button text="Log Out" onClick={() => {
+                                                    // Log out
+                                                    onClose();
+                                                    addDialog('log-out-from-main-menu-confirm-dialog',
+                                                        <ConfirmDialog largeFont={true}
+                                                            id="log-out-from-main-menu-confirm-dialog"
+                                                            OKButtonText="LOG OUT" onOK={()=> {
+                                                                TdLib.sendQuery({
+                                                                    '@type': 'logOut'
+                                                                });
+                                                            }} attention={true}>
+                                                            Are you sure you want to log out?
+                                                        </ConfirmDialog>
+                                                    );
+                                                }} />
+                                            </ToolStripDialog>
                                         );
                                     }}/>
                                     <ToolStrip.ToggleButton icon={menu_night_mode} text="Night Mode" isActive={nightMode} onChange={(isNight)=> {
