@@ -6,10 +6,10 @@ import Dialogs, { dialogStore } from '../ui/dialog/dialogs';
 
 import './auth.scss';
 import { Provider } from 'react-redux';
-import AuthWindowStepPhoneNumber from './auth-step/phone-number';
-import AuthWindowStepCode from './auth-step/verification-code';
-import AuthWindowStepPassword from './auth-step/cloud-password';
-import AuthWindowStepRegister from './auth-step/register';
+import AuthWindowStepPhoneNumber from './auth-step/phone-number/phone-number';
+import AuthWindowStepCode from './auth-step/verification-code/verification-code';
+import AuthWindowStepPassword from './auth-step/cloud-password/cloud-password';
+import AuthWindowStepRegister from './auth-step/register/register';
 
 var initialAuthState = {'@type': undefined};
 export function setInitialAuthState(state) {

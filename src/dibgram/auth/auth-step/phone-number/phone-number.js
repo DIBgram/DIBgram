@@ -1,13 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Auth from '../../TdWeb/auth';
-import connectionStore from '../../TdWeb/connectionStore';
-import ConfirmDialog from '../../ui/dialog/confirm-dialog';
-import { addDialog } from '../../ui/dialog/dialogs';
-import BigHighlightedButton from '../../ui/elements/highlighted-button';
-import UnderlinedInput from '../../ui/elements/underlined-input';
-import { manageStatusTextContent } from '../auth-screen';
-import ConnectionState from '../../ui/components/connecting';
+import Auth from '../../../TdWeb/auth';
+import connectionStore from '../../../TdWeb/connectionStore';
+import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
+import { addDialog } from '../../../ui/dialog/dialogs';
+import BigHighlightedButton from '../../../ui/elements/highlighted-button';
+import UnderlinedInput from '../../../ui/elements/underlined-input';
+import { manageStatusTextContent } from '../../auth-screen';
+import ConnectionState from '../../../ui/components/connecting';
 import callingCodes from './phone-number-calling-codes.json';
 import './phone-number.scss';
 
