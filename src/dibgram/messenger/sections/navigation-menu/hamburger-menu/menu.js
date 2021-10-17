@@ -18,7 +18,7 @@ import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { setTheme, themeStore } from '../../../../ui/themes/theme';
 import UnderlinedInput from '../../../../ui/elements/underlined-input';
 import SignUpProfilePic from '../../../../auth/auth-step/signup-profile-photo';
-import ToolStripDialog from '../../../../ui/dialog/tool-strip-dialog';
+import SettingsDialog from '../../../../ui/dialog/settings-dialog';
 
 /**
  * Renders the main menu (always rendered but not always visible)
@@ -136,24 +136,8 @@ const HamburgerMenu= connect(state=> ({
                                     <ToolStrip.Button icon={settings_name} text="Contacts"/>
                                     <ToolStrip.Button icon={settings_phone_number} text="Calls"/>
                                     <ToolStrip.Button icon={menu_settings} text="Settings" onClick={()=> {
-                                        addDialog('full-settings-tool-strip-dialog',
-                                            <ToolStripDialog id="full-settings-tool-strip-dialog" title="Settings">
-                                                <ToolStrip.Button text="Log Out" onClick={() => {
-                                                    // Log out
-                                                    onClose();
-                                                    addDialog('log-out-from-main-menu-confirm-dialog',
-                                                        <ConfirmDialog largeFont={true}
-                                                            id="log-out-from-main-menu-confirm-dialog"
-                                                            OKButtonText="LOG OUT" onOK={()=> {
-                                                                TdLib.sendQuery({
-                                                                    '@type': 'logOut'
-                                                                });
-                                                            }} attention={true}>
-                                                            Are you sure you want to log out?
-                                                        </ConfirmDialog>
-                                                    );
-                                                }} />
-                                            </ToolStripDialog>
+                                        addDialog('full-settings-dialog',
+                                            <SettingsDialog id="full-settings-dialog" onClose={onClose} />
                                         );
                                     }}/>
                                     <ToolStrip.ToggleButton icon={menu_night_mode} text="Night Mode" isActive={nightMode} onChange={(isNight)=> {

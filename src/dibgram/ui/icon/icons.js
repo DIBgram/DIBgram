@@ -26,5 +26,6 @@ export const replies_userpic = raw('./replies_userpic.svg');
 export const saved_messages = raw('./saved_messages.svg');
 export const settings_name = raw('./settings_name.svg');
 export const settings_phone_number = raw('./settings_phone_number.svg');
+export const three_dots = raw('./three_dots.svg');
 
 export const filters_edit = raw('./chat_filters/edit.svg');
