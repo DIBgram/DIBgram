@@ -8,6 +8,7 @@ import BigHighlightedButton from '../../ui/elements/highlighted-button';
 import UnderlinedInput from '../../ui/elements/underlined-input';
 import { manageStatusTextContent } from '../auth-screen';
 import ConnectionState from '../../ui/components/connecting';
+import callingCodes from './phone-number-calling-codes.json';
 import './phone-number.scss';
 
 /**
@@ -20,19 +21,63 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
     }
     state= {
         number: '',
+        number_p: '+',
         invalid: false,
         statusContent: '',
         statusVisible: false
     };
+
+    ref1= React.createRef();
+    ref2= React.createRef();
+
     handlePNFieldChange = (event) => {
+        const value = event.target.value.replace(/[^0-9-]/g, '');
         this.setState({
-            number: event.target.value,
+            number: value,
             invalid: false // We shouldn't show the phone number as invalid, since it has changed after submission
         });
         this.changeStatus(''); // The same
     }
+
+    handlePNFieldChange_p = (event) => {
+        var value = '+' + event.target.value.replace(/[^0-9-]/g, '');
+        if(value.length > 5) {
+            let length = 1;
+            for(let country of callingCodes) {
+                if(value.startsWith(country.callingCode, 1)) {
+                    length = country.callingCode.length+1;
+                    break;
+                }
+            }
+            let value_new = value.substr(0, length);
+            let rest= value.substr(length);
+            this.setState({
+                number_p: value_new,
+                number: rest + this.state.number,
+                invalid: false
+            });
+            this.ref2.current.focus();
+        }
+        else {
+            this.setState({
+                number_p: value,
+            });
+        }
+        this.changeStatus('');
+    }
+
+    /** @param {React.SyntheticEvent<HTMLInputElement>} e */
+    handleKeyDown = (e) => { // Focus the previous field when the user presses the backspace key
+        if(e.nativeEvent.key === 'Backspace') {
+            if(this.state.number.length === 0) {
+                this.ref1.current.focus();
+            }
+        }
+    }
+
     submitNumber= async () => {
-        Auth.givePhoneNumber(this.state.number).catch(reason=> {
+        const number = this.state.number_p + ' ' + this.state.number;
+        Auth.givePhoneNumber(number).catch(reason=> {
             switch(reason.message){
             case 'PHONE_NUMBER_FLOOD':
                 addDialog( 'phone_number_flood_error',
@@ -76,14 +121,28 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
                     //TODO: Separate the country code from the phone number
                     //TODO: Add phone number placeholder
                 }
-                <UnderlinedInput
-                    type="tel" 
-                    value={this.state.number} 
-                    autoFocus={true}
-                    onChange={this.handlePNFieldChange}
-                    onEnterKeyPressed={this.submitNumber}
-                    invalid={this.state.invalid}
-                    preventNumberScrolling={false}/>
+
+                <div className="phone-number-input">
+                    <UnderlinedInput
+                        iRef={this.ref1}
+                        type="tel" 
+                        value={this.state.number_p} 
+                        autoFocus={true}
+                        onChange={this.handlePNFieldChange_p}
+                        onEnterKeyPressed={this.submitNumber}
+                        preventNumberScrolling={false}/>
+                    
+                    <UnderlinedInput
+                        iRef={this.ref2}
+                        type="tel" 
+                        value={this.state.number} 
+                        autoFocus={true}
+                        onChange={this.handlePNFieldChange}
+                        onEnterKeyPressed={this.submitNumber}
+                        invalid={this.state.invalid}
+                        preventNumberScrolling={false}
+                        onKeyDown={this.handleKeyDown}/>
+                </div>
 
                 <Status/>
 

@@ -6,4 +6,24 @@
     .description {
         margin-top: 10px;
     }
+
+    .phone-number-input {
+        display: flex;
+
+        .underlined-input:first-child {
+            margin-right: 11px;
+            flex-shrink: 0;
+            width: 64px;
+
+            input {
+                text-align: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        .underlined-input:last-child {
+            flex-grow: 1;
+        }
+    }
 }

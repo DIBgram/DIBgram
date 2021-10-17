@@ -37,6 +37,7 @@ export default class UnderlinedInput extends React.Component {
                     <div className={this.state.titleClass}>{this.props.title}</div>
                 ) : null }
                 <input 
+                    ref={this.props.iRef}
                     type={this.props.type} 
                     onChange={this.props.onChange} 
                     value={this.props.value}
@@ -75,6 +76,7 @@ export default class UnderlinedInput extends React.Component {
         });
     }
     handleKeyDown =(e)=>{
+        this.props.onKeyDown?.(e);
         if(e.key=='Enter') {
             this.props.onEnterKeyPressed && this.props.onEnterKeyPressed();
         }
@@ -107,5 +109,9 @@ UnderlinedInput.propTypes = {
     /** If true, text cannot be copied from the input */
     disableCopy: PropTypes.bool,
     /** If true, up and down buttons cannot change input value */
-    preventNumberScrolling: PropTypes.bool
+    preventNumberScrolling: PropTypes.bool,
+    /** `<input>` React ref */
+    iRef: PropTypes.object,
+    /** Fires when a key is pushed down while the element is in focus. */
+    onKeyDown: PropTypes.func
 };
