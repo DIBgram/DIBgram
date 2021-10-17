@@ -24,7 +24,8 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
         number_p: '+',
         invalid: false,
         statusContent: '',
-        statusVisible: false
+        statusVisible: false,
+        dropDownText: 'Country Code',
     };
 
     ref1= React.createRef();
@@ -39,8 +40,23 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
         this.changeStatus(''); // The same
     }
 
+    getCountryDropdownText(callingCode) {
+        var countryName= 'Invalid Country Code';
+        if(callingCode == '+') {
+            countryName= 'Country Code';
+        }
+        for(let country of callingCodes) {
+            if( callingCode.substr(1) == country.callingCode) {
+                countryName = country.name;
+                break;
+            }
+        }
+        return countryName;
+    }
+
     handlePNFieldChange_p = (event) => {
         var value = '+' + event.target.value.replace(/[^0-9-]/g, '');
+
         if(value.length > 5) {
             let length = 1;
             for(let country of callingCodes) {
@@ -49,20 +65,25 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
                     break;
                 }
             }
+
             let value_new = value.substr(0, length);
             let rest= value.substr(length);
+
             this.setState({
                 number_p: value_new,
                 number: rest + this.state.number,
-                invalid: false
+                invalid: false,
+                dropDownText: this.getCountryDropdownText(value_new)
             });
             this.ref2.current.focus();
         }
         else {
             this.setState({
                 number_p: value,
+                dropDownText: this.getCountryDropdownText(value)
             });
         }
+
         this.changeStatus('');
     }
 
@@ -122,6 +143,10 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
                     //TODO: Add phone number placeholder
                 }
 
+                <div className="country-dropdown">
+                    {this.state.dropDownText}
+                </div>
+
                 <div className="phone-number-input">
                     <UnderlinedInput
                         iRef={this.ref1}
@@ -136,7 +161,6 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
                         iRef={this.ref2}
                         type="tel" 
                         value={this.state.number} 
-                        autoFocus={true}
                         onChange={this.handlePNFieldChange}
                         onEnterKeyPressed={this.submitNumber}
                         invalid={this.state.invalid}

@@ -1,10 +1,18 @@
 #auth.auth-step-phoneNumber {
     .status {
-        margin: 10px;
+        margin: 11px;
     }
 
     .description {
         margin-top: 10px;
+        margin-bottom: 38px;
+    }
+
+    .country-dropdown {
+        padding: 11px 3px;
+        border-bottom: 1px solid var(--theme-color-inputBorderFg);
+        margin-bottom: 22px;
+        user-select: none;
     }
 
     .phone-number-input {
