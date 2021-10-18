@@ -138,7 +138,9 @@ const HamburgerMenu= connect(state=> ({
                                     <ToolStrip.Button icon={menu_settings} text="Settings" onClick={()=> {
                                         onClose();
                                         addDialog('full-settings-dialog',
-                                            <SettingsDialog id="full-settings-dialog" />
+                                            <Provider store={usersStore}>
+                                                <SettingsDialog id="full-settings-dialog" />
+                                            </Provider>
                                         );
                                     }}/>
                                     <ToolStrip.ToggleButton icon={menu_night_mode} text="Night Mode" isActive={nightMode} onChange={(isNight)=> {

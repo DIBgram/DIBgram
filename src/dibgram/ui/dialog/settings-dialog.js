@@ -7,18 +7,19 @@ import TdLib from '../../TdWeb/tdlib';
 import { addDialog, removeDialog } from './dialogs';
 import ConfirmDialog from './confirm-dialog';
 import './settings-dialog.scss';
-import { info_close, menu_settings, three_dots } from '../icon/icons';
+import { info_close, settings_advenced, settings_chat, settings_faq, settings_folders, settings_info, settings_language, settings_notifications, settings_privacy_security, three_dots } from '../icon/icons';
 import ProfilePhoto from '../components/profile-photo';
 import IconButton from '../elements/icon-button';
 import { createContextMenu } from '../menu/context-menu';
 import options from '../../TdWeb/options';
 import Menu from '../menu/menu';
+import usersStore from '../../messenger/users-store';
 
 /**
  * Renders a modal dialog
  * Use React ref to access the `close()` method.
  */
-export default class SettingsDialog extends React.Component{
+class Settings extends React.Component{
     static propTypes= {
         /** Dialog width in CSS format */
         width: PropTypes.string,
@@ -50,31 +51,31 @@ export default class SettingsDialog extends React.Component{
                         }} />
                         
                         <IconButton id="more-options" icon={three_dots} onClick={(e) => {
-                            createContextMenu(e, this.threeDotsMenu());
+                            // Create Three dots menu when it come..
                         }}/>
                     </div>
                     <ScrollView scrollBarWidth="4">
                         <div className="scroll-content">
                             <div className="profile-info">
                                 {()=>{
-                                    const cachedName = 'Muaath Alqarni';
-                                    <ProfilePhoto id={options['my_id']} name={cachedName} disableSavedMessages={true}/>;
-                                    <h5>{cachedName}</h5>;
+                                    const fullName = this.props.users[options['my_id']]?.first_name + this.props.users[options['my_id']]?.last_name || '';
+                                    <ProfilePhoto id={options['my_id']} name={fullName} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>;
+                                    <h5>{fullName}</h5>;
                                 }}
                             </div>
 
-                            {/*TODO: Add Icons*/}
                             <ToolStrip.Section>
-                                <ToolStrip.Button icon={menu_settings} text="Edit profile"/>
-                                <ToolStrip.Button icon={menu_settings} text="Privacy and Security"/>
-                                <ToolStrip.Button icon={menu_settings} text="Chat Settings"/>
-                                <ToolStrip.Button icon={menu_settings} text="Folders"/>
-                                <ToolStrip.Button icon={menu_settings} text="Advenced"/>
-                                <ToolStrip.Button icon={menu_settings} text="Language"/>
+                                <ToolStrip.Button icon={settings_info} text="Edit profile"/>
+                                <ToolStrip.Button icon={settings_notifications} text="Notifications"/>
+                                <ToolStrip.Button icon={settings_privacy_security} text="Privacy and Security"/>
+                                <ToolStrip.Button icon={settings_chat} text="Chat Settings"/>
+                                <ToolStrip.Button icon={settings_folders} text="Folders"/>
+                                <ToolStrip.Button icon={settings_advenced} text="Advenced"/>
+                                <ToolStrip.Button icon={settings_language} text="Language"/>
                             </ToolStrip.Section>
                             <ToolStrip.Section>
-                                <ToolStrip.Button icon={menu_settings} text="Telegram FAQ"/>
-                                <ToolStrip.Button icon={menu_settings} text="Ask a Question"/>
+                                <ToolStrip.Button icon={settings_faq} text="Telegram FAQ"/>
+                                <ToolStrip.Button text="Ask a Question"/>
                             </ToolStrip.Section>
                         </div>
                     </ScrollView>
@@ -117,3 +118,6 @@ export default class SettingsDialog extends React.Component{
         );
     }
 }
+
+const SettingsDialog = connect( (users)=> ({users}) ) (Settings);
+export default SettingsDialog;

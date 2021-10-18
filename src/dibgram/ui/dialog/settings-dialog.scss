@@ -1,4 +1,8 @@
 .settings-dialog {
+    > div {
+        border-radius: 3px;
+    }
+
     .dialog-content {
         background-color: var(--theme-color-windowBgOver) !important;
         height: 600px;
@@ -22,6 +26,9 @@
 
         .profile-info {
             padding: 20px;
+            h5 {
+                display: inline;
+            }
         }
 
         .tool-strip-section {
