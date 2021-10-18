@@ -1,6 +1,6 @@
 .settings-dialog {
     .dialog-content {
-        background-color: var(--theme-color-inputBorderFg) !important;
+        background-color: var(--theme-color-windowBgOver) !important;
         height: 600px;
         flex-shrink: 0;
         display: flex;
@@ -20,7 +20,6 @@
             padding: 20px;
         }
 
-        // Will be added soon
         .profile-info {
             padding: 20px;
         }
