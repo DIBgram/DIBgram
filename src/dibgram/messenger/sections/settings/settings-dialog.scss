@@ -3,6 +3,7 @@
         border-radius: 4px;
         overflow: hidden;
     }
+
     .dialog-content {
         background-color: var(--theme-color-boxBg);
         height: 610px;
@@ -25,10 +26,11 @@
             .close {
                 float: right;
             }
-            
+
             // Three dots button
             .more-options {
                 float: right;
+
                 .icon-button {
                     margin-left: 4px;
                 }
@@ -54,10 +56,10 @@
                     font-size: large;
                     font-weight: 500;
                     display: block;
-                    margin-bottom: 0px;
-                    color: vat(--theme-color-windowFg);
+                    margin-bottom: 0;
+                    color: var(--theme-color-windowFg);
                 }
-                   
+
                 .status {
                     margin-top: 5px;
                     display: inline-block;
@@ -71,6 +73,7 @@
         .tool-strip-section {
             .tool-strip-button {
                 font-weight: 400 !important;
+
                 .value {
                     font-weight: 400;
                     font-size: 14px;
