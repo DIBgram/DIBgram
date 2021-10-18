@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog from './dialog';
-import ToolStrip from '../tool-strip/tool-strip';
-import ScrollView from '../scroll/scrollbar';
-import TdLib from '../../TdWeb/tdlib';
-import { addDialog } from './dialogs';
-import ConfirmDialog from './confirm-dialog';
-import ThreeDotsMenu from '../menu/three-dots-menu';
-import Menu from '../menu/menu';
+import Dialog from '../../../ui/dialog/dialog';
+import ToolStrip from '../../../ui/tool-strip/tool-strip';
+import ScrollView from '../../../ui/scroll/scrollbar';
+import TdLib from '../../../TdWeb/tdlib';
+import { addDialog } from '../../../ui/dialog/dialogs';
+import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
+import ThreeDotsMenu from '../../../ui/menu/three-dots-menu';
+import Menu from '../../../ui/menu/menu';
 import './settings-dialog.scss';
-import { info_close, settings_advenced, settings_chat, settings_faq, settings_folders, settings_info, settings_language, settings_notifications, settings_privacy_security } from '../icon/icons';
-import ProfilePhoto from '../components/profile-photo';
-import IconButton from '../elements/icon-button';
-import options from '../../TdWeb/options';
+import { info_close, settings_advenced, settings_chat, settings_faq, settings_folders, settings_info, settings_language, settings_notifications, settings_privacy_security } from '../../../ui/icon/icons';
+import ProfilePhoto from '../../../ui/components/profile-photo';
+import IconButton from '../../../ui/elements/icon-button';
+import options from '../../../TdWeb/options';
 import { connect } from 'react-redux';
-import { getUserFullName } from '../../messenger/user-misc';
+import { getUserFullName } from '../../user-misc';
 
 /**
  * Renders a modal dialog
