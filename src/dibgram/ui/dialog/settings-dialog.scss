@@ -1,6 +1,6 @@
-.settings-dialog {
+#full-settings-dialog {
     > div {
-        border-radius: 5px;
+        border-radius: 20px;
     }
     .dialog-content {
         background-color: var(--theme-color-windowBgOver) !important;
@@ -25,18 +25,33 @@
 
         .profile-info {
             padding: 20px;
-            .profile-photo {
-                height: 50px;
-                width: 50px;
-                display: inline-block;
+            > div {
+                .profile-photo {
+                    height: 65px;
+                    width: 65px;
+                    display: inline-block;
+                }
+                .h4 {
+                    display: inline;
+                }
             }
-            h5 {
+            h6 {
                 display: inline;
+                height: min-content;
+                color: gray;
             }
         }
 
         .tool-strip-section {
             background-color: var(--theme-color-boxBg) !important;
+            .tool-strip-button {
+                .value {
+                    font-weight: 400;
+                    font-size: 14px;
+                    color: var(--theme-color-msgFileThumbLinkInFg);
+                    padding-right: 30px;
+                }
+            }
         }
 
         .scrollbar {

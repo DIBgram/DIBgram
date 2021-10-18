@@ -57,8 +57,11 @@ class Settings extends React.Component{
                     <ScrollView scrollBarWidth="4">
                         <div className="scroll-content">
                             <div className="profile-info">
-                                <ProfilePhoto id={options['my_id']} name={this.props.users[options['my_id']]?.first_name + this.props.users[options['my_id']]?.last_name || ''} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
-                                <h5>{this.props.users[options['my_id']]?.first_name + this.props.users[options['my_id']]?.last_name || ''}</h5>
+                                <div>
+                                    <ProfilePhoto id={options['my_id']} name={this.props.users[options['my_id']]?.first_name + ' ' + this.props.users[options['my_id']]?.last_name || ''} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
+                                    <h4>{this.props.users[options['my_id']]?.first_name + ' ' + this.props.users[options['my_id']]?.last_name || ''}</h4>
+                                </div>
+                                <h6>Status: Online</h6>
                             </div>
 
                             <ToolStrip.Section>
@@ -68,10 +71,12 @@ class Settings extends React.Component{
                                 <ToolStrip.Button icon={settings_chat} text="Chat Settings"/>
                                 <ToolStrip.Button icon={settings_folders} text="Folders"/>
                                 <ToolStrip.Button icon={settings_advenced} text="Advenced"/>
-                                <ToolStrip.Button icon={settings_language} text="Language"/>
+                                <ToolStrip.Button icon={settings_language} text="Language">
+                                    <span className="value">English</span>
+                                </ToolStrip.Button>
                             </ToolStrip.Section>
                             <ToolStrip.Section>
-                                <ToolStrip.Button icon={settings_faq} text="Telegram FAQ"/>
+                                <ToolStrip.Button icon={settings_faq} text="Telegram FAQ" onClick={() => window.open('https://telegram.org/faq')}/>
                                 <ToolStrip.Button text="Ask a Question"/>
                             </ToolStrip.Section>
                         </div>
