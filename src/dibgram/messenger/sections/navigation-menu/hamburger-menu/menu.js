@@ -16,6 +16,8 @@ import Dialogs, { addDialog, dialogStore } from '../../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { setTheme, themeStore } from '../../../../ui/themes/theme';
+import SettingsDialog from '../../settings/settings-dialog';
+import usersStore from '../../../users-store';
 
 /**
  * Renders the main menu (always rendered but not always visible)
@@ -123,19 +125,12 @@ const HamburgerMenu= connect(state=> ({
                                     <ToolStrip.Button icon={menu_new_channel} text="New Channel"/>
                                     <ToolStrip.Button icon={settings_name} text="Contacts"/>
                                     <ToolStrip.Button icon={settings_phone_number} text="Calls"/>
-                                    <ToolStrip.Button icon={menu_settings} text="Log out" onClick={()=> {
-                                        // Log out
+                                    <ToolStrip.Button icon={menu_settings} text="Settings" onClick={()=> {
                                         onClose();
-                                        addDialog('log-out-from-main-menu-confirm-dialog',
-                                            <ConfirmDialog largeFont={true}
-                                                id="log-out-from-main-menu-confirm-dialog"
-                                                OKButtonText="Log out" onOK={()=> {
-                                                    TdLib.sendQuery({
-                                                        '@type': 'logOut'
-                                                    });
-                                                }} attention={true}>
-                                                Are you sure you want to log out?
-                                            </ConfirmDialog>
+                                        addDialog('full-settings-dialog',
+                                            <Provider store={usersStore}>
+                                                <SettingsDialog id="full-settings-dialog" />
+                                            </Provider>
                                         );
                                     }}/>
                                     <ToolStrip.ToggleButton icon={menu_night_mode} text="Night Mode" isActive={nightMode} onChange={(isNight)=> {

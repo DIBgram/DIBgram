@@ -8,6 +8,7 @@
 
 import ToolStripButton from './button';
 import ToolStripSection from './section';
+import ToolStripSeparator from './separator';
 import ToolStripToggleButton from './toggle-button';
 
 /**
@@ -18,7 +19,8 @@ import ToolStripToggleButton from './toggle-button';
 const ToolStrip = {
     Button: ToolStripButton,
     Section: ToolStripSection,
-    ToggleButton: ToolStripToggleButton
+    ToggleButton: ToolStripToggleButton,
+    Separator: ToolStripSeparator
 };
 export default ToolStrip;
-export { ToolStripButton, ToolStripSection, ToolStripToggleButton };
+export { ToolStripButton, ToolStripSection, ToolStripToggleButton, ToolStripSeparator };

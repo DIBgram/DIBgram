@@ -1,0 +1,15 @@
+.three-dots-menu {
+    position: relative;
+
+    .icon-button svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .menu {
+        position: absolute;
+        top: 35px;
+        right: 0;
+        z-index: 100;
+    }
+}
