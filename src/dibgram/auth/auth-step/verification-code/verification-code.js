@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { manageStatusTextContent } from '../auth-screen';
-import Auth from '../../TdWeb/auth';
-import UnderlinedInput from '../../ui/elements/underlined-input';
-import BigHighlightedButton from '../../ui/elements/highlighted-button';
+import { manageStatusTextContent } from '../../auth-screen';
+import Auth from '../../../TdWeb/auth';
+import UnderlinedInput from '../../../ui/elements/underlined-input';
+import BigHighlightedButton from '../../../ui/elements/highlighted-button';
 import { Provider } from 'react-redux';
-import connectionStore from '../../TdWeb/connectionStore';
-import ConnectionState from '../../ui/components/connecting';
+import connectionStore from '../../../TdWeb/connectionStore';
+import ConnectionState from '../../../ui/components/connecting';
 import './verification-code.scss';
 
 /**

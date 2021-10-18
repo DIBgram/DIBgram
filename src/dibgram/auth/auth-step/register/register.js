@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
-import Auth from '../../TdWeb/auth';
-import connectionStore from '../../TdWeb/connectionStore';
-import ConfirmDialog from '../../ui/dialog/confirm-dialog';
-import { addDialog } from '../../ui/dialog/dialogs';
-import BigHighlightedButton from '../../ui/elements/highlighted-button';
-import UnderlinedInput from '../../ui/elements/underlined-input';
-import ConnectionState from '../../ui/components/connecting';
-import TdLib from '../../TdWeb/tdlib';
-import LinkButton from '../../ui/elements/link-button';
+import Auth from '../../../TdWeb/auth';
+import connectionStore from '../../../TdWeb/connectionStore';
+import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
+import { addDialog } from '../../../ui/dialog/dialogs';
+import BigHighlightedButton from '../../../ui/elements/highlighted-button';
+import UnderlinedInput from '../../../ui/elements/underlined-input';
+import ConnectionState from '../../../ui/components/connecting';
+import TdLib from '../../../TdWeb/tdlib';
+import LinkButton from '../../../ui/elements/link-button';
 import SignUpProfilePic from './signup-profile-photo';
 import './register.scss';
 

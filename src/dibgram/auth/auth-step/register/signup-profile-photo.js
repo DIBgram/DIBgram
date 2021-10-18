@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'; 
-import RippleEffect, { handleMyMouseEventsFunction } from '../../ui/elements/ripple-effect';
-import { new_chat_photo } from '../../ui/icon/icons';
+import RippleEffect, { handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
+import { new_chat_photo } from '../../../ui/icon/icons';
 import './signup-profile-photo.scss';
-import { blobToUrl } from '../../TdWeb/file';
+import { blobToUrl } from '../../../TdWeb/file';
 
 export default function SignUpProfilePic({image, onChange}) {
     const ripple= React.useState({state: 'off'});
