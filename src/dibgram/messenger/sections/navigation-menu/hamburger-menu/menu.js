@@ -127,7 +127,7 @@ const HamburgerMenu= connect(state=> ({
                                             <ConfirmDialog largeFont={false}
                                                 id="create-group-confirm-dialog"
                                                 OKButtonText="NEXT" attention={false}>
-                                                <SignUpProfilePic></SignUpProfilePic>
+                                                <SignUpProfilePic />
                                                 <UnderlinedInput title="Group name"></UnderlinedInput>
                                             </ConfirmDialog>
                                         );
@@ -136,8 +136,9 @@ const HamburgerMenu= connect(state=> ({
                                     <ToolStrip.Button icon={settings_name} text="Contacts"/>
                                     <ToolStrip.Button icon={settings_phone_number} text="Calls"/>
                                     <ToolStrip.Button icon={menu_settings} text="Settings" onClick={()=> {
+                                        onClose();
                                         addDialog('full-settings-dialog',
-                                            <SettingsDialog id="full-settings-dialog" onClose={onClose} />
+                                            <SettingsDialog id="full-settings-dialog" />
                                         );
                                     }}/>
                                     <ToolStrip.ToggleButton icon={menu_night_mode} text="Night Mode" isActive={nightMode} onChange={(isNight)=> {

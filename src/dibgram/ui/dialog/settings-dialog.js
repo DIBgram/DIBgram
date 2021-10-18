@@ -7,9 +7,11 @@ import TdLib from '../../TdWeb/tdlib';
 import { addDialog, removeDialog } from './dialogs';
 import ConfirmDialog from './confirm-dialog';
 import './settings-dialog.scss';
-import { info_close, menu_help, menu_settings, three_dots } from '../icon/icons';
+import { info_close, menu_settings, three_dots } from '../icon/icons';
 import ProfilePhoto from '../components/profile-photo';
 import IconButton from '../elements/icon-button';
+import { createContextMenu } from '../menu/context-menu';
+import options from '../../TdWeb/options';
 
 /**
  * Renders a modal dialog
@@ -21,8 +23,7 @@ export default class SettingsDialog extends React.Component{
         width: PropTypes.string,
         /** Unique ID of this dialog, used to close it. */
         id: PropTypes.any.isRequired,
-        className: PropTypes.string,
-        onClose: PropTypes.func.isRequired
+        className: PropTypes.string
     };
 
     state = {
@@ -43,14 +44,27 @@ export default class SettingsDialog extends React.Component{
                 <div className="dialog-content">
                     <div className="header">
                         <h3>Settings</h3>
-                        <IconButton id="close-settings" icon={info_close} />
-                        <IconButton id="more-options" icon={three_dots} />
+                        <IconButton id="close-settings" icon={info_close} onClick={() => {
+                            this.close();
+                        }} />
+                        <IconButton id="more-options" icon={three_dots} onClick={() => {
+                            // TODO: Create Context Menu contains:
+                            // 1. Dummy [Add Account] button
+                            // 2. Dummy [Edit profile] button
+                            // 3. [Log Out] button
+                        }}/>
                     </div>
                     <ScrollView>
                         <div className="scroll-content">
                             <div className="profile-info">
-                                Name: Unknown
+                                {TdLib.sendQuery({'@type': 'getMe'}).then((me) => {
+                                    const fullName = me.first_name + (me.last_name || '');
+                                })}
+                                <ProfilePhoto id={options['my_id']} name={fullName} disableSavedMessages={true}/>
+                                <h5>{fullName}</h5>
                             </div>
+
+                            {/*TODO: Add Icons*/}
                             <ToolStrip.Section>
                                 <ToolStrip.Button icon={menu_settings} text="Edit profile"/>
                                 <ToolStrip.Button icon={menu_settings} text="Privacy and Security"/>
@@ -62,9 +76,10 @@ export default class SettingsDialog extends React.Component{
                             <ToolStrip.Section>
                                 <ToolStrip.Button icon={menu_settings} text="Telegram FAQ"/>
                                 <ToolStrip.Button icon={menu_settings} text="Ask a Question"/>
+
+                                {/*REMOVED SOON*/}
                                 <ToolStrip.Button text="Log Out" onClick={() => {
                                     // Log out
-                                    this.props.onClose();
                                     addDialog('log-out-from-main-menu-confirm-dialog',
                                         <ConfirmDialog largeFont={true}
                                             id="log-out-from-main-menu-confirm-dialog"
