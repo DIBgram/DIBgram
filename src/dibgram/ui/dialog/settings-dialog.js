@@ -46,7 +46,7 @@ class Settings extends React.Component{
             <Dialog className="settings-dialog" id={this.props.id} ref={this.dialogRef} width={this.props.width || '400px'}>
                 <div className="dialog-content">
                     <div className="header">
-                        <h3>Settings</h3>
+                        <h3 id="title">Settings</h3>
                         <IconButton id="close-settings" icon={info_close} onClick={() => {
                             this.close();
                         }} />
@@ -58,11 +58,11 @@ class Settings extends React.Component{
                     <ScrollView scrollBarWidth="4">
                         <div className="scroll-content">
                             <div className="profile-info">
-                                <div>
-                                    <ProfilePhoto id={options['my_id']} name={getUserFullName(this.props.users[options['my_id']])} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
+                                <ProfilePhoto id={options['my_id']} name={getUserFullName(this.props.users[options['my_id']])} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
+                                <span>
                                     <p id="name">{getUserFullName(this.props.users[options['my_id']])}</p>
-                                </div>
-                                <p id="status">Online</p>
+                                    <p id="status">online</p>
+                                </span>
                             </div>
 
                             <ToolStrip.Section>

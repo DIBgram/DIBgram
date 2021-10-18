@@ -15,7 +15,7 @@
             padding: 20px;
 
             background-color: var(--theme-color-boxBg) !important;
-            h3 {
+            #title {
                 display: inline;
                 font-weight: 400;
             }
@@ -31,31 +31,34 @@
 
         .profile-info {
             background-color: var(--theme-color-boxBg) !important;
-            padding: 0px 25px 10px 25px;
-            > div {
-                // TODO: Align name verticly to center
+            padding: 5px 20px 10px 20px;
+            // TODO: Align name verticly to center
 
-                > .profile-photo {
-                    height: 72px;
-                    width: 72px;
-                    display: inline-block;
-                }
+            > .profile-photo {
+                height: 72px;
+                width: 72px;
+                display: inline-block;
+                float: left;
+            }
 
-                // Name
+            > span {
+                float: left;
+                margin-left: 20px;
+
                 #name {
                     font-size: large;
                     font-weight: 500;
-                    display: inline;
+                    display: block;
+                    margin-bottom: 0px;
                     color: vat(--theme-color-windowFg);
                 }
-            }
-
-            // Status
-            #status {
-                margin-top: 10px !important;
-                display: inline;
-                font-size: 12px;
-                color: var(--theme-color-windowActiveTextFg);
+                   
+                #status {
+                    margin-top: 5px !important;
+                    display: inline-block;
+                    font-size: 12px;
+                    color: var(--theme-color-windowActiveTextFg);
+                }
             }
         }
 
