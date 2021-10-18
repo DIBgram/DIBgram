@@ -94,7 +94,8 @@ const ChatList= connect(state=> ({connectionState: state}))(
                 || nextProps.list !== this.props.list 
                 || nextProps.unread !== this.props.unread
                 || nextProps.connectionState !== this.props.connectionState
-                || nextState.scrollToTopVisible !== this.state.scrollToTopVisible)
+                || nextState.scrollToTopVisible !== this.state.scrollToTopVisible
+                || nextState.chatListFinished !== this.state.chatListFinished)
                 && nextProps.connectionState != 'connectionStateUpdating'
                 && nextState.chatListFinished; // Do not re-render if updating
         }
