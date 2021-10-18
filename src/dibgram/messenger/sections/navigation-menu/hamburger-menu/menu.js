@@ -17,7 +17,7 @@ import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { setTheme, themeStore } from '../../../../ui/themes/theme';
 import UnderlinedInput from '../../../../ui/elements/underlined-input';
-import SettingsDialog from '../../../../ui/dialog/settings-dialog';
+import SettingsDialog from '../../settings/settings-dialog';
 import usersStore from '../../../users-store';
 
 /**
