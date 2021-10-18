@@ -1,0 +1,18 @@
+.tool-strip-separator {
+    width: 100%;
+    > .up {
+        background-color: var(--theme-color-boxBg);
+        height: 8px;
+        width: 100%;
+    }
+    > .main {
+        background-color: var(--theme-color-menuSeparatorFg);
+        height: 8px;
+        width: 100%;
+    }
+    > .down {
+        background-color: var(--theme-color-boxBg);
+        height: 8px;
+        width: 100%;
+    }
+}

@@ -4,45 +4,45 @@
         overflow: hidden;
     }
     .dialog-content {
-        background-color: var(--theme-color-windowBgOver) !important;
-        height: 600px;
+        background-color: var(--theme-color-boxBg);
+        height: 610px;
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
 
         .header {
             padding: 11px 8px;
+            height: fit-content;
 
-            background-color: var(--theme-color-boxBg) !important;
-            #title {
+            .title {
                 display: inline-block;
                 font-weight: 500;
                 font-size: 16px;
                 letter-spacing: 0.6px;
                 margin: 9px 14.5px;
             }
-            #close-settings {
+
+            .close {
                 float: right;
             }
+            
             // Three dots button
-            #more-options {
+            .more-options {
                 float: right;
-
-                svg {
-                    height: 24px;
+                .icon-button {
+                    margin-left: 4px;
                 }
             }
-            height: fit-content;
 
-            .icon-button {
-                margin-left: 4px;
+            svg {
+                height: 24px;
+                width: 24px;
             }
         }
 
         .profile-info {
             background-color: var(--theme-color-boxBg) !important;
             padding: 5px 20px 10px 20px;
-            // TODO: Align name verticly to center
 
             > .profile-photo {
                 height: 72px;
@@ -55,7 +55,7 @@
                 float: left;
                 margin-left: 20px;
 
-                #name {
+                .name {
                     font-size: large;
                     font-weight: 500;
                     display: block;
@@ -63,8 +63,8 @@
                     color: vat(--theme-color-windowFg);
                 }
                    
-                #status {
-                    margin-top: 5px !important;
+                .status {
+                    margin-top: 5px;
                     display: inline-block;
                     font-size: 12px;
                     color: var(--theme-color-windowActiveTextFg);
@@ -73,7 +73,6 @@
         }
 
         .tool-strip-section {
-            background-color: var(--theme-color-boxBg) !important;
             .tool-strip-button {
                 font-weight: 400 !important;
                 .value {
