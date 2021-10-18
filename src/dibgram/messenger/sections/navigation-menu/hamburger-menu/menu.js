@@ -16,7 +16,6 @@ import Dialogs, { addDialog, dialogStore } from '../../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { setTheme, themeStore } from '../../../../ui/themes/theme';
-import UnderlinedInput from '../../../../ui/elements/underlined-input';
 import SettingsDialog from '../../settings/settings-dialog';
 import usersStore from '../../../users-store';
 
@@ -122,15 +121,7 @@ const HamburgerMenu= connect(state=> ({
                         <div className="scroll-content">
                             <div className="options">
                                 <ToolStrip.Section>
-                                    <ToolStrip.Button icon={menu_new_group} text="New Group" onClick={() => {
-                                        addDialog('create-group-confirm-dialog',
-                                            <ConfirmDialog largeFont={false}
-                                                id="create-group-confirm-dialog"
-                                                OKButtonText="NEXT" attention={false}>
-                                                <UnderlinedInput title="Group name"></UnderlinedInput>
-                                            </ConfirmDialog>
-                                        );
-                                    }}/>
+                                    <ToolStrip.Button icon={menu_new_group} text="New Group"/>
                                     <ToolStrip.Button icon={menu_new_channel} text="New Channel"/>
                                     <ToolStrip.Button icon={settings_name} text="Contacts"/>
                                     <ToolStrip.Button icon={settings_phone_number} text="Calls"/>

@@ -67,16 +67,15 @@ class Settings extends React.Component{
                     </div>
                     <ScrollView scrollBarWidth="4">
                         <div className="scroll-content">
-                            <div className="profile-info">
+                            <ToolStrip.Section className="profile-info">
                                 <ProfilePhoto id={options['my_id']} name={getUserFullName(this.props.users[options['my_id']])} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
                                 <span>
                                     <p className="name">{getUserFullName(this.props.users[options['my_id']])}</p>
                                     <p className="status">online</p>
                                 </span>
-                            </div>
-
+                            </ToolStrip.Section>
+                            <ToolStrip.Separator/>
                             <ToolStrip.Section>
-                                <ToolStrip.Separator />
                                 <ToolStrip.Button icon={settings_info} text="Edit profile"/>
                                 <ToolStrip.Button icon={settings_notifications} text="Notifications"/>
                                 <ToolStrip.Button icon={settings_privacy_security} text="Privacy and Security"/>
@@ -86,7 +85,9 @@ class Settings extends React.Component{
                                 <ToolStrip.Button icon={settings_language} text="Language">
                                     <span className="value">English</span>
                                 </ToolStrip.Button>
-                                <ToolStrip.Separator />
+                            </ToolStrip.Section>
+                            <ToolStrip.Separator/>
+                            <ToolStrip.Section>
                                 <ToolStrip.Button icon={settings_faq} text="Telegram FAQ" onClick={() => window.open('https://telegram.org/faq')}/>
                                 <ToolStrip.Button text="Ask a Question"/>
                             </ToolStrip.Section>

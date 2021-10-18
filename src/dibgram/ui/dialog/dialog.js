@@ -21,7 +21,7 @@ export default class Dialog extends React.Component{
     /** @param {React.SyntheticEvent} e */
     onClick= (e) => {
         if (e.target === this.ref.current) {
-            this.current.close();
+            this.close();
         }
     }
     render(){
@@ -35,7 +35,7 @@ export default class Dialog extends React.Component{
             </div>
         );
     }
-    close(){
+    close= ()=>{
         this.setState({
             closing: true
         });
