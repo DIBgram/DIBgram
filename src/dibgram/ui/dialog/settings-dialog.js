@@ -4,7 +4,7 @@ import Dialog from './dialog';
 import ToolStrip from '../tool-strip/tool-strip';
 import ScrollView from '../scroll/scrollbar';
 import TdLib from '../../TdWeb/tdlib';
-import { addDialog, removeDialog } from './dialogs';
+import { addDialog } from './dialogs';
 import ConfirmDialog from './confirm-dialog';
 import ThreeDotsMenu from '../menu/three-dots-menu';
 import Menu from '../menu/menu';
@@ -33,14 +33,7 @@ class Settings extends React.Component{
     state = {
         closing: false
     }
-    ref = React.createRef();
-
-    /** @param {React.SyntheticEvent} e */
-    onClick(e){
-        if (e.target === this.ref.current) {
-            this.close();
-        }
-    }
+    dialogRef = React.createRef();
 
     render(){
         return (
@@ -49,10 +42,9 @@ class Settings extends React.Component{
                     <div className="header">
                         <h3 className="title">Settings</h3>
                         <IconButton className="icon-button close" icon={info_close} onClick={() => {
-                            this.close();
+                            this.dialogRef.current.close();
                         }} />
                         
-                        {/*[Add Account, Edit profile, Log out]*/}
                         <ThreeDotsMenu className="more-options">
                             <Menu.MenuContents>
                                 <Menu.MenuItem>Add Account</Menu.MenuItem>
@@ -104,19 +96,6 @@ class Settings extends React.Component{
             </Dialog>
         );
     }
-
-    close(){
-        this.setState({
-            closing: true
-        });
-        setTimeout(() => {
-            removeDialog(this.props.id);
-        }, 1000);
-    }
-
-    /*
-    
-    */
 }
 
 const SettingsDialog = connect( (users)=> ({users}) ) (Settings);
