@@ -12,6 +12,7 @@ import ProfilePhoto from '../components/profile-photo';
 import IconButton from '../elements/icon-button';
 import { createContextMenu } from '../menu/context-menu';
 import options from '../../TdWeb/options';
+import Menu from '../menu/menu';
 
 /**
  * Renders a modal dialog
@@ -47,21 +48,19 @@ export default class SettingsDialog extends React.Component{
                         <IconButton id="close-settings" icon={info_close} onClick={() => {
                             this.close();
                         }} />
-                        <IconButton id="more-options" icon={three_dots} onClick={() => {
-                            // TODO: Create Context Menu contains:
-                            // 1. Dummy [Add Account] button
-                            // 2. Dummy [Edit profile] button
-                            // 3. [Log Out] button
+                        
+                        <IconButton id="more-options" icon={three_dots} onClick={(e) => {
+                            createContextMenu(e, this.threeDotsMenu());
                         }}/>
                     </div>
-                    <ScrollView>
+                    <ScrollView scrollBarWidth="4">
                         <div className="scroll-content">
                             <div className="profile-info">
-                                {TdLib.sendQuery({'@type': 'getMe'}).then((me) => {
-                                    const fullName = me.first_name + (me.last_name || '');
-                                })}
-                                <ProfilePhoto id={options['my_id']} name={fullName} disableSavedMessages={true}/>
-                                <h5>{fullName}</h5>
+                                {()=>{
+                                    const cachedName = 'Muaath Alqarni';
+                                    <ProfilePhoto id={options['my_id']} name={cachedName} disableSavedMessages={true}/>;
+                                    <h5>{cachedName}</h5>;
+                                }}
                             </div>
 
                             {/*TODO: Add Icons*/}
@@ -76,23 +75,6 @@ export default class SettingsDialog extends React.Component{
                             <ToolStrip.Section>
                                 <ToolStrip.Button icon={menu_settings} text="Telegram FAQ"/>
                                 <ToolStrip.Button icon={menu_settings} text="Ask a Question"/>
-
-                                {/*REMOVED SOON*/}
-                                <ToolStrip.Button text="Log Out" onClick={() => {
-                                    // Log out
-                                    addDialog('log-out-from-main-menu-confirm-dialog',
-                                        <ConfirmDialog largeFont={true}
-                                            id="log-out-from-main-menu-confirm-dialog"
-                                            OKButtonText="LOG OUT" onOK={()=> {
-                                                TdLib.sendQuery({
-                                                    '@type': 'logOut'
-                                                });
-                                            }} attention={true}>
-                                            Are you sure you want to log out?
-                                        </ConfirmDialog>
-                                    );
-                                }} />
-                                
                             </ToolStrip.Section>
                         </div>
                     </ScrollView>
@@ -108,5 +90,30 @@ export default class SettingsDialog extends React.Component{
         setTimeout(() => {
             removeDialog(this.props.id);
         }, 1000);
+    }
+
+    threeDotsMenu(){
+        return (
+            <Menu id="more-options">
+                <Menu.MenuContents>
+                    <Menu.MenuItem text="Add Account" />
+                    <Menu.MenuItem text="Edit profile"/>
+                    <Menu.MenuItem text="Log Out" onClick={() => {
+                        // Log out
+                        addDialog('log-out-from-main-menu-confirm-dialog',
+                        <ConfirmDialog largeFont={true}
+                        id="log-out-from-main-menu-confirm-dialog"
+                        OKButtonText="LOG OUT" onOK={()=> {
+                            TdLib.sendQuery({
+                                '@type': 'logOut'
+                            });
+                        }} attention={true}>
+                                Are you sure you want to log out?
+                            </ConfirmDialog>
+                        );
+                    }}/>
+                </Menu.MenuContents>
+            </Menu>
+        );
     }
 }

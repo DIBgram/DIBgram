@@ -22,7 +22,6 @@
 
         // Will be added soon
         .profile-info {
-            height: 0px;
             padding: 20px;
         }
 
@@ -31,6 +30,7 @@
         }
 
         .scrollbar {
+            height: 500px;
             flex-grow: 1;
 
             .scroll-content {

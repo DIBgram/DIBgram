@@ -213,7 +213,7 @@ class ChatListItem extends React.Component {
         }
 
         if(isChatWithDeletedAccount(chat, this.props.users)) {
-            chat.title= 'Deleted Account'; // Chat object is a copy, so there is no problem with mutating it.
+            chat.title= 'DELETED ACCOUNT'; // Chat object is a copy, so there is no problem with mutating it.
         }
 
         const isVerified= isChatVerified(chat);
