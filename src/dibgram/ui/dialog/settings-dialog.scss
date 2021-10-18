@@ -1,6 +1,7 @@
 #full-settings-dialog {
     > div {
-        border-radius: 20px;
+        // Not working
+        border-radius: 20px !important;
     }
     .dialog-content {
         background-color: var(--theme-color-windowBgOver) !important;
@@ -10,45 +11,62 @@
         flex-direction: column;
 
         .header {
+            // TODO: Better padding
+            padding: 20px;
+
+            background-color: var(--theme-color-boxBg) !important;
             h3 {
                 display: inline;
+                font-weight: 400;
             }
             #close-settings {
                 float: right;
             }
+            // Three dots button
             #more-options {
                 float: right;
             }
             height: fit-content;
-            padding: 20px;
         }
 
         .profile-info {
-            padding: 20px;
+            background-color: var(--theme-color-boxBg) !important;
+            padding: 0px 25px 10px 25px;
             > div {
-                .profile-photo {
-                    height: 65px;
-                    width: 65px;
+                // TODO: Align name verticly to center
+
+                > .profile-photo {
+                    height: 72px;
+                    width: 72px;
                     display: inline-block;
                 }
-                .h4 {
+
+                // Name
+                #name {
+                    font-size: large;
+                    font-weight: 500;
                     display: inline;
+                    color: vat(--theme-color-windowFg);
                 }
             }
-            h6 {
+
+            // Status
+            #status {
+                margin-top: 10px !important;
                 display: inline;
-                height: min-content;
-                color: gray;
+                font-size: 12px;
+                color: var(--theme-color-windowActiveTextFg);
             }
         }
 
         .tool-strip-section {
             background-color: var(--theme-color-boxBg) !important;
             .tool-strip-button {
+                font-weight: 400 !important;
                 .value {
                     font-weight: 400;
                     font-size: 14px;
-                    color: var(--theme-color-msgFileThumbLinkInFg);
+                    color: var(--theme-color-windowActiveTextFg);
                     padding-right: 30px;
                 }
             }

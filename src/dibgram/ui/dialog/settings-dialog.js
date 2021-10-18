@@ -13,6 +13,7 @@ import IconButton from '../elements/icon-button';
 import options from '../../TdWeb/options';
 import Menu from '../menu/menu';
 import { connect } from 'react-redux';
+import { getUserFullName } from '../../messenger/user-misc';
 
 /**
  * Renders a modal dialog
@@ -58,10 +59,10 @@ class Settings extends React.Component{
                         <div className="scroll-content">
                             <div className="profile-info">
                                 <div>
-                                    <ProfilePhoto id={options['my_id']} name={this.props.users[options['my_id']]?.first_name + ' ' + this.props.users[options['my_id']]?.last_name || ''} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
-                                    <h4>{this.props.users[options['my_id']]?.first_name + ' ' + this.props.users[options['my_id']]?.last_name || ''}</h4>
+                                    <ProfilePhoto id={options['my_id']} name={getUserFullName(this.props.users[options['my_id']])} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
+                                    <p id="name">{getUserFullName(this.props.users[options['my_id']])}</p>
                                 </div>
-                                <h6>Status: Online</h6>
+                                <p id="status">Online</p>
                             </div>
 
                             <ToolStrip.Section>
