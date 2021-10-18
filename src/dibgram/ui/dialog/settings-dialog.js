@@ -11,7 +11,6 @@ import { info_close, settings_advenced, settings_chat, settings_faq, settings_fo
 import ProfilePhoto from '../components/profile-photo';
 import IconButton from '../elements/icon-button';
 import options from '../../TdWeb/options';
-import Menu from '../menu/menu';
 import { connect } from 'react-redux';
 import { getUserFullName } from '../../messenger/user-misc';
 
@@ -26,7 +25,7 @@ class Settings extends React.Component{
         /** Unique ID of this dialog, used to close it. */
         id: PropTypes.any.isRequired,
         className: PropTypes.string,
-        users: PropTypes.any
+        users: PropTypes.any.isRequired
     };
 
     state = {
@@ -51,8 +50,9 @@ class Settings extends React.Component{
                             this.close();
                         }} />
                         
+                        {/*[Add Accout, Edit profile, Log out]*/}
                         <IconButton id="more-options" icon={three_dots} onClick={(e) => {
-                            // Create Three dots menu when it come..
+                            
                         }}/>
                     </div>
                     <ScrollView scrollBarWidth="4">
@@ -96,30 +96,19 @@ class Settings extends React.Component{
         }, 1000);
     }
 
-    threeDotsMenu(){
-        return (
-            <Menu id="more-options">
-                <Menu.MenuContents>
-                    <Menu.MenuItem text="Add Account" />
-                    <Menu.MenuItem text="Edit profile"/>
-                    <Menu.MenuItem text="Log Out" onClick={() => {
-                        // Log out
-                        addDialog('log-out-from-main-menu-confirm-dialog',
-                        <ConfirmDialog largeFont={true}
-                        id="log-out-from-main-menu-confirm-dialog"
-                        OKButtonText="LOG OUT" onOK={()=> {
-                            TdLib.sendQuery({
-                                '@type': 'logOut'
-                            });
-                        }} attention={true}>
+    /*
+    addDialog('log-out-from-main-menu-confirm-dialog',
+                            <ConfirmDialog largeFont={true}
+                                id="log-out-from-main-menu-confirm-dialog"
+                                OKButtonText="LOG OUT" onOK={()=> {
+                                    TdLib.sendQuery({
+                                        '@type': 'logOut'
+                                    });
+                                }} attention={true}>
                                 Are you sure you want to log out?
                             </ConfirmDialog>
                         );
-                    }}/>
-                </Menu.MenuContents>
-            </Menu>
-        );
-    }
+    */
 }
 
 const SettingsDialog = connect( (users)=> ({users}) ) (Settings);

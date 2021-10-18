@@ -17,7 +17,6 @@ import ConfirmDialog from '../../../../ui/dialog/confirm-dialog';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { setTheme, themeStore } from '../../../../ui/themes/theme';
 import UnderlinedInput from '../../../../ui/elements/underlined-input';
-import SignUpProfilePic from '../../../../auth/auth-step/register/signup-profile-photo';
 import SettingsDialog from '../../../../ui/dialog/settings-dialog';
 import usersStore from '../../../users-store';
 
@@ -128,7 +127,6 @@ const HamburgerMenu= connect(state=> ({
                                             <ConfirmDialog largeFont={false}
                                                 id="create-group-confirm-dialog"
                                                 OKButtonText="NEXT" attention={false}>
-                                                <SignUpProfilePic />
                                                 <UnderlinedInput title="Group name"></UnderlinedInput>
                                             </ConfirmDialog>
                                         );

@@ -1,7 +1,7 @@
 #full-settings-dialog {
     > div {
-        // Not working
-        border-radius: 20px !important;
+        border-radius: 4px;
+        overflow: hidden;
     }
     .dialog-content {
         background-color: var(--theme-color-windowBgOver) !important;
@@ -11,13 +11,15 @@
         flex-direction: column;
 
         .header {
-            // TODO: Better padding
-            padding: 20px;
+            padding: 11px 8px;
 
             background-color: var(--theme-color-boxBg) !important;
             #title {
-                display: inline;
-                font-weight: 400;
+                display: inline-block;
+                font-weight: 500;
+                font-size: 16px;
+                letter-spacing: 0.6px;
+                margin: 9px 14.5px;
             }
             #close-settings {
                 float: right;
@@ -25,8 +27,16 @@
             // Three dots button
             #more-options {
                 float: right;
+
+                svg {
+                    height: 24px;
+                }
             }
             height: fit-content;
+
+            .icon-button {
+                margin-left: 4px;
+            }
         }
 
         .profile-info {
