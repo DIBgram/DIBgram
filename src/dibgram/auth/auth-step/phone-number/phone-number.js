@@ -10,6 +10,8 @@ import { manageStatusTextContent } from '../../auth-screen';
 import ConnectionState from '../../../ui/components/connecting';
 import callingCodes from './phone-number-calling-codes.json';
 import './phone-number.scss';
+import CountrySelect from './country-select';
+import TdLib from '../../../TdWeb/tdlib';
 
 /**
  * Renders the phone number step of authorization screen
@@ -26,10 +28,22 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
         statusContent: '',
         statusVisible: false,
         dropDownText: 'Country Code',
+        countries: [],
     };
 
     ref1= React.createRef();
     ref2= React.createRef();
+
+    componentDidMount() {
+        TdLib.sendQuery({
+            '@type': 'getCountries',
+        }).then(result => {
+            this.setState({
+                countries: result.countries,
+            });
+        });
+    }
+
 
     handlePNFieldChange = (event) => {
         const value = event.target.value.replace(/[^0-9-]/g, '');
@@ -38,6 +52,18 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
             invalid: false // We shouldn't show the phone number as invalid, since it has changed after submission
         });
         this.changeStatus(''); // The same
+    }
+
+    openCountryDropdown = () => {
+        addDialog('login-phone-number-country-selector-dialog', (
+            <CountrySelect id="login-phone-number-country-selector-dialog"
+                countries={this.state.countries} onChange={cc=> {
+                    this.setState({
+                        number_p: cc,
+                        dropDownText: this.getCountryDropdownText(cc),
+                    });
+                }}/>
+        ));
     }
 
     getCountryDropdownText(callingCode) {
@@ -143,7 +169,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
                     //TODO: Add phone number placeholder
                 }
 
-                <div className="country-dropdown">
+                <div className="country-dropdown" onClick={this.openCountryDropdown}>
                     {this.state.dropDownText}
                 </div>
 
