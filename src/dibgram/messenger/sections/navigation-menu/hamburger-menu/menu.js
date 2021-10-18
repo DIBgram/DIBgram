@@ -19,6 +19,7 @@ import { setTheme, themeStore } from '../../../../ui/themes/theme';
 import UnderlinedInput from '../../../../ui/elements/underlined-input';
 import SignUpProfilePic from '../../../../auth/auth-step/signup-profile-photo';
 import SettingsDialog from '../../../../ui/dialog/settings-dialog';
+import usersStore from '../../../users-store';
 
 /**
  * Renders the main menu (always rendered but not always visible)

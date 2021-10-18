@@ -10,10 +10,9 @@ import './settings-dialog.scss';
 import { info_close, settings_advenced, settings_chat, settings_faq, settings_folders, settings_info, settings_language, settings_notifications, settings_privacy_security, three_dots } from '../icon/icons';
 import ProfilePhoto from '../components/profile-photo';
 import IconButton from '../elements/icon-button';
-import { createContextMenu } from '../menu/context-menu';
 import options from '../../TdWeb/options';
 import Menu from '../menu/menu';
-import usersStore from '../../messenger/users-store';
+import { connect } from 'react-redux';
 
 /**
  * Renders a modal dialog
@@ -25,7 +24,8 @@ class Settings extends React.Component{
         width: PropTypes.string,
         /** Unique ID of this dialog, used to close it. */
         id: PropTypes.any.isRequired,
-        className: PropTypes.string
+        className: PropTypes.string,
+        users: PropTypes.any
     };
 
     state = {
@@ -57,11 +57,8 @@ class Settings extends React.Component{
                     <ScrollView scrollBarWidth="4">
                         <div className="scroll-content">
                             <div className="profile-info">
-                                {()=>{
-                                    const fullName = this.props.users[options['my_id']]?.first_name + this.props.users[options['my_id']]?.last_name || '';
-                                    <ProfilePhoto id={options['my_id']} name={fullName} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>;
-                                    <h5>{fullName}</h5>;
-                                }}
+                                <ProfilePhoto id={options['my_id']} name={this.props.users[options['my_id']]?.first_name + this.props.users[options['my_id']]?.last_name || ''} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
+                                <h5>{this.props.users[options['my_id']]?.first_name + this.props.users[options['my_id']]?.last_name || ''}</h5>
                             </div>
 
                             <ToolStrip.Section>
