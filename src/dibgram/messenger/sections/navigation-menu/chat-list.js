@@ -123,7 +123,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
         }
 
         scrollToTop= () => {
-            this.scrollRef.current.view.scroll({
+            this.scrollRef.current?.view.scroll({
                 top: 0,
                 behavior: 'smooth',
             });
