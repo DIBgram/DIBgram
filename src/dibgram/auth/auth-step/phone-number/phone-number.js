@@ -12,6 +12,7 @@ import callingCodes from './phone-number-calling-codes.json';
 import './phone-number.scss';
 import CountrySelect from './country-select';
 import TdLib from '../../../TdWeb/tdlib';
+import { intro_country_dropdown } from '../../../ui/icon/icons';
 
 /**
  * Renders the phone number step of authorization screen
@@ -163,14 +164,12 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
                     Please confirm your country code and enter your mobile phone number.
                 </p>
 
-                {
-                    //TODO: Add a country code selector  
-                    //TODO: Separate the country code from the phone number
-                    //TODO: Add phone number placeholder
+                {//TODO: Add phone number placeholder
                 }
 
                 <div className="country-dropdown" onClick={this.openCountryDropdown}>
                     {this.state.dropDownText}
+                    <span dangerouslySetInnerHTML={{__html: intro_country_dropdown}}/>
                 </div>
 
                 <div className="phone-number-input">

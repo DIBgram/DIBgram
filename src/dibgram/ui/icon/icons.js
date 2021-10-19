@@ -17,6 +17,7 @@ export const dialogs_verified_star = raw('./dialogs_verified_star.svg');
 export const history_to_down = raw('./history_to_down.svg');
 export const info_back = raw('./info_back.svg');
 export const info_close = raw('./info_close.svg');
+export const intro_country_dropdown = raw('./intro_country_dropdown.svg');
 export const menu_new_channel = raw('./menu_new_channel.svg');
 export const menu_new_group = raw('./menu_new_group.svg');
 export const menu_night_mode = raw('./menu_night_mode.svg');

@@ -13,6 +13,23 @@
         border-bottom: 1px solid var(--theme-color-inputBorderFg);
         margin-bottom: 22px;
         user-select: none;
+        cursor: pointer;
+
+        span {
+            float: right;
+            margin-right: 4px;
+            position: relative;
+            top: 4px;
+
+            svg {
+                height: 14px;
+                width: 14px;
+
+                path {
+                    stroke: var(--theme-color-menuIconFg);
+                }
+            }
+        }
     }
 
     .phone-number-input {
