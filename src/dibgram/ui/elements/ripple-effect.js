@@ -66,11 +66,20 @@ export default class RippleEffect extends React.Component {
     }
 }
 
+function getRelativeCoordinates(event) {
+    const rect = event.target.getBoundingClientRect();
+    return {
+        X: event.clientX - rect.left,
+        Y: event.clientY - rect.top
+    };
+}
+
 // Assign your `mouseDown`, `mouseUp` and `mouseLeave` to the returned functions.
 export function handleMyMouseEvents(This) {
     return [
         // mouseDown
         (function(e) {
+            console.warn('down', e);
             // Reset the ripple effect if it's not off
             if(this.state.ripple.state!='off'){
                 this.setState({
@@ -80,20 +89,18 @@ export function handleMyMouseEvents(This) {
                     this.setState({
                         ripple: {
                             state: 'pressed',
-                            X: e.nativeEvent.offsetX,
-                            Y: e.nativeEvent.offsetY,
+                            ...getRelativeCoordinates(e),
                             width: e.target.clientWidth,
                             height: e.target.clientHeight
                         }
                     });
-                }, 10);
+                }, 50);
                 return;
             }
             this.setState({
                 ripple: {
                     state: 'pressed',
-                    X: e.nativeEvent.offsetX,
-                    Y: e.nativeEvent.offsetY,
+                    ...getRelativeCoordinates(e),
                     width: e.target.clientWidth,
                     height: e.target.clientHeight
                 }
@@ -101,11 +108,11 @@ export function handleMyMouseEvents(This) {
         }).bind(This),
         // mouseUp
         (function(e) {
+            console.warn('up', e);
             this.setState({
                 ripple: { 
                     state: 'released',
-                    X: e.nativeEvent.offsetX,
-                    Y: e.nativeEvent.offsetY,
+                    ...getRelativeCoordinates(e),
                     width: e.target.clientWidth,
                     height: e.target.clientHeight 
                 }
@@ -113,6 +120,7 @@ export function handleMyMouseEvents(This) {
         }).bind(This),
         // mouseLeave
         (function(e) {
+            console.warn('leave', e);
             if(this.state.ripple.state=='pressed') {
                 this.mouseUp(e);
             }
@@ -128,18 +136,16 @@ export function handleMyMouseEventsFunction([ripple, setRipple]) {
             setTimeout(() => {
                 setRipple ({
                     state: 'pressed',
-                    X: e.nativeEvent.offsetX,
-                    Y: e.nativeEvent.offsetY,
+                    ...getRelativeCoordinates(e),
                     width: e.target.clientWidth,
                     height: e.target.clientHeight
                 });
-            }, 10);
+            }, 50);
             return;
         }
         setRipple ({
             state: 'pressed',
-            X: e.nativeEvent.offsetX,
-            Y: e.nativeEvent.offsetY,
+            ...getRelativeCoordinates(e),
             width: e.target.clientWidth,
             height: e.target.clientHeight
         });
