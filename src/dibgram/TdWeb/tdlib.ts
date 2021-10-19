@@ -75,7 +75,7 @@ export default class TdLib {
      */
     static sendQuery<T extends TdApi.TdFunction>(query: T): Promise<TdApi.TdFunctionReturn<T> | TdApi.td_Error> {
         const {log}= getConfig();
-        if(log.log_queries) {
+        if(log.log_queries && query['@type']!=='setTdlibParameters') {
             console.log('Query: ',query);
         }
         return new Promise((resolve, reject) => {
