@@ -133,12 +133,10 @@ const ChatList= connect(state=> ({connectionState: state}))(
             chatListScrollToTopEvent[0]= this.scrollToTop;
             // Request TDLib to return chats in main list and archive list
             TdLib.sendQuery({
-                '@type': 'getChats',
+                '@type': 'loadChats',
                 'chat_list': {
                     '@type': 'chatListMain'
                 },
-                'offset_order': '9223372036854775807',
-                'offset_chat_id': 0,
                 'limit': 50
             }).then(()=> {
                 this.setState({
@@ -146,12 +144,10 @@ const ChatList= connect(state=> ({connectionState: state}))(
                 });
             });
             TdLib.sendQuery({
-                '@type': 'getChats',
+                '@type': 'loadChats',
                 'chat_list': {
                     '@type': 'chatListArchive'
                 },
-                'offset_order': '9223372036854775807',
-                'offset_chat_id': 0,
                 'limit': 50
             });
         }

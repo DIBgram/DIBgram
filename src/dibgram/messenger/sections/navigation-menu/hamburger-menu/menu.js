@@ -18,6 +18,7 @@ import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { setTheme, themeStore } from '../../../../ui/themes/theme';
 import SettingsDialog from '../../settings/settings-dialog';
 import usersStore from '../../../users-store';
+import options from '../../../../TdWeb/options';
 
 /**
  * Renders the main menu (always rendered but not always visible)
@@ -155,7 +156,7 @@ const HamburgerMenu= connect(state=> ({
                                                 <LinkButton className="version link-button"
                                                     style={{color: 'var(--theme-color-windowSubTextFg)'}} 
                                                     href="https://github.com/DIBgram/DIBgram/releases/">
-                                                        version {version}
+                                                        version {version}, TDLib {options['version']}
                                                 </LinkButton>
 
                                                 <p>Unofficial Telegram app based on <LinkButton href="https://core.telegram.org/tdlib">TDLib</LinkButton> for speed and security.</p>

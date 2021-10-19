@@ -23,13 +23,11 @@ export function ChatFolder({folder, active, onClick, unread}) {
 
     React.useEffect(()=> { // Get folder chats, TDLib won't show them if this request isn't sent
         TdLib.sendQuery({
-            '@type': 'getChats',
+            '@type': 'loadChats',
             'chat_list': {
                 '@type': 'chatListFilter',
                 'chat_filter_id': folder.id,
             },
-            'offset_order': '9223372036854775807', // Maximum 64-bit value
-            'offset_chat_id': 0,
             'limit': 50 // Only get 50 chats //TODO: Implement loading more chats
         });
     }, []);
