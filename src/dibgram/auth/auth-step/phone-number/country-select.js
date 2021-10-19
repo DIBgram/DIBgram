@@ -4,6 +4,7 @@ import Dialog from '../../../ui/dialog/dialog';
 import SmallButton from '../../../ui/elements/small-button';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import './country-select.scss';
+import RippleEffect, { handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
 
 export default function CountrySelect({onChange, id, countries}) {
     const ref = React.useRef();
@@ -35,8 +36,11 @@ CountrySelect.propTypes = {
 };
 
 export function CountrySelectItem({country, onClick}) {
+    const ripple = React.useState({state: 'off'});
+    const [mouseDown, mouseUp, mouseLeave] = handleMyMouseEventsFunction(ripple);
     return (
-        <div className="country-select-item" onClick={onClick}>
+        <div className="country-select-item" onClick={onClick} mouseDown={mouseDown} mouseUp={mouseUp} mouseLeave={mouseLeave}>
+            <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgRipple"/>
             <div className="content">
                 <span className="name">{country.english_name}</span>
                 <span className="codes">{country.calling_codes.map(c=> '+' + c).join(', ')}</span>

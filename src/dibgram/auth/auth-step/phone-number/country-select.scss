@@ -16,12 +16,19 @@
         font-weight: 500;
         cursor: pointer;
 
+        &:hover {
+            background-color: var(--theme-color-windowBgOver);
+        }
+
         &:first-child {
             margin-top: 11px;
         }
 
         .content {
-            margin: 14px 22px;
+            padding: 7px 22px;
+            pointer-events: none;
+            position: relative;
+            z-index: +1;
         }
 
         .codes {
