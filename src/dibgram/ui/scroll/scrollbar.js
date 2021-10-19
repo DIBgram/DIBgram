@@ -6,7 +6,7 @@ import './scrollbar.scss';
 /**
  * A scrollable container. Sizing might need to be tweaked by CSS.
  */
-export default function ScrollView({scrollBarWidth, scrollRef, ...propsRest}) {
+export default function ScrollView({scrollBarWidth, scrollRef, scrollAlwaysVisible, ...propsRest}) {
     const [mouseEntered, setMouseEntered] = React.useState(false);
     const [timeoutId, setTimeoutId] = React.useState(null);
     return (
@@ -28,7 +28,8 @@ export default function ScrollView({scrollBarWidth, scrollRef, ...propsRest}) {
                 setMouseEntered(false);
                 clearTimeout(timeoutId);
             }}
-            autoHide
+            autoHide={!scrollAlwaysVisible}
+            data-auto-hide={scrollAlwaysVisible? 'false' : 'true'}
             autoHideTimeout={1000}
             hideTracksWhenNotNeeded={true}
             ref={scrollRef}
@@ -40,5 +41,7 @@ ScrollView.propTypes = {
     /** Scroll-bar thickness, in pixels (default: 4) */
     scrollBarWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     /** A React ref that is passed down to the scrollbars component */
-    scrollRef: PropTypes.object
+    scrollRef: PropTypes.object,
+    /** Whether to always show the scrollbars (default: false) */
+    scrollAlwaysVisible: PropTypes.bool,
 };

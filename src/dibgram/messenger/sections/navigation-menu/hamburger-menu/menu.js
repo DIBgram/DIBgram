@@ -117,7 +117,7 @@ const HamburgerMenu= connect(state=> ({
                             </div>
                         </div>
                     </div>
-                    <ScrollView>
+                    <ScrollView scrollAlwaysVisible>
                         <div className="scroll-content">
                             <div className="options">
                                 <ToolStrip.Section>

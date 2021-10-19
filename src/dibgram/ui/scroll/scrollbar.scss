@@ -76,7 +76,7 @@
         }
     }
 
-    &:not(:hover) {
+    &[data-auto-hide=true]:not(:hover) {
         .track-horizontal:not(:active),
         .track-vertical:not(:active) {
             opacity: 0 !important;
