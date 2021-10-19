@@ -79,7 +79,6 @@ export function handleMyMouseEvents(This) {
     return [
         // mouseDown
         (function(e) {
-            console.warn('down', e);
             // Reset the ripple effect if it's not off
             if(this.state.ripple.state!='off'){
                 this.setState({
@@ -108,7 +107,6 @@ export function handleMyMouseEvents(This) {
         }).bind(This),
         // mouseUp
         (function(e) {
-            console.warn('up', e);
             this.setState({
                 ripple: { 
                     state: 'released',
@@ -120,7 +118,6 @@ export function handleMyMouseEvents(This) {
         }).bind(This),
         // mouseLeave
         (function(e) {
-            console.warn('leave', e);
             if(this.state.ripple.state=='pressed') {
                 this.mouseUp(e);
             }
