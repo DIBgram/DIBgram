@@ -36,5 +36,6 @@ export const settings_folders = raw('./settings/folders.svg');
 export const settings_advenced = raw('./settings/advanced.svg');
 export const settings_language = raw('./settings/language.svg');
 export const settings_faq = raw('./settings/faq.svg');
+export const title_search = raw('./title_search.svg');
 
 export const filters_edit = raw('./chat_filters/edit.svg');

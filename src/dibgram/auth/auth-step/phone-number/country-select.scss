@@ -4,9 +4,13 @@
     height: 600px;
     max-height: calc(100% - 20px);
 
+    .box-search {
+        margin-left: -13px;
+        margin-right: -13px;
+    }
+
     .scrollbar {
         flex-grow: 1;
-        border-top: 1px solid var(--theme-color-shadowFg);
         border-bottom: 1px solid var(--theme-color-shadowFg);
         margin-left: -13px;
         margin-right: -13px;

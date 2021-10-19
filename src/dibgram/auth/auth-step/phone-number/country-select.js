@@ -5,20 +5,29 @@ import SmallButton from '../../../ui/elements/small-button';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import './country-select.scss';
 import RippleEffect, { handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
+import BoxSearch from '../../../ui/dialog/search';
 
 export default function CountrySelect({onChange, id, countries}) {
     const ref = React.useRef();
+    
+    const [search, setSearch] = React.useState('');
+    if(search.length > 0) {
+        countries = countries.filter(country => country.name.toLowerCase().startsWith(search.toLowerCase()));
+    }
+
     return (
         <Dialog ref={ref} id={id} width="320px" className="confirm-dialog">
             <h1>Select Country</h1>
 
+            <BoxSearch value={search} onChange={(e) => setSearch(e.target.value)} />
+
             <ScrollView scrollAlwaysVisible>
-                {countries.map(country => country.is_hidden? null: (
+                {countries.map(country => (country.is_hidden? null: (
                     <CountrySelectItem key={country.country_code} country={country} onClick={ ()=>{
                         onChange?.('+' + country.calling_codes[0]);
                         ref.current.close();
                     }}/>
-                ))}
+                )))}
             </ScrollView>
 
             <div className="options">
