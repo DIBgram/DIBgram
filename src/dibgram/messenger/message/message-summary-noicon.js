@@ -5,6 +5,7 @@ import currencyAmountToString from '../payments/currency-tostring';
 import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
 import MessageShortName from './message-short-name';
+import { durationToString, futureDayToString, timeToString } from '../../time-tostring';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -81,12 +82,12 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         );
 
     case 'messageChatAddMembers': // X added Y
-        var members= message.content.member_user_ids.map(id=> // convert user IDs to names
+        var newMembers= message.content.member_user_ids.map(id=> // convert user IDs to names
             getUserFullName(users[id]));
-        if(members.length>1){ // X and Y // X, Y and Z
-            members= members.slice(0, members.length - 1) .join(', ') + ' and ' + members[members.length - 1];
+        if(newMembers.length>1){ // X and Y // X, Y and Z
+            newMembers= newMembers.slice(0, newMembers.length - 1) .join(', ') + ' and ' + newMembers[newMembers.length - 1];
         } else {
-            members= members[0];
+            newMembers= newMembers[0];
         }
         // If the user joined the group by themselves, it appears as 'X added X' and that is not accurate.
         if(message.content.member_user_ids[0] == message.sender?.user_id) {
@@ -99,7 +100,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
         return (
             <span className={className}>
-                <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> added {members}</span>
+                <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> added {newMembers}</span>
             </span>
         );
 
@@ -159,6 +160,21 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 &nbsp;joined the group via invite link</span>
             </span>
         );
+
+    case 'messageChatSetTheme':
+        if(message.content.theme_name){
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> changed the chat theme to {message.content.theme_name}</span>
+                </span>
+            );
+        } else {
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> disabled the chat theme</span>
+                </span>
+            );
+        }
 
     case 'messageChatSetTtl': // Auto-delete / self-destruct timer changed
         var timeConversionTable= {86400: 'day', 604800: 'week', 2678400: 'month'}; // seconds to day, week and month
@@ -339,9 +355,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         var noInvoiceTitleFallback= (
             <span className={className}>
                 <span className="part-1">
-                    You successfully transferred 
-                    {currencyAmountToString(message.content.currency, message.content.total_amount)} 
-                    to {chat.title}
+                    You successfully transferred {currencyAmountToString(message.content.currency, message.content.total_amount)} to {chat.title}
                 </span>
             </span>
         );
@@ -350,7 +364,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         var PaymentInfoWithInvoiceTitle= React.lazy(()=>new Promise(resolve=> {
             TdLib.sendQuery({
                 '@type': 'getMessage',
-                chat_id: chat.id,
+                chat_id: message.content.invoice_chat_id,
                 message_id: message.content.invoice_message_id
             }).then(
                 result=> { 
@@ -358,9 +372,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     resolve({ default: ()=> (
                         <span className={className}>
                             <span className="part-1">
-                                You successfully transferred 
-                                {currencyAmountToString(message.content.currency, message.content.total_amount)} 
-                                to {chat.title} for {result.content.title}
+                                You successfully transferred {currencyAmountToString(message.content.currency, message.content.total_amount)} to {chat.title} for {result.content.title}
                             </span>
                         </span>
                     )});
@@ -534,6 +546,65 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
                 <span className="part-1">Video message</span>
+            </span>
+        );
+
+    case 'messageVoiceChatScheduled':
+        if(message.is_channel_post) {
+            return (
+                <span className={className}>
+                    <span className="part-1">Live stream scheduled for {futureDayToString(message.content.start_date)} at {timeToString(message.content.start_date)}</span>
+                </span>
+            );
+        } else {
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> scheduled a video chat for {futureDayToString(message.content.start_date)} at {timeToString(message.content.start_date)}</span>
+                </span>
+            );
+        }
+
+    case 'messageVoiceChatStarted':
+        if(message.is_channel_post) {
+            return (
+                <span className={className}>
+                    <span className="part-1">Live stream started</span>
+                </span>
+            );
+        } else {
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> started a video chat</span>
+                </span>
+            );
+        }
+
+    case 'messageVoiceChatEnded':
+        if(message.is_channel_post) {
+            return (
+                <span className={className}>
+                    <span className="part-1">Live stream finished ({durationToString(message.content.duration)})</span>
+                </span>
+            );
+        } else {
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> ended the video chat ({durationToString(message.content.duration)})</span>
+                </span>
+            );
+        }
+
+    case 'messageInviteVoiceChatParticipants':
+        var invitedMembers= message.content.user_ids.map(id=> // convert user IDs to names
+            getUserFullName(users[id]));
+        if(invitedMembers.length>1){ // X and Y // X, Y and Z
+            invitedMembers= invitedMembers.slice(0, invitedMembers.length - 1) .join(', ') + ' and ' + invitedMembers[invitedMembers.length - 1];
+        } else {
+            invitedMembers= invitedMembers[0];
+        }
+        return (
+            <span className={className}>
+                <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> invited {invitedMembers} to the video chat</span>
             </span>
         );
 

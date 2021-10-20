@@ -65,6 +65,49 @@ export function dateToString(date) {
 }
 
 /**
+ * Converts a future day to a string.  
+ * If the day is today, returns 'today'.  
+ * If the day is tomorrow, returns 'tomorrow'.  
+ * If the day is neither today or tomorrow, returns the monthe and day. (eg. 'February 12')
+ * @param {Date|Number} date Input date
+ * @returns {string} `today`, `tomorrow` or month+day
+ */
+export function futureDayToString(date) {
+    if(typeof date == 'number') date= TdLibDateToDate(date);
+    const today = new Date();
+    const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+
+    if (date.getDate() == today.getDate() && date.getMonth() == today.getMonth()) {
+        return 'today';
+    } else if (date.getDate() == tomorrow.getDate() && date.getMonth() == tomorrow.getMonth()) {
+        return 'tomorrow';
+    } else {
+        const months= ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        return `${months[date.getMonth()]} ${date.getDate()}`;
+    }
+}
+
+/**
+ * Converts a duration to string.
+ * If the duration is less than 2 minutes, the string is in the format 'X seconds'.
+ * If the duration is less than 2 hours, the string is in the format 'X minutes'.
+ * If the duration is less than 1 day, the string is in the format 'X hours'.
+ * If the duration is longer, the string is in the format 'X days'.
+ * @param {Number} duration Duration in seconds
+ */
+export function durationToString(duration) {
+    if (duration < 2 * 60) {
+        return `${duration} seconds`;
+    } else if (duration < 2 * 60 * 60) {
+        return `${Math.floor(duration / 60)} minutes`;
+    } else if (duration < 24 * 60 * 60) {
+        return `${Math.floor(duration / 60 / 60)} hours`;
+    } else {
+        return `${Math.floor(duration / 24 / 60 / 60)} days`;
+    }
+}
+
+/**
  * Converts a TDLIb unix time to a `Date` object.
  */
 export function TdLibDateToDate(tdLibDate) {
