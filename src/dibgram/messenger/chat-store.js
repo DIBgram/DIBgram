@@ -298,6 +298,15 @@ TdLib.registerUpdateHandler('updateChatLastMessage', update => {
     }
 });
 
+TdLib.registerUpdateHandler('updateChatMessageTtlSetting', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'message_ttl_setting',
+        chat_id: update.chat_id,
+        value: update.message_ttl_setting
+    });
+});
+
 TdLib.registerUpdateHandler('updateChatNotificationSettings', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
@@ -375,6 +384,15 @@ TdLib.registerUpdateHandler('updateChatReplyMarkup', update => {
     });
 });
 
+TdLib.registerUpdateHandler('updateChatTheme', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'theme_name',
+        chat_id: update.chat_id,
+        value: update.theme_name
+    });
+});
+
 TdLib.registerUpdateHandler('updateChatTitle', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
@@ -390,6 +408,15 @@ TdLib.registerUpdateHandler('updateChatUnreadMentionCount', update=> {
         property: 'unread_mention_count',
         chat_id: update.chat_id,
         value: update.unread_mention_count
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatVoiceChat', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'voice_chat',
+        chat_id: update.chat_id,
+        value: update.voice_chat
     });
 });
 
