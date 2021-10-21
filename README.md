@@ -3,7 +3,7 @@
 [![Licence: GPL v3.0](https://img.shields.io/badge/Licence-GPL%20v3.0-lightgray)](LICENCE)
 [![Building guide](https://img.shields.io/badge/Building%20guide-Open-green)](BUILDING.md)
 [![Contributing guide](https://img.shields.io/badge/Contributing%20guide-Open-green)](CONTRIBUTING.md)
-[![Code of conduct](https://img.shields.io/badge/Code%20of%20contact-Open-green)](CODE_OF_CONDUCT.md)
+[![Code of conduct](https://img.shields.io/badge/Code%20of%20conduct-Open-green)](CODE_OF_CONDUCT.md)
 [![Telegram channel](https://img.shields.io/badge/Telegram%20channel-DIBgram-blue)](https://t.me/DIBgram)
 [![Discussion group](https://img.shields.io/badge/Discussion%20group-DIBgramChat-blue)](https://t.me/DIBgramChat)
 
