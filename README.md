@@ -1,10 +1,14 @@
 # DIBgram
+[![Licence: GPL v3.0](https://img.shields.io/badge/Licence-GPL%20v3.0-lightgray)](LICENCE)
+[![Contributing guide](https://img.shields.io/badge/Bulding%20guide-Open-orange)](BUILDING.md)
+[![Contributing guide](https://img.shields.io/badge/Contributing%20guide-Open-green)](CONTRIBUTING.md)
+[![Code of conduct](https://img.shields.io/badge/Code%20of%20contact-Open-green)](CODE_OF_CONDUCT.md)
+[![Telegram channel](https://img.shields.io/badge/Telegram%20channel-DIBgram-blue)](https://t.me/DIBgram)
+[![Discussion group](https://img.shields.io/badge/Discussion%20group-DIBgramChat-blue)](https://t.me/DIBgramChat)
 
 DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies. 
 
-[License](LICENSE) | [Building](BUILDING.md) | [Contributing](CONTRIBUTING.md) | [Code of conduct](CODE_OF_CONDUCT.md) | [Telegram channel](https://t.me/DIBgram) | [Discussion group](https://t.me/DIBgramChat)
-
-**DIB**gram = telegram **D**esktop **I**n a **B**rowser gram
+**DIB**gram = Telegram **D**esktop **I**n a **B**rowser gram
 
 *DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the progress*
 
