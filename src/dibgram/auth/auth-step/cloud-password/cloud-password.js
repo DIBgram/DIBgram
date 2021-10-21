@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import connectionStore from '../../../TdWeb/connectionStore';
 import ConnectionState from '../../../ui/components/connecting';
 import './cloud-password.scss';
+import __, { __fmt } from '../../../language-pack/language-pack';
 
 
 /**
@@ -39,7 +40,7 @@ export default class AuthWindowStepPassword extends React.Component {
         Auth.check2FACode(this.state.password).catch(reason=> {
             if(reason.message=='PASSWORD_HASH_INVALID') {
                 this.setState({invalid: true});
-                this.changeStatus('You have entered a wrong password.');
+                this.changeStatus(__('auth.password.wrong_password'));
             }
             else {
                 // We don't know what the error is, so all we can do is to show it to the user
@@ -54,35 +55,33 @@ export default class AuthWindowStepPassword extends React.Component {
             <div id="auth" className="auth-step-password">
                 <div className="content">
 
-                    <h2>Cloud password check</h2>
+                    <h2>{__('lng_signin_title')}</h2>
 
-                    <p className="description">
-                        Please enter your cloud password.
-                    </p>
+                    <p className="description">{__('lng_signin_desc')}</p>
 
                     <UnderlinedInput
                         type="password"
                         value={this.state.password} 
                         onChange={this.handlePasswordFieldChange}
                         autoFocus={true} 
-                        title="Your cloud password"
+                        title={__('lng_signin_password')}
                         onEnterKeyPressed={this.handleContinueButton}
                         disableCopy={true}
                         invalid={this.state.invalid}/>
 
                     <div className="hint">
-                        {this.props.info.password_hint?'Hint: ':<span>&nbsp;</span>}{this.props.info.password_hint}
+                        {this.props.info.password_hint?__fmt('lng_signin_hint', {paddword_hint: this.props.info.password_hint}):<span>&nbsp;</span>}
                     </div>
 
                     <div className="forgot-password">
-                        <LinkButton>Forgot password?</LinkButton>
+                        <LinkButton>{__('lng_signin_recover')}</LinkButton>
                     </div>
 
                     <Status/>
 
                     <BigHighlightedButton 
                         onClick={this.handleContinueButton}>
-                        SUBMIT
+                        {__('lng_intro_submit')}
                     </BigHighlightedButton>
 
                 </div>

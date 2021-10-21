@@ -6,6 +6,7 @@ import ScrollView from '../../../ui/scroll/scrollbar';
 import './country-select.scss';
 import RippleEffect, { handleMyMouseEventsFunction } from '../../../ui/elements/ripple-effect';
 import BoxSearch from '../../../ui/dialog/search';
+import __ from '../../../language-pack/language-pack';
 
 export default function CountrySelect({onChange, id, countries}) {
     const ref = React.useRef();
@@ -17,7 +18,7 @@ export default function CountrySelect({onChange, id, countries}) {
 
     return (
         <Dialog ref={ref} id={id} width="320px" className="confirm-dialog">
-            <h1>Select Country</h1>
+            <h1>{__('lng_country_select')}</h1>
 
             <BoxSearch value={search} onChange={(e) => setSearch(e.target.value)} />
 
@@ -31,9 +32,7 @@ export default function CountrySelect({onChange, id, countries}) {
             </ScrollView>
 
             <div className="options">
-                <SmallButton onClick={()=> {ref.current.close();}}>
-                    Close
-                </SmallButton>
+                <SmallButton onClick={()=> {ref.current.close();}}>{__('lng_close')}</SmallButton>
             </div>
         </Dialog>
     );

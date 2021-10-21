@@ -4,8 +4,9 @@ import TdLib from '../../TdWeb/tdlib';
 import currencyAmountToString from '../payments/currency-tostring';
 import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
-import MessageShortName from './message-short-name';
+import MessageShortName from './message-pinned-message';
 import { durationToString, futureDayToString, timeToString } from '../../time-tostring';
+import __, { __fmt } from '../../language-pack/language-pack';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -22,7 +23,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     case 'messageAnimation': // GIF
         return (
             <MayHaveCaptionThumbnail
-                type="GIF" 
+                type="GIF" //TODO: Find the localized string
                 caption={message.content.caption?.text} 
                 className={className} 
                 message={message} 
@@ -48,7 +49,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     case 'messageBasicGroupChatCreate': // X created the group «xxxx»
         return (
             <span className={className}>
-                <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> created the group «{message.content.title}»</span>
+                <span className="part-1">{__fmt('lng_action_created_chat', {from: <SenderFullName chat={chat} message={message} users={users}/>, title: message.content.title})}</span>
             </span>
         );
 
@@ -57,21 +58,21 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         if(message.is_outgoing) { // You made the call
             switch(message.content.discard_reason?.['@type']) {
             case 'callDiscardReasonMissed':
-                text= 'Cancelled call';
+                text= __(message.content.is_video? 'lng_call_video_cancelled' : 'lng_call_cancelled');
                 break;
             default:
-                text= 'Outgoing call';
+                text= __(message.content.is_video? 'lng_call_video_outgoing' : 'lng_call_outgoing');
             }
         } else { // The other user called you
             switch(message.content.discard_reason?.['@type']) {
             case 'callDiscardReasonDeclined':
-                text= 'Declined call';
+                text= __(message.content.is_video? 'lng_call_video_declined' : 'lng_call_declined');
                 break;
             case 'callDiscardReasonMissed':
-                text= 'Missed call';
+                text= __(message.content.is_video? 'lng_call_video_missed' : 'lng_call_missed');
                 break;
             default: 
-                text= 'Incoming call';
+                text= __(message.content.is_video? 'lng_call_video_incoming' : 'lng_call_incoming');
             }
         } 
         return (
@@ -430,7 +431,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     //eslint-disable-next-line react/display-name
                     resolve({ default: ()=> (
                         <span className={className}><span className="part-1">
-                            <SenderFullName message={message} chat={chat} users={users}/> pinned <MessageShortName message={result}/>
+                            <MessageShortName message={result} sender={<SenderFullName message={message} chat={chat} users={users}/>}/>
                         </span></span>
                     )});
                 },

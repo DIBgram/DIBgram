@@ -13,6 +13,7 @@ import './phone-number.scss';
 import CountrySelect from './country-select';
 import TdLib from '../../../TdWeb/tdlib';
 import { intro_country_dropdown } from '../../../ui/icon/icons';
+import __ from '../../../language-pack/language-pack';
 
 /**
  * Renders the phone number step of authorization screen
@@ -28,7 +29,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
         invalid: false,
         statusContent: '',
         statusVisible: false,
-        dropDownText: 'Country Code',
+        dropDownText: __('lng_country_code'),
         countries: [],
     };
 
@@ -68,9 +69,9 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
     }
 
     getCountryDropdownText(callingCode) {
-        var countryName= 'Invalid Country Code';
+        var countryName= __('lng_bad_country_code');
         if(callingCode == '+') {
-            countryName= 'Country Code';
+            countryName= __('lng_country_code');
         }
         for(let country of callingCodes) {
             if( callingCode.substr(1) == country.callingCode) {
@@ -130,8 +131,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
             case 'PHONE_NUMBER_FLOOD':
                 addDialog( 'phone_number_flood_error',
                     <ConfirmDialog width="320px" hideCancelButton={true} largeFont={true} id="phone_number_flood_error">
-                        Sorry, you have deleted and re-created your account too many times recently.<br/>
-                        Please wait for a few days before signing up again.
+                        {__('lng_error_phone_flood')}
                     </ConfirmDialog>
                 );
                 this.changeStatus('');
@@ -139,7 +139,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
 
             case 'PHONE_NUMBER_INVALID':
                 this.setState({invalid: true});
-                this.changeStatus('Invalid phone number. Please try again.');
+                this.changeStatus(__('lng_bad_phone'));
                 break;
 
             case 'Another authorization query has started': 
@@ -158,10 +158,10 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
         return (
             <div id="auth" className="auth-step-phoneNumber">
 
-                <h2>Your Phone Number</h2>
+                <h2>{__('lng_phone_title')}</h2>
 
                 <p className="description">
-                    Please confirm your country code and enter your mobile phone number.
+                    {__('lng_phone_desc')}
                 </p>
 
                 {//TODO: Add phone number placeholder
@@ -197,7 +197,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
 
                 <BigHighlightedButton
                     onClick={this.submitNumber}>
-                    NEXT
+                    {__('lng_intro_next')}
                 </BigHighlightedButton>
 
                 <Provider store={connectionStore}>

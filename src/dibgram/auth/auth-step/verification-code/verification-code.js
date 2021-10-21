@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import connectionStore from '../../../TdWeb/connectionStore';
 import ConnectionState from '../../../ui/components/connecting';
 import './verification-code.scss';
+import __ from '../../../language-pack/language-pack';
 
 /**
  * Renders verification code step of authorization screen
@@ -49,7 +50,7 @@ export default class AuthWindowStepCode extends React.Component {
         Auth.checkAuthCode(code).catch(reason=> {
             if(reason.message==='PHONE_CODE_INVALID'){
                 this.setState({invalid: true});
-                this.changeStatus('You have entered an invalid code.');
+                this.changeStatus(__('lng_bad_code'));
             }
             else {
                 // We don't know the error, all we can do is to just inform the user about it
@@ -62,14 +63,9 @@ export default class AuthWindowStepCode extends React.Component {
         const Status = this.Status;
 
         var message= (this.props.info.type['@type']=='authenticationCodeTypeSms') ?
-            (<p className="description">
-                We&apos;ve sent an activation code to your phone. <br/>
-                Please enter it below.
-            </p>) 
+            (<p className="description">{__('lng_code_desc')}</p>) 
             :
-            (<p className="description">
-                A code was sent <strong>via Telegram</strong> to your other devices, if you have any connected.
-            </p>);
+            (<p className="description">{__('lng_code_from_telegram')}</p>);
             
         return (
             <div id="auth" className="auth-step-code">
@@ -83,7 +79,7 @@ export default class AuthWindowStepCode extends React.Component {
                     value={this.state.code} 
                     onChange={this.handleCodeFieldChange}
                     autoFocus={true}
-                    title="Code"
+                    title={__('lng_code_ph')}
                     maxLength={this.props.info.type.length}
                     onEnterKeyPressed={this.handleContinueButton}
                     invalid={this.state.invalid}
@@ -93,7 +89,7 @@ export default class AuthWindowStepCode extends React.Component {
 
                 <BigHighlightedButton
                     onClick={this.handleContinueButton}>
-                    NEXT
+                    {__('lng_intro_next')}
                 </BigHighlightedButton>
 
                 <Provider store={connectionStore}>
