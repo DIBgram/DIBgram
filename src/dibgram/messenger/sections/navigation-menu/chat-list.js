@@ -102,7 +102,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
 
         render() {
             // Get chats from the list (this needs to be repeated on every modification)
-            const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><Chat key={chat.id} chat={chat} />);
+            const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><Chat key={chat.id} chat={chat} />).slice(0, 10);
             
             return (
                 <React.Fragment>
