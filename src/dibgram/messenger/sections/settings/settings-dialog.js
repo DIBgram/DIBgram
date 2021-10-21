@@ -15,6 +15,7 @@ import IconButton from '../../../ui/elements/icon-button';
 import options from '../../../TdWeb/options';
 import { connect } from 'react-redux';
 import { getUserFullName } from '../../user-misc';
+import __ from '../../../language-pack/language-pack';
 
 /**
  * Renders a modal dialog
@@ -40,7 +41,7 @@ class Settings extends React.Component{
             <Dialog className="settings-dialog" id={this.props.id} ref={this.dialogRef} width={this.props.width || '392px'}>
                 <div className="dialog-content">
                     <div className="header">
-                        <h3 className="title">Settings</h3>
+                        <h3 className="title">{__('settings.dialog_title')}</h3>
                         <IconButton className="icon-button close" icon={info_close} onClick={() => {
                             this.dialogRef.current.close();
                         }} />
