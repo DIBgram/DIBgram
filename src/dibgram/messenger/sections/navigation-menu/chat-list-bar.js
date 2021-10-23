@@ -10,6 +10,7 @@ import './chat-list-bar.scss';
 import { info_back } from '../../../ui/icon/icons';
 import chatStore from '../../chat-store';
 import NavAnimation, { closeNavAnimation } from '../../../ui/elements/nav-animation';
+import __ from '../../../language-pack/language-pack';
 
 /**
  * Renders the navigation menu, containing chat list, search field and search results [and the main menu button]
@@ -52,7 +53,7 @@ const ChatListBar = connect(function (state) {
                                     <span>{unread.main.unread_unmuted_messages_count}</span>
                                 </div>
                             ): null}
-                            <div className="title">Archived chats</div>
+                            <div className="title">{__('lng_archived_name')}</div>
                         </div>
                         <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread}/>
                     </Provider>

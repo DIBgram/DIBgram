@@ -85,7 +85,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     case 'messageChatAddMembers': // X added Y
         var newMembers= message.content.member_user_ids.map(id=> // convert user IDs to names
             getUserFullName(users[id]));
-        if(newMembers.length>1){ // X and Y // X, Y and Z
+        if(newMembers.length>1){ // X and Y // X, Y and Z //TODO localize
             newMembers= newMembers.slice(0, newMembers.length - 1) .join(', ') + ' and ' + newMembers[newMembers.length - 1];
         } else {
             newMembers= newMembers[0];
@@ -94,7 +94,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         if(message.content.member_user_ids[0] == message.sender?.user_id) {
             return (
                 <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> joined the group</span>
+                    <span className="part-1">{__fmt('lng_action_user_joined', {from: <SenderFullName message={message} chat={chat} users={users}/>})}</span>
                 </span>
             );
         }
@@ -109,7 +109,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         // Telegram Desktop shows chat photo change events as 'Photo' instead of 'X changed group photo' or 'Channel photo changed'
         return (
             <span className={className}>
-                <span className="part-1">Photo</span> 
+                <span className="part-1">{__('lng_attach_photo')}</span> 
             </span>
         );
 
@@ -117,14 +117,16 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         if(message.is_channel_post) {
             return (
                 <span className={className}>
-                    <span className="part-1">Channel name was changed to «{message.content.title}»</span>
+                    <span className="part-1">{__fmt('lng_action_changed_title_channel', {title: message.content.title})}</span>
                 </span>
             );
         } else {
             return (
                 <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                    &nbsp;changed group name to «{message.content.title}»</span>
+                    <span className="part-1">{__fmt('lng_action_changed_title', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>,
+                        title: message.content.title
+                    })}</span>
                 </span>
             );
         }

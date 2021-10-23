@@ -23,6 +23,7 @@ import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 import './history-to-down.scss';
 import IconButton from '../../../ui/elements/icon-button';
 import { chatListScrollToTopEvent } from './chat-folders';
+import __, { __pl } from '../../../language-pack/language-pack';
 
 /**********************************************************************************************
  * Because of the length of this file, it is recommended to use a tool to view document outline
@@ -210,13 +211,13 @@ class ChatListItem extends React.Component {
         }
 
         if(isChatWithDeletedAccount(chat, this.props.users)) {
-            chat.title= 'Deleted Account'; // Chat object is a copy, so there is no problem with mutating it.
+            chat.title= __('lng_deleted'); // Chat object is a copy, so there is no problem with mutating it.
         }
 
         const isVerified= isChatVerified(chat);
 
         if (chat.id==options['my_id']) {
-            chat.title= 'Saved Messages';
+            chat.title= __('lng_saved_messages');
         }
 
         var messageStatus = null;
@@ -288,7 +289,7 @@ class ChatListItem extends React.Component {
                             <div className="left">
                                 {(chat.draft_message && !unreadBadge) ?  // I don't know why, but Telegram Desktop does not show the draft message if the chat is unread.
                                     <span className="last-message">
-                                        <span className="draft">Draft:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
+                                        <span className="draft">{__('lng_from_draft')}:</span> <span className="part-2">{chat.draft_message.input_message_text.text.text}</span>
                                     </span> 
                                     :
                                     <MessageSummaryWithoutIcon message={chat.last_message} users={this.props.users} chat={chat} className="last-message"/>
@@ -326,8 +327,8 @@ function ChatContextMenu({chat}) {
         }).then(result => {
             setMovableChatLists(result.chat_lists.map(chatList=> {
                 const text= { // Only archive / unarchive
-                    'chatListMain': 'Unarchive chat', 
-                    'chatListArchive': 'Archive chat'
+                    'chatListMain': __('lng_archived_add'), 
+                    'chatListArchive': __('lng_archived_remove')
                 }[chatList['@type']];
                 if(!text) return;
                 return (
@@ -338,13 +339,10 @@ function ChatContextMenu({chat}) {
                             chat_list: chatList
                         }).then(() => {
                             if(chatList['@type'] == 'chatListMain') {
-                                addToast(<Toast>Chat restored from your archive.</Toast>);
+                                addToast(<Toast>{__('lng_archived_removed')}</Toast>);
                             } 
                             else if(chatList['@type'] == 'chatListArchive') {
-                                addToast(<Toast>
-                                    Chat archived. <br/>
-                                    Muted chats stay archived when new messages arrive.
-                                </Toast>);
+                                addToast(<Toast>{__('lng_archived_added')}</Toast>);
                             }
                         });
                     }}>
@@ -370,7 +368,7 @@ function ChatContextMenu({chat}) {
                         const max= chat.position.list['@type'] == 'chatListMain'? options['pinned_chat_count_max'] : options['pinned_archived_chat_count_max'];
                         addDialog('maximum-pinned-chats-reached', (
                             <ConfirmDialog id="maximum-pinned-chats-reached" largeFont={true} hideCancelButton={true}>
-                                Sorry, you can only pin {max} chats to the top.
+                                {__pl('lng_error_pinned_max', max)}
                             </ConfirmDialog>
                         ));
                     }
