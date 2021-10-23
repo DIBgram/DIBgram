@@ -26,7 +26,7 @@ export default class TdLib {
     /**
      * Creates the instance of Tdweb
      */
-    static async initializeTdLib() {
+    static initializeTdLib() {
         const {log}= getConfig();
         TdLib.#tdClient= createTdClient({
             useDatabase: true,
@@ -40,7 +40,7 @@ export default class TdLib {
                 }
             }
         });
-        return await TdLib.sendQuery({'@type': 'getAuthorizationState'}); // It both starts TDLib and returns the authorization state
+        return TdLib.sendQuery({'@type': 'getAuthorizationState'}); // It both starts TDLib and returns the authorization state
     }
 
     /**
