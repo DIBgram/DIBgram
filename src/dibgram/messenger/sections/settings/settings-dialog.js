@@ -48,21 +48,21 @@ class Settings extends React.Component{
                         
                         <ThreeDotsMenu className="more-options">
                             <Menu.MenuContents>
-                                <Menu.MenuItem>Add Account</Menu.MenuItem>
-                                <Menu.MenuItem>Edit profile</Menu.MenuItem>
+                                <Menu.MenuItem>{__('lng_menu_add_account')}</Menu.MenuItem>
+                                <Menu.MenuItem>{__('lng_settings_information')}</Menu.MenuItem>
                                 <Menu.MenuItem onClick={() => {
                                     addDialog('log-out-from-main-menu-confirm-dialog',
                                         <ConfirmDialog largeFont={true}
                                             id="log-out-from-main-menu-confirm-dialog"
-                                            OKButtonText="LOG OUT" onOK={()=> {
+                                            OKButtonText={__('lng_settings_logout')} onOK={()=> {
                                                 TdLib.sendQuery({
                                                     '@type': 'logOut'
                                                 });
                                             }} attention={true}>
-                                        Are you sure you want to log out?
+                                            {__('lng_sure_logout')}
                                         </ConfirmDialog>
                                     );
-                                }}>Log Out</Menu.MenuItem>
+                                }}>{__('lng_settings_logout')}</Menu.MenuItem>
                             </Menu.MenuContents>
                         </ThreeDotsMenu>
                     </div>
@@ -72,25 +72,25 @@ class Settings extends React.Component{
                                 <ProfilePhoto id={options['my_id']} name={getUserFullName(this.props.users[options['my_id']])} photo={this.props.users[options['my_id']]?.profile_photo?.small} disableSavedMessages={true}/>
                                 <span>
                                     <p className="name">{getUserFullName(this.props.users[options['my_id']])}</p>
-                                    <p className="status">online</p>
+                                    <p className="status">{__('lng_status_online') /*TODO: Implement real status instead of a dummy 'online' */}</p>
                                 </span>
                             </ToolStrip.Section>
                             <ToolStrip.Separator/>
                             <ToolStrip.Section>
-                                <ToolStrip.Button icon={settings_info} text="Edit profile"/>
-                                <ToolStrip.Button icon={settings_notifications} text="Notifications"/>
-                                <ToolStrip.Button icon={settings_privacy_security} text="Privacy and Security"/>
-                                <ToolStrip.Button icon={settings_chat} text="Chat Settings"/>
-                                <ToolStrip.Button icon={settings_folders} text="Folders"/>
-                                <ToolStrip.Button icon={settings_advenced} text="Advenced"/>
-                                <ToolStrip.Button icon={settings_language} text="Language">
-                                    <span className="value">English</span>
+                                <ToolStrip.Button icon={settings_info} text={__('lng_settings_information')}/>
+                                <ToolStrip.Button icon={settings_notifications} text={__('lng_settings_section_notify')}/>
+                                <ToolStrip.Button icon={settings_privacy_security} text={__('lng_settings_section_privacy')}/>
+                                <ToolStrip.Button icon={settings_chat} text={__('lng_settings_section_chat_settings')}/>
+                                <ToolStrip.Button icon={settings_folders} text={__('lng_settings_section_filters')}/>
+                                <ToolStrip.Button icon={settings_advenced} text={__('lng_settings_advanced')}/>
+                                <ToolStrip.Button icon={settings_language} text={__('lng_settings_language')}>
+                                    <span className="value">{__('lng_language_name')}</span>
                                 </ToolStrip.Button>
                             </ToolStrip.Section>
                             <ToolStrip.Separator/>
                             <ToolStrip.Section>
-                                <ToolStrip.Button icon={settings_faq} text="Telegram FAQ" onClick={() => window.open('https://telegram.org/faq')}/>
-                                <ToolStrip.Button text="Ask a Question"/>
+                                <ToolStrip.Button icon={settings_faq} text={__('lng_settings_faq')} onClick={() => window.open('https://telegram.org/faq')}/>
+                                <ToolStrip.Button text={__('lng_settings_ask_question')}/>
                             </ToolStrip.Section>
                         </div>
                     </ScrollView>
