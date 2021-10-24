@@ -37,15 +37,15 @@ function applyFormatting(format) {
     while(true) {
         if(format.includes('\n')){
             const index= format.indexOf('\n');
-            res.push(format.substr(0, index));
+            applyFormatting(format.substr(0, index)).forEach(e=>res.push(e));
             res.push(<br/>);
             format= format.substr(index + 1);
         } 
-        else if(/\*\*\w+\*\*/.test(format)){
-            const execed= /\*\*(\w+)\*\*/.exec(format);
+        else if(/\*\*.+\*\*/.test(format)){
+            const execed= /\*\*(.+)\*\*/.exec(format);
             applyFormatting(format.substr(0, execed.index)).forEach(e=>res.push(e));
             res.push(<strong>{execed[1]}</strong>);
-            format= format.substr(execed.index + execed[1].length+2);
+            format= format.substr(execed.index + execed[1].length+4);
         }
         else break;
     }
@@ -101,7 +101,7 @@ export default function __(key) {
     }
     if(currentLanguagePack) {
         if(currentLanguagePack[key].value['@type'] === 'languagePackStringValueOrdinary') {
-            return currentLanguagePack[key].value.value;
+            return getFormattedText(currentLanguagePack[key].value.value);
         }
     }
 
@@ -132,7 +132,7 @@ export function __pl(key, count) {
         }
     }
 
-    callback=  (mode) => englishLanguagePack[key+'#'+mode]
+    callback=  (mode) => englishLanguagePack[key+'#'+mode];
 
     const pluralizedString= getPluralString(getCountMode(count), callback);
     const formatted= formatString(pluralizedString, {count});
