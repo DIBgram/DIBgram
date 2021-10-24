@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import {MainApp, setInitialAuthState} from './dibgram/auth/auth-screen';
+import {authStore, MainApp} from './dibgram/auth/auth-screen';
 import { initLanguagePack } from './dibgram/language-pack/language-pack';
 import setInitialOnlineStatus from './dibgram/TdWeb/online-handler';
 import TdLib from './dibgram/TdWeb/tdlib';
@@ -11,8 +11,7 @@ import './dibgram/ui/main.scss';
 import { ContextMenus, contextMenusStore } from './dibgram/ui/menu/context-menu';
 import { ThemeProvider, themeStore } from './dibgram/ui/themes/theme';
 
-TdLib.initializeTdLib().then(function (res) {
-    setInitialAuthState(res);
+TdLib.initializeTdLib().then(function () {
     setInitialOnlineStatus();
     initLanguagePack();
 });
@@ -58,7 +57,9 @@ function App() {
                 <Provider store={toastStore}>
                     <Toasts/>
                 </Provider>
-                <MainApp/>
+                <Provider store={authStore}>
+                    <MainApp/>
+                </Provider>
                 <Provider store={contextMenusStore}>
                     <ContextMenus/>
                 </Provider>

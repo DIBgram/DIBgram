@@ -1,4 +1,5 @@
 import React from 'react';
+import { authStore } from '../auth/auth-screen';
 import TdLib from '../TdWeb/tdlib';
 import englishLanguagePack from './english.json';
 
@@ -15,11 +16,16 @@ export function initLanguagePack(){
     }).then(()=>{
         TdLib.sendQuery({
             '@type': 'getLanguagePackStrings',
-            language_pack_id: 'it'
+            language_pack_id: localStorage.getItem('dibgram-active-language') || 'fa-beta'
         }).then(result=>{
             currentLanguagePack = {};
             result.strings.forEach(string=>{
                 currentLanguagePack[string.key] = string;
+            });
+
+            authStore.dispatch({ // Force re-render9
+                type: 'SET_STATE',
+                state: authStore.getState().state
             });
         });
     });

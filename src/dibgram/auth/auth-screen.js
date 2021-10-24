@@ -1,20 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TdLib from '../TdWeb/tdlib';
 import {MessengerWindow} from '../messenger/messengerWindow';
-
 import Dialogs, { dialogStore } from '../ui/dialog/dialogs';
-
 import './auth.scss';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import AuthWindowStepPhoneNumber from './auth-step/phone-number/phone-number';
 import AuthWindowStepCode from './auth-step/verification-code/verification-code';
 import AuthWindowStepPassword from './auth-step/cloud-password/cloud-password';
 import AuthWindowStepRegister from './auth-step/register/register';
+import { createStore } from 'redux';
 
-var initialAuthState = {'@type': undefined};
-export function setInitialAuthState(state) {
-    initialAuthState=state;
-}
+export const authStore = createStore((state= { 'state': null }, action) => {
+    switch (action.type) {
+    case 'SET_STATE':
+        return {
+            ...state,
+            'state': action.state
+        };
+    default:
+        return state;
+    }
+});
 
 /**
  * Start managing a status text block with fade effects.  
@@ -69,23 +76,22 @@ export function manageStatusTextContent(thisClass) {
 /**
  * Renders the messenger or authorization screens (layer 1). Does not include dialogs and toasts
  */
-export class MainApp extends React.Component {
-    state= {
-        step: initialAuthState
+export const MainApp= connect(state=> ({step: state.state}))(class MainApp extends React.Component {
+    static propTypes = {
+        step: PropTypes.object
     };
 
     componentDidMount(){
-        // Change `setInitialAuthState` to update state, because we don't use `initialAuthState` anymore
-        // eslint-disable-next-line no-func-assign
-        setInitialAuthState= state=> {
-            this.setState({step: state});
-        };
-
         // Handle authorization state updates
-        TdLib.registerUpdateHandler('updateAuthorizationState', this.handleAuthStateUpdate);
+        TdLib.registerUpdateHandler('updateAuthorizationState', (update) => {
+            authStore.dispatch({
+                type: 'SET_STATE',
+                state: update.authorization_state
+            });
+        });
     }
 
-    handleAuthStateUpdate= update => {
+    shouldComponentUpdate(nextProps) {
         // Some authorization states are handled without the user knowing. We don't change what's shown to the users if that happens.
         const states= [
             'authorizationStateWaitPhoneNumber',
@@ -95,14 +101,14 @@ export class MainApp extends React.Component {
             'authorizationStateReady',
             'authorizationStateClosed',
         ];
-        const state=update['authorization_state'];
-        if(states.includes(state['@type'])) {
-            this.setState({step: state});
+        if(states.includes(nextProps.step['@type'])) {
+            return true;
         }
-    };
+        return false;
+    }
     
     render () {
-        switch (this.state.step['@type']) {
+        switch (this.props.step?.['@type']) {
         case 'authorizationStateWaitPhoneNumber':
             // Enter your phone number
             return (
@@ -121,7 +127,7 @@ export class MainApp extends React.Component {
                     <Provider store={dialogStore}>
                         <Dialogs/>
                     </Provider>
-                    <AuthWindowStepCode info={this.state.step.code_info}/>
+                    <AuthWindowStepCode info={this.props.step.code_info}/>
                 </React.Fragment>
             );
 
@@ -132,7 +138,7 @@ export class MainApp extends React.Component {
                     <Provider store={dialogStore}>
                         <Dialogs/>
                     </Provider>
-                    <AuthWindowStepPassword info={this.state.step}/>
+                    <AuthWindowStepPassword info={this.props.step}/>
                 </React.Fragment>
             );
 
@@ -143,7 +149,7 @@ export class MainApp extends React.Component {
                     <Provider store={dialogStore}>
                         <Dialogs/>
                     </Provider>
-                    <AuthWindowStepRegister tos={this.state.step.terms_of_service}/>
+                    <AuthWindowStepRegister tos={this.props.step.terms_of_service}/>
                 </React.Fragment>
             );
 
@@ -165,4 +171,4 @@ export class MainApp extends React.Component {
             return <p>Loading...</p>;
         }
     }
-}
+});
