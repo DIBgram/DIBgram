@@ -14,9 +14,27 @@ export function initLanguagePack(){
             value: 'tdesktop'
         }
     }).then(()=>{
+        let languageInfo= localStorage.getItem('dibgram-active-language');
+        if(languageInfo) languageInfo= JSON.parse(languageInfo);
+        if(!languageInfo) languageInfo= {
+            '@type': 'languagePackInfo',
+            base_language_pack_id: '',
+            id: 'en',
+            is_beta: false,
+            is_installed: false,
+            is_official: true,
+            is_rtl: false,
+            local_string_count: 2784,
+            name: 'English',
+            native_name: 'English',
+            plural_code: 'en',
+            total_string_count: 2784,
+            translated_string_count: 2784,
+            translation_url: 'https://translations.telegram.org/en/'
+        };
         TdLib.sendQuery({
             '@type': 'getLanguagePackStrings',
-            language_pack_id: localStorage.getItem('dibgram-active-language') || 'fa-beta'
+            language_pack_id: languageInfo.id || 'en'
         }).then(result=>{
             currentLanguagePack = {};
             result.strings.forEach(string=>{

@@ -16,6 +16,7 @@ import options from '../../../TdWeb/options';
 import { connect } from 'react-redux';
 import { getUserFullName } from '../../user-misc';
 import __ from '../../../language-pack/language-pack';
+import ChooseLanguageDialog from './choose-lanugage';
 
 /**
  * Renders a modal dialog
@@ -83,7 +84,8 @@ class Settings extends React.Component{
                                 <ToolStrip.Button icon={settings_chat} text={__('lng_settings_section_chat_settings')}/>
                                 <ToolStrip.Button icon={settings_folders} text={__('lng_settings_section_filters')}/>
                                 <ToolStrip.Button icon={settings_advenced} text={__('lng_settings_advanced')}/>
-                                <ToolStrip.Button icon={settings_language} text={__('lng_settings_language')}>
+                                <ToolStrip.Button icon={settings_language} text={__('lng_settings_language')}
+                                    onClick={()=>addDialog('settings-change-language-dialog', <ChooseLanguageDialog id="settings-change-language-dialog"/>)}>
                                     <span className="value">{__('lng_language_name')}</span>
                                 </ToolStrip.Button>
                             </ToolStrip.Section>
