@@ -59,15 +59,18 @@ ChooseLanguageDialog.propTypes = {
     id: PropTypes.string.isRequired
 };
 
-export function LanguagePack({pack, onClick}) {
+export function LanguagePack({pack, onClick, selected}) {
     const ripple = React.useState({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave] = handleMyMouseEventsFunction(ripple);
     return (
         <div className="language-pack-item" onClick={onClick} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgRipple)"/>
             <div className="content">
-                <span className="name">{pack.native_name}</span>
-                <span className="english-name">{pack.name}</span>
+                <input type="radio" name="settings-language-pack-selector" checked={selected}/>
+                <div className="right">
+                    <div className="name">{pack.native_name}</div>
+                    <div className="english-name">{pack.name}</div>
+                </div>
             </div>
         </div>
     );
@@ -75,6 +78,7 @@ export function LanguagePack({pack, onClick}) {
 LanguagePack.propTypes = {
     pack: PropTypes.object.isRequired,
     onClick: PropTypes.func,
+    selected: PropTypes.bool
 };
 
 function selectLanguage(pack) {
