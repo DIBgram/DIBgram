@@ -39,7 +39,8 @@ export function ContextMenu({x, y, children}) {
     return (
         <div className={'context-menu' + (hide? ' hidden' : '')} 
             style={{'--x': x+'px', '--y': y+'px'}} 
-            onMouseDown={handleMouseDown}>
+            onMouseDown={e=> (!e.target.classList.contains('menu-item') && handleMouseDown())}
+            onMouseUp={e=> ((e.target.classList.contains('menu-item')) && handleMouseDown())}>
 
             <div className={'menu ' + direction} ref={ref}>
                 {children}
