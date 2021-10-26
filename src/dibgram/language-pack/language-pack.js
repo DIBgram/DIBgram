@@ -64,13 +64,13 @@ function applyFormatting(format) {
     var res= [];
     /* eslint-disable-next-line no-constant-condition */
     while(true) {
-        if(format.includes('\n')){
+        if(format.includes('\n')){ // New line
             const index= format.indexOf('\n');
             applyFormatting(format.substr(0, index)).forEach(e=>res.push(e));
             res.push(<br/>);
             format= format.substr(index + 1);
         } 
-        else if(/\*\*.+\*\*/.test(format)){
+        else if(format.includes('**')){ // Bold
             const execed= /\*\*(.+)\*\*/.exec(format);
             applyFormatting(format.substr(0, execed.index)).forEach(e=>res.push(e));
             res.push(<strong>{execed[1]}</strong>);
@@ -78,17 +78,19 @@ function applyFormatting(format) {
         }
         else break;
     }
-    return [...res, format];
+    res.push(format);
+    return res;
 }
 
 export function formatString(format, params= {}) {
     var res= [];
-    while(/{\w+}/.test(format)){
+    while(format.includes('{')){
         const execed= /{(\w+)}/.exec(format);
-        if(!params[execed[1]]) continue;
-        applyFormatting(format.substr(0, execed.index)).forEach(e=>res.push(e));
-        res.push(params[execed[1]]);
-        format= format.substr(execed.index + execed[1].length+2);
+        if(params[execed[1]]) {
+            applyFormatting(format.substr(0, execed.index)).forEach(e=>res.push(e));
+            res.push(params[execed[1]]);
+            format= format.substr(execed.index + execed[1].length+2);
+        }
     }
     return [...res, ...applyFormatting(format)];
 }
@@ -125,12 +127,12 @@ function getPluralString(mode, callback) {
  * @returns Localized version of the string
  */
 export default function __(key) {
-    if(key.includes('#')) {
-        return null;
-    }
     if(currentLanguagePack) {
-        if(currentLanguagePack[key].value['@type'] === 'languagePackStringValueOrdinary') {
-            return getFormattedText(currentLanguagePack[key].value.value);
+        const languagePackString= currentLanguagePack[key].value;
+        if(languagePackString['@type'] === 'languagePackStringValueOrdinary') {
+            const res= getFormattedText(languagePackString.value);
+            console.log('Time taken for __', performance.now() - s);
+            return res;
         }
     }
 
@@ -147,12 +149,15 @@ export default function __(key) {
  * @returns Localized version of the string, with formattings applied
  */
 export function __fmt(name, params) {
+    const s= performance.now();
     const formatted= formatString(__(name), params);
+    console.log('Time taken for __fmt', performance.now() - s);
     if(formatted.length === 1) return formatted[0];
     return formatted;
 }
 
 export function __pl(key, count) {
+    const s= performance.now();
     var callback= null;
     if(currentLanguagePack) {
         if(currentLanguagePack[key].value['@type'] === 'languagePackStringValuePluralized') {
@@ -165,6 +170,7 @@ export function __pl(key, count) {
 
     const pluralizedString= getPluralString(getCountMode(count), callback);
     const formatted= formatString(pluralizedString, {count});
+    console.log('Time taken for __pl', performance.now() - s);
     if(formatted.length === 1) return formatted[0];
     return formatted;
 }
