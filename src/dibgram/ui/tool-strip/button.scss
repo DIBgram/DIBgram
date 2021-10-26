@@ -12,7 +12,7 @@
         right: 0;
         bottom: 0;
         padding: 8px;
-        padding-left: 26px;
+        padding-inline-start: 26px;
         pointer-events: none;
     }
 
@@ -33,7 +33,7 @@
         display: inline-block;
         vertical-align: middle;
         font-size: 13px;
-        margin-left: 22px;
+        margin-inline-start: 22px;
     }
 
     &:hover {
@@ -46,6 +46,13 @@
 
     .right {
         float: right;
+
+        .value {
+            font-weight: 400;
+            font-size: 14px;
+            color: var(--theme-color-windowActiveTextFg);
+            padding-inline-end: 30px;
+        }
     }
 }
 
@@ -53,4 +60,8 @@
     .tool-strip-button {
         font-weight: 500;
     }
+}
+
+[dir=rtl] .tool-strip-button .right {
+    float: left;
 }

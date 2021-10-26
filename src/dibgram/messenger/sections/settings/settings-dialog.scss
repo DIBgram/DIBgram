@@ -32,7 +32,7 @@
                 float: right;
 
                 .icon-button {
-                    margin-left: 4px;
+                    margin-inline-start: 4px;
                 }
             }
         }
@@ -40,20 +40,18 @@
         .profile-info {
             background-color: var(--theme-color-boxBg) !important;
             padding: 15px 23px 14px;
+            display: flex;
 
             > .profile-photo {
                 height: 72px;
                 width: 72px;
-                display: block;
-                float: left;
             }
 
             > span {
-                float: left;
-                margin-left: 20px;
+                margin-inline-start: 20px;
 
                 .name {
-                    font-size: large;
+                    font-size: 16px;
                     font-weight: 500;
                     display: block;
                     margin-bottom: 0;
@@ -70,17 +68,8 @@
             }
         }
 
-        .tool-strip-section {
-            .tool-strip-button {
-                font-weight: 400 !important;
-
-                .value {
-                    font-weight: 400;
-                    font-size: 14px;
-                    color: var(--theme-color-windowActiveTextFg);
-                    padding-right: 30px;
-                }
-            }
+        .tool-strip-section  .tool-strip-button {
+            font-weight: 400 !important;
         }
 
         .scrollbar {
@@ -93,5 +82,12 @@
                 padding-bottom: 3px;
             }
         }
+    }
+}
+
+[dir="rtl"] #full-settings-dialog .dialog-content .header {
+    .close,
+    .more-options {
+        float: left;
     }
 }

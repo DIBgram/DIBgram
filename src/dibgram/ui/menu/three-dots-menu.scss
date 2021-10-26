@@ -9,7 +9,13 @@
     .menu {
         position: absolute;
         top: 35px;
-        right: 0;
+        inset-inline-end: 0;
         z-index: 100;
+
+        .menu-contents {
+            animation:
+                menu-appear-bottom 100ms forwards cubic-bezier(0, 0, 0, 1),
+                menu-appear-right 100ms forwards cubic-bezier(0, 0, 0, 1);
+        }
     }
 }
