@@ -374,7 +374,7 @@ function ChatContextMenu({chat}) {
                     }
                 });
             }}>
-                {chat.position.is_pinned? 'Unpin from top' : 'Pin to top'}
+                {chat.position.is_pinned? __('lng_context_unpin_from_top') : __('lng_context_pin_to_top')}
             </Menu.MenuItem>
         </Menu.MenuContents>
     );
@@ -409,10 +409,7 @@ const ArchivedChatsItem= connect(state=> ({
         });
     }
 
-    const moveToMainMenuToast= <Toast>
-        Archive moved to the main menu! <br/>
-        You can return it from the context menu of the archive button.
-    </Toast>;
+    const moveToMainMenuToast= <Toast>{__('lng_context_archive_to_menu_info')}</Toast>;
 
     switch(archiveButtonState) {
     case 'expanded': // Looks like a regular chat
@@ -427,14 +424,14 @@ const ArchivedChatsItem= connect(state=> ({
                             setButtonState('collapsed');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'collapsed');
                         }}>
-                            Collapse
+                            {__('lng_context_archive_collapse')}
                         </Menu.MenuItem>
                         <Menu.MenuItem onClick={()=>{
                             setButtonState('hidden-expanded');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-expanded');
                             addToast(moveToMainMenuToast);
                         }}>
-                            Move to main menu
+                            {__('lng_context_archive_to_menu')}
                         </Menu.MenuItem>
                     </Menu.MenuContents>
                 ))}>
@@ -446,7 +443,7 @@ const ArchivedChatsItem= connect(state=> ({
                     <div className="details">
                         <div className="top">
                             <div className="left">
-                                <div className="title">Archived chats</div>
+                                <div className="title">{__('lng_archived_name')}</div>
                             </div>
                         </div>
                         <div className="bottom">
@@ -488,20 +485,20 @@ const ArchivedChatsItem= connect(state=> ({
                             setButtonState('expanded');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'expanded');
                         }}>
-                            Expand
+                            {__('lng_context_archive_expand')}
                         </Menu.MenuItem>
                         <Menu.MenuItem onClick={()=>{
                             setButtonState('hidden-collapsed');
                             localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-collapsed');
                             addToast(moveToMainMenuToast);
                         }}>
-                            Move to main menu
+                            {__('lng_context_archive_to_menu')}
                         </Menu.MenuItem>
                     </Menu.MenuContents>
                 ))}>
                 <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
                 <div className="content">
-                    Archived chats
+                    {__('lng_archived_name')}
                     {unread.unread_messages_count? (
                         <div className="details">
                             <span className="unread-badge muted">{unread.unread_messages_count}</span>

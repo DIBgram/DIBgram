@@ -29,7 +29,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
         invalid: false,
         statusContent: '',
         statusVisible: false,
-        dropDownText: __('lng_country_code'),
+        dropDownText: '',
         countries: [],
     };
 
@@ -168,7 +168,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
                 }
 
                 <div className="country-dropdown" onClick={this.openCountryDropdown}>
-                    {this.state.dropDownText}
+                    {this.state.dropDownText || __('lng_country_code')}
                     <span dangerouslySetInnerHTML={{__html: intro_country_dropdown}}/>
                 </div>
 

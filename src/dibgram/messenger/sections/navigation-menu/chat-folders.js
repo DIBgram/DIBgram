@@ -8,6 +8,7 @@ import { compareChatList } from '../../chat-store';
 import TdLib from '../../../TdWeb/tdlib';
 import ScrollView from '../../../ui/scroll/scrollbar';
 import './chat-folders.scss';
+import __ from '../../../language-pack/language-pack';
 
 export var chatListScrollToTopEvent = [function(){}];
 
@@ -100,7 +101,7 @@ function ChatFolderList({folders, currentFolder, unread, dispatch, onHamburgerMe
             <ScrollView scrollBarWidth="4" className="list scrollbar full-size">
                 <ChatFolder 
                     active={compareChatList(currentFolder, {'@type': 'chatListMain'})} 
-                    folder={{ title: 'All chats', icon_name: 'All' }}
+                    folder={{ title: __('lng_filters_all'), icon_name: 'All' }}
                     unread={unread.main}
                     onClick={()=> dispatch({
                         type: 'SET_CURRENT_CHAT_LIST',
