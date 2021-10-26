@@ -6,6 +6,7 @@ input[type=radio] {
     border: 2px solid var(--theme-color-checkboxFg);
     box-sizing: border-box;
     margin: 0;
+    position: relative;
 
     transition: border-color 100ms linear;
 
