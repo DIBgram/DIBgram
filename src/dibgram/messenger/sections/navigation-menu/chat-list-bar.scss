@@ -4,7 +4,9 @@
 }
 
 .chat-list-bar-resize-handle {
-    right: -10px !important; // The handle is entirely on the right
+    left: unset !important;
+    right: unset !important;
+    inset-inline-end: -10px !important; // The handle is entirely on the right
     cursor: e-resize !important; // use <--> ( default is <|> )
 }
 
