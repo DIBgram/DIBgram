@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SmallButton from '../elements/small-button';
 import Dialog from './dialog';
+import __ from '../../language-pack/language-pack';
 /**
  * Renders a modal dialog with a title and cancel and OK button. OK button text can be changed.
  */
@@ -39,11 +40,11 @@ export default class ConfirmDialog extends React.Component{
                     ) : null}
                     {this.props.hideCancelButton ? null : (
                         <SmallButton onClick={()=>this.handleButton(this.props.onCancel)}>
-                            Cancel
+                            {__('lng_cancel')}
                         </SmallButton>
                     )}
                     <SmallButton onClick={()=>this.handleButton(this.props.onOK)} attention={this.props.attention}>
-                        {this.props.OKButtonText || 'OK'}
+                        {this.props.OKButtonText || __('lng_box_ok')}
                     </SmallButton>
                 </div>
             </Dialog>
