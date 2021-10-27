@@ -2,20 +2,17 @@ import React from 'react';
 import ChatFoldersList from './sections/navigation-menu/chat-folders';
 import ChatListBar from './sections/navigation-menu/chat-list-bar';
 import chatStore from './chat-store';
-import { Provider } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import './messengerWindow.scss';
 import HamburgerMenu from './sections/navigation-menu/hamburger-menu/menu';
 import {Resizable} from 're-resizable';
-import { getRtlMode } from '../language-pack/language-pack';
 
 /**
  * Renders the messenger screen
  */
-export function MessengerWindow () {
+export const MessengerWindow= connect(({rtl})=>({rtl})) (function MessengerWindow ({rtl}) {
 
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-    const rtl= getRtlMode();
 
     return (
         <div id="messenger-screen">
@@ -33,4 +30,4 @@ export function MessengerWindow () {
             </div>
         </div>
     );
-}
+})

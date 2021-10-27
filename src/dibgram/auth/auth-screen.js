@@ -10,6 +10,7 @@ import AuthWindowStepCode from './auth-step/verification-code/verification-code'
 import AuthWindowStepPassword from './auth-step/cloud-password/cloud-password';
 import AuthWindowStepRegister from './auth-step/register/register';
 import { createStore } from 'redux';
+import { themeStore } from '../ui/themes/theme';
 
 export const authStore = createStore((state= { 'state': null }, action) => {
     switch (action.type) {
@@ -156,7 +157,9 @@ export const MainApp= connect(state=> ({step: state.state}))(class MainApp exten
         case 'authorizationStateReady':
             // Logged in
             return (
-                <MessengerWindow/>
+                <Provider store={themeStore}>
+                    <MessengerWindow/>
+                </Provider>
             );
 
         case 'authorizationStateClosed':
