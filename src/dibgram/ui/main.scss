@@ -51,3 +51,7 @@ code {
 ::selection {
     background-color: var(--theme-color-msgInBgSelected);
 }
+
+[dir="rtl"] .svg-icon-info-back{
+    transform: rotate(180deg);
+}
