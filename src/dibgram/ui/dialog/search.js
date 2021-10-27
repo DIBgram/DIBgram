@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { info_close, title_search } from '../icon/icons';
 import './search.scss';
 import IconButton from '../elements/icon-button';
+import __ from '../../language-pack/language-pack';
 
 export default function BoxSearch({value, onChange}) {
     return (
         <div className="box-search">
             <span className="icon" dangerouslySetInnerHTML={{__html: title_search}} />
-            <input type="text" placeholder="Search" value={value} onChange={onChange} />
+            <input type="text" placeholder={__('lng_dlg_filter')} value={value} onChange={onChange} />
             <IconButton icon={info_close} className="icon-button clear" 
                 onClick={()=> onChange && onChange({target: {value: ''}})}
                 data-visible={(value || '').length}/>
