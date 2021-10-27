@@ -86,11 +86,9 @@ export function formatString(format, params= {}) {
     var res= [];
     while(format.includes('{')){
         const execed= /{(\w+)}/.exec(format);
-        if(params[execed[1]]) {
-            applyFormatting(format.substr(0, execed.index)).forEach(e=>res.push(e));
-            res.push(params[execed[1]]);
-            format= format.substr(execed.index + execed[1].length+2);
-        }
+        applyFormatting(format.substr(0, execed.index)).forEach(e=>res.push(e));
+        res.push(params[execed[1]]);
+        format= format.substr(execed.index + execed[1].length+2);
     }
     return [...res, ...applyFormatting(format)];
 }
