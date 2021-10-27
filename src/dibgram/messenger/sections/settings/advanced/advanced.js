@@ -5,6 +5,7 @@ import { info_back, info_close } from '../../../../ui/icon/icons';
 import __ from '../../../../language-pack/language-pack';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { themeStore } from '../../../../ui/themes/theme';
+import { getRtlMode } from '../../../../language-pack/language-pack';
 
 export default function SettingsAdvanced({onClose, onBack}) {
     const [enableRtl, setEnableRtl] = React.useState(localStorage.getItem('dibgram-allow-rtl-layout') == 'true');
@@ -20,7 +21,7 @@ export default function SettingsAdvanced({onClose, onBack}) {
                 <ToolStrip.ToggleButton text="Allow right-to-left" hideIcon={true} isActive={enableRtl} onChange={() => {
                     setEnableRtl(!enableRtl);
                     localStorage.setItem('dibgram-allow-rtl-layout', !enableRtl);
-                    themeStore.dispatch({type: 'SET_RTL', rtl: !enableRtl});
+                    themeStore.dispatch({type: 'SET_RTL', rtl: getRtlMode()});
                 }} />
             </ToolStrip.Section>
         </React.Fragment>
