@@ -29,6 +29,7 @@ export function profileNameToInitials(name) {
 export default function ProfilePhoto (props) {
     const [photo, setPhoto] = React.useState(null);
     const [photoObj, setPhotoObj] = React.useState(null);
+    const [loaded, setLoaded] = React.useState(false);
     const isServiceMessages= props.id==options['telegram_service_notifications_chat_id'];
     const isSavedMessages= props.id==options['my_id'];
     const isReplies= props.id==options['replies_bot_chat_id'];
@@ -64,18 +65,18 @@ export default function ProfilePhoto (props) {
     }
     return (
         <div className="profile-photo">
-            <Initials id={props.id} name={props.name}/>
+            {(!loaded || !(props.photo && photo)) && <Initials id={props.id} name={props.name}/>}
             {
                 customIcon? (
                     customIcon[0]?
                         <React.Fragment>
-                            <Initials id={props.id} name={props.name}/>
-                            <img src={customIcon[1]}/>
+                            {(!loaded) && <Initials id={props.id} name={props.name}/>}
+                            <img onLoad={()=> setLoaded(true)} src={customIcon[1]}/>
                         </React.Fragment>
                         :
                         <div className="svg" dangerouslySetInnerHTML={{__html: customIcon[1]}}/>
                 ) : (
-                    (props.photo && photo) && <img src={photo}/> 
+                    (props.photo && photo) && <img onLoad={()=> setLoaded(true)} src={photo}/> 
                 )
             }
         </div>
