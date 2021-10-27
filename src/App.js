@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import {authStore, MainApp} from './dibgram/auth/auth-screen';
-import { getCurrentLanguagePack, initLanguagePack } from './dibgram/language-pack/language-pack';
+import { initLanguagePack } from './dibgram/language-pack/language-pack';
 import setInitialOnlineStatus from './dibgram/TdWeb/online-handler';
 import TdLib from './dibgram/TdWeb/tdlib';
 import ConfirmDialog from './dibgram/ui/dialog/confirm-dialog';
@@ -53,7 +53,7 @@ function App() {
 
     return (
         <Provider store={themeStore}>
-            <ThemeProvider id="app" dir={(getCurrentLanguagePack(false)?.is_rtl || false) ? 'rtl' : 'ltr'}>
+            <ThemeProvider id="app">
                 <Provider store={toastStore}>
                     <Toasts/>
                 </Provider>
