@@ -137,9 +137,7 @@ export default function __(key) {
     if(currentLanguagePack) {
         const languagePackString= currentLanguagePack[key].value;
         if(languagePackString['@type'] === 'languagePackStringValueOrdinary') {
-            const res= getFormattedText(languagePackString.value);
-            console.log('Time taken for __', performance.now() - s);
-            return res;
+            return getFormattedText(languagePackString.value);
         }
     }
 
@@ -156,15 +154,12 @@ export default function __(key) {
  * @returns Localized version of the string, with formattings applied
  */
 export function __fmt(name, params) {
-    const s= performance.now();
     const formatted= formatString(__(name), params);
-    console.log('Time taken for __fmt', performance.now() - s);
     if(formatted.length === 1) return formatted[0];
     return formatted;
 }
 
 export function __pl(key, count) {
-    const s= performance.now();
     var callback= null;
     if(currentLanguagePack) {
         if(currentLanguagePack[key].value['@type'] === 'languagePackStringValuePluralized') {
@@ -177,7 +172,6 @@ export function __pl(key, count) {
 
     const pluralizedString= getPluralString(getCountMode(count), callback);
     const formatted= formatString(pluralizedString, {count});
-    console.log('Time taken for __pl', performance.now() - s);
     if(formatted.length === 1) return formatted[0];
     return formatted;
 }
