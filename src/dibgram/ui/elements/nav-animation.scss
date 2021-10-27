@@ -58,7 +58,72 @@
             }
         }
     }
+
+    &.swipe-fade {
+        & > .outer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 1;
+            bottom: 0;
+            width: 100%;
+            transition: left 200ms, opacity 200ms;
+        }
+
+        & > .inner {
+            position: absolute;
+            top: 0;
+            left: 15%;
+            opacity: 0;
+            pointer-events: none;
+            bottom: 0;
+            width: 100%;
+            transition: left 200ms, opacity 200ms;
+            z-index: +2;
+        }
+
+        &.open {
+            & > .inner {
+                left: 0;
+                opacity: 1;
+                pointer-events: auto;
+                animation: nav-animation-swipe-fade-inner 200ms;
+            }
+
+            & > .outer {
+                left: -15%;
+                opacity: 0;
+                pointer-events: none;
+                animation: nav-animation-swipe-fade-outer 200ms;
+            }
+        }
+    }
 }
+
+@keyframes nav-animation-swipe-fade-inner {
+    from { 
+        left: 15%; 
+        opacity: 0;
+    }
+
+    to { 
+        left: 0; 
+        opacity: 1;
+    }
+}
+
+@keyframes nav-animation-swipe-fade-outer {
+    from {
+        left: 0;
+        opacity: 1;
+    }
+
+    to {
+        left: -15%;
+        opacity: 0;
+    }
+}
+
 
 @keyframes nav-animation-slide-over-inner {
     from { left: 100%; }

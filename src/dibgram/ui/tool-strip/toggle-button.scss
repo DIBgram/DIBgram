@@ -23,10 +23,10 @@
         }
 
         &:checked {
-            background-color: var(--theme-color-mainMenuCoverBg);
+            background-color: var(--theme-color-windowBgActive);
 
             &::after {
-                border-color: var(--theme-color-mainMenuCoverBg);
+                border-color: var(--theme-color-windowBgActive);
                 left: 12px;
             }
         }
@@ -35,4 +35,8 @@
     &:hover .toggle-button {
         --theme-color-menuIconFg: var(--theme-color-menuIconFgOver);
     }
+}
+
+#hamburger-menu .content .tool-strip-button .toggle-button {
+    --theme-color-windowBgActive: var(--theme-color-mainMenuCoverBg);
 }

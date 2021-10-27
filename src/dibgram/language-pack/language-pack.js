@@ -32,10 +32,15 @@ export function initLanguagePack(){
     });
 }
 
-export function getCurrentLanguagePack() {
+/**
+ * Gets the language pack info for the selected language
+ * @param {boolean} englishIsDefault If true, returns english if the user didn't set a language
+ * @returns {import('../TdWeb/td_api').TdApi.td_LanguagePackInfo|null} Language pack object
+ */
+export function getCurrentLanguagePack(englishIsDefault= true) {
     let languageInfo= localStorage.getItem('dibgram-active-language');
     if(languageInfo) languageInfo= JSON.parse(languageInfo);
-    if(!languageInfo) languageInfo= {
+    if((!languageInfo) && englishIsDefault) languageInfo= {
         '@type': 'languagePackInfo',
         base_language_pack_id: '',
         id: 'en',
@@ -52,6 +57,10 @@ export function getCurrentLanguagePack() {
         translation_url: 'https://translations.telegram.org/en/'
     };
     return languageInfo;
+}
+
+export function getRtlMode() {
+    return (localStorage.getItem('dibgram-allow-rtl-layout') == 'true') && (getCurrentLanguagePack(false)?.is_rtl || false);
 }
 
 function getFormattedText(text){
