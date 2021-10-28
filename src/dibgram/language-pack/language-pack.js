@@ -5,6 +5,8 @@ import englishLanguagePack from './english.json';
 
 var currentLanguagePack= null;
 
+const applyKeys= (item, index) => (<React.Fragment key={index}>{item}</React.Fragment>);
+
 export function initLanguagePack(){
     TdLib.sendQuery({
         '@type': 'setOption', 
@@ -66,7 +68,7 @@ export function getRtlMode() {
 function getFormattedText(text){
     const formatted= applyFormatting(text);
     if(formatted.length === 1) return formatted[0];
-    return formatted;
+    return formatted.map(applyKeys);
 }
 
 function applyFormatting(format) {
@@ -153,10 +155,8 @@ export default function __(key) {
  * @param {{[key: string]: string}} params An object containing formatting parameters
  * @returns Localized version of the string, with formattings applied
  */
-export function __fmt(name, params) {
-    const formatted= formatString(__(name), params);
-    if(formatted.length === 1) return formatted[0];
-    return formatted;
+export function __fmt(name, params, useFragments= true) {
+    return  formatString(__(name), params).map(useFragments? applyKeys : e=>e);
 }
 
 export function __pl(key, count) {
@@ -173,5 +173,5 @@ export function __pl(key, count) {
     const pluralizedString= getPluralString(getCountMode(count), callback);
     const formatted= formatString(pluralizedString, {count});
     if(formatted.length === 1) return formatted[0];
-    return formatted;
+    return formatted.map(applyKeys);
 }
