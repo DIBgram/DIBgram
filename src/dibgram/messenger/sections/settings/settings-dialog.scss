@@ -35,12 +35,8 @@
             }
 
             // Three dots button
-            .more-options {
-                float: right;
-
-                .icon-button {
-                    margin-inline-start: 4px;
-                }
+            .more-options .icon-button {
+                margin-inline-start: 4px;
             }
 
             > * {
@@ -100,9 +96,6 @@
     }
 }
 
-[dir="rtl"] #full-settings-dialog .dialog-content .header {
-    .close,
-    .more-options {
-        float: left;
-    }
+[dir="rtl"] #full-settings-dialog .dialog-content .header .close {
+    float: left;
 }
