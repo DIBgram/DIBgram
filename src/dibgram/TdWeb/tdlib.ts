@@ -86,7 +86,7 @@ export default class TdLib {
                 resolve(result);
             }, (error: TdApi.td_Error)=> {
                 if(log.log_queries) {
-                    console.error('Query failed: ', error);
+                    console.warn('Query failed: ', error);
                 }
                 reject(error);
             }
