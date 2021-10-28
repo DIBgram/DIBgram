@@ -30,4 +30,4 @@ export const MessengerWindow= connect(({rtl})=>({rtl})) (function MessengerWindo
             </div>
         </div>
     );
-})
+});
