@@ -130,6 +130,14 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
     case 'messageChatDeleteMember': // X removed Y
         var deletedMember= users[message.content.user_id];
+        if( deletedMember.id == message.sender?.user_id ) {
+            return (
+                <span className={className}>
+                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
+                    &nbsp;left the group</span>
+                </span>
+            );
+        }
         return (
             <span className={className}>
                 <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
