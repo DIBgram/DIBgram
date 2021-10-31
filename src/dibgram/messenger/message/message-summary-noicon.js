@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TdLib from '../../TdWeb/tdlib';
-import currencyAmountToString from '../payments/currency-tostring';
+import currencyAmountToString from '../sections/payments/currency-tostring';
 import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
 import MessageShortName from './message-pinned-message';
