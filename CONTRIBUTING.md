@@ -56,6 +56,8 @@ Requesting a feature is very similar to [reporting a bug](#reporting-bugs), but 
 
 If you want to fix a bug or implement an accepted feature request yourself, you can fork DIBgram, do the modifications and pull request.
 
+Tip: Visit the [Recommended development stystem](https://github.com/DIBgram/DIBgram/wiki/Recommended-development-system) page to get the best experience when working on DIBgram.
+
 The contributions need to have the following qualities to be accepted:
 
 - There should be no errors, warnings or notices from ESLint or StyleLint
