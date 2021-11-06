@@ -133,7 +133,7 @@ function getPluralString(mode, callback) {
  * __('lng_error_phone_flood') // 'Sorry, you have deleted and re-created your account too many times recently. Please wait for a few days before signing up again.'
  * ```
  * @param {string} key Language pack string name
- * @returns Localized version of the string
+ * @returns {string | React.ReactNode[]} Localized version of the string
  */
 export default function __(key) {
     if(currentLanguagePack) {
