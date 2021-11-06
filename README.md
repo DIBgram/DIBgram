@@ -1,17 +1,14 @@
-# DIBgram
+<div align="center">
+  <img src="https://avatars.githubusercontent.com/u/85128397?s=200&v=4" alt="DIBgram logo">
+  <h1>DIBgram</h1>
+  DIBgram is an unofficial Telegram <em>web</em> app which looks like Telegram Desktop.
+</div>
+&nbsp;
+
 [![Progress: 12%](https://img.shields.io/badge/Progress-12%25-orange)](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc )
-[![Licence: GPL v3.0](https://img.shields.io/badge/Licence-GPL%20v3.0-lightgray)](LICENCE)
-[![Building guide](https://img.shields.io/badge/Building%20guide-Open-green)](BUILDING.md)
-[![Contributing guide](https://img.shields.io/badge/Contributing%20guide-Open-green)](CONTRIBUTING.md)
-[![Code of conduct](https://img.shields.io/badge/Code%20of%20conduct-Open-green)](CODE_OF_CONDUCT.md)
-[![Telegram channel](https://img.shields.io/badge/Telegram%20channel-DIBgram-blue)](https://t.me/DIBgram)
-[![Discussion group](https://img.shields.io/badge/Discussion%20group-DIBgramChat-blue)](https://t.me/DIBgramChat)
+[![Licence: GPL v3.0](https://img.shields.io/github/license/DIBgram/DIBgram)](LICENCE)
 
-DIBgram: An unofficial Telegram app which looks like Telegram Desktop, but is implemented in web technologies. 
-
-**DIB**gram = Telegram **D**esktop **I**n a **B**rowser gram
-
-*DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the progress*
+*DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the current progress, or join our [Telegram channel](https://t.me/DIBgram) to keep track.*
 
 ## Usage
 
@@ -49,18 +46,20 @@ Also, most web versions either look bad or have missing features ([Webk][] and [
 
 I am developing this app so there is a web version that not only has most features and looks good, but also looks familiar to those who use Telegram Desktop.
 
+Also, I will earn a lot of knowledge and experience while developing this app, because it is my first React project (I'm serious) and it is several orders of magnitude larger than my other past projects.
+
 ## Technologies, libraries and other software used in this project
 
 - **[Telegram Desktop][]**: The basis of the design and look of DIBgram
-- **Open Sans and [Vazir][] fonts**: Font families used in Telegram Desktop
-- **HTML, JS, CSS**: The languages of the web
 - **[TdLib][]**: Telegram Database Library. Takes care of networking, encryption and storage
 - **[React][]**: UI framework used in project
+- **[Open Sans][] and [Vazir][] fonts**: Font families used in Telegram Desktop and DIBgram
 - **[Sass][]**: CSS preprocessor
 - **[ESLint][]**: Used to detect problems, warnings and enforce code style
 - **[VSCode][]**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
 
 [Telegram Desktop]: https://github.com/telegramdesktop/tdesktop
+[Open Sans]: https://github.com/googlefonts/opensans
 [Vazir]: https://github.com/rastikerdar/vazir-font
 [TdLib]: https://github.com/tdlib/td
 [React]: https://github.com/facebook/react
