@@ -159,7 +159,7 @@ export function __fmt(name, params, useFragments= true) {
     return  formatString(__(name), params).map(useFragments? applyKeys : e=>e);
 }
 
-export function __pl(key, count) {
+export function __pl(key, count, params={}) {
     var callback= null;
     if(currentLanguagePack) {
         if(currentLanguagePack[key].value['@type'] === 'languagePackStringValuePluralized') {
@@ -171,7 +171,7 @@ export function __pl(key, count) {
     callback=  (mode) => englishLanguagePack[key+'#'+mode];
 
     const pluralizedString= getPluralString(getCountMode(count), callback);
-    const formatted= formatString(pluralizedString, {count});
+    const formatted= formatString(pluralizedString, {count, ...params});
     if(formatted.length === 1) return formatted[0];
     return formatted.map(applyKeys);
 }
