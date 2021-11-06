@@ -1,11 +1,6 @@
 import __, { __fmt } from '../../language-pack/language-pack';
 
-/**
- * Gets a very short representation of the message, even if it it does not contain the full meaning.
- * 
- * Used in places such as "Some user pinned **XXXX**"
- */
-export default function MessageShortName({message, from}) {
+export default function MessaagePinnedMessage({message, from}) {
     switch (message.content['@type']) {
     case 'messageAnimation':
         return __fmt('lng_action_pinned_media', {media: __('lng_action_pinned_media_gif'), from: from});

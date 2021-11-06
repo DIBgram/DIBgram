@@ -4,7 +4,7 @@ import TdLib from '../../TdWeb/tdlib';
 import currencyAmountToString from '../sections/payments/currency-tostring';
 import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
-import MessageShortName from './message-pinned-message';
+import MessagePinnedMessage from './message-pinned-message';
 import { durationToString, futureDayToString, timeToString } from '../../time-tostring';
 import __, { __fmt } from '../../language-pack/language-pack';
 
@@ -441,7 +441,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     //eslint-disable-next-line react/display-name
                     resolve({ default: ()=> (
                         <span className={className}><span className="part-1">
-                            <MessageShortName message={result} sender={<SenderFullName message={message} chat={chat} users={users}/>}/>
+                            <MessagePinnedMessage message={result} sender={<SenderFullName message={message} chat={chat} users={users}/>}/>
                         </span></span>
                     )});
                 },
