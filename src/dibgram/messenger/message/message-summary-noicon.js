@@ -769,7 +769,7 @@ MayHaveCaptionThumbnail.propTypes= {
 /** Sender's first name + last name */
 function SenderFullName({message, chat, users, includeYou}) {
     if(includeYou) { // Use 'You' if the message is outgoing?
-        return message.is_outgoing ? 'You' : <SenderFullName message={message} chat={chat} users={users}/>;
+        return message.is_outgoing ? __('lng_from_you') : <SenderFullName message={message} chat={chat} users={users}/>;
     }
     const sender=message.sender;
     const user=users[sender.user_id];
@@ -788,17 +788,17 @@ export const MessageSummarySender=
         var part1;
         if(chat && (!message.is_channel_post)) { // Channel posts dont have sender names
             if(message.is_outgoing) {
-                part1= 'You: ';
+                part1= __('lng_from_you');
             } else if(['chatTypeBasicGroup', 'chatTypeSupergroup'].includes(chat.type['@type'])) { // Message is sent in a group
                 if(message.sender['@type']=='messageSenderUser') {
-                    part1= users[message.sender.user_id].first_name + ': ';
+                    part1= users[message.sender.user_id].first_name;
                 }
             }
             if(message.sender['@type']=='messageSenderChat') {
-                part1= getChatNoCache(message.sender.chat_id).title+': ';
+                part1= getChatNoCache(message.sender.chat_id).title;
             }
         }
-        return part1? <span className="sender">{part1}</span> : null;
+        return part1? <span className="sender">{__fmt('lng_dialogs_text_from_wrapped', {from: part1})}</span> : null;
     };
 MessageSummarySender.propTypes= {
     /** Message to check the sender */
