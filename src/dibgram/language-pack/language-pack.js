@@ -149,8 +149,10 @@ export default function __(key) {
 
 /**
  * Returns the localized string for the given language pack string, formatted with the given parameters.
- * @example ```js
+ * @example 
+ * ```js
  * __fmt('lng_menu_settings', {name: 'John'}) // 'John'
+ * ```
  * @param {string} name Language pack string name
  * @param {{[key: string]: string}} params An object containing formatting parameters
  * @returns Localized version of the string, with formattings applied
@@ -167,8 +169,7 @@ export function __pl(key, count, params={}) {
             callback= (mode) => pluralized[mode+'_value'];
         }
     }
-
-    callback=  (mode) => englishLanguagePack[key+'#'+mode];
+    else callback=  (mode) => englishLanguagePack[key+'#'+mode];
 
     const pluralizedString= getPluralString(getCountMode(count), callback);
     const formatted= formatString(pluralizedString, {count, ...params});
