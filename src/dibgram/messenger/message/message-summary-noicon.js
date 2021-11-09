@@ -94,29 +94,17 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
         var newMembers= message.content.member_user_ids.map(id=> // convert user IDs to names
             getUserFullName(users[id]));
-        if(newMembers.length>1){ // X and Y // X, Y and Z //TODO localize
-            newMembers= newMembers.slice(0, newMembers.length - 1) .join(', ') + ' and ' + newMembers[newMembers.length - 1];
-
-            return (
-                <span className={className}><span className="part-1">
-                    {__fmt('lng_action_add_user', {
-                        from: <SenderFullName message={message} chat={chat} users={users}/>,
-                        user: newMembers
-                    })}
-                </span></span>
-            );
-        } else {
-            newMembers= newMembers[0];
-
-            return (
-                <span className={className}><span className="part-1">
-                    {__fmt('lng_action_add_users_many', {
-                        from: <SenderFullName message={message} chat={chat} users={users}/>,
-                        users: newMembers
-                    })}
-                </span></span>
-            );
-        }
+        newMembers= __collection(false, newMembers, false);
+        
+        return (
+            <span className={className}><span className="part-1">
+                {__fmt(newMembers.length> 1 ? 'lng_action_add_users_many' : 'lng_action_add_user', {
+                    from: <SenderFullName message={message} chat={chat} users={users}/>,
+                    users: newMembers,
+                    user: newMembers
+                })}
+            </span></span>
+        );
 
     case 'messageChatChangePhoto': // Chat photo changed
         // Telegram Desktop shows chat photo change events as 'Photo' instead of 'X changed group photo' or 'Channel photo changed'
@@ -660,16 +648,13 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     case 'messageInviteVoiceChatParticipants':
         var invitedMembers= message.content.user_ids.map(id=> // convert user IDs to names
             getUserFullName(users[id]));
-        if(invitedMembers.length>1){ // X and Y // X, Y and Z
-            invitedMembers= invitedMembers.slice(0, invitedMembers.length - 1) .join(', ') + ' and ' + invitedMembers[invitedMembers.length - 1];
-        } else {
-            invitedMembers= invitedMembers[0];
-        }
+        invitedMembers= __collection(true, invitedMembers, false); // A, B, and C
         return (
             <span className={className}><span className="part-1">
-                {__fmt('lng_action_invite_user', {
+                {__fmt((invitedMembers.length==1 ? 'lng_action_invite_user' : 'lng_action_invite_users_many'), {
                     from: <SenderFullName message={message} chat={chat} users={users}/>,
                     user: invitedMembers,
+                    users: invitedMembers,
                     chat: __('lng_action_invite_user_chat')
                 })}
             </span></span>

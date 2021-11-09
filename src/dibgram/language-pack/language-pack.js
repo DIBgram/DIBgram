@@ -175,3 +175,27 @@ export function __pl(key, count, params={}) {
     if(formatted.length === 1) return formatted[0];
     return formatted.map(applyKeys);
 }
+
+/**
+ * Formats an array of objects in the format `A, B, C and D`
+ * Uses the format strings given as the parameters to do the formatting.
+ * The default values for the strings are `{accumulated}, {user}` and `{accumulated} and {user}`
+ * 
+ * @param {boolean} isInvite If true, the value of the strings `lng_action_invite_users_and_one` and `lng_action_invite_users_and_last` will be used. Otherwise, `lng_action_add_users_and_one` and `lng_action_add_users_and_last` will be used.
+ * @param {React.ReactNode[]} users An array of objects to format
+ * @param {boolean} usesReact If true, the result will be returned as an array of objects, each wrapped in a React Fragment. If false, the result will be returned as a string.
+ */
+export function __collection(isInvite, users, usesReact= false) {
+    if(users.length == 1) return users[0];
+
+    const format= __(isInvite? 'lng_action_invite_users_and_one' : 'lng_action_add_users_and_one');
+    const formatLast= __(isInvite? 'lng_action_invite_users_and_last' : 'lng_action_add_users_and_last');
+
+    var result= [users[0]];
+    for(let i= 1; i < users.length - 1; i++) {
+        const user= users[i];
+        result= formatString(format, {accumulated: result, user}).flat();
+    }
+    result= formatString(formatLast, {accumulated: result, user: users[users.length - 1]}).flat();
+    return usesReact? result.map(applyKeys) : result.join('');
+}
