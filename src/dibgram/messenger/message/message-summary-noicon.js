@@ -6,7 +6,7 @@ import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
 import MessagePinnedMessage from './message-pinned-message';
 import { durationToString, futureDayToString, timeToString } from '../../time-tostring';
-import __, { __fmt, __pl } from '../../language-pack/language-pack';
+import __, { __collection, __fmt, __pl } from '../../language-pack/language-pack';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -284,9 +284,11 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         // Text to use if game message is not available
         var noGameTitleFallback= (
             <span className={className}><span className="part-1">
-                {__pl('lng_action_game_score_no_game', message.content.score, {
-                    from: <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>
-                })}
+                <ServiceMessageIncludingYou 
+                    message={message} chat={chat} users={users}
+                    lpString="lng_action_game_score_no_game"
+                    lpString_you="lng_action_game_you_scored_no_game"
+                    count={message.content.score}/>
             </span></span>
         );
 
@@ -301,10 +303,12 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     //eslint-disable-next-line react/display-name
                     resolve({ default: ()=> (
                         <span className={className}><span className="part-1">
-                            {__pl('lng_action_game_score', message.content.score, {
-                                from: <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>,
-                                game: result.content.game.title
-                            })}
+                            <ServiceMessageIncludingYou 
+                                message={message} chat={chat} users={users}
+                                lpString="lng_action_game_score"
+                                lpString_you="lng_action_game_you_scored"
+                                count={message.content.score}
+                                params={{game: result.content.game.title}}/>
                         </span></span>
                     )});
                 },
@@ -762,6 +766,43 @@ function SenderFullName({message, chat, users, includeYou}) {
         return getUserFullName(user); 
     } else if(sender['@type']=='messageSenderChat') { // Anonymous admin
         return chat.title;
+    }
+}
+
+/**
+ * Formats a service message which 'from' can be 'You' or a user's full name
+ * @param {object} message The message object
+ * @param {object} chat The chat in which the message was sent
+ * @param {object} users A dictionary of all users
+ * @param {string} lpString Language pack string key for the service message
+ * @param {string} lpString_you Language pack string key for the service message if the service message is outgoing
+ * @param {string} params Parameters for the language pack string
+ * @param {number|undefined} count If provided, the language pack strings will be treated as pluralized
+ */
+function ServiceMessageIncludingYou({message, chat, users, lpString, lpString_you, params={}, count=undefined}) {
+    var string= lpString_you;
+    var sender;
+    if(!message.is_outgoing){
+        string= lpString;
+
+        const user=users[message.sender.user_id];
+        if(message.sender['@type']=='messageSenderUser') {
+            sender= getUserFullName(user); 
+        } else if(message.sender['@type']=='messageSenderChat') { // Anonymous admin
+            sender= chat.title;
+        }
+    }
+
+    if(count==undefined) {
+        return __fmt(string, {
+            from: sender,
+            ...params
+        });
+    } else {
+        return __pl(string, count, {
+            from: sender,
+            ...params
+        });
     }
 }
 
