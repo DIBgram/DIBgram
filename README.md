@@ -6,6 +6,7 @@
 &nbsp;
 
 [![Progress: 12%](https://img.shields.io/badge/Progress-12%25-orange)](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc )
+[![Crowdin](https://badges.crowdin.net/dibgram/localized.svg)](https://crowdin.com/project/dibgram)
 [![Licence: GPL v3.0](https://img.shields.io/github/license/DIBgram/DIBgram)](LICENCE)
 
 *DIBgram is still in progress. Visit the [projects](https://github.com/DIBgram/DIBgram/projects?query=is%3Aopen+sort%3Aname-asc) section to see the current progress, or join our [Telegram channel](https://t.me/DIBgram) to keep track.*
