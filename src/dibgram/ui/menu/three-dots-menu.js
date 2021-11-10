@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RippleEffect, { handleMyMouseEventsFunction } from '../elements/ripple-effect';
 import { three_dots } from '../icon/icons';
 import './three-dots-menu.scss';
+import { getRtlMode } from '../../language-pack/language-pack';
 
 export default function ThreeDotsMenu({children, ...rest}) {
     const ripple= React.useState({state: 'off'});
@@ -22,7 +23,7 @@ export default function ThreeDotsMenu({children, ...rest}) {
                 <span dangerouslySetInnerHTML={{__html: three_dots}} />
                 <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgOver)" small={true}/>
             </button>
-            {visible && <div className="menu bl" onClick={e=> {
+            {visible && <div className={'menu ' + (getRtlMode() ? 'br' : 'bl')} onClick={e=> {
                 onMouseUp(e);
                 setVisible(false);
             }}>

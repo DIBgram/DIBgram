@@ -12,6 +12,7 @@ import TdLib from '../../../TdWeb/tdlib';
 import LinkButton from '../../../ui/elements/link-button';
 import SignUpProfilePic from './signup-profile-photo';
 import './register.scss';
+import __, { __fmt } from '../../../language-pack/language-pack';
 
 /**
  * Render sign up step of authorization screen
@@ -56,7 +57,7 @@ export default class AuthWindowStepRegister extends React.Component {
     showTos= () => {
         addDialog('signup-tos-dialog', (
             <ConfirmDialog id="signup-tos-dialog" width="364px"
-                hideCancelButton={true} title="Terms of Service">
+                hideCancelButton={true} title={__('lng_terms_header')}>
                 
                 {this.props.tos.text.text}
             </ConfirmDialog>
@@ -69,12 +70,9 @@ export default class AuthWindowStepRegister extends React.Component {
                 <div id="auth" className="auth-step-signup">
                     <div className="content">
 
-                        <h2>Your info</h2>
+                        <h2>{__('lng_signup_title')}</h2>
 
-                        <p className="description">
-                            Please enter your name and <br/>
-                            upload a photo.
-                        </p>
+                        <p className="description">{__('lng_signup_desc')}</p>
 
                         <SignUpProfilePic image={this.state.image} onChange={e=> this.setState({
                             image: e.target.files[0]
@@ -82,14 +80,14 @@ export default class AuthWindowStepRegister extends React.Component {
 
                         <UnderlinedInput
                             type="text" 
-                            title="First name"
+                            title={__('lng_signup_firstname')}
                             value={this.state.firstName} 
                             onChange={this.handleFirstNameFieldChange}
                             autoFocus={true} />
 
                         <UnderlinedInput 
                             type="text" 
-                            title="Last name"
+                            title={__('lng_signup_lastname')}
                             value={this.state.lastName} 
                             onChange={this.handleLastNameFieldChange} />
 
@@ -99,7 +97,7 @@ export default class AuthWindowStepRegister extends React.Component {
 
                         <BigHighlightedButton
                             onClick={this.handleContinueButton}>
-                            SIGN UP
+                            {__('lng_intro_finish')}
                         </BigHighlightedButton>
 
                     </div>
@@ -108,8 +106,7 @@ export default class AuthWindowStepRegister extends React.Component {
                     </Provider>
                 </div>
                 <div className="tos-notice">
-                    By signing up, <br/>
-                    you agree to the <LinkButton onClick={this.showTos}>Terms of Service</LinkButton>
+                    {__fmt('lng_terms_signup', {link: <LinkButton onClick={this.showTos}>{__('lng_terms_signup_link')}</LinkButton>})} 
                 </div>
             </div>
         );

@@ -1,5 +1,6 @@
 .three-dots-menu {
     position: relative;
+    float: right;
 
     .icon-button svg {
         width: 24px;
@@ -9,7 +10,11 @@
     .menu {
         position: absolute;
         top: 35px;
-        right: 0;
+        inset-inline-end: 0;
         z-index: 100;
     }
+}
+
+[dir="rtl"] .more-options {
+    float: left;
 }

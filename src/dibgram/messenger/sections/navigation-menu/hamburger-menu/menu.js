@@ -19,6 +19,8 @@ import { setTheme, themeStore } from '../../../../ui/themes/theme';
 import SettingsDialog from '../../settings/settings-dialog';
 import usersStore from '../../../users-store';
 import options from '../../../../TdWeb/options';
+import { getUserFullName } from '../../../user-misc';
+import __, { __fmt } from '../../../../language-pack/language-pack';
 
 /**
  * Renders the main menu (always rendered but not always visible)
@@ -103,7 +105,7 @@ const HamburgerMenu= connect(state=> ({
                                                     });
                                                     localStorage.setItem('dibgram-archived-chats-button-mode', newState);
                                                     onClose();
-                                                }}>Move to chats list</Menu.MenuItem>
+                                                }}>{__('lng_context_archive_to_list')}</Menu.MenuItem>
                                             </Menu.MenuContents>
                                         ))}/>
                                 )}
@@ -111,7 +113,7 @@ const HamburgerMenu= connect(state=> ({
                         </div>
                         <div className="row-2">
                             <div className="name">
-                                {me?.first_name} {me?.last_name || ''}
+                                {me && getUserFullName(me)}
                             </div>
                             <div className="phone-number">
                                 {me?.phone_number}
@@ -122,11 +124,11 @@ const HamburgerMenu= connect(state=> ({
                         <div className="scroll-content">
                             <div className="options">
                                 <ToolStrip.Section>
-                                    <ToolStrip.Button icon={menu_new_group} text="New Group"/>
-                                    <ToolStrip.Button icon={menu_new_channel} text="New Channel"/>
-                                    <ToolStrip.Button icon={settings_name} text="Contacts"/>
-                                    <ToolStrip.Button icon={settings_phone_number} text="Calls"/>
-                                    <ToolStrip.Button icon={menu_settings} text="Settings" onClick={()=> {
+                                    <ToolStrip.Button icon={menu_new_group} text={__('lng_create_group_title')}/>
+                                    <ToolStrip.Button icon={menu_new_channel} text={__('lng_create_channel_title')}/>
+                                    <ToolStrip.Button icon={settings_name} text={__('lng_menu_contacts')}/>
+                                    <ToolStrip.Button icon={settings_phone_number} text={__('lng_menu_calls')}/>
+                                    <ToolStrip.Button icon={menu_settings} text={__('lng_menu_settings')} onClick={()=> {
                                         onClose();
                                         addDialog('full-settings-dialog',
                                             <Provider store={usersStore}>
@@ -134,7 +136,7 @@ const HamburgerMenu= connect(state=> ({
                                             </Provider>
                                         );
                                     }}/>
-                                    <ToolStrip.ToggleButton icon={menu_night_mode} text="Night Mode" isActive={nightMode} onChange={(isNight)=> {
+                                    <ToolStrip.ToggleButton icon={menu_night_mode} text={__('lng_menu_night_mode')} isActive={nightMode} onChange={(isNight)=> {
                                         setNightMode(isNight);
                                         setTheme(isNight ? 'night' : 'day');
                                     }}/>
@@ -145,7 +147,7 @@ const HamburgerMenu= connect(state=> ({
                                     <LinkButton href="https://github.com/DIBgram/DIBgram">DIBgram</LinkButton>
                                 </div>
                                 <div className="row-2">
-                                    <LinkButton href="https://github.com/DIBgram/DIBgram/releases/">Version {version}</LinkButton> ­– <LinkButton onClick={()=> {
+                                    <LinkButton href="https://github.com/DIBgram/DIBgram/releases/">{__fmt('lng_settings_current_version', {version})}</LinkButton> ­– <LinkButton onClick={()=> {
                                         // About DIBgram
                                         onClose();
                                         addDialog('main-menu-about-dibgram-dialog', (
@@ -168,7 +170,7 @@ const HamburgerMenu= connect(state=> ({
                                             </ConfirmDialog>
                                         ));
                                     }}>
-                                        About
+                                        {__('lng_menu_about')}
                                     </LinkButton>
                                 </div>
                             </div>

@@ -4,7 +4,9 @@
 }
 
 .chat-list-bar-resize-handle {
-    right: -10px !important; // The handle is entirely on the right
+    left: unset !important;
+    right: unset !important;
+    inset-inline-end: -10px !important; // The handle is entirely on the right
     cursor: e-resize !important; // use <--> ( default is <|> )
 }
 
@@ -39,7 +41,7 @@
 
                     padding: 0 4.5px;
                     padding-bottom: 1px;
-                    margin-left: 5px;
+                    margin-inline-start: 5px;
 
                     min-width: 19px;
                     height: 19px;
@@ -53,10 +55,10 @@
 
                 position: absolute;
                 z-index: +1;
-                left: 0;
+                inset-inline-start: 0;
                 width: 52px;
                 top: 3px;
-                text-align: right;
+                text-align: end;
                 pointer-events: none;
             }
 
@@ -64,7 +66,7 @@
                 flex-grow: 1;
                 font-size: 14px;
                 padding-bottom: 1px;
-                margin-left: -2px;
+                margin-inline-start: -2px;
                 letter-spacing: 0.3px;
                 color: var(--theme-color-dialogsNameFg);
             }

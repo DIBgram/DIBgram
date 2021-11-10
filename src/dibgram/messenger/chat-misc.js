@@ -1,3 +1,4 @@
+import __ from '../language-pack/language-pack';
 import supergroupStore from './supergroup-store';
 import usersStore from './users-store';
 
@@ -29,7 +30,7 @@ export function isChatWithDeletedAccount(chat, users) {
  */
 export function chatTitleOrDeletedAccount(chat, users) {
     if(isChatWithDeletedAccount(chat, users))
-        return 'Deleted Account';
+        return __('lng_deleted');
     return chat.title;
 }
 

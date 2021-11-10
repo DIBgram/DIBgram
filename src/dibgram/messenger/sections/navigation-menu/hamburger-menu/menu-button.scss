@@ -37,8 +37,8 @@
     }
 
     &.no-folders {
-        margin-left: 7px;
-        margin-right: -4px;
+        margin-inline-start: 7px;
+        margin-inline-end: -4px;
         flex-shrink: 0;
     }
 }

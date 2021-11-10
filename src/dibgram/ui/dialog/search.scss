@@ -6,8 +6,8 @@
 
     .icon {
         vertical-align: middle;
-        margin-left: 17px;
-        margin-right: 2px;
+        margin-inline-start: 17px;
+        margin-inline-end: 2px;
         position: relative;
         top: 5px;
 
@@ -26,7 +26,7 @@
         height: 40px;
         box-sizing: border-box;
         padding: 10px;
-        padding-right: 26px; // Make space for close button
+        padding-inline-end: 26px; // Make space for close button
         margin: 0;
 
         font-family: var(--font-family);
@@ -46,7 +46,7 @@
     .clear {
         // Position to the right of the field
         position: absolute;
-        right: 4px;
+        inset-inline-end: 4px;
         bottom: 4px;
 
         background-color: transparent;

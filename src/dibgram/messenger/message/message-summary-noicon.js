@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TdLib from '../../TdWeb/tdlib';
-import currencyAmountToString from '../payments/currency-tostring';
+import currencyAmountToString from '../sections/payments/currency-tostring';
 import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
-import MessageShortName from './message-short-name';
+import MessagePinnedMessage from './message-pinned-message';
 import { durationToString, futureDayToString, timeToString } from '../../time-tostring';
+import __, { __collection, __fmt, __pl } from '../../language-pack/language-pack';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -22,7 +23,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     case 'messageAnimation': // GIF
         return (
             <MayHaveCaptionThumbnail
-                type="GIF" 
+                type="GIF" //TODO: Find the localized string
                 caption={message.content.caption?.text} 
                 className={className} 
                 message={message} 
@@ -48,7 +49,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     case 'messageBasicGroupChatCreate': // X created the group «xxxx»
         return (
             <span className={className}>
-                <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> created the group «{message.content.title}»</span>
+                <span className="part-1">{__fmt('lng_action_created_chat', {from: <SenderFullName chat={chat} message={message} users={users}/>, title: message.content.title})}</span>
             </span>
         );
 
@@ -57,21 +58,21 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         if(message.is_outgoing) { // You made the call
             switch(message.content.discard_reason?.['@type']) {
             case 'callDiscardReasonMissed':
-                text= 'Cancelled call';
+                text= __(message.content.is_video? 'lng_call_video_cancelled' : 'lng_call_cancelled');
                 break;
             default:
-                text= 'Outgoing call';
+                text= __(message.content.is_video? 'lng_call_video_outgoing' : 'lng_call_outgoing');
             }
         } else { // The other user called you
             switch(message.content.discard_reason?.['@type']) {
             case 'callDiscardReasonDeclined':
-                text= 'Declined call';
+                text= __(message.content.is_video? 'lng_call_video_declined' : 'lng_call_declined');
                 break;
             case 'callDiscardReasonMissed':
-                text= 'Missed call';
+                text= __(message.content.is_video? 'lng_call_video_missed' : 'lng_call_missed');
                 break;
             default: 
-                text= 'Incoming call';
+                text= __(message.content.is_video? 'lng_call_video_incoming' : 'lng_call_incoming');
             }
         } 
         return (
@@ -82,33 +83,34 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         );
 
     case 'messageChatAddMembers': // X added Y
-        var newMembers= message.content.member_user_ids.map(id=> // convert user IDs to names
-            getUserFullName(users[id]));
-        if(newMembers.length>1){ // X and Y // X, Y and Z
-            newMembers= newMembers.slice(0, newMembers.length - 1) .join(', ') + ' and ' + newMembers[newMembers.length - 1];
-        } else {
-            newMembers= newMembers[0];
-        }
         // If the user joined the group by themselves, it appears as 'X added X' and that is not accurate.
         if(message.content.member_user_ids[0] == message.sender?.user_id) {
             return (
                 <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> joined the group</span>
+                    <span className="part-1">{__fmt('lng_action_user_joined', {from: <SenderFullName message={message} chat={chat} users={users}/>})}</span>
                 </span>
             );
         }
 
+        var newMembers= message.content.member_user_ids.map(id=> // convert user IDs to names
+            getUserFullName(users[id]));
+        newMembers= __collection(false, newMembers, false);
+        
         return (
-            <span className={className}>
-                <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/> added {newMembers}</span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt(newMembers.length> 1 ? 'lng_action_add_users_many' : 'lng_action_add_user', {
+                    from: <SenderFullName message={message} chat={chat} users={users}/>,
+                    users: newMembers,
+                    user: newMembers
+                })}
+            </span></span>
         );
 
     case 'messageChatChangePhoto': // Chat photo changed
         // Telegram Desktop shows chat photo change events as 'Photo' instead of 'X changed group photo' or 'Channel photo changed'
         return (
             <span className={className}>
-                <span className="part-1">Photo</span> 
+                <span className="part-1">{__('lng_attach_photo')}</span> 
             </span>
         );
 
@@ -116,14 +118,16 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         if(message.is_channel_post) {
             return (
                 <span className={className}>
-                    <span className="part-1">Channel name was changed to «{message.content.title}»</span>
+                    <span className="part-1">{__fmt('lng_action_changed_title_channel', {title: message.content.title})}</span>
                 </span>
             );
         } else {
             return (
                 <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                    &nbsp;changed group name to «{message.content.title}»</span>
+                    <span className="part-1">{__fmt('lng_action_changed_title', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>,
+                        title: message.content.title
+                    })}</span>
                 </span>
             );
         }
@@ -132,65 +136,133 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         var deletedMember= users[message.content.user_id];
         if( deletedMember.id == message.sender?.user_id ) {
             return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                    &nbsp;left the group</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_user_left', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>
+                    })}
+                </span></span>
             );
         }
         return (
-            <span className={className}>
-                <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                &nbsp;removed {getUserFullName(deletedMember)}</span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt('lng_action_kick_user', {
+                    from: <SenderFullName message={message} chat={chat} users={users}/>,
+                    user: getUserFullName(deletedMember)
+                })}
+            </span></span>
         );
 
     case 'messageChatDeletePhoto': // Chat photo was deleted
         if(message.is_channel_post) {
             return (
                 <span className={className}>
-                    <span className="part-1">Channel photo removed</span>
+                    <span className="part-1">{__('lng_action_removed_photo_channel')}</span>
                 </span>
             );
         } else {
             return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                    &nbsp;removed group photo</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_removed_photo', {
+                        from:  <SenderFullName message={message} chat={chat} users={users}/>
+                    })}
+                </span></span>
             );
         }
 
     case 'messageChatJoinByLink': // X joined the group via invite link
         return (
-            <span className={className}>
-                <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                &nbsp;joined the group via invite link</span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt('lng_action_user_joined_by_link', {
+                    from: <SenderFullName message={message} chat={chat} users={users}/>
+                })}
+            </span></span>
         );
 
     case 'messageChatSetTheme':
-        if(message.content.theme_name){
-            return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> changed the chat theme to {message.content.theme_name}</span>
-                </span>
-            );
+        if(message.is_channel_post) {
+            if(message.content.theme_name){
+                return (
+                    <span className={className}><span className="part-1">
+                        {__fmt('lng_action_theme_changed_channel', {
+                            emoji: message.content.theme_name
+                        })} 
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        {__('lng_action_theme_disabled_channel')}
+                    </span></span>
+                );
+            }
         } else {
-            return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> disabled the chat theme</span>
-                </span>
-            );
+            if(message.content.theme_name){
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_theme_changed"
+                            lpString_you="lng_action_you_theme_changed"
+                            params={{emoji: message.content.theme_name}}/>
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_theme_disabled"
+                            lpString_you="lng_action_you_theme_disabled"/>
+                    </span></span>
+                );
+            }
         }
 
     case 'messageChatSetTtl': // Auto-delete / self-destruct timer changed
-        var timeConversionTable= {86400: 'day', 604800: 'week', 2678400: 'month'}; // seconds to day, week and month
-        return (
-            <span className={className}>
-                <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> set messages to auto-delete in 1 {timeConversionTable[message.content.ttl]}</span>
-            </span>
-        );
+        var ttlTimeUnit= {
+            86400: __('lng_ttl_about_duration1'), 
+            604800: __('lng_ttl_about_duration2'),
+            2678400: __('lng_ttl_about_duration3'),
+        }[message.content.ttl];
+
+        if(message.is_channel_post) {
+            if(message.content.ttl) { // If TTL is disabled, it will be set to 0
+                return (
+                    <span className={className}><span className="part-1">
+                        {__fmt('lng_action_ttl_changed_channel', {
+                            duration: ttlTimeUnit
+                        })}
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        {__('lng_action_ttl_removed_channel')}
+                    </span></span>
+                );
+            }
+        } else {
+            if(message.content.ttl) { // If TTL is disabled, it will be set to 0
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_ttl_changed"
+                            lpString_you="lng_action_ttl_changed_you"
+                            params={{duration: ttlTimeUnit}}/>
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_ttl_removed"
+                            lpString_you="lng_action_ttl_removed_you"/>
+                    </span></span>
+                );
+            }
+        }
 
     case 'messageChatUpgradeFrom': // It is too complicated to get basic group last message.
     case 'messageChatUpgradeTo': // TODO: It's complicated, but it should be done.
@@ -204,16 +276,17 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         return (
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
-                <span className="part-1">Contact</span>
+                <span className="part-1">{__('lng_in_dlg_contact')}</span>
             </span>
         );
 
     case 'messageContactRegistered': // X joined Telegram
         return (
-            <span className={className}>
-                <span className="part-1"><SenderFullName message={message} chat={chat} users={users}/>
-                &nbsp;joined Telegram</span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt('lng_action_user_registered', {
+                    from: <SenderFullName message={message} chat={chat} users={users}/>
+                })}
+            </span></span>
         );
 
     case 'messageCustomServiceAction': // ¯\_(ツ)_/¯
@@ -244,34 +317,18 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         );
     
     case 'messageExpiredPhoto': 
-        if(message.is_outgoing) { // You sent it
-            return (
-                <span className={className}>
-                    <span className="part-1">You sent a self-destructing photo</span>
-                </span>
-            );
-        } else { // You received it
-            return (
-                <span className={className}><span className="part-1">
-                    <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing photo. Please view it on your mobile.
-                </span></span>
-            );
-        }
+        return (
+            <span className={className}>
+                <span className="part-1">{__('lng_ttl_photo_expired')}</span>
+            </span>
+        );
     
     case 'messageExpiredVideo':
-        if(message.is_outgoing) { // You sent it
-            return (
-                <span className={className}>
-                    <span className="part-1">You sent a self-destructing video</span>
-                </span>
-            );
-        } else { // You received it
-            return (
-                <span className={className}><span className="part-1">
-                    <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing video. Please view it on your mobile.
-                </span></span>
-            );
-        }
+        return (
+            <span className={className}>
+                <span className="part-1">{__('lng_ttl_video_expired')}</span>
+            </span>
+        );
     
     case 'messageGame': // Game
         return (
@@ -285,7 +342,11 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         // Text to use if game message is not available
         var noGameTitleFallback= (
             <span className={className}><span className="part-1">
-                <SenderFullName message={message} chat={chat} users={users} includeYou={true}/> scored {message.content.score}
+                <ServiceMessageIncludingYou 
+                    message={message} chat={chat} users={users}
+                    lpString="lng_action_game_score_no_game"
+                    lpString_you="lng_action_game_you_scored_no_game"
+                    count={message.content.score}/>
             </span></span>
         );
 
@@ -300,7 +361,12 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     //eslint-disable-next-line react/display-name
                     resolve({ default: ()=> (
                         <span className={className}><span className="part-1">
-                            <SenderFullName message={message} chat={chat} users={users} includeYou={true}/> scored {message.content.score} in {result.content.game.title}
+                            <ServiceMessageIncludingYou 
+                                message={message} chat={chat} users={users}
+                                lpString="lng_action_game_score"
+                                lpString_you="lng_action_game_you_scored"
+                                count={message.content.score}
+                                params={{game: result.content.game.title}}/>
                         </span></span>
                     )});
                 },
@@ -329,43 +395,45 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         return (
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
-                <span className="part-1">Location</span>
+                <span className="part-1">{__('lng_maps_point')}</span>
             </span>
         );
 
     case 'messagePassportDataSent': // You sent some Telegram passport data
         var passportDataTypeToString= {
-            'passportElementTypeAddress': 'address',
-            'passportElementTypeBankStatement': 'bank statement',
-            'passportElementTypeDriverLicense': 'driver license',
-            'passportElementTypeEmailAddress': 'email address',
-            'passportElementTypeIdentityCard': 'identity card',
-            'passportElementTypeInternalPassport': 'internal passport',
-            'passportElementTypePassport': 'passport',
-            'passportElementTypePassportRegistration': 'passport registration',
-            'passportElementTypePersonalDetails': 'personal details',
-            'passportElementTypePhoneNumber': 'phone number',
-            'passportElementTypeRentalAgreement': 'rental agreement',
-            'passportElementTypeTemporaryRegistration': 'temporary registration',
-            'passportElementTypeUtilityBill': 'utility bill',
+            'passportElementTypeAddress':               'lng_passport_address',
+            'passportElementTypeBankStatement':         'lng_passport_address_statement',
+            'passportElementTypeDriverLicense':         'lng_passport_identity_license',
+            'passportElementTypeEmailAddress':          'lng_passport_email_title',
+            'passportElementTypeIdentityCard':          'lng_passport_identity_card',
+            'passportElementTypeInternalPassport':      'lng_passport_identity_internal',
+            'passportElementTypePassport':              'lng_passport_identity_passport',
+            'passportElementTypePassportRegistration':  'lng_passport_address_registration',
+            'passportElementTypePersonalDetails':       'lng_passport_personal_details',
+            'passportElementTypePhoneNumber':           'lng_passport_phone_title',
+            'passportElementTypeRentalAgreement':       'lng_passport_address_agreement',
+            'passportElementTypeTemporaryRegistration': 'lng_passport_address_temporary',
+            'passportElementTypeUtilityBill':           'lng_passport_address_bill',
         };
-        var passportDataTypes= message.content.types.map(type=> passportDataTypeToString[type['@type']]);
+        var passportDataTypes= message.content.types.map(type=> __(passportDataTypeToString[type['@type']]).toLowerCase());
         return (
-            <span className={className}>
-                <span className="part-1">
-                    {chat.title} received the following documents: {passportDataTypes.join(', ')}
-                </span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt('lng_action_secure_values_sent', {
+                    user: chat.title,
+                    documents: passportDataTypes.join(', ')
+                })}
+            </span></span>
         );
 
     case 'messagePaymentSuccessful': // You paid [real] money
         // To be shown if invoice is not available
         var noInvoiceTitleFallback= (
-            <span className={className}>
-                <span className="part-1">
-                    You successfully transferred {currencyAmountToString(message.content.currency, message.content.total_amount)} to {chat.title}
-                </span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt('lng_action_payment_done', {
+                    amount: currencyAmountToString(message.content.currency, message.content.total_amount),
+                    user: chat.title
+                })}
+            </span></span>
         );
 
         // Get invoice message
@@ -378,11 +446,13 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 result=> { 
                     //eslint-disable-next-line react/display-name
                     resolve({ default: ()=> (
-                        <span className={className}>
-                            <span className="part-1">
-                                You successfully transferred {currencyAmountToString(message.content.currency, message.content.total_amount)} to {chat.title} for {result.content.title}
-                            </span>
-                        </span>
+                        <span className={className}><span className="part-1">
+                            {__fmt('lng_action_payment_done_for', {
+                                amount: currencyAmountToString(message.content.currency, message.content.total_amount),
+                                user: chat.title,
+                                invoice: result.content.title
+                            })}
+                        </span></span>
                     )});
                 },
                 ()=> { // Failed
@@ -402,20 +472,22 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             if(message.is_outgoing) { // You sent it
                 return (
                     <span className={className}>
-                        <span className="part-1">You sent a self-destructing photo</span>
+                        <span className="part-1">{__('lng_ttl_photo_sent')}</span>
                     </span>
                 );
             } else { // You received it
                 return (
                     <span className={className}><span className="part-1">
-                        <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing photo. Please view it on your mobile.
+                        {__fmt('lng_ttl_photo_received', {
+                            from: <SenderFullName message={message} chat={chat} users={users}/>
+                        })}
                     </span></span>
                 );
             }
         } else { // Normal photo
             return (
                 <MayHaveCaptionThumbnail 
-                    type="Photo" 
+                    type={__('lng_in_dlg_photo')}
                     caption={message.content.caption?.text} 
                     className={className} 
                     message={message} 
@@ -438,7 +510,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     //eslint-disable-next-line react/display-name
                     resolve({ default: ()=> (
                         <span className={className}><span className="part-1">
-                            <SenderFullName message={message} chat={chat} users={users}/> pinned <MessageShortName message={result}/>
+                            <MessagePinnedMessage message={result} sender={<SenderFullName message={message} chat={chat} users={users}/>}/>
                         </span></span>
                     )});
                 },
@@ -446,7 +518,10 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     //eslint-disable-next-line react/display-name
                     resolve({ default: ()=> (
                         <span className={className}><span className="part-1">
-                            <SenderFullName message={message} chat={chat} users={users}/> pinned Deleted Message
+                            {__fmt('lng_action_pinned_media', {
+                                from: <SenderFullName message={message} chat={chat} users={users}/>,
+                                media: __('lng_deleted_message')
+                            })}
                         </span></span>
                     )});
                 }
@@ -456,7 +531,10 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         return (
             <React.Suspense fallback={
                 <span className={className}><span className="part-1">
-                    <SenderFullName message={message} chat={chat} users={users}/> pinned Loading...
+                    {__fmt('lng_action_pinned_media', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>,
+                        media: __('lng_contacts_loading')
+                    })}
                 </span></span>
             }>
                 <PinnedMessageMessage/>
@@ -476,7 +554,11 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         return (
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
-                <span className="part-1">{message.content.sticker.emoji} Sticker</span>
+                <span className="part-1">
+                    {__fmt('lng_in_dlg_sticker_emoji', {
+                        emoji: message.content.sticker.emoji
+                    })}
+                </span>
             </span>
         );
 
@@ -484,14 +566,17 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         if(message.is_channel_post) {
             return (
                 <span className={className}>
-                    <span className="part-1">Channel created</span>
+                    <span className="part-1">{__('lng_action_created_channel')}</span>
                 </span>
             );
         } else {
             return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> created the group «{message.content.title}»</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_created_chat', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>,
+                        title: message.content.title
+                    })}
+                </span></span>
             );
         }
 
@@ -504,7 +589,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         );
 
     case 'messageUnsupported': // Is not supported :(
-        return (
+        return ( //TODO localize
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
                 <span className="part-2">This message is not supported by your version of DIBgram. Please update to the latest version.</span>
@@ -512,7 +597,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         );
     
     case 'messageVenue': // Venue/location
-        return (
+        return ( //TODO find the translation string
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
                 <span className="part-1">Location, </span>
@@ -525,20 +610,22 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             if(message.is_outgoing) { // You sent it
                 return (
                     <span className={className}>
-                        <span className="part-1">You sent a self-destructing video</span>
+                        <span className="part-1">{__('lng_ttl_video_sent')}</span>
                     </span>
                 );
             } else { // You received it
                 return (
                     <span className={className}><span className="part-1">
-                        <SenderFullName message={message} chat={chat} users={users}/> sent you a self-destructing video. Please view it on your mobile.
+                        {__fmt('lng_ttl_video_received', {
+                            from: <SenderFullName message={message} chat={chat} users={users}/>
+                        })}
                     </span></span>
                 );
             }
         } else { // Normal photo
             return (
                 <MayHaveCaptionThumbnail
-                    type="Video" 
+                    type={__('lng_in_dlg_video')}
                     caption={message.content.caption?.text} 
                     className={className} 
                     message={message} 
@@ -553,22 +640,33 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         return (
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
-                <span className="part-1">Video message</span>
+                <span className="part-1">{__('lng_in_dlg_video_message')}</span>
             </span>
         );
 
     case 'messageVoiceChatScheduled':
         if(message.is_channel_post) {
             return (
-                <span className={className}>
-                    <span className="part-1">Live stream scheduled for {futureDayToString(message.content.start_date)} at {timeToString(message.content.start_date)}</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_group_call_scheduled_channel', {
+                        date: __fmt('lng_mediaview_date_time', {
+                            date: futureDayToString(message.content.start_date),
+                            time: timeToString(message.content.start_date)
+                        })
+                    })}
+                </span></span>
             );
         } else {
             return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> scheduled a video chat for {futureDayToString(message.content.start_date)} at {timeToString(message.content.start_date)}</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_group_call_scheduled_group', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>,
+                        date: __fmt('lng_mediaview_date_time', {
+                            date: futureDayToString(message.content.start_date),
+                            time: timeToString(message.content.start_date)
+                        })
+                    })}
+                </span></span>
             );
         }
 
@@ -576,50 +674,58 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         if(message.is_channel_post) {
             return (
                 <span className={className}>
-                    <span className="part-1">Live stream started</span>
+                    <span className="part-1">{__('lng_action_group_call_started_channel')}</span>
                 </span>
             );
         } else {
             return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> started a video chat</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_group_call_started_group', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>
+                    })}
+                </span></span>
             );
         }
 
     case 'messageVoiceChatEnded':
         if(message.is_channel_post) {
             return (
-                <span className={className}>
-                    <span className="part-1">Live stream finished ({durationToString(message.content.duration)})</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_group_call_finished', {
+                        duration: durationToString(message.content.duration)
+                    })}
+                </span></span>
             );
         } else {
             return (
-                <span className={className}>
-                    <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> ended the video chat ({durationToString(message.content.duration)})</span>
-                </span>
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_group_call_finished_group', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>,
+                        duration: durationToString(message.content.duration)
+                    })}
+                </span></span>
             );
         }
 
     case 'messageInviteVoiceChatParticipants':
         var invitedMembers= message.content.user_ids.map(id=> // convert user IDs to names
             getUserFullName(users[id]));
-        if(invitedMembers.length>1){ // X and Y // X, Y and Z
-            invitedMembers= invitedMembers.slice(0, invitedMembers.length - 1) .join(', ') + ' and ' + invitedMembers[invitedMembers.length - 1];
-        } else {
-            invitedMembers= invitedMembers[0];
-        }
+        invitedMembers= __collection(true, invitedMembers, false); // A, B, and C
         return (
-            <span className={className}>
-                <span className="part-1"><SenderFullName chat={chat} message={message} users={users}/> invited {invitedMembers} to the video chat</span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt((invitedMembers.length==1 ? 'lng_action_invite_user' : 'lng_action_invite_users_many'), {
+                    from: <SenderFullName message={message} chat={chat} users={users}/>,
+                    user: invitedMembers,
+                    users: invitedMembers,
+                    chat: __('lng_action_invite_user_chat')
+                })}
+            </span></span>
         );
 
     case 'messageVoiceNote':
         return (
             <MayHaveCaption 
-                type="Voice message" 
+                type={__('lng_in_dlg_audio')}
                 caption={message.content.caption?.text} 
                 className={className} 
                 message={message} 
@@ -629,9 +735,11 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
     case 'messageWebsiteConnected':
         return (
-            <span className={className}>
-                <span className="part-1">You allowed this bot to message you when you logged in on {message.content.domain_name}</span>
-            </span>
+            <span className={className}><span className="part-1">
+                {__fmt('lng_action_bot_allowed_from_domain', {
+                    domain: message.content.domain_name
+                })}
+            </span></span>
         );
 
     default:
@@ -708,7 +816,7 @@ MayHaveCaptionThumbnail.propTypes= {
 /** Sender's first name + last name */
 function SenderFullName({message, chat, users, includeYou}) {
     if(includeYou) { // Use 'You' if the message is outgoing?
-        return message.is_outgoing ? 'You' : <SenderFullName message={message} chat={chat} users={users}/>;
+        return message.is_outgoing ? __('lng_from_you') : <SenderFullName message={message} chat={chat} users={users}/>;
     }
     const sender=message.sender;
     const user=users[sender.user_id];
@@ -716,6 +824,43 @@ function SenderFullName({message, chat, users, includeYou}) {
         return getUserFullName(user); 
     } else if(sender['@type']=='messageSenderChat') { // Anonymous admin
         return chat.title;
+    }
+}
+
+/**
+ * Formats a service message which 'from' can be 'You' or a user's full name
+ * @param {object} message The message object
+ * @param {object} chat The chat in which the message was sent
+ * @param {object} users A dictionary of all users
+ * @param {string} lpString Language pack string key for the service message
+ * @param {string} lpString_you Language pack string key for the service message if the service message is outgoing
+ * @param {string} params Parameters for the language pack string
+ * @param {number|undefined} count If provided, the language pack strings will be treated as pluralized
+ */
+function ServiceMessageIncludingYou({message, chat, users, lpString, lpString_you, params={}, count=undefined}) {
+    var string= lpString_you;
+    var sender;
+    if(!message.is_outgoing){
+        string= lpString;
+
+        const user=users[message.sender.user_id];
+        if(message.sender['@type']=='messageSenderUser') {
+            sender= getUserFullName(user); 
+        } else if(message.sender['@type']=='messageSenderChat') { // Anonymous admin
+            sender= chat.title;
+        }
+    }
+
+    if(count==undefined) {
+        return __fmt(string, {
+            from: sender,
+            ...params
+        });
+    } else {
+        return __pl(string, count, {
+            from: sender,
+            ...params
+        });
     }
 }
 
@@ -727,17 +872,17 @@ export const MessageSummarySender=
         var part1;
         if(chat && (!message.is_channel_post)) { // Channel posts dont have sender names
             if(message.is_outgoing) {
-                part1= 'You: ';
+                part1= __('lng_from_you');
             } else if(['chatTypeBasicGroup', 'chatTypeSupergroup'].includes(chat.type['@type'])) { // Message is sent in a group
                 if(message.sender['@type']=='messageSenderUser') {
-                    part1= users[message.sender.user_id].first_name + ': ';
+                    part1= users[message.sender.user_id].first_name;
                 }
             }
             if(message.sender['@type']=='messageSenderChat') {
-                part1= getChatNoCache(message.sender.chat_id).title+': ';
+                part1= getChatNoCache(message.sender.chat_id).title;
             }
         }
-        return part1? <span className="sender">{part1}</span> : null;
+        return part1? <span className="sender">{__fmt('lng_dialogs_text_from_wrapped', {from: part1})}</span> : null;
     };
 MessageSummarySender.propTypes= {
     /** Message to check the sender */

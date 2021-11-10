@@ -27,10 +27,10 @@
         }
 
         & > div.options {
-            text-align: right;
+            text-align: end;
 
             button:not(.left) {
-                margin-left: 8px;
+                margin-inline-start: 8px;
             }
         }
     }

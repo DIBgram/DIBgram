@@ -7,13 +7,20 @@
     .dialog-content {
         background-color: var(--theme-color-boxBg);
         height: 610px;
-        flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
+
+        .outer {
+            display: flex;
+            flex-shrink: 0;
+            flex-direction: column;
+        }
 
         .header {
             padding: 11px 8px;
             height: fit-content;
+
+            .back {
+                margin-inline-end: -6px;
+            }
 
             .title {
                 display: inline-block;
@@ -28,18 +35,23 @@
             }
 
             // Three dots button
-            .more-options {
-                float: right;
+            .more-options .icon-button {
+                margin-inline-start: 4px;
+            }
 
-                .icon-button {
-                    margin-left: 4px;
-                }
+            > * {
+                vertical-align: middle;
+            }
+
+            .icon-button svg {
+                fill: var(--theme-color-cancelIconFg);
             }
         }
 
         .profile-info {
             background-color: var(--theme-color-boxBg) !important;
             padding: 15px 23px 14px;
+            display: flex;
 
             > .profile-photo {
                 height: 72px;
@@ -54,11 +66,10 @@
             }
 
             > span {
-                float: left;
-                margin-left: 20px;
+                margin-inline-start: 20px;
 
                 .name {
-                    font-size: large;
+                    font-size: 16px;
                     font-weight: 500;
                     display: block;
                     margin-bottom: 0;
@@ -75,17 +86,8 @@
             }
         }
 
-        .tool-strip-section {
-            .tool-strip-button {
-                font-weight: 400 !important;
-
-                .value {
-                    font-weight: 400;
-                    font-size: 14px;
-                    color: var(--theme-color-windowActiveTextFg);
-                    padding-right: 30px;
-                }
-            }
+        .tool-strip-section  .tool-strip-button {
+            font-weight: 400 !important;
         }
 
         .scrollbar {
@@ -99,4 +101,8 @@
             }
         }
     }
+}
+
+[dir="rtl"] #full-settings-dialog .dialog-content .header .close {
+    float: left;
 }
