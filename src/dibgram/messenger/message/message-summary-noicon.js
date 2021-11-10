@@ -219,12 +219,50 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         }
 
     case 'messageChatSetTtl': // Auto-delete / self-destruct timer changed
-        var timeConversionTable= {86400: 'day', 604800: 'week', 2678400: 'month'}; // seconds to day, week and month
-        return ( //TODO localize
-            <span className={className}>
-                <span className="part-1"><SenderFullName message={message} chat={chat} users={users} includeYou={true}/> set messages to auto-delete in 1 {timeConversionTable[message.content.ttl]}</span>
-            </span>
-        );
+        var ttlTimeUnit= {
+            86400: __('lng_ttl_about_duration1'), 
+            604800: __('lng_ttl_about_duration2'),
+            2678400: __('lng_ttl_about_duration3'),
+        }[message.content.ttl];
+
+        if(message.is_channel_post) {
+            if(message.content.ttl) { // If TTL is disabled, it will be set to 0
+                return (
+                    <span className={className}><span className="part-1">
+                        {__fmt('lng_action_ttl_changed_channel', {
+                            duration: ttlTimeUnit
+                        })}
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        {__('lng_action_ttl_removed_channel')}
+                    </span></span>
+                );
+            }
+        } else {
+            if(message.content.ttl) { // If TTL is disabled, it will be set to 0
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_ttl_changed"
+                            lpString_you="lng_action_ttl_changed_you"
+                            params={{duration: ttlTimeUnit}}/>
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_ttl_removed"
+                            lpString_you="lng_action_ttl_removed_you"/>
+                    </span></span>
+                );
+            }
+        }
 
     case 'messageChatUpgradeFrom': // It is too complicated to get basic group last message.
     case 'messageChatUpgradeTo': // TODO: It's complicated, but it should be done.
