@@ -179,23 +179,43 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         );
 
     case 'messageChatSetTheme':
-        if(message.content.theme_name){
-            return (
-                <span className={className}><span className="part-1">
-                    {__fmt('lng_action_theme_changed', {
-                        from: <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>,
-                        emoji: message.content.theme_name
-                    })}
-                </span></span>
-            );
+        if(message.is_channel_post) {
+            if(message.content.theme_name){
+                return (
+                    <span className={className}><span className="part-1">
+                        {__fmt('lng_action_theme_changed_channel', {
+                            emoji: message.content.theme_name
+                        })} 
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        {__('lng_action_theme_disabled_channel')}
+                    </span></span>
+                );
+            }
         } else {
-            return (
-                <span className={className}><span className="part-1">
-                    {__fmt('lng_action_theme_disabled', {
-                        from: <SenderFullName message={message} chat={chat} users={users} includeYou={true}/>
-                    })}
-                </span></span>
-            );
+            if(message.content.theme_name){
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_theme_changed"
+                            lpString_you="lng_action_you_theme_changed"
+                            params={{emoji: message.content.theme_name}}/>
+                    </span></span>
+                );
+            } else {
+                return (
+                    <span className={className}><span className="part-1">
+                        <ServiceMessageIncludingYou 
+                            message={message} chat={chat} users={users}
+                            lpString="lng_action_theme_disabled"
+                            lpString_you="lng_action_you_theme_disabled"/>
+                    </span></span>
+                );
+            }
         }
 
     case 'messageChatSetTtl': // Auto-delete / self-destruct timer changed
