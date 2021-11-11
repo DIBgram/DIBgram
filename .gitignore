@@ -24,3 +24,5 @@ yarn-error.log*
 
 
 src/dibgram/TdWeb/config.js
+
+extra/*.zip
