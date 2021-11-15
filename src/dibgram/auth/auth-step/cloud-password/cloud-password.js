@@ -40,7 +40,7 @@ export default class AuthWindowStepPassword extends React.Component {
         Auth.check2FACode(this.state.password).catch(reason=> {
             if(reason.message=='PASSWORD_HASH_INVALID') {
                 this.setState({invalid: true});
-                this.changeStatus(__('auth.password.wrong_password'));
+                this.changeStatus(__('lng_signin_bad_password'));
             }
             else {
                 // We don't know what the error is, so all we can do is to show it to the user
