@@ -2,10 +2,19 @@ import { authStore } from '../auth/auth-screen';
 import TdLib from '../TdWeb/tdlib';
 import englishLanguagePack from './english.json';
 import { applyKeys, formatString, getCountMode, getFormattedText, getPluralString } from './string-format';
+import specialStringsEnglish from './special-strings/en.json';
 
 var currentLanguagePack= null;
+var specialStrings= specialStringsEnglish;
 
 export function initLanguagePack(){
+    const languageInfo= getCurrentLanguagePack();
+
+    const specialStringsCache= localStorage.getItem('dibgram-special-language-strings-cache');
+    if(specialStringsCache){
+        specialStrings= JSON.parse(specialStringsCache)[languageInfo.id] || specialStringsEnglish;
+    }
+    console.log('initLanguagePack');
     TdLib.sendQuery({
         '@type': 'setOption', 
         'name': 'localization_target', 
@@ -14,7 +23,6 @@ export function initLanguagePack(){
             value: 'tdesktop'
         }
     }).then(()=>{
-        const languageInfo= getCurrentLanguagePack();
         TdLib.sendQuery({
             '@type': 'getLanguagePackStrings',
             language_pack_id: languageInfo.id || 'en'
@@ -24,7 +32,7 @@ export function initLanguagePack(){
                 currentLanguagePack[string.key] = string;
             });
 
-            authStore.dispatch({ // Force re-render9
+            authStore.dispatch({ // Force re-render
                 type: 'SET_STATE',
                 state: authStore.getState().state
             });
@@ -124,11 +132,11 @@ export function __pl(key, count, params={}) {
  * @param {React.ReactNode[]} users An array of objects to format
  * @param {boolean} usesReact If true, the result will be returned as an array of objects, each wrapped in a React Fragment. If false, the result will be returned as a string.
  */
-export function __collection(isInvite, users, usesReact= false) {
+export function __collection(isInvite, users, usesReact= false, getLPString= __) {
     if(users.length == 1) return users[0];
 
-    const format= __(isInvite? 'lng_action_invite_users_and_one' : 'lng_action_add_users_and_one');
-    const formatLast= __(isInvite? 'lng_action_invite_users_and_last' : 'lng_action_add_users_and_last');
+    const format= getLPString(isInvite? 'lng_action_invite_users_and_one' : 'lng_action_add_users_and_one');
+    const formatLast= getLPString(isInvite? 'lng_action_invite_users_and_last' : 'lng_action_add_users_and_last');
 
     var result= [users[0]];
     for(let i= 1; i < users.length - 1; i++) {
@@ -137,4 +145,19 @@ export function __collection(isInvite, users, usesReact= false) {
     }
     result= formatString(formatLast, {accumulated: result, user: users[users.length - 1]}).flat();
     return usesReact? result.map(applyKeys) : result.join('');
+}
+
+export function _s__(key) {
+    return specialStrings[key];
+}
+
+export function _s__fmt(key, params, useFragments= true) {
+    return formatString(_s__(key), params).map(useFragments? applyKeys : e=>e);
+}
+
+// export function _s__pl(key, count, params={}) {
+// }
+
+export function _s__collection(isInvite, users, usesReact) {
+    return __collection(isInvite, users, usesReact, _s__);
 }

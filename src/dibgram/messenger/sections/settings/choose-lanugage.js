@@ -82,24 +82,45 @@ LanguagePack.propTypes = {
 };
 
 function selectLanguage(pack) {
+    let cache= JSON.parse(localStorage.getItem('dibgram-special-language-strings-cache') || '{}');
+    let specialStringsImport;
+    if(!cache[pack.id] && pack.id!='en'){
+        specialStringsImport= import(`../../../language-pack/special-strings/${pack.id}.json`);
+    } else {
+        specialStringsImport= Promise.resolve(null);
+    }
+
+    function apply(){
+        specialStringsImport.then(specialStrings => {
+            if(!cache[pack.id] && pack.id!='en') {
+                cache[pack.id]= specialStrings.default;
+                localStorage.setItem('dibgram-special-language-strings-cache', JSON.stringify(cache));
+            }
+
+            localStorage.setItem('dibgram-active-language', JSON.stringify(pack));
+            window.location.reload();
+        });
+    }
+
     TdLib.sendQuery({
         '@type': 'getLanguagePackStrings',
         language_pack_id: pack.id,
         keys: [ 'lng_sure_save_language' ]
-    }).then(response => {
-        addDialog('settings-language-restart-confirm-dialog', (
-            <ConfirmDialog largeFont={true} onOK={() => {
-                localStorage.setItem('dibgram-active-language', JSON.stringify(pack));
-                window.location.reload();
-            }} id="settings-language-restart-confirm-dialog">
-                {__('lng_sure_save_language')}<br/>
-                <br/>
-                {response.strings[0].value.value}
-            </ConfirmDialog>
-        ));
-        TdLib.sendQuery({ // Request language pack strings so it is already cached after restart
-            '@type': 'getLanguagePackStrings',
-            language_pack_id: pack.id,
+    })
+        .then(response => {
+            addDialog('settings-language-restart-confirm-dialog', (
+                <ConfirmDialog id="settings-language-restart-confirm-dialog"
+                    largeFont={true} onOK={apply}>
+
+                    {__('lng_sure_save_language')}
+                    <br/><br/>
+                    {response.strings[0].value.value}
+                </ConfirmDialog>
+            ));
+
+            TdLib.sendQuery({ // Request language pack strings so it is already cached after restart
+                '@type': 'getLanguagePackStrings',
+                language_pack_id: pack.id,
+            });
         });
-    });
 }
