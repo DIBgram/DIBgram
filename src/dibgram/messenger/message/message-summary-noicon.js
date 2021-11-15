@@ -882,7 +882,7 @@ export const MessageSummarySender=
                 part1= getChatNoCache(message.sender.chat_id).title;
             }
         }
-        return part1? <span className="sender">{__fmt('lng_dialogs_text_from_wrapped', {from: part1})}</span> : null;
+        return part1? <span className="sender">{__fmt('lng_dialogs_text_from_wrapped', {from: part1})} </span> : null;
     };
 MessageSummarySender.propTypes= {
     /** Message to check the sender */
