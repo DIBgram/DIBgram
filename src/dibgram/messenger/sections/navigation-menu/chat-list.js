@@ -521,23 +521,23 @@ ArchivedChatsItem.propTypes = {
 function EmptyChatList({list, unread}) {
     const loadingFallBack= (
         <div className="empty">
-            <div>Loading...</div>
+            <div>{__('lng_profile_loading')}</div>
         </div>
     );
     if(list['@type']=='chatListFilter'){ // Empty filter / Filter not loaded
         if(unread.filters?.[list.chat_filter_id]?.total_chats_count !== 0) return loadingFallBack;
         return (
             <div className="empty">
-                <div>No chats currently belong to this folder.</div>
-                <LinkButton>Edit Folder</LinkButton>
+                <div>{__('lng_no_chats_filter')}</div>
+                <LinkButton>{__('lng_filters_edit')}</LinkButton>
             </div>
         );
     } else { // There are no chats at all / Chats not loaded
         if(unread.main?.total_chats_count !== 0) return loadingFallBack;
         return (
             <div className="empty">
-                <div>Your chats will be here</div>
-                <LinkButton>New contact</LinkButton>
+                <div>{__('lng_no_chats')}</div>
+                <LinkButton>{__('lng_add_contact_button')}</LinkButton>
             </div>
         );
     }
