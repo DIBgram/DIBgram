@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '../../../../ui/elements/icon-button';
 import { info_back, info_close } from '../../../../ui/icon/icons';
-import __ from '../../../../language-pack/language-pack';
+import __, { _s__ } from '../../../../language-pack/language-pack';
 import ToolStrip from '../../../../ui/tool-strip/tool-strip';
 import { themeStore } from '../../../../ui/themes/theme';
 import { getRtlMode } from '../../../../language-pack/language-pack';
@@ -18,7 +18,7 @@ export default function SettingsAdvanced({onClose, onBack}) {
                 <IconButton className="icon-button close" icon={info_close} onClick={onClose}/>
             </div>
             <ToolStrip.Section>
-                <ToolStrip.ToggleButton text="Allow right-to-left" hideIcon={true} isActive={enableRtl} onChange={() => {
+                <ToolStrip.ToggleButton text={_s__('lngd_settings_advanced_rtl')} hideIcon={true} isActive={enableRtl} onChange={() => {
                     setEnableRtl(!enableRtl);
                     localStorage.setItem('dibgram-allow-rtl-layout', !enableRtl);
                     themeStore.dispatch({type: 'SET_RTL', rtl: getRtlMode()});

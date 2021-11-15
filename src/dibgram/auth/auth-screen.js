@@ -11,6 +11,7 @@ import AuthWindowStepPassword from './auth-step/cloud-password/cloud-password';
 import AuthWindowStepRegister from './auth-step/register/register';
 import { createStore } from 'redux';
 import { themeStore } from '../ui/themes/theme';
+import { _s__ } from '../language-pack/language-pack';
 
 export const authStore = createStore((state= { 'state': null }, action) => {
     switch (action.type) {
@@ -166,7 +167,7 @@ export const MainApp= connect(state=> ({step: state.state}))(class MainApp exten
             // TDLib session is closed.
             window.location.reload();
             return (
-                <p>This session is closed. Please wait till DIBgram reloads automatically...</p>
+                <p>{_s__('lngd_auth_closed_restart')}</p>
             );
         
         default:

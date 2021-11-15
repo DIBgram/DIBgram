@@ -20,7 +20,7 @@ import SettingsDialog from '../../settings/settings-dialog';
 import usersStore from '../../../users-store';
 import options from '../../../../TdWeb/options';
 import { getUserFullName } from '../../../user-misc';
-import __, { __fmt } from '../../../../language-pack/language-pack';
+import __, { _s__fmt, __fmt } from '../../../../language-pack/language-pack';
 
 /**
  * Renders the main menu (always rendered but not always visible)
@@ -152,21 +152,31 @@ const HamburgerMenu= connect(state=> ({
                                         onClose();
                                         addDialog('main-menu-about-dibgram-dialog', (
                                             <ConfirmDialog id="main-menu-about-dibgram-dialog"
-                                                width="390px" title="DIBgram" OKButtonText="CLOSE"
+                                                width="390px" title="DIBgram" OKButtonText={__('lng_close')}
                                                 hideCancelButton={true}>
 
                                                 <LinkButton className="version link-button"
                                                     style={{color: 'var(--theme-color-windowSubTextFg)'}} 
                                                     href="https://github.com/DIBgram/DIBgram/releases/">
-                                                        version {version}, TDLib {options['version']}
+                                                        
+                                                    {_s__fmt('lngd_about_version', {
+                                                        version,
+                                                        tdlib: options['version']
+                                                    })}
                                                 </LinkButton>
 
-                                                <p>Unofficial Telegram app based on <LinkButton href="https://core.telegram.org/tdlib">TDLib</LinkButton> for speed and security.</p>
+                                                <p>{_s__fmt('lngd_about_text1', {
+                                                    tdlib: <LinkButton href="https://core.telegram.org/tdlib">TDLib</LinkButton>
+                                                })}</p>
 
-                                                <p>This software is licensed under <LinkButton href="https://github.com/DIBgram/DIBgram/blob/main/LICENSE">GNU GPL</LinkButton> version 3.<br/>
-                                                Source code is available on <LinkButton href="https://github.com/DIBgram/DIBgram">GitHub</LinkButton>.</p>
+                                                <p>{__fmt('lng_about_text2', { //TODO: find out why it doesn't work
+                                                    gpl_link: <LinkButton href="https://github.com/DIBgram/DIBgram/blob/main/LICENSE">GNU GPL</LinkButton>,
+                                                    github_link: <LinkButton href="https://github.com/DIBgram/DIBgram">GitHub</LinkButton>
+                                                })}</p>
 
-                                                <p>Visit the <LinkButton href="https://telegram.org/faq">Telegram FAQ</LinkButton> for more info.</p>
+                                                <p>{__fmt('lng_about_text3', {
+                                                    faq_link: <LinkButton href="https://telegram.org/faq">{__('lng_about_text3_faq')}</LinkButton>
+                                                })}</p>
                                             </ConfirmDialog>
                                         ));
                                     }}>

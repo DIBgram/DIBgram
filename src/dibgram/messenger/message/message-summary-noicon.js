@@ -6,7 +6,7 @@ import {getUserFullName} from '../user-misc';
 import { getChatNoCache } from '../chat-store';
 import MessagePinnedMessage from './message-pinned-message';
 import { durationToString, futureDayToString, timeToString } from '../../time-tostring';
-import __, { __collection, __fmt, __pl } from '../../language-pack/language-pack';
+import __, { _s__, __collection, __fmt, __pl } from '../../language-pack/language-pack';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -268,7 +268,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     case 'messageChatUpgradeTo': // TODO: It's complicated, but it should be done.
         return (
             <span className={className}>
-                <span className="part-1">Group was upgraded to a super-group</span>
+                <span className="part-1">{_s__('lngd_action_upgrade_to_supergroup')}</span>
             </span>
         );
 
@@ -592,7 +592,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
         return ( //TODO localize
             <span className={className}>
                 <MessageSummarySender message={message} chat={chat} users={users}/>
-                <span className="part-2">This message is not supported by your version of DIBgram. Please update to the latest version.</span>
+                <span className="part-2">{_s__('lngd_message_unsupported')}</span>
             </span>
         );
     
