@@ -6,20 +6,25 @@
  * - Download and save the ZIP file to the same folder as this script. We will call it `translations.zip`.
  * - Run this script:
  *     node import-crowdin-translations.js translations.zip
+ * 
+ * Note: In addition to inserting the translation files in their respective locations, this script also outputs a JSON string containing translations for all languages.
+ *       To save this JSON string, you need to insert a '>' character after the command, followed by the output file location:
+ *          node import-crowdin-translations.js translations.zip > all-translations.json
  */
 
 const ZIP = require('zip');
 const fs = require('fs');
+
+const data = fs.readFileSync(process.argv[2]);
+const reader = new ZIP.Reader(data);
+reader.toObject();
 
 if(fs.existsSync('../src/dibgram/language-pack/special-strings')){
     fs.rmdirSync('../src/dibgram/language-pack/special-strings', {recursive: true, force: true});
 }
 fs.mkdirSync('../src/dibgram/language-pack/special-strings');
 
-const data = fs.readFileSync(process.argv[2]);
-const reader = new ZIP.Reader(data);
-reader.toObject();
-
+const allResults= {};
 function forEachFile(entry) {
     const name= entry.getName();
     if(entry.isFile() && name.endsWith('.csv')) {
@@ -35,9 +40,12 @@ function forEachFile(entry) {
             result[key] = value; // sliced to remove quotes
         });
         
+        allResults[languageCode]= result;
         const json= JSON.stringify(result);
         fs.writeFile(`../src/dibgram/language-pack/special-strings/${languageCode}.json`, json, function(){});
     }
 }
 reader.forEach(forEachFile);
 reader.iterator();
+
+console.log(JSON.stringify(allResults));
