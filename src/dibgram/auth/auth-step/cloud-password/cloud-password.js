@@ -70,7 +70,7 @@ export default class AuthWindowStepPassword extends React.Component {
                         invalid={this.state.invalid}/>
 
                     <div className="hint">
-                        {this.props.info.password_hint?__fmt('lng_signin_hint', {paddword_hint: this.props.info.password_hint}):<span>&nbsp;</span>}
+                        {this.props.info.password_hint?__fmt('lng_signin_hint', {password_hint: this.props.info.password_hint}):<span>&nbsp;</span>}
                     </div>
 
                     <div className="forgot-password">
