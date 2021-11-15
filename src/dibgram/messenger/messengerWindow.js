@@ -6,6 +6,7 @@ import { connect, Provider } from 'react-redux';
 import './messengerWindow.scss';
 import HamburgerMenu from './sections/navigation-menu/hamburger-menu/menu';
 import {Resizable} from 're-resizable';
+import { ChatSection } from './sections/chat/chat-section';
 
 /**
  * Renders the messenger screen
@@ -24,10 +25,8 @@ export const MessengerWindow= connect(({rtl})=>({rtl})) (function MessengerWindo
                     enable={{top: false, right: !rtl, bottom: false, left: rtl, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false}}>
                     <ChatListBar onHamburgerMenuOpened={()=> setIsMenuOpen(true)}/>
                 </Resizable>
+                <ChatSection/>
             </Provider>
-            <div id="chat-container">
-                
-            </div>
         </div>
     );
 });
