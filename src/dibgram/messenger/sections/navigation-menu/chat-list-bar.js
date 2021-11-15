@@ -21,9 +21,10 @@ const ChatListBar = connect(function (state) {
         chats: state.chats, 
         list: state.currentChatList,
         archiveState: state.archiveState,
-        unread: state.unread
+        unread: state.unread,
+        selectedChat: state.selectedChat,
     };
-})(function ChatListBar({useFolders, chats, list, archiveState, unread, onHamburgerMenuOpened}) {
+})(function ChatListBar({useFolders, chats, list, archiveState, unread, selectedChat, onHamburgerMenuOpened}) {
     var [searchText, setSearchText] = React.useState('');
     
     function closeArchive() {
@@ -55,7 +56,7 @@ const ChatListBar = connect(function (state) {
                             ): null}
                             <div className="title">{__('lng_archived_name')}</div>
                         </div>
-                        <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread}/>
+                        <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread} selectedChat={selectedChat}/>
                     </Provider>
                 }>
                 <div className="chat-list-header">
@@ -63,7 +64,7 @@ const ChatListBar = connect(function (state) {
                     <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
                 </div>
                 <Provider store={connectionStore}>
-                    <ChatList chats={chats} list={list} unread={unread}/>
+                    <ChatList chats={chats} list={list} unread={unread} selectedChat={selectedChat}/>
                 </Provider>
             </NavAnimation>
             <Provider store={connectionStore}>

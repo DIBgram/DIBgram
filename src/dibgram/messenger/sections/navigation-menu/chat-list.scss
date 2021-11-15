@@ -102,8 +102,34 @@
             --theme-color-dialogsDraftFg: var(--theme-color-dialogsDraftFgOver);
         }
 
-        &:active { // not to be confused with active chat
+        &:active { // When mouse is down, not to be confused with active chat
             --online-badge-border: var(--theme-color-dialogsBgRipple);
+        }
+        
+        &.active { // Currently open
+            background-color: var(--theme-color-dialogsBgActive);
+
+            --online-badge-border: var(--theme-color-dialogsBgActive);
+            --theme-color-dialogsNameFg: var(--theme-color-dialogsNameFgActive);
+            --theme-color-dialogsChatIconFg: var(--theme-color-dialogsChatIconFgActive);
+            --theme-color-dialogsTextFgService: var(--theme-color-dialogsTextFgServiceActive);
+            --theme-color-dialogsTextFg: var(--theme-color-dialogsTextFgActive);
+            --theme-color-dialogsUnreadBgMuted: var(--theme-color-dialogsUnreadBgMutedActive);
+            --theme-color-dialogsSentIconFg: var(--theme-color-dialogsSentIconFgActive);
+            --theme-color-dialogsSendingIconFg: var(--theme-color-dialogsSendingIconFgActive);
+            --theme-color-dialogsVerifiedIconBg: var(--theme-color-dialogsVerifiedIconBgActive);
+            --theme-color-dialogsVerifiedIconFg: var(--theme-color-dialogsVerifiedIconFgActive);
+            --theme-color-dialogsDateFg: var(--theme-color-dialogsDateFgActive);
+            --theme-color-dialogsUnreadBg: var(--theme-color-dialogsUnreadBgActive);
+            --theme-color-dialogsUnreadFg: var(--theme-color-dialogsUnreadFgActive);
+            --theme-color-dialogsDraftFg: var(--theme-color-dialogsDraftFgActive);
+
+            .ripple {
+                background-color: var(--theme-color-dialogsRippleBgActive) !important;
+            }
+            &:active {
+                --online-badge-border: var(--theme-color-dialogsRippleBgActive);
+            }
         }
 
         .profile-photo {

@@ -16,6 +16,7 @@ import Menu from '../../../ui/menu/menu';
 import Toast, { addToast } from '../../../ui/dialog/toast';
 import { addDialog } from '../../../ui/dialog/dialogs';
 import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
+import chatStore from '../../chat-store';
 
 /**
  * Renders a single chat
@@ -47,8 +48,15 @@ class ChatListItem extends React.Component {
             || nextProps.chat.photo?.small?.id !== this.props.chat.photo?.small?.id
             || nextProps.chat.title !== this.props.chat.title
             || nextProps.chat.last_read_outbox_message_id !== this.props.chat.last_read_outbox_message_id
+            || nextProps.selected !== this.props.selected
             || nextState.ripple !== this.state.ripple
             || getUser(nextProps) !== getUser(this.props);
+    }
+    openChat = () => {
+        chatStore.dispatch({
+            type: 'SELECT_CHAT',
+            chat_id: this.props.chat.id
+        });
     }
     render(){
         const chat= {...this.props.chat}; // Clone chat object to avoid mutating it. Mutating it causes Saved messages and Deleted account chats to get past shouldComponentUpdate.
@@ -126,8 +134,10 @@ class ChatListItem extends React.Component {
         }
 
         return(
-            <div className="chat" onContextMenu={e=> createContextMenu(e, <ChatContextMenu chat={chat}/>)}
+            <div className={'chat' + (this.props.selected? ' active' : '')} onClick={this.openChat}
+                onContextMenu={e=> createContextMenu(e, <ChatContextMenu chat={chat}/>)}
                 onMouseDown={this.mouseDown} onMouseUp={this.mouseUp} onMouseLeave={this.mouseLeave}>
+                
                 <RippleEffect {...this.state.ripple} color="var(--theme-color-dialogsRippleBg)"/>
                 <div className="content" data-online={isOnline ? 'true' : 'false'}>
                     <ProfilePhoto name={chat.title} photo={chat.photo?.small} id={getChatTypeId(chat)}/>
@@ -171,6 +181,8 @@ class ChatListItem extends React.Component {
 ChatListItem.propTypes = {
     /** The chat (TdObject) */
     chat: PropTypes.object.isRequired,
+    /** A boolean value which should be `true` if the chat is currently open */
+    selected: PropTypes.bool,
     /** A dictionary of all users */
     users: PropTypes.object.isRequired
 };

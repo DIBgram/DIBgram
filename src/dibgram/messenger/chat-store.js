@@ -14,6 +14,7 @@ function reducer(state= {
     archiveButtonState: localStorage.getItem('dibgram-archived-chats-button-mode'),
     chats: [],
     filters: [],
+    selectedChat: -1,
     unread: {
         main: {},
         archive: {},
@@ -185,6 +186,11 @@ function reducer(state= {
                 }
                 return chat;
             })
+        };
+    case 'SELECT_CHAT':
+        return {
+            ...state,
+            selectedChat: action.chat_id
         };
     default:
         return state;

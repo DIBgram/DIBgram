@@ -63,6 +63,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
             list: PropTypes.object.isRequired,
             connectionState: PropTypes.string.isRequired,
             unread: PropTypes.object.isRequired,
+            selectedChat: PropTypes.number
         }
         state= {
             scrollToTopVisible: false,
@@ -85,6 +86,7 @@ const ChatList= connect(state=> ({connectionState: state}))(
                 || nextProps.list !== this.props.list 
                 || nextProps.unread !== this.props.unread
                 || nextProps.connectionState !== this.props.connectionState
+                || nextProps.selectedChat !== this.props.selectedChat
                 || nextState.scrollToTopVisible !== this.state.scrollToTopVisible
                 || nextState.chatListFinished !== this.state.chatListFinished)
                 && nextProps.connectionState != 'connectionStateUpdating'
@@ -93,7 +95,11 @@ const ChatList= connect(state=> ({connectionState: state}))(
 
         render() {
             // Get chats from the list (this needs to be repeated on every modification)
-            const array= getChatsFromList(this.props.chats, this.props.list).map(chat=><Chat key={chat.id} chat={chat} />);
+            const array= 
+                getChatsFromList(this.props.chats, this.props.list)
+                    .map(chat=>
+                        <Chat key={chat.id} chat={chat} selected={this.props.selectedChat == chat.id}/>
+                    );
             
             return (
                 <React.Fragment>
