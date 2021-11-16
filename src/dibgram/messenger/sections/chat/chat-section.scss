@@ -1,39 +1,19 @@
-#chat-container {
-    background: var(--theme-color-chatBg);
-    flex: 1 1;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-width: 380px;
+#chat-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 
-    .middle {
-        width: 100%;
-        text-align: center;
+    &.no-chat {
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .service-message {
-        border-radius: 20px;
-        background-color: var(--theme-color-msgServiceBg);
-        color: var(--theme-color-msgServiceFg);
-        padding: 3px 8px;
-    }
+    & > .headers {
+        flex-shrink: 0;
 
-    #headers {   
-        min-height: 30px;
-        #title-bar {
-            padding: 15px;
-            background-color: var(--theme-color-windowBg);
-            border-color: var(--theme-color-windowBgRipple);
-            border-style: solid;
-            border-width: 1px;
-            #info {
-                font-size: 14px;
-                color: var(--theme-color-windowSubTextFg);
-            }
-        }
-        #icon-buttons {
-            float: right;
-            padding-bottom: 100px;
+        & > * {
+            border-inline-start: 1px solid var(--theme-color-shadowFg);
         }
     }
 }

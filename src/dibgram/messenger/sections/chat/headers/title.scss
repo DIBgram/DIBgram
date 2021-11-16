@@ -1,0 +1,20 @@
+#chat-section > .headers > .title-bar {
+    height: 54px;
+    display: flex;
+    background-color: var(--theme-color-topBarBg);
+
+    .title-bar-left {
+        flex-grow: 1;
+        padding-inline-start: 15px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--theme-color-dialogsNameFg);
+        }
+    }
+}

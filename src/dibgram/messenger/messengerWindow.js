@@ -25,7 +25,9 @@ export const MessengerWindow= connect(({rtl})=>({rtl})) (function MessengerWindo
                     enable={{top: false, right: !rtl, bottom: false, left: rtl, topRight: false, bottomRight: false, bottomLeft: false, topLeft: false}}>
                     <ChatListBar onHamburgerMenuOpened={()=> setIsMenuOpen(true)}/>
                 </Resizable>
-                <ChatSection/>
+                <div id="chat-container">
+                    <ChatSection/>
+                </div>
             </Provider>
         </div>
     );
