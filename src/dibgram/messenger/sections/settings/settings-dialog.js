@@ -9,7 +9,7 @@ import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 import ThreeDotsMenu from '../../../ui/menu/three-dots-menu';
 import Menu from '../../../ui/menu/menu';
 import './settings-dialog.scss';
-import { info_close, settings_advenced, settings_chat, settings_faq, settings_folders, settings_info, settings_language, settings_notifications, settings_privacy_security } from '../../../ui/icon/icons';
+import { info_close, settings_advanced, settings_chat, settings_faq, settings_folders, settings_info, settings_language, settings_notifications, settings_privacy_security } from '../../../ui/icon/icons';
 import ProfilePhoto from '../../../ui/components/profile-photo';
 import IconButton from '../../../ui/elements/icon-button';
 import options from '../../../TdWeb/options';
@@ -78,7 +78,7 @@ function Settings ({id, users}) {
                             <ToolStrip.Button icon={settings_privacy_security} text={__('lng_settings_section_privacy')}/>
                             <ToolStrip.Button icon={settings_chat} text={__('lng_settings_section_chat_settings')}/>
                             <ToolStrip.Button icon={settings_folders} text={__('lng_settings_section_filters')}/>
-                            <ToolStrip.Button icon={settings_advenced} text={__('lng_settings_advanced')} onClick={()=> openSection(SettingsAdvanced)}/>
+                            <ToolStrip.Button icon={settings_advanced} text={__('lng_settings_advanced')} onClick={()=> openSection(SettingsAdvanced)}/>
                             <ToolStrip.Button icon={settings_language} text={__('lng_settings_language')}
                                 onClick={()=>addDialog('settings-change-language-dialog', <ChooseLanguageDialog id="settings-change-language-dialog"/>)}>
                                 <span className="value">{__('lng_language_name')}</span>
