@@ -1,8 +1,19 @@
-#chat-container {
-    background: var(--theme-color-chatBg);
-    flex: 1 1;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    min-width: 380px;
+#chat-section {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    &.no-chat {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    & > .headers {
+        flex-shrink: 0;
+
+        & > * {
+            border-inline-start: 1px solid var(--theme-color-shadowFg);
+        }
+    }
 }

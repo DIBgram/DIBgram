@@ -4,3 +4,15 @@
     width: 100%;
     height: 100%;
 }
+
+#chat-container {
+    background: var(--theme-color-chatBg);
+    flex: 1 1;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-width: 380px;
+
+    display: flex;
+    flex-direction: column;
+}
