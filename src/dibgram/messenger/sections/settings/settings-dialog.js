@@ -16,7 +16,7 @@ import options from '../../../TdWeb/options';
 import { connect } from 'react-redux';
 import { getUserFullName } from '../../user-misc';
 import __ from '../../../language-pack/language-pack';
-import ChooseLanguageDialog from './choose-lanugage';
+import ChooseLanguageDialog from './choose-language';
 import NavAnimation, { closeNavAnimation } from '../../../ui/elements/nav-animation';
 import SettingsAdvanced from './advanced/advanced';
 
