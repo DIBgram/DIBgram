@@ -16,5 +16,20 @@
             font-weight: 500;
             color: var(--theme-color-dialogsNameFg);
         }
+        .info {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--theme-color-windowSubTextFg);
+        }
+    }
+    .title-bar-right {
+        flex-grow: 1;
+        padding-inline-end: 15px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        align-items: flex-end;
     }
 }
