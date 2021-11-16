@@ -6,6 +6,11 @@
     background-position: center;
     min-width: 380px;
 
+    .middle {
+        width: 100%;
+        text-align: center;
+    }
+
     .service-message {
         border-radius: 20px;
         background-color: var(--theme-color-msgServiceBg);
@@ -23,7 +28,7 @@
             border-width: 1px;
             #info {
                 font-size: 14px;
-                color: var(--theme-color-chatBg);
+                color: var(--theme-color-windowSubTextFg);
             }
         }
         #icon-buttons {
