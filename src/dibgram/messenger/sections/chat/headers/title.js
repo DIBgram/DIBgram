@@ -86,7 +86,7 @@ function SubText({chat, user, basicGroup, supergroup}) {
         // In this case, He is a normal user, So app should show status
         let status = getLocalizedStatus(user.status);
         if (status == __('lng_status_online'))
-            return (<div className="info-active">{status}</div>);
+            return (<div className="info active">{status}</div>);
 
         return (<div className="info">{status}</div>);
     }
