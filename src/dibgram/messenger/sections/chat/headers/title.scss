@@ -23,13 +23,12 @@
         }
     }
     .title-bar-right {
-        flex-grow: 1;
-        padding-inline-end: 15px;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        align-items: flex-end;
+        flex-shrink: 0;
+        
+        & > .three-dots-menu,
+        & > .icon-button {
+            margin: 6px;
+            display: inline-block;
+        }
     }
 }

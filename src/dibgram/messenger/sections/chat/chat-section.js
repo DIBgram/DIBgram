@@ -4,6 +4,7 @@ import __ from '../../../language-pack/language-pack';
 import { ServiceMessage } from '../../message/ui/message-containers';
 import TitleHeader from './headers/title';
 import './chat-section.scss';
+import TdLib from '../../../TdWeb/tdlib';
 
 export const ChatSection= 
 connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSection({chats, selectedChat}) {
@@ -22,10 +23,23 @@ connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSectio
         </div>
     );
 
+    let chatFull;
+    React.use
+    if (chat.type['@type'] == 'chatTypeSupergroup') {
+        TdLib.sendQuery({'@type': 'getSupergroupFullInfo', 'supergroup_id': chat.type.supergroup_id}).then((supergroupFull) => {
+            chatFull = supergroupFull;
+        });
+    }
+    if (chat.type['@type'] == 'chatTypeBasicGroup') {
+        TdLib.sendQuery({'@type': 'getBasicGroupFullInfo', 'basic_group_id': chat.type.basic_group_id}).then((basicGroupFull) => {
+            chatFull = basicGroupFull;
+        });
+    }
+    
     return (
         <div id="chat-section">
             <div className="headers">
-                <TitleHeader chat={chat} />
+                <TitleHeader chat={chat} chatFull={chatFull} />
             </div>
         </div>
     );
