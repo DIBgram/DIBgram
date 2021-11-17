@@ -108,7 +108,7 @@ export function durationToString(duration) {
     }
 }
 
-export function getLocalizedStatus(status) {
+export function lastSeenToString(status) {
     switch (status['@type']) {
     case 'userLastStatusMonth':
         return __('lng_status_last_month');
