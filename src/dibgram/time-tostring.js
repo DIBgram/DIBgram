@@ -1,4 +1,4 @@
-import { __, __fmt, __pl } from './language-pack/language-pack';
+import __, { __fmt, __pl } from './language-pack/language-pack';
 
 /**
  * Converts a date and time to a short string.
