@@ -6,7 +6,7 @@ import ThreeDotsMenu from '../../../../ui/menu/three-dots-menu';
 import Menu from '../../../../ui/menu/menu';
 import options from '../../../../TdWeb/options';
 import IconButton from '../../../../ui/elements/icon-button';
-import { top_bar_profile, top_bar_search } from '../../../../ui/icon/icons';
+import { top_bar_group_call, top_bar_profile, top_bar_search } from '../../../../ui/icon/icons';
 
 export default function TitleHeader({chat}, chatFull) {
     return (
@@ -15,14 +15,16 @@ export default function TitleHeader({chat}, chatFull) {
                 <div className="title">
                     {options['my_id'] == chat.id && (__('lng_saved_messages'))}
                     {options['replies_bot_chat_id'] == chat.id && (__('lng_replies_messages'))}
-                    {options['telegram_service_notifications_chat_id'] == chat.id && (__('lng_replies_messages'))}
-                    {options['my_id'] != chat.id && options['replies_bot_chat_id'] != chat.id && options['telegram_service_notifications_chat_id'] != chat.id && (chat.title)}
+                    {options['my_id'] != chat.id && options['replies_bot_chat_id'] != chat.id && (chat.title)}
                 </div>
                 <div className="info">
                     {getSubText(chat, chatFull)}
                 </div>
             </div>
             <div className="title-bar-right">
+                {/* Missed item: Call for normal users, It should depend on userFull */}
+                {/* Should be fixed */}
+                {chat.voice_chat.group_call_id != 0 && (<IconButton icon={top_bar_group_call}/>)}
                 <IconButton icon={top_bar_search}/>
                 <IconButton icon={top_bar_profile}/>
                 <ThreeDotsMenu>
