@@ -108,13 +108,6 @@ export function durationToString(duration) {
     }
 }
 
-/**
- * Converts a TDLIb unix time to a `Date` object.
- */
-export function TdLibDateToDate(tdLibDate) {
-    return new Date(tdLibDate * 1000);
-}
-
 export function getLocalizedStatus(status) {
     switch (status['@type']) {
     case 'userLastStatusMonth':
@@ -166,4 +159,11 @@ export function getLocalizedStatus(status) {
     default: // userStatusEmpty
         return null;
     }
+}
+
+/**
+ * Converts a TDLIb unix time to a `Date` object.
+ */
+export function TdLibDateToDate(tdLibDate) {
+    return new Date(tdLibDate * 1000);
 }
