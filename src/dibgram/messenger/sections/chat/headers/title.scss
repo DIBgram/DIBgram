@@ -12,12 +12,17 @@
         justify-content: center;
 
         .title {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--theme-color-dialogsNameFg);
+
+            &:only-child {
+                font-size: 14px;
+            }
         }
         .info {
-            font-size: 14px;
+            margin-top: 2px;
+            font-size: 13px;
             font-weight: 400;
             color: var(--theme-color-windowSubTextFg);
         }
