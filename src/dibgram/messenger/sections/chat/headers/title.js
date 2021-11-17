@@ -7,74 +7,95 @@ import Menu from '../../../../ui/menu/menu';
 import options from '../../../../TdWeb/options';
 import IconButton from '../../../../ui/elements/icon-button';
 import { top_bar_group_call, top_bar_profile, top_bar_search } from '../../../../ui/icon/icons';
+import { chatTitleOrDeletedAccount } from '../../../chat-misc';
+import { getLocalizedStatus } from '../../../../time-tostring';
 
-export default function TitleHeader({chat}, chatFull) {
+export default function TitleHeader(props) {
     return (
         <div className="title-bar">
             <div className="title-bar-left">
                 <div className="title">
-                    {options['my_id'] == chat.id && (__('lng_saved_messages'))}
-                    {options['replies_bot_chat_id'] == chat.id && (__('lng_replies_messages'))}
-                    {options['my_id'] != chat.id && options['replies_bot_chat_id'] != chat.id && (chat.title)}
+                    {options['my_id'] == props.chat.id && (__('lng_saved_messages'))}
+                    {options['replies_bot_chat_id'] == props.chat.id && (__('lng_replies_messages'))}
+                    {options['my_id'] != props.chat.id && options['replies_bot_chat_id'] != props.chat.id && (chatTitleOrDeletedAccount(props.chat))}
                 </div>
-                <div className="info">
-                    {getSubText(chat, chatFull)}
-                </div>
+                <SubText {...props}/>
             </div>
             <div className="title-bar-right">
                 {/* Missed item: Call for normal users, It should depend on userFull */}
-                {/* Should be fixed */}
-                {chat.voice_chat.group_call_id != 0 && (<IconButton icon={top_bar_group_call}/>)}
+                {props.chat.voice_chat.group_call_id != 0 && (<IconButton icon={top_bar_group_call}/>)}
                 <IconButton icon={top_bar_search}/>
                 <IconButton icon={top_bar_profile}/>
                 <ThreeDotsMenu>
                     <Menu.MenuContents>
-                        {chat.can_be_reported && (<Menu.MenuItem>{__('lng_report_button')}</Menu.MenuItem>)}
+                        {props.chat.can_be_reported && <Menu.MenuItem>{__('lng_report_button')}</Menu.MenuItem>}
                     </Menu.MenuContents>
                 </ThreeDotsMenu>
             </div>
         </div>
     );
 }
-
-function getSubText(chat, chatFull) {
-    if (chat.type['@type'] == 'chatTypeSupergroup')
-    {
-        if (chat.type.is_channel)
-            return (__pl('lng_chat_status_subscribers', chatFull.member_count));
-        else
-            return __pl('lng_chat_status_members', chatFull.member_count);
-    }
-    else if (chat.type['@type'] == 'chatTypeBasicGroup')
-    {
-        return __pl('lng_chat_status_members', chatFull.members.length);
-    }
-    else if (chat.id == options['my_id'] || chat.id == options['replies_bot_chat_id'])
-    {
-        return '';
-    }
-    else if (chat.id == options['telegram_service_notifications_chat_id'])
-    {
-        // Service notifications
-        return __('lng_status_service_notifications');
-    }
-    else if (chat.type['@type'] == 'chatTypePrivate')
-    {
-        // TODO: Implement user status: online, last seen within week, etc.
-
-        // if (chat.type.is_bot)
-        //     return __('lng_status_bot');
-        return 'User';
-    }
-    else
-    {
-        // Secret chat, This shouldn't unless use_secret_chats=true in TdlibParameters.
-        // This doesn't has translation in Telegram, Because TDesktop doesn't has secret chats
-        return ('Secret chat!');
-    }
-}
-
 TitleHeader.propTypes = {
     chat: PropTypes.object.isRequired,
     chatFull: PropTypes.object.isRequired
+};
+
+function SubText({chat, user, basicGroup, supergroup}) {
+    if(supergroup) {
+        return (
+            <div className="info">
+                {__pl(chat.type.is_channel ? 'lng_chat_status_subscribers' : 'lng_chat_status_members', supergroup.member_count)}
+            </div>
+        );
+    } 
+    else if(basicGroup) {
+        return (
+            <div className="info">
+                {__pl('lng_chat_status_members', basicGroup.member_count)}
+            </div>
+        );
+    } 
+    else if(user)
+    {
+        if (chat.id == options['my_id'] || chat.id == options['replies_bot_chat_id']) {
+            return null;
+        }
+        if (chat.id == options['telegram_service_notifications_chat_id']) {
+            // Service notifications
+            return (
+                <div className="info">
+                    {__('lng_status_service_notifications')}
+                </div>
+            );
+        }
+        if (user.is_support) {
+            return (
+                <div className="info">
+                    {__('lng_status_support')}
+                </div>
+            );
+        }
+        if (user.type['@type'] == 'userTypeBot') {
+            return (
+                <div className="info">
+                    {__('lng_status_bot')}
+                </div>
+            );
+        }
+
+        // In this case, He is a normal user, So app should show status
+        let status = getLocalizedStatus(user.status);
+        if (status == __('lng_status_online'))
+            return (<div className="info-active">{status}</div>);
+
+        return (<div className="info">{status}</div>);
+    }
+
+    return null;
+}
+SubText.propTypes = {
+    chat: PropTypes.object.isRequired,
+    user: PropTypes.object,
+    basicGroup: PropTypes.object,
+    supergroup: PropTypes.object
 };

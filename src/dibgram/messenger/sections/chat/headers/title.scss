@@ -21,13 +21,20 @@
             font-weight: 400;
             color: var(--theme-color-windowSubTextFg);
         }
+        .info-active {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--theme-color-windowActiveTextFg);
+        }
     }
     .title-bar-right {
         flex-shrink: 0;
-        
+        padding: 0 7px;
+
         & > .three-dots-menu,
         & > .icon-button {
-            margin: 6px 0px;
+            float: none;
+            margin: 7px 0;
             display: inline-block;
         }
     }
