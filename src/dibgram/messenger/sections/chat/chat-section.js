@@ -7,6 +7,8 @@ import './chat-section.scss';
 import usersStore from '../../users-store';
 import supergroupStore from '../../supergroup-store';
 import basicGroupStore from '../../basic-group-store';
+import { ChatFooter } from './footer/footer';
+import { ChatHistory } from './history/history';
 
 export const ChatSection= 
 connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSection({chats, selectedChat}) {
@@ -71,6 +73,8 @@ function ChatSectionContentWrapper(props) {
             <div className="headers">
                 <TitleHeader {...props}/>
             </div>
+            <ChatHistory {...props}/>
+            <ChatFooter {...props}/>
         </div>
     );
 }

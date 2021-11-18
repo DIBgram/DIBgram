@@ -16,4 +16,13 @@
             border-inline-start: 1px solid var(--theme-color-shadowFg);
         }
     }
+
+    & > .history {
+        flex-grow: 1;
+    }
+
+    & > .footer {
+        height: 54px; //TODO: Use correct size
+        flex-shrink: 0;
+    }
 }
