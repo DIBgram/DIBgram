@@ -47,6 +47,11 @@
             opacity: 0;
         }
     }
+
+    &.loading .loading-spinner {
+        display: flex;
+        justify-content: center;
+    }
 }
 
 #app[data-theme-is-dark=true] #auth h2 {

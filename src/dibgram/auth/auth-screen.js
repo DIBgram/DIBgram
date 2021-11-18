@@ -12,6 +12,7 @@ import AuthWindowStepRegister from './auth-step/register/register';
 import { createStore } from 'redux';
 import { themeStore } from '../ui/themes/theme';
 import { _s__ } from '../language-pack/language-pack';
+import LoadingSpinner from '../ui/elements/loading-spinner';
 
 export const authStore = createStore((state= { 'state': null }, action) => {
     switch (action.type) {
@@ -172,7 +173,11 @@ export const MainApp= connect(state=> ({step: state.state}))(class MainApp exten
         
         default:
             // TDLib is still loading
-            return <p>Loading...</p>;
+            return (
+                <div id="auth" className="loading">
+                    <LoadingSpinner size={50} lineWidth={5} progressColor="var(--theme-color-menuIconFg)"/>
+                </div>
+            );
         }
     }
 });
