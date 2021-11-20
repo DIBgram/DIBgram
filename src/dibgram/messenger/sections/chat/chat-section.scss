@@ -11,9 +11,16 @@
 
     & > .headers {
         flex-shrink: 0;
+        position: relative;
 
-        & > * {
-            border-inline-start: 1px solid var(--theme-color-shadowFg);
+        &::after {
+            content: '';
+            position: absolute;
+            height: 1px;
+            background-color: var(--theme-color-shadowFg);
+            top: 100%;
+            inset-inline-start: 0;
+            inset-inline-end: 0;
         }
     }
 
@@ -22,7 +29,44 @@
     }
 
     & > .footer {
-        height: 54px; //TODO: Use correct size
+        min-height: 46px;
         flex-shrink: 0;
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            height: 1px;
+            background-color: var(--theme-color-shadowFg);
+            bottom: 100%;
+            inset-inline-start: 0;
+            inset-inline-end: 0;
+        }
+    }
+}
+
+#messenger-screen:not(.single-column) #chat-section {
+    & > .headers > *,
+    & > .history,
+    & > .footer {
+        box-shadow: inset 1px 0 0 0 var(--theme-color-shadowFg);
+    }
+
+    & > .headers::after,
+    & > .footer::after {
+        inset-inline-start: 1px;
+    }
+}
+
+#messenger-screen.three-column #chat-section {
+    & > .headers > *,
+    & > .history,
+    & > .footer {
+        box-shadow: inset 1px 0 0 0 var(--theme-color-shadowFg), inset -1px 0 0 0 var(--theme-color-shadowFg);
+    }
+
+    & > .headers::after,
+    & > .footer::after {
+        inset-inline-end: 1px;
     }
 }
