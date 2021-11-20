@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect, Provider } from 'react-redux';
 import ConnectionState from '../../../ui/components/connecting';
 import ChatList from './chat-list';
@@ -45,20 +46,7 @@ const ChatListBar = connect(function (state) {
                 id="chat-list-bar"
                 state={archiveState}
                 innerClass="archived-chats"
-                innerScreen={
-                    <Provider store={connectionStore}>
-                        <div className="chat-list-header">
-                            <IconButton icon={info_back} onClick={closeArchive}/>
-                            {unread.main.unread_unmuted_messages_count? (
-                                <div className="unread-badge">
-                                    <span>{unread.main.unread_unmuted_messages_count}</span>
-                                </div>
-                            ): null}
-                            <div className="title">{__('lng_archived_name')}</div>
-                        </div>
-                        <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread} selectedChat={selectedChat}/>
-                    </Provider>
-                }>
+                innerScreen={<ArchiveScreen chats={chats} closeArchive={closeArchive} selectedChat={selectedChat} unread={unread}/>}>
                 <div className="chat-list-header">
                     {(!useFolders) && <HamburgerMenuButton.WithoutFolders onClick={onHamburgerMenuOpened}/>}
                     <SearchBox value={searchText} onChange={e => setSearchText(e.target.value)}/>
@@ -74,3 +62,26 @@ const ChatListBar = connect(function (state) {
     );
 });
 export default ChatListBar;
+
+function ArchiveScreen({unread, selectedChat, chats, closeArchive}) {
+    return (
+        <Provider store={connectionStore}>
+            <div className="chat-list-header">
+                <IconButton icon={info_back} onClick={closeArchive}/>
+                {unread.main.unread_unmuted_messages_count? (
+                    <div className="unread-badge">
+                        <span>{unread.main.unread_unmuted_messages_count}</span>
+                    </div>
+                ): null}
+                <div className="title">{__('lng_archived_name')}</div>
+            </div>
+            <ChatList chats={chats} list={{'@type': 'chatListArchive'}} unread={unread} selectedChat={selectedChat}/>
+        </Provider>
+    );
+}
+ArchiveScreen.propTypes = {
+    unread: PropTypes.object,
+    selectedChat: PropTypes.number,
+    chats: PropTypes.array,
+    closeArchive: PropTypes.func
+};
