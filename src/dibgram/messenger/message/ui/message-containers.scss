@@ -19,7 +19,20 @@
         margin-inline-end: 57px;
         max-width: 430px;
         width: max-content;
-        white-space: pre-wrap;
+
+        .message-sender {
+            font-weight: 500;
+
+            &.color_0 { color: var(--theme-color-msgInServiceFg )}
+            &.color_1 { color: var(--theme-color-historyPeer1NameFg )}
+            &.color_2 { color: var(--theme-color-historyPeer2NameFg )}
+            &.color_3 { color: var(--theme-color-historyPeer3NameFg )}
+            &.color_4 { color: var(--theme-color-historyPeer4NameFg )}
+            &.color_5 { color: var(--theme-color-historyPeer5NameFg )}
+            &.color_6 { color: var(--theme-color-historyPeer6NameFg )}
+            &.color_7 { color: var(--theme-color-historyPeer7NameFg )}
+            &.color_8 { color: var(--theme-color-historyPeer8NameFg )}
+        }
 
         &.has-tail {
             border-end-start-radius: 0;
@@ -31,6 +44,7 @@
             inset-inline-start: -6px;
             width: 6px;
             height: 10px;
+            pointer-events: none;
 
             svg {
                 position: absolute; // For some reason the svg is moved down by 2px, this is a workaround
@@ -38,6 +52,12 @@
                 left: 0;
                 fill: var(--theme-color-msgInBg);
             }
+        }
+
+        .content {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            unicode-bidi: plaintext;
         }
     }
 
