@@ -20,9 +20,9 @@ namespace TdApi {
     export interface td_error {
         '@type': 'error';
         /** Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user */
-        code?: td_int32;
+        code: td_int32;
         /** Error message; subject to future changes */
-        message?: td_string;
+        message: td_string;
     }
     
     
@@ -36,35 +36,35 @@ namespace TdApi {
     export interface td_tdlibParameters {
         '@type': 'tdlibParameters';
         /** If set to true, the Telegram test environment will be used instead of the production environment */
-        use_test_dc?: td_Bool;
+        use_test_dc: td_Bool;
         /** The path to the directory for the persistent database; if empty, the current working directory will be used */
-        database_directory?: td_string;
+        database_directory: td_string;
         /** The path to the directory for storing files; if empty, database_directory will be used */
-        files_directory?: td_string;
+        files_directory: td_string;
         /** If set to true, information about downloaded and uploaded files will be saved between application restarts */
-        use_file_database?: td_Bool;
+        use_file_database: td_Bool;
         /** If set to true, the library will maintain a cache of users, basic groups, supergroups, channels and secret chats. Implies use_file_database */
-        use_chat_info_database?: td_Bool;
+        use_chat_info_database: td_Bool;
         /** If set to true, the library will maintain a cache of chats and messages. Implies use_chat_info_database */
-        use_message_database?: td_Bool;
+        use_message_database: td_Bool;
         /** If set to true, support for secret chats will be enabled */
-        use_secret_chats?: td_Bool;
+        use_secret_chats: td_Bool;
         /** Application identifier for Telegram API access, which can be obtained at https://my.telegram.org */
-        api_id?: td_int32;
+        api_id: td_int32;
         /** Application identifier hash for Telegram API access, which can be obtained at https://my.telegram.org */
-        api_hash?: td_string;
+        api_hash: td_string;
         /** IETF language tag of the user's operating system language; must be non-empty */
-        system_language_code?: td_string;
+        system_language_code: td_string;
         /** Model of the device the application is being run on; must be non-empty */
-        device_model?: td_string;
+        device_model: td_string;
         /** Version of the operating system the application is being run on. If empty, the version is automatically detected by TDLib */
-        system_version?: td_string;
+        system_version: td_string;
         /** Application version; must be non-empty */
-        application_version?: td_string;
+        application_version: td_string;
         /** If set to true, old files will automatically be deleted */
-        enable_storage_optimizer?: td_Bool;
+        enable_storage_optimizer: td_Bool;
         /** If set to true, original file names will be ignored. Otherwise, downloaded files will be saved under names as close as possible to the original name */
-        ignore_file_names?: td_Bool;
+        ignore_file_names: td_Bool;
     }
     
     
@@ -72,7 +72,7 @@ namespace TdApi {
     export interface td_authenticationCodeTypeTelegramMessage {
         '@type': 'authenticationCodeTypeTelegramMessage';
         /** Length of the code */
-        length?: td_int32;
+        length: td_int32;
     }
     
     
@@ -80,7 +80,7 @@ namespace TdApi {
     export interface td_authenticationCodeTypeSms {
         '@type': 'authenticationCodeTypeSms';
         /** Length of the code */
-        length?: td_int32;
+        length: td_int32;
     }
     
     
@@ -88,7 +88,7 @@ namespace TdApi {
     export interface td_authenticationCodeTypeCall {
         '@type': 'authenticationCodeTypeCall';
         /** Length of the code */
-        length?: td_int32;
+        length: td_int32;
     }
     
     
@@ -96,7 +96,7 @@ namespace TdApi {
     export interface td_authenticationCodeTypeFlashCall {
         '@type': 'authenticationCodeTypeFlashCall';
         /** Pattern of the phone number from which the call will be made */
-        pattern?: td_string;
+        pattern: td_string;
     }
     
     
@@ -104,13 +104,13 @@ namespace TdApi {
     export interface td_authenticationCodeInfo {
         '@type': 'authenticationCodeInfo';
         /** A phone number that is being authenticated */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** Describes the way the code was sent to the user */
-        type?: td_AuthenticationCodeType;
+        type: td_AuthenticationCodeType;
         /** Describes the way the next code will be sent to the user; may be null */
         next_type?: td_AuthenticationCodeType;
         /** Timeout before the code can be re-sent, in seconds */
-        timeout?: td_int32;
+        timeout: td_int32;
     }
     
     
@@ -118,9 +118,9 @@ namespace TdApi {
     export interface td_emailAddressAuthenticationCodeInfo {
         '@type': 'emailAddressAuthenticationCodeInfo';
         /** Pattern of the email address to which an authentication code was sent */
-        email_address_pattern?: td_string;
+        email_address_pattern: td_string;
         /** Length of the code; 0 if unknown */
-        length?: td_int32;
+        length: td_int32;
     }
     
     
@@ -128,11 +128,11 @@ namespace TdApi {
     export interface td_textEntity {
         '@type': 'textEntity';
         /** Offset of the entity, in UTF-16 code units */
-        offset?: td_int32;
+        offset: td_int32;
         /** Length of the entity, in UTF-16 code units */
-        length?: td_int32;
+        length: td_int32;
         /** Type of the entity */
-        type?: td_TextEntityType;
+        type: td_TextEntityType;
     }
     
     
@@ -140,7 +140,7 @@ namespace TdApi {
     export interface td_textEntities {
         '@type': 'textEntities';
         /** List of text entities */
-        entities?: td_vector<td_textEntity>;
+        entities: td_vector<td_textEntity>;
     }
     
     
@@ -148,9 +148,9 @@ namespace TdApi {
     export interface td_formattedText {
         '@type': 'formattedText';
         /** The text */
-        text?: td_string;
+        text: td_string;
         /** Entities contained in the text. Entities can be nested, but must not mutually intersect with each other. -Pre, Code and PreCode entities can't contain other entities. Bold, Italic, Underline and Strikethrough entities can contain and to be contained in all other entities. All other entities can't contain each other */
-        entities?: td_vector<td_textEntity>;
+        entities: td_vector<td_textEntity>;
     }
     
     
@@ -158,11 +158,11 @@ namespace TdApi {
     export interface td_termsOfService {
         '@type': 'termsOfService';
         /** Text of the terms of service */
-        text?: td_formattedText;
+        text: td_formattedText;
         /** The minimum age of a user to be able to accept the terms; 0 if any */
-        min_user_age?: td_int32;
+        min_user_age: td_int32;
         /** True, if a blocking popup with terms of service must be shown to the user */
-        show_popup?: td_Bool;
+        show_popup: td_Bool;
     }
     
     
@@ -176,7 +176,7 @@ namespace TdApi {
     export interface td_authorizationStateWaitEncryptionKey {
         '@type': 'authorizationStateWaitEncryptionKey';
         /** True, if the database is currently encrypted */
-        is_encrypted?: td_Bool;
+        is_encrypted: td_Bool;
     }
     
     
@@ -190,7 +190,7 @@ namespace TdApi {
     export interface td_authorizationStateWaitCode {
         '@type': 'authorizationStateWaitCode';
         /** Information about the authorization code that was sent */
-        code_info?: td_authenticationCodeInfo;
+        code_info: td_authenticationCodeInfo;
     }
     
     
@@ -198,7 +198,7 @@ namespace TdApi {
     export interface td_authorizationStateWaitOtherDeviceConfirmation {
         '@type': 'authorizationStateWaitOtherDeviceConfirmation';
         /** A tg:// URL for the QR code. The link will be updated frequently */
-        link?: td_string;
+        link: td_string;
     }
     
     
@@ -206,7 +206,7 @@ namespace TdApi {
     export interface td_authorizationStateWaitRegistration {
         '@type': 'authorizationStateWaitRegistration';
         /** Telegram terms of service */
-        terms_of_service?: td_termsOfService;
+        terms_of_service: td_termsOfService;
     }
     
     
@@ -214,11 +214,11 @@ namespace TdApi {
     export interface td_authorizationStateWaitPassword {
         '@type': 'authorizationStateWaitPassword';
         /** Hint for the password; may be empty */
-        password_hint?: td_string;
+        password_hint: td_string;
         /** True, if a recovery email address has been set up */
-        has_recovery_email_address?: td_Bool;
+        has_recovery_email_address: td_Bool;
         /** Pattern of the email address to which the recovery email was sent; empty until a recovery email has been sent */
-        recovery_email_address_pattern?: td_string;
+        recovery_email_address_pattern: td_string;
     }
     
     
@@ -250,17 +250,17 @@ namespace TdApi {
     export interface td_passwordState {
         '@type': 'passwordState';
         /** True, if a 2-step verification password is set */
-        has_password?: td_Bool;
+        has_password: td_Bool;
         /** Hint for the password; may be empty */
-        password_hint?: td_string;
+        password_hint: td_string;
         /** True, if a recovery email is set */
-        has_recovery_email_address?: td_Bool;
+        has_recovery_email_address: td_Bool;
         /** True, if some Telegram Passport elements were saved */
-        has_passport_data?: td_Bool;
+        has_passport_data: td_Bool;
         /** Information about the recovery email address to which the confirmation email was sent; may be null */
         recovery_email_address_code_info?: td_emailAddressAuthenticationCodeInfo;
         /** If not 0, point in time (Unix timestamp) after which the password can be reset immediately using resetPassword */
-        pending_reset_date?: td_int32;
+        pending_reset_date: td_int32;
     }
     
     
@@ -268,7 +268,7 @@ namespace TdApi {
     export interface td_recoveryEmailAddress {
         '@type': 'recoveryEmailAddress';
         /** Recovery email address */
-        recovery_email_address?: td_string;
+        recovery_email_address: td_string;
     }
     
     
@@ -276,9 +276,9 @@ namespace TdApi {
     export interface td_temporaryPasswordState {
         '@type': 'temporaryPasswordState';
         /** True, if a temporary password is available */
-        has_password?: td_Bool;
+        has_password: td_Bool;
         /** Time left before the temporary password expires, in seconds */
-        valid_for?: td_int32;
+        valid_for: td_int32;
     }
     
     
@@ -286,21 +286,21 @@ namespace TdApi {
     export interface td_localFile {
         '@type': 'localFile';
         /** Local path to the locally available file part; may be empty */
-        path?: td_string;
+        path: td_string;
         /** True, if it is possible to try to download or generate the file */
-        can_be_downloaded?: td_Bool;
+        can_be_downloaded: td_Bool;
         /** True, if the file can be deleted */
-        can_be_deleted?: td_Bool;
+        can_be_deleted: td_Bool;
         /** True, if the file is currently being downloaded (or a local copy is being generated by some other means) */
-        is_downloading_active?: td_Bool;
+        is_downloading_active: td_Bool;
         /** True, if the local copy is fully available */
-        is_downloading_completed?: td_Bool;
+        is_downloading_completed: td_Bool;
         /** Download will be started from this offset. downloaded_prefix_size is calculated from this offset */
-        download_offset?: td_int32;
+        download_offset: td_int32;
         /** If is_downloading_completed is false, then only some prefix of the file starting from download_offset is ready to be read. downloaded_prefix_size is the size of that prefix in bytes */
-        downloaded_prefix_size?: td_int32;
+        downloaded_prefix_size: td_int32;
         /** Total downloaded file size, in bytes. Can be used only for calculating download progress. The actual file size may be bigger, and some parts of it may contain garbage */
-        downloaded_size?: td_int32;
+        downloaded_size: td_int32;
     }
     
     
@@ -308,15 +308,15 @@ namespace TdApi {
     export interface td_remoteFile {
         '@type': 'remoteFile';
         /** Remote file identifier; may be empty. Can be used by the current user across application restarts or even from other devices. Uniquely identifies a file, but a file can have a lot of different valid identifiers. -If the ID starts with "http://" or "https://", it represents the HTTP URL of the file. TDLib is currently unable to download files if only their URL is known. -If downloadFile is called on such a file or if it is sent to a secret chat, TDLib starts a file generation process by sending updateFileGenerationStart to the application with the HTTP URL in the original_path and "#url#" as the conversion string. Application must generate the file by downloading it to the specified location */
-        id?: td_string;
+        id: td_string;
         /** Unique file identifier; may be empty if unknown. The unique file identifier which is the same for the same file even for different users and is persistent over time */
-        unique_id?: td_string;
+        unique_id: td_string;
         /** True, if the file is currently being uploaded (or a remote copy is being generated by some other means) */
-        is_uploading_active?: td_Bool;
+        is_uploading_active: td_Bool;
         /** True, if a remote copy is fully available */
-        is_uploading_completed?: td_Bool;
+        is_uploading_completed: td_Bool;
         /** Size of the remote available part of the file, in bytes; 0 if unknown */
-        uploaded_size?: td_int32;
+        uploaded_size: td_int32;
     }
     
     
@@ -324,15 +324,15 @@ namespace TdApi {
     export interface td_file {
         '@type': 'file';
         /** Unique file identifier */
-        id?: td_int32;
+        id: td_int32;
         /** File size, in bytes; 0 if unknown */
-        size?: td_int32;
+        size: td_int32;
         /** Approximate file size in bytes in case the exact file size is unknown. Can be used to show download/upload progress */
-        expected_size?: td_int32;
+        expected_size: td_int32;
         /** Information about the local copy of the file */
-        local?: td_localFile;
+        local: td_localFile;
         /** Information about the remote copy of the file */
-        remote?: td_remoteFile;
+        remote: td_remoteFile;
     }
     
     
@@ -340,7 +340,7 @@ namespace TdApi {
     export interface td_inputFileId {
         '@type': 'inputFileId';
         /** Unique file identifier */
-        id?: td_int32;
+        id: td_int32;
     }
     
     
@@ -348,7 +348,7 @@ namespace TdApi {
     export interface td_inputFileRemote {
         '@type': 'inputFileRemote';
         /** Remote file identifier */
-        id?: td_string;
+        id: td_string;
     }
     
     
@@ -356,7 +356,7 @@ namespace TdApi {
     export interface td_inputFileLocal {
         '@type': 'inputFileLocal';
         /** Local path to the file */
-        path?: td_string;
+        path: td_string;
     }
     
     
@@ -364,11 +364,11 @@ namespace TdApi {
     export interface td_inputFileGenerated {
         '@type': 'inputFileGenerated';
         /** Local path to a file from which the file is generated; may be empty if there is no such file */
-        original_path?: td_string;
+        original_path: td_string;
         /** String specifying the conversion applied to the original file; must be persistent across application restarts. Conversions beginning with '#' are reserved for internal TDLib usage */
-        conversion?: td_string;
+        conversion: td_string;
         /** Expected size of the generated file, in bytes; 0 if unknown */
-        expected_size?: td_int32;
+        expected_size: td_int32;
     }
     
     
@@ -376,15 +376,15 @@ namespace TdApi {
     export interface td_photoSize {
         '@type': 'photoSize';
         /** Image type (see https://core.telegram.org/constructor/photoSize) */
-        type?: td_string;
+        type: td_string;
         /** Information about the image file */
-        photo?: td_file;
+        photo: td_file;
         /** Image width */
-        width?: td_int32;
+        width: td_int32;
         /** Image height */
-        height?: td_int32;
+        height: td_int32;
         /** Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image; in bytes */
-        progressive_sizes?: td_vector<td_int32>;
+        progressive_sizes: td_vector<td_int32>;
     }
     
     
@@ -392,11 +392,11 @@ namespace TdApi {
     export interface td_minithumbnail {
         '@type': 'minithumbnail';
         /** Thumbnail width, usually doesn't exceed 40 */
-        width?: td_int32;
+        width: td_int32;
         /** Thumbnail height, usually doesn't exceed 40 */
-        height?: td_int32;
+        height: td_int32;
         /** The thumbnail in JPEG format */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -440,13 +440,13 @@ namespace TdApi {
     export interface td_thumbnail {
         '@type': 'thumbnail';
         /** Thumbnail format */
-        format?: td_ThumbnailFormat;
+        format: td_ThumbnailFormat;
         /** Thumbnail width */
-        width?: td_int32;
+        width: td_int32;
         /** Thumbnail height */
-        height?: td_int32;
+        height: td_int32;
         /** The thumbnail */
-        file?: td_file;
+        file: td_file;
     }
     
     
@@ -478,13 +478,13 @@ namespace TdApi {
     export interface td_maskPosition {
         '@type': 'maskPosition';
         /** Part of the face, relative to which the mask is placed */
-        point?: td_MaskPoint;
+        point: td_MaskPoint;
         /** Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position) */
-        x_shift?: td_double;
+        x_shift: td_double;
         /** Shift by Y-axis measured in heights of the mask scaled to the face size, from top to bottom. (For example, 1.0 will place the mask just below the default mask position) */
-        y_shift?: td_double;
+        y_shift: td_double;
         /** Mask scaling coefficient. (For example, 2.0 means a doubled size) */
-        scale?: td_double;
+        scale: td_double;
     }
     
     
@@ -492,7 +492,7 @@ namespace TdApi {
     export interface td_closedVectorPath {
         '@type': 'closedVectorPath';
         /** List of vector path commands */
-        commands?: td_vector<td_VectorPathCommand>;
+        commands: td_vector<td_VectorPathCommand>;
     }
     
     
@@ -500,15 +500,15 @@ namespace TdApi {
     export interface td_pollOption {
         '@type': 'pollOption';
         /** Option text; 1-100 characters */
-        text?: td_string;
+        text: td_string;
         /** Number of voters for this option, available only for closed or voted polls */
-        voter_count?: td_int32;
+        voter_count: td_int32;
         /** The percentage of votes for this option; 0-100 */
-        vote_percentage?: td_int32;
+        vote_percentage: td_int32;
         /** True, if the option was chosen by the user */
-        is_chosen?: td_Bool;
+        is_chosen: td_Bool;
         /** True, if the option is being chosen by a pending setPollAnswer request */
-        is_being_chosen?: td_Bool;
+        is_being_chosen: td_Bool;
     }
     
     
@@ -516,7 +516,7 @@ namespace TdApi {
     export interface td_pollTypeRegular {
         '@type': 'pollTypeRegular';
         /** True, if multiple answer options can be chosen simultaneously */
-        allow_multiple_answers?: td_Bool;
+        allow_multiple_answers: td_Bool;
     }
     
     
@@ -524,9 +524,9 @@ namespace TdApi {
     export interface td_pollTypeQuiz {
         '@type': 'pollTypeQuiz';
         /** 0-based identifier of the correct answer option; -1 for a yet unanswered poll */
-        correct_option_id?: td_int32;
+        correct_option_id: td_int32;
         /** Text that is shown when the user chooses an incorrect answer or taps on the lamp icon; 0-200 characters with at most 2 line feeds; empty for a yet unanswered poll */
-        explanation?: td_formattedText;
+        explanation: td_formattedText;
     }
     
     
@@ -534,23 +534,23 @@ namespace TdApi {
     export interface td_animation {
         '@type': 'animation';
         /** Duration of the animation, in seconds; as defined by the sender */
-        duration?: td_int32;
+        duration: td_int32;
         /** Width of the animation */
-        width?: td_int32;
+        width: td_int32;
         /** Height of the animation */
-        height?: td_int32;
+        height: td_int32;
         /** Original name of the file; as defined by the sender */
-        file_name?: td_string;
+        file_name: td_string;
         /** MIME type of the file, usually "image/gif" or "video/mp4" */
-        mime_type?: td_string;
+        mime_type: td_string;
         /** True, if stickers were added to the animation. The list of corresponding sticker set can be received using getAttachedStickerSets */
-        has_stickers?: td_Bool;
+        has_stickers: td_Bool;
         /** Animation minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** Animation thumbnail in JPEG or MPEG4 format; may be null */
         thumbnail?: td_thumbnail;
         /** File containing the animation */
-        animation?: td_file;
+        animation: td_file;
     }
     
     
@@ -558,21 +558,21 @@ namespace TdApi {
     export interface td_audio {
         '@type': 'audio';
         /** Duration of the audio, in seconds; as defined by the sender */
-        duration?: td_int32;
+        duration: td_int32;
         /** Title of the audio; as defined by the sender */
-        title?: td_string;
+        title: td_string;
         /** Performer of the audio; as defined by the sender */
-        performer?: td_string;
+        performer: td_string;
         /** Original name of the file; as defined by the sender */
-        file_name?: td_string;
+        file_name: td_string;
         /** The MIME type of the file; as defined by the sender */
-        mime_type?: td_string;
+        mime_type: td_string;
         /** The minithumbnail of the album cover; may be null */
         album_cover_minithumbnail?: td_minithumbnail;
         /** The thumbnail of the album cover in JPEG format; as defined by the sender. The full size thumbnail is supposed to be extracted from the downloaded file; may be null */
         album_cover_thumbnail?: td_thumbnail;
         /** File containing the audio */
-        audio?: td_file;
+        audio: td_file;
     }
     
     
@@ -580,15 +580,15 @@ namespace TdApi {
     export interface td_document {
         '@type': 'document';
         /** Original name of the file; as defined by the sender */
-        file_name?: td_string;
+        file_name: td_string;
         /** MIME type of the file; as defined by the sender */
-        mime_type?: td_string;
+        mime_type: td_string;
         /** Document minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** Document thumbnail in JPEG or PNG format (PNG will be used only for background patterns); as defined by the sender; may be null */
         thumbnail?: td_thumbnail;
         /** File containing the document */
-        document?: td_file;
+        document: td_file;
     }
     
     
@@ -596,11 +596,11 @@ namespace TdApi {
     export interface td_photo {
         '@type': 'photo';
         /** True, if stickers were added to the photo. The list of corresponding sticker sets can be received using getAttachedStickerSets */
-        has_stickers?: td_Bool;
+        has_stickers: td_Bool;
         /** Photo minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** Available variants of the photo, in different sizes */
-        sizes?: td_vector<td_photoSize>;
+        sizes: td_vector<td_photoSize>;
     }
     
     
@@ -608,25 +608,25 @@ namespace TdApi {
     export interface td_sticker {
         '@type': 'sticker';
         /** The identifier of the sticker set to which the sticker belongs; 0 if none */
-        set_id?: td_int64;
+        set_id: td_int64;
         /** Sticker width; as defined by the sender */
-        width?: td_int32;
+        width: td_int32;
         /** Sticker height; as defined by the sender */
-        height?: td_int32;
+        height: td_int32;
         /** Emoji corresponding to the sticker */
-        emoji?: td_string;
+        emoji: td_string;
         /** True, if the sticker is an animated sticker in TGS format */
-        is_animated?: td_Bool;
+        is_animated: td_Bool;
         /** True, if the sticker is a mask */
-        is_mask?: td_Bool;
+        is_mask: td_Bool;
         /** Position where the mask is placed; may be null */
         mask_position?: td_maskPosition;
         /** Sticker's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner */
-        outline?: td_vector<td_closedVectorPath>;
+        outline: td_vector<td_closedVectorPath>;
         /** Sticker thumbnail in WEBP or JPEG format; may be null */
         thumbnail?: td_thumbnail;
         /** File containing the sticker */
-        sticker?: td_file;
+        sticker: td_file;
     }
     
     
@@ -634,25 +634,25 @@ namespace TdApi {
     export interface td_video {
         '@type': 'video';
         /** Duration of the video, in seconds; as defined by the sender */
-        duration?: td_int32;
+        duration: td_int32;
         /** Video width; as defined by the sender */
-        width?: td_int32;
+        width: td_int32;
         /** Video height; as defined by the sender */
-        height?: td_int32;
+        height: td_int32;
         /** Original name of the file; as defined by the sender */
-        file_name?: td_string;
+        file_name: td_string;
         /** MIME type of the file; as defined by the sender */
-        mime_type?: td_string;
+        mime_type: td_string;
         /** True, if stickers were added to the video. The list of corresponding sticker sets can be received using getAttachedStickerSets */
-        has_stickers?: td_Bool;
+        has_stickers: td_Bool;
         /** True, if the video is supposed to be streamed */
-        supports_streaming?: td_Bool;
+        supports_streaming: td_Bool;
         /** Video minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** Video thumbnail in JPEG or MPEG4 format; as defined by the sender; may be null */
         thumbnail?: td_thumbnail;
         /** File containing the video */
-        video?: td_file;
+        video: td_file;
     }
     
     
@@ -660,15 +660,15 @@ namespace TdApi {
     export interface td_videoNote {
         '@type': 'videoNote';
         /** Duration of the video, in seconds; as defined by the sender */
-        duration?: td_int32;
+        duration: td_int32;
         /** Video width and height; as defined by the sender */
-        length?: td_int32;
+        length: td_int32;
         /** Video minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** Video thumbnail in JPEG format; as defined by the sender; may be null */
         thumbnail?: td_thumbnail;
         /** File containing the video */
-        video?: td_file;
+        video: td_file;
     }
     
     
@@ -676,13 +676,13 @@ namespace TdApi {
     export interface td_voiceNote {
         '@type': 'voiceNote';
         /** Duration of the voice note, in seconds; as defined by the sender */
-        duration?: td_int32;
+        duration: td_int32;
         /** A waveform representation of the voice note in 5-bit format */
-        waveform?: td_bytes;
+        waveform: td_bytes;
         /** MIME type of the file; as defined by the sender */
-        mime_type?: td_string;
+        mime_type: td_string;
         /** File containing the voice note */
-        voice?: td_file;
+        voice: td_file;
     }
     
     
@@ -690,15 +690,15 @@ namespace TdApi {
     export interface td_contact {
         '@type': 'contact';
         /** Phone number of the user */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** First name of the user; 1-255 characters in length */
-        first_name?: td_string;
+        first_name: td_string;
         /** Last name of the user */
-        last_name?: td_string;
+        last_name: td_string;
         /** Additional data about the user in a form of vCard; 0-2048 bytes in length */
-        vcard?: td_string;
+        vcard: td_string;
         /** Identifier of the user, if known; otherwise 0 */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -706,11 +706,11 @@ namespace TdApi {
     export interface td_location {
         '@type': 'location';
         /** Latitude of the location in degrees; as defined by the sender */
-        latitude?: td_double;
+        latitude: td_double;
         /** Longitude of the location, in degrees; as defined by the sender */
-        longitude?: td_double;
+        longitude: td_double;
         /** The estimated horizontal accuracy of the location, in meters; as defined by the sender. 0 if unknown */
-        horizontal_accuracy?: td_double;
+        horizontal_accuracy: td_double;
     }
     
     
@@ -718,17 +718,17 @@ namespace TdApi {
     export interface td_venue {
         '@type': 'venue';
         /** Venue location; as defined by the sender */
-        location?: td_location;
+        location: td_location;
         /** Venue name; as defined by the sender */
-        title?: td_string;
+        title: td_string;
         /** Venue address; as defined by the sender */
-        address?: td_string;
+        address: td_string;
         /** Provider of the venue database; as defined by the sender. Currently only "foursquare" and "gplaces" (Google Places) need to be supported */
-        provider?: td_string;
+        provider: td_string;
         /** Identifier of the venue in the provider database; as defined by the sender */
-        id?: td_string;
+        id: td_string;
         /** Type of the venue in the provider database; as defined by the sender */
-        type?: td_string;
+        type: td_string;
     }
     
     
@@ -736,17 +736,17 @@ namespace TdApi {
     export interface td_game {
         '@type': 'game';
         /** Game ID */
-        id?: td_int64;
+        id: td_int64;
         /** Game short name. To share a game use the URL https://t.me/{bot_username}?game={game_short_name} */
-        short_name?: td_string;
+        short_name: td_string;
         /** Game title */
-        title?: td_string;
+        title: td_string;
         /** Game text, usually containing scoreboards for a game */
-        text?: td_formattedText;
+        text: td_formattedText;
         /** Describes a game */
-        description?: td_string;
+        description: td_string;
         /** Game photo */
-        photo?: td_photo;
+        photo: td_photo;
         /** Game animation; may be null */
         animation?: td_animation;
     }
@@ -756,25 +756,25 @@ namespace TdApi {
     export interface td_poll {
         '@type': 'poll';
         /** Unique poll identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Poll question; 1-300 characters */
-        question?: td_string;
+        question: td_string;
         /** List of poll answer options */
-        options?: td_vector<td_pollOption>;
+        options: td_vector<td_pollOption>;
         /** Total number of voters, participating in the poll */
-        total_voter_count?: td_int32;
+        total_voter_count: td_int32;
         /** User identifiers of recent voters, if the poll is non-anonymous */
-        recent_voter_user_ids?: td_vector<td_int53>;
+        recent_voter_user_ids: td_vector<td_int53>;
         /** True, if the poll is anonymous */
-        is_anonymous?: td_Bool;
+        is_anonymous: td_Bool;
         /** Type of the poll */
-        type?: td_PollType;
+        type: td_PollType;
         /** Amount of time the poll will be active after creation, in seconds */
-        open_period?: td_int32;
+        open_period: td_int32;
         /** Point in time (Unix timestamp) when the poll will be automatically closed */
-        close_date?: td_int32;
+        close_date: td_int32;
         /** True, if the poll is closed */
-        is_closed?: td_Bool;
+        is_closed: td_Bool;
     }
     
     
@@ -782,15 +782,15 @@ namespace TdApi {
     export interface td_profilePhoto {
         '@type': 'profilePhoto';
         /** Photo identifier; 0 for an empty photo. Can be used to find a photo in a list of user profile photos */
-        id?: td_int64;
+        id: td_int64;
         /** A small (160x160) user profile photo. The file can be downloaded only before the photo is changed */
-        small?: td_file;
+        small: td_file;
         /** A big (640x640) user profile photo. The file can be downloaded only before the photo is changed */
-        big?: td_file;
+        big: td_file;
         /** User profile photo minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** True, if the photo has animated variant */
-        has_animation?: td_Bool;
+        has_animation: td_Bool;
     }
     
     
@@ -798,13 +798,13 @@ namespace TdApi {
     export interface td_chatPhotoInfo {
         '@type': 'chatPhotoInfo';
         /** A small (160x160) chat photo variant in JPEG format. The file can be downloaded only before the photo is changed */
-        small?: td_file;
+        small: td_file;
         /** A big (640x640) chat photo variant in JPEG format. The file can be downloaded only before the photo is changed */
-        big?: td_file;
+        big: td_file;
         /** Chat photo minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** True, if the photo has animated variant */
-        has_animation?: td_Bool;
+        has_animation: td_Bool;
     }
     
     
@@ -824,15 +824,15 @@ namespace TdApi {
     export interface td_userTypeBot {
         '@type': 'userTypeBot';
         /** True, if the bot can be invited to basic group and supergroup chats */
-        can_join_groups?: td_Bool;
+        can_join_groups: td_Bool;
         /** True, if the bot can read all messages in basic group or supergroup chats and not just those addressed to the bot. In private and channel chats a bot can always read all messages */
-        can_read_all_group_messages?: td_Bool;
+        can_read_all_group_messages: td_Bool;
         /** True, if the bot supports inline queries */
-        is_inline?: td_Bool;
+        is_inline: td_Bool;
         /** Placeholder for inline queries (displayed on the application input field) */
-        inline_query_placeholder?: td_string;
+        inline_query_placeholder: td_string;
         /** True, if the location of the user is expected to be sent with every inline query to this bot */
-        need_location?: td_Bool;
+        need_location: td_Bool;
     }
     
     
@@ -846,9 +846,9 @@ namespace TdApi {
     export interface td_botCommand {
         '@type': 'botCommand';
         /** Text of the bot command */
-        command?: td_string;
+        command: td_string;
         /** Represents a command supported by a bot */
-        description?: td_string;
+        description: td_string;
     }
     
     
@@ -856,9 +856,9 @@ namespace TdApi {
     export interface td_botCommands {
         '@type': 'botCommands';
         /** Bot's user identifier */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** List of bot commands */
-        commands?: td_vector<td_botCommand>;
+        commands: td_vector<td_botCommand>;
     }
     
     
@@ -866,9 +866,9 @@ namespace TdApi {
     export interface td_chatLocation {
         '@type': 'chatLocation';
         /** The location */
-        location?: td_location;
+        location: td_location;
         /** Location address; 1-64 characters, as defined by the chat owner */
-        address?: td_string;
+        address: td_string;
     }
     
     
@@ -876,11 +876,11 @@ namespace TdApi {
     export interface td_animatedChatPhoto {
         '@type': 'animatedChatPhoto';
         /** Animation width and height */
-        length?: td_int32;
+        length: td_int32;
         /** Information about the animation file */
-        file?: td_file;
+        file: td_file;
         /** Timestamp of the frame, used as a static chat photo */
-        main_frame_timestamp?: td_double;
+        main_frame_timestamp: td_double;
     }
     
     
@@ -888,13 +888,13 @@ namespace TdApi {
     export interface td_chatPhoto {
         '@type': 'chatPhoto';
         /** Unique photo identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Point in time (Unix timestamp) when the photo has been added */
-        added_date?: td_int32;
+        added_date: td_int32;
         /** Photo minithumbnail; may be null */
         minithumbnail?: td_minithumbnail;
         /** Available variants of the photo in JPEG format, in different size */
-        sizes?: td_vector<td_photoSize>;
+        sizes: td_vector<td_photoSize>;
         /** Animated variant of the photo in MPEG4 format; may be null */
         animation?: td_animatedChatPhoto;
     }
@@ -904,9 +904,9 @@ namespace TdApi {
     export interface td_chatPhotos {
         '@type': 'chatPhotos';
         /** Total number of photos */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of photos */
-        photos?: td_vector<td_chatPhoto>;
+        photos: td_vector<td_chatPhoto>;
     }
     
     
@@ -914,7 +914,7 @@ namespace TdApi {
     export interface td_inputChatPhotoPrevious {
         '@type': 'inputChatPhotoPrevious';
         /** Identifier of the current user's profile photo to reuse */
-        chat_photo_id?: td_int64;
+        chat_photo_id: td_int64;
     }
     
     
@@ -922,7 +922,7 @@ namespace TdApi {
     export interface td_inputChatPhotoStatic {
         '@type': 'inputChatPhotoStatic';
         /** Photo to be set as profile photo. Only inputFileLocal and inputFileGenerated are allowed */
-        photo?: td_InputFile;
+        photo: td_InputFile;
     }
     
     
@@ -930,9 +930,9 @@ namespace TdApi {
     export interface td_inputChatPhotoAnimation {
         '@type': 'inputChatPhotoAnimation';
         /** Animation to be set as profile photo. Only inputFileLocal and inputFileGenerated are allowed */
-        animation?: td_InputFile;
+        animation: td_InputFile;
         /** Timestamp of the frame, which will be used as static chat photo */
-        main_frame_timestamp?: td_double;
+        main_frame_timestamp: td_double;
     }
     
     
@@ -940,39 +940,39 @@ namespace TdApi {
     export interface td_user {
         '@type': 'user';
         /** User identifier */
-        id?: td_int53;
+        id: td_int53;
         /** First name of the user */
-        first_name?: td_string;
+        first_name: td_string;
         /** Last name of the user */
-        last_name?: td_string;
+        last_name: td_string;
         /** Username of the user */
-        username?: td_string;
+        username: td_string;
         /** Phone number of the user */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** Current online status of the user */
-        status?: td_UserStatus;
+        status: td_UserStatus;
         /** Profile photo of the user; may be null */
         profile_photo?: td_profilePhoto;
         /** The user is a contact of the current user */
-        is_contact?: td_Bool;
+        is_contact: td_Bool;
         /** The user is a contact of the current user and the current user is a contact of the user */
-        is_mutual_contact?: td_Bool;
+        is_mutual_contact: td_Bool;
         /** True, if the user is verified */
-        is_verified?: td_Bool;
+        is_verified: td_Bool;
         /** True, if the user is Telegram support account */
-        is_support?: td_Bool;
+        is_support: td_Bool;
         /** If non-empty, it contains a human-readable description of the reason why access to this user must be restricted */
-        restriction_reason?: td_string;
+        restriction_reason: td_string;
         /** True, if many users reported this user as a scam */
-        is_scam?: td_Bool;
+        is_scam: td_Bool;
         /** True, if many users reported this user as a fake account */
-        is_fake?: td_Bool;
+        is_fake: td_Bool;
         /** If false, the user is inaccessible, and the only information known about the user is inside this class. It can't be passed to any method except GetUser */
-        have_access?: td_Bool;
+        have_access: td_Bool;
         /** Type of the user */
-        type?: td_UserType;
+        type: td_UserType;
         /** IETF language tag of the user's language; only available to bots */
-        language_code?: td_string;
+        language_code: td_string;
     }
     
     
@@ -982,25 +982,25 @@ namespace TdApi {
         /** User profile photo; may be null */
         photo?: td_chatPhoto;
         /** True, if the user is blocked by the current user */
-        is_blocked?: td_Bool;
+        is_blocked: td_Bool;
         /** True, if the user can be called */
-        can_be_called?: td_Bool;
+        can_be_called: td_Bool;
         /** True, if a video call can be created with the user */
-        supports_video_calls?: td_Bool;
+        supports_video_calls: td_Bool;
         /** True, if the user can't be called due to their privacy settings */
-        has_private_calls?: td_Bool;
+        has_private_calls: td_Bool;
         /** True, if the current user needs to explicitly allow to share their phone number with the user when the method addContact is used */
-        need_phone_number_privacy_exception?: td_Bool;
+        need_phone_number_privacy_exception: td_Bool;
         /** A short user bio */
-        bio?: td_string;
+        bio: td_string;
         /** For bots, the text that is shown on the bot's profile page and is sent together with the link when users share the bot */
-        share_text?: td_string;
+        share_text: td_string;
         /** Contains full information about a user */
-        description?: td_string;
+        description: td_string;
         /** Number of group chats where both the other user and the current user are a member; 0 for the current user */
-        group_in_common_count?: td_int32;
+        group_in_common_count: td_int32;
         /** For bots, list of the bot commands */
-        commands?: td_vector<td_botCommand>;
+        commands: td_vector<td_botCommand>;
     }
     
     
@@ -1008,9 +1008,9 @@ namespace TdApi {
     export interface td_users {
         '@type': 'users';
         /** Approximate total count of users found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** A list of user identifiers */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -1018,11 +1018,11 @@ namespace TdApi {
     export interface td_chatAdministrator {
         '@type': 'chatAdministrator';
         /** User identifier of the administrator */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Custom title of the administrator */
-        custom_title?: td_string;
+        custom_title: td_string;
         /** True, if the user is the owner of the chat */
-        is_owner?: td_Bool;
+        is_owner: td_Bool;
     }
     
     
@@ -1030,7 +1030,7 @@ namespace TdApi {
     export interface td_chatAdministrators {
         '@type': 'chatAdministrators';
         /** A list of chat administrators */
-        administrators?: td_vector<td_chatAdministrator>;
+        administrators: td_vector<td_chatAdministrator>;
     }
     
     
@@ -1038,21 +1038,21 @@ namespace TdApi {
     export interface td_chatPermissions {
         '@type': 'chatPermissions';
         /** True, if the user can send text messages, contacts, locations, and venues */
-        can_send_messages?: td_Bool;
+        can_send_messages: td_Bool;
         /** True, if the user can send audio files, documents, photos, videos, video notes, and voice notes. Implies can_send_messages permissions */
-        can_send_media_messages?: td_Bool;
+        can_send_media_messages: td_Bool;
         /** True, if the user can send polls. Implies can_send_messages permissions */
-        can_send_polls?: td_Bool;
+        can_send_polls: td_Bool;
         /** True, if the user can send animations, games, stickers, and dice and use inline bots. Implies can_send_messages permissions */
-        can_send_other_messages?: td_Bool;
+        can_send_other_messages: td_Bool;
         /** True, if the user may add a web page preview to their messages. Implies can_send_messages permissions */
-        can_add_web_page_previews?: td_Bool;
+        can_add_web_page_previews: td_Bool;
         /** True, if the user can change the chat title, photo, and other settings */
-        can_change_info?: td_Bool;
+        can_change_info: td_Bool;
         /** True, if the user can invite new users to the chat */
-        can_invite_users?: td_Bool;
+        can_invite_users: td_Bool;
         /** True, if the user can pin messages */
-        can_pin_messages?: td_Bool;
+        can_pin_messages: td_Bool;
     }
     
     
@@ -1060,11 +1060,11 @@ namespace TdApi {
     export interface td_chatMemberStatusCreator {
         '@type': 'chatMemberStatusCreator';
         /** A custom title of the owner; 0-16 characters without emojis; applicable to supergroups only */
-        custom_title?: td_string;
+        custom_title: td_string;
         /** True, if the creator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only */
-        is_anonymous?: td_Bool;
+        is_anonymous: td_Bool;
         /** True, if the user is a member of the chat */
-        is_member?: td_Bool;
+        is_member: td_Bool;
     }
     
     
@@ -1072,31 +1072,31 @@ namespace TdApi {
     export interface td_chatMemberStatusAdministrator {
         '@type': 'chatMemberStatusAdministrator';
         /** A custom title of the administrator; 0-16 characters without emojis; applicable to supergroups only */
-        custom_title?: td_string;
+        custom_title: td_string;
         /** True, if the current user can edit the administrator privileges for the called user */
-        can_be_edited?: td_Bool;
+        can_be_edited: td_Bool;
         /** True, if the administrator can get chat event log, get chat statistics, get message statistics in channels, get channel members, see anonymous administrators in supergroups and ignore slow mode. Implied by any other privilege; applicable to supergroups and channels only */
-        can_manage_chat?: td_Bool;
+        can_manage_chat: td_Bool;
         /** True, if the administrator can change the chat title, photo, and other settings */
-        can_change_info?: td_Bool;
+        can_change_info: td_Bool;
         /** True, if the administrator can create channel posts; applicable to channels only */
-        can_post_messages?: td_Bool;
+        can_post_messages: td_Bool;
         /** True, if the administrator can edit messages of other users and pin messages; applicable to channels only */
-        can_edit_messages?: td_Bool;
+        can_edit_messages: td_Bool;
         /** True, if the administrator can delete messages of other users */
-        can_delete_messages?: td_Bool;
+        can_delete_messages: td_Bool;
         /** True, if the administrator can invite new users to the chat */
-        can_invite_users?: td_Bool;
+        can_invite_users: td_Bool;
         /** True, if the administrator can restrict, ban, or unban chat members; always true for channels */
-        can_restrict_members?: td_Bool;
+        can_restrict_members: td_Bool;
         /** True, if the administrator can pin messages; applicable to basic groups and supergroups only */
-        can_pin_messages?: td_Bool;
+        can_pin_messages: td_Bool;
         /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them */
-        can_promote_members?: td_Bool;
+        can_promote_members: td_Bool;
         /** True, if the administrator can manage voice chats */
-        can_manage_voice_chats?: td_Bool;
+        can_manage_voice_chats: td_Bool;
         /** True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only */
-        is_anonymous?: td_Bool;
+        is_anonymous: td_Bool;
     }
     
     
@@ -1110,11 +1110,11 @@ namespace TdApi {
     export interface td_chatMemberStatusRestricted {
         '@type': 'chatMemberStatusRestricted';
         /** True, if the user is a member of the chat */
-        is_member?: td_Bool;
+        is_member: td_Bool;
         /** Point in time (Unix timestamp) when restrictions will be lifted from the user; 0 if never. If the user is restricted for more than 366 days or for less than 30 seconds from the current time, the user is considered to be restricted forever */
-        restricted_until_date?: td_int32;
+        restricted_until_date: td_int32;
         /** User permissions in the chat */
-        permissions?: td_chatPermissions;
+        permissions: td_chatPermissions;
     }
     
     
@@ -1128,7 +1128,7 @@ namespace TdApi {
     export interface td_chatMemberStatusBanned {
         '@type': 'chatMemberStatusBanned';
         /** Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Always 0 in basic groups */
-        banned_until_date?: td_int32;
+        banned_until_date: td_int32;
     }
     
     
@@ -1136,13 +1136,13 @@ namespace TdApi {
     export interface td_chatMember {
         '@type': 'chatMember';
         /** Identifier of the chat member. Currently, other chats can be only Left or Banned. Only supergroups and channels can have other chats as Left or Banned members and these chats must be supergroups or channels */
-        member_id?: td_MessageSender;
+        member_id: td_MessageSender;
         /** Identifier of a user that invited/promoted/banned this member in the chat; 0 if unknown */
-        inviter_user_id?: td_int53;
+        inviter_user_id: td_int53;
         /** Point in time (Unix timestamp) when the user joined the chat */
-        joined_chat_date?: td_int32;
+        joined_chat_date: td_int32;
         /** Status of the member in the chat */
-        status?: td_ChatMemberStatus;
+        status: td_ChatMemberStatus;
     }
     
     
@@ -1150,9 +1150,9 @@ namespace TdApi {
     export interface td_chatMembers {
         '@type': 'chatMembers';
         /** Approximate total count of chat members found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** A list of chat members */
-        members?: td_vector<td_chatMember>;
+        members: td_vector<td_chatMember>;
     }
     
     
@@ -1178,7 +1178,7 @@ namespace TdApi {
     export interface td_chatMembersFilterMention {
         '@type': 'chatMembersFilterMention';
         /** If non-zero, the identifier of the current message thread */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
     }
     
     
@@ -1210,7 +1210,7 @@ namespace TdApi {
     export interface td_supergroupMembersFilterContacts {
         '@type': 'supergroupMembersFilterContacts';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
     }
     
     
@@ -1224,7 +1224,7 @@ namespace TdApi {
     export interface td_supergroupMembersFilterSearch {
         '@type': 'supergroupMembersFilterSearch';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
     }
     
     
@@ -1232,7 +1232,7 @@ namespace TdApi {
     export interface td_supergroupMembersFilterRestricted {
         '@type': 'supergroupMembersFilterRestricted';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
     }
     
     
@@ -1240,7 +1240,7 @@ namespace TdApi {
     export interface td_supergroupMembersFilterBanned {
         '@type': 'supergroupMembersFilterBanned';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
     }
     
     
@@ -1248,9 +1248,9 @@ namespace TdApi {
     export interface td_supergroupMembersFilterMention {
         '@type': 'supergroupMembersFilterMention';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
         /** If non-zero, the identifier of the current message thread */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
     }
     
     
@@ -1264,23 +1264,23 @@ namespace TdApi {
     export interface td_chatInviteLink {
         '@type': 'chatInviteLink';
         /** Chat invite link */
-        invite_link?: td_string;
+        invite_link: td_string;
         /** User identifier of an administrator created the link */
-        creator_user_id?: td_int53;
+        creator_user_id: td_int53;
         /** Point in time (Unix timestamp) when the link was created */
-        date?: td_int32;
+        date: td_int32;
         /** Point in time (Unix timestamp) when the link was last edited; 0 if never or unknown */
-        edit_date?: td_int32;
+        edit_date: td_int32;
         /** Point in time (Unix timestamp) when the link will expire; 0 if never */
-        expire_date?: td_int32;
+        expire_date: td_int32;
         /** The maximum number of members, which can join the chat using the link simultaneously; 0 if not limited */
-        member_limit?: td_int32;
+        member_limit: td_int32;
         /** Number of chat members, which joined the chat using the link */
-        member_count?: td_int32;
+        member_count: td_int32;
         /** True, if the link is primary. Primary invite link can't have expire date or usage limit. There is exactly one primary invite link for each administrator with can_invite_users right at a given time */
-        is_primary?: td_Bool;
+        is_primary: td_Bool;
         /** True, if the link was revoked */
-        is_revoked?: td_Bool;
+        is_revoked: td_Bool;
     }
     
     
@@ -1288,9 +1288,9 @@ namespace TdApi {
     export interface td_chatInviteLinks {
         '@type': 'chatInviteLinks';
         /** Approximate total count of chat invite links found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of invite links */
-        invite_links?: td_vector<td_chatInviteLink>;
+        invite_links: td_vector<td_chatInviteLink>;
     }
     
     
@@ -1298,11 +1298,11 @@ namespace TdApi {
     export interface td_chatInviteLinkCount {
         '@type': 'chatInviteLinkCount';
         /** Administrator's user identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Number of active invite links */
-        invite_link_count?: td_int32;
+        invite_link_count: td_int32;
         /** Number of revoked invite links */
-        revoked_invite_link_count?: td_int32;
+        revoked_invite_link_count: td_int32;
     }
     
     
@@ -1310,7 +1310,7 @@ namespace TdApi {
     export interface td_chatInviteLinkCounts {
         '@type': 'chatInviteLinkCounts';
         /** List of invite linkcounts */
-        invite_link_counts?: td_vector<td_chatInviteLinkCount>;
+        invite_link_counts: td_vector<td_chatInviteLinkCount>;
     }
     
     
@@ -1318,9 +1318,9 @@ namespace TdApi {
     export interface td_chatInviteLinkMember {
         '@type': 'chatInviteLinkMember';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Point in time (Unix timestamp) when the user joined the chat */
-        joined_chat_date?: td_int32;
+        joined_chat_date: td_int32;
     }
     
     
@@ -1328,9 +1328,9 @@ namespace TdApi {
     export interface td_chatInviteLinkMembers {
         '@type': 'chatInviteLinkMembers';
         /** Approximate total count of chat members found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of chat members, joined a chat by an invite link */
-        members?: td_vector<td_chatInviteLinkMember>;
+        members: td_vector<td_chatInviteLinkMember>;
     }
     
     
@@ -1338,21 +1338,21 @@ namespace TdApi {
     export interface td_chatInviteLinkInfo {
         '@type': 'chatInviteLinkInfo';
         /** Chat identifier of the invite link; 0 if the user has no access to the chat before joining */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If non-zero, the amount of time for which read access to the chat will remain available, in seconds */
-        accessible_for?: td_int32;
+        accessible_for: td_int32;
         /** Contains information about the type of the chat */
-        type?: td_ChatType;
+        type: td_ChatType;
         /** Title of the chat */
-        title?: td_string;
+        title: td_string;
         /** Chat photo; may be null */
         photo?: td_chatPhotoInfo;
         /** Number of members in the chat */
-        member_count?: td_int32;
+        member_count: td_int32;
         /** User identifiers of some chat members that may be known to the current user */
-        member_user_ids?: td_vector<td_int53>;
+        member_user_ids: td_vector<td_int53>;
         /** True, if the chat is a public supergroup or channel, i.e. it has a username or it is a location-based supergroup */
-        is_public?: td_Bool;
+        is_public: td_Bool;
     }
     
     
@@ -1360,15 +1360,15 @@ namespace TdApi {
     export interface td_basicGroup {
         '@type': 'basicGroup';
         /** Group identifier */
-        id?: td_int53;
+        id: td_int53;
         /** Number of members in the group */
-        member_count?: td_int32;
+        member_count: td_int32;
         /** Status of the current user in the group */
-        status?: td_ChatMemberStatus;
+        status: td_ChatMemberStatus;
         /** True, if the group is active */
-        is_active?: td_Bool;
+        is_active: td_Bool;
         /** Identifier of the supergroup to which this group was upgraded; 0 if none */
-        upgraded_to_supergroup_id?: td_int53;
+        upgraded_to_supergroup_id: td_int53;
     }
     
     
@@ -1378,15 +1378,15 @@ namespace TdApi {
         /** Chat photo; may be null */
         photo?: td_chatPhoto;
         /** Contains full information about a basic group */
-        description?: td_string;
+        description: td_string;
         /** User identifier of the creator of the group; 0 if unknown */
-        creator_user_id?: td_int53;
+        creator_user_id: td_int53;
         /** Group members */
-        members?: td_vector<td_chatMember>;
+        members: td_vector<td_chatMember>;
         /** Primary invite link for this group; may be null. For chat administrators with can_invite_users right only. Updated only after the basic group is opened */
         invite_link?: td_chatInviteLink;
         /** List of commands of bots in the group */
-        bot_commands?: td_vector<td_botCommands>;
+        bot_commands: td_vector<td_botCommands>;
     }
     
     
@@ -1394,35 +1394,35 @@ namespace TdApi {
     export interface td_supergroup {
         '@type': 'supergroup';
         /** Supergroup or channel identifier */
-        id?: td_int53;
+        id: td_int53;
         /** Username of the supergroup or channel; empty for private supergroups or channels */
-        username?: td_string;
+        username: td_string;
         /** Point in time (Unix timestamp) when the current user joined, or the point in time when the supergroup or channel was created, in case the user is not a member */
-        date?: td_int32;
+        date: td_int32;
         /** Status of the current user in the supergroup or channel; custom title will be always empty */
-        status?: td_ChatMemberStatus;
+        status: td_ChatMemberStatus;
         /** Number of members in the supergroup or channel; 0 if unknown. Currently it is guaranteed to be known only if the supergroup or channel was received through searchPublicChats, searchChatsNearby, getInactiveSupergroupChats, getSuitableDiscussionChats, getGroupsInCommon, or getUserPrivacySettingRules */
-        member_count?: td_int32;
+        member_count: td_int32;
         /** True, if the channel has a discussion group, or the supergroup is the designated discussion group for a channel */
-        has_linked_chat?: td_Bool;
+        has_linked_chat: td_Bool;
         /** True, if the supergroup is connected to a location, i.e. the supergroup is a location-based supergroup */
-        has_location?: td_Bool;
+        has_location: td_Bool;
         /** True, if messages sent to the channel need to contain information about the sender. This field is only applicable to channels */
-        sign_messages?: td_Bool;
+        sign_messages: td_Bool;
         /** True, if the slow mode is enabled in the supergroup */
-        is_slow_mode_enabled?: td_Bool;
+        is_slow_mode_enabled: td_Bool;
         /** True, if the supergroup is a channel */
-        is_channel?: td_Bool;
+        is_channel: td_Bool;
         /** True, if the supergroup is a broadcast group, i.e. only administrators can send messages and there is no limit on number of members */
-        is_broadcast_group?: td_Bool;
+        is_broadcast_group: td_Bool;
         /** True, if the supergroup or channel is verified */
-        is_verified?: td_Bool;
+        is_verified: td_Bool;
         /** If non-empty, contains a human-readable description of the reason why access to this supergroup or channel must be restricted */
-        restriction_reason?: td_string;
+        restriction_reason: td_string;
         /** True, if many users reported this supergroup or channel as a scam */
-        is_scam?: td_Bool;
+        is_scam: td_Bool;
         /** True, if many users reported this supergroup or channel as a fake account */
-        is_fake?: td_Bool;
+        is_fake: td_Bool;
     }
     
     
@@ -1432,45 +1432,45 @@ namespace TdApi {
         /** Chat photo; may be null */
         photo?: td_chatPhoto;
         /** Contains full information about a supergroup or channel */
-        description?: td_string;
+        description: td_string;
         /** Number of members in the supergroup or channel; 0 if unknown */
-        member_count?: td_int32;
+        member_count: td_int32;
         /** Number of privileged users in the supergroup or channel; 0 if unknown */
-        administrator_count?: td_int32;
+        administrator_count: td_int32;
         /** Number of restricted users in the supergroup; 0 if unknown */
-        restricted_count?: td_int32;
+        restricted_count: td_int32;
         /** Number of users banned from chat; 0 if unknown */
-        banned_count?: td_int32;
+        banned_count: td_int32;
         /** Chat identifier of a discussion group for the channel, or a channel, for which the supergroup is the designated discussion group; 0 if none or unknown */
-        linked_chat_id?: td_int53;
+        linked_chat_id: td_int53;
         /** Delay between consecutive sent messages for non-administrator supergroup members, in seconds */
-        slow_mode_delay?: td_int32;
+        slow_mode_delay: td_int32;
         /** Time left before next message can be sent in the supergroup, in seconds. An updateSupergroupFullInfo update is not triggered when value of this field changes, but both new and old values are non-zero */
-        slow_mode_delay_expires_in?: td_double;
+        slow_mode_delay_expires_in: td_double;
         /** True, if members of the chat can be retrieved */
-        can_get_members?: td_Bool;
+        can_get_members: td_Bool;
         /** True, if the chat username can be changed */
-        can_set_username?: td_Bool;
+        can_set_username: td_Bool;
         /** True, if the supergroup sticker set can be changed */
-        can_set_sticker_set?: td_Bool;
+        can_set_sticker_set: td_Bool;
         /** True, if the supergroup location can be changed */
-        can_set_location?: td_Bool;
+        can_set_location: td_Bool;
         /** True, if the supergroup or channel statistics are available */
-        can_get_statistics?: td_Bool;
+        can_get_statistics: td_Bool;
         /** True, if new chat members will have access to old messages. In public or discussion groups and both public and private channels, old messages are always available, so this option affects only private supergroups without a linked chat. The value of this field is only available for chat administrators */
-        is_all_history_available?: td_Bool;
+        is_all_history_available: td_Bool;
         /** Identifier of the supergroup sticker set; 0 if none */
-        sticker_set_id?: td_int64;
+        sticker_set_id: td_int64;
         /** Location to which the supergroup is connected; may be null */
         location?: td_chatLocation;
         /** Primary invite link for this chat; may be null. For chat administrators with can_invite_users right only */
         invite_link?: td_chatInviteLink;
         /** List of commands of bots in the group */
-        bot_commands?: td_vector<td_botCommands>;
+        bot_commands: td_vector<td_botCommands>;
         /** Identifier of the basic group from which supergroup was upgraded; 0 if none */
-        upgraded_from_basic_group_id?: td_int53;
+        upgraded_from_basic_group_id: td_int53;
         /** Identifier of the last message in the basic group from which supergroup was upgraded; 0 if none */
-        upgraded_from_max_message_id?: td_int53;
+        upgraded_from_max_message_id: td_int53;
     }
     
     
@@ -1496,17 +1496,17 @@ namespace TdApi {
     export interface td_secretChat {
         '@type': 'secretChat';
         /** Secret chat identifier */
-        id?: td_int32;
+        id: td_int32;
         /** Identifier of the chat partner */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** State of the secret chat */
-        state?: td_SecretChatState;
+        state: td_SecretChatState;
         /** True, if the chat was created by the current user; otherwise false */
-        is_outbound?: td_Bool;
+        is_outbound: td_Bool;
         /** Hash of the currently used key for comparison with the hash of the chat partner's key. This is a string of 36 little-endian bytes, which must be split into groups of 2 bits, each denoting a pixel of one of 4 colors FFFFFF, D5E6F3, 2D5775, and 2F99C9. -The pixels must be used to make a 12x12 square image filled from left to right, top to bottom. Alternatively, the first 32 bytes of the hash can be converted to the hexadecimal format and printed as 32 2-digit hex numbers */
-        key_hash?: td_bytes;
+        key_hash: td_bytes;
         /** Secret chat layer; determines features supported by the chat partner's application. Nested text entities and underline and strikethrough entities are supported if the layer >= 101 */
-        layer?: td_int32;
+        layer: td_int32;
     }
     
     
@@ -1514,7 +1514,7 @@ namespace TdApi {
     export interface td_messageSenderUser {
         '@type': 'messageSenderUser';
         /** Identifier of the user that sent the message */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -1522,7 +1522,7 @@ namespace TdApi {
     export interface td_messageSenderChat {
         '@type': 'messageSenderChat';
         /** Identifier of the chat that sent the message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -1530,9 +1530,9 @@ namespace TdApi {
     export interface td_messageSenders {
         '@type': 'messageSenders';
         /** Approximate total count of messages senders found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of message senders */
-        senders?: td_vector<td_MessageSender>;
+        senders: td_vector<td_MessageSender>;
     }
     
     
@@ -1540,7 +1540,7 @@ namespace TdApi {
     export interface td_messageForwardOriginUser {
         '@type': 'messageForwardOriginUser';
         /** Identifier of the user that originally sent the message */
-        sender_user_id?: td_int53;
+        sender_user_id: td_int53;
     }
     
     
@@ -1548,9 +1548,9 @@ namespace TdApi {
     export interface td_messageForwardOriginChat {
         '@type': 'messageForwardOriginChat';
         /** Identifier of the chat that originally sent the message */
-        sender_chat_id?: td_int53;
+        sender_chat_id: td_int53;
         /** Original message author signature */
-        author_signature?: td_string;
+        author_signature: td_string;
     }
     
     
@@ -1558,7 +1558,7 @@ namespace TdApi {
     export interface td_messageForwardOriginHiddenUser {
         '@type': 'messageForwardOriginHiddenUser';
         /** Name of the sender */
-        sender_name?: td_string;
+        sender_name: td_string;
     }
     
     
@@ -1566,11 +1566,11 @@ namespace TdApi {
     export interface td_messageForwardOriginChannel {
         '@type': 'messageForwardOriginChannel';
         /** Identifier of the chat from which the message was originally forwarded */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier of the original message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Original post author signature */
-        author_signature?: td_string;
+        author_signature: td_string;
     }
     
     
@@ -1578,7 +1578,7 @@ namespace TdApi {
     export interface td_messageForwardOriginMessageImport {
         '@type': 'messageForwardOriginMessageImport';
         /** Name of the sender */
-        sender_name?: td_string;
+        sender_name: td_string;
     }
     
     
@@ -1586,15 +1586,15 @@ namespace TdApi {
     export interface td_messageForwardInfo {
         '@type': 'messageForwardInfo';
         /** Origin of a forwarded message */
-        origin?: td_MessageForwardOrigin;
+        origin: td_MessageForwardOrigin;
         /** Point in time (Unix timestamp) when the message was originally sent */
-        date?: td_int32;
+        date: td_int32;
         /** The type of a public service announcement for the forwarded message */
-        public_service_announcement_type?: td_string;
+        public_service_announcement_type: td_string;
         /** For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the chat from which the message was forwarded last time; 0 if unknown */
-        from_chat_id?: td_int53;
+        from_chat_id: td_int53;
         /** For messages forwarded to the chat with the current user (Saved Messages), to the Replies bot chat, or to the channel's discussion group, the identifier of the original message from which the new message was forwarded last time; 0 if unknown */
-        from_message_id?: td_int53;
+        from_message_id: td_int53;
     }
     
     
@@ -1602,15 +1602,15 @@ namespace TdApi {
     export interface td_messageReplyInfo {
         '@type': 'messageReplyInfo';
         /** Number of times the message was directly or indirectly replied */
-        reply_count?: td_int32;
+        reply_count: td_int32;
         /** Recent repliers to the message; available in channels with a discussion supergroup */
-        recent_repliers?: td_vector<td_MessageSender>;
+        recent_repliers: td_vector<td_MessageSender>;
         /** Identifier of the last read incoming reply to the message */
-        last_read_inbox_message_id?: td_int53;
+        last_read_inbox_message_id: td_int53;
         /** Identifier of the last read outgoing reply to the message */
-        last_read_outbox_message_id?: td_int53;
+        last_read_outbox_message_id: td_int53;
         /** Identifier of the last reply to the message */
-        last_message_id?: td_int53;
+        last_message_id: td_int53;
     }
     
     
@@ -1618,9 +1618,9 @@ namespace TdApi {
     export interface td_messageInteractionInfo {
         '@type': 'messageInteractionInfo';
         /** Number of times the message was viewed */
-        view_count?: td_int32;
+        view_count: td_int32;
         /** Number of times the message was forwarded */
-        forward_count?: td_int32;
+        forward_count: td_int32;
         /** Contains information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself */
         reply_info?: td_messageReplyInfo;
     }
@@ -1636,13 +1636,13 @@ namespace TdApi {
     export interface td_messageSendingStateFailed {
         '@type': 'messageSendingStateFailed';
         /** An error code; 0 if unknown */
-        error_code?: td_int32;
+        error_code: td_int32;
         /** Error message */
-        error_message?: td_string;
+        error_message: td_string;
         /** True, if the message can be re-sent */
-        can_retry?: td_Bool;
+        can_retry: td_Bool;
         /** Time left before the message can be re-sent, in seconds. No update is sent when this field changes */
-        retry_after?: td_double;
+        retry_after: td_double;
     }
     
     
@@ -1650,69 +1650,69 @@ namespace TdApi {
     export interface td_message {
         '@type': 'message';
         /** Message identifier; unique for the chat to which the message belongs */
-        id?: td_int53;
+        id: td_int53;
         /** The sender of the message */
-        sender?: td_MessageSender;
+        sender: td_MessageSender;
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Information about the sending state of the message; may be null */
         sending_state?: td_MessageSendingState;
         /** Information about the scheduling state of the message; may be null */
         scheduling_state?: td_MessageSchedulingState;
         /** True, if the message is outgoing */
-        is_outgoing?: td_Bool;
+        is_outgoing: td_Bool;
         /** True, if the message is pinned */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
         /** True, if the message can be edited. For live location and poll messages this fields shows whether editMessageLiveLocation or stopPoll can be used with this message by the application */
-        can_be_edited?: td_Bool;
+        can_be_edited: td_Bool;
         /** True, if the message can be forwarded */
-        can_be_forwarded?: td_Bool;
+        can_be_forwarded: td_Bool;
         /** True, if the message can be deleted only for the current user while other users will continue to see it */
-        can_be_deleted_only_for_self?: td_Bool;
+        can_be_deleted_only_for_self: td_Bool;
         /** True, if the message can be deleted for all users */
-        can_be_deleted_for_all_users?: td_Bool;
+        can_be_deleted_for_all_users: td_Bool;
         /** True, if the message statistics are available */
-        can_get_statistics?: td_Bool;
+        can_get_statistics: td_Bool;
         /** True, if the message thread info is available */
-        can_get_message_thread?: td_Bool;
+        can_get_message_thread: td_Bool;
         /** True, if chat members already viewed the message can be received through getMessageViewers */
-        can_get_viewers?: td_Bool;
+        can_get_viewers: td_Bool;
         /** True, if media timestamp links can be generated for media timestamp entities in the message text, caption or web page description */
-        can_get_media_timestamp_links?: td_Bool;
+        can_get_media_timestamp_links: td_Bool;
         /** True, if media timestamp entities refers to a media in this message as opposed to a media in the replied message */
-        has_timestamped_media?: td_Bool;
+        has_timestamped_media: td_Bool;
         /** True, if the message is a channel post. All messages to channels are channel posts, all other messages are not channel posts */
-        is_channel_post?: td_Bool;
+        is_channel_post: td_Bool;
         /** True, if the message contains an unread mention for the current user */
-        contains_unread_mention?: td_Bool;
+        contains_unread_mention: td_Bool;
         /** Point in time (Unix timestamp) when the message was sent */
-        date?: td_int32;
+        date: td_int32;
         /** Point in time (Unix timestamp) when the message was last edited */
-        edit_date?: td_int32;
+        edit_date: td_int32;
         /** Information about the initial message sender; may be null */
         forward_info?: td_messageForwardInfo;
         /** Information about interactions with the message; may be null */
         interaction_info?: td_messageInteractionInfo;
         /** If non-zero, the identifier of the chat to which the replied message belongs; Currently, only messages in the Replies chat can have different reply_in_chat_id and chat_id */
-        reply_in_chat_id?: td_int53;
+        reply_in_chat_id: td_int53;
         /** If non-zero, the identifier of the message this message is replying to; can be the identifier of a deleted message */
-        reply_to_message_id?: td_int53;
+        reply_to_message_id: td_int53;
         /** If non-zero, the identifier of the message thread the message belongs to; unique within the chat to which the message belongs */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** For self-destructing messages, the message's TTL (Time To Live), in seconds; 0 if none. TDLib will send updateDeleteMessages or updateMessageContent once the TTL expires */
-        ttl?: td_int32;
+        ttl: td_int32;
         /** Time left before the message expires, in seconds. If the TTL timer isn't started yet, equals to the value of the ttl field */
-        ttl_expires_in?: td_double;
+        ttl_expires_in: td_double;
         /** If non-zero, the user identifier of the bot through which this message was sent */
-        via_bot_user_id?: td_int53;
+        via_bot_user_id: td_int53;
         /** For channel posts and anonymous group messages, optional author signature */
-        author_signature?: td_string;
+        author_signature: td_string;
         /** Unique identifier of an album this message belongs to. Only audios, documents, photos and videos can be grouped together in albums */
-        media_album_id?: td_int64;
+        media_album_id: td_int64;
         /** If non-empty, contains a human-readable description of the reason why access to this message must be restricted */
-        restriction_reason?: td_string;
+        restriction_reason: td_string;
         /** Content of the message */
-        content?: td_MessageContent;
+        content: td_MessageContent;
         /** Reply markup for the message; may be null */
         reply_markup?: td_ReplyMarkup;
     }
@@ -1722,7 +1722,7 @@ namespace TdApi {
     export interface td_messages {
         '@type': 'messages';
         /** Approximate total count of messages found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of messages; messages may be null */
         messages?: td_vector<td_message>;
     }
@@ -1732,11 +1732,11 @@ namespace TdApi {
     export interface td_foundMessages {
         '@type': 'foundMessages';
         /** Approximate total count of messages found; -1 if unknown */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of messages */
-        messages?: td_vector<td_message>;
+        messages: td_vector<td_message>;
         /** The offset for the next request. If empty, there are no more results */
-        next_offset?: td_string;
+        next_offset: td_string;
     }
     
     
@@ -1744,13 +1744,13 @@ namespace TdApi {
     export interface td_sponsoredMessage {
         '@type': 'sponsoredMessage';
         /** Unique sponsored message identifier */
-        id?: td_int32;
+        id: td_int32;
         /** Chat identifier */
-        sponsor_chat_id?: td_int53;
+        sponsor_chat_id: td_int53;
         /** An internal link to be opened when the sponsored message is clicked; may be null. If null, the sponsor chat needs to be opened instead */
         link?: td_InternalLinkType;
         /** Content of the message */
-        content?: td_MessageContent;
+        content: td_MessageContent;
     }
     
     
@@ -1758,7 +1758,7 @@ namespace TdApi {
     export interface td_sponsoredMessages {
         '@type': 'sponsoredMessages';
         /** List of sponsored messages */
-        messages?: td_vector<td_sponsoredMessage>;
+        messages: td_vector<td_sponsoredMessage>;
     }
     
     
@@ -1784,25 +1784,25 @@ namespace TdApi {
     export interface td_chatNotificationSettings {
         '@type': 'chatNotificationSettings';
         /** If true, mute_for is ignored and the value for the relevant type of chat is used instead */
-        use_default_mute_for?: td_Bool;
+        use_default_mute_for: td_Bool;
         /** Time left before notifications will be unmuted, in seconds */
-        mute_for?: td_int32;
+        mute_for: td_int32;
         /** If true, sound is ignored and the value for the relevant type of chat is used instead */
-        use_default_sound?: td_Bool;
+        use_default_sound: td_Bool;
         /** The name of an audio file to be used for notification sounds; only applies to iOS applications */
-        sound?: td_string;
+        sound: td_string;
         /** If true, show_preview is ignored and the value for the relevant type of chat is used instead */
-        use_default_show_preview?: td_Bool;
+        use_default_show_preview: td_Bool;
         /** True, if message content must be displayed in notifications */
-        show_preview?: td_Bool;
+        show_preview: td_Bool;
         /** If true, disable_pinned_message_notifications is ignored and the value for the relevant type of chat is used instead */
-        use_default_disable_pinned_message_notifications?: td_Bool;
+        use_default_disable_pinned_message_notifications: td_Bool;
         /** If true, notifications for incoming pinned messages will be created as for an ordinary unread message */
-        disable_pinned_message_notifications?: td_Bool;
+        disable_pinned_message_notifications: td_Bool;
         /** If true, disable_mention_notifications is ignored and the value for the relevant type of chat is used instead */
-        use_default_disable_mention_notifications?: td_Bool;
+        use_default_disable_mention_notifications: td_Bool;
         /** If true, notifications for messages with mentions will be created as for an ordinary unread message */
-        disable_mention_notifications?: td_Bool;
+        disable_mention_notifications: td_Bool;
     }
     
     
@@ -1810,15 +1810,15 @@ namespace TdApi {
     export interface td_scopeNotificationSettings {
         '@type': 'scopeNotificationSettings';
         /** Time left before notifications will be unmuted, in seconds */
-        mute_for?: td_int32;
+        mute_for: td_int32;
         /** The name of an audio file to be used for notification sounds; only applies to iOS applications */
-        sound?: td_string;
+        sound: td_string;
         /** True, if message content must be displayed in notifications */
-        show_preview?: td_Bool;
+        show_preview: td_Bool;
         /** True, if notifications for incoming pinned messages will be created as for an ordinary unread message */
-        disable_pinned_message_notifications?: td_Bool;
+        disable_pinned_message_notifications: td_Bool;
         /** True, if notifications for messages with mentions will be created as for an ordinary unread message */
-        disable_mention_notifications?: td_Bool;
+        disable_mention_notifications: td_Bool;
     }
     
     
@@ -1826,11 +1826,11 @@ namespace TdApi {
     export interface td_draftMessage {
         '@type': 'draftMessage';
         /** Identifier of the message to reply to; 0 if none */
-        reply_to_message_id?: td_int53;
+        reply_to_message_id: td_int53;
         /** Point in time (Unix timestamp) when the draft was created */
-        date?: td_int32;
+        date: td_int32;
         /** Content of the message draft; must be of the type inputMessageText */
-        input_message_text?: td_InputMessageContent;
+        input_message_text: td_InputMessageContent;
     }
     
     
@@ -1838,7 +1838,7 @@ namespace TdApi {
     export interface td_chatTypePrivate {
         '@type': 'chatTypePrivate';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -1846,7 +1846,7 @@ namespace TdApi {
     export interface td_chatTypeBasicGroup {
         '@type': 'chatTypeBasicGroup';
         /** Basic group identifier */
-        basic_group_id?: td_int53;
+        basic_group_id: td_int53;
     }
     
     
@@ -1854,9 +1854,9 @@ namespace TdApi {
     export interface td_chatTypeSupergroup {
         '@type': 'chatTypeSupergroup';
         /** Supergroup or channel identifier */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** True, if the supergroup is a channel */
-        is_channel?: td_Bool;
+        is_channel: td_Bool;
     }
     
     
@@ -1864,9 +1864,9 @@ namespace TdApi {
     export interface td_chatTypeSecret {
         '@type': 'chatTypeSecret';
         /** Secret chat identifier */
-        secret_chat_id?: td_int32;
+        secret_chat_id: td_int32;
         /** User identifier of the secret chat peer */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -1874,31 +1874,31 @@ namespace TdApi {
     export interface td_chatFilter {
         '@type': 'chatFilter';
         /** The title of the filter; 1-12 characters without line feeds */
-        title?: td_string;
+        title: td_string;
         /** The icon name for short filter representation. If non-empty, must be one of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work". -If empty, use getChatFilterDefaultIconName to get default icon name for the filter */
-        icon_name?: td_string;
+        icon_name: td_string;
         /** The chat identifiers of pinned chats in the filtered chat list */
-        pinned_chat_ids?: td_vector<td_int53>;
+        pinned_chat_ids: td_vector<td_int53>;
         /** The chat identifiers of always included chats in the filtered chat list */
-        included_chat_ids?: td_vector<td_int53>;
+        included_chat_ids: td_vector<td_int53>;
         /** The chat identifiers of always excluded chats in the filtered chat list */
-        excluded_chat_ids?: td_vector<td_int53>;
+        excluded_chat_ids: td_vector<td_int53>;
         /** True, if muted chats need to be excluded */
-        exclude_muted?: td_Bool;
+        exclude_muted: td_Bool;
         /** True, if read chats need to be excluded */
-        exclude_read?: td_Bool;
+        exclude_read: td_Bool;
         /** True, if archived chats need to be excluded */
-        exclude_archived?: td_Bool;
+        exclude_archived: td_Bool;
         /** True, if contacts need to be included */
-        include_contacts?: td_Bool;
+        include_contacts: td_Bool;
         /** True, if non-contact users need to be included */
-        include_non_contacts?: td_Bool;
+        include_non_contacts: td_Bool;
         /** True, if bots need to be included */
-        include_bots?: td_Bool;
+        include_bots: td_Bool;
         /** True, if basic groups and supergroups need to be included */
-        include_groups?: td_Bool;
+        include_groups: td_Bool;
         /** True, if channels need to be included */
-        include_channels?: td_Bool;
+        include_channels: td_Bool;
     }
     
     
@@ -1906,11 +1906,11 @@ namespace TdApi {
     export interface td_chatFilterInfo {
         '@type': 'chatFilterInfo';
         /** Unique chat filter identifier */
-        id?: td_int32;
+        id: td_int32;
         /** The title of the filter; 1-12 characters without line feeds */
-        title?: td_string;
+        title: td_string;
         /** The icon name for short filter representation. One of "All", "Unread", "Unmuted", "Bots", "Channels", "Groups", "Private", "Custom", "Setup", "Cat", "Crown", "Favorite", "Flower", "Game", "Home", "Love", "Mask", "Party", "Sport", "Study", "Trade", "Travel", "Work" */
-        icon_name?: td_string;
+        icon_name: td_string;
     }
     
     
@@ -1918,9 +1918,9 @@ namespace TdApi {
     export interface td_recommendedChatFilter {
         '@type': 'recommendedChatFilter';
         /** The chat filter */
-        filter?: td_chatFilter;
+        filter: td_chatFilter;
         /** Describes a recommended chat filter */
-        description?: td_string;
+        description: td_string;
     }
     
     
@@ -1928,7 +1928,7 @@ namespace TdApi {
     export interface td_recommendedChatFilters {
         '@type': 'recommendedChatFilters';
         /** List of recommended chat filters */
-        chat_filters?: td_vector<td_recommendedChatFilter>;
+        chat_filters: td_vector<td_recommendedChatFilter>;
     }
     
     
@@ -1948,7 +1948,7 @@ namespace TdApi {
     export interface td_chatListFilter {
         '@type': 'chatListFilter';
         /** Chat filter identifier */
-        chat_filter_id?: td_int32;
+        chat_filter_id: td_int32;
     }
     
     
@@ -1956,7 +1956,7 @@ namespace TdApi {
     export interface td_chatLists {
         '@type': 'chatLists';
         /** List of chat lists */
-        chat_lists?: td_vector<td_ChatList>;
+        chat_lists: td_vector<td_ChatList>;
     }
     
     
@@ -1970,9 +1970,9 @@ namespace TdApi {
     export interface td_chatSourcePublicServiceAnnouncement {
         '@type': 'chatSourcePublicServiceAnnouncement';
         /** The type of the announcement */
-        type?: td_string;
+        type: td_string;
         /** The text of the announcement */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -1980,11 +1980,11 @@ namespace TdApi {
     export interface td_chatPosition {
         '@type': 'chatPosition';
         /** The chat list */
-        list?: td_ChatList;
+        list: td_ChatList;
         /** A parameter used to determine order of the chat in the chat list. Chats must be sorted by the pair (order, chat.id) in descending order */
-        order?: td_int64;
+        order: td_int64;
         /** True, if the chat is pinned in the chat list */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
         /** Source of the chat in the chat list; may be null */
         source?: td_ChatSource;
     }
@@ -1994,9 +1994,9 @@ namespace TdApi {
     export interface td_voiceChat {
         '@type': 'voiceChat';
         /** Group call identifier of an active voice chat; 0 if none. Full informationa about the voice chat can be received through the method getGroupCall */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** True, if the voice chat has participants */
-        has_participants?: td_Bool;
+        has_participants: td_Bool;
         /** Default group call participant identifier to join the voice chat; may be null */
         default_participant_id?: td_MessageSender;
     }
@@ -2006,57 +2006,57 @@ namespace TdApi {
     export interface td_chat {
         '@type': 'chat';
         /** Chat unique identifier */
-        id?: td_int53;
+        id: td_int53;
         /** Type of the chat */
-        type?: td_ChatType;
+        type: td_ChatType;
         /** Chat title */
-        title?: td_string;
+        title: td_string;
         /** Chat photo; may be null */
         photo?: td_chatPhotoInfo;
         /** Actions that non-administrator chat members are allowed to take in the chat */
-        permissions?: td_chatPermissions;
+        permissions: td_chatPermissions;
         /** Last message in the chat; may be null */
         last_message?: td_message;
         /** Positions of the chat in chat lists */
-        positions?: td_vector<td_chatPosition>;
+        positions: td_vector<td_chatPosition>;
         /** True, if the chat is marked as unread */
-        is_marked_as_unread?: td_Bool;
+        is_marked_as_unread: td_Bool;
         /** True, if the chat is blocked by the current user and private messages from the chat can't be received */
-        is_blocked?: td_Bool;
+        is_blocked: td_Bool;
         /** True, if the chat has scheduled messages */
-        has_scheduled_messages?: td_Bool;
+        has_scheduled_messages: td_Bool;
         /** True, if the chat messages can be deleted only for the current user while other users will continue to see the messages */
-        can_be_deleted_only_for_self?: td_Bool;
+        can_be_deleted_only_for_self: td_Bool;
         /** True, if the chat messages can be deleted for all users */
-        can_be_deleted_for_all_users?: td_Bool;
+        can_be_deleted_for_all_users: td_Bool;
         /** True, if the chat can be reported to Telegram moderators through reportChat or reportChatPhoto */
-        can_be_reported?: td_Bool;
+        can_be_reported: td_Bool;
         /** Default value of the disable_notification parameter, used when a message is sent to the chat */
-        default_disable_notification?: td_Bool;
+        default_disable_notification: td_Bool;
         /** Number of unread messages in the chat */
-        unread_count?: td_int32;
+        unread_count: td_int32;
         /** Identifier of the last read incoming message */
-        last_read_inbox_message_id?: td_int53;
+        last_read_inbox_message_id: td_int53;
         /** Identifier of the last read outgoing message */
-        last_read_outbox_message_id?: td_int53;
+        last_read_outbox_message_id: td_int53;
         /** Number of unread messages with a mention/reply in the chat */
-        unread_mention_count?: td_int32;
+        unread_mention_count: td_int32;
         /** Notification settings for this chat */
-        notification_settings?: td_chatNotificationSettings;
+        notification_settings: td_chatNotificationSettings;
         /** Current message Time To Live setting (self-destruct timer) for the chat; 0 if not defined. TTL is counted from the time message or its content is viewed in secret chats and from the send date in other chats */
-        message_ttl_setting?: td_int32;
+        message_ttl_setting: td_int32;
         /** If non-empty, name of a theme, set for the chat */
-        theme_name?: td_string;
+        theme_name: td_string;
         /** Describes actions which must be possible to do through a chat action bar; may be null */
         action_bar?: td_ChatActionBar;
         /** Contains information about voice chat of the chat */
-        voice_chat?: td_voiceChat;
+        voice_chat: td_voiceChat;
         /** Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat */
-        reply_markup_message_id?: td_int53;
+        reply_markup_message_id: td_int53;
         /** A draft of a message in the chat; may be null */
         draft_message?: td_draftMessage;
         /** Contains application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used */
-        client_data?: td_string;
+        client_data: td_string;
     }
     
     
@@ -2064,9 +2064,9 @@ namespace TdApi {
     export interface td_chats {
         '@type': 'chats';
         /** Approximate total count of chats found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of chat identifiers */
-        chat_ids?: td_vector<td_int53>;
+        chat_ids: td_vector<td_int53>;
     }
     
     
@@ -2074,9 +2074,9 @@ namespace TdApi {
     export interface td_chatNearby {
         '@type': 'chatNearby';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Distance to the chat location, in meters */
-        distance?: td_int32;
+        distance: td_int32;
     }
     
     
@@ -2084,9 +2084,9 @@ namespace TdApi {
     export interface td_chatsNearby {
         '@type': 'chatsNearby';
         /** List of users nearby */
-        users_nearby?: td_vector<td_chatNearby>;
+        users_nearby: td_vector<td_chatNearby>;
         /** List of location-based supergroups nearby */
-        supergroups_nearby?: td_vector<td_chatNearby>;
+        supergroups_nearby: td_vector<td_chatNearby>;
     }
     
     
@@ -2106,7 +2106,7 @@ namespace TdApi {
     export interface td_chatActionBarReportSpam {
         '@type': 'chatActionBarReportSpam';
         /** If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings */
-        can_unarchive?: td_Bool;
+        can_unarchive: td_Bool;
     }
     
     
@@ -2126,9 +2126,9 @@ namespace TdApi {
     export interface td_chatActionBarReportAddBlock {
         '@type': 'chatActionBarReportAddBlock';
         /** If true, the chat was automatically archived and can be moved back to the main chat list using addChatToList simultaneously with setting chat notification settings to default using setChatNotificationSettings */
-        can_unarchive?: td_Bool;
+        can_unarchive: td_Bool;
         /** If non-negative, the current user was found by the peer through searchChatsNearby and this is the distance between the users */
-        distance?: td_int32;
+        distance: td_int32;
     }
     
     
@@ -2166,9 +2166,9 @@ namespace TdApi {
     export interface td_keyboardButtonTypeRequestPoll {
         '@type': 'keyboardButtonTypeRequestPoll';
         /** If true, only regular polls must be allowed to create */
-        force_regular?: td_Bool;
+        force_regular: td_Bool;
         /** If true, only polls in quiz mode must be allowed to create */
-        force_quiz?: td_Bool;
+        force_quiz: td_Bool;
     }
     
     
@@ -2176,9 +2176,9 @@ namespace TdApi {
     export interface td_keyboardButton {
         '@type': 'keyboardButton';
         /** Text of the button */
-        text?: td_string;
+        text: td_string;
         /** Type of the button */
-        type?: td_KeyboardButtonType;
+        type: td_KeyboardButtonType;
     }
     
     
@@ -2186,7 +2186,7 @@ namespace TdApi {
     export interface td_inlineKeyboardButtonTypeUrl {
         '@type': 'inlineKeyboardButtonTypeUrl';
         /** HTTP or tg:// URL to open */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -2194,11 +2194,11 @@ namespace TdApi {
     export interface td_inlineKeyboardButtonTypeLoginUrl {
         '@type': 'inlineKeyboardButtonTypeLoginUrl';
         /** An HTTP URL to open */
-        url?: td_string;
+        url: td_string;
         /** Unique button identifier */
-        id?: td_int53;
+        id: td_int53;
         /** If non-empty, new text of the button in forwarded messages */
-        forward_text?: td_string;
+        forward_text: td_string;
     }
     
     
@@ -2206,7 +2206,7 @@ namespace TdApi {
     export interface td_inlineKeyboardButtonTypeCallback {
         '@type': 'inlineKeyboardButtonTypeCallback';
         /** Data to be sent to the bot via a callback query */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -2214,7 +2214,7 @@ namespace TdApi {
     export interface td_inlineKeyboardButtonTypeCallbackWithPassword {
         '@type': 'inlineKeyboardButtonTypeCallbackWithPassword';
         /** Data to be sent to the bot via a callback query */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -2228,9 +2228,9 @@ namespace TdApi {
     export interface td_inlineKeyboardButtonTypeSwitchInline {
         '@type': 'inlineKeyboardButtonTypeSwitchInline';
         /** Inline query to be sent to the bot */
-        query?: td_string;
+        query: td_string;
         /** True, if the inline query must be sent from the current chat */
-        in_current_chat?: td_Bool;
+        in_current_chat: td_Bool;
     }
     
     
@@ -2244,9 +2244,9 @@ namespace TdApi {
     export interface td_inlineKeyboardButton {
         '@type': 'inlineKeyboardButton';
         /** Text of the button */
-        text?: td_string;
+        text: td_string;
         /** Type of the button */
-        type?: td_InlineKeyboardButtonType;
+        type: td_InlineKeyboardButtonType;
     }
     
     
@@ -2254,7 +2254,7 @@ namespace TdApi {
     export interface td_replyMarkupRemoveKeyboard {
         '@type': 'replyMarkupRemoveKeyboard';
         /** True, if the keyboard is removed only for the mentioned users or the target user of a reply */
-        is_personal?: td_Bool;
+        is_personal: td_Bool;
     }
     
     
@@ -2262,9 +2262,9 @@ namespace TdApi {
     export interface td_replyMarkupForceReply {
         '@type': 'replyMarkupForceReply';
         /** True, if a forced reply must automatically be shown to the current user. For outgoing messages, specify true to show the forced reply only for the mentioned users and for the target user of a reply */
-        is_personal?: td_Bool;
+        is_personal: td_Bool;
         /** If non-empty, the placeholder to be shown in the input field when the reply is active; 0-64 characters */
-        input_field_placeholder?: td_string;
+        input_field_placeholder: td_string;
     }
     
     
@@ -2272,15 +2272,15 @@ namespace TdApi {
     export interface td_replyMarkupShowKeyboard {
         '@type': 'replyMarkupShowKeyboard';
         /** A list of rows of bot keyboard buttons */
-        rows?: td_vector<td_vector<td_keyboardButton>>;
+        rows: td_vector<td_vector<td_keyboardButton>>;
         /** True, if the application needs to resize the keyboard vertically */
-        resize_keyboard?: td_Bool;
+        resize_keyboard: td_Bool;
         /** True, if the application needs to hide the keyboard after use */
-        one_time?: td_Bool;
+        one_time: td_Bool;
         /** True, if the keyboard must automatically be shown to the current user. For outgoing messages, specify true to show the keyboard only for the mentioned users and for the target user of a reply */
-        is_personal?: td_Bool;
+        is_personal: td_Bool;
         /** If non-empty, the placeholder to be shown in the input field when the keyboard is active; 0-64 characters */
-        input_field_placeholder?: td_string;
+        input_field_placeholder: td_string;
     }
     
     
@@ -2288,7 +2288,7 @@ namespace TdApi {
     export interface td_replyMarkupInlineKeyboard {
         '@type': 'replyMarkupInlineKeyboard';
         /** A list of rows of inline keyboard buttons */
-        rows?: td_vector<td_vector<td_inlineKeyboardButton>>;
+        rows: td_vector<td_vector<td_inlineKeyboardButton>>;
     }
     
     
@@ -2296,9 +2296,9 @@ namespace TdApi {
     export interface td_loginUrlInfoOpen {
         '@type': 'loginUrlInfoOpen';
         /** The URL to open */
-        url?: td_string;
+        url: td_string;
         /** True, if there is no need to show an ordinary open URL confirm */
-        skip_confirm?: td_Bool;
+        skip_confirm: td_Bool;
     }
     
     
@@ -2306,13 +2306,13 @@ namespace TdApi {
     export interface td_loginUrlInfoRequestConfirmation {
         '@type': 'loginUrlInfoRequestConfirmation';
         /** An HTTP URL to be opened */
-        url?: td_string;
+        url: td_string;
         /** A domain of the URL */
-        domain?: td_string;
+        domain: td_string;
         /** User identifier of a bot linked with the website */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** True, if the user needs to be requested to give the permission to the bot to send them messages */
-        request_write_access?: td_Bool;
+        request_write_access: td_Bool;
     }
     
     
@@ -2320,15 +2320,15 @@ namespace TdApi {
     export interface td_messageThreadInfo {
         '@type': 'messageThreadInfo';
         /** Identifier of the chat to which the message thread belongs */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message thread identifier, unique within the chat */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** Contains information about the message thread */
-        reply_info?: td_messageReplyInfo;
+        reply_info: td_messageReplyInfo;
         /** Approximate number of unread messages in the message thread */
-        unread_message_count?: td_int32;
+        unread_message_count: td_int32;
         /** The messages from which the thread starts. The messages are returned in a reverse chronological order (i.e., in order of decreasing message_id) */
-        messages?: td_vector<td_message>;
+        messages: td_vector<td_message>;
         /** A draft of a message in the message thread; may be null */
         draft_message?: td_draftMessage;
     }
@@ -2338,7 +2338,7 @@ namespace TdApi {
     export interface td_richTextPlain {
         '@type': 'richTextPlain';
         /** Text */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -2346,7 +2346,7 @@ namespace TdApi {
     export interface td_richTextBold {
         '@type': 'richTextBold';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2354,7 +2354,7 @@ namespace TdApi {
     export interface td_richTextItalic {
         '@type': 'richTextItalic';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2362,7 +2362,7 @@ namespace TdApi {
     export interface td_richTextUnderline {
         '@type': 'richTextUnderline';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2370,7 +2370,7 @@ namespace TdApi {
     export interface td_richTextStrikethrough {
         '@type': 'richTextStrikethrough';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2378,7 +2378,7 @@ namespace TdApi {
     export interface td_richTextFixed {
         '@type': 'richTextFixed';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2386,11 +2386,11 @@ namespace TdApi {
     export interface td_richTextUrl {
         '@type': 'richTextUrl';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
         /** URL */
-        url?: td_string;
+        url: td_string;
         /** True, if the URL has cached instant view server-side */
-        is_cached?: td_Bool;
+        is_cached: td_Bool;
     }
     
     
@@ -2398,9 +2398,9 @@ namespace TdApi {
     export interface td_richTextEmailAddress {
         '@type': 'richTextEmailAddress';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
         /** Email address */
-        email_address?: td_string;
+        email_address: td_string;
     }
     
     
@@ -2408,7 +2408,7 @@ namespace TdApi {
     export interface td_richTextSubscript {
         '@type': 'richTextSubscript';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2416,7 +2416,7 @@ namespace TdApi {
     export interface td_richTextSuperscript {
         '@type': 'richTextSuperscript';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2424,7 +2424,7 @@ namespace TdApi {
     export interface td_richTextMarked {
         '@type': 'richTextMarked';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2432,9 +2432,9 @@ namespace TdApi {
     export interface td_richTextPhoneNumber {
         '@type': 'richTextPhoneNumber';
         /** Text */
-        text?: td_RichText;
+        text: td_RichText;
         /** Phone number */
-        phone_number?: td_string;
+        phone_number: td_string;
     }
     
     
@@ -2442,11 +2442,11 @@ namespace TdApi {
     export interface td_richTextIcon {
         '@type': 'richTextIcon';
         /** The image represented as a document. The image can be in GIF, JPEG or PNG format */
-        document?: td_document;
+        document: td_document;
         /** Width of a bounding box in which the image must be shown; 0 if unknown */
-        width?: td_int32;
+        width: td_int32;
         /** Height of a bounding box in which the image must be shown; 0 if unknown */
-        height?: td_int32;
+        height: td_int32;
     }
     
     
@@ -2454,11 +2454,11 @@ namespace TdApi {
     export interface td_richTextReference {
         '@type': 'richTextReference';
         /** The text */
-        text?: td_RichText;
+        text: td_RichText;
         /** The name of a richTextAnchor object, which is the first element of the target richTexts object */
-        anchor_name?: td_string;
+        anchor_name: td_string;
         /** An HTTP URL, opening the reference */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -2466,7 +2466,7 @@ namespace TdApi {
     export interface td_richTextAnchor {
         '@type': 'richTextAnchor';
         /** Anchor name */
-        name?: td_string;
+        name: td_string;
     }
     
     
@@ -2474,11 +2474,11 @@ namespace TdApi {
     export interface td_richTextAnchorLink {
         '@type': 'richTextAnchorLink';
         /** The link text */
-        text?: td_RichText;
+        text: td_RichText;
         /** The anchor name. If the name is empty, the link must bring back to top */
-        anchor_name?: td_string;
+        anchor_name: td_string;
         /** An HTTP URL, opening the anchor */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -2486,7 +2486,7 @@ namespace TdApi {
     export interface td_richTexts {
         '@type': 'richTexts';
         /** Texts */
-        texts?: td_vector<td_RichText>;
+        texts: td_vector<td_RichText>;
     }
     
     
@@ -2494,9 +2494,9 @@ namespace TdApi {
     export interface td_pageBlockCaption {
         '@type': 'pageBlockCaption';
         /** Content of the caption */
-        text?: td_RichText;
+        text: td_RichText;
         /** Block credit (like HTML tag <cite>) */
-        credit?: td_RichText;
+        credit: td_RichText;
     }
     
     
@@ -2504,9 +2504,9 @@ namespace TdApi {
     export interface td_pageBlockListItem {
         '@type': 'pageBlockListItem';
         /** Item label */
-        label?: td_string;
+        label: td_string;
         /** Item blocks */
-        page_blocks?: td_vector<td_PageBlock>;
+        page_blocks: td_vector<td_PageBlock>;
     }
     
     
@@ -2552,15 +2552,15 @@ namespace TdApi {
         /** Cell text; may be null. If the text is null, then the cell must be invisible */
         text?: td_RichText;
         /** True, if it is a header cell */
-        is_header?: td_Bool;
+        is_header: td_Bool;
         /** The number of columns the cell spans */
-        colspan?: td_int32;
+        colspan: td_int32;
         /** The number of rows the cell spans */
-        rowspan?: td_int32;
+        rowspan: td_int32;
         /** Horizontal cell content alignment */
-        align?: td_PageBlockHorizontalAlignment;
+        align: td_PageBlockHorizontalAlignment;
         /** Vertical cell content alignment */
-        valign?: td_PageBlockVerticalAlignment;
+        valign: td_PageBlockVerticalAlignment;
     }
     
     
@@ -2568,17 +2568,17 @@ namespace TdApi {
     export interface td_pageBlockRelatedArticle {
         '@type': 'pageBlockRelatedArticle';
         /** Related article URL */
-        url?: td_string;
+        url: td_string;
         /** Article title; may be empty */
-        title?: td_string;
+        title: td_string;
         /** Contains information about a related article */
-        description?: td_string;
+        description: td_string;
         /** Article photo; may be null */
         photo?: td_photo;
         /** Article author; may be empty */
-        author?: td_string;
+        author: td_string;
         /** Point in time (Unix timestamp) when the article was published; 0 if unknown */
-        publish_date?: td_int32;
+        publish_date: td_int32;
     }
     
     
@@ -2586,7 +2586,7 @@ namespace TdApi {
     export interface td_pageBlockTitle {
         '@type': 'pageBlockTitle';
         /** Title */
-        title?: td_RichText;
+        title: td_RichText;
     }
     
     
@@ -2594,7 +2594,7 @@ namespace TdApi {
     export interface td_pageBlockSubtitle {
         '@type': 'pageBlockSubtitle';
         /** Subtitle */
-        subtitle?: td_RichText;
+        subtitle: td_RichText;
     }
     
     
@@ -2602,9 +2602,9 @@ namespace TdApi {
     export interface td_pageBlockAuthorDate {
         '@type': 'pageBlockAuthorDate';
         /** Author */
-        author?: td_RichText;
+        author: td_RichText;
         /** Point in time (Unix timestamp) when the article was published; 0 if unknown */
-        publish_date?: td_int32;
+        publish_date: td_int32;
     }
     
     
@@ -2612,7 +2612,7 @@ namespace TdApi {
     export interface td_pageBlockHeader {
         '@type': 'pageBlockHeader';
         /** Header */
-        header?: td_RichText;
+        header: td_RichText;
     }
     
     
@@ -2620,7 +2620,7 @@ namespace TdApi {
     export interface td_pageBlockSubheader {
         '@type': 'pageBlockSubheader';
         /** Subheader */
-        subheader?: td_RichText;
+        subheader: td_RichText;
     }
     
     
@@ -2628,7 +2628,7 @@ namespace TdApi {
     export interface td_pageBlockKicker {
         '@type': 'pageBlockKicker';
         /** Kicker */
-        kicker?: td_RichText;
+        kicker: td_RichText;
     }
     
     
@@ -2636,7 +2636,7 @@ namespace TdApi {
     export interface td_pageBlockParagraph {
         '@type': 'pageBlockParagraph';
         /** Paragraph text */
-        text?: td_RichText;
+        text: td_RichText;
     }
     
     
@@ -2644,9 +2644,9 @@ namespace TdApi {
     export interface td_pageBlockPreformatted {
         '@type': 'pageBlockPreformatted';
         /** Paragraph text */
-        text?: td_RichText;
+        text: td_RichText;
         /** Programming language for which the text needs to be formatted */
-        language?: td_string;
+        language: td_string;
     }
     
     
@@ -2654,7 +2654,7 @@ namespace TdApi {
     export interface td_pageBlockFooter {
         '@type': 'pageBlockFooter';
         /** Footer */
-        footer?: td_RichText;
+        footer: td_RichText;
     }
     
     
@@ -2668,7 +2668,7 @@ namespace TdApi {
     export interface td_pageBlockAnchor {
         '@type': 'pageBlockAnchor';
         /** Name of the anchor */
-        name?: td_string;
+        name: td_string;
     }
     
     
@@ -2676,7 +2676,7 @@ namespace TdApi {
     export interface td_pageBlockList {
         '@type': 'pageBlockList';
         /** The items of the list */
-        items?: td_vector<td_pageBlockListItem>;
+        items: td_vector<td_pageBlockListItem>;
     }
     
     
@@ -2684,9 +2684,9 @@ namespace TdApi {
     export interface td_pageBlockBlockQuote {
         '@type': 'pageBlockBlockQuote';
         /** Quote text */
-        text?: td_RichText;
+        text: td_RichText;
         /** Quote credit */
-        credit?: td_RichText;
+        credit: td_RichText;
     }
     
     
@@ -2694,9 +2694,9 @@ namespace TdApi {
     export interface td_pageBlockPullQuote {
         '@type': 'pageBlockPullQuote';
         /** Quote text */
-        text?: td_RichText;
+        text: td_RichText;
         /** Quote credit */
-        credit?: td_RichText;
+        credit: td_RichText;
     }
     
     
@@ -2706,9 +2706,9 @@ namespace TdApi {
         /** Animation file; may be null */
         animation?: td_animation;
         /** Animation caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
         /** True, if the animation must be played automatically */
-        need_autoplay?: td_Bool;
+        need_autoplay: td_Bool;
     }
     
     
@@ -2718,7 +2718,7 @@ namespace TdApi {
         /** Audio file; may be null */
         audio?: td_audio;
         /** Audio file caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
     }
     
     
@@ -2728,9 +2728,9 @@ namespace TdApi {
         /** Photo file; may be null */
         photo?: td_photo;
         /** Photo caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
         /** URL that needs to be opened when the photo is clicked */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -2740,11 +2740,11 @@ namespace TdApi {
         /** Video file; may be null */
         video?: td_video;
         /** Video caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
         /** True, if the video must be played automatically */
-        need_autoplay?: td_Bool;
+        need_autoplay: td_Bool;
         /** True, if the video must be looped */
-        is_looped?: td_Bool;
+        is_looped: td_Bool;
     }
     
     
@@ -2754,7 +2754,7 @@ namespace TdApi {
         /** Voice note; may be null */
         voice_note?: td_voiceNote;
         /** Voice note caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
     }
     
     
@@ -2762,7 +2762,7 @@ namespace TdApi {
     export interface td_pageBlockCover {
         '@type': 'pageBlockCover';
         /** Cover */
-        cover?: td_PageBlock;
+        cover: td_PageBlock;
     }
     
     
@@ -2770,21 +2770,21 @@ namespace TdApi {
     export interface td_pageBlockEmbedded {
         '@type': 'pageBlockEmbedded';
         /** Web page URL, if available */
-        url?: td_string;
+        url: td_string;
         /** HTML-markup of the embedded page */
-        html?: td_string;
+        html: td_string;
         /** Poster photo, if available; may be null */
         poster_photo?: td_photo;
         /** Block width; 0 if unknown */
-        width?: td_int32;
+        width: td_int32;
         /** Block height; 0 if unknown */
-        height?: td_int32;
+        height: td_int32;
         /** Block caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
         /** True, if the block must be full width */
-        is_full_width?: td_Bool;
+        is_full_width: td_Bool;
         /** True, if scrolling needs to be allowed */
-        allow_scrolling?: td_Bool;
+        allow_scrolling: td_Bool;
     }
     
     
@@ -2792,17 +2792,17 @@ namespace TdApi {
     export interface td_pageBlockEmbeddedPost {
         '@type': 'pageBlockEmbeddedPost';
         /** Web page URL */
-        url?: td_string;
+        url: td_string;
         /** Post author */
-        author?: td_string;
+        author: td_string;
         /** Post author photo; may be null */
         author_photo?: td_photo;
         /** Point in time (Unix timestamp) when the post was created; 0 if unknown */
-        date?: td_int32;
+        date: td_int32;
         /** Post content */
-        page_blocks?: td_vector<td_PageBlock>;
+        page_blocks: td_vector<td_PageBlock>;
         /** Post caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
     }
     
     
@@ -2810,9 +2810,9 @@ namespace TdApi {
     export interface td_pageBlockCollage {
         '@type': 'pageBlockCollage';
         /** Collage item contents */
-        page_blocks?: td_vector<td_PageBlock>;
+        page_blocks: td_vector<td_PageBlock>;
         /** Block caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
     }
     
     
@@ -2820,9 +2820,9 @@ namespace TdApi {
     export interface td_pageBlockSlideshow {
         '@type': 'pageBlockSlideshow';
         /** Slideshow item contents */
-        page_blocks?: td_vector<td_PageBlock>;
+        page_blocks: td_vector<td_PageBlock>;
         /** Block caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
     }
     
     
@@ -2830,11 +2830,11 @@ namespace TdApi {
     export interface td_pageBlockChatLink {
         '@type': 'pageBlockChatLink';
         /** Chat title */
-        title?: td_string;
+        title: td_string;
         /** Chat photo; may be null */
         photo?: td_chatPhotoInfo;
         /** Chat username, by which all other information about the chat can be resolved */
-        username?: td_string;
+        username: td_string;
     }
     
     
@@ -2842,13 +2842,13 @@ namespace TdApi {
     export interface td_pageBlockTable {
         '@type': 'pageBlockTable';
         /** Table caption */
-        caption?: td_RichText;
+        caption: td_RichText;
         /** Table cells */
-        cells?: td_vector<td_vector<td_pageBlockTableCell>>;
+        cells: td_vector<td_vector<td_pageBlockTableCell>>;
         /** True, if the table is bordered */
-        is_bordered?: td_Bool;
+        is_bordered: td_Bool;
         /** True, if the table is striped */
-        is_striped?: td_Bool;
+        is_striped: td_Bool;
     }
     
     
@@ -2856,11 +2856,11 @@ namespace TdApi {
     export interface td_pageBlockDetails {
         '@type': 'pageBlockDetails';
         /** Always visible heading for the block */
-        header?: td_RichText;
+        header: td_RichText;
         /** Block contents */
-        page_blocks?: td_vector<td_PageBlock>;
+        page_blocks: td_vector<td_PageBlock>;
         /** True, if the block is open by default */
-        is_open?: td_Bool;
+        is_open: td_Bool;
     }
     
     
@@ -2868,9 +2868,9 @@ namespace TdApi {
     export interface td_pageBlockRelatedArticles {
         '@type': 'pageBlockRelatedArticles';
         /** Block header */
-        header?: td_RichText;
+        header: td_RichText;
         /** List of related articles */
-        articles?: td_vector<td_pageBlockRelatedArticle>;
+        articles: td_vector<td_pageBlockRelatedArticle>;
     }
     
     
@@ -2878,15 +2878,15 @@ namespace TdApi {
     export interface td_pageBlockMap {
         '@type': 'pageBlockMap';
         /** Location of the map center */
-        location?: td_location;
+        location: td_location;
         /** Map zoom level */
-        zoom?: td_int32;
+        zoom: td_int32;
         /** Map width */
-        width?: td_int32;
+        width: td_int32;
         /** Map height */
-        height?: td_int32;
+        height: td_int32;
         /** Block caption */
-        caption?: td_pageBlockCaption;
+        caption: td_pageBlockCaption;
     }
     
     
@@ -2894,17 +2894,17 @@ namespace TdApi {
     export interface td_webPageInstantView {
         '@type': 'webPageInstantView';
         /** Content of the web page */
-        page_blocks?: td_vector<td_PageBlock>;
+        page_blocks: td_vector<td_PageBlock>;
         /** Number of the instant view views; 0 if unknown */
-        view_count?: td_int32;
+        view_count: td_int32;
         /** Version of the instant view, currently can be 1 or 2 */
-        version?: td_int32;
+        version: td_int32;
         /** True, if the instant view must be shown from right to left */
-        is_rtl?: td_Bool;
+        is_rtl: td_Bool;
         /** True, if the instant view contains the full page. A network request might be needed to get the full web page instant view */
-        is_full?: td_Bool;
+        is_full: td_Bool;
         /** An internal link to be opened to leave feedback about the instant view */
-        feedback_link?: td_InternalLinkType;
+        feedback_link: td_InternalLinkType;
     }
     
     
@@ -2912,31 +2912,31 @@ namespace TdApi {
     export interface td_webPage {
         '@type': 'webPage';
         /** Original URL of the link */
-        url?: td_string;
+        url: td_string;
         /** URL to display */
-        display_url?: td_string;
+        display_url: td_string;
         /** Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else */
-        type?: td_string;
+        type: td_string;
         /** Short name of the site (e.g., Google Docs, App Store) */
-        site_name?: td_string;
+        site_name: td_string;
         /** Title of the content */
-        title?: td_string;
+        title: td_string;
         /** Describes a web page preview */
-        description?: td_formattedText;
+        description: td_formattedText;
         /** Image representing the content; may be null */
         photo?: td_photo;
         /** URL to show in the embedded preview */
-        embed_url?: td_string;
+        embed_url: td_string;
         /** MIME type of the embedded preview, (e.g., text/html or video/mp4) */
-        embed_type?: td_string;
+        embed_type: td_string;
         /** Width of the embedded preview */
-        embed_width?: td_int32;
+        embed_width: td_int32;
         /** Height of the embedded preview */
-        embed_height?: td_int32;
+        embed_height: td_int32;
         /** Duration of the content, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
         /** Author of the content */
-        author?: td_string;
+        author: td_string;
         /** Preview of the content as an animation, if available; may be null */
         animation?: td_animation;
         /** Preview of the content as an audio file, if available; may be null */
@@ -2952,7 +2952,7 @@ namespace TdApi {
         /** Preview of the content as a voice note, if available; may be null */
         voice_note?: td_voiceNote;
         /** Version of instant view, available for the web page (currently can be 1 or 2), 0 if none */
-        instant_view_version?: td_int32;
+        instant_view_version: td_int32;
     }
     
     
@@ -2960,15 +2960,15 @@ namespace TdApi {
     export interface td_countryInfo {
         '@type': 'countryInfo';
         /** A two-letter ISO 3166-1 alpha-2 country code */
-        country_code?: td_string;
+        country_code: td_string;
         /** Native name of the country */
-        name?: td_string;
+        name: td_string;
         /** English name of the country */
-        english_name?: td_string;
+        english_name: td_string;
         /** True, if the country must be hidden from the list of all countries */
-        is_hidden?: td_Bool;
+        is_hidden: td_Bool;
         /** List of country calling codes */
-        calling_codes?: td_vector<td_string>;
+        calling_codes: td_vector<td_string>;
     }
     
     
@@ -2976,7 +2976,7 @@ namespace TdApi {
     export interface td_countries {
         '@type': 'countries';
         /** The list of countries */
-        countries?: td_vector<td_countryInfo>;
+        countries: td_vector<td_countryInfo>;
     }
     
     
@@ -2986,9 +2986,9 @@ namespace TdApi {
         /** Information about the country to which the phone number belongs; may be null */
         country?: td_countryInfo;
         /** The part of the phone number denoting country calling code or its part */
-        country_calling_code?: td_string;
+        country_calling_code: td_string;
         /** The phone number without country calling code formatted accordingly to local rules. Expected digits are returned as '-', but even more digits might be entered by the user */
-        formatted_phone_number?: td_string;
+        formatted_phone_number: td_string;
     }
     
     
@@ -2996,9 +2996,9 @@ namespace TdApi {
     export interface td_bankCardActionOpenUrl {
         '@type': 'bankCardActionOpenUrl';
         /** Action text */
-        text?: td_string;
+        text: td_string;
         /** The URL to be opened */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -3006,9 +3006,9 @@ namespace TdApi {
     export interface td_bankCardInfo {
         '@type': 'bankCardInfo';
         /** Title of the bank card description */
-        title?: td_string;
+        title: td_string;
         /** Actions that can be done with the bank card number */
-        actions?: td_vector<td_bankCardActionOpenUrl>;
+        actions: td_vector<td_bankCardActionOpenUrl>;
     }
     
     
@@ -3016,17 +3016,17 @@ namespace TdApi {
     export interface td_address {
         '@type': 'address';
         /** A two-letter ISO 3166-1 alpha-2 country code */
-        country_code?: td_string;
+        country_code: td_string;
         /** State, if applicable */
-        state?: td_string;
+        state: td_string;
         /** City */
-        city?: td_string;
+        city: td_string;
         /** First line of the address */
-        street_line1?: td_string;
+        street_line1: td_string;
         /** Second line of the address */
-        street_line2?: td_string;
+        street_line2: td_string;
         /** Address postal code */
-        postal_code?: td_string;
+        postal_code: td_string;
     }
     
     
@@ -3034,9 +3034,9 @@ namespace TdApi {
     export interface td_labeledPricePart {
         '@type': 'labeledPricePart';
         /** Label for this portion of the product price */
-        label?: td_string;
+        label: td_string;
         /** Currency amount in the smallest units of the currency */
-        amount?: td_int53;
+        amount: td_int53;
     }
     
     
@@ -3044,29 +3044,29 @@ namespace TdApi {
     export interface td_invoice {
         '@type': 'invoice';
         /** ISO 4217 currency code */
-        currency?: td_string;
+        currency: td_string;
         /** A list of objects used to calculate the total price of the product */
-        price_parts?: td_vector<td_labeledPricePart>;
+        price_parts: td_vector<td_labeledPricePart>;
         /** The maximum allowed amount of tip in the smallest units of the currency */
-        max_tip_amount?: td_int53;
+        max_tip_amount: td_int53;
         /** Suggested amounts of tip in the smallest units of the currency */
-        suggested_tip_amounts?: td_vector<td_int53>;
+        suggested_tip_amounts: td_vector<td_int53>;
         /** True, if the payment is a test payment */
-        is_test?: td_Bool;
+        is_test: td_Bool;
         /** True, if the user's name is needed for payment */
-        need_name?: td_Bool;
+        need_name: td_Bool;
         /** True, if the user's phone number is needed for payment */
-        need_phone_number?: td_Bool;
+        need_phone_number: td_Bool;
         /** True, if the user's email address is needed for payment */
-        need_email_address?: td_Bool;
+        need_email_address: td_Bool;
         /** True, if the user's shipping address is needed for payment */
-        need_shipping_address?: td_Bool;
+        need_shipping_address: td_Bool;
         /** True, if the user's phone number will be sent to the provider */
-        send_phone_number_to_provider?: td_Bool;
+        send_phone_number_to_provider: td_Bool;
         /** True, if the user's email address will be sent to the provider */
-        send_email_address_to_provider?: td_Bool;
+        send_email_address_to_provider: td_Bool;
         /** True, if the total price depends on the shipping method */
-        is_flexible?: td_Bool;
+        is_flexible: td_Bool;
     }
     
     
@@ -3074,11 +3074,11 @@ namespace TdApi {
     export interface td_orderInfo {
         '@type': 'orderInfo';
         /** Name of the user */
-        name?: td_string;
+        name: td_string;
         /** Phone number of the user */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** Email address of the user */
-        email_address?: td_string;
+        email_address: td_string;
         /** Shipping address for this order; may be null */
         shipping_address?: td_address;
     }
@@ -3088,11 +3088,11 @@ namespace TdApi {
     export interface td_shippingOption {
         '@type': 'shippingOption';
         /** Shipping option identifier */
-        id?: td_string;
+        id: td_string;
         /** Option title */
-        title?: td_string;
+        title: td_string;
         /** A list of objects used to calculate the total shipping costs */
-        price_parts?: td_vector<td_labeledPricePart>;
+        price_parts: td_vector<td_labeledPricePart>;
     }
     
     
@@ -3100,9 +3100,9 @@ namespace TdApi {
     export interface td_savedCredentials {
         '@type': 'savedCredentials';
         /** Unique identifier of the saved credentials */
-        id?: td_string;
+        id: td_string;
         /** Title of the saved credentials */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -3110,7 +3110,7 @@ namespace TdApi {
     export interface td_inputCredentialsSaved {
         '@type': 'inputCredentialsSaved';
         /** Identifier of the saved credentials */
-        saved_credentials_id?: td_string;
+        saved_credentials_id: td_string;
     }
     
     
@@ -3118,9 +3118,9 @@ namespace TdApi {
     export interface td_inputCredentialsNew {
         '@type': 'inputCredentialsNew';
         /** Contains JSON-encoded data with a credential identifier from the payment provider */
-        data?: td_string;
+        data: td_string;
         /** True, if the credential identifier can be saved on the server side */
-        allow_save?: td_Bool;
+        allow_save: td_Bool;
     }
     
     
@@ -3128,7 +3128,7 @@ namespace TdApi {
     export interface td_inputCredentialsApplePay {
         '@type': 'inputCredentialsApplePay';
         /** JSON-encoded data with the credential identifier */
-        data?: td_string;
+        data: td_string;
     }
     
     
@@ -3136,7 +3136,7 @@ namespace TdApi {
     export interface td_inputCredentialsGooglePay {
         '@type': 'inputCredentialsGooglePay';
         /** JSON-encoded data with the credential identifier */
-        data?: td_string;
+        data: td_string;
     }
     
     
@@ -3144,13 +3144,13 @@ namespace TdApi {
     export interface td_paymentsProviderStripe {
         '@type': 'paymentsProviderStripe';
         /** Stripe API publishable key */
-        publishable_key?: td_string;
+        publishable_key: td_string;
         /** True, if the user country must be provided */
-        need_country?: td_Bool;
+        need_country: td_Bool;
         /** True, if the user ZIP/postal code must be provided */
-        need_postal_code?: td_Bool;
+        need_postal_code: td_Bool;
         /** True, if the cardholder name must be provided */
-        need_cardholder_name?: td_Bool;
+        need_cardholder_name: td_Bool;
     }
     
     
@@ -3158,17 +3158,17 @@ namespace TdApi {
     export interface td_paymentFormTheme {
         '@type': 'paymentFormTheme';
         /** A color of the payment form background in the RGB24 format */
-        background_color?: td_int32;
+        background_color: td_int32;
         /** A color of text in the RGB24 format */
-        text_color?: td_int32;
+        text_color: td_int32;
         /** A color of hints in the RGB24 format */
-        hint_color?: td_int32;
+        hint_color: td_int32;
         /** A color of links in the RGB24 format */
-        link_color?: td_int32;
+        link_color: td_int32;
         /** A color of thebuttons in the RGB24 format */
-        button_color?: td_int32;
+        button_color: td_int32;
         /** A color of text on the buttons in the RGB24 format */
-        button_text_color?: td_int32;
+        button_text_color: td_int32;
     }
     
     
@@ -3176,15 +3176,15 @@ namespace TdApi {
     export interface td_paymentForm {
         '@type': 'paymentForm';
         /** The payment form identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Full information of the invoice */
-        invoice?: td_invoice;
+        invoice: td_invoice;
         /** Payment form URL */
-        url?: td_string;
+        url: td_string;
         /** User identifier of the seller bot */
-        seller_bot_user_id?: td_int53;
+        seller_bot_user_id: td_int53;
         /** User identifier of the payment provider bot */
-        payments_provider_user_id?: td_int53;
+        payments_provider_user_id: td_int53;
         /** Contains information about the payment provider, if available, to support it natively without the need for opening the URL; may be null */
         payments_provider?: td_paymentsProviderStripe;
         /** Saved server-side order information; may be null */
@@ -3192,9 +3192,9 @@ namespace TdApi {
         /** Contains information about saved card credentials; may be null */
         saved_credentials?: td_savedCredentials;
         /** True, if the user can choose to save credentials */
-        can_save_credentials?: td_Bool;
+        can_save_credentials: td_Bool;
         /** True, if the user will be able to save credentials protected by a password they set up */
-        need_password?: td_Bool;
+        need_password: td_Bool;
     }
     
     
@@ -3202,9 +3202,9 @@ namespace TdApi {
     export interface td_validatedOrderInfo {
         '@type': 'validatedOrderInfo';
         /** Temporary identifier of the order information */
-        order_info_id?: td_string;
+        order_info_id: td_string;
         /** Available shipping options */
-        shipping_options?: td_vector<td_shippingOption>;
+        shipping_options: td_vector<td_shippingOption>;
     }
     
     
@@ -3212,9 +3212,9 @@ namespace TdApi {
     export interface td_paymentResult {
         '@type': 'paymentResult';
         /** True, if the payment request was successful; otherwise the verification_url will be non-empty */
-        success?: td_Bool;
+        success: td_Bool;
         /** URL for additional payment credentials verification */
-        verification_url?: td_string;
+        verification_url: td_string;
     }
     
     
@@ -3222,27 +3222,27 @@ namespace TdApi {
     export interface td_paymentReceipt {
         '@type': 'paymentReceipt';
         /** Product title */
-        title?: td_string;
+        title: td_string;
         /** Contains information about a successful payment */
-        description?: td_string;
+        description: td_string;
         /** Product photo; may be null */
         photo?: td_photo;
         /** Point in time (Unix timestamp) when the payment was made */
-        date?: td_int32;
+        date: td_int32;
         /** User identifier of the seller bot */
-        seller_bot_user_id?: td_int53;
+        seller_bot_user_id: td_int53;
         /** User identifier of the payment provider bot */
-        payments_provider_user_id?: td_int53;
+        payments_provider_user_id: td_int53;
         /** Contains information about the invoice */
-        invoice?: td_invoice;
+        invoice: td_invoice;
         /** Order information; may be null */
         order_info?: td_orderInfo;
         /** Chosen shipping option; may be null */
         shipping_option?: td_shippingOption;
         /** Title of the saved credentials chosen by the buyer */
-        credentials_title?: td_string;
+        credentials_title: td_string;
         /** The amount of tip chosen by the buyer in the smallest units of the currency */
-        tip_amount?: td_int53;
+        tip_amount: td_int53;
     }
     
     
@@ -3250,9 +3250,9 @@ namespace TdApi {
     export interface td_datedFile {
         '@type': 'datedFile';
         /** The file */
-        file?: td_file;
+        file: td_file;
         /** Point in time (Unix timestamp) when the file was uploaded */
-        date?: td_int32;
+        date: td_int32;
     }
     
     
@@ -3338,11 +3338,11 @@ namespace TdApi {
     export interface td_date {
         '@type': 'date';
         /** Day of the month; 1-31 */
-        day?: td_int32;
+        day: td_int32;
         /** Month; 1-12 */
-        month?: td_int32;
+        month: td_int32;
         /** Year; 1-9999 */
-        year?: td_int32;
+        year: td_int32;
     }
     
     
@@ -3350,25 +3350,25 @@ namespace TdApi {
     export interface td_personalDetails {
         '@type': 'personalDetails';
         /** First name of the user written in English; 1-255 characters */
-        first_name?: td_string;
+        first_name: td_string;
         /** Middle name of the user written in English; 0-255 characters */
-        middle_name?: td_string;
+        middle_name: td_string;
         /** Last name of the user written in English; 1-255 characters */
-        last_name?: td_string;
+        last_name: td_string;
         /** Native first name of the user; 1-255 characters */
-        native_first_name?: td_string;
+        native_first_name: td_string;
         /** Native middle name of the user; 0-255 characters */
-        native_middle_name?: td_string;
+        native_middle_name: td_string;
         /** Native last name of the user; 1-255 characters */
-        native_last_name?: td_string;
+        native_last_name: td_string;
         /** Birthdate of the user */
-        birthdate?: td_date;
+        birthdate: td_date;
         /** Gender of the user, "male" or "female" */
-        gender?: td_string;
+        gender: td_string;
         /** A two-letter ISO 3166-1 alpha-2 country code of the user's country */
-        country_code?: td_string;
+        country_code: td_string;
         /** A two-letter ISO 3166-1 alpha-2 country code of the user's residence country */
-        residence_country_code?: td_string;
+        residence_country_code: td_string;
     }
     
     
@@ -3376,17 +3376,17 @@ namespace TdApi {
     export interface td_identityDocument {
         '@type': 'identityDocument';
         /** Document number; 1-24 characters */
-        number?: td_string;
+        number: td_string;
         /** Document expiry date; may be null if not applicable */
         expiry_date?: td_date;
         /** Front side of the document */
-        front_side?: td_datedFile;
+        front_side: td_datedFile;
         /** Reverse side of the document; only for driver license and identity card; may be null */
         reverse_side?: td_datedFile;
         /** Selfie with the document; may be null */
         selfie?: td_datedFile;
         /** List of files containing a certified English translation of the document */
-        translation?: td_vector<td_datedFile>;
+        translation: td_vector<td_datedFile>;
     }
     
     
@@ -3394,17 +3394,17 @@ namespace TdApi {
     export interface td_inputIdentityDocument {
         '@type': 'inputIdentityDocument';
         /** Document number; 1-24 characters */
-        number?: td_string;
+        number: td_string;
         /** Document expiry date; pass null if not applicable */
-        expiry_date?: td_date;
+        expiry_date: td_date;
         /** Front side of the document */
-        front_side?: td_InputFile;
+        front_side: td_InputFile;
         /** Reverse side of the document; only for driver license and identity card; pass null otherwise */
-        reverse_side?: td_InputFile;
+        reverse_side: td_InputFile;
         /** Selfie with the document; pass null if unavailable */
-        selfie?: td_InputFile;
+        selfie: td_InputFile;
         /** List of files containing a certified English translation of the document */
-        translation?: td_vector<td_InputFile>;
+        translation: td_vector<td_InputFile>;
     }
     
     
@@ -3412,9 +3412,9 @@ namespace TdApi {
     export interface td_personalDocument {
         '@type': 'personalDocument';
         /** List of files containing the pages of the document */
-        files?: td_vector<td_datedFile>;
+        files: td_vector<td_datedFile>;
         /** List of files containing a certified English translation of the document */
-        translation?: td_vector<td_datedFile>;
+        translation: td_vector<td_datedFile>;
     }
     
     
@@ -3422,9 +3422,9 @@ namespace TdApi {
     export interface td_inputPersonalDocument {
         '@type': 'inputPersonalDocument';
         /** List of files containing the pages of the document */
-        files?: td_vector<td_InputFile>;
+        files: td_vector<td_InputFile>;
         /** List of files containing a certified English translation of the document */
-        translation?: td_vector<td_InputFile>;
+        translation: td_vector<td_InputFile>;
     }
     
     
@@ -3432,7 +3432,7 @@ namespace TdApi {
     export interface td_passportElementPersonalDetails {
         '@type': 'passportElementPersonalDetails';
         /** Personal details of the user */
-        personal_details?: td_personalDetails;
+        personal_details: td_personalDetails;
     }
     
     
@@ -3440,7 +3440,7 @@ namespace TdApi {
     export interface td_passportElementPassport {
         '@type': 'passportElementPassport';
         /** Passport */
-        passport?: td_identityDocument;
+        passport: td_identityDocument;
     }
     
     
@@ -3448,7 +3448,7 @@ namespace TdApi {
     export interface td_passportElementDriverLicense {
         '@type': 'passportElementDriverLicense';
         /** Driver license */
-        driver_license?: td_identityDocument;
+        driver_license: td_identityDocument;
     }
     
     
@@ -3456,7 +3456,7 @@ namespace TdApi {
     export interface td_passportElementIdentityCard {
         '@type': 'passportElementIdentityCard';
         /** Identity card */
-        identity_card?: td_identityDocument;
+        identity_card: td_identityDocument;
     }
     
     
@@ -3464,7 +3464,7 @@ namespace TdApi {
     export interface td_passportElementInternalPassport {
         '@type': 'passportElementInternalPassport';
         /** Internal passport */
-        internal_passport?: td_identityDocument;
+        internal_passport: td_identityDocument;
     }
     
     
@@ -3472,7 +3472,7 @@ namespace TdApi {
     export interface td_passportElementAddress {
         '@type': 'passportElementAddress';
         /** Address */
-        address?: td_address;
+        address: td_address;
     }
     
     
@@ -3480,7 +3480,7 @@ namespace TdApi {
     export interface td_passportElementUtilityBill {
         '@type': 'passportElementUtilityBill';
         /** Utility bill */
-        utility_bill?: td_personalDocument;
+        utility_bill: td_personalDocument;
     }
     
     
@@ -3488,7 +3488,7 @@ namespace TdApi {
     export interface td_passportElementBankStatement {
         '@type': 'passportElementBankStatement';
         /** Bank statement */
-        bank_statement?: td_personalDocument;
+        bank_statement: td_personalDocument;
     }
     
     
@@ -3496,7 +3496,7 @@ namespace TdApi {
     export interface td_passportElementRentalAgreement {
         '@type': 'passportElementRentalAgreement';
         /** Rental agreement */
-        rental_agreement?: td_personalDocument;
+        rental_agreement: td_personalDocument;
     }
     
     
@@ -3504,7 +3504,7 @@ namespace TdApi {
     export interface td_passportElementPassportRegistration {
         '@type': 'passportElementPassportRegistration';
         /** Passport registration pages */
-        passport_registration?: td_personalDocument;
+        passport_registration: td_personalDocument;
     }
     
     
@@ -3512,7 +3512,7 @@ namespace TdApi {
     export interface td_passportElementTemporaryRegistration {
         '@type': 'passportElementTemporaryRegistration';
         /** Temporary registration */
-        temporary_registration?: td_personalDocument;
+        temporary_registration: td_personalDocument;
     }
     
     
@@ -3520,7 +3520,7 @@ namespace TdApi {
     export interface td_passportElementPhoneNumber {
         '@type': 'passportElementPhoneNumber';
         /** Phone number */
-        phone_number?: td_string;
+        phone_number: td_string;
     }
     
     
@@ -3528,7 +3528,7 @@ namespace TdApi {
     export interface td_passportElementEmailAddress {
         '@type': 'passportElementEmailAddress';
         /** Email address */
-        email_address?: td_string;
+        email_address: td_string;
     }
     
     
@@ -3536,7 +3536,7 @@ namespace TdApi {
     export interface td_inputPassportElementPersonalDetails {
         '@type': 'inputPassportElementPersonalDetails';
         /** Personal details of the user */
-        personal_details?: td_personalDetails;
+        personal_details: td_personalDetails;
     }
     
     
@@ -3544,7 +3544,7 @@ namespace TdApi {
     export interface td_inputPassportElementPassport {
         '@type': 'inputPassportElementPassport';
         /** The passport to be saved */
-        passport?: td_inputIdentityDocument;
+        passport: td_inputIdentityDocument;
     }
     
     
@@ -3552,7 +3552,7 @@ namespace TdApi {
     export interface td_inputPassportElementDriverLicense {
         '@type': 'inputPassportElementDriverLicense';
         /** The driver license to be saved */
-        driver_license?: td_inputIdentityDocument;
+        driver_license: td_inputIdentityDocument;
     }
     
     
@@ -3560,7 +3560,7 @@ namespace TdApi {
     export interface td_inputPassportElementIdentityCard {
         '@type': 'inputPassportElementIdentityCard';
         /** The identity card to be saved */
-        identity_card?: td_inputIdentityDocument;
+        identity_card: td_inputIdentityDocument;
     }
     
     
@@ -3568,7 +3568,7 @@ namespace TdApi {
     export interface td_inputPassportElementInternalPassport {
         '@type': 'inputPassportElementInternalPassport';
         /** The internal passport to be saved */
-        internal_passport?: td_inputIdentityDocument;
+        internal_passport: td_inputIdentityDocument;
     }
     
     
@@ -3576,7 +3576,7 @@ namespace TdApi {
     export interface td_inputPassportElementAddress {
         '@type': 'inputPassportElementAddress';
         /** The address to be saved */
-        address?: td_address;
+        address: td_address;
     }
     
     
@@ -3584,7 +3584,7 @@ namespace TdApi {
     export interface td_inputPassportElementUtilityBill {
         '@type': 'inputPassportElementUtilityBill';
         /** The utility bill to be saved */
-        utility_bill?: td_inputPersonalDocument;
+        utility_bill: td_inputPersonalDocument;
     }
     
     
@@ -3592,7 +3592,7 @@ namespace TdApi {
     export interface td_inputPassportElementBankStatement {
         '@type': 'inputPassportElementBankStatement';
         /** The bank statement to be saved */
-        bank_statement?: td_inputPersonalDocument;
+        bank_statement: td_inputPersonalDocument;
     }
     
     
@@ -3600,7 +3600,7 @@ namespace TdApi {
     export interface td_inputPassportElementRentalAgreement {
         '@type': 'inputPassportElementRentalAgreement';
         /** The rental agreement to be saved */
-        rental_agreement?: td_inputPersonalDocument;
+        rental_agreement: td_inputPersonalDocument;
     }
     
     
@@ -3608,7 +3608,7 @@ namespace TdApi {
     export interface td_inputPassportElementPassportRegistration {
         '@type': 'inputPassportElementPassportRegistration';
         /** The passport registration page to be saved */
-        passport_registration?: td_inputPersonalDocument;
+        passport_registration: td_inputPersonalDocument;
     }
     
     
@@ -3616,7 +3616,7 @@ namespace TdApi {
     export interface td_inputPassportElementTemporaryRegistration {
         '@type': 'inputPassportElementTemporaryRegistration';
         /** The temporary registration document to be saved */
-        temporary_registration?: td_inputPersonalDocument;
+        temporary_registration: td_inputPersonalDocument;
     }
     
     
@@ -3624,7 +3624,7 @@ namespace TdApi {
     export interface td_inputPassportElementPhoneNumber {
         '@type': 'inputPassportElementPhoneNumber';
         /** The phone number to be saved */
-        phone_number?: td_string;
+        phone_number: td_string;
     }
     
     
@@ -3632,7 +3632,7 @@ namespace TdApi {
     export interface td_inputPassportElementEmailAddress {
         '@type': 'inputPassportElementEmailAddress';
         /** The email address to be saved */
-        email_address?: td_string;
+        email_address: td_string;
     }
     
     
@@ -3640,7 +3640,7 @@ namespace TdApi {
     export interface td_passportElements {
         '@type': 'passportElements';
         /** Telegram Passport elements */
-        elements?: td_vector<td_PassportElement>;
+        elements: td_vector<td_PassportElement>;
     }
     
     
@@ -3654,7 +3654,7 @@ namespace TdApi {
     export interface td_passportElementErrorSourceDataField {
         '@type': 'passportElementErrorSourceDataField';
         /** Field name */
-        field_name?: td_string;
+        field_name: td_string;
     }
     
     
@@ -3680,7 +3680,7 @@ namespace TdApi {
     export interface td_passportElementErrorSourceTranslationFile {
         '@type': 'passportElementErrorSourceTranslationFile';
         /** Index of a file with the error */
-        file_index?: td_int32;
+        file_index: td_int32;
     }
     
     
@@ -3694,7 +3694,7 @@ namespace TdApi {
     export interface td_passportElementErrorSourceFile {
         '@type': 'passportElementErrorSourceFile';
         /** Index of a file with the error */
-        file_index?: td_int32;
+        file_index: td_int32;
     }
     
     
@@ -3708,11 +3708,11 @@ namespace TdApi {
     export interface td_passportElementError {
         '@type': 'passportElementError';
         /** Type of the Telegram Passport element which has the error */
-        type?: td_PassportElementType;
+        type: td_PassportElementType;
         /** Error message */
-        message?: td_string;
+        message: td_string;
         /** Error source */
-        source?: td_PassportElementErrorSource;
+        source: td_PassportElementErrorSource;
     }
     
     
@@ -3720,13 +3720,13 @@ namespace TdApi {
     export interface td_passportSuitableElement {
         '@type': 'passportSuitableElement';
         /** Type of the element */
-        type?: td_PassportElementType;
+        type: td_PassportElementType;
         /** True, if a selfie is required with the identity document */
-        is_selfie_required?: td_Bool;
+        is_selfie_required: td_Bool;
         /** True, if a certified English translation is required with the document */
-        is_translation_required?: td_Bool;
+        is_translation_required: td_Bool;
         /** True, if personal details must include the user's name in the language of their country of residence */
-        is_native_name_required?: td_Bool;
+        is_native_name_required: td_Bool;
     }
     
     
@@ -3734,7 +3734,7 @@ namespace TdApi {
     export interface td_passportRequiredElement {
         '@type': 'passportRequiredElement';
         /** List of Telegram Passport elements any of which is enough to provide */
-        suitable_elements?: td_vector<td_passportSuitableElement>;
+        suitable_elements: td_vector<td_passportSuitableElement>;
     }
     
     
@@ -3742,11 +3742,11 @@ namespace TdApi {
     export interface td_passportAuthorizationForm {
         '@type': 'passportAuthorizationForm';
         /** Unique identifier of the authorization form */
-        id?: td_int32;
+        id: td_int32;
         /** Information about the Telegram Passport elements that must be provided to complete the form */
-        required_elements?: td_vector<td_passportRequiredElement>;
+        required_elements: td_vector<td_passportRequiredElement>;
         /** URL for the privacy policy of the service; may be empty */
-        privacy_policy_url?: td_string;
+        privacy_policy_url: td_string;
     }
     
     
@@ -3754,9 +3754,9 @@ namespace TdApi {
     export interface td_passportElementsWithErrors {
         '@type': 'passportElementsWithErrors';
         /** Telegram Passport elements */
-        elements?: td_vector<td_PassportElement>;
+        elements: td_vector<td_PassportElement>;
         /** Errors in the elements that are already available */
-        errors?: td_vector<td_passportElementError>;
+        errors: td_vector<td_passportElementError>;
     }
     
     
@@ -3764,11 +3764,11 @@ namespace TdApi {
     export interface td_encryptedCredentials {
         '@type': 'encryptedCredentials';
         /** The encrypted credentials */
-        data?: td_bytes;
+        data: td_bytes;
         /** The decrypted data hash */
-        hash?: td_bytes;
+        hash: td_bytes;
         /** Secret for data decryption, encrypted with the service's public key */
-        secret?: td_bytes;
+        secret: td_bytes;
     }
     
     
@@ -3776,23 +3776,23 @@ namespace TdApi {
     export interface td_encryptedPassportElement {
         '@type': 'encryptedPassportElement';
         /** Type of Telegram Passport element */
-        type?: td_PassportElementType;
+        type: td_PassportElementType;
         /** Encrypted JSON-encoded data about the user */
-        data?: td_bytes;
+        data: td_bytes;
         /** The front side of an identity document */
-        front_side?: td_datedFile;
+        front_side: td_datedFile;
         /** The reverse side of an identity document; may be null */
         reverse_side?: td_datedFile;
         /** Selfie with the document; may be null */
         selfie?: td_datedFile;
         /** List of files containing a certified English translation of the document */
-        translation?: td_vector<td_datedFile>;
+        translation: td_vector<td_datedFile>;
         /** List of attached files */
-        files?: td_vector<td_datedFile>;
+        files: td_vector<td_datedFile>;
         /** Unencrypted data, phone number or email address */
-        value?: td_string;
+        value: td_string;
         /** Hash of the entire element */
-        hash?: td_string;
+        hash: td_string;
     }
     
     
@@ -3800,7 +3800,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceUnspecified {
         '@type': 'inputPassportElementErrorSourceUnspecified';
         /** Current hash of the entire element */
-        element_hash?: td_bytes;
+        element_hash: td_bytes;
     }
     
     
@@ -3808,9 +3808,9 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceDataField {
         '@type': 'inputPassportElementErrorSourceDataField';
         /** Field name */
-        field_name?: td_string;
+        field_name: td_string;
         /** Current data hash */
-        data_hash?: td_bytes;
+        data_hash: td_bytes;
     }
     
     
@@ -3818,7 +3818,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceFrontSide {
         '@type': 'inputPassportElementErrorSourceFrontSide';
         /** Current hash of the file containing the front side */
-        file_hash?: td_bytes;
+        file_hash: td_bytes;
     }
     
     
@@ -3826,7 +3826,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceReverseSide {
         '@type': 'inputPassportElementErrorSourceReverseSide';
         /** Current hash of the file containing the reverse side */
-        file_hash?: td_bytes;
+        file_hash: td_bytes;
     }
     
     
@@ -3834,7 +3834,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceSelfie {
         '@type': 'inputPassportElementErrorSourceSelfie';
         /** Current hash of the file containing the selfie */
-        file_hash?: td_bytes;
+        file_hash: td_bytes;
     }
     
     
@@ -3842,7 +3842,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceTranslationFile {
         '@type': 'inputPassportElementErrorSourceTranslationFile';
         /** Current hash of the file containing the translation */
-        file_hash?: td_bytes;
+        file_hash: td_bytes;
     }
     
     
@@ -3850,7 +3850,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceTranslationFiles {
         '@type': 'inputPassportElementErrorSourceTranslationFiles';
         /** Current hashes of all files with the translation */
-        file_hashes?: td_vector<td_bytes>;
+        file_hashes: td_vector<td_bytes>;
     }
     
     
@@ -3858,7 +3858,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceFile {
         '@type': 'inputPassportElementErrorSourceFile';
         /** Current hash of the file which has the error */
-        file_hash?: td_bytes;
+        file_hash: td_bytes;
     }
     
     
@@ -3866,7 +3866,7 @@ namespace TdApi {
     export interface td_inputPassportElementErrorSourceFiles {
         '@type': 'inputPassportElementErrorSourceFiles';
         /** Current hashes of all attached files */
-        file_hashes?: td_vector<td_bytes>;
+        file_hashes: td_vector<td_bytes>;
     }
     
     
@@ -3874,11 +3874,11 @@ namespace TdApi {
     export interface td_inputPassportElementError {
         '@type': 'inputPassportElementError';
         /** Type of Telegram Passport element that has the error */
-        type?: td_PassportElementType;
+        type: td_PassportElementType;
         /** Error message */
-        message?: td_string;
+        message: td_string;
         /** Error source */
-        source?: td_InputPassportElementErrorSource;
+        source: td_InputPassportElementErrorSource;
     }
     
     
@@ -3886,7 +3886,7 @@ namespace TdApi {
     export interface td_messageText {
         '@type': 'messageText';
         /** Text of the message */
-        text?: td_formattedText;
+        text: td_formattedText;
         /** A preview of the web page that's mentioned in the text; may be null */
         web_page?: td_webPage;
     }
@@ -3896,11 +3896,11 @@ namespace TdApi {
     export interface td_messageAnimation {
         '@type': 'messageAnimation';
         /** The animation description */
-        animation?: td_animation;
+        animation: td_animation;
         /** Animation caption */
-        caption?: td_formattedText;
+        caption: td_formattedText;
         /** True, if the animation thumbnail must be blurred and the animation must be shown only while tapped */
-        is_secret?: td_Bool;
+        is_secret: td_Bool;
     }
     
     
@@ -3908,9 +3908,9 @@ namespace TdApi {
     export interface td_messageAudio {
         '@type': 'messageAudio';
         /** The audio description */
-        audio?: td_audio;
+        audio: td_audio;
         /** Audio caption */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -3918,9 +3918,9 @@ namespace TdApi {
     export interface td_messageDocument {
         '@type': 'messageDocument';
         /** The document description */
-        document?: td_document;
+        document: td_document;
         /** Document caption */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -3928,11 +3928,11 @@ namespace TdApi {
     export interface td_messagePhoto {
         '@type': 'messagePhoto';
         /** The photo description */
-        photo?: td_photo;
+        photo: td_photo;
         /** Photo caption */
-        caption?: td_formattedText;
+        caption: td_formattedText;
         /** True, if the photo must be blurred and must be shown only while tapped */
-        is_secret?: td_Bool;
+        is_secret: td_Bool;
     }
     
     
@@ -3946,7 +3946,7 @@ namespace TdApi {
     export interface td_messageSticker {
         '@type': 'messageSticker';
         /** The sticker description */
-        sticker?: td_sticker;
+        sticker: td_sticker;
     }
     
     
@@ -3954,11 +3954,11 @@ namespace TdApi {
     export interface td_messageVideo {
         '@type': 'messageVideo';
         /** The video description */
-        video?: td_video;
+        video: td_video;
         /** Video caption */
-        caption?: td_formattedText;
+        caption: td_formattedText;
         /** True, if the video thumbnail must be blurred and the video must be shown only while tapped */
-        is_secret?: td_Bool;
+        is_secret: td_Bool;
     }
     
     
@@ -3972,11 +3972,11 @@ namespace TdApi {
     export interface td_messageVideoNote {
         '@type': 'messageVideoNote';
         /** The video note description */
-        video_note?: td_videoNote;
+        video_note: td_videoNote;
         /** True, if at least one of the recipients has viewed the video note */
-        is_viewed?: td_Bool;
+        is_viewed: td_Bool;
         /** True, if the video note thumbnail must be blurred and the video note must be shown only while tapped */
-        is_secret?: td_Bool;
+        is_secret: td_Bool;
     }
     
     
@@ -3984,11 +3984,11 @@ namespace TdApi {
     export interface td_messageVoiceNote {
         '@type': 'messageVoiceNote';
         /** The voice note description */
-        voice_note?: td_voiceNote;
+        voice_note: td_voiceNote;
         /** Voice note caption */
-        caption?: td_formattedText;
+        caption: td_formattedText;
         /** True, if at least one of the recipients has listened to the voice note */
-        is_listened?: td_Bool;
+        is_listened: td_Bool;
     }
     
     
@@ -3996,15 +3996,15 @@ namespace TdApi {
     export interface td_messageLocation {
         '@type': 'messageLocation';
         /** The location description */
-        location?: td_location;
+        location: td_location;
         /** Time relative to the message send date, for which the location can be updated, in seconds */
-        live_period?: td_int32;
+        live_period: td_int32;
         /** Left time for which the location can be updated, in seconds. updateMessageContent is not sent when this field changes */
-        expires_in?: td_int32;
+        expires_in: td_int32;
         /** For live locations, a direction in which the location moves, in degrees; 1-360. If 0 the direction is unknown */
-        heading?: td_int32;
+        heading: td_int32;
         /** For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). 0 if the notification is disabled. Available only for the message sender */
-        proximity_alert_radius?: td_int32;
+        proximity_alert_radius: td_int32;
     }
     
     
@@ -4012,7 +4012,7 @@ namespace TdApi {
     export interface td_messageVenue {
         '@type': 'messageVenue';
         /** The venue description */
-        venue?: td_venue;
+        venue: td_venue;
     }
     
     
@@ -4020,7 +4020,7 @@ namespace TdApi {
     export interface td_messageContact {
         '@type': 'messageContact';
         /** The contact description */
-        contact?: td_contact;
+        contact: td_contact;
     }
     
     
@@ -4032,11 +4032,11 @@ namespace TdApi {
         /** The animated stickers with the final dice animation; may be null if unknown. updateMessageContent will be sent when the sticker became known */
         final_state?: td_DiceStickers;
         /** Emoji on which the dice throw animation is based */
-        emoji?: td_string;
+        emoji: td_string;
         /** The dice value. If the value is 0, the dice don't have final state yet */
-        value?: td_int32;
+        value: td_int32;
         /** Number of frame after which a success animation like a shower of confetti needs to be shown on updateMessageSendSucceeded */
-        success_animation_frame_number?: td_int32;
+        success_animation_frame_number: td_int32;
     }
     
     
@@ -4044,7 +4044,7 @@ namespace TdApi {
     export interface td_messageGame {
         '@type': 'messageGame';
         /** The game description */
-        game?: td_game;
+        game: td_game;
     }
     
     
@@ -4052,7 +4052,7 @@ namespace TdApi {
     export interface td_messagePoll {
         '@type': 'messagePoll';
         /** The poll description */
-        poll?: td_poll;
+        poll: td_poll;
     }
     
     
@@ -4060,23 +4060,23 @@ namespace TdApi {
     export interface td_messageInvoice {
         '@type': 'messageInvoice';
         /** Product title */
-        title?: td_string;
+        title: td_string;
         /** A message with an invoice from a bot */
-        description?: td_string;
+        description: td_string;
         /** Product photo; may be null */
         photo?: td_photo;
         /** Currency for the product price */
-        currency?: td_string;
+        currency: td_string;
         /** Product total price in the smallest units of the currency */
-        total_amount?: td_int53;
+        total_amount: td_int53;
         /** Unique invoice bot start_parameter. To share an invoice use the URL https://t.me/{bot_username}?start={start_parameter} */
-        start_parameter?: td_string;
+        start_parameter: td_string;
         /** True, if the invoice is a test invoice */
-        is_test?: td_Bool;
+        is_test: td_Bool;
         /** True, if the shipping address must be specified */
-        need_shipping_address?: td_Bool;
+        need_shipping_address: td_Bool;
         /** The identifier of the message with the receipt, after the product has been purchased */
-        receipt_message_id?: td_int53;
+        receipt_message_id: td_int53;
     }
     
     
@@ -4084,11 +4084,11 @@ namespace TdApi {
     export interface td_messageCall {
         '@type': 'messageCall';
         /** True, if the call was a video call */
-        is_video?: td_Bool;
+        is_video: td_Bool;
         /** Reason why the call was discarded */
-        discard_reason?: td_CallDiscardReason;
+        discard_reason: td_CallDiscardReason;
         /** Call duration, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
     }
     
     
@@ -4096,9 +4096,9 @@ namespace TdApi {
     export interface td_messageVoiceChatScheduled {
         '@type': 'messageVoiceChatScheduled';
         /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Point in time (Unix timestamp) when the group call is supposed to be started by an administrator */
-        start_date?: td_int32;
+        start_date: td_int32;
     }
     
     
@@ -4106,7 +4106,7 @@ namespace TdApi {
     export interface td_messageVoiceChatStarted {
         '@type': 'messageVoiceChatStarted';
         /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -4114,7 +4114,7 @@ namespace TdApi {
     export interface td_messageVoiceChatEnded {
         '@type': 'messageVoiceChatEnded';
         /** Call duration, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
     }
     
     
@@ -4122,9 +4122,9 @@ namespace TdApi {
     export interface td_messageInviteVoiceChatParticipants {
         '@type': 'messageInviteVoiceChatParticipants';
         /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Invited user identifiers */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -4132,9 +4132,9 @@ namespace TdApi {
     export interface td_messageBasicGroupChatCreate {
         '@type': 'messageBasicGroupChatCreate';
         /** Title of the basic group */
-        title?: td_string;
+        title: td_string;
         /** User identifiers of members in the basic group */
-        member_user_ids?: td_vector<td_int53>;
+        member_user_ids: td_vector<td_int53>;
     }
     
     
@@ -4142,7 +4142,7 @@ namespace TdApi {
     export interface td_messageSupergroupChatCreate {
         '@type': 'messageSupergroupChatCreate';
         /** Title of the supergroup or channel */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -4150,7 +4150,7 @@ namespace TdApi {
     export interface td_messageChatChangeTitle {
         '@type': 'messageChatChangeTitle';
         /** New chat title */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -4158,7 +4158,7 @@ namespace TdApi {
     export interface td_messageChatChangePhoto {
         '@type': 'messageChatChangePhoto';
         /** New chat photo */
-        photo?: td_chatPhoto;
+        photo: td_chatPhoto;
     }
     
     
@@ -4172,7 +4172,7 @@ namespace TdApi {
     export interface td_messageChatAddMembers {
         '@type': 'messageChatAddMembers';
         /** User identifiers of the new members */
-        member_user_ids?: td_vector<td_int53>;
+        member_user_ids: td_vector<td_int53>;
     }
     
     
@@ -4186,7 +4186,7 @@ namespace TdApi {
     export interface td_messageChatDeleteMember {
         '@type': 'messageChatDeleteMember';
         /** User identifier of the deleted chat member */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -4194,7 +4194,7 @@ namespace TdApi {
     export interface td_messageChatUpgradeTo {
         '@type': 'messageChatUpgradeTo';
         /** Identifier of the supergroup to which the basic group was upgraded */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
     }
     
     
@@ -4202,9 +4202,9 @@ namespace TdApi {
     export interface td_messageChatUpgradeFrom {
         '@type': 'messageChatUpgradeFrom';
         /** Title of the newly created supergroup */
-        title?: td_string;
+        title: td_string;
         /** The identifier of the original basic group */
-        basic_group_id?: td_int53;
+        basic_group_id: td_int53;
     }
     
     
@@ -4212,7 +4212,7 @@ namespace TdApi {
     export interface td_messagePinMessage {
         '@type': 'messagePinMessage';
         /** Identifier of the pinned message, can be an identifier of a deleted message or 0 */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -4226,7 +4226,7 @@ namespace TdApi {
     export interface td_messageChatSetTheme {
         '@type': 'messageChatSetTheme';
         /** If non-empty, name of a new theme, set for the chat. Otherwise chat theme was reset to the default one */
-        theme_name?: td_string;
+        theme_name: td_string;
     }
     
     
@@ -4234,7 +4234,7 @@ namespace TdApi {
     export interface td_messageChatSetTtl {
         '@type': 'messageChatSetTtl';
         /** New message TTL setting */
-        ttl?: td_int32;
+        ttl: td_int32;
     }
     
     
@@ -4242,7 +4242,7 @@ namespace TdApi {
     export interface td_messageCustomServiceAction {
         '@type': 'messageCustomServiceAction';
         /** Message text to be shown in the chat */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -4250,11 +4250,11 @@ namespace TdApi {
     export interface td_messageGameScore {
         '@type': 'messageGameScore';
         /** Identifier of the message with the game, can be an identifier of a deleted message */
-        game_message_id?: td_int53;
+        game_message_id: td_int53;
         /** Identifier of the game; may be different from the games presented in the message with the game */
-        game_id?: td_int64;
+        game_id: td_int64;
         /** New score */
-        score?: td_int32;
+        score: td_int32;
     }
     
     
@@ -4262,13 +4262,13 @@ namespace TdApi {
     export interface td_messagePaymentSuccessful {
         '@type': 'messagePaymentSuccessful';
         /** Identifier of the chat, containing the corresponding invoice message; 0 if unknown */
-        invoice_chat_id?: td_int53;
+        invoice_chat_id: td_int53;
         /** Identifier of the message with the corresponding invoice; can be an identifier of a deleted message */
-        invoice_message_id?: td_int53;
+        invoice_message_id: td_int53;
         /** Currency for the price of the product */
-        currency?: td_string;
+        currency: td_string;
         /** Total price for the product, in the smallest units of the currency */
-        total_amount?: td_int53;
+        total_amount: td_int53;
     }
     
     
@@ -4276,19 +4276,19 @@ namespace TdApi {
     export interface td_messagePaymentSuccessfulBot {
         '@type': 'messagePaymentSuccessfulBot';
         /** Currency for price of the product */
-        currency?: td_string;
+        currency: td_string;
         /** Total price for the product, in the smallest units of the currency */
-        total_amount?: td_int53;
+        total_amount: td_int53;
         /** Invoice payload */
-        invoice_payload?: td_bytes;
+        invoice_payload: td_bytes;
         /** Identifier of the shipping option chosen by the user; may be empty if not applicable */
-        shipping_option_id?: td_string;
+        shipping_option_id: td_string;
         /** Information about the order; may be null */
         order_info?: td_orderInfo;
         /** Telegram payment identifier */
-        telegram_payment_charge_id?: td_string;
+        telegram_payment_charge_id: td_string;
         /** Provider payment identifier */
-        provider_payment_charge_id?: td_string;
+        provider_payment_charge_id: td_string;
     }
     
     
@@ -4302,7 +4302,7 @@ namespace TdApi {
     export interface td_messageWebsiteConnected {
         '@type': 'messageWebsiteConnected';
         /** Domain name of the connected website */
-        domain_name?: td_string;
+        domain_name: td_string;
     }
     
     
@@ -4310,7 +4310,7 @@ namespace TdApi {
     export interface td_messagePassportDataSent {
         '@type': 'messagePassportDataSent';
         /** List of Telegram Passport element types sent */
-        types?: td_vector<td_PassportElementType>;
+        types: td_vector<td_PassportElementType>;
     }
     
     
@@ -4318,9 +4318,9 @@ namespace TdApi {
     export interface td_messagePassportDataReceived {
         '@type': 'messagePassportDataReceived';
         /** List of received Telegram Passport elements */
-        elements?: td_vector<td_encryptedPassportElement>;
+        elements: td_vector<td_encryptedPassportElement>;
         /** Encrypted data credentials */
-        credentials?: td_encryptedCredentials;
+        credentials: td_encryptedCredentials;
     }
     
     
@@ -4328,11 +4328,11 @@ namespace TdApi {
     export interface td_messageProximityAlertTriggered {
         '@type': 'messageProximityAlertTriggered';
         /** The user or chat, which triggered the proximity alert */
-        traveler?: td_MessageSender;
+        traveler: td_MessageSender;
         /** The user or chat, which subscribed for the proximity alert */
-        watcher?: td_MessageSender;
+        watcher: td_MessageSender;
         /** The distance between the users */
-        distance?: td_int32;
+        distance: td_int32;
     }
     
     
@@ -4430,7 +4430,7 @@ namespace TdApi {
     export interface td_textEntityTypePreCode {
         '@type': 'textEntityTypePreCode';
         /** Programming language of the code; as defined by the sender */
-        language?: td_string;
+        language: td_string;
     }
     
     
@@ -4438,7 +4438,7 @@ namespace TdApi {
     export interface td_textEntityTypeTextUrl {
         '@type': 'textEntityTypeTextUrl';
         /** HTTP or tg:// URL to be opened when the link is clicked */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -4446,7 +4446,7 @@ namespace TdApi {
     export interface td_textEntityTypeMentionName {
         '@type': 'textEntityTypeMentionName';
         /** Identifier of the mentioned user */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -4454,7 +4454,7 @@ namespace TdApi {
     export interface td_textEntityTypeMediaTimestamp {
         '@type': 'textEntityTypeMediaTimestamp';
         /** Timestamp from which a video/audio/video note/voice note playing must start, in seconds. The media can be in the content or the web page preview of the current message, or in the same places in the replied message */
-        media_timestamp?: td_int32;
+        media_timestamp: td_int32;
     }
     
     
@@ -4462,11 +4462,11 @@ namespace TdApi {
     export interface td_inputThumbnail {
         '@type': 'inputThumbnail';
         /** Thumbnail file to send. Sending thumbnails by file_id is currently not supported */
-        thumbnail?: td_InputFile;
+        thumbnail: td_InputFile;
         /** Thumbnail width, usually shouldn't exceed 320. Use 0 if unknown */
-        width?: td_int32;
+        width: td_int32;
         /** Thumbnail height, usually shouldn't exceed 320. Use 0 if unknown */
-        height?: td_int32;
+        height: td_int32;
     }
     
     
@@ -4474,7 +4474,7 @@ namespace TdApi {
     export interface td_messageSchedulingStateSendAtDate {
         '@type': 'messageSchedulingStateSendAtDate';
         /** Date the message will be sent. The date must be within 367 days in the future */
-        send_date?: td_int32;
+        send_date: td_int32;
     }
     
     
@@ -4488,11 +4488,11 @@ namespace TdApi {
     export interface td_messageSendOptions {
         '@type': 'messageSendOptions';
         /** Pass true to disable notification for the message */
-        disable_notification?: td_Bool;
+        disable_notification: td_Bool;
         /** Pass true if the message is sent from the background */
-        from_background?: td_Bool;
+        from_background: td_Bool;
         /** Message scheduling state; pass null to send message immediately. Messages sent to a secret chat, live location messages and self-destructing messages can't be scheduled */
-        scheduling_state?: td_MessageSchedulingState;
+        scheduling_state: td_MessageSchedulingState;
     }
     
     
@@ -4500,11 +4500,11 @@ namespace TdApi {
     export interface td_messageCopyOptions {
         '@type': 'messageCopyOptions';
         /** True, if content of the message needs to be copied without reference to the original sender. Always true if the message is forwarded to a secret chat or is local */
-        send_copy?: td_Bool;
+        send_copy: td_Bool;
         /** True, if media caption of the message copy needs to be replaced. Ignored if send_copy is false */
-        replace_caption?: td_Bool;
+        replace_caption: td_Bool;
         /** New message caption; pass null to copy message without caption. Ignored if replace_caption is false */
-        new_caption?: td_formattedText;
+        new_caption: td_formattedText;
     }
     
     
@@ -4512,11 +4512,11 @@ namespace TdApi {
     export interface td_inputMessageText {
         '@type': 'inputMessageText';
         /** Formatted text to be sent; 1-GetOption("message_text_length_max") characters. Only Bold, Italic, Underline, Strikethrough, Code, Pre, PreCode, TextUrl and MentionName entities are allowed to be specified manually */
-        text?: td_formattedText;
+        text: td_formattedText;
         /** True, if rich web page previews for URLs in the message text must be disabled */
-        disable_web_page_preview?: td_Bool;
+        disable_web_page_preview: td_Bool;
         /** True, if a chat message draft must be deleted */
-        clear_draft?: td_Bool;
+        clear_draft: td_Bool;
     }
     
     
@@ -4524,19 +4524,19 @@ namespace TdApi {
     export interface td_inputMessageAnimation {
         '@type': 'inputMessageAnimation';
         /** Animation file to be sent */
-        animation?: td_InputFile;
+        animation: td_InputFile;
         /** Animation thumbnail; pass null to skip thumbnail uploading */
-        thumbnail?: td_inputThumbnail;
+        thumbnail: td_inputThumbnail;
         /** File identifiers of the stickers added to the animation, if applicable */
-        added_sticker_file_ids?: td_vector<td_int32>;
+        added_sticker_file_ids: td_vector<td_int32>;
         /** Duration of the animation, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
         /** Width of the animation; may be replaced by the server */
-        width?: td_int32;
+        width: td_int32;
         /** Height of the animation; may be replaced by the server */
-        height?: td_int32;
+        height: td_int32;
         /** Animation caption; pass null to use an empty caption; 0-GetOption("message_caption_length_max") characters */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -4544,17 +4544,17 @@ namespace TdApi {
     export interface td_inputMessageAudio {
         '@type': 'inputMessageAudio';
         /** Audio file to be sent */
-        audio?: td_InputFile;
+        audio: td_InputFile;
         /** Thumbnail of the cover for the album; pass null to skip thumbnail uploading */
-        album_cover_thumbnail?: td_inputThumbnail;
+        album_cover_thumbnail: td_inputThumbnail;
         /** Duration of the audio, in seconds; may be replaced by the server */
-        duration?: td_int32;
+        duration: td_int32;
         /** Title of the audio; 0-64 characters; may be replaced by the server */
-        title?: td_string;
+        title: td_string;
         /** Performer of the audio; 0-64 characters, may be replaced by the server */
-        performer?: td_string;
+        performer: td_string;
         /** Audio caption; pass null to use an empty caption; 0-GetOption("message_caption_length_max") characters */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -4562,13 +4562,13 @@ namespace TdApi {
     export interface td_inputMessageDocument {
         '@type': 'inputMessageDocument';
         /** Document to be sent */
-        document?: td_InputFile;
+        document: td_InputFile;
         /** Document thumbnail; pass null to skip thumbnail uploading */
-        thumbnail?: td_inputThumbnail;
+        thumbnail: td_inputThumbnail;
         /** If true, automatic file type detection will be disabled and the document will be always sent as file. Always true for files sent to secret chats */
-        disable_content_type_detection?: td_Bool;
+        disable_content_type_detection: td_Bool;
         /** Document caption; pass null to use an empty caption; 0-GetOption("message_caption_length_max") characters */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -4576,19 +4576,19 @@ namespace TdApi {
     export interface td_inputMessagePhoto {
         '@type': 'inputMessagePhoto';
         /** Photo to send */
-        photo?: td_InputFile;
+        photo: td_InputFile;
         /** Photo thumbnail to be sent; pass null to skip thumbnail uploading. The thumbnail is sent to the other party only in secret chats */
-        thumbnail?: td_inputThumbnail;
+        thumbnail: td_inputThumbnail;
         /** File identifiers of the stickers added to the photo, if applicable */
-        added_sticker_file_ids?: td_vector<td_int32>;
+        added_sticker_file_ids: td_vector<td_int32>;
         /** Photo width */
-        width?: td_int32;
+        width: td_int32;
         /** Photo height */
-        height?: td_int32;
+        height: td_int32;
         /** Photo caption; pass null to use an empty caption; 0-GetOption("message_caption_length_max") characters */
-        caption?: td_formattedText;
+        caption: td_formattedText;
         /** Photo TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats */
-        ttl?: td_int32;
+        ttl: td_int32;
     }
     
     
@@ -4596,15 +4596,15 @@ namespace TdApi {
     export interface td_inputMessageSticker {
         '@type': 'inputMessageSticker';
         /** Sticker to be sent */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
         /** Sticker thumbnail; pass null to skip thumbnail uploading */
-        thumbnail?: td_inputThumbnail;
+        thumbnail: td_inputThumbnail;
         /** Sticker width */
-        width?: td_int32;
+        width: td_int32;
         /** Sticker height */
-        height?: td_int32;
+        height: td_int32;
         /** Emoji used to choose the sticker */
-        emoji?: td_string;
+        emoji: td_string;
     }
     
     
@@ -4612,23 +4612,23 @@ namespace TdApi {
     export interface td_inputMessageVideo {
         '@type': 'inputMessageVideo';
         /** Video to be sent */
-        video?: td_InputFile;
+        video: td_InputFile;
         /** Video thumbnail; pass null to skip thumbnail uploading */
-        thumbnail?: td_inputThumbnail;
+        thumbnail: td_inputThumbnail;
         /** File identifiers of the stickers added to the video, if applicable */
-        added_sticker_file_ids?: td_vector<td_int32>;
+        added_sticker_file_ids: td_vector<td_int32>;
         /** Duration of the video, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
         /** Video width */
-        width?: td_int32;
+        width: td_int32;
         /** Video height */
-        height?: td_int32;
+        height: td_int32;
         /** True, if the video is supposed to be streamed */
-        supports_streaming?: td_Bool;
+        supports_streaming: td_Bool;
         /** Video caption; pass null to use an empty caption; 0-GetOption("message_caption_length_max") characters */
-        caption?: td_formattedText;
+        caption: td_formattedText;
         /** Video TTL (Time To Live), in seconds (0-60). A non-zero TTL can be specified only in private chats */
-        ttl?: td_int32;
+        ttl: td_int32;
     }
     
     
@@ -4636,13 +4636,13 @@ namespace TdApi {
     export interface td_inputMessageVideoNote {
         '@type': 'inputMessageVideoNote';
         /** Video note to be sent */
-        video_note?: td_InputFile;
+        video_note: td_InputFile;
         /** Video thumbnail; pass null to skip thumbnail uploading */
-        thumbnail?: td_inputThumbnail;
+        thumbnail: td_inputThumbnail;
         /** Duration of the video, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
         /** Video width and height; must be positive and not greater than 640 */
-        length?: td_int32;
+        length: td_int32;
     }
     
     
@@ -4650,13 +4650,13 @@ namespace TdApi {
     export interface td_inputMessageVoiceNote {
         '@type': 'inputMessageVoiceNote';
         /** Voice note to be sent */
-        voice_note?: td_InputFile;
+        voice_note: td_InputFile;
         /** Duration of the voice note, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
         /** Waveform representation of the voice note, in 5-bit format */
-        waveform?: td_bytes;
+        waveform: td_bytes;
         /** Voice note caption; pass null to use an empty caption; 0-GetOption("message_caption_length_max") characters */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -4664,13 +4664,13 @@ namespace TdApi {
     export interface td_inputMessageLocation {
         '@type': 'inputMessageLocation';
         /** Location to be sent */
-        location?: td_location;
+        location: td_location;
         /** Period for which the location can be updated, in seconds; must be between 60 and 86400 for a live location and 0 otherwise */
-        live_period?: td_int32;
+        live_period: td_int32;
         /** For live locations, a direction in which the location moves, in degrees; 1-360. Pass 0 if unknown */
-        heading?: td_int32;
+        heading: td_int32;
         /** For live locations, a maximum distance to another chat member for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled. Can't be enabled in channels and Saved Messages */
-        proximity_alert_radius?: td_int32;
+        proximity_alert_radius: td_int32;
     }
     
     
@@ -4678,7 +4678,7 @@ namespace TdApi {
     export interface td_inputMessageVenue {
         '@type': 'inputMessageVenue';
         /** Venue to send */
-        venue?: td_venue;
+        venue: td_venue;
     }
     
     
@@ -4686,7 +4686,7 @@ namespace TdApi {
     export interface td_inputMessageContact {
         '@type': 'inputMessageContact';
         /** Contact to send */
-        contact?: td_contact;
+        contact: td_contact;
     }
     
     
@@ -4694,9 +4694,9 @@ namespace TdApi {
     export interface td_inputMessageDice {
         '@type': 'inputMessageDice';
         /** Emoji on which the dice throw animation is based */
-        emoji?: td_string;
+        emoji: td_string;
         /** True, if the chat message draft must be deleted */
-        clear_draft?: td_Bool;
+        clear_draft: td_Bool;
     }
     
     
@@ -4704,9 +4704,9 @@ namespace TdApi {
     export interface td_inputMessageGame {
         '@type': 'inputMessageGame';
         /** User identifier of the bot that owns the game */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** Short name of the game */
-        game_short_name?: td_string;
+        game_short_name: td_string;
     }
     
     
@@ -4714,27 +4714,27 @@ namespace TdApi {
     export interface td_inputMessageInvoice {
         '@type': 'inputMessageInvoice';
         /** Invoice */
-        invoice?: td_invoice;
+        invoice: td_invoice;
         /** Product title; 1-32 characters */
-        title?: td_string;
+        title: td_string;
         /** A message with an invoice; can be used only by bots */
-        description?: td_string;
+        description: td_string;
         /** Product photo URL; optional */
-        photo_url?: td_string;
+        photo_url: td_string;
         /** Product photo size */
-        photo_size?: td_int32;
+        photo_size: td_int32;
         /** Product photo width */
-        photo_width?: td_int32;
+        photo_width: td_int32;
         /** Product photo height */
-        photo_height?: td_int32;
+        photo_height: td_int32;
         /** The invoice payload */
-        payload?: td_bytes;
+        payload: td_bytes;
         /** Payment provider token */
-        provider_token?: td_string;
+        provider_token: td_string;
         /** JSON-encoded data about the invoice, which will be shared with the payment provider */
-        provider_data?: td_string;
+        provider_data: td_string;
         /** Unique invoice bot deep link parameter for the generation of this invoice. If empty, it would be possible to pay directly from forwards of the invoice message */
-        start_parameter?: td_string;
+        start_parameter: td_string;
     }
     
     
@@ -4742,19 +4742,19 @@ namespace TdApi {
     export interface td_inputMessagePoll {
         '@type': 'inputMessagePoll';
         /** Poll question; 1-255 characters (up to 300 characters for bots) */
-        question?: td_string;
+        question: td_string;
         /** List of poll answer options, 2-10 strings 1-100 characters each */
-        options?: td_vector<td_string>;
+        options: td_vector<td_string>;
         /** True, if the poll voters are anonymous. Non-anonymous polls can't be sent or forwarded to channels */
-        is_anonymous?: td_Bool;
+        is_anonymous: td_Bool;
         /** Type of the poll */
-        type?: td_PollType;
+        type: td_PollType;
         /** Amount of time the poll will be active after creation, in seconds; for bots only */
-        open_period?: td_int32;
+        open_period: td_int32;
         /** Point in time (Unix timestamp) when the poll will be automatically closed; for bots only */
-        close_date?: td_int32;
+        close_date: td_int32;
         /** True, if the poll needs to be sent already closed; for bots only */
-        is_closed?: td_Bool;
+        is_closed: td_Bool;
     }
     
     
@@ -4762,13 +4762,13 @@ namespace TdApi {
     export interface td_inputMessageForwarded {
         '@type': 'inputMessageForwarded';
         /** Identifier for the chat this forwarded message came from */
-        from_chat_id?: td_int53;
+        from_chat_id: td_int53;
         /** Identifier of the message to forward */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** True, if a game message is being shared from a launched game; applies only to game messages */
-        in_game_share?: td_Bool;
+        in_game_share: td_Bool;
         /** Options to be used to copy content of the message without reference to the original sender; pass null to try to forward the message as usual */
-        copy_options?: td_messageCopyOptions;
+        copy_options: td_messageCopyOptions;
     }
     
     
@@ -4896,7 +4896,7 @@ namespace TdApi {
     export interface td_chatActionUploadingVideo {
         '@type': 'chatActionUploadingVideo';
         /** Upload progress, as a percentage */
-        progress?: td_int32;
+        progress: td_int32;
     }
     
     
@@ -4910,7 +4910,7 @@ namespace TdApi {
     export interface td_chatActionUploadingVoiceNote {
         '@type': 'chatActionUploadingVoiceNote';
         /** Upload progress, as a percentage */
-        progress?: td_int32;
+        progress: td_int32;
     }
     
     
@@ -4918,7 +4918,7 @@ namespace TdApi {
     export interface td_chatActionUploadingPhoto {
         '@type': 'chatActionUploadingPhoto';
         /** Upload progress, as a percentage */
-        progress?: td_int32;
+        progress: td_int32;
     }
     
     
@@ -4926,7 +4926,7 @@ namespace TdApi {
     export interface td_chatActionUploadingDocument {
         '@type': 'chatActionUploadingDocument';
         /** Upload progress, as a percentage */
-        progress?: td_int32;
+        progress: td_int32;
     }
     
     
@@ -4964,7 +4964,7 @@ namespace TdApi {
     export interface td_chatActionUploadingVideoNote {
         '@type': 'chatActionUploadingVideoNote';
         /** Upload progress, as a percentage */
-        progress?: td_int32;
+        progress: td_int32;
     }
     
     
@@ -4972,7 +4972,7 @@ namespace TdApi {
     export interface td_chatActionWatchingAnimations {
         '@type': 'chatActionWatchingAnimations';
         /** The animated emoji */
-        emoji?: td_string;
+        emoji: td_string;
     }
     
     
@@ -4992,7 +4992,7 @@ namespace TdApi {
     export interface td_userStatusOnline {
         '@type': 'userStatusOnline';
         /** Point in time (Unix timestamp) when the user's online status will expire */
-        expires?: td_int32;
+        expires: td_int32;
     }
     
     
@@ -5000,7 +5000,7 @@ namespace TdApi {
     export interface td_userStatusOffline {
         '@type': 'userStatusOffline';
         /** Point in time (Unix timestamp) when the user was last online */
-        was_online?: td_int32;
+        was_online: td_int32;
     }
     
     
@@ -5026,7 +5026,7 @@ namespace TdApi {
     export interface td_stickers {
         '@type': 'stickers';
         /** List of stickers */
-        stickers?: td_vector<td_sticker>;
+        stickers: td_vector<td_sticker>;
     }
     
     
@@ -5034,7 +5034,7 @@ namespace TdApi {
     export interface td_emojis {
         '@type': 'emojis';
         /** List of emojis */
-        emojis?: td_vector<td_string>;
+        emojis: td_vector<td_string>;
     }
     
     
@@ -5042,31 +5042,31 @@ namespace TdApi {
     export interface td_stickerSet {
         '@type': 'stickerSet';
         /** Identifier of the sticker set */
-        id?: td_int64;
+        id: td_int64;
         /** Title of the sticker set */
-        title?: td_string;
+        title: td_string;
         /** Name of the sticker set */
-        name?: td_string;
+        name: td_string;
         /** Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null. The file can be downloaded only before the thumbnail is changed */
         thumbnail?: td_thumbnail;
         /** Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner */
-        thumbnail_outline?: td_vector<td_closedVectorPath>;
+        thumbnail_outline: td_vector<td_closedVectorPath>;
         /** True, if the sticker set has been installed by the current user */
-        is_installed?: td_Bool;
+        is_installed: td_Bool;
         /** True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously */
-        is_archived?: td_Bool;
+        is_archived: td_Bool;
         /** True, if the sticker set is official */
-        is_official?: td_Bool;
+        is_official: td_Bool;
         /** True, is the stickers in the set are animated */
-        is_animated?: td_Bool;
+        is_animated: td_Bool;
         /** True, if the stickers in the set are masks */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
         /** True for already viewed trending sticker sets */
-        is_viewed?: td_Bool;
+        is_viewed: td_Bool;
         /** List of stickers in this set */
-        stickers?: td_vector<td_sticker>;
+        stickers: td_vector<td_sticker>;
         /** A list of emoji corresponding to the stickers in the same order. The list is only for informational purposes, because a sticker is always sent with a fixed emoji from the corresponding Sticker object */
-        emojis?: td_vector<td_emojis>;
+        emojis: td_vector<td_emojis>;
     }
     
     
@@ -5074,31 +5074,31 @@ namespace TdApi {
     export interface td_stickerSetInfo {
         '@type': 'stickerSetInfo';
         /** Identifier of the sticker set */
-        id?: td_int64;
+        id: td_int64;
         /** Title of the sticker set */
-        title?: td_string;
+        title: td_string;
         /** Name of the sticker set */
-        name?: td_string;
+        name: td_string;
         /** Sticker set thumbnail in WEBP or TGS format with width and height 100; may be null */
         thumbnail?: td_thumbnail;
         /** Sticker set thumbnail's outline represented as a list of closed vector paths; may be empty. The coordinate system origin is in the upper-left corner */
-        thumbnail_outline?: td_vector<td_closedVectorPath>;
+        thumbnail_outline: td_vector<td_closedVectorPath>;
         /** True, if the sticker set has been installed by the current user */
-        is_installed?: td_Bool;
+        is_installed: td_Bool;
         /** True, if the sticker set has been archived. A sticker set can't be installed and archived simultaneously */
-        is_archived?: td_Bool;
+        is_archived: td_Bool;
         /** True, if the sticker set is official */
-        is_official?: td_Bool;
+        is_official: td_Bool;
         /** True, is the stickers in the set are animated */
-        is_animated?: td_Bool;
+        is_animated: td_Bool;
         /** True, if the stickers in the set are masks */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
         /** True for already viewed trending sticker sets */
-        is_viewed?: td_Bool;
+        is_viewed: td_Bool;
         /** Total number of stickers in the set */
-        size?: td_int32;
+        size: td_int32;
         /** Contains up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested */
-        covers?: td_vector<td_sticker>;
+        covers: td_vector<td_sticker>;
     }
     
     
@@ -5106,9 +5106,9 @@ namespace TdApi {
     export interface td_stickerSets {
         '@type': 'stickerSets';
         /** Approximate total number of sticker sets found */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of sticker sets */
-        sets?: td_vector<td_stickerSetInfo>;
+        sets: td_vector<td_stickerSetInfo>;
     }
     
     
@@ -5146,15 +5146,15 @@ namespace TdApi {
     export interface td_callProtocol {
         '@type': 'callProtocol';
         /** True, if UDP peer-to-peer connections are supported */
-        udp_p2p?: td_Bool;
+        udp_p2p: td_Bool;
         /** True, if connection through UDP reflectors is supported */
-        udp_reflector?: td_Bool;
+        udp_reflector: td_Bool;
         /** The minimum supported API layer; use 65 */
-        min_layer?: td_int32;
+        min_layer: td_int32;
         /** The maximum supported API layer; use 65 */
-        max_layer?: td_int32;
+        max_layer: td_int32;
         /** List of supported tgcalls versions */
-        library_versions?: td_vector<td_string>;
+        library_versions: td_vector<td_string>;
     }
     
     
@@ -5162,7 +5162,7 @@ namespace TdApi {
     export interface td_callServerTypeTelegramReflector {
         '@type': 'callServerTypeTelegramReflector';
         /** A peer tag to be used with the reflector */
-        peer_tag?: td_bytes;
+        peer_tag: td_bytes;
     }
     
     
@@ -5170,13 +5170,13 @@ namespace TdApi {
     export interface td_callServerTypeWebrtc {
         '@type': 'callServerTypeWebrtc';
         /** Username to be used for authentication */
-        username?: td_string;
+        username: td_string;
         /** Authentication password */
-        password?: td_string;
+        password: td_string;
         /** True, if the server supports TURN */
-        supports_turn?: td_Bool;
+        supports_turn: td_Bool;
         /** True, if the server supports STUN */
-        supports_stun?: td_Bool;
+        supports_stun: td_Bool;
     }
     
     
@@ -5184,15 +5184,15 @@ namespace TdApi {
     export interface td_callServer {
         '@type': 'callServer';
         /** Server identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Server IPv4 address */
-        ip_address?: td_string;
+        ip_address: td_string;
         /** Server IPv6 address */
-        ipv6_address?: td_string;
+        ipv6_address: td_string;
         /** Server port number */
-        port?: td_int32;
+        port: td_int32;
         /** Server type */
-        type?: td_CallServerType;
+        type: td_CallServerType;
     }
     
     
@@ -5200,7 +5200,7 @@ namespace TdApi {
     export interface td_callId {
         '@type': 'callId';
         /** Call identifier */
-        id?: td_int32;
+        id: td_int32;
     }
     
     
@@ -5208,7 +5208,7 @@ namespace TdApi {
     export interface td_groupCallId {
         '@type': 'groupCallId';
         /** Group call identifier */
-        id?: td_int32;
+        id: td_int32;
     }
     
     
@@ -5216,9 +5216,9 @@ namespace TdApi {
     export interface td_callStatePending {
         '@type': 'callStatePending';
         /** True, if the call has already been created by the server */
-        is_created?: td_Bool;
+        is_created: td_Bool;
         /** True, if the call has already been received by the other party */
-        is_received?: td_Bool;
+        is_received: td_Bool;
     }
     
     
@@ -5232,17 +5232,17 @@ namespace TdApi {
     export interface td_callStateReady {
         '@type': 'callStateReady';
         /** Call protocols supported by the peer */
-        protocol?: td_callProtocol;
+        protocol: td_callProtocol;
         /** List of available call servers */
-        servers?: td_vector<td_callServer>;
+        servers: td_vector<td_callServer>;
         /** A JSON-encoded call config */
-        config?: td_string;
+        config: td_string;
         /** Call encryption key */
-        encryption_key?: td_bytes;
+        encryption_key: td_bytes;
         /** Encryption key emojis fingerprint */
-        emojis?: td_vector<td_string>;
+        emojis: td_vector<td_string>;
         /** True, if peer-to-peer connection is allowed by users privacy settings */
-        allow_p2p?: td_Bool;
+        allow_p2p: td_Bool;
     }
     
     
@@ -5256,11 +5256,11 @@ namespace TdApi {
     export interface td_callStateDiscarded {
         '@type': 'callStateDiscarded';
         /** The reason, why the call has ended */
-        reason?: td_CallDiscardReason;
+        reason: td_CallDiscardReason;
         /** True, if the call rating must be sent to the server */
-        need_rating?: td_Bool;
+        need_rating: td_Bool;
         /** True, if the call debug information must be sent to the server */
-        need_debug_information?: td_Bool;
+        need_debug_information: td_Bool;
     }
     
     
@@ -5268,7 +5268,7 @@ namespace TdApi {
     export interface td_callStateError {
         '@type': 'callStateError';
         /** Error. An error with the code 4005000 will be returned if an outgoing call is missed because of an expired timeout */
-        error?: td_error;
+        error: td_error;
     }
     
     
@@ -5294,9 +5294,9 @@ namespace TdApi {
     export interface td_groupCallRecentSpeaker {
         '@type': 'groupCallRecentSpeaker';
         /** Group call participant identifier */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** True, is the user has spoken recently */
-        is_speaking?: td_Bool;
+        is_speaking: td_Bool;
     }
     
     
@@ -5304,43 +5304,43 @@ namespace TdApi {
     export interface td_groupCall {
         '@type': 'groupCall';
         /** Group call identifier */
-        id?: td_int32;
+        id: td_int32;
         /** Group call title */
-        title?: td_string;
+        title: td_string;
         /** Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 if it is already active or was ended */
-        scheduled_start_date?: td_int32;
+        scheduled_start_date: td_int32;
         /** True, if the group call is scheduled and the current user will receive a notification when the group call will start */
-        enabled_start_notification?: td_Bool;
+        enabled_start_notification: td_Bool;
         /** True, if the call is active */
-        is_active?: td_Bool;
+        is_active: td_Bool;
         /** True, if the call is joined */
-        is_joined?: td_Bool;
+        is_joined: td_Bool;
         /** True, if user was kicked from the call because of network loss and the call needs to be rejoined */
-        need_rejoin?: td_Bool;
+        need_rejoin: td_Bool;
         /** True, if the current user can manage the group call */
-        can_be_managed?: td_Bool;
+        can_be_managed: td_Bool;
         /** Number of participants in the group call */
-        participant_count?: td_int32;
+        participant_count: td_int32;
         /** True, if all group call participants are loaded */
-        loaded_all_participants?: td_Bool;
+        loaded_all_participants: td_Bool;
         /** Recently speaking users in the group call */
-        recent_speakers?: td_vector<td_groupCallRecentSpeaker>;
+        recent_speakers: td_vector<td_groupCallRecentSpeaker>;
         /** True, if the current user's video is enabled */
-        is_my_video_enabled?: td_Bool;
+        is_my_video_enabled: td_Bool;
         /** True, if the current user's video is paused */
-        is_my_video_paused?: td_Bool;
+        is_my_video_paused: td_Bool;
         /** True, if the current user can broadcast video or share screen */
-        can_enable_video?: td_Bool;
+        can_enable_video: td_Bool;
         /** True, if only group call administrators can unmute new participants */
-        mute_new_participants?: td_Bool;
+        mute_new_participants: td_Bool;
         /** True, if the current user can enable or disable mute_new_participants setting */
-        can_toggle_mute_new_participants?: td_Bool;
+        can_toggle_mute_new_participants: td_Bool;
         /** Duration of the ongoing group call recording, in seconds; 0 if none. An updateGroupCall update is not triggered when value of this field changes, but the same recording goes on */
-        record_duration?: td_int32;
+        record_duration: td_int32;
         /** True, if a video file is being recorded for the call */
-        is_video_recorded?: td_Bool;
+        is_video_recorded: td_Bool;
         /** Call duration, in seconds; for ended calls only */
-        duration?: td_int32;
+        duration: td_int32;
     }
     
     
@@ -5348,9 +5348,9 @@ namespace TdApi {
     export interface td_groupCallVideoSourceGroup {
         '@type': 'groupCallVideoSourceGroup';
         /** The semantics of sources, one of "SIM" or "FID" */
-        semantics?: td_string;
+        semantics: td_string;
         /** The list of synchronization source identifiers */
-        source_ids?: td_vector<td_int32>;
+        source_ids: td_vector<td_int32>;
     }
     
     
@@ -5358,11 +5358,11 @@ namespace TdApi {
     export interface td_groupCallParticipantVideoInfo {
         '@type': 'groupCallParticipantVideoInfo';
         /** List of synchronization source groups of the video */
-        source_groups?: td_vector<td_groupCallVideoSourceGroup>;
+        source_groups: td_vector<td_groupCallVideoSourceGroup>;
         /** Video channel endpoint identifier */
-        endpoint_id?: td_string;
+        endpoint_id: td_string;
         /** True if the video is paused. This flag needs to be ignored, if new video frames are received */
-        is_paused?: td_Bool;
+        is_paused: td_Bool;
     }
     
     
@@ -5370,41 +5370,41 @@ namespace TdApi {
     export interface td_groupCallParticipant {
         '@type': 'groupCallParticipant';
         /** Identifier of the group call participant */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** User's audio channel synchronization source identifier */
-        audio_source_id?: td_int32;
+        audio_source_id: td_int32;
         /** User's screen sharing audio channel synchronization source identifier */
-        screen_sharing_audio_source_id?: td_int32;
+        screen_sharing_audio_source_id: td_int32;
         /** Information about user's video channel; may be null if there is no active video */
         video_info?: td_groupCallParticipantVideoInfo;
         /** Information about user's screen sharing video channel; may be null if there is no active screen sharing video */
         screen_sharing_video_info?: td_groupCallParticipantVideoInfo;
         /** The participant user's bio or the participant chat's description */
-        bio?: td_string;
+        bio: td_string;
         /** True, if the participant is the current user */
-        is_current_user?: td_Bool;
+        is_current_user: td_Bool;
         /** True, if the participant is speaking as set by setGroupCallParticipantIsSpeaking */
-        is_speaking?: td_Bool;
+        is_speaking: td_Bool;
         /** True, if the participant hand is raised */
-        is_hand_raised?: td_Bool;
+        is_hand_raised: td_Bool;
         /** True, if the current user can mute the participant for all other group call participants */
-        can_be_muted_for_all_users?: td_Bool;
+        can_be_muted_for_all_users: td_Bool;
         /** True, if the current user can allow the participant to unmute themselves or unmute the participant (if the participant is the current user) */
-        can_be_unmuted_for_all_users?: td_Bool;
+        can_be_unmuted_for_all_users: td_Bool;
         /** True, if the current user can mute the participant only for self */
-        can_be_muted_for_current_user?: td_Bool;
+        can_be_muted_for_current_user: td_Bool;
         /** True, if the current user can unmute the participant for self */
-        can_be_unmuted_for_current_user?: td_Bool;
+        can_be_unmuted_for_current_user: td_Bool;
         /** True, if the participant is muted for all users */
-        is_muted_for_all_users?: td_Bool;
+        is_muted_for_all_users: td_Bool;
         /** True, if the participant is muted for the current user */
-        is_muted_for_current_user?: td_Bool;
+        is_muted_for_current_user: td_Bool;
         /** True, if the participant is muted for all users, but can unmute themselves */
-        can_unmute_self?: td_Bool;
+        can_unmute_self: td_Bool;
         /** Participant's volume level; 1-20000 in hundreds of percents */
-        volume_level?: td_int32;
+        volume_level: td_int32;
         /** User's order in the group call participant list. Orders must be compared lexicographically. The bigger is order, the higher is user in the list. If order is empty, the user must be removed from the participant list */
-        order?: td_string;
+        order: td_string;
     }
     
     
@@ -5466,15 +5466,15 @@ namespace TdApi {
     export interface td_call {
         '@type': 'call';
         /** Call identifier, not persistent */
-        id?: td_int32;
+        id: td_int32;
         /** Peer user identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** True, if the call is outgoing */
-        is_outgoing?: td_Bool;
+        is_outgoing: td_Bool;
         /** True, if the call is a video call */
-        is_video?: td_Bool;
+        is_video: td_Bool;
         /** Call state */
-        state?: td_CallState;
+        state: td_CallState;
     }
     
     
@@ -5482,11 +5482,11 @@ namespace TdApi {
     export interface td_phoneNumberAuthenticationSettings {
         '@type': 'phoneNumberAuthenticationSettings';
         /** Pass true if the authentication code may be sent via flash call to the specified phone number */
-        allow_flash_call?: td_Bool;
+        allow_flash_call: td_Bool;
         /** Pass true if the authenticated phone number is used on the current device */
-        is_current_phone_number?: td_Bool;
+        is_current_phone_number: td_Bool;
         /** For official applications only. True, if the application can use Android SMS Retriever API (requires Google Play Services >= 10.2) to automatically receive the authentication code from the SMS. See https://developers.google.com/identity/sms-retriever/ for more details */
-        allow_sms_retriever_api?: td_Bool;
+        allow_sms_retriever_api: td_Bool;
     }
     
     
@@ -5494,7 +5494,7 @@ namespace TdApi {
     export interface td_animations {
         '@type': 'animations';
         /** List of animations */
-        animations?: td_vector<td_animation>;
+        animations: td_vector<td_animation>;
     }
     
     
@@ -5502,7 +5502,7 @@ namespace TdApi {
     export interface td_diceStickersRegular {
         '@type': 'diceStickersRegular';
         /** The animated sticker with the dice animation */
-        sticker?: td_sticker;
+        sticker: td_sticker;
     }
     
     
@@ -5510,15 +5510,15 @@ namespace TdApi {
     export interface td_diceStickersSlotMachine {
         '@type': 'diceStickersSlotMachine';
         /** The animated sticker with the slot machine background. The background animation must start playing after all reel animations finish */
-        background?: td_sticker;
+        background: td_sticker;
         /** The animated sticker with the lever animation. The lever animation must play once in the initial dice state */
-        lever?: td_sticker;
+        lever: td_sticker;
         /** The animated sticker with the left reel */
-        left_reel?: td_sticker;
+        left_reel: td_sticker;
         /** The animated sticker with the center reel */
-        center_reel?: td_sticker;
+        center_reel: td_sticker;
         /** The animated sticker with the right reel */
-        right_reel?: td_sticker;
+        right_reel: td_sticker;
     }
     
     
@@ -5526,9 +5526,9 @@ namespace TdApi {
     export interface td_importedContacts {
         '@type': 'importedContacts';
         /** User identifiers of the imported contacts in the same order as they were specified in the request; 0 if the contact is not yet a registered user */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
         /** The number of users that imported the corresponding contact; 0 for already registered users or if unavailable */
-        importer_count?: td_vector<td_int32>;
+        importer_count: td_vector<td_int32>;
     }
     
     
@@ -5536,7 +5536,7 @@ namespace TdApi {
     export interface td_httpUrl {
         '@type': 'httpUrl';
         /** The URL */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -5544,27 +5544,27 @@ namespace TdApi {
     export interface td_inputInlineQueryResultAnimation {
         '@type': 'inputInlineQueryResultAnimation';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Title of the query result */
-        title?: td_string;
+        title: td_string;
         /** URL of the result thumbnail (JPEG, GIF, or MPEG4), if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** MIME type of the video thumbnail. If non-empty, must be one of "image/jpeg", "image/gif" and "video/mp4" */
-        thumbnail_mime_type?: td_string;
+        thumbnail_mime_type: td_string;
         /** The URL of the video file (file size must not exceed 1MB) */
-        video_url?: td_string;
+        video_url: td_string;
         /** MIME type of the video file. Must be one of "image/gif" and "video/mp4" */
-        video_mime_type?: td_string;
+        video_mime_type: td_string;
         /** Duration of the video, in seconds */
-        video_duration?: td_int32;
+        video_duration: td_int32;
         /** Width of the video */
-        video_width?: td_int32;
+        video_width: td_int32;
         /** Height of the video */
-        video_height?: td_int32;
+        video_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAnimation, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5572,25 +5572,25 @@ namespace TdApi {
     export interface td_inputInlineQueryResultArticle {
         '@type': 'inputInlineQueryResultArticle';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** URL of the result, if it exists */
-        url?: td_string;
+        url: td_string;
         /** True, if the URL must be not shown */
-        hide_url?: td_Bool;
+        hide_url: td_Bool;
         /** Title of the result */
-        title?: td_string;
+        title: td_string;
         /** Represents a link to an article or web page */
-        description?: td_string;
+        description: td_string;
         /** URL of the result thumbnail, if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** Thumbnail width, if known */
-        thumbnail_width?: td_int32;
+        thumbnail_width: td_int32;
         /** Thumbnail height, if known */
-        thumbnail_height?: td_int32;
+        thumbnail_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5598,19 +5598,19 @@ namespace TdApi {
     export interface td_inputInlineQueryResultAudio {
         '@type': 'inputInlineQueryResultAudio';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Title of the audio file */
-        title?: td_string;
+        title: td_string;
         /** Performer of the audio file */
-        performer?: td_string;
+        performer: td_string;
         /** The URL of the audio file */
-        audio_url?: td_string;
+        audio_url: td_string;
         /** Audio file duration, in seconds */
-        audio_duration?: td_int32;
+        audio_duration: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageAudio, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5618,19 +5618,19 @@ namespace TdApi {
     export interface td_inputInlineQueryResultContact {
         '@type': 'inputInlineQueryResultContact';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** User contact */
-        contact?: td_contact;
+        contact: td_contact;
         /** URL of the result thumbnail, if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** Thumbnail width, if known */
-        thumbnail_width?: td_int32;
+        thumbnail_width: td_int32;
         /** Thumbnail height, if known */
-        thumbnail_height?: td_int32;
+        thumbnail_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5638,25 +5638,25 @@ namespace TdApi {
     export interface td_inputInlineQueryResultDocument {
         '@type': 'inputInlineQueryResultDocument';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Title of the resulting file */
-        title?: td_string;
+        title: td_string;
         /** Represents a link to a file */
-        description?: td_string;
+        description: td_string;
         /** URL of the file */
-        document_url?: td_string;
+        document_url: td_string;
         /** MIME type of the file content; only "application/pdf" and "application/zip" are currently allowed */
-        mime_type?: td_string;
+        mime_type: td_string;
         /** The URL of the file thumbnail, if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** Width of the thumbnail */
-        thumbnail_width?: td_int32;
+        thumbnail_width: td_int32;
         /** Height of the thumbnail */
-        thumbnail_height?: td_int32;
+        thumbnail_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageDocument, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5664,11 +5664,11 @@ namespace TdApi {
     export interface td_inputInlineQueryResultGame {
         '@type': 'inputInlineQueryResultGame';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Short name of the game */
-        game_short_name?: td_string;
+        game_short_name: td_string;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
     }
     
     
@@ -5676,23 +5676,23 @@ namespace TdApi {
     export interface td_inputInlineQueryResultLocation {
         '@type': 'inputInlineQueryResultLocation';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Location result */
-        location?: td_location;
+        location: td_location;
         /** Amount of time relative to the message sent time until the location can be updated, in seconds */
-        live_period?: td_int32;
+        live_period: td_int32;
         /** Title of the result */
-        title?: td_string;
+        title: td_string;
         /** URL of the result thumbnail, if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** Thumbnail width, if known */
-        thumbnail_width?: td_int32;
+        thumbnail_width: td_int32;
         /** Thumbnail height, if known */
-        thumbnail_height?: td_int32;
+        thumbnail_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5700,23 +5700,23 @@ namespace TdApi {
     export interface td_inputInlineQueryResultPhoto {
         '@type': 'inputInlineQueryResultPhoto';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Title of the result, if known */
-        title?: td_string;
+        title: td_string;
         /** Represents link to a JPEG image */
-        description?: td_string;
+        description: td_string;
         /** URL of the photo thumbnail, if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** The URL of the JPEG photo (photo size must not exceed 5MB) */
-        photo_url?: td_string;
+        photo_url: td_string;
         /** Width of the photo */
-        photo_width?: td_int32;
+        photo_width: td_int32;
         /** Height of the photo */
-        photo_height?: td_int32;
+        photo_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessagePhoto, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5724,19 +5724,19 @@ namespace TdApi {
     export interface td_inputInlineQueryResultSticker {
         '@type': 'inputInlineQueryResultSticker';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** URL of the sticker thumbnail, if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** The URL of the WEBP or TGS sticker (sticker file size must not exceed 5MB) */
-        sticker_url?: td_string;
+        sticker_url: td_string;
         /** Width of the sticker */
-        sticker_width?: td_int32;
+        sticker_width: td_int32;
         /** Height of the sticker */
-        sticker_height?: td_int32;
+        sticker_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageSticker, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5744,19 +5744,19 @@ namespace TdApi {
     export interface td_inputInlineQueryResultVenue {
         '@type': 'inputInlineQueryResultVenue';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Venue result */
-        venue?: td_venue;
+        venue: td_venue;
         /** URL of the result thumbnail, if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** Thumbnail width, if known */
-        thumbnail_width?: td_int32;
+        thumbnail_width: td_int32;
         /** Thumbnail height, if known */
-        thumbnail_height?: td_int32;
+        thumbnail_height: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5764,27 +5764,27 @@ namespace TdApi {
     export interface td_inputInlineQueryResultVideo {
         '@type': 'inputInlineQueryResultVideo';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Title of the result */
-        title?: td_string;
+        title: td_string;
         /** Represents a link to a page containing an embedded video player or a video file */
-        description?: td_string;
+        description: td_string;
         /** The URL of the video thumbnail (JPEG), if it exists */
-        thumbnail_url?: td_string;
+        thumbnail_url: td_string;
         /** URL of the embedded video player or video file */
-        video_url?: td_string;
+        video_url: td_string;
         /** MIME type of the content of the video URL, only "text/html" or "video/mp4" are currently supported */
-        mime_type?: td_string;
+        mime_type: td_string;
         /** Width of the video */
-        video_width?: td_int32;
+        video_width: td_int32;
         /** Height of the video */
-        video_height?: td_int32;
+        video_height: td_int32;
         /** Video duration, in seconds */
-        video_duration?: td_int32;
+        video_duration: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageVideo, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5792,17 +5792,17 @@ namespace TdApi {
     export interface td_inputInlineQueryResultVoiceNote {
         '@type': 'inputInlineQueryResultVoiceNote';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Title of the voice note */
-        title?: td_string;
+        title: td_string;
         /** The URL of the voice note file */
-        voice_note_url?: td_string;
+        voice_note_url: td_string;
         /** Duration of the voice note, in seconds */
-        voice_note_duration?: td_int32;
+        voice_note_duration: td_int32;
         /** The message reply markup; pass null if none. Must be of type replyMarkupInlineKeyboard or null */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent. Must be one of the following types: inputMessageText, inputMessageVoiceNote, inputMessageInvoice, inputMessageLocation, inputMessageVenue or inputMessageContact */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -5810,15 +5810,15 @@ namespace TdApi {
     export interface td_inlineQueryResultArticle {
         '@type': 'inlineQueryResultArticle';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** URL of the result, if it exists */
-        url?: td_string;
+        url: td_string;
         /** True, if the URL must be not shown */
-        hide_url?: td_Bool;
+        hide_url: td_Bool;
         /** Title of the result */
-        title?: td_string;
+        title: td_string;
         /** Represents a link to an article or web page */
-        description?: td_string;
+        description: td_string;
         /** Result thumbnail in JPEG format; may be null */
         thumbnail?: td_thumbnail;
     }
@@ -5828,9 +5828,9 @@ namespace TdApi {
     export interface td_inlineQueryResultContact {
         '@type': 'inlineQueryResultContact';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** A user contact */
-        contact?: td_contact;
+        contact: td_contact;
         /** Result thumbnail in JPEG format; may be null */
         thumbnail?: td_thumbnail;
     }
@@ -5840,11 +5840,11 @@ namespace TdApi {
     export interface td_inlineQueryResultLocation {
         '@type': 'inlineQueryResultLocation';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Location result */
-        location?: td_location;
+        location: td_location;
         /** Title of the result */
-        title?: td_string;
+        title: td_string;
         /** Result thumbnail in JPEG format; may be null */
         thumbnail?: td_thumbnail;
     }
@@ -5854,9 +5854,9 @@ namespace TdApi {
     export interface td_inlineQueryResultVenue {
         '@type': 'inlineQueryResultVenue';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Venue result */
-        venue?: td_venue;
+        venue: td_venue;
         /** Result thumbnail in JPEG format; may be null */
         thumbnail?: td_thumbnail;
     }
@@ -5866,9 +5866,9 @@ namespace TdApi {
     export interface td_inlineQueryResultGame {
         '@type': 'inlineQueryResultGame';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Game result */
-        game?: td_game;
+        game: td_game;
     }
     
     
@@ -5876,11 +5876,11 @@ namespace TdApi {
     export interface td_inlineQueryResultAnimation {
         '@type': 'inlineQueryResultAnimation';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Animation file */
-        animation?: td_animation;
+        animation: td_animation;
         /** Animation title */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -5888,9 +5888,9 @@ namespace TdApi {
     export interface td_inlineQueryResultAudio {
         '@type': 'inlineQueryResultAudio';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Audio file */
-        audio?: td_audio;
+        audio: td_audio;
     }
     
     
@@ -5898,13 +5898,13 @@ namespace TdApi {
     export interface td_inlineQueryResultDocument {
         '@type': 'inlineQueryResultDocument';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Document */
-        document?: td_document;
+        document: td_document;
         /** Document title */
-        title?: td_string;
+        title: td_string;
         /** Represents a document */
-        description?: td_string;
+        description: td_string;
     }
     
     
@@ -5912,13 +5912,13 @@ namespace TdApi {
     export interface td_inlineQueryResultPhoto {
         '@type': 'inlineQueryResultPhoto';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Photo */
-        photo?: td_photo;
+        photo: td_photo;
         /** Title of the result, if known */
-        title?: td_string;
+        title: td_string;
         /** Represents a photo */
-        description?: td_string;
+        description: td_string;
     }
     
     
@@ -5926,9 +5926,9 @@ namespace TdApi {
     export interface td_inlineQueryResultSticker {
         '@type': 'inlineQueryResultSticker';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Sticker */
-        sticker?: td_sticker;
+        sticker: td_sticker;
     }
     
     
@@ -5936,13 +5936,13 @@ namespace TdApi {
     export interface td_inlineQueryResultVideo {
         '@type': 'inlineQueryResultVideo';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Video */
-        video?: td_video;
+        video: td_video;
         /** Title of the video */
-        title?: td_string;
+        title: td_string;
         /** Represents a video */
-        description?: td_string;
+        description: td_string;
     }
     
     
@@ -5950,11 +5950,11 @@ namespace TdApi {
     export interface td_inlineQueryResultVoiceNote {
         '@type': 'inlineQueryResultVoiceNote';
         /** Unique identifier of the query result */
-        id?: td_string;
+        id: td_string;
         /** Voice note */
-        voice_note?: td_voiceNote;
+        voice_note: td_voiceNote;
         /** Title of the voice note */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -5962,15 +5962,15 @@ namespace TdApi {
     export interface td_inlineQueryResults {
         '@type': 'inlineQueryResults';
         /** Unique identifier of the inline query */
-        inline_query_id?: td_int64;
+        inline_query_id: td_int64;
         /** The offset for the next request. If empty, there are no more results */
-        next_offset?: td_string;
+        next_offset: td_string;
         /** Results of the query */
-        results?: td_vector<td_InlineQueryResult>;
+        results: td_vector<td_InlineQueryResult>;
         /** If non-empty, this text must be shown on the button, which opens a private chat with the bot and sends the bot a start message with the switch_pm_parameter */
-        switch_pm_text?: td_string;
+        switch_pm_text: td_string;
         /** Parameter for the bot start message */
-        switch_pm_parameter?: td_string;
+        switch_pm_parameter: td_string;
     }
     
     
@@ -5978,7 +5978,7 @@ namespace TdApi {
     export interface td_callbackQueryPayloadData {
         '@type': 'callbackQueryPayloadData';
         /** Data that was attached to the callback button */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -5986,9 +5986,9 @@ namespace TdApi {
     export interface td_callbackQueryPayloadDataWithPassword {
         '@type': 'callbackQueryPayloadDataWithPassword';
         /** The password for the current user */
-        password?: td_string;
+        password: td_string;
         /** Data that was attached to the callback button */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -5996,7 +5996,7 @@ namespace TdApi {
     export interface td_callbackQueryPayloadGame {
         '@type': 'callbackQueryPayloadGame';
         /** A short name of the game that was attached to the callback button */
-        game_short_name?: td_string;
+        game_short_name: td_string;
     }
     
     
@@ -6004,11 +6004,11 @@ namespace TdApi {
     export interface td_callbackQueryAnswer {
         '@type': 'callbackQueryAnswer';
         /** Text of the answer */
-        text?: td_string;
+        text: td_string;
         /** True, if an alert must be shown to the user instead of a toast notification */
-        show_alert?: td_Bool;
+        show_alert: td_Bool;
         /** URL to be opened */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -6016,7 +6016,7 @@ namespace TdApi {
     export interface td_customRequestResult {
         '@type': 'customRequestResult';
         /** A JSON-serialized result */
-        result?: td_string;
+        result: td_string;
     }
     
     
@@ -6024,11 +6024,11 @@ namespace TdApi {
     export interface td_gameHighScore {
         '@type': 'gameHighScore';
         /** Position in the high score table */
-        position?: td_int32;
+        position: td_int32;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** User score */
-        score?: td_int32;
+        score: td_int32;
     }
     
     
@@ -6036,7 +6036,7 @@ namespace TdApi {
     export interface td_gameHighScores {
         '@type': 'gameHighScores';
         /** A list of game high scores */
-        scores?: td_vector<td_gameHighScore>;
+        scores: td_vector<td_gameHighScore>;
     }
     
     
@@ -6044,9 +6044,9 @@ namespace TdApi {
     export interface td_chatEventMessageEdited {
         '@type': 'chatEventMessageEdited';
         /** The original message before the edit */
-        old_message?: td_message;
+        old_message: td_message;
         /** The message after it was edited */
-        new_message?: td_message;
+        new_message: td_message;
     }
     
     
@@ -6054,7 +6054,7 @@ namespace TdApi {
     export interface td_chatEventMessageDeleted {
         '@type': 'chatEventMessageDeleted';
         /** Deleted message */
-        message?: td_message;
+        message: td_message;
     }
     
     
@@ -6062,7 +6062,7 @@ namespace TdApi {
     export interface td_chatEventPollStopped {
         '@type': 'chatEventPollStopped';
         /** The message with the poll */
-        message?: td_message;
+        message: td_message;
     }
     
     
@@ -6070,7 +6070,7 @@ namespace TdApi {
     export interface td_chatEventMessagePinned {
         '@type': 'chatEventMessagePinned';
         /** Pinned message */
-        message?: td_message;
+        message: td_message;
     }
     
     
@@ -6078,7 +6078,7 @@ namespace TdApi {
     export interface td_chatEventMessageUnpinned {
         '@type': 'chatEventMessageUnpinned';
         /** Unpinned message */
-        message?: td_message;
+        message: td_message;
     }
     
     
@@ -6092,7 +6092,7 @@ namespace TdApi {
     export interface td_chatEventMemberJoinedByInviteLink {
         '@type': 'chatEventMemberJoinedByInviteLink';
         /** Invite link used to join the chat */
-        invite_link?: td_chatInviteLink;
+        invite_link: td_chatInviteLink;
     }
     
     
@@ -6106,9 +6106,9 @@ namespace TdApi {
     export interface td_chatEventMemberInvited {
         '@type': 'chatEventMemberInvited';
         /** New member user identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** New member status */
-        status?: td_ChatMemberStatus;
+        status: td_ChatMemberStatus;
     }
     
     
@@ -6116,11 +6116,11 @@ namespace TdApi {
     export interface td_chatEventMemberPromoted {
         '@type': 'chatEventMemberPromoted';
         /** Affected chat member user identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Previous status of the chat member */
-        old_status?: td_ChatMemberStatus;
+        old_status: td_ChatMemberStatus;
         /** New status of the chat member */
-        new_status?: td_ChatMemberStatus;
+        new_status: td_ChatMemberStatus;
     }
     
     
@@ -6128,11 +6128,11 @@ namespace TdApi {
     export interface td_chatEventMemberRestricted {
         '@type': 'chatEventMemberRestricted';
         /** Affected chat member identifier */
-        member_id?: td_MessageSender;
+        member_id: td_MessageSender;
         /** Previous status of the chat member */
-        old_status?: td_ChatMemberStatus;
+        old_status: td_ChatMemberStatus;
         /** New status of the chat member */
-        new_status?: td_ChatMemberStatus;
+        new_status: td_ChatMemberStatus;
     }
     
     
@@ -6140,9 +6140,9 @@ namespace TdApi {
     export interface td_chatEventTitleChanged {
         '@type': 'chatEventTitleChanged';
         /** Previous chat title */
-        old_title?: td_string;
+        old_title: td_string;
         /** New chat title */
-        new_title?: td_string;
+        new_title: td_string;
     }
     
     
@@ -6150,9 +6150,9 @@ namespace TdApi {
     export interface td_chatEventPermissionsChanged {
         '@type': 'chatEventPermissionsChanged';
         /** Previous chat permissions */
-        old_permissions?: td_chatPermissions;
+        old_permissions: td_chatPermissions;
         /** New chat permissions */
-        new_permissions?: td_chatPermissions;
+        new_permissions: td_chatPermissions;
     }
     
     
@@ -6160,9 +6160,9 @@ namespace TdApi {
     export interface td_chatEventDescriptionChanged {
         '@type': 'chatEventDescriptionChanged';
         /** Previous chat description */
-        old_description?: td_string;
+        old_description: td_string;
         /** New chat description */
-        new_description?: td_string;
+        new_description: td_string;
     }
     
     
@@ -6170,9 +6170,9 @@ namespace TdApi {
     export interface td_chatEventUsernameChanged {
         '@type': 'chatEventUsernameChanged';
         /** Previous chat username */
-        old_username?: td_string;
+        old_username: td_string;
         /** New chat username */
-        new_username?: td_string;
+        new_username: td_string;
     }
     
     
@@ -6190,7 +6190,7 @@ namespace TdApi {
     export interface td_chatEventInvitesToggled {
         '@type': 'chatEventInvitesToggled';
         /** New value of can_invite_users permission */
-        can_invite_users?: td_Bool;
+        can_invite_users: td_Bool;
     }
     
     
@@ -6198,9 +6198,9 @@ namespace TdApi {
     export interface td_chatEventLinkedChatChanged {
         '@type': 'chatEventLinkedChatChanged';
         /** Previous supergroup linked chat identifier */
-        old_linked_chat_id?: td_int53;
+        old_linked_chat_id: td_int53;
         /** New supergroup linked chat identifier */
-        new_linked_chat_id?: td_int53;
+        new_linked_chat_id: td_int53;
     }
     
     
@@ -6208,9 +6208,9 @@ namespace TdApi {
     export interface td_chatEventSlowModeDelayChanged {
         '@type': 'chatEventSlowModeDelayChanged';
         /** Previous value of slow_mode_delay */
-        old_slow_mode_delay?: td_int32;
+        old_slow_mode_delay: td_int32;
         /** New value of slow_mode_delay */
-        new_slow_mode_delay?: td_int32;
+        new_slow_mode_delay: td_int32;
     }
     
     
@@ -6218,9 +6218,9 @@ namespace TdApi {
     export interface td_chatEventMessageTtlSettingChanged {
         '@type': 'chatEventMessageTtlSettingChanged';
         /** Previous value of message_ttl_setting */
-        old_message_ttl_setting?: td_int32;
+        old_message_ttl_setting: td_int32;
         /** New value of message_ttl_setting */
-        new_message_ttl_setting?: td_int32;
+        new_message_ttl_setting: td_int32;
     }
     
     
@@ -6228,7 +6228,7 @@ namespace TdApi {
     export interface td_chatEventSignMessagesToggled {
         '@type': 'chatEventSignMessagesToggled';
         /** New value of sign_messages */
-        sign_messages?: td_Bool;
+        sign_messages: td_Bool;
     }
     
     
@@ -6236,9 +6236,9 @@ namespace TdApi {
     export interface td_chatEventStickerSetChanged {
         '@type': 'chatEventStickerSetChanged';
         /** Previous identifier of the chat sticker set; 0 if none */
-        old_sticker_set_id?: td_int64;
+        old_sticker_set_id: td_int64;
         /** New identifier of the chat sticker set; 0 if none */
-        new_sticker_set_id?: td_int64;
+        new_sticker_set_id: td_int64;
     }
     
     
@@ -6256,7 +6256,7 @@ namespace TdApi {
     export interface td_chatEventIsAllHistoryAvailableToggled {
         '@type': 'chatEventIsAllHistoryAvailableToggled';
         /** New value of is_all_history_available */
-        is_all_history_available?: td_Bool;
+        is_all_history_available: td_Bool;
     }
     
     
@@ -6264,9 +6264,9 @@ namespace TdApi {
     export interface td_chatEventInviteLinkEdited {
         '@type': 'chatEventInviteLinkEdited';
         /** Previous information about the invite link */
-        old_invite_link?: td_chatInviteLink;
+        old_invite_link: td_chatInviteLink;
         /** New information about the invite link */
-        new_invite_link?: td_chatInviteLink;
+        new_invite_link: td_chatInviteLink;
     }
     
     
@@ -6274,7 +6274,7 @@ namespace TdApi {
     export interface td_chatEventInviteLinkRevoked {
         '@type': 'chatEventInviteLinkRevoked';
         /** The invite link */
-        invite_link?: td_chatInviteLink;
+        invite_link: td_chatInviteLink;
     }
     
     
@@ -6282,7 +6282,7 @@ namespace TdApi {
     export interface td_chatEventInviteLinkDeleted {
         '@type': 'chatEventInviteLinkDeleted';
         /** The invite link */
-        invite_link?: td_chatInviteLink;
+        invite_link: td_chatInviteLink;
     }
     
     
@@ -6290,7 +6290,7 @@ namespace TdApi {
     export interface td_chatEventVoiceChatCreated {
         '@type': 'chatEventVoiceChatCreated';
         /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -6298,7 +6298,7 @@ namespace TdApi {
     export interface td_chatEventVoiceChatDiscarded {
         '@type': 'chatEventVoiceChatDiscarded';
         /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -6306,9 +6306,9 @@ namespace TdApi {
     export interface td_chatEventVoiceChatParticipantIsMutedToggled {
         '@type': 'chatEventVoiceChatParticipantIsMutedToggled';
         /** Identifier of the affected group call participant */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** New value of is_muted */
-        is_muted?: td_Bool;
+        is_muted: td_Bool;
     }
     
     
@@ -6316,9 +6316,9 @@ namespace TdApi {
     export interface td_chatEventVoiceChatParticipantVolumeLevelChanged {
         '@type': 'chatEventVoiceChatParticipantVolumeLevelChanged';
         /** Identifier of the affected group call participant */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** New value of volume_level; 1-20000 in hundreds of percents */
-        volume_level?: td_int32;
+        volume_level: td_int32;
     }
     
     
@@ -6326,7 +6326,7 @@ namespace TdApi {
     export interface td_chatEventVoiceChatMuteNewParticipantsToggled {
         '@type': 'chatEventVoiceChatMuteNewParticipantsToggled';
         /** New value of the mute_new_participants setting */
-        mute_new_participants?: td_Bool;
+        mute_new_participants: td_Bool;
     }
     
     
@@ -6334,13 +6334,13 @@ namespace TdApi {
     export interface td_chatEvent {
         '@type': 'chatEvent';
         /** Chat event identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Point in time (Unix timestamp) when the event happened */
-        date?: td_int32;
+        date: td_int32;
         /** Identifier of the user who performed the action that triggered the event */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Action performed by the user */
-        action?: td_ChatEventAction;
+        action: td_ChatEventAction;
     }
     
     
@@ -6348,7 +6348,7 @@ namespace TdApi {
     export interface td_chatEvents {
         '@type': 'chatEvents';
         /** List of events */
-        events?: td_vector<td_chatEvent>;
+        events: td_vector<td_chatEvent>;
     }
     
     
@@ -6356,29 +6356,29 @@ namespace TdApi {
     export interface td_chatEventLogFilters {
         '@type': 'chatEventLogFilters';
         /** True, if message edits need to be returned */
-        message_edits?: td_Bool;
+        message_edits: td_Bool;
         /** True, if message deletions need to be returned */
-        message_deletions?: td_Bool;
+        message_deletions: td_Bool;
         /** True, if pin/unpin events need to be returned */
-        message_pins?: td_Bool;
+        message_pins: td_Bool;
         /** True, if members joining events need to be returned */
-        member_joins?: td_Bool;
+        member_joins: td_Bool;
         /** True, if members leaving events need to be returned */
-        member_leaves?: td_Bool;
+        member_leaves: td_Bool;
         /** True, if invited member events need to be returned */
-        member_invites?: td_Bool;
+        member_invites: td_Bool;
         /** True, if member promotion/demotion events need to be returned */
-        member_promotions?: td_Bool;
+        member_promotions: td_Bool;
         /** True, if member restricted/unrestricted/banned/unbanned events need to be returned */
-        member_restrictions?: td_Bool;
+        member_restrictions: td_Bool;
         /** True, if changes in chat information need to be returned */
-        info_changes?: td_Bool;
+        info_changes: td_Bool;
         /** True, if changes in chat settings need to be returned */
-        setting_changes?: td_Bool;
+        setting_changes: td_Bool;
         /** True, if changes to invite links need to be returned */
-        invite_link_changes?: td_Bool;
+        invite_link_changes: td_Bool;
         /** True, if voice chat actions need to be returned */
-        voice_chat_changes?: td_Bool;
+        voice_chat_changes: td_Bool;
     }
     
     
@@ -6386,7 +6386,7 @@ namespace TdApi {
     export interface td_languagePackStringValueOrdinary {
         '@type': 'languagePackStringValueOrdinary';
         /** String value */
-        value?: td_string;
+        value: td_string;
     }
     
     
@@ -6394,17 +6394,17 @@ namespace TdApi {
     export interface td_languagePackStringValuePluralized {
         '@type': 'languagePackStringValuePluralized';
         /** Value for zero objects */
-        zero_value?: td_string;
+        zero_value: td_string;
         /** Value for one object */
-        one_value?: td_string;
+        one_value: td_string;
         /** Value for two objects */
-        two_value?: td_string;
+        two_value: td_string;
         /** Value for few objects */
-        few_value?: td_string;
+        few_value: td_string;
         /** Value for many objects */
-        many_value?: td_string;
+        many_value: td_string;
         /** Default value */
-        other_value?: td_string;
+        other_value: td_string;
     }
     
     
@@ -6418,9 +6418,9 @@ namespace TdApi {
     export interface td_languagePackString {
         '@type': 'languagePackString';
         /** String key */
-        key?: td_string;
+        key: td_string;
         /** String value; pass null if the string needs to be taken from the built-in English language pack */
-        value?: td_LanguagePackStringValue;
+        value: td_LanguagePackStringValue;
     }
     
     
@@ -6428,7 +6428,7 @@ namespace TdApi {
     export interface td_languagePackStrings {
         '@type': 'languagePackStrings';
         /** A list of language pack strings */
-        strings?: td_vector<td_languagePackString>;
+        strings: td_vector<td_languagePackString>;
     }
     
     
@@ -6436,31 +6436,31 @@ namespace TdApi {
     export interface td_languagePackInfo {
         '@type': 'languagePackInfo';
         /** Unique language pack identifier */
-        id?: td_string;
+        id: td_string;
         /** Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it must be fetched from base language pack. Unsupported in custom language packs */
-        base_language_pack_id?: td_string;
+        base_language_pack_id: td_string;
         /** Language name */
-        name?: td_string;
+        name: td_string;
         /** Name of the language in that language */
-        native_name?: td_string;
+        native_name: td_string;
         /** A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html for more info */
-        plural_code?: td_string;
+        plural_code: td_string;
         /** True, if the language pack is official */
-        is_official?: td_Bool;
+        is_official: td_Bool;
         /** True, if the language pack strings are RTL */
-        is_rtl?: td_Bool;
+        is_rtl: td_Bool;
         /** True, if the language pack is a beta language pack */
-        is_beta?: td_Bool;
+        is_beta: td_Bool;
         /** True, if the language pack is installed by the current user */
-        is_installed?: td_Bool;
+        is_installed: td_Bool;
         /** Total number of non-deleted strings from the language pack */
-        total_string_count?: td_int32;
+        total_string_count: td_int32;
         /** Total number of translated strings from the language pack */
-        translated_string_count?: td_int32;
+        translated_string_count: td_int32;
         /** Total number of non-deleted strings from the language pack available locally */
-        local_string_count?: td_int32;
+        local_string_count: td_int32;
         /** Link to language translation interface; empty for custom local language packs */
-        translation_url?: td_string;
+        translation_url: td_string;
     }
     
     
@@ -6468,7 +6468,7 @@ namespace TdApi {
     export interface td_localizationTargetInfo {
         '@type': 'localizationTargetInfo';
         /** List of available language packs for this application */
-        language_packs?: td_vector<td_languagePackInfo>;
+        language_packs: td_vector<td_languagePackInfo>;
     }
     
     
@@ -6476,9 +6476,9 @@ namespace TdApi {
     export interface td_deviceTokenFirebaseCloudMessaging {
         '@type': 'deviceTokenFirebaseCloudMessaging';
         /** Device registration token; may be empty to de-register a device */
-        token?: td_string;
+        token: td_string;
         /** True, if push notifications must be additionally encrypted */
-        encrypt?: td_Bool;
+        encrypt: td_Bool;
     }
     
     
@@ -6486,9 +6486,9 @@ namespace TdApi {
     export interface td_deviceTokenApplePush {
         '@type': 'deviceTokenApplePush';
         /** Device token; may be empty to de-register a device */
-        device_token?: td_string;
+        device_token: td_string;
         /** True, if App Sandbox is enabled */
-        is_app_sandbox?: td_Bool;
+        is_app_sandbox: td_Bool;
     }
     
     
@@ -6496,11 +6496,11 @@ namespace TdApi {
     export interface td_deviceTokenApplePushVoIP {
         '@type': 'deviceTokenApplePushVoIP';
         /** Device token; may be empty to de-register a device */
-        device_token?: td_string;
+        device_token: td_string;
         /** True, if App Sandbox is enabled */
-        is_app_sandbox?: td_Bool;
+        is_app_sandbox: td_Bool;
         /** True, if push notifications must be additionally encrypted */
-        encrypt?: td_Bool;
+        encrypt: td_Bool;
     }
     
     
@@ -6508,7 +6508,7 @@ namespace TdApi {
     export interface td_deviceTokenWindowsPush {
         '@type': 'deviceTokenWindowsPush';
         /** The access token that will be used to send notifications; may be empty to de-register a device */
-        access_token?: td_string;
+        access_token: td_string;
     }
     
     
@@ -6516,7 +6516,7 @@ namespace TdApi {
     export interface td_deviceTokenMicrosoftPush {
         '@type': 'deviceTokenMicrosoftPush';
         /** Push notification channel URI; may be empty to de-register a device */
-        channel_uri?: td_string;
+        channel_uri: td_string;
     }
     
     
@@ -6524,7 +6524,7 @@ namespace TdApi {
     export interface td_deviceTokenMicrosoftPushVoIP {
         '@type': 'deviceTokenMicrosoftPushVoIP';
         /** Push notification channel URI; may be empty to de-register a device */
-        channel_uri?: td_string;
+        channel_uri: td_string;
     }
     
     
@@ -6532,11 +6532,11 @@ namespace TdApi {
     export interface td_deviceTokenWebPush {
         '@type': 'deviceTokenWebPush';
         /** Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device */
-        endpoint?: td_string;
+        endpoint: td_string;
         /** Base64url-encoded P-256 elliptic curve Diffie-Hellman public key */
-        p256dh_base64url?: td_string;
+        p256dh_base64url: td_string;
         /** Base64url-encoded authentication secret */
-        auth_base64url?: td_string;
+        auth_base64url: td_string;
     }
     
     
@@ -6544,7 +6544,7 @@ namespace TdApi {
     export interface td_deviceTokenSimplePush {
         '@type': 'deviceTokenSimplePush';
         /** Absolute URL exposed by the push service where the application server can send push messages; may be empty to de-register a device */
-        endpoint?: td_string;
+        endpoint: td_string;
     }
     
     
@@ -6552,7 +6552,7 @@ namespace TdApi {
     export interface td_deviceTokenUbuntuPush {
         '@type': 'deviceTokenUbuntuPush';
         /** Token; may be empty to de-register a device */
-        token?: td_string;
+        token: td_string;
     }
     
     
@@ -6560,7 +6560,7 @@ namespace TdApi {
     export interface td_deviceTokenBlackBerryPush {
         '@type': 'deviceTokenBlackBerryPush';
         /** Token; may be empty to de-register a device */
-        token?: td_string;
+        token: td_string;
     }
     
     
@@ -6568,7 +6568,7 @@ namespace TdApi {
     export interface td_deviceTokenTizenPush {
         '@type': 'deviceTokenTizenPush';
         /** Push service registration identifier; may be empty to de-register a device */
-        reg_id?: td_string;
+        reg_id: td_string;
     }
     
     
@@ -6576,7 +6576,7 @@ namespace TdApi {
     export interface td_pushReceiverId {
         '@type': 'pushReceiverId';
         /** The globally unique identifier of push notification subscription */
-        id?: td_int64;
+        id: td_int64;
     }
     
     
@@ -6584,7 +6584,7 @@ namespace TdApi {
     export interface td_backgroundFillSolid {
         '@type': 'backgroundFillSolid';
         /** A color of the background in the RGB24 format */
-        color?: td_int32;
+        color: td_int32;
     }
     
     
@@ -6592,11 +6592,11 @@ namespace TdApi {
     export interface td_backgroundFillGradient {
         '@type': 'backgroundFillGradient';
         /** A top color of the background in the RGB24 format */
-        top_color?: td_int32;
+        top_color: td_int32;
         /** A bottom color of the background in the RGB24 format */
-        bottom_color?: td_int32;
+        bottom_color: td_int32;
         /** Clockwise rotation angle of the gradient, in degrees; 0-359. Must be always divisible by 45 */
-        rotation_angle?: td_int32;
+        rotation_angle: td_int32;
     }
     
     
@@ -6604,7 +6604,7 @@ namespace TdApi {
     export interface td_backgroundFillFreeformGradient {
         '@type': 'backgroundFillFreeformGradient';
         /** A list of 3 or 4 colors of the freeform gradients in the RGB24 format */
-        colors?: td_vector<td_int32>;
+        colors: td_vector<td_int32>;
     }
     
     
@@ -6612,9 +6612,9 @@ namespace TdApi {
     export interface td_backgroundTypeWallpaper {
         '@type': 'backgroundTypeWallpaper';
         /** True, if the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12 */
-        is_blurred?: td_Bool;
+        is_blurred: td_Bool;
         /** True, if the background needs to be slightly moved when device is tilted */
-        is_moving?: td_Bool;
+        is_moving: td_Bool;
     }
     
     
@@ -6622,13 +6622,13 @@ namespace TdApi {
     export interface td_backgroundTypePattern {
         '@type': 'backgroundTypePattern';
         /** Description of the background fill */
-        fill?: td_BackgroundFill;
+        fill: td_BackgroundFill;
         /** Intensity of the pattern when it is shown above the filled background; 0-100. */
-        intensity?: td_int32;
+        intensity: td_int32;
         /** True, if the background fill must be applied only to the pattern itself. All other pixels are black in this case. For dark themes only */
-        is_inverted?: td_Bool;
+        is_inverted: td_Bool;
         /** True, if the background needs to be slightly moved when device is tilted */
-        is_moving?: td_Bool;
+        is_moving: td_Bool;
     }
     
     
@@ -6636,7 +6636,7 @@ namespace TdApi {
     export interface td_backgroundTypeFill {
         '@type': 'backgroundTypeFill';
         /** Description of the background fill */
-        fill?: td_BackgroundFill;
+        fill: td_BackgroundFill;
     }
     
     
@@ -6644,17 +6644,17 @@ namespace TdApi {
     export interface td_background {
         '@type': 'background';
         /** Unique background identifier */
-        id?: td_int64;
+        id: td_int64;
         /** True, if this is one of default backgrounds */
-        is_default?: td_Bool;
+        is_default: td_Bool;
         /** True, if the background is dark and is recommended to be used with dark theme */
-        is_dark?: td_Bool;
+        is_dark: td_Bool;
         /** Unique background name */
-        name?: td_string;
+        name: td_string;
         /** Document with the background; may be null. Null only for filled backgrounds */
         document?: td_document;
         /** Type of the background */
-        type?: td_BackgroundType;
+        type: td_BackgroundType;
     }
     
     
@@ -6662,7 +6662,7 @@ namespace TdApi {
     export interface td_backgrounds {
         '@type': 'backgrounds';
         /** A list of backgrounds */
-        backgrounds?: td_vector<td_background>;
+        backgrounds: td_vector<td_background>;
     }
     
     
@@ -6670,7 +6670,7 @@ namespace TdApi {
     export interface td_inputBackgroundLocal {
         '@type': 'inputBackgroundLocal';
         /** Background file to use. Only inputFileLocal and inputFileGenerated are supported. The file must be in JPEG format for wallpapers and in PNG format for patterns */
-        background?: td_InputFile;
+        background: td_InputFile;
     }
     
     
@@ -6678,7 +6678,7 @@ namespace TdApi {
     export interface td_inputBackgroundRemote {
         '@type': 'inputBackgroundRemote';
         /** The background identifier */
-        background_id?: td_int64;
+        background_id: td_int64;
     }
     
     
@@ -6686,15 +6686,15 @@ namespace TdApi {
     export interface td_themeSettings {
         '@type': 'themeSettings';
         /** Theme accent color in ARGB format */
-        accent_color?: td_int32;
+        accent_color: td_int32;
         /** The background to be used in chats; may be null */
         background?: td_background;
         /** The fill to be used as a background for outgoing messages */
-        outgoing_message_fill?: td_BackgroundFill;
+        outgoing_message_fill: td_BackgroundFill;
         /** If true, the freeform gradient fill needs to be animated on every sent message */
-        animate_outgoing_message_fill?: td_Bool;
+        animate_outgoing_message_fill: td_Bool;
         /** Accent color of outgoing messages in ARGB format */
-        outgoing_message_accent_color?: td_int32;
+        outgoing_message_accent_color: td_int32;
     }
     
     
@@ -6702,11 +6702,11 @@ namespace TdApi {
     export interface td_chatTheme {
         '@type': 'chatTheme';
         /** Theme name */
-        name?: td_string;
+        name: td_string;
         /** Theme settings for a light chat theme */
-        light_settings?: td_themeSettings;
+        light_settings: td_themeSettings;
         /** Theme settings for a dark chat theme */
-        dark_settings?: td_themeSettings;
+        dark_settings: td_themeSettings;
     }
     
     
@@ -6714,7 +6714,7 @@ namespace TdApi {
     export interface td_hashtags {
         '@type': 'hashtags';
         /** A list of hashtags */
-        hashtags?: td_vector<td_string>;
+        hashtags: td_vector<td_string>;
     }
     
     
@@ -6734,7 +6734,7 @@ namespace TdApi {
     export interface td_canTransferOwnershipResultPasswordTooFresh {
         '@type': 'canTransferOwnershipResultPasswordTooFresh';
         /** Time left before the session can be used to transfer ownership of a chat, in seconds */
-        retry_after?: td_int32;
+        retry_after: td_int32;
     }
     
     
@@ -6742,7 +6742,7 @@ namespace TdApi {
     export interface td_canTransferOwnershipResultSessionTooFresh {
         '@type': 'canTransferOwnershipResultSessionTooFresh';
         /** Time left before the session can be used to transfer ownership of a chat, in seconds */
-        retry_after?: td_int32;
+        retry_after: td_int32;
     }
     
     
@@ -6804,7 +6804,7 @@ namespace TdApi {
     export interface td_resetPasswordResultPending {
         '@type': 'resetPasswordResultPending';
         /** Point in time (Unix timestamp) after which the password can be reset immediately using resetPassword */
-        pending_reset_date?: td_int32;
+        pending_reset_date: td_int32;
     }
     
     
@@ -6812,7 +6812,7 @@ namespace TdApi {
     export interface td_resetPasswordResultDeclined {
         '@type': 'resetPasswordResultDeclined';
         /** Point in time (Unix timestamp) when the password reset can be retried */
-        retry_date?: td_int32;
+        retry_date: td_int32;
     }
     
     
@@ -6820,7 +6820,7 @@ namespace TdApi {
     export interface td_messageFileTypePrivate {
         '@type': 'messageFileTypePrivate';
         /** Name of the other party; may be empty if unrecognized */
-        name?: td_string;
+        name: td_string;
     }
     
     
@@ -6828,7 +6828,7 @@ namespace TdApi {
     export interface td_messageFileTypeGroup {
         '@type': 'messageFileTypeGroup';
         /** Title of the group chat; may be empty if unrecognized */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -6842,7 +6842,7 @@ namespace TdApi {
     export interface td_pushMessageContentHidden {
         '@type': 'pushMessageContentHidden';
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6852,9 +6852,9 @@ namespace TdApi {
         /** Message content; may be null */
         animation?: td_animation;
         /** Animation caption */
-        caption?: td_string;
+        caption: td_string;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6864,7 +6864,7 @@ namespace TdApi {
         /** Message content; may be null */
         audio?: td_audio;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6872,9 +6872,9 @@ namespace TdApi {
     export interface td_pushMessageContentContact {
         '@type': 'pushMessageContentContact';
         /** Contact's name */
-        name?: td_string;
+        name: td_string;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6890,7 +6890,7 @@ namespace TdApi {
         /** Message content; may be null */
         document?: td_document;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6898,9 +6898,9 @@ namespace TdApi {
     export interface td_pushMessageContentGame {
         '@type': 'pushMessageContentGame';
         /** Game title, empty for pinned game message */
-        title?: td_string;
+        title: td_string;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6908,11 +6908,11 @@ namespace TdApi {
     export interface td_pushMessageContentGameScore {
         '@type': 'pushMessageContentGameScore';
         /** Game title, empty for pinned message */
-        title?: td_string;
+        title: td_string;
         /** New score, 0 for pinned message */
-        score?: td_int32;
+        score: td_int32;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6920,9 +6920,9 @@ namespace TdApi {
     export interface td_pushMessageContentInvoice {
         '@type': 'pushMessageContentInvoice';
         /** Product price */
-        price?: td_string;
+        price: td_string;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6930,9 +6930,9 @@ namespace TdApi {
     export interface td_pushMessageContentLocation {
         '@type': 'pushMessageContentLocation';
         /** True, if the location is live */
-        is_live?: td_Bool;
+        is_live: td_Bool;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6942,11 +6942,11 @@ namespace TdApi {
         /** Message content; may be null */
         photo?: td_photo;
         /** Photo caption */
-        caption?: td_string;
+        caption: td_string;
         /** True, if the photo is secret */
-        is_secret?: td_Bool;
+        is_secret: td_Bool;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6954,11 +6954,11 @@ namespace TdApi {
     export interface td_pushMessageContentPoll {
         '@type': 'pushMessageContentPoll';
         /** Poll question */
-        question?: td_string;
+        question: td_string;
         /** True, if the poll is regular and not in quiz mode */
-        is_regular?: td_Bool;
+        is_regular: td_Bool;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6974,9 +6974,9 @@ namespace TdApi {
         /** Message content; may be null */
         sticker?: td_sticker;
         /** Emoji corresponding to the sticker; may be empty */
-        emoji?: td_string;
+        emoji: td_string;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6984,9 +6984,9 @@ namespace TdApi {
     export interface td_pushMessageContentText {
         '@type': 'pushMessageContentText';
         /** Message text */
-        text?: td_string;
+        text: td_string;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -6996,11 +6996,11 @@ namespace TdApi {
         /** Message content; may be null */
         video?: td_video;
         /** Video caption */
-        caption?: td_string;
+        caption: td_string;
         /** True, if the video is secret */
-        is_secret?: td_Bool;
+        is_secret: td_Bool;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -7010,7 +7010,7 @@ namespace TdApi {
         /** Message content; may be null */
         video_note?: td_videoNote;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -7020,7 +7020,7 @@ namespace TdApi {
         /** Message content; may be null */
         voice_note?: td_voiceNote;
         /** True, if the message is a pinned message with the specified content */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -7034,11 +7034,11 @@ namespace TdApi {
     export interface td_pushMessageContentChatAddMembers {
         '@type': 'pushMessageContentChatAddMembers';
         /** Name of the added member */
-        member_name?: td_string;
+        member_name: td_string;
         /** True, if the current user was added to the group */
-        is_current_user?: td_Bool;
+        is_current_user: td_Bool;
         /** True, if the user has returned to the group themselves */
-        is_returned?: td_Bool;
+        is_returned: td_Bool;
     }
     
     
@@ -7052,7 +7052,7 @@ namespace TdApi {
     export interface td_pushMessageContentChatChangeTitle {
         '@type': 'pushMessageContentChatChangeTitle';
         /** New chat title */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -7060,7 +7060,7 @@ namespace TdApi {
     export interface td_pushMessageContentChatSetTheme {
         '@type': 'pushMessageContentChatSetTheme';
         /** If non-empty, name of a new theme, set for the chat. Otherwise chat theme was reset to the default one */
-        theme_name?: td_string;
+        theme_name: td_string;
     }
     
     
@@ -7068,11 +7068,11 @@ namespace TdApi {
     export interface td_pushMessageContentChatDeleteMember {
         '@type': 'pushMessageContentChatDeleteMember';
         /** Name of the deleted member */
-        member_name?: td_string;
+        member_name: td_string;
         /** True, if the current user was deleted from the group */
-        is_current_user?: td_Bool;
+        is_current_user: td_Bool;
         /** True, if the user has left the group themselves */
-        is_left?: td_Bool;
+        is_left: td_Bool;
     }
     
     
@@ -7086,7 +7086,7 @@ namespace TdApi {
     export interface td_pushMessageContentMessageForwards {
         '@type': 'pushMessageContentMessageForwards';
         /** Number of forwarded messages */
-        total_count?: td_int32;
+        total_count: td_int32;
     }
     
     
@@ -7094,15 +7094,15 @@ namespace TdApi {
     export interface td_pushMessageContentMediaAlbum {
         '@type': 'pushMessageContentMediaAlbum';
         /** Number of messages in the album */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** True, if the album has at least one photo */
-        has_photos?: td_Bool;
+        has_photos: td_Bool;
         /** True, if the album has at least one video */
-        has_videos?: td_Bool;
+        has_videos: td_Bool;
         /** True, if the album has at least one audio file */
-        has_audios?: td_Bool;
+        has_audios: td_Bool;
         /** True, if the album has at least one document */
-        has_documents?: td_Bool;
+        has_documents: td_Bool;
     }
     
     
@@ -7110,7 +7110,7 @@ namespace TdApi {
     export interface td_notificationTypeNewMessage {
         '@type': 'notificationTypeNewMessage';
         /** The message */
-        message?: td_message;
+        message: td_message;
     }
     
     
@@ -7124,7 +7124,7 @@ namespace TdApi {
     export interface td_notificationTypeNewCall {
         '@type': 'notificationTypeNewCall';
         /** Call identifier */
-        call_id?: td_int32;
+        call_id: td_int32;
     }
     
     
@@ -7132,15 +7132,15 @@ namespace TdApi {
     export interface td_notificationTypeNewPushMessage {
         '@type': 'notificationTypeNewPushMessage';
         /** The message identifier. The message will not be available in the chat history, but the ID can be used in viewMessages, or as reply_to_message_id */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The sender of the message. Corresponding user or chat may be inaccessible */
-        sender?: td_MessageSender;
+        sender: td_MessageSender;
         /** Name of the sender */
-        sender_name?: td_string;
+        sender_name: td_string;
         /** True, if the message is outgoing */
-        is_outgoing?: td_Bool;
+        is_outgoing: td_Bool;
         /** Push message content */
-        content?: td_PushMessageContent;
+        content: td_PushMessageContent;
     }
     
     
@@ -7172,13 +7172,13 @@ namespace TdApi {
     export interface td_notification {
         '@type': 'notification';
         /** Unique persistent identifier of this notification */
-        id?: td_int32;
+        id: td_int32;
         /** Notification date */
-        date?: td_int32;
+        date: td_int32;
         /** True, if the notification was initially silent */
-        is_silent?: td_Bool;
+        is_silent: td_Bool;
         /** Notification type */
-        type?: td_NotificationType;
+        type: td_NotificationType;
     }
     
     
@@ -7186,15 +7186,15 @@ namespace TdApi {
     export interface td_notificationGroup {
         '@type': 'notificationGroup';
         /** Unique persistent auto-incremented from 1 identifier of the notification group */
-        id?: td_int32;
+        id: td_int32;
         /** Type of the group */
-        type?: td_NotificationGroupType;
+        type: td_NotificationGroupType;
         /** Identifier of a chat to which all notifications in the group belong */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Total number of active notifications in the group */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** The list of active notifications */
-        notifications?: td_vector<td_notification>;
+        notifications: td_vector<td_notification>;
     }
     
     
@@ -7202,7 +7202,7 @@ namespace TdApi {
     export interface td_optionValueBoolean {
         '@type': 'optionValueBoolean';
         /** The value of the option */
-        value?: td_Bool;
+        value: td_Bool;
     }
     
     
@@ -7216,7 +7216,7 @@ namespace TdApi {
     export interface td_optionValueInteger {
         '@type': 'optionValueInteger';
         /** The value of the option */
-        value?: td_int64;
+        value: td_int64;
     }
     
     
@@ -7224,7 +7224,7 @@ namespace TdApi {
     export interface td_optionValueString {
         '@type': 'optionValueString';
         /** The value of the option */
-        value?: td_string;
+        value: td_string;
     }
     
     
@@ -7232,9 +7232,9 @@ namespace TdApi {
     export interface td_jsonObjectMember {
         '@type': 'jsonObjectMember';
         /** Member's key */
-        key?: td_string;
+        key: td_string;
         /** Member's value */
-        value?: td_JsonValue;
+        value: td_JsonValue;
     }
     
     
@@ -7248,7 +7248,7 @@ namespace TdApi {
     export interface td_jsonValueBoolean {
         '@type': 'jsonValueBoolean';
         /** The value */
-        value?: td_Bool;
+        value: td_Bool;
     }
     
     
@@ -7256,7 +7256,7 @@ namespace TdApi {
     export interface td_jsonValueNumber {
         '@type': 'jsonValueNumber';
         /** The value */
-        value?: td_double;
+        value: td_double;
     }
     
     
@@ -7264,7 +7264,7 @@ namespace TdApi {
     export interface td_jsonValueString {
         '@type': 'jsonValueString';
         /** The value */
-        value?: td_string;
+        value: td_string;
     }
     
     
@@ -7272,7 +7272,7 @@ namespace TdApi {
     export interface td_jsonValueArray {
         '@type': 'jsonValueArray';
         /** The list of array elements */
-        values?: td_vector<td_JsonValue>;
+        values: td_vector<td_JsonValue>;
     }
     
     
@@ -7280,7 +7280,7 @@ namespace TdApi {
     export interface td_jsonValueObject {
         '@type': 'jsonValueObject';
         /** The list of object members */
-        members?: td_vector<td_jsonObjectMember>;
+        members: td_vector<td_jsonObjectMember>;
     }
     
     
@@ -7300,7 +7300,7 @@ namespace TdApi {
     export interface td_userPrivacySettingRuleAllowUsers {
         '@type': 'userPrivacySettingRuleAllowUsers';
         /** The user identifiers, total number of users in all rules must not exceed 1000 */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -7308,7 +7308,7 @@ namespace TdApi {
     export interface td_userPrivacySettingRuleAllowChatMembers {
         '@type': 'userPrivacySettingRuleAllowChatMembers';
         /** The chat identifiers, total number of chats in all rules must not exceed 20 */
-        chat_ids?: td_vector<td_int53>;
+        chat_ids: td_vector<td_int53>;
     }
     
     
@@ -7328,7 +7328,7 @@ namespace TdApi {
     export interface td_userPrivacySettingRuleRestrictUsers {
         '@type': 'userPrivacySettingRuleRestrictUsers';
         /** The user identifiers, total number of users in all rules must not exceed 1000 */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -7336,7 +7336,7 @@ namespace TdApi {
     export interface td_userPrivacySettingRuleRestrictChatMembers {
         '@type': 'userPrivacySettingRuleRestrictChatMembers';
         /** The chat identifiers, total number of chats in all rules must not exceed 20 */
-        chat_ids?: td_vector<td_int53>;
+        chat_ids: td_vector<td_int53>;
     }
     
     
@@ -7344,7 +7344,7 @@ namespace TdApi {
     export interface td_userPrivacySettingRules {
         '@type': 'userPrivacySettingRules';
         /** A list of rules */
-        rules?: td_vector<td_UserPrivacySettingRule>;
+        rules: td_vector<td_UserPrivacySettingRule>;
     }
     
     
@@ -7400,7 +7400,7 @@ namespace TdApi {
     export interface td_accountTtl {
         '@type': 'accountTtl';
         /** Number of days of inactivity before the account will be flagged for deletion; 30-366 days */
-        days?: td_int32;
+        days: td_int32;
     }
     
     
@@ -7408,35 +7408,35 @@ namespace TdApi {
     export interface td_session {
         '@type': 'session';
         /** Session identifier */
-        id?: td_int64;
+        id: td_int64;
         /** True, if this session is the current session */
-        is_current?: td_Bool;
+        is_current: td_Bool;
         /** True, if a password is needed to complete authorization of the session */
-        is_password_pending?: td_Bool;
+        is_password_pending: td_Bool;
         /** Telegram API identifier, as provided by the application */
-        api_id?: td_int32;
+        api_id: td_int32;
         /** Name of the application, as provided by the application */
-        application_name?: td_string;
+        application_name: td_string;
         /** The version of the application, as provided by the application */
-        application_version?: td_string;
+        application_version: td_string;
         /** True, if the application is an official application or uses the api_id of an official application */
-        is_official_application?: td_Bool;
+        is_official_application: td_Bool;
         /** Model of the device the application has been run or is running on, as provided by the application */
-        device_model?: td_string;
+        device_model: td_string;
         /** Operating system the application has been run or is running on, as provided by the application */
-        platform?: td_string;
+        platform: td_string;
         /** Version of the operating system the application has been run or is running on, as provided by the application */
-        system_version?: td_string;
+        system_version: td_string;
         /** Point in time (Unix timestamp) when the user has logged in */
-        log_in_date?: td_int32;
+        log_in_date: td_int32;
         /** Point in time (Unix timestamp) when the session was last used */
-        last_active_date?: td_int32;
+        last_active_date: td_int32;
         /** IP address from which the session was created, in human-readable format */
-        ip?: td_string;
+        ip: td_string;
         /** A two-letter country code for the country from which the session was created, based on the IP address */
-        country?: td_string;
+        country: td_string;
         /** Region code from which the session was created, based on the IP address */
-        region?: td_string;
+        region: td_string;
     }
     
     
@@ -7444,7 +7444,7 @@ namespace TdApi {
     export interface td_sessions {
         '@type': 'sessions';
         /** List of sessions */
-        sessions?: td_vector<td_session>;
+        sessions: td_vector<td_session>;
     }
     
     
@@ -7452,23 +7452,23 @@ namespace TdApi {
     export interface td_connectedWebsite {
         '@type': 'connectedWebsite';
         /** Website identifier */
-        id?: td_int64;
+        id: td_int64;
         /** The domain name of the website */
-        domain_name?: td_string;
+        domain_name: td_string;
         /** User identifier of a bot linked with the website */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** The version of a browser used to log in */
-        browser?: td_string;
+        browser: td_string;
         /** Operating system the browser is running on */
-        platform?: td_string;
+        platform: td_string;
         /** Point in time (Unix timestamp) when the user was logged in */
-        log_in_date?: td_int32;
+        log_in_date: td_int32;
         /** Point in time (Unix timestamp) when obtained authorization was last used */
-        last_active_date?: td_int32;
+        last_active_date: td_int32;
         /** IP address from which the user was logged in, in human-readable format */
-        ip?: td_string;
+        ip: td_string;
         /** Human-readable description of a country and a region, from which the user was logged in, based on the IP address */
-        location?: td_string;
+        location: td_string;
     }
     
     
@@ -7476,7 +7476,7 @@ namespace TdApi {
     export interface td_connectedWebsites {
         '@type': 'connectedWebsites';
         /** List of connected websites */
-        websites?: td_vector<td_connectedWebsite>;
+        websites: td_vector<td_connectedWebsite>;
     }
     
     
@@ -7538,7 +7538,7 @@ namespace TdApi {
     export interface td_internalLinkTypeAuthenticationCode {
         '@type': 'internalLinkTypeAuthenticationCode';
         /** The authentication code */
-        code?: td_string;
+        code: td_string;
     }
     
     
@@ -7546,7 +7546,7 @@ namespace TdApi {
     export interface td_internalLinkTypeBackground {
         '@type': 'internalLinkTypeBackground';
         /** Name of the background */
-        background_name?: td_string;
+        background_name: td_string;
     }
     
     
@@ -7554,9 +7554,9 @@ namespace TdApi {
     export interface td_internalLinkTypeBotStart {
         '@type': 'internalLinkTypeBotStart';
         /** Username of the bot */
-        bot_username?: td_string;
+        bot_username: td_string;
         /** The parameter to be passed to sendBotStartMessage */
-        start_parameter?: td_string;
+        start_parameter: td_string;
     }
     
     
@@ -7564,9 +7564,9 @@ namespace TdApi {
     export interface td_internalLinkTypeBotStartInGroup {
         '@type': 'internalLinkTypeBotStartInGroup';
         /** Username of the bot */
-        bot_username?: td_string;
+        bot_username: td_string;
         /** The parameter to be passed to sendBotStartMessage */
-        start_parameter?: td_string;
+        start_parameter: td_string;
     }
     
     
@@ -7580,7 +7580,7 @@ namespace TdApi {
     export interface td_internalLinkTypeChatInvite {
         '@type': 'internalLinkTypeChatInvite';
         /** Internal representation of the invite link */
-        invite_link?: td_string;
+        invite_link: td_string;
     }
     
     
@@ -7594,9 +7594,9 @@ namespace TdApi {
     export interface td_internalLinkTypeGame {
         '@type': 'internalLinkTypeGame';
         /** Username of the bot that owns the game */
-        bot_username?: td_string;
+        bot_username: td_string;
         /** Short name of the game */
-        game_short_name?: td_string;
+        game_short_name: td_string;
     }
     
     
@@ -7604,7 +7604,7 @@ namespace TdApi {
     export interface td_internalLinkTypeLanguagePack {
         '@type': 'internalLinkTypeLanguagePack';
         /** Language pack identifier */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
     }
     
     
@@ -7612,7 +7612,7 @@ namespace TdApi {
     export interface td_internalLinkTypeMessage {
         '@type': 'internalLinkTypeMessage';
         /** URL to be passed to getMessageLinkInfo */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -7620,9 +7620,9 @@ namespace TdApi {
     export interface td_internalLinkTypeMessageDraft {
         '@type': 'internalLinkTypeMessageDraft';
         /** Message draft text */
-        text?: td_formattedText;
+        text: td_formattedText;
         /** True, if the first line of the text contains a link. If true, the input field needs to be focused and the text after the link must be selected */
-        contains_link?: td_Bool;
+        contains_link: td_Bool;
     }
     
     
@@ -7630,15 +7630,15 @@ namespace TdApi {
     export interface td_internalLinkTypePassportDataRequest {
         '@type': 'internalLinkTypePassportDataRequest';
         /** User identifier of the service's bot */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** Telegram Passport element types requested by the service */
-        scope?: td_string;
+        scope: td_string;
         /** Service's public key */
-        public_key?: td_string;
+        public_key: td_string;
         /** Unique request identifier provided by the service */
-        nonce?: td_string;
+        nonce: td_string;
         /** An HTTP URL to open once the request is finished or canceled with the parameter tg_passport=success or tg_passport=cancel respectively. If empty, then the link tgbot{bot_user_id}://passport/success or tgbot{bot_user_id}://passport/cancel needs to be opened instead */
-        callback_url?: td_string;
+        callback_url: td_string;
     }
     
     
@@ -7646,9 +7646,9 @@ namespace TdApi {
     export interface td_internalLinkTypePhoneNumberConfirmation {
         '@type': 'internalLinkTypePhoneNumberConfirmation';
         /** Hash value from the link */
-        hash?: td_string;
+        hash: td_string;
         /** Phone number value from the link */
-        phone_number?: td_string;
+        phone_number: td_string;
     }
     
     
@@ -7656,11 +7656,11 @@ namespace TdApi {
     export interface td_internalLinkTypeProxy {
         '@type': 'internalLinkTypeProxy';
         /** Proxy server IP address */
-        server?: td_string;
+        server: td_string;
         /** Proxy server port */
-        port?: td_int32;
+        port: td_int32;
         /** Type of the proxy */
-        type?: td_ProxyType;
+        type: td_ProxyType;
     }
     
     
@@ -7668,7 +7668,7 @@ namespace TdApi {
     export interface td_internalLinkTypePublicChat {
         '@type': 'internalLinkTypePublicChat';
         /** Username of the chat */
-        chat_username?: td_string;
+        chat_username: td_string;
     }
     
     
@@ -7688,7 +7688,7 @@ namespace TdApi {
     export interface td_internalLinkTypeStickerSet {
         '@type': 'internalLinkTypeStickerSet';
         /** Name of the sticker set */
-        sticker_set_name?: td_string;
+        sticker_set_name: td_string;
     }
     
     
@@ -7696,7 +7696,7 @@ namespace TdApi {
     export interface td_internalLinkTypeTheme {
         '@type': 'internalLinkTypeTheme';
         /** Name of the theme */
-        theme_name?: td_string;
+        theme_name: td_string;
     }
     
     
@@ -7710,7 +7710,7 @@ namespace TdApi {
     export interface td_internalLinkTypeUnknownDeepLink {
         '@type': 'internalLinkTypeUnknownDeepLink';
         /** Link to be passed to getDeepLinkInfo */
-        link?: td_string;
+        link: td_string;
     }
     
     
@@ -7718,11 +7718,11 @@ namespace TdApi {
     export interface td_internalLinkTypeVoiceChat {
         '@type': 'internalLinkTypeVoiceChat';
         /** Username of the chat with the voice chat */
-        chat_username?: td_string;
+        chat_username: td_string;
         /** If non-empty, invite hash to be used to join the voice chat without being muted by administrators */
-        invite_hash?: td_string;
+        invite_hash: td_string;
         /** True, if the voice chat is expected to be a live stream in a channel or a broadcast group */
-        is_live_stream?: td_Bool;
+        is_live_stream: td_Bool;
     }
     
     
@@ -7730,9 +7730,9 @@ namespace TdApi {
     export interface td_messageLink {
         '@type': 'messageLink';
         /** Message link */
-        link?: td_string;
+        link: td_string;
         /** True, if the link will work for non-members of the chat */
-        is_public?: td_Bool;
+        is_public: td_Bool;
     }
     
     
@@ -7740,17 +7740,17 @@ namespace TdApi {
     export interface td_messageLinkInfo {
         '@type': 'messageLinkInfo';
         /** True, if the link is a public link for a message in a chat */
-        is_public?: td_Bool;
+        is_public: td_Bool;
         /** If found, identifier of the chat to which the message belongs, 0 otherwise */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If found, the linked message; may be null */
         message?: td_message;
         /** Timestamp from which the video/audio/video note/voice note playing must start, in seconds; 0 if not specified. The media can be in the message content or in its web page preview */
-        media_timestamp?: td_int32;
+        media_timestamp: td_int32;
         /** True, if the whole media album to which the message belongs is linked */
-        for_album?: td_Bool;
+        for_album: td_Bool;
         /** True, if the message is linked as a channel post comment or from a message thread */
-        for_comment?: td_Bool;
+        for_comment: td_Bool;
     }
     
     
@@ -7758,7 +7758,7 @@ namespace TdApi {
     export interface td_filePart {
         '@type': 'filePart';
         /** File bytes */
-        data?: td_blob;
+        data: td_blob;
     }
     
     
@@ -7862,11 +7862,11 @@ namespace TdApi {
     export interface td_storageStatisticsByFileType {
         '@type': 'storageStatisticsByFileType';
         /** File type */
-        file_type?: td_FileType;
+        file_type: td_FileType;
         /** Total size of the files, in bytes */
-        size?: td_int53;
+        size: td_int53;
         /** Total number of files */
-        count?: td_int32;
+        count: td_int32;
     }
     
     
@@ -7874,13 +7874,13 @@ namespace TdApi {
     export interface td_storageStatisticsByChat {
         '@type': 'storageStatisticsByChat';
         /** Chat identifier; 0 if none */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Total size of the files in the chat, in bytes */
-        size?: td_int53;
+        size: td_int53;
         /** Total number of files in the chat */
-        count?: td_int32;
+        count: td_int32;
         /** Statistics split by file types */
-        by_file_type?: td_vector<td_storageStatisticsByFileType>;
+        by_file_type: td_vector<td_storageStatisticsByFileType>;
     }
     
     
@@ -7888,11 +7888,11 @@ namespace TdApi {
     export interface td_storageStatistics {
         '@type': 'storageStatistics';
         /** Total size of files, in bytes */
-        size?: td_int53;
+        size: td_int53;
         /** Total number of files */
-        count?: td_int32;
+        count: td_int32;
         /** Statistics split by chats */
-        by_chat?: td_vector<td_storageStatisticsByChat>;
+        by_chat: td_vector<td_storageStatisticsByChat>;
     }
     
     
@@ -7900,15 +7900,15 @@ namespace TdApi {
     export interface td_storageStatisticsFast {
         '@type': 'storageStatisticsFast';
         /** Approximate total size of files, in bytes */
-        files_size?: td_int53;
+        files_size: td_int53;
         /** Approximate number of files */
-        file_count?: td_int32;
+        file_count: td_int32;
         /** Size of the database */
-        database_size?: td_int53;
+        database_size: td_int53;
         /** Size of the language pack database */
-        language_pack_database_size?: td_int53;
+        language_pack_database_size: td_int53;
         /** Size of the TDLib internal log */
-        log_size?: td_int53;
+        log_size: td_int53;
     }
     
     
@@ -7916,7 +7916,7 @@ namespace TdApi {
     export interface td_databaseStatistics {
         '@type': 'databaseStatistics';
         /** Database statistics in an unspecified human-readable format */
-        statistics?: td_string;
+        statistics: td_string;
     }
     
     
@@ -7954,13 +7954,13 @@ namespace TdApi {
     export interface td_networkStatisticsEntryFile {
         '@type': 'networkStatisticsEntryFile';
         /** Type of the file the data is part of; pass null if the data isn't related to files */
-        file_type?: td_FileType;
+        file_type: td_FileType;
         /** Type of the network the data was sent through. Call setNetworkType to maintain the actual network type */
-        network_type?: td_NetworkType;
+        network_type: td_NetworkType;
         /** Total number of bytes sent */
-        sent_bytes?: td_int53;
+        sent_bytes: td_int53;
         /** Total number of bytes received */
-        received_bytes?: td_int53;
+        received_bytes: td_int53;
     }
     
     
@@ -7968,13 +7968,13 @@ namespace TdApi {
     export interface td_networkStatisticsEntryCall {
         '@type': 'networkStatisticsEntryCall';
         /** Type of the network the data was sent through. Call setNetworkType to maintain the actual network type */
-        network_type?: td_NetworkType;
+        network_type: td_NetworkType;
         /** Total number of bytes sent */
-        sent_bytes?: td_int53;
+        sent_bytes: td_int53;
         /** Total number of bytes received */
-        received_bytes?: td_int53;
+        received_bytes: td_int53;
         /** Total call duration, in seconds */
-        duration?: td_double;
+        duration: td_double;
     }
     
     
@@ -7982,9 +7982,9 @@ namespace TdApi {
     export interface td_networkStatistics {
         '@type': 'networkStatistics';
         /** Point in time (Unix timestamp) from which the statistics are collected */
-        since_date?: td_int32;
+        since_date: td_int32;
         /** Network statistics entries */
-        entries?: td_vector<td_NetworkStatisticsEntry>;
+        entries: td_vector<td_NetworkStatisticsEntry>;
     }
     
     
@@ -7992,21 +7992,21 @@ namespace TdApi {
     export interface td_autoDownloadSettings {
         '@type': 'autoDownloadSettings';
         /** True, if the auto-download is enabled */
-        is_auto_download_enabled?: td_Bool;
+        is_auto_download_enabled: td_Bool;
         /** The maximum size of a photo file to be auto-downloaded, in bytes */
-        max_photo_file_size?: td_int32;
+        max_photo_file_size: td_int32;
         /** The maximum size of a video file to be auto-downloaded, in bytes */
-        max_video_file_size?: td_int32;
+        max_video_file_size: td_int32;
         /** The maximum size of other file types to be auto-downloaded, in bytes */
-        max_other_file_size?: td_int32;
+        max_other_file_size: td_int32;
         /** The maximum suggested bitrate for uploaded videos, in kbit/s */
-        video_upload_bitrate?: td_int32;
+        video_upload_bitrate: td_int32;
         /** True, if the beginning of video files needs to be preloaded for instant playback */
-        preload_large_videos?: td_Bool;
+        preload_large_videos: td_Bool;
         /** True, if the next audio track needs to be preloaded while the user is listening to an audio file */
-        preload_next_audio?: td_Bool;
+        preload_next_audio: td_Bool;
         /** True, if "use less data for calls" option needs to be enabled */
-        use_less_data_for_calls?: td_Bool;
+        use_less_data_for_calls: td_Bool;
     }
     
     
@@ -8014,11 +8014,11 @@ namespace TdApi {
     export interface td_autoDownloadSettingsPresets {
         '@type': 'autoDownloadSettingsPresets';
         /** Preset with lowest settings; supposed to be used by default when roaming */
-        low?: td_autoDownloadSettings;
+        low: td_autoDownloadSettings;
         /** Preset with medium settings; supposed to be used by default when using mobile data */
-        medium?: td_autoDownloadSettings;
+        medium: td_autoDownloadSettings;
         /** Preset with highest settings; supposed to be used by default when connected on Wi-Fi */
-        high?: td_autoDownloadSettings;
+        high: td_autoDownloadSettings;
     }
     
     
@@ -8098,7 +8098,7 @@ namespace TdApi {
     export interface td_tMeUrlTypeUser {
         '@type': 'tMeUrlTypeUser';
         /** Identifier of the user */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -8106,7 +8106,7 @@ namespace TdApi {
     export interface td_tMeUrlTypeSupergroup {
         '@type': 'tMeUrlTypeSupergroup';
         /** Identifier of the supergroup or channel */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
     }
     
     
@@ -8114,7 +8114,7 @@ namespace TdApi {
     export interface td_tMeUrlTypeChatInvite {
         '@type': 'tMeUrlTypeChatInvite';
         /** Chat invite link info */
-        info?: td_chatInviteLinkInfo;
+        info: td_chatInviteLinkInfo;
     }
     
     
@@ -8122,7 +8122,7 @@ namespace TdApi {
     export interface td_tMeUrlTypeStickerSet {
         '@type': 'tMeUrlTypeStickerSet';
         /** Identifier of the sticker set */
-        sticker_set_id?: td_int64;
+        sticker_set_id: td_int64;
     }
     
     
@@ -8130,9 +8130,9 @@ namespace TdApi {
     export interface td_tMeUrl {
         '@type': 'tMeUrl';
         /** URL */
-        url?: td_string;
+        url: td_string;
         /** Type of the URL */
-        type?: td_TMeUrlType;
+        type: td_TMeUrlType;
     }
     
     
@@ -8140,7 +8140,7 @@ namespace TdApi {
     export interface td_tMeUrls {
         '@type': 'tMeUrls';
         /** List of URLs */
-        urls?: td_vector<td_tMeUrl>;
+        urls: td_vector<td_tMeUrl>;
     }
     
     
@@ -8172,7 +8172,7 @@ namespace TdApi {
     export interface td_suggestedActionConvertToBroadcastGroup {
         '@type': 'suggestedActionConvertToBroadcastGroup';
         /** Supergroup identifier */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
     }
     
     
@@ -8180,7 +8180,7 @@ namespace TdApi {
     export interface td_count {
         '@type': 'count';
         /** Count */
-        count?: td_int32;
+        count: td_int32;
     }
     
     
@@ -8188,7 +8188,7 @@ namespace TdApi {
     export interface td_text {
         '@type': 'text';
         /** Text */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -8196,7 +8196,7 @@ namespace TdApi {
     export interface td_seconds {
         '@type': 'seconds';
         /** Number of seconds */
-        seconds?: td_double;
+        seconds: td_double;
     }
     
     
@@ -8204,9 +8204,9 @@ namespace TdApi {
     export interface td_deepLinkInfo {
         '@type': 'deepLinkInfo';
         /** Text to be shown to the user */
-        text?: td_formattedText;
+        text: td_formattedText;
         /** True, if the user must be asked to update the application */
-        need_update_application?: td_Bool;
+        need_update_application: td_Bool;
     }
     
     
@@ -8214,7 +8214,7 @@ namespace TdApi {
     export interface td_textParseModeMarkdown {
         '@type': 'textParseModeMarkdown';
         /** Version of the parser: 0 or 1 - Telegram Bot API "Markdown" parse mode, 2 - Telegram Bot API "MarkdownV2" parse mode */
-        version?: td_int32;
+        version: td_int32;
     }
     
     
@@ -8228,9 +8228,9 @@ namespace TdApi {
     export interface td_proxyTypeSocks5 {
         '@type': 'proxyTypeSocks5';
         /** Username for logging in; may be empty */
-        username?: td_string;
+        username: td_string;
         /** Password for logging in; may be empty */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -8238,11 +8238,11 @@ namespace TdApi {
     export interface td_proxyTypeHttp {
         '@type': 'proxyTypeHttp';
         /** Username for logging in; may be empty */
-        username?: td_string;
+        username: td_string;
         /** Password for logging in; may be empty */
-        password?: td_string;
+        password: td_string;
         /** Pass true if the proxy supports only HTTP requests and doesn't support transparent TCP connections via HTTP CONNECT method */
-        http_only?: td_Bool;
+        http_only: td_Bool;
     }
     
     
@@ -8250,7 +8250,7 @@ namespace TdApi {
     export interface td_proxyTypeMtproto {
         '@type': 'proxyTypeMtproto';
         /** The proxy's secret in hexadecimal encoding */
-        secret?: td_string;
+        secret: td_string;
     }
     
     
@@ -8258,17 +8258,17 @@ namespace TdApi {
     export interface td_proxy {
         '@type': 'proxy';
         /** Unique identifier of the proxy */
-        id?: td_int32;
+        id: td_int32;
         /** Proxy server IP address */
-        server?: td_string;
+        server: td_string;
         /** Proxy server port */
-        port?: td_int32;
+        port: td_int32;
         /** Point in time (Unix timestamp) when the proxy was last used; 0 if never */
-        last_used_date?: td_int32;
+        last_used_date: td_int32;
         /** True, if the proxy is enabled now */
-        is_enabled?: td_Bool;
+        is_enabled: td_Bool;
         /** Type of the proxy */
-        type?: td_ProxyType;
+        type: td_ProxyType;
     }
     
     
@@ -8276,7 +8276,7 @@ namespace TdApi {
     export interface td_proxies {
         '@type': 'proxies';
         /** List of proxy servers */
-        proxies?: td_vector<td_proxy>;
+        proxies: td_vector<td_proxy>;
     }
     
     
@@ -8284,11 +8284,11 @@ namespace TdApi {
     export interface td_inputStickerStatic {
         '@type': 'inputStickerStatic';
         /** PNG image with the sticker; must be up to 512 KB in size and fit in a 512x512 square */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
         /** Emojis corresponding to the sticker */
-        emojis?: td_string;
+        emojis: td_string;
         /** For masks, position where the mask is placed; pass null if unspecified */
-        mask_position?: td_maskPosition;
+        mask_position: td_maskPosition;
     }
     
     
@@ -8296,9 +8296,9 @@ namespace TdApi {
     export interface td_inputStickerAnimated {
         '@type': 'inputStickerAnimated';
         /** File with the animated sticker. Only local or uploaded within a week files are supported. See https://core.telegram.org/animated_stickers#technical-requirements for technical requirements */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
         /** Emojis corresponding to the sticker */
-        emojis?: td_string;
+        emojis: td_string;
     }
     
     
@@ -8306,9 +8306,9 @@ namespace TdApi {
     export interface td_dateRange {
         '@type': 'dateRange';
         /** Point in time (Unix timestamp) at which the date range begins */
-        start_date?: td_int32;
+        start_date: td_int32;
         /** Point in time (Unix timestamp) at which the date range ends */
-        end_date?: td_int32;
+        end_date: td_int32;
     }
     
     
@@ -8316,11 +8316,11 @@ namespace TdApi {
     export interface td_statisticalValue {
         '@type': 'statisticalValue';
         /** The current value */
-        value?: td_double;
+        value: td_double;
         /** The value for the previous day */
-        previous_value?: td_double;
+        previous_value: td_double;
         /** The growth rate of the value, as a percentage */
-        growth_rate_percentage?: td_double;
+        growth_rate_percentage: td_double;
     }
     
     
@@ -8328,9 +8328,9 @@ namespace TdApi {
     export interface td_statisticalGraphData {
         '@type': 'statisticalGraphData';
         /** Graph data in JSON format */
-        json_data?: td_string;
+        json_data: td_string;
         /** If non-empty, a token which can be used to receive a zoomed in graph */
-        zoom_token?: td_string;
+        zoom_token: td_string;
     }
     
     
@@ -8338,7 +8338,7 @@ namespace TdApi {
     export interface td_statisticalGraphAsync {
         '@type': 'statisticalGraphAsync';
         /** The token to use for data loading */
-        token?: td_string;
+        token: td_string;
     }
     
     
@@ -8346,7 +8346,7 @@ namespace TdApi {
     export interface td_statisticalGraphError {
         '@type': 'statisticalGraphError';
         /** The error message */
-        error_message?: td_string;
+        error_message: td_string;
     }
     
     
@@ -8354,11 +8354,11 @@ namespace TdApi {
     export interface td_chatStatisticsMessageInteractionInfo {
         '@type': 'chatStatisticsMessageInteractionInfo';
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Number of times the message was viewed */
-        view_count?: td_int32;
+        view_count: td_int32;
         /** Number of times the message was forwarded */
-        forward_count?: td_int32;
+        forward_count: td_int32;
     }
     
     
@@ -8366,11 +8366,11 @@ namespace TdApi {
     export interface td_chatStatisticsMessageSenderInfo {
         '@type': 'chatStatisticsMessageSenderInfo';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Number of sent messages */
-        sent_message_count?: td_int32;
+        sent_message_count: td_int32;
         /** Average number of characters in sent messages; 0 if unknown */
-        average_character_count?: td_int32;
+        average_character_count: td_int32;
     }
     
     
@@ -8378,13 +8378,13 @@ namespace TdApi {
     export interface td_chatStatisticsAdministratorActionsInfo {
         '@type': 'chatStatisticsAdministratorActionsInfo';
         /** Administrator user identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Number of messages deleted by the administrator */
-        deleted_message_count?: td_int32;
+        deleted_message_count: td_int32;
         /** Number of users banned by the administrator */
-        banned_user_count?: td_int32;
+        banned_user_count: td_int32;
         /** Number of users restricted by the administrator */
-        restricted_user_count?: td_int32;
+        restricted_user_count: td_int32;
     }
     
     
@@ -8392,9 +8392,9 @@ namespace TdApi {
     export interface td_chatStatisticsInviterInfo {
         '@type': 'chatStatisticsInviterInfo';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Number of new members invited by the user */
-        added_member_count?: td_int32;
+        added_member_count: td_int32;
     }
     
     
@@ -8402,37 +8402,37 @@ namespace TdApi {
     export interface td_chatStatisticsSupergroup {
         '@type': 'chatStatisticsSupergroup';
         /** A period to which the statistics applies */
-        period?: td_dateRange;
+        period: td_dateRange;
         /** Number of members in the chat */
-        member_count?: td_statisticalValue;
+        member_count: td_statisticalValue;
         /** Number of messages sent to the chat */
-        message_count?: td_statisticalValue;
+        message_count: td_statisticalValue;
         /** Number of users who viewed messages in the chat */
-        viewer_count?: td_statisticalValue;
+        viewer_count: td_statisticalValue;
         /** Number of users who sent messages to the chat */
-        sender_count?: td_statisticalValue;
+        sender_count: td_statisticalValue;
         /** A graph containing number of members in the chat */
-        member_count_graph?: td_StatisticalGraph;
+        member_count_graph: td_StatisticalGraph;
         /** A graph containing number of members joined and left the chat */
-        join_graph?: td_StatisticalGraph;
+        join_graph: td_StatisticalGraph;
         /** A graph containing number of new member joins per source */
-        join_by_source_graph?: td_StatisticalGraph;
+        join_by_source_graph: td_StatisticalGraph;
         /** A graph containing distribution of active users per language */
-        language_graph?: td_StatisticalGraph;
+        language_graph: td_StatisticalGraph;
         /** A graph containing distribution of sent messages by content type */
-        message_content_graph?: td_StatisticalGraph;
+        message_content_graph: td_StatisticalGraph;
         /** A graph containing number of different actions in the chat */
-        action_graph?: td_StatisticalGraph;
+        action_graph: td_StatisticalGraph;
         /** A graph containing distribution of message views per hour */
-        day_graph?: td_StatisticalGraph;
+        day_graph: td_StatisticalGraph;
         /** A graph containing distribution of message views per day of week */
-        week_graph?: td_StatisticalGraph;
+        week_graph: td_StatisticalGraph;
         /** List of users sent most messages in the last week */
-        top_senders?: td_vector<td_chatStatisticsMessageSenderInfo>;
+        top_senders: td_vector<td_chatStatisticsMessageSenderInfo>;
         /** List of most active administrators in the last week */
-        top_administrators?: td_vector<td_chatStatisticsAdministratorActionsInfo>;
+        top_administrators: td_vector<td_chatStatisticsAdministratorActionsInfo>;
         /** List of most active inviters of new members in the last week */
-        top_inviters?: td_vector<td_chatStatisticsInviterInfo>;
+        top_inviters: td_vector<td_chatStatisticsInviterInfo>;
     }
     
     
@@ -8440,35 +8440,35 @@ namespace TdApi {
     export interface td_chatStatisticsChannel {
         '@type': 'chatStatisticsChannel';
         /** A period to which the statistics applies */
-        period?: td_dateRange;
+        period: td_dateRange;
         /** Number of members in the chat */
-        member_count?: td_statisticalValue;
+        member_count: td_statisticalValue;
         /** Mean number of times the recently sent messages was viewed */
-        mean_view_count?: td_statisticalValue;
+        mean_view_count: td_statisticalValue;
         /** Mean number of times the recently sent messages was shared */
-        mean_share_count?: td_statisticalValue;
+        mean_share_count: td_statisticalValue;
         /** A percentage of users with enabled notifications for the chat */
-        enabled_notifications_percentage?: td_double;
+        enabled_notifications_percentage: td_double;
         /** A graph containing number of members in the chat */
-        member_count_graph?: td_StatisticalGraph;
+        member_count_graph: td_StatisticalGraph;
         /** A graph containing number of members joined and left the chat */
-        join_graph?: td_StatisticalGraph;
+        join_graph: td_StatisticalGraph;
         /** A graph containing number of members muted and unmuted the chat */
-        mute_graph?: td_StatisticalGraph;
+        mute_graph: td_StatisticalGraph;
         /** A graph containing number of message views in a given hour in the last two weeks */
-        view_count_by_hour_graph?: td_StatisticalGraph;
+        view_count_by_hour_graph: td_StatisticalGraph;
         /** A graph containing number of message views per source */
-        view_count_by_source_graph?: td_StatisticalGraph;
+        view_count_by_source_graph: td_StatisticalGraph;
         /** A graph containing number of new member joins per source */
-        join_by_source_graph?: td_StatisticalGraph;
+        join_by_source_graph: td_StatisticalGraph;
         /** A graph containing number of users viewed chat messages per language */
-        language_graph?: td_StatisticalGraph;
+        language_graph: td_StatisticalGraph;
         /** A graph containing number of chat message views and shares */
-        message_interaction_graph?: td_StatisticalGraph;
+        message_interaction_graph: td_StatisticalGraph;
         /** A graph containing number of views of associated with the chat instant views */
-        instant_view_interaction_graph?: td_StatisticalGraph;
+        instant_view_interaction_graph: td_StatisticalGraph;
         /** Detailed statistics about number of views and shares of recently sent messages */
-        recent_message_interactions?: td_vector<td_chatStatisticsMessageInteractionInfo>;
+        recent_message_interactions: td_vector<td_chatStatisticsMessageInteractionInfo>;
     }
     
     
@@ -8476,7 +8476,7 @@ namespace TdApi {
     export interface td_messageStatistics {
         '@type': 'messageStatistics';
         /** A graph containing number of message views and shares */
-        message_interaction_graph?: td_StatisticalGraph;
+        message_interaction_graph: td_StatisticalGraph;
     }
     
     
@@ -8484,9 +8484,9 @@ namespace TdApi {
     export interface td_point {
         '@type': 'point';
         /** The point's first coordinate */
-        x?: td_double;
+        x: td_double;
         /** The point's second coordinate */
-        y?: td_double;
+        y: td_double;
     }
     
     
@@ -8494,7 +8494,7 @@ namespace TdApi {
     export interface td_vectorPathCommandLine {
         '@type': 'vectorPathCommandLine';
         /** The end point of the straight line */
-        end_point?: td_point;
+        end_point: td_point;
     }
     
     
@@ -8502,11 +8502,11 @@ namespace TdApi {
     export interface td_vectorPathCommandCubicBezierCurve {
         '@type': 'vectorPathCommandCubicBezierCurve';
         /** The start control point of the curve */
-        start_control_point?: td_point;
+        start_control_point: td_point;
         /** The end control point of the curve */
-        end_control_point?: td_point;
+        end_control_point: td_point;
         /** The end point of the curve */
-        end_point?: td_point;
+        end_point: td_point;
     }
     
     
@@ -8538,7 +8538,7 @@ namespace TdApi {
     export interface td_botCommandScopeChat {
         '@type': 'botCommandScopeChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -8546,7 +8546,7 @@ namespace TdApi {
     export interface td_botCommandScopeChatAdministrators {
         '@type': 'botCommandScopeChatAdministrators';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -8554,9 +8554,9 @@ namespace TdApi {
     export interface td_botCommandScopeChatMember {
         '@type': 'botCommandScopeChatMember';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -8564,7 +8564,7 @@ namespace TdApi {
     export interface td_updateAuthorizationState {
         '@type': 'updateAuthorizationState';
         /** New authorization state */
-        authorization_state?: td_AuthorizationState;
+        authorization_state: td_AuthorizationState;
     }
     
     
@@ -8572,7 +8572,7 @@ namespace TdApi {
     export interface td_updateNewMessage {
         '@type': 'updateNewMessage';
         /** The new message */
-        message?: td_message;
+        message: td_message;
     }
     
     
@@ -8580,9 +8580,9 @@ namespace TdApi {
     export interface td_updateMessageSendAcknowledged {
         '@type': 'updateMessageSendAcknowledged';
         /** The chat identifier of the sent message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** A temporary message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -8590,9 +8590,9 @@ namespace TdApi {
     export interface td_updateMessageSendSucceeded {
         '@type': 'updateMessageSendSucceeded';
         /** Information about the sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change */
-        message?: td_message;
+        message: td_message;
         /** The previous temporary message identifier */
-        old_message_id?: td_int53;
+        old_message_id: td_int53;
     }
     
     
@@ -8600,13 +8600,13 @@ namespace TdApi {
     export interface td_updateMessageSendFailed {
         '@type': 'updateMessageSendFailed';
         /** Contains information about the message which failed to send */
-        message?: td_message;
+        message: td_message;
         /** The previous temporary message identifier */
-        old_message_id?: td_int53;
+        old_message_id: td_int53;
         /** An error code */
-        error_code?: td_int32;
+        error_code: td_int32;
         /** Error message */
-        error_message?: td_string;
+        error_message: td_string;
     }
     
     
@@ -8614,11 +8614,11 @@ namespace TdApi {
     export interface td_updateMessageContent {
         '@type': 'updateMessageContent';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** New message content */
-        new_content?: td_MessageContent;
+        new_content: td_MessageContent;
     }
     
     
@@ -8626,11 +8626,11 @@ namespace TdApi {
     export interface td_updateMessageEdited {
         '@type': 'updateMessageEdited';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Point in time (Unix timestamp) when the message was edited */
-        edit_date?: td_int32;
+        edit_date: td_int32;
         /** New message reply markup; may be null */
         reply_markup?: td_ReplyMarkup;
     }
@@ -8640,11 +8640,11 @@ namespace TdApi {
     export interface td_updateMessageIsPinned {
         '@type': 'updateMessageIsPinned';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** True, if the message is pinned */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -8652,9 +8652,9 @@ namespace TdApi {
     export interface td_updateMessageInteractionInfo {
         '@type': 'updateMessageInteractionInfo';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** New information about interactions with the message; may be null */
         interaction_info?: td_messageInteractionInfo;
     }
@@ -8664,9 +8664,9 @@ namespace TdApi {
     export interface td_updateMessageContentOpened {
         '@type': 'updateMessageContentOpened';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -8674,11 +8674,11 @@ namespace TdApi {
     export interface td_updateMessageMentionRead {
         '@type': 'updateMessageMentionRead';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new number of unread mention messages left in the chat */
-        unread_mention_count?: td_int32;
+        unread_mention_count: td_int32;
     }
     
     
@@ -8686,9 +8686,9 @@ namespace TdApi {
     export interface td_updateMessageLiveLocationViewed {
         '@type': 'updateMessageLiveLocationViewed';
         /** Identifier of the chat with the live location message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message with live location */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -8696,7 +8696,7 @@ namespace TdApi {
     export interface td_updateNewChat {
         '@type': 'updateNewChat';
         /** The chat */
-        chat?: td_chat;
+        chat: td_chat;
     }
     
     
@@ -8704,9 +8704,9 @@ namespace TdApi {
     export interface td_updateChatTitle {
         '@type': 'updateChatTitle';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new chat title */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -8714,7 +8714,7 @@ namespace TdApi {
     export interface td_updateChatPhoto {
         '@type': 'updateChatPhoto';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new chat photo; may be null */
         photo?: td_chatPhotoInfo;
     }
@@ -8724,9 +8724,9 @@ namespace TdApi {
     export interface td_updateChatPermissions {
         '@type': 'updateChatPermissions';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new chat permissions */
-        permissions?: td_chatPermissions;
+        permissions: td_chatPermissions;
     }
     
     
@@ -8734,11 +8734,11 @@ namespace TdApi {
     export interface td_updateChatLastMessage {
         '@type': 'updateChatLastMessage';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new last message in the chat; may be null */
         last_message?: td_message;
         /** The new chat positions in the chat lists */
-        positions?: td_vector<td_chatPosition>;
+        positions: td_vector<td_chatPosition>;
     }
     
     
@@ -8746,9 +8746,9 @@ namespace TdApi {
     export interface td_updateChatPosition {
         '@type': 'updateChatPosition';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New chat position. If new order is 0, then the chat needs to be removed from the list */
-        position?: td_chatPosition;
+        position: td_chatPosition;
     }
     
     
@@ -8756,9 +8756,9 @@ namespace TdApi {
     export interface td_updateChatIsMarkedAsUnread {
         '@type': 'updateChatIsMarkedAsUnread';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of is_marked_as_unread */
-        is_marked_as_unread?: td_Bool;
+        is_marked_as_unread: td_Bool;
     }
     
     
@@ -8766,9 +8766,9 @@ namespace TdApi {
     export interface td_updateChatIsBlocked {
         '@type': 'updateChatIsBlocked';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of is_blocked */
-        is_blocked?: td_Bool;
+        is_blocked: td_Bool;
     }
     
     
@@ -8776,9 +8776,9 @@ namespace TdApi {
     export interface td_updateChatHasScheduledMessages {
         '@type': 'updateChatHasScheduledMessages';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of has_scheduled_messages */
-        has_scheduled_messages?: td_Bool;
+        has_scheduled_messages: td_Bool;
     }
     
     
@@ -8786,9 +8786,9 @@ namespace TdApi {
     export interface td_updateChatVoiceChat {
         '@type': 'updateChatVoiceChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of voice_chat */
-        voice_chat?: td_voiceChat;
+        voice_chat: td_voiceChat;
     }
     
     
@@ -8796,9 +8796,9 @@ namespace TdApi {
     export interface td_updateChatDefaultDisableNotification {
         '@type': 'updateChatDefaultDisableNotification';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new default_disable_notification value */
-        default_disable_notification?: td_Bool;
+        default_disable_notification: td_Bool;
     }
     
     
@@ -8806,11 +8806,11 @@ namespace TdApi {
     export interface td_updateChatReadInbox {
         '@type': 'updateChatReadInbox';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the last read incoming message */
-        last_read_inbox_message_id?: td_int53;
+        last_read_inbox_message_id: td_int53;
         /** The number of unread messages left in the chat */
-        unread_count?: td_int32;
+        unread_count: td_int32;
     }
     
     
@@ -8818,9 +8818,9 @@ namespace TdApi {
     export interface td_updateChatReadOutbox {
         '@type': 'updateChatReadOutbox';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of last read outgoing message */
-        last_read_outbox_message_id?: td_int53;
+        last_read_outbox_message_id: td_int53;
     }
     
     
@@ -8828,9 +8828,9 @@ namespace TdApi {
     export interface td_updateChatUnreadMentionCount {
         '@type': 'updateChatUnreadMentionCount';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The number of unread mention messages left in the chat */
-        unread_mention_count?: td_int32;
+        unread_mention_count: td_int32;
     }
     
     
@@ -8838,9 +8838,9 @@ namespace TdApi {
     export interface td_updateChatNotificationSettings {
         '@type': 'updateChatNotificationSettings';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new notification settings */
-        notification_settings?: td_chatNotificationSettings;
+        notification_settings: td_chatNotificationSettings;
     }
     
     
@@ -8848,9 +8848,9 @@ namespace TdApi {
     export interface td_updateScopeNotificationSettings {
         '@type': 'updateScopeNotificationSettings';
         /** Types of chats for which notification settings were updated */
-        scope?: td_NotificationSettingsScope;
+        scope: td_NotificationSettingsScope;
         /** The new notification settings */
-        notification_settings?: td_scopeNotificationSettings;
+        notification_settings: td_scopeNotificationSettings;
     }
     
     
@@ -8858,9 +8858,9 @@ namespace TdApi {
     export interface td_updateChatMessageTtlSetting {
         '@type': 'updateChatMessageTtlSetting';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of message_ttl_setting */
-        message_ttl_setting?: td_int32;
+        message_ttl_setting: td_int32;
     }
     
     
@@ -8868,7 +8868,7 @@ namespace TdApi {
     export interface td_updateChatActionBar {
         '@type': 'updateChatActionBar';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new value of the action bar; may be null */
         action_bar?: td_ChatActionBar;
     }
@@ -8878,9 +8878,9 @@ namespace TdApi {
     export interface td_updateChatTheme {
         '@type': 'updateChatTheme';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new name of the chat theme; may be empty if theme was reset to default */
-        theme_name?: td_string;
+        theme_name: td_string;
     }
     
     
@@ -8888,9 +8888,9 @@ namespace TdApi {
     export interface td_updateChatReplyMarkup {
         '@type': 'updateChatReplyMarkup';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat */
-        reply_markup_message_id?: td_int53;
+        reply_markup_message_id: td_int53;
     }
     
     
@@ -8898,11 +8898,11 @@ namespace TdApi {
     export interface td_updateChatDraftMessage {
         '@type': 'updateChatDraftMessage';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The new draft message; may be null */
         draft_message?: td_draftMessage;
         /** The new chat positions in the chat lists */
-        positions?: td_vector<td_chatPosition>;
+        positions: td_vector<td_chatPosition>;
     }
     
     
@@ -8910,7 +8910,7 @@ namespace TdApi {
     export interface td_updateChatFilters {
         '@type': 'updateChatFilters';
         /** The new list of chat filters */
-        chat_filters?: td_vector<td_chatFilterInfo>;
+        chat_filters: td_vector<td_chatFilterInfo>;
     }
     
     
@@ -8918,9 +8918,9 @@ namespace TdApi {
     export interface td_updateChatOnlineMemberCount {
         '@type': 'updateChatOnlineMemberCount';
         /** Identifier of the chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New number of online members in the chat, or 0 if unknown */
-        online_member_count?: td_int32;
+        online_member_count: td_int32;
     }
     
     
@@ -8928,9 +8928,9 @@ namespace TdApi {
     export interface td_updateNotification {
         '@type': 'updateNotification';
         /** Unique notification group identifier */
-        notification_group_id?: td_int32;
+        notification_group_id: td_int32;
         /** Changed notification */
-        notification?: td_notification;
+        notification: td_notification;
     }
     
     
@@ -8938,21 +8938,21 @@ namespace TdApi {
     export interface td_updateNotificationGroup {
         '@type': 'updateNotificationGroup';
         /** Unique notification group identifier */
-        notification_group_id?: td_int32;
+        notification_group_id: td_int32;
         /** New type of the notification group */
-        type?: td_NotificationGroupType;
+        type: td_NotificationGroupType;
         /** Identifier of a chat to which all notifications in the group belong */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Chat identifier, which notification settings must be applied to the added notifications */
-        notification_settings_chat_id?: td_int53;
+        notification_settings_chat_id: td_int53;
         /** True, if the notifications must be shown without sound */
-        is_silent?: td_Bool;
+        is_silent: td_Bool;
         /** Total number of unread notifications in the group, can be bigger than number of active notifications */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** List of added group notifications, sorted by notification ID */
-        added_notifications?: td_vector<td_notification>;
+        added_notifications: td_vector<td_notification>;
         /** Identifiers of removed group notifications, sorted by notification ID */
-        removed_notification_ids?: td_vector<td_int32>;
+        removed_notification_ids: td_vector<td_int32>;
     }
     
     
@@ -8960,7 +8960,7 @@ namespace TdApi {
     export interface td_updateActiveNotifications {
         '@type': 'updateActiveNotifications';
         /** Lists of active notification groups */
-        groups?: td_vector<td_notificationGroup>;
+        groups: td_vector<td_notificationGroup>;
     }
     
     
@@ -8968,9 +8968,9 @@ namespace TdApi {
     export interface td_updateHavePendingNotifications {
         '@type': 'updateHavePendingNotifications';
         /** True, if there are some delayed notification updates, which will be sent soon */
-        have_delayed_notifications?: td_Bool;
+        have_delayed_notifications: td_Bool;
         /** True, if there can be some yet unreceived notifications, which are being fetched from the server */
-        have_unreceived_notifications?: td_Bool;
+        have_unreceived_notifications: td_Bool;
     }
     
     
@@ -8978,13 +8978,13 @@ namespace TdApi {
     export interface td_updateDeleteMessages {
         '@type': 'updateDeleteMessages';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifiers of the deleted messages */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
         /** True, if the messages are permanently deleted by a user (as opposed to just becoming inaccessible) */
-        is_permanent?: td_Bool;
+        is_permanent: td_Bool;
         /** True, if the messages are deleted only from the cache and can possibly be retrieved again in the future */
-        from_cache?: td_Bool;
+        from_cache: td_Bool;
     }
     
     
@@ -8992,13 +8992,13 @@ namespace TdApi {
     export interface td_updateUserChatAction {
         '@type': 'updateUserChatAction';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If not 0, a message thread identifier in which the action was performed */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** Identifier of a user performing an action */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** The action description */
-        action?: td_ChatAction;
+        action: td_ChatAction;
     }
     
     
@@ -9006,9 +9006,9 @@ namespace TdApi {
     export interface td_updateUserStatus {
         '@type': 'updateUserStatus';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** New status of the user */
-        status?: td_UserStatus;
+        status: td_UserStatus;
     }
     
     
@@ -9016,7 +9016,7 @@ namespace TdApi {
     export interface td_updateUser {
         '@type': 'updateUser';
         /** New data about the user */
-        user?: td_user;
+        user: td_user;
     }
     
     
@@ -9024,7 +9024,7 @@ namespace TdApi {
     export interface td_updateBasicGroup {
         '@type': 'updateBasicGroup';
         /** New data about the group */
-        basic_group?: td_basicGroup;
+        basic_group: td_basicGroup;
     }
     
     
@@ -9032,7 +9032,7 @@ namespace TdApi {
     export interface td_updateSupergroup {
         '@type': 'updateSupergroup';
         /** New data about the supergroup */
-        supergroup?: td_supergroup;
+        supergroup: td_supergroup;
     }
     
     
@@ -9040,7 +9040,7 @@ namespace TdApi {
     export interface td_updateSecretChat {
         '@type': 'updateSecretChat';
         /** New data about the secret chat */
-        secret_chat?: td_secretChat;
+        secret_chat: td_secretChat;
     }
     
     
@@ -9048,9 +9048,9 @@ namespace TdApi {
     export interface td_updateUserFullInfo {
         '@type': 'updateUserFullInfo';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** New full information about the user */
-        user_full_info?: td_userFullInfo;
+        user_full_info: td_userFullInfo;
     }
     
     
@@ -9058,9 +9058,9 @@ namespace TdApi {
     export interface td_updateBasicGroupFullInfo {
         '@type': 'updateBasicGroupFullInfo';
         /** Identifier of a basic group */
-        basic_group_id?: td_int53;
+        basic_group_id: td_int53;
         /** New full information about the group */
-        basic_group_full_info?: td_basicGroupFullInfo;
+        basic_group_full_info: td_basicGroupFullInfo;
     }
     
     
@@ -9068,9 +9068,9 @@ namespace TdApi {
     export interface td_updateSupergroupFullInfo {
         '@type': 'updateSupergroupFullInfo';
         /** Identifier of the supergroup or channel */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** New full information about the supergroup */
-        supergroup_full_info?: td_supergroupFullInfo;
+        supergroup_full_info: td_supergroupFullInfo;
     }
     
     
@@ -9078,9 +9078,9 @@ namespace TdApi {
     export interface td_updateServiceNotification {
         '@type': 'updateServiceNotification';
         /** Notification type. If type begins with "AUTH_KEY_DROP_", then two buttons "Cancel" and "Log out" must be shown under notification; if user presses the second, all local data must be destroyed using Destroy method */
-        type?: td_string;
+        type: td_string;
         /** Notification content */
-        content?: td_MessageContent;
+        content: td_MessageContent;
     }
     
     
@@ -9088,7 +9088,7 @@ namespace TdApi {
     export interface td_updateFile {
         '@type': 'updateFile';
         /** New data about the file */
-        file?: td_file;
+        file: td_file;
     }
     
     
@@ -9096,13 +9096,13 @@ namespace TdApi {
     export interface td_updateFileGenerationStart {
         '@type': 'updateFileGenerationStart';
         /** Unique identifier for the generation process */
-        generation_id?: td_int64;
+        generation_id: td_int64;
         /** The path to a file from which a new file is generated; may be empty */
-        original_path?: td_string;
+        original_path: td_string;
         /** The path to a file that must be created and where the new file is generated */
-        destination_path?: td_string;
+        destination_path: td_string;
         /** String specifying the conversion applied to the original file. If conversion is "#url#" than original_path contains an HTTP/HTTPS URL of a file, which must be downloaded by the application */
-        conversion?: td_string;
+        conversion: td_string;
     }
     
     
@@ -9110,7 +9110,7 @@ namespace TdApi {
     export interface td_updateFileGenerationStop {
         '@type': 'updateFileGenerationStop';
         /** Unique identifier for the generation process */
-        generation_id?: td_int64;
+        generation_id: td_int64;
     }
     
     
@@ -9118,7 +9118,7 @@ namespace TdApi {
     export interface td_updateCall {
         '@type': 'updateCall';
         /** New data about a call */
-        call?: td_call;
+        call: td_call;
     }
     
     
@@ -9126,7 +9126,7 @@ namespace TdApi {
     export interface td_updateGroupCall {
         '@type': 'updateGroupCall';
         /** New data about a group call */
-        group_call?: td_groupCall;
+        group_call: td_groupCall;
     }
     
     
@@ -9134,9 +9134,9 @@ namespace TdApi {
     export interface td_updateGroupCallParticipant {
         '@type': 'updateGroupCallParticipant';
         /** Identifier of group call */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** New data about a participant */
-        participant?: td_groupCallParticipant;
+        participant: td_groupCallParticipant;
     }
     
     
@@ -9144,9 +9144,9 @@ namespace TdApi {
     export interface td_updateNewCallSignalingData {
         '@type': 'updateNewCallSignalingData';
         /** The call identifier */
-        call_id?: td_int32;
+        call_id: td_int32;
         /** The data */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -9154,9 +9154,9 @@ namespace TdApi {
     export interface td_updateUserPrivacySettingRules {
         '@type': 'updateUserPrivacySettingRules';
         /** The privacy setting */
-        setting?: td_UserPrivacySetting;
+        setting: td_UserPrivacySetting;
         /** New privacy rules */
-        rules?: td_userPrivacySettingRules;
+        rules: td_userPrivacySettingRules;
     }
     
     
@@ -9164,11 +9164,11 @@ namespace TdApi {
     export interface td_updateUnreadMessageCount {
         '@type': 'updateUnreadMessageCount';
         /** The chat list with changed number of unread messages */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
         /** Total number of unread messages */
-        unread_count?: td_int32;
+        unread_count: td_int32;
         /** Total number of unread messages in unmuted chats */
-        unread_unmuted_count?: td_int32;
+        unread_unmuted_count: td_int32;
     }
     
     
@@ -9176,17 +9176,17 @@ namespace TdApi {
     export interface td_updateUnreadChatCount {
         '@type': 'updateUnreadChatCount';
         /** The chat list with changed number of unread messages */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
         /** Approximate total number of chats in the chat list */
-        total_count?: td_int32;
+        total_count: td_int32;
         /** Total number of unread chats */
-        unread_count?: td_int32;
+        unread_count: td_int32;
         /** Total number of unread unmuted chats */
-        unread_unmuted_count?: td_int32;
+        unread_unmuted_count: td_int32;
         /** Total number of chats marked as unread */
-        marked_as_unread_count?: td_int32;
+        marked_as_unread_count: td_int32;
         /** Total number of unmuted chats marked as unread */
-        marked_as_unread_unmuted_count?: td_int32;
+        marked_as_unread_unmuted_count: td_int32;
     }
     
     
@@ -9194,9 +9194,9 @@ namespace TdApi {
     export interface td_updateOption {
         '@type': 'updateOption';
         /** The option name */
-        name?: td_string;
+        name: td_string;
         /** The new option value */
-        value?: td_OptionValue;
+        value: td_OptionValue;
     }
     
     
@@ -9204,7 +9204,7 @@ namespace TdApi {
     export interface td_updateStickerSet {
         '@type': 'updateStickerSet';
         /** The sticker set */
-        sticker_set?: td_stickerSet;
+        sticker_set: td_stickerSet;
     }
     
     
@@ -9212,9 +9212,9 @@ namespace TdApi {
     export interface td_updateInstalledStickerSets {
         '@type': 'updateInstalledStickerSets';
         /** True, if the list of installed mask sticker sets was updated */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
         /** The new list of installed ordinary sticker sets */
-        sticker_set_ids?: td_vector<td_int64>;
+        sticker_set_ids: td_vector<td_int64>;
     }
     
     
@@ -9222,7 +9222,7 @@ namespace TdApi {
     export interface td_updateTrendingStickerSets {
         '@type': 'updateTrendingStickerSets';
         /** The prefix of the list of trending sticker sets with the newest trending sticker sets */
-        sticker_sets?: td_stickerSets;
+        sticker_sets: td_stickerSets;
     }
     
     
@@ -9230,9 +9230,9 @@ namespace TdApi {
     export interface td_updateRecentStickers {
         '@type': 'updateRecentStickers';
         /** True, if the list of stickers attached to photo or video files was updated, otherwise the list of sent stickers is updated */
-        is_attached?: td_Bool;
+        is_attached: td_Bool;
         /** The new list of file identifiers of recently used stickers */
-        sticker_ids?: td_vector<td_int32>;
+        sticker_ids: td_vector<td_int32>;
     }
     
     
@@ -9240,7 +9240,7 @@ namespace TdApi {
     export interface td_updateFavoriteStickers {
         '@type': 'updateFavoriteStickers';
         /** The new list of file identifiers of favorite stickers */
-        sticker_ids?: td_vector<td_int32>;
+        sticker_ids: td_vector<td_int32>;
     }
     
     
@@ -9248,7 +9248,7 @@ namespace TdApi {
     export interface td_updateSavedAnimations {
         '@type': 'updateSavedAnimations';
         /** The new list of file identifiers of saved animations */
-        animation_ids?: td_vector<td_int32>;
+        animation_ids: td_vector<td_int32>;
     }
     
     
@@ -9256,7 +9256,7 @@ namespace TdApi {
     export interface td_updateSelectedBackground {
         '@type': 'updateSelectedBackground';
         /** True, if background for dark theme has changed */
-        for_dark_theme?: td_Bool;
+        for_dark_theme: td_Bool;
         /** The new selected background; may be null */
         background?: td_background;
     }
@@ -9266,7 +9266,7 @@ namespace TdApi {
     export interface td_updateChatThemes {
         '@type': 'updateChatThemes';
         /** The new list of chat themes */
-        chat_themes?: td_vector<td_chatTheme>;
+        chat_themes: td_vector<td_chatTheme>;
     }
     
     
@@ -9274,11 +9274,11 @@ namespace TdApi {
     export interface td_updateLanguagePackStrings {
         '@type': 'updateLanguagePackStrings';
         /** Localization target to which the language pack belongs */
-        localization_target?: td_string;
+        localization_target: td_string;
         /** Identifier of the updated language pack */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
         /** List of changed language pack strings */
-        strings?: td_vector<td_languagePackString>;
+        strings: td_vector<td_languagePackString>;
     }
     
     
@@ -9286,7 +9286,7 @@ namespace TdApi {
     export interface td_updateConnectionState {
         '@type': 'updateConnectionState';
         /** The new connection state */
-        state?: td_ConnectionState;
+        state: td_ConnectionState;
     }
     
     
@@ -9294,9 +9294,9 @@ namespace TdApi {
     export interface td_updateTermsOfService {
         '@type': 'updateTermsOfService';
         /** Identifier of the terms of service */
-        terms_of_service_id?: td_string;
+        terms_of_service_id: td_string;
         /** The new terms of service */
-        terms_of_service?: td_termsOfService;
+        terms_of_service: td_termsOfService;
     }
     
     
@@ -9304,7 +9304,7 @@ namespace TdApi {
     export interface td_updateUsersNearby {
         '@type': 'updateUsersNearby';
         /** The new list of users nearby */
-        users_nearby?: td_vector<td_chatNearby>;
+        users_nearby: td_vector<td_chatNearby>;
     }
     
     
@@ -9312,7 +9312,7 @@ namespace TdApi {
     export interface td_updateDiceEmojis {
         '@type': 'updateDiceEmojis';
         /** The new list of supported dice emojis */
-        emojis?: td_vector<td_string>;
+        emojis: td_vector<td_string>;
     }
     
     
@@ -9320,11 +9320,11 @@ namespace TdApi {
     export interface td_updateAnimatedEmojiMessageClicked {
         '@type': 'updateAnimatedEmojiMessageClicked';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The animated sticker to be played */
-        sticker?: td_sticker;
+        sticker: td_sticker;
     }
     
     
@@ -9332,9 +9332,9 @@ namespace TdApi {
     export interface td_updateAnimationSearchParameters {
         '@type': 'updateAnimationSearchParameters';
         /** Name of the animation search provider */
-        provider?: td_string;
+        provider: td_string;
         /** The new list of emojis suggested for searching */
-        emojis?: td_vector<td_string>;
+        emojis: td_vector<td_string>;
     }
     
     
@@ -9342,9 +9342,9 @@ namespace TdApi {
     export interface td_updateSuggestedActions {
         '@type': 'updateSuggestedActions';
         /** Added suggested actions */
-        added_actions?: td_vector<td_SuggestedAction>;
+        added_actions: td_vector<td_SuggestedAction>;
         /** Removed suggested actions */
-        removed_actions?: td_vector<td_SuggestedAction>;
+        removed_actions: td_vector<td_SuggestedAction>;
     }
     
     
@@ -9352,17 +9352,17 @@ namespace TdApi {
     export interface td_updateNewInlineQuery {
         '@type': 'updateNewInlineQuery';
         /** Unique query identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Identifier of the user who sent the query */
-        sender_user_id?: td_int53;
+        sender_user_id: td_int53;
         /** User location; may be null */
         user_location?: td_location;
         /** Contains information about the type of the chat, from which the query originated; may be null if unknown */
         chat_type?: td_ChatType;
         /** Text of the query */
-        query?: td_string;
+        query: td_string;
         /** Offset of the first entry to return */
-        offset?: td_string;
+        offset: td_string;
     }
     
     
@@ -9370,15 +9370,15 @@ namespace TdApi {
     export interface td_updateNewChosenInlineResult {
         '@type': 'updateNewChosenInlineResult';
         /** Identifier of the user who sent the query */
-        sender_user_id?: td_int53;
+        sender_user_id: td_int53;
         /** User location; may be null */
         user_location?: td_location;
         /** Text of the query */
-        query?: td_string;
+        query: td_string;
         /** Identifier of the chosen result */
-        result_id?: td_string;
+        result_id: td_string;
         /** Identifier of the sent inline message, if known */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
     }
     
     
@@ -9386,17 +9386,17 @@ namespace TdApi {
     export interface td_updateNewCallbackQuery {
         '@type': 'updateNewCallbackQuery';
         /** Unique query identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Identifier of the user who sent the query */
-        sender_user_id?: td_int53;
+        sender_user_id: td_int53;
         /** Identifier of the chat where the query was sent */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message, from which the query originated */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Identifier that uniquely corresponds to the chat to which the message was sent */
-        chat_instance?: td_int64;
+        chat_instance: td_int64;
         /** Query payload */
-        payload?: td_CallbackQueryPayload;
+        payload: td_CallbackQueryPayload;
     }
     
     
@@ -9404,15 +9404,15 @@ namespace TdApi {
     export interface td_updateNewInlineCallbackQuery {
         '@type': 'updateNewInlineCallbackQuery';
         /** Unique query identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Identifier of the user who sent the query */
-        sender_user_id?: td_int53;
+        sender_user_id: td_int53;
         /** Identifier of the inline message, from which the query originated */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** An identifier uniquely corresponding to the chat a message was sent to */
-        chat_instance?: td_int64;
+        chat_instance: td_int64;
         /** Query payload */
-        payload?: td_CallbackQueryPayload;
+        payload: td_CallbackQueryPayload;
     }
     
     
@@ -9420,13 +9420,13 @@ namespace TdApi {
     export interface td_updateNewShippingQuery {
         '@type': 'updateNewShippingQuery';
         /** Unique query identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Identifier of the user who sent the query */
-        sender_user_id?: td_int53;
+        sender_user_id: td_int53;
         /** Invoice payload */
-        invoice_payload?: td_string;
+        invoice_payload: td_string;
         /** User shipping address */
-        shipping_address?: td_address;
+        shipping_address: td_address;
     }
     
     
@@ -9434,17 +9434,17 @@ namespace TdApi {
     export interface td_updateNewPreCheckoutQuery {
         '@type': 'updateNewPreCheckoutQuery';
         /** Unique query identifier */
-        id?: td_int64;
+        id: td_int64;
         /** Identifier of the user who sent the query */
-        sender_user_id?: td_int53;
+        sender_user_id: td_int53;
         /** Currency for the product price */
-        currency?: td_string;
+        currency: td_string;
         /** Total price for the product, in the smallest units of the currency */
-        total_amount?: td_int53;
+        total_amount: td_int53;
         /** Invoice payload */
-        invoice_payload?: td_bytes;
+        invoice_payload: td_bytes;
         /** Identifier of a shipping option chosen by the user; may be empty if not applicable */
-        shipping_option_id?: td_string;
+        shipping_option_id: td_string;
         /** Information about the order; may be null */
         order_info?: td_orderInfo;
     }
@@ -9454,7 +9454,7 @@ namespace TdApi {
     export interface td_updateNewCustomEvent {
         '@type': 'updateNewCustomEvent';
         /** A JSON-serialized event */
-        event?: td_string;
+        event: td_string;
     }
     
     
@@ -9462,11 +9462,11 @@ namespace TdApi {
     export interface td_updateNewCustomQuery {
         '@type': 'updateNewCustomQuery';
         /** The query identifier */
-        id?: td_int64;
+        id: td_int64;
         /** JSON-serialized query data */
-        data?: td_string;
+        data: td_string;
         /** Query timeout */
-        timeout?: td_int32;
+        timeout: td_int32;
     }
     
     
@@ -9474,7 +9474,7 @@ namespace TdApi {
     export interface td_updatePoll {
         '@type': 'updatePoll';
         /** New data about the poll */
-        poll?: td_poll;
+        poll: td_poll;
     }
     
     
@@ -9482,11 +9482,11 @@ namespace TdApi {
     export interface td_updatePollAnswer {
         '@type': 'updatePollAnswer';
         /** Unique poll identifier */
-        poll_id?: td_int64;
+        poll_id: td_int64;
         /** The user, who changed the answer to the poll */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** 0-based identifiers of answer options, chosen by the user */
-        option_ids?: td_vector<td_int32>;
+        option_ids: td_vector<td_int32>;
     }
     
     
@@ -9494,17 +9494,17 @@ namespace TdApi {
     export interface td_updateChatMember {
         '@type': 'updateChatMember';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the user, changing the rights */
-        actor_user_id?: td_int53;
+        actor_user_id: td_int53;
         /** Point in time (Unix timestamp) when the user rights was changed */
-        date?: td_int32;
+        date: td_int32;
         /** If user has joined the chat using an invite link, the invite link; may be null */
         invite_link?: td_chatInviteLink;
         /** Previous chat member */
-        old_chat_member?: td_chatMember;
+        old_chat_member: td_chatMember;
         /** New chat member */
-        new_chat_member?: td_chatMember;
+        new_chat_member: td_chatMember;
     }
     
     
@@ -9512,7 +9512,7 @@ namespace TdApi {
     export interface td_updates {
         '@type': 'updates';
         /** List of updates */
-        updates?: td_vector<td_Update>;
+        updates: td_vector<td_Update>;
     }
     
     
@@ -9526,11 +9526,11 @@ namespace TdApi {
     export interface td_logStreamFile {
         '@type': 'logStreamFile';
         /** Path to the file to where the internal TDLib log will be written */
-        path?: td_string;
+        path: td_string;
         /** The maximum size of the file to where the internal TDLib log is written before the file will be auto-rotated, in bytes */
-        max_file_size?: td_int53;
+        max_file_size: td_int53;
         /** Pass true to additionally redirect stderr to the log file. Ignored on Windows */
-        redirect_stderr?: td_Bool;
+        redirect_stderr: td_Bool;
     }
     
     
@@ -9544,7 +9544,7 @@ namespace TdApi {
     export interface td_logVerbosityLevel {
         '@type': 'logVerbosityLevel';
         /** Log verbosity level */
-        verbosity_level?: td_int32;
+        verbosity_level: td_int32;
     }
     
     
@@ -9552,7 +9552,7 @@ namespace TdApi {
     export interface td_logTags {
         '@type': 'logTags';
         /** List of log tags */
-        tags?: td_vector<td_string>;
+        tags: td_vector<td_string>;
     }
     
     
@@ -9560,7 +9560,7 @@ namespace TdApi {
     export interface td_testInt {
         '@type': 'testInt';
         /** Number */
-        value?: td_int32;
+        value: td_int32;
     }
     
     
@@ -9568,7 +9568,7 @@ namespace TdApi {
     export interface td_testString {
         '@type': 'testString';
         /** String */
-        value?: td_string;
+        value: td_string;
     }
     
     
@@ -9576,7 +9576,7 @@ namespace TdApi {
     export interface td_testBytes {
         '@type': 'testBytes';
         /** Bytes */
-        value?: td_bytes;
+        value: td_bytes;
     }
     
     
@@ -9584,7 +9584,7 @@ namespace TdApi {
     export interface td_testVectorInt {
         '@type': 'testVectorInt';
         /** Vector of numbers */
-        value?: td_vector<td_int32>;
+        value: td_vector<td_int32>;
     }
     
     
@@ -9592,7 +9592,7 @@ namespace TdApi {
     export interface td_testVectorIntObject {
         '@type': 'testVectorIntObject';
         /** Vector of objects */
-        value?: td_vector<td_testInt>;
+        value: td_vector<td_testInt>;
     }
     
     
@@ -9600,7 +9600,7 @@ namespace TdApi {
     export interface td_testVectorString {
         '@type': 'testVectorString';
         /** Vector of strings */
-        value?: td_vector<td_string>;
+        value: td_vector<td_string>;
     }
     
     
@@ -9608,7 +9608,7 @@ namespace TdApi {
     export interface td_testVectorStringObject {
         '@type': 'testVectorStringObject';
         /** Vector of objects */
-        value?: td_vector<td_testString>;
+        value: td_vector<td_testString>;
     }
     
     
@@ -9616,7 +9616,7 @@ namespace TdApi {
     export interface td_updateFatalError {
         '@type': 'updateFatalError';
         /** Error message */
-        error?: td_string;
+        error: td_string;
     }
     
     
@@ -9624,7 +9624,7 @@ namespace TdApi {
     export interface td_inputFileBlob {
         '@type': 'inputFileBlob';
         /** JavaScript blob containing file data */
-        data?: td_blob;
+        data: td_blob;
     }
     
     
@@ -9942,7 +9942,7 @@ namespace TdApi {
     export interface td_setTdlibParameters {
         '@type': 'setTdlibParameters';
         /** Parameters for TDLib initialization */
-        parameters?: td_tdlibParameters;
+        parameters: td_tdlibParameters;
     }
     
     
@@ -9950,7 +9950,7 @@ namespace TdApi {
     export interface td_checkDatabaseEncryptionKey {
         '@type': 'checkDatabaseEncryptionKey';
         /** Encryption key to check or set up */
-        encryption_key?: td_bytes;
+        encryption_key: td_bytes;
     }
     
     
@@ -9958,9 +9958,9 @@ namespace TdApi {
     export interface td_setAuthenticationPhoneNumber {
         '@type': 'setAuthenticationPhoneNumber';
         /** The phone number of the user, in international format */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** Settings for the authentication of the user's phone number; pass null to use default settings */
-        settings?: td_phoneNumberAuthenticationSettings;
+        settings: td_phoneNumberAuthenticationSettings;
     }
     
     
@@ -9974,7 +9974,7 @@ namespace TdApi {
     export interface td_checkAuthenticationCode {
         '@type': 'checkAuthenticationCode';
         /** The verification code received via SMS, Telegram message, phone call, or flash call */
-        code?: td_string;
+        code: td_string;
     }
     
     
@@ -9982,7 +9982,7 @@ namespace TdApi {
     export interface td_requestQrCodeAuthentication {
         '@type': 'requestQrCodeAuthentication';
         /** List of user identifiers of other users currently using the application */
-        other_user_ids?: td_vector<td_int53>;
+        other_user_ids: td_vector<td_int53>;
     }
     
     
@@ -9990,9 +9990,9 @@ namespace TdApi {
     export interface td_registerUser {
         '@type': 'registerUser';
         /** The first name of the user; 1-64 characters */
-        first_name?: td_string;
+        first_name: td_string;
         /** The last name of the user; 0-64 characters */
-        last_name?: td_string;
+        last_name: td_string;
     }
     
     
@@ -10000,7 +10000,7 @@ namespace TdApi {
     export interface td_checkAuthenticationPassword {
         '@type': 'checkAuthenticationPassword';
         /** The password to check */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -10014,7 +10014,7 @@ namespace TdApi {
     export interface td_checkAuthenticationPasswordRecoveryCode {
         '@type': 'checkAuthenticationPasswordRecoveryCode';
         /** Recovery code to check */
-        recovery_code?: td_string;
+        recovery_code: td_string;
     }
     
     
@@ -10022,11 +10022,11 @@ namespace TdApi {
     export interface td_recoverAuthenticationPassword {
         '@type': 'recoverAuthenticationPassword';
         /** Recovery code to check */
-        recovery_code?: td_string;
+        recovery_code: td_string;
         /** New password of the user; may be empty to remove the password */
-        new_password?: td_string;
+        new_password: td_string;
         /** New password hint; may be empty */
-        new_hint?: td_string;
+        new_hint: td_string;
     }
     
     
@@ -10034,7 +10034,7 @@ namespace TdApi {
     export interface td_checkAuthenticationBotToken {
         '@type': 'checkAuthenticationBotToken';
         /** The bot token */
-        token?: td_string;
+        token: td_string;
     }
     
     
@@ -10060,7 +10060,7 @@ namespace TdApi {
     export interface td_confirmQrCodeAuthentication {
         '@type': 'confirmQrCodeAuthentication';
         /** A link from a QR code. The link must be scanned by the in-app camera */
-        link?: td_string;
+        link: td_string;
     }
     
     
@@ -10074,7 +10074,7 @@ namespace TdApi {
     export interface td_setDatabaseEncryptionKey {
         '@type': 'setDatabaseEncryptionKey';
         /** New encryption key */
-        new_encryption_key?: td_bytes;
+        new_encryption_key: td_bytes;
     }
     
     
@@ -10088,15 +10088,15 @@ namespace TdApi {
     export interface td_setPassword {
         '@type': 'setPassword';
         /** Previous password of the user */
-        old_password?: td_string;
+        old_password: td_string;
         /** New password of the user; may be empty to remove the password */
-        new_password?: td_string;
+        new_password: td_string;
         /** New password hint; may be empty */
-        new_hint?: td_string;
+        new_hint: td_string;
         /** Pass true if the recovery email address must be changed */
-        set_recovery_email_address?: td_Bool;
+        set_recovery_email_address: td_Bool;
         /** New recovery email address; may be empty */
-        new_recovery_email_address?: td_string;
+        new_recovery_email_address: td_string;
     }
     
     
@@ -10104,7 +10104,7 @@ namespace TdApi {
     export interface td_getRecoveryEmailAddress {
         '@type': 'getRecoveryEmailAddress';
         /** The password for the current user */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -10112,9 +10112,9 @@ namespace TdApi {
     export interface td_setRecoveryEmailAddress {
         '@type': 'setRecoveryEmailAddress';
         /** Password of the current user */
-        password?: td_string;
+        password: td_string;
         /** New recovery email address */
-        new_recovery_email_address?: td_string;
+        new_recovery_email_address: td_string;
     }
     
     
@@ -10122,7 +10122,7 @@ namespace TdApi {
     export interface td_checkRecoveryEmailAddressCode {
         '@type': 'checkRecoveryEmailAddressCode';
         /** Verification code */
-        code?: td_string;
+        code: td_string;
     }
     
     
@@ -10142,7 +10142,7 @@ namespace TdApi {
     export interface td_checkPasswordRecoveryCode {
         '@type': 'checkPasswordRecoveryCode';
         /** Recovery code to check */
-        recovery_code?: td_string;
+        recovery_code: td_string;
     }
     
     
@@ -10150,11 +10150,11 @@ namespace TdApi {
     export interface td_recoverPassword {
         '@type': 'recoverPassword';
         /** Recovery code to check */
-        recovery_code?: td_string;
+        recovery_code: td_string;
         /** New password of the user; may be empty to remove the password */
-        new_password?: td_string;
+        new_password: td_string;
         /** New password hint; may be empty */
-        new_hint?: td_string;
+        new_hint: td_string;
     }
     
     
@@ -10174,9 +10174,9 @@ namespace TdApi {
     export interface td_createTemporaryPassword {
         '@type': 'createTemporaryPassword';
         /** Persistent user password */
-        password?: td_string;
+        password: td_string;
         /** Time during which the temporary password will be valid, in seconds; must be between 60 and 86400 */
-        valid_for?: td_int32;
+        valid_for: td_int32;
     }
     
     
@@ -10196,7 +10196,7 @@ namespace TdApi {
     export interface td_getUser {
         '@type': 'getUser';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -10204,7 +10204,7 @@ namespace TdApi {
     export interface td_getUserFullInfo {
         '@type': 'getUserFullInfo';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -10212,7 +10212,7 @@ namespace TdApi {
     export interface td_getBasicGroup {
         '@type': 'getBasicGroup';
         /** Basic group identifier */
-        basic_group_id?: td_int53;
+        basic_group_id: td_int53;
     }
     
     
@@ -10220,7 +10220,7 @@ namespace TdApi {
     export interface td_getBasicGroupFullInfo {
         '@type': 'getBasicGroupFullInfo';
         /** Basic group identifier */
-        basic_group_id?: td_int53;
+        basic_group_id: td_int53;
     }
     
     
@@ -10228,7 +10228,7 @@ namespace TdApi {
     export interface td_getSupergroup {
         '@type': 'getSupergroup';
         /** Supergroup or channel identifier */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
     }
     
     
@@ -10236,7 +10236,7 @@ namespace TdApi {
     export interface td_getSupergroupFullInfo {
         '@type': 'getSupergroupFullInfo';
         /** Supergroup or channel identifier */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
     }
     
     
@@ -10244,7 +10244,7 @@ namespace TdApi {
     export interface td_getSecretChat {
         '@type': 'getSecretChat';
         /** Secret chat identifier */
-        secret_chat_id?: td_int32;
+        secret_chat_id: td_int32;
     }
     
     
@@ -10252,7 +10252,7 @@ namespace TdApi {
     export interface td_getChat {
         '@type': 'getChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10260,9 +10260,9 @@ namespace TdApi {
     export interface td_getMessage {
         '@type': 'getMessage';
         /** Identifier of the chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message to get */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -10270,9 +10270,9 @@ namespace TdApi {
     export interface td_getMessageLocally {
         '@type': 'getMessageLocally';
         /** Identifier of the chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message to get */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -10280,9 +10280,9 @@ namespace TdApi {
     export interface td_getRepliedMessage {
         '@type': 'getRepliedMessage';
         /** Identifier of the chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message reply to which to get */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -10290,7 +10290,7 @@ namespace TdApi {
     export interface td_getChatPinnedMessage {
         '@type': 'getChatPinnedMessage';
         /** Identifier of the chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10298,11 +10298,11 @@ namespace TdApi {
     export interface td_getCallbackQueryMessage {
         '@type': 'getCallbackQueryMessage';
         /** Identifier of the chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Identifier of the callback query */
-        callback_query_id?: td_int64;
+        callback_query_id: td_int64;
     }
     
     
@@ -10310,9 +10310,9 @@ namespace TdApi {
     export interface td_getMessages {
         '@type': 'getMessages';
         /** Identifier of the chat the messages belong to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifiers of the messages to get */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
     }
     
     
@@ -10320,9 +10320,9 @@ namespace TdApi {
     export interface td_getMessageThread {
         '@type': 'getMessageThread';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -10330,9 +10330,9 @@ namespace TdApi {
     export interface td_getMessageViewers {
         '@type': 'getMessageViewers';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -10340,7 +10340,7 @@ namespace TdApi {
     export interface td_getFile {
         '@type': 'getFile';
         /** Identifier of the file to get */
-        file_id?: td_int32;
+        file_id: td_int32;
     }
     
     
@@ -10348,9 +10348,9 @@ namespace TdApi {
     export interface td_getRemoteFile {
         '@type': 'getRemoteFile';
         /** Remote identifier of the file to get */
-        remote_file_id?: td_string;
+        remote_file_id: td_string;
         /** File type; pass null if unknown */
-        file_type?: td_FileType;
+        file_type: td_FileType;
     }
     
     
@@ -10358,9 +10358,9 @@ namespace TdApi {
     export interface td_loadChats {
         '@type': 'loadChats';
         /** The chat list in which to load chats; pass null to load chats from the main chat list */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
         /** The maximum number of chats to be loaded. For optimal performance, the number of loaded chats is chosen by TDLib and can be smaller than the specified limit, even if the end of the list is not reached */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10368,9 +10368,9 @@ namespace TdApi {
     export interface td_getChats {
         '@type': 'getChats';
         /** The chat list in which to return chats; pass null to get chats from the main chat list */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
         /** The maximum number of chats to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10378,7 +10378,7 @@ namespace TdApi {
     export interface td_searchPublicChat {
         '@type': 'searchPublicChat';
         /** Username to be resolved */
-        username?: td_string;
+        username: td_string;
     }
     
     
@@ -10386,7 +10386,7 @@ namespace TdApi {
     export interface td_searchPublicChats {
         '@type': 'searchPublicChats';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
     }
     
     
@@ -10394,9 +10394,9 @@ namespace TdApi {
     export interface td_searchChats {
         '@type': 'searchChats';
         /** Query to search for. If the query is empty, returns up to 50 recently found chats */
-        query?: td_string;
+        query: td_string;
         /** The maximum number of chats to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10404,9 +10404,9 @@ namespace TdApi {
     export interface td_searchChatsOnServer {
         '@type': 'searchChatsOnServer';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
         /** The maximum number of chats to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10414,7 +10414,7 @@ namespace TdApi {
     export interface td_searchChatsNearby {
         '@type': 'searchChatsNearby';
         /** Current user location */
-        location?: td_location;
+        location: td_location;
     }
     
     
@@ -10422,9 +10422,9 @@ namespace TdApi {
     export interface td_getTopChats {
         '@type': 'getTopChats';
         /** Category of chats to be returned */
-        category?: td_TopChatCategory;
+        category: td_TopChatCategory;
         /** The maximum number of chats to be returned; up to 30 */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10432,9 +10432,9 @@ namespace TdApi {
     export interface td_removeTopChat {
         '@type': 'removeTopChat';
         /** Category of frequently used chats */
-        category?: td_TopChatCategory;
+        category: td_TopChatCategory;
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10442,7 +10442,7 @@ namespace TdApi {
     export interface td_addRecentlyFoundChat {
         '@type': 'addRecentlyFoundChat';
         /** Identifier of the chat to add */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10450,7 +10450,7 @@ namespace TdApi {
     export interface td_removeRecentlyFoundChat {
         '@type': 'removeRecentlyFoundChat';
         /** Identifier of the chat to be removed */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10464,7 +10464,7 @@ namespace TdApi {
     export interface td_getRecentlyOpenedChats {
         '@type': 'getRecentlyOpenedChats';
         /** The maximum number of chats to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10472,9 +10472,9 @@ namespace TdApi {
     export interface td_checkChatUsername {
         '@type': 'checkChatUsername';
         /** Chat identifier; must be identifier of a supergroup chat, or a channel chat, or a private chat with self, or zero if the chat is being created */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Username to be checked */
-        username?: td_string;
+        username: td_string;
     }
     
     
@@ -10482,7 +10482,7 @@ namespace TdApi {
     export interface td_getCreatedPublicChats {
         '@type': 'getCreatedPublicChats';
         /** Type of the public chats to return */
-        type?: td_PublicChatType;
+        type: td_PublicChatType;
     }
     
     
@@ -10490,7 +10490,7 @@ namespace TdApi {
     export interface td_checkCreatedPublicChatsLimit {
         '@type': 'checkCreatedPublicChatsLimit';
         /** Type of the public chats, for which to check the limit */
-        type?: td_PublicChatType;
+        type: td_PublicChatType;
     }
     
     
@@ -10510,11 +10510,11 @@ namespace TdApi {
     export interface td_getGroupsInCommon {
         '@type': 'getGroupsInCommon';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Chat identifier starting from which to return chats; use 0 for the first request */
-        offset_chat_id?: td_int53;
+        offset_chat_id: td_int53;
         /** The maximum number of chats to be returned; up to 100 */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10522,15 +10522,15 @@ namespace TdApi {
     export interface td_getChatHistory {
         '@type': 'getChatHistory';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message starting from which history must be fetched; use 0 to get results from the last message */
-        from_message_id?: td_int53;
+        from_message_id: td_int53;
         /** Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
-        limit?: td_int32;
+        limit: td_int32;
         /** If true, returns only messages that are available locally without sending network requests */
-        only_local?: td_Bool;
+        only_local: td_Bool;
     }
     
     
@@ -10538,15 +10538,15 @@ namespace TdApi {
     export interface td_getMessageThreadHistory {
         '@type': 'getMessageThreadHistory';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier, which thread history needs to be returned */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Identifier of the message starting from which history must be fetched; use 0 to get results from the last message */
-        from_message_id?: td_int53;
+        from_message_id: td_int53;
         /** Specify 0 to get results from exactly the from_message_id or a negative offset up to 99 to get additionally some newer messages */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than or equal to -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10554,11 +10554,11 @@ namespace TdApi {
     export interface td_deleteChatHistory {
         '@type': 'deleteChatHistory';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Pass true if the chat needs to be removed from the chat list */
-        remove_from_chat_list?: td_Bool;
+        remove_from_chat_list: td_Bool;
         /** Pass true to try to delete chat history for all users */
-        revoke?: td_Bool;
+        revoke: td_Bool;
     }
     
     
@@ -10566,7 +10566,7 @@ namespace TdApi {
     export interface td_deleteChat {
         '@type': 'deleteChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10574,21 +10574,21 @@ namespace TdApi {
     export interface td_searchChatMessages {
         '@type': 'searchChatMessages';
         /** Identifier of the chat in which to search messages */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
         /** Sender of messages to search for; pass null to search for messages from any sender. Not supported in secret chats */
-        sender?: td_MessageSender;
+        sender: td_MessageSender;
         /** Identifier of the message starting from which history must be fetched; use 0 to get results from the last message */
-        from_message_id?: td_int53;
+        from_message_id: td_int53;
         /** Specify 0 to get results from exactly the from_message_id or a negative offset to get the specified message and some newer messages */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of messages to be returned; must be positive and can't be greater than 100. If the offset is negative, the limit must be greater than -offset. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
-        limit?: td_int32;
+        limit: td_int32;
         /** Additional filter for messages to search; pass null to search for all messages */
-        filter?: td_SearchMessagesFilter;
+        filter: td_SearchMessagesFilter;
         /** If not 0, only messages in the specified thread will be returned; supergroups only */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
     }
     
     
@@ -10596,23 +10596,23 @@ namespace TdApi {
     export interface td_searchMessages {
         '@type': 'searchMessages';
         /** Chat list in which to search messages; pass null to search in all chats regardless of their chat list. Only Main and Archive chat lists are supported */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
         /** The date of the message starting from which the results need to be fetched. Use 0 or any date in the future to get results from the last message */
-        offset_date?: td_int32;
+        offset_date: td_int32;
         /** The chat identifier of the last found message, or 0 for the first request */
-        offset_chat_id?: td_int53;
+        offset_chat_id: td_int53;
         /** The message identifier of the last found message, or 0 for the first request */
-        offset_message_id?: td_int53;
+        offset_message_id: td_int53;
         /** The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
-        limit?: td_int32;
+        limit: td_int32;
         /** Additional filter for messages to search; pass null to search for all messages. Filters searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention, searchMessagesFilterUnreadMention, searchMessagesFilterFailedToSend and searchMessagesFilterPinned are unsupported in this function */
-        filter?: td_SearchMessagesFilter;
+        filter: td_SearchMessagesFilter;
         /** If not 0, the minimum date of the messages to return */
-        min_date?: td_int32;
+        min_date: td_int32;
         /** If not 0, the maximum date of the messages to return */
-        max_date?: td_int32;
+        max_date: td_int32;
     }
     
     
@@ -10620,15 +10620,15 @@ namespace TdApi {
     export interface td_searchSecretMessages {
         '@type': 'searchSecretMessages';
         /** Identifier of the chat in which to search. Specify 0 to search in all secret chats */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Query to search for. If empty, searchChatMessages must be used instead */
-        query?: td_string;
+        query: td_string;
         /** Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results */
-        offset?: td_string;
+        offset: td_string;
         /** The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
-        limit?: td_int32;
+        limit: td_int32;
         /** Additional filter for messages to search; pass null to search for all messages */
-        filter?: td_SearchMessagesFilter;
+        filter: td_SearchMessagesFilter;
     }
     
     
@@ -10636,11 +10636,11 @@ namespace TdApi {
     export interface td_searchCallMessages {
         '@type': 'searchCallMessages';
         /** Identifier of the message from which to search; use 0 to get results from the last message */
-        from_message_id?: td_int53;
+        from_message_id: td_int53;
         /** The maximum number of messages to be returned; up to 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
-        limit?: td_int32;
+        limit: td_int32;
         /** If true, returns only messages with missed calls */
-        only_missed?: td_Bool;
+        only_missed: td_Bool;
     }
     
     
@@ -10648,7 +10648,7 @@ namespace TdApi {
     export interface td_deleteAllCallMessages {
         '@type': 'deleteAllCallMessages';
         /** Pass true to delete the messages for all users */
-        revoke?: td_Bool;
+        revoke: td_Bool;
     }
     
     
@@ -10656,9 +10656,9 @@ namespace TdApi {
     export interface td_searchChatRecentLocationMessages {
         '@type': 'searchChatRecentLocationMessages';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The maximum number of messages to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10672,9 +10672,9 @@ namespace TdApi {
     export interface td_getChatMessageByDate {
         '@type': 'getChatMessageByDate';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Point in time (Unix timestamp) relative to which to search for messages */
-        date?: td_int32;
+        date: td_int32;
     }
     
     
@@ -10682,11 +10682,11 @@ namespace TdApi {
     export interface td_getChatMessageCount {
         '@type': 'getChatMessageCount';
         /** Identifier of the chat in which to count messages */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Filter for message content; searchMessagesFilterEmpty is unsupported in this function */
-        filter?: td_SearchMessagesFilter;
+        filter: td_SearchMessagesFilter;
         /** If true, returns count that is available locally without sending network requests, returning -1 if the number of messages is unknown */
-        return_local?: td_Bool;
+        return_local: td_Bool;
     }
     
     
@@ -10694,7 +10694,7 @@ namespace TdApi {
     export interface td_getChatScheduledMessages {
         '@type': 'getChatScheduledMessages';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10702,13 +10702,13 @@ namespace TdApi {
     export interface td_getMessagePublicForwards {
         '@type': 'getMessagePublicForwards';
         /** Chat identifier of the message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Offset of the first entry to return as received from the previous request; use empty string to get first chunk of results */
-        offset?: td_string;
+        offset: td_string;
         /** The maximum number of messages to be returned; must be positive and can't be greater than 100. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -10716,7 +10716,7 @@ namespace TdApi {
     export interface td_getChatSponsoredMessages {
         '@type': 'getChatSponsoredMessages';
         /** Identifier of the chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10724,9 +10724,9 @@ namespace TdApi {
     export interface td_viewSponsoredMessage {
         '@type': 'viewSponsoredMessage';
         /** Identifier of the chat with the sponsored message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The identifier of the sponsored message being viewed */
-        sponsored_message_id?: td_int32;
+        sponsored_message_id: td_int32;
     }
     
     
@@ -10734,9 +10734,9 @@ namespace TdApi {
     export interface td_removeNotification {
         '@type': 'removeNotification';
         /** Identifier of notification group to which the notification belongs */
-        notification_group_id?: td_int32;
+        notification_group_id: td_int32;
         /** Identifier of removed notification */
-        notification_id?: td_int32;
+        notification_id: td_int32;
     }
     
     
@@ -10744,9 +10744,9 @@ namespace TdApi {
     export interface td_removeNotificationGroup {
         '@type': 'removeNotificationGroup';
         /** Notification group identifier */
-        notification_group_id?: td_int32;
+        notification_group_id: td_int32;
         /** The maximum identifier of removed notifications */
-        max_notification_id?: td_int32;
+        max_notification_id: td_int32;
     }
     
     
@@ -10754,15 +10754,15 @@ namespace TdApi {
     export interface td_getMessageLink {
         '@type': 'getMessageLink';
         /** Identifier of the chat to which the message belongs */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** If not 0, timestamp from which the video/audio/video note/voice note playing must start, in seconds. The media can be in the message content or in its web page preview */
-        media_timestamp?: td_int32;
+        media_timestamp: td_int32;
         /** Pass true to create a link for the whole media album */
-        for_album?: td_Bool;
+        for_album: td_Bool;
         /** Pass true to create a link to the message as a channel post comment, or from a message thread */
-        for_comment?: td_Bool;
+        for_comment: td_Bool;
     }
     
     
@@ -10770,11 +10770,11 @@ namespace TdApi {
     export interface td_getMessageEmbeddingCode {
         '@type': 'getMessageEmbeddingCode';
         /** Identifier of the chat to which the message belongs */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Pass true to return an HTML code for embedding of the whole media album */
-        for_album?: td_Bool;
+        for_album: td_Bool;
     }
     
     
@@ -10782,7 +10782,7 @@ namespace TdApi {
     export interface td_getMessageLinkInfo {
         '@type': 'getMessageLinkInfo';
         /** The message link */
-        url?: td_string;
+        url: td_string;
     }
     
     
@@ -10790,17 +10790,17 @@ namespace TdApi {
     export interface td_sendMessage {
         '@type': 'sendMessage';
         /** Target chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If not 0, a message thread identifier in which the message will be sent */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** Identifier of the message to reply to or 0 */
-        reply_to_message_id?: td_int53;
+        reply_to_message_id: td_int53;
         /** Options to be used to send the message; pass null to use default options */
-        options?: td_messageSendOptions;
+        options: td_messageSendOptions;
         /** Markup for replying to the message; pass null if none; for bots only */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** The content of the message to be sent */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -10808,15 +10808,15 @@ namespace TdApi {
     export interface td_sendMessageAlbum {
         '@type': 'sendMessageAlbum';
         /** Target chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If not 0, a message thread identifier in which the messages will be sent */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** Identifier of a message to reply to or 0 */
-        reply_to_message_id?: td_int53;
+        reply_to_message_id: td_int53;
         /** Options to be used to send the messages; pass null to use default options */
-        options?: td_messageSendOptions;
+        options: td_messageSendOptions;
         /** Contents of messages to be sent. At most 10 messages can be added to an album */
-        input_message_contents?: td_vector<td_InputMessageContent>;
+        input_message_contents: td_vector<td_InputMessageContent>;
     }
     
     
@@ -10824,11 +10824,11 @@ namespace TdApi {
     export interface td_sendBotStartMessage {
         '@type': 'sendBotStartMessage';
         /** Identifier of the bot */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** Identifier of the target chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** A hidden parameter sent to the bot for deep linking purposes (https://core.telegram.org/bots#deep-linking) */
-        parameter?: td_string;
+        parameter: td_string;
     }
     
     
@@ -10836,19 +10836,19 @@ namespace TdApi {
     export interface td_sendInlineQueryResultMessage {
         '@type': 'sendInlineQueryResultMessage';
         /** Target chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If not 0, a message thread identifier in which the message will be sent */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** Identifier of a message to reply to or 0 */
-        reply_to_message_id?: td_int53;
+        reply_to_message_id: td_int53;
         /** Options to be used to send the message; pass null to use default options */
-        options?: td_messageSendOptions;
+        options: td_messageSendOptions;
         /** Identifier of the inline query */
-        query_id?: td_int64;
+        query_id: td_int64;
         /** Identifier of the inline result */
-        result_id?: td_string;
+        result_id: td_string;
         /** If true, there will be no mention of a bot, via which the message is sent. Can be used only for bots GetOption("animation_search_bot_username"), GetOption("photo_search_bot_username") and GetOption("venue_search_bot_username") */
-        hide_via_bot?: td_Bool;
+        hide_via_bot: td_Bool;
     }
     
     
@@ -10856,19 +10856,19 @@ namespace TdApi {
     export interface td_forwardMessages {
         '@type': 'forwardMessages';
         /** Identifier of the chat to which to forward messages */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the chat from which to forward messages */
-        from_chat_id?: td_int53;
+        from_chat_id: td_int53;
         /** Identifiers of the messages to forward. Message identifiers must be in a strictly increasing order. At most 100 messages can be forwarded simultaneously */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
         /** Options to be used to send the messages; pass null to use default options */
-        options?: td_messageSendOptions;
+        options: td_messageSendOptions;
         /** If true, content of the messages will be copied without reference to the original sender. Always true if the messages are forwarded to a secret chat or are local */
-        send_copy?: td_Bool;
+        send_copy: td_Bool;
         /** If true, media caption of message copies will be removed. Ignored if send_copy is false */
-        remove_caption?: td_Bool;
+        remove_caption: td_Bool;
         /** If true, messages will not be forwarded and instead fake messages will be returned */
-        only_preview?: td_Bool;
+        only_preview: td_Bool;
     }
     
     
@@ -10876,9 +10876,9 @@ namespace TdApi {
     export interface td_resendMessages {
         '@type': 'resendMessages';
         /** Identifier of the chat to send messages */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifiers of the messages to resend. Message identifiers must be in a strictly increasing order */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
     }
     
     
@@ -10886,7 +10886,7 @@ namespace TdApi {
     export interface td_sendChatScreenshotTakenNotification {
         '@type': 'sendChatScreenshotTakenNotification';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -10894,15 +10894,15 @@ namespace TdApi {
     export interface td_addLocalMessage {
         '@type': 'addLocalMessage';
         /** Target chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The sender of the message */
-        sender?: td_MessageSender;
+        sender: td_MessageSender;
         /** Identifier of the message to reply to or 0 */
-        reply_to_message_id?: td_int53;
+        reply_to_message_id: td_int53;
         /** Pass true to disable notification for the message */
-        disable_notification?: td_Bool;
+        disable_notification: td_Bool;
         /** The content of the message to be added */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -10910,11 +10910,11 @@ namespace TdApi {
     export interface td_deleteMessages {
         '@type': 'deleteMessages';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifiers of the messages to be deleted */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
         /** Pass true to try to delete messages for all chat members. Always true for supergroups, channels and secret chats */
-        revoke?: td_Bool;
+        revoke: td_Bool;
     }
     
     
@@ -10922,9 +10922,9 @@ namespace TdApi {
     export interface td_deleteChatMessagesFromUser {
         '@type': 'deleteChatMessagesFromUser';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -10932,13 +10932,13 @@ namespace TdApi {
     export interface td_editMessageText {
         '@type': 'editMessageText';
         /** The chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new message reply markup; pass null if none; for bots only */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New text content of the message. Must be of type inputMessageText */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -10946,17 +10946,17 @@ namespace TdApi {
     export interface td_editMessageLiveLocation {
         '@type': 'editMessageLiveLocation';
         /** The chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new message reply markup; pass null if none; for bots only */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New location content of the message; pass null to stop sharing the live location */
-        location?: td_location;
+        location: td_location;
         /** The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown */
-        heading?: td_int32;
+        heading: td_int32;
         /** The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled */
-        proximity_alert_radius?: td_int32;
+        proximity_alert_radius: td_int32;
     }
     
     
@@ -10964,13 +10964,13 @@ namespace TdApi {
     export interface td_editMessageMedia {
         '@type': 'editMessageMedia';
         /** The chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new message reply markup; pass null if none; for bots only */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto or inputMessageVideo */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -10978,13 +10978,13 @@ namespace TdApi {
     export interface td_editMessageCaption {
         '@type': 'editMessageCaption';
         /** The chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new message reply markup; pass null if none; for bots only */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New message content caption; 0-GetOption("message_caption_length_max") characters; pass null to remove caption */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -10992,11 +10992,11 @@ namespace TdApi {
     export interface td_editMessageReplyMarkup {
         '@type': 'editMessageReplyMarkup';
         /** The chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new message reply markup; pass null if none */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
     }
     
     
@@ -11004,11 +11004,11 @@ namespace TdApi {
     export interface td_editInlineMessageText {
         '@type': 'editInlineMessageText';
         /** Inline message identifier */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** The new message reply markup; pass null if none */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New text content of the message. Must be of type inputMessageText */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -11016,15 +11016,15 @@ namespace TdApi {
     export interface td_editInlineMessageLiveLocation {
         '@type': 'editInlineMessageLiveLocation';
         /** Inline message identifier */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** The new message reply markup; pass null if none */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New location content of the message; pass null to stop sharing the live location */
-        location?: td_location;
+        location: td_location;
         /** The new direction in which the location moves, in degrees; 1-360. Pass 0 if unknown */
-        heading?: td_int32;
+        heading: td_int32;
         /** The new maximum distance for proximity alerts, in meters (0-100000). Pass 0 if the notification is disabled */
-        proximity_alert_radius?: td_int32;
+        proximity_alert_radius: td_int32;
     }
     
     
@@ -11032,11 +11032,11 @@ namespace TdApi {
     export interface td_editInlineMessageMedia {
         '@type': 'editInlineMessageMedia';
         /** Inline message identifier */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** The new message reply markup; pass null if none; for bots only */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New content of the message. Must be one of the following types: inputMessageAnimation, inputMessageAudio, inputMessageDocument, inputMessagePhoto or inputMessageVideo */
-        input_message_content?: td_InputMessageContent;
+        input_message_content: td_InputMessageContent;
     }
     
     
@@ -11044,11 +11044,11 @@ namespace TdApi {
     export interface td_editInlineMessageCaption {
         '@type': 'editInlineMessageCaption';
         /** Inline message identifier */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** The new message reply markup; pass null if none */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
         /** New message content caption; pass null to remove caption; 0-GetOption("message_caption_length_max") characters */
-        caption?: td_formattedText;
+        caption: td_formattedText;
     }
     
     
@@ -11056,9 +11056,9 @@ namespace TdApi {
     export interface td_editInlineMessageReplyMarkup {
         '@type': 'editInlineMessageReplyMarkup';
         /** Inline message identifier */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** The new message reply markup; pass null if none */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
     }
     
     
@@ -11066,11 +11066,11 @@ namespace TdApi {
     export interface td_editMessageSchedulingState {
         '@type': 'editMessageSchedulingState';
         /** The chat the message belongs to */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new message scheduling state; pass null to send the message immediately */
-        scheduling_state?: td_MessageSchedulingState;
+        scheduling_state: td_MessageSchedulingState;
     }
     
     
@@ -11078,7 +11078,7 @@ namespace TdApi {
     export interface td_getTextEntities {
         '@type': 'getTextEntities';
         /** The text in which to look for entites */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -11086,9 +11086,9 @@ namespace TdApi {
     export interface td_parseTextEntities {
         '@type': 'parseTextEntities';
         /** The text to parse */
-        text?: td_string;
+        text: td_string;
         /** Text parse mode */
-        parse_mode?: td_TextParseMode;
+        parse_mode: td_TextParseMode;
     }
     
     
@@ -11096,7 +11096,7 @@ namespace TdApi {
     export interface td_parseMarkdown {
         '@type': 'parseMarkdown';
         /** The text to parse. For example, "__italic__ ~~strikethrough~~ **bold** `code` ```pre``` __[italic__ text_url](telegram.org) __italic**bold italic__bold**" */
-        text?: td_formattedText;
+        text: td_formattedText;
     }
     
     
@@ -11104,7 +11104,7 @@ namespace TdApi {
     export interface td_getMarkdownText {
         '@type': 'getMarkdownText';
         /** The text */
-        text?: td_formattedText;
+        text: td_formattedText;
     }
     
     
@@ -11112,7 +11112,7 @@ namespace TdApi {
     export interface td_getFileMimeType {
         '@type': 'getFileMimeType';
         /** The name of the file or path to the file */
-        file_name?: td_string;
+        file_name: td_string;
     }
     
     
@@ -11120,7 +11120,7 @@ namespace TdApi {
     export interface td_getFileExtension {
         '@type': 'getFileExtension';
         /** The MIME type of the file */
-        mime_type?: td_string;
+        mime_type: td_string;
     }
     
     
@@ -11128,7 +11128,7 @@ namespace TdApi {
     export interface td_cleanFileName {
         '@type': 'cleanFileName';
         /** File name or path to the file */
-        file_name?: td_string;
+        file_name: td_string;
     }
     
     
@@ -11136,13 +11136,13 @@ namespace TdApi {
     export interface td_getLanguagePackString {
         '@type': 'getLanguagePackString';
         /** Path to the language pack database in which strings are stored */
-        language_pack_database_path?: td_string;
+        language_pack_database_path: td_string;
         /** Localization target to which the language pack belongs */
-        localization_target?: td_string;
+        localization_target: td_string;
         /** Language pack identifier */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
         /** Language pack key of the string to be returned */
-        key?: td_string;
+        key: td_string;
     }
     
     
@@ -11150,7 +11150,7 @@ namespace TdApi {
     export interface td_getJsonValue {
         '@type': 'getJsonValue';
         /** The JSON-serialized string */
-        json?: td_string;
+        json: td_string;
     }
     
     
@@ -11158,7 +11158,7 @@ namespace TdApi {
     export interface td_getJsonString {
         '@type': 'getJsonString';
         /** The JsonValue object */
-        json_value?: td_JsonValue;
+        json_value: td_JsonValue;
     }
     
     
@@ -11166,11 +11166,11 @@ namespace TdApi {
     export interface td_setPollAnswer {
         '@type': 'setPollAnswer';
         /** Identifier of the chat to which the poll belongs */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message containing the poll */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** 0-based identifiers of answer options, chosen by the user. User can choose more than 1 answer option only is the poll allows multiple answers */
-        option_ids?: td_vector<td_int32>;
+        option_ids: td_vector<td_int32>;
     }
     
     
@@ -11178,15 +11178,15 @@ namespace TdApi {
     export interface td_getPollVoters {
         '@type': 'getPollVoters';
         /** Identifier of the chat to which the poll belongs */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message containing the poll */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** 0-based identifier of the answer option */
-        option_id?: td_int32;
+        option_id: td_int32;
         /** Number of users to skip in the result; must be non-negative */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of users to be returned; must be positive and can't be greater than 50. For optimal performance, the number of returned users is chosen by TDLib and can be smaller than the specified limit, even if the end of the voter list has not been reached */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -11194,11 +11194,11 @@ namespace TdApi {
     export interface td_stopPoll {
         '@type': 'stopPoll';
         /** Identifier of the chat to which the poll belongs */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message containing the poll */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The new message reply markup; pass null if none; for bots only */
-        reply_markup?: td_ReplyMarkup;
+        reply_markup: td_ReplyMarkup;
     }
     
     
@@ -11206,7 +11206,7 @@ namespace TdApi {
     export interface td_hideSuggestedAction {
         '@type': 'hideSuggestedAction';
         /** Suggested action to hide */
-        action?: td_SuggestedAction;
+        action: td_SuggestedAction;
     }
     
     
@@ -11214,11 +11214,11 @@ namespace TdApi {
     export interface td_getLoginUrlInfo {
         '@type': 'getLoginUrlInfo';
         /** Chat identifier of the message with the button */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier of the message with the button */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Button identifier */
-        button_id?: td_int53;
+        button_id: td_int53;
     }
     
     
@@ -11226,13 +11226,13 @@ namespace TdApi {
     export interface td_getLoginUrl {
         '@type': 'getLoginUrl';
         /** Chat identifier of the message with the button */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier of the message with the button */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Button identifier */
-        button_id?: td_int53;
+        button_id: td_int53;
         /** True, if the user allowed the bot to send them messages */
-        allow_write_access?: td_Bool;
+        allow_write_access: td_Bool;
     }
     
     
@@ -11240,15 +11240,15 @@ namespace TdApi {
     export interface td_getInlineQueryResults {
         '@type': 'getInlineQueryResults';
         /** The identifier of the target bot */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** Identifier of the chat where the query was sent */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Location of the user; pass null if unknown or the bot doesn't need user's location */
-        user_location?: td_location;
+        user_location: td_location;
         /** Text of the query */
-        query?: td_string;
+        query: td_string;
         /** Offset of the first entry to return */
-        offset?: td_string;
+        offset: td_string;
     }
     
     
@@ -11256,19 +11256,19 @@ namespace TdApi {
     export interface td_answerInlineQuery {
         '@type': 'answerInlineQuery';
         /** Identifier of the inline query */
-        inline_query_id?: td_int64;
+        inline_query_id: td_int64;
         /** True, if the result of the query can be cached for the specified user */
-        is_personal?: td_Bool;
+        is_personal: td_Bool;
         /** The results of the query */
-        results?: td_vector<td_InputInlineQueryResult>;
+        results: td_vector<td_InputInlineQueryResult>;
         /** Allowed time to cache the results of the query, in seconds */
-        cache_time?: td_int32;
+        cache_time: td_int32;
         /** Offset for the next inline query; pass an empty string if there are no more results */
-        next_offset?: td_string;
+        next_offset: td_string;
         /** If non-empty, this text must be shown on the button that opens a private chat with the bot and sends a start message to the bot with the parameter switch_pm_parameter */
-        switch_pm_text?: td_string;
+        switch_pm_text: td_string;
         /** The parameter for the bot start message */
-        switch_pm_parameter?: td_string;
+        switch_pm_parameter: td_string;
     }
     
     
@@ -11276,11 +11276,11 @@ namespace TdApi {
     export interface td_getCallbackQueryAnswer {
         '@type': 'getCallbackQueryAnswer';
         /** Identifier of the chat with the message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message from which the query originated */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Query payload */
-        payload?: td_CallbackQueryPayload;
+        payload: td_CallbackQueryPayload;
     }
     
     
@@ -11288,15 +11288,15 @@ namespace TdApi {
     export interface td_answerCallbackQuery {
         '@type': 'answerCallbackQuery';
         /** Identifier of the callback query */
-        callback_query_id?: td_int64;
+        callback_query_id: td_int64;
         /** Text of the answer */
-        text?: td_string;
+        text: td_string;
         /** If true, an alert must be shown to the user instead of a toast notification */
-        show_alert?: td_Bool;
+        show_alert: td_Bool;
         /** URL to be opened */
-        url?: td_string;
+        url: td_string;
         /** Time during which the result of the query can be cached, in seconds */
-        cache_time?: td_int32;
+        cache_time: td_int32;
     }
     
     
@@ -11304,11 +11304,11 @@ namespace TdApi {
     export interface td_answerShippingQuery {
         '@type': 'answerShippingQuery';
         /** Identifier of the shipping query */
-        shipping_query_id?: td_int64;
+        shipping_query_id: td_int64;
         /** Available shipping options */
-        shipping_options?: td_vector<td_shippingOption>;
+        shipping_options: td_vector<td_shippingOption>;
         /** An error message, empty on success */
-        error_message?: td_string;
+        error_message: td_string;
     }
     
     
@@ -11316,9 +11316,9 @@ namespace TdApi {
     export interface td_answerPreCheckoutQuery {
         '@type': 'answerPreCheckoutQuery';
         /** Identifier of the pre-checkout query */
-        pre_checkout_query_id?: td_int64;
+        pre_checkout_query_id: td_int64;
         /** An error message, empty on success */
-        error_message?: td_string;
+        error_message: td_string;
     }
     
     
@@ -11326,17 +11326,17 @@ namespace TdApi {
     export interface td_setGameScore {
         '@type': 'setGameScore';
         /** The chat to which the message with the game belongs */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** True, if the message needs to be edited */
-        edit_message?: td_Bool;
+        edit_message: td_Bool;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** The new score */
-        score?: td_int32;
+        score: td_int32;
         /** Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table */
-        force?: td_Bool;
+        force: td_Bool;
     }
     
     
@@ -11344,15 +11344,15 @@ namespace TdApi {
     export interface td_setInlineGameScore {
         '@type': 'setInlineGameScore';
         /** Inline message identifier */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** True, if the message needs to be edited */
-        edit_message?: td_Bool;
+        edit_message: td_Bool;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** The new score */
-        score?: td_int32;
+        score: td_int32;
         /** Pass true to update the score even if it decreases. If the score is 0, the user will be deleted from the high score table */
-        force?: td_Bool;
+        force: td_Bool;
     }
     
     
@@ -11360,11 +11360,11 @@ namespace TdApi {
     export interface td_getGameHighScores {
         '@type': 'getGameHighScores';
         /** The chat that contains the message with the game */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -11372,9 +11372,9 @@ namespace TdApi {
     export interface td_getInlineGameHighScores {
         '@type': 'getInlineGameHighScores';
         /** Inline message identifier */
-        inline_message_id?: td_string;
+        inline_message_id: td_string;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -11382,9 +11382,9 @@ namespace TdApi {
     export interface td_deleteChatReplyMarkup {
         '@type': 'deleteChatReplyMarkup';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The message identifier of the used keyboard */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -11392,11 +11392,11 @@ namespace TdApi {
     export interface td_sendChatAction {
         '@type': 'sendChatAction';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If not 0, a message thread identifier in which the action was performed */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** The action description; pass null to cancel the currently active action */
-        action?: td_ChatAction;
+        action: td_ChatAction;
     }
     
     
@@ -11404,7 +11404,7 @@ namespace TdApi {
     export interface td_openChat {
         '@type': 'openChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11412,7 +11412,7 @@ namespace TdApi {
     export interface td_closeChat {
         '@type': 'closeChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11420,13 +11420,13 @@ namespace TdApi {
     export interface td_viewMessages {
         '@type': 'viewMessages';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If not 0, a message thread identifier in which the messages are being viewed */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** The identifiers of the messages being viewed */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
         /** True, if messages in closed chats must be marked as read by the request */
-        force_read?: td_Bool;
+        force_read: td_Bool;
     }
     
     
@@ -11434,9 +11434,9 @@ namespace TdApi {
     export interface td_openMessageContent {
         '@type': 'openMessageContent';
         /** Chat identifier of the message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the message with the opened content */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -11444,9 +11444,9 @@ namespace TdApi {
     export interface td_clickAnimatedEmojiMessage {
         '@type': 'clickAnimatedEmojiMessage';
         /** Chat identifier of the message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the clicked message */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -11454,7 +11454,7 @@ namespace TdApi {
     export interface td_getInternalLinkType {
         '@type': 'getInternalLinkType';
         /** The link */
-        link?: td_string;
+        link: td_string;
     }
     
     
@@ -11462,7 +11462,7 @@ namespace TdApi {
     export interface td_getExternalLinkInfo {
         '@type': 'getExternalLinkInfo';
         /** The link */
-        link?: td_string;
+        link: td_string;
     }
     
     
@@ -11470,9 +11470,9 @@ namespace TdApi {
     export interface td_getExternalLink {
         '@type': 'getExternalLink';
         /** The HTTP link */
-        link?: td_string;
+        link: td_string;
         /** True, if the current user allowed the bot, returned in getExternalLinkInfo, to send them messages */
-        allow_write_access?: td_Bool;
+        allow_write_access: td_Bool;
     }
     
     
@@ -11480,7 +11480,7 @@ namespace TdApi {
     export interface td_readAllChatMentions {
         '@type': 'readAllChatMentions';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11488,9 +11488,9 @@ namespace TdApi {
     export interface td_createPrivateChat {
         '@type': 'createPrivateChat';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect */
-        force?: td_Bool;
+        force: td_Bool;
     }
     
     
@@ -11498,9 +11498,9 @@ namespace TdApi {
     export interface td_createBasicGroupChat {
         '@type': 'createBasicGroupChat';
         /** Basic group identifier */
-        basic_group_id?: td_int53;
+        basic_group_id: td_int53;
         /** If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect */
-        force?: td_Bool;
+        force: td_Bool;
     }
     
     
@@ -11508,9 +11508,9 @@ namespace TdApi {
     export interface td_createSupergroupChat {
         '@type': 'createSupergroupChat';
         /** Supergroup or channel identifier */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** If true, the chat will be created without network request. In this case all information about the chat except its type, title and photo can be incorrect */
-        force?: td_Bool;
+        force: td_Bool;
     }
     
     
@@ -11518,7 +11518,7 @@ namespace TdApi {
     export interface td_createSecretChat {
         '@type': 'createSecretChat';
         /** Secret chat identifier */
-        secret_chat_id?: td_int32;
+        secret_chat_id: td_int32;
     }
     
     
@@ -11526,9 +11526,9 @@ namespace TdApi {
     export interface td_createNewBasicGroupChat {
         '@type': 'createNewBasicGroupChat';
         /** Identifiers of users to be added to the basic group */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
         /** Title of the new basic group; 1-128 characters */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -11536,15 +11536,15 @@ namespace TdApi {
     export interface td_createNewSupergroupChat {
         '@type': 'createNewSupergroupChat';
         /** Title of the new chat; 1-128 characters */
-        title?: td_string;
+        title: td_string;
         /** True, if a channel chat needs to be created */
-        is_channel?: td_Bool;
+        is_channel: td_Bool;
         /** Creates a new supergroup or channel and sends a corresponding messageSupergroupChatCreate. Returns the newly created chat */
-        description?: td_string;
+        description: td_string;
         /** Chat location if a location-based supergroup is being created; pass null to create an ordinary supergroup chat */
-        location?: td_chatLocation;
+        location: td_chatLocation;
         /** True, if the supergroup is created for importing messages using importMessage */
-        for_import?: td_Bool;
+        for_import: td_Bool;
     }
     
     
@@ -11552,7 +11552,7 @@ namespace TdApi {
     export interface td_createNewSecretChat {
         '@type': 'createNewSecretChat';
         /** Identifier of the target user */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -11560,7 +11560,7 @@ namespace TdApi {
     export interface td_upgradeBasicGroupChatToSupergroupChat {
         '@type': 'upgradeBasicGroupChatToSupergroupChat';
         /** Identifier of the chat to upgrade */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11568,7 +11568,7 @@ namespace TdApi {
     export interface td_getChatListsToAddChat {
         '@type': 'getChatListsToAddChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11576,9 +11576,9 @@ namespace TdApi {
     export interface td_addChatToList {
         '@type': 'addChatToList';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The chat list. Use getChatListsToAddChat to get suitable chat lists */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
     }
     
     
@@ -11586,7 +11586,7 @@ namespace TdApi {
     export interface td_getChatFilter {
         '@type': 'getChatFilter';
         /** Chat filter identifier */
-        chat_filter_id?: td_int32;
+        chat_filter_id: td_int32;
     }
     
     
@@ -11594,7 +11594,7 @@ namespace TdApi {
     export interface td_createChatFilter {
         '@type': 'createChatFilter';
         /** Chat filter */
-        filter?: td_chatFilter;
+        filter: td_chatFilter;
     }
     
     
@@ -11602,9 +11602,9 @@ namespace TdApi {
     export interface td_editChatFilter {
         '@type': 'editChatFilter';
         /** Chat filter identifier */
-        chat_filter_id?: td_int32;
+        chat_filter_id: td_int32;
         /** The edited chat filter */
-        filter?: td_chatFilter;
+        filter: td_chatFilter;
     }
     
     
@@ -11612,7 +11612,7 @@ namespace TdApi {
     export interface td_deleteChatFilter {
         '@type': 'deleteChatFilter';
         /** Chat filter identifier */
-        chat_filter_id?: td_int32;
+        chat_filter_id: td_int32;
     }
     
     
@@ -11620,7 +11620,7 @@ namespace TdApi {
     export interface td_reorderChatFilters {
         '@type': 'reorderChatFilters';
         /** Identifiers of chat filters in the new correct order */
-        chat_filter_ids?: td_vector<td_int32>;
+        chat_filter_ids: td_vector<td_int32>;
     }
     
     
@@ -11634,7 +11634,7 @@ namespace TdApi {
     export interface td_getChatFilterDefaultIconName {
         '@type': 'getChatFilterDefaultIconName';
         /** Chat filter */
-        filter?: td_chatFilter;
+        filter: td_chatFilter;
     }
     
     
@@ -11642,9 +11642,9 @@ namespace TdApi {
     export interface td_setChatTitle {
         '@type': 'setChatTitle';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New title of the chat; 1-128 characters */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -11652,9 +11652,9 @@ namespace TdApi {
     export interface td_setChatPhoto {
         '@type': 'setChatPhoto';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New chat photo; pass null to delete the chat photo */
-        photo?: td_InputChatPhoto;
+        photo: td_InputChatPhoto;
     }
     
     
@@ -11662,9 +11662,9 @@ namespace TdApi {
     export interface td_setChatMessageTtlSetting {
         '@type': 'setChatMessageTtlSetting';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New TTL value, in seconds; must be one of 0, 86400, 7 * 86400, or 31 * 86400 unless the chat is secret */
-        ttl?: td_int32;
+        ttl: td_int32;
     }
     
     
@@ -11672,9 +11672,9 @@ namespace TdApi {
     export interface td_setChatPermissions {
         '@type': 'setChatPermissions';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New non-administrator members permissions in the chat */
-        permissions?: td_chatPermissions;
+        permissions: td_chatPermissions;
     }
     
     
@@ -11682,9 +11682,9 @@ namespace TdApi {
     export interface td_setChatTheme {
         '@type': 'setChatTheme';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Name of the new chat theme; pass an empty string to return the default theme */
-        theme_name?: td_string;
+        theme_name: td_string;
     }
     
     
@@ -11692,11 +11692,11 @@ namespace TdApi {
     export interface td_setChatDraftMessage {
         '@type': 'setChatDraftMessage';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** If not 0, a message thread identifier in which the draft was changed */
-        message_thread_id?: td_int53;
+        message_thread_id: td_int53;
         /** New draft message; pass null to remove the draft */
-        draft_message?: td_draftMessage;
+        draft_message: td_draftMessage;
     }
     
     
@@ -11704,9 +11704,9 @@ namespace TdApi {
     export interface td_setChatNotificationSettings {
         '@type': 'setChatNotificationSettings';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New notification settings for the chat. If the chat is muted for more than 1 week, it is considered to be muted forever */
-        notification_settings?: td_chatNotificationSettings;
+        notification_settings: td_chatNotificationSettings;
     }
     
     
@@ -11714,9 +11714,9 @@ namespace TdApi {
     export interface td_toggleChatIsMarkedAsUnread {
         '@type': 'toggleChatIsMarkedAsUnread';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of is_marked_as_unread */
-        is_marked_as_unread?: td_Bool;
+        is_marked_as_unread: td_Bool;
     }
     
     
@@ -11724,9 +11724,9 @@ namespace TdApi {
     export interface td_toggleChatDefaultDisableNotification {
         '@type': 'toggleChatDefaultDisableNotification';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of default_disable_notification */
-        default_disable_notification?: td_Bool;
+        default_disable_notification: td_Bool;
     }
     
     
@@ -11734,9 +11734,9 @@ namespace TdApi {
     export interface td_setChatClientData {
         '@type': 'setChatClientData';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New value of client_data */
-        client_data?: td_string;
+        client_data: td_string;
     }
     
     
@@ -11744,9 +11744,9 @@ namespace TdApi {
     export interface td_setChatDescription {
         '@type': 'setChatDescription';
         /** Identifier of the chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Changes information about a chat. Available for basic groups, supergroups, and channels. Requires can_change_info administrator right */
-        description?: td_string;
+        description: td_string;
     }
     
     
@@ -11754,9 +11754,9 @@ namespace TdApi {
     export interface td_setChatDiscussionGroup {
         '@type': 'setChatDiscussionGroup';
         /** Identifier of the channel chat. Pass 0 to remove a link from the supergroup passed in the second argument to a linked channel chat (requires can_pin_messages rights in the supergroup) */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of a new channel's discussion group. Use 0 to remove the discussion group. -Use the method getSuitableDiscussionChats to find all suitable groups. Basic group chats must be first upgraded to supergroup chats. If new chat members don't have access to old messages in the supergroup, then toggleSupergroupIsAllHistoryAvailable must be used first to change that */
-        discussion_chat_id?: td_int53;
+        discussion_chat_id: td_int53;
     }
     
     
@@ -11764,9 +11764,9 @@ namespace TdApi {
     export interface td_setChatLocation {
         '@type': 'setChatLocation';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New location for the chat; must be valid and not null */
-        location?: td_chatLocation;
+        location: td_chatLocation;
     }
     
     
@@ -11774,9 +11774,9 @@ namespace TdApi {
     export interface td_setChatSlowModeDelay {
         '@type': 'setChatSlowModeDelay';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** New slow mode delay for the chat; must be one of 0, 10, 30, 60, 300, 900, 3600 */
-        slow_mode_delay?: td_int32;
+        slow_mode_delay: td_int32;
     }
     
     
@@ -11784,13 +11784,13 @@ namespace TdApi {
     export interface td_pinChatMessage {
         '@type': 'pinChatMessage';
         /** Identifier of the chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the new pinned message */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** True, if there must be no notification about the pinned message. Notifications are always disabled in channels and private chats */
-        disable_notification?: td_Bool;
+        disable_notification: td_Bool;
         /** True, if the message needs to be pinned for one side only; private chats only */
-        only_for_self?: td_Bool;
+        only_for_self: td_Bool;
     }
     
     
@@ -11798,9 +11798,9 @@ namespace TdApi {
     export interface td_unpinChatMessage {
         '@type': 'unpinChatMessage';
         /** Identifier of the chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the removed pinned message */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -11808,7 +11808,7 @@ namespace TdApi {
     export interface td_unpinAllChatMessages {
         '@type': 'unpinAllChatMessages';
         /** Identifier of the chat */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11816,7 +11816,7 @@ namespace TdApi {
     export interface td_joinChat {
         '@type': 'joinChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11824,7 +11824,7 @@ namespace TdApi {
     export interface td_leaveChat {
         '@type': 'leaveChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11832,11 +11832,11 @@ namespace TdApi {
     export interface td_addChatMember {
         '@type': 'addChatMember';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the user */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** The number of earlier messages from the chat to be forwarded to the new member; up to 100. Ignored for supergroups and channels, or if the added user is a bot */
-        forward_limit?: td_int32;
+        forward_limit: td_int32;
     }
     
     
@@ -11844,9 +11844,9 @@ namespace TdApi {
     export interface td_addChatMembers {
         '@type': 'addChatMembers';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifiers of the users to be added to the chat. The maximum number of added users is 20 for supergroups and 100 for channels */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -11854,11 +11854,11 @@ namespace TdApi {
     export interface td_setChatMemberStatus {
         '@type': 'setChatMemberStatus';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Member identifier. Chats can be only banned and unbanned in supergroups and channels */
-        member_id?: td_MessageSender;
+        member_id: td_MessageSender;
         /** The new status of the member in the chat */
-        status?: td_ChatMemberStatus;
+        status: td_ChatMemberStatus;
     }
     
     
@@ -11866,13 +11866,13 @@ namespace TdApi {
     export interface td_banChatMember {
         '@type': 'banChatMember';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Member identifier */
-        member_id?: td_MessageSender;
+        member_id: td_MessageSender;
         /** Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Ignored in basic groups */
-        banned_until_date?: td_int32;
+        banned_until_date: td_int32;
         /** Pass true to delete all messages in the chat for the user that is being removed. Always true for supergroups and channels */
-        revoke_messages?: td_Bool;
+        revoke_messages: td_Bool;
     }
     
     
@@ -11886,11 +11886,11 @@ namespace TdApi {
     export interface td_transferChatOwnership {
         '@type': 'transferChatOwnership';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the user to which transfer the ownership. The ownership can't be transferred to a bot or to a deleted user */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** The password of the current user */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -11898,9 +11898,9 @@ namespace TdApi {
     export interface td_getChatMember {
         '@type': 'getChatMember';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Member identifier */
-        member_id?: td_MessageSender;
+        member_id: td_MessageSender;
     }
     
     
@@ -11908,13 +11908,13 @@ namespace TdApi {
     export interface td_searchChatMembers {
         '@type': 'searchChatMembers';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
         /** The maximum number of users to be returned */
-        limit?: td_int32;
+        limit: td_int32;
         /** The type of users to search for; pass null to search among all chat members */
-        filter?: td_ChatMembersFilter;
+        filter: td_ChatMembersFilter;
     }
     
     
@@ -11922,7 +11922,7 @@ namespace TdApi {
     export interface td_getChatAdministrators {
         '@type': 'getChatAdministrators';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -11930,7 +11930,7 @@ namespace TdApi {
     export interface td_clearAllDraftMessages {
         '@type': 'clearAllDraftMessages';
         /** If true, local draft messages in secret chats will not be cleared */
-        exclude_secret_chats?: td_Bool;
+        exclude_secret_chats: td_Bool;
     }
     
     
@@ -11938,9 +11938,9 @@ namespace TdApi {
     export interface td_getChatNotificationSettingsExceptions {
         '@type': 'getChatNotificationSettingsExceptions';
         /** If specified, only chats from the scope will be returned; pass null to return chats from all scopes */
-        scope?: td_NotificationSettingsScope;
+        scope: td_NotificationSettingsScope;
         /** If true, also chats with non-default sound will be returned */
-        compare_sound?: td_Bool;
+        compare_sound: td_Bool;
     }
     
     
@@ -11948,7 +11948,7 @@ namespace TdApi {
     export interface td_getScopeNotificationSettings {
         '@type': 'getScopeNotificationSettings';
         /** Types of chats for which to return the notification settings information */
-        scope?: td_NotificationSettingsScope;
+        scope: td_NotificationSettingsScope;
     }
     
     
@@ -11956,9 +11956,9 @@ namespace TdApi {
     export interface td_setScopeNotificationSettings {
         '@type': 'setScopeNotificationSettings';
         /** Types of chats for which to change the notification settings */
-        scope?: td_NotificationSettingsScope;
+        scope: td_NotificationSettingsScope;
         /** The new notification settings for the given scope */
-        notification_settings?: td_scopeNotificationSettings;
+        notification_settings: td_scopeNotificationSettings;
     }
     
     
@@ -11972,11 +11972,11 @@ namespace TdApi {
     export interface td_toggleChatIsPinned {
         '@type': 'toggleChatIsPinned';
         /** Chat list in which to change the pinned state of the chat */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** True, if the chat is pinned */
-        is_pinned?: td_Bool;
+        is_pinned: td_Bool;
     }
     
     
@@ -11984,9 +11984,9 @@ namespace TdApi {
     export interface td_setPinnedChats {
         '@type': 'setPinnedChats';
         /** Chat list in which to change the order of pinned chats */
-        chat_list?: td_ChatList;
+        chat_list: td_ChatList;
         /** The new list of pinned chats */
-        chat_ids?: td_vector<td_int53>;
+        chat_ids: td_vector<td_int53>;
     }
     
     
@@ -11994,15 +11994,15 @@ namespace TdApi {
     export interface td_downloadFile {
         '@type': 'downloadFile';
         /** Identifier of the file to download */
-        file_id?: td_int32;
+        file_id: td_int32;
         /** Priority of the download (1-32). The higher the priority, the earlier the file will be downloaded. If the priorities of two files are equal, then the last one for which downloadFile was called will be downloaded first */
-        priority?: td_int32;
+        priority: td_int32;
         /** The starting position from which the file needs to be downloaded */
-        offset?: td_int32;
+        offset: td_int32;
         /** Number of bytes which need to be downloaded starting from the "offset" position before the download will be automatically canceled; use 0 to download without a limit */
-        limit?: td_int32;
+        limit: td_int32;
         /** If false, this request returns file state just after the download has been started. If true, this request returns file state only after -the download has succeeded, has failed, has been canceled or a new downloadFile request with different offset/limit parameters was sent */
-        synchronous?: td_Bool;
+        synchronous: td_Bool;
     }
     
     
@@ -12010,9 +12010,9 @@ namespace TdApi {
     export interface td_cancelDownloadFile {
         '@type': 'cancelDownloadFile';
         /** Identifier of a file to stop downloading */
-        file_id?: td_int32;
+        file_id: td_int32;
         /** Pass true to stop downloading only if it hasn't been started, i.e. request hasn't been sent to server */
-        only_if_pending?: td_Bool;
+        only_if_pending: td_Bool;
     }
     
     
@@ -12020,9 +12020,9 @@ namespace TdApi {
     export interface td_getSuggestedFileName {
         '@type': 'getSuggestedFileName';
         /** Identifier of the file */
-        file_id?: td_int32;
+        file_id: td_int32;
         /** Directory in which the file is supposed to be saved */
-        directory?: td_string;
+        directory: td_string;
     }
     
     
@@ -12030,11 +12030,11 @@ namespace TdApi {
     export interface td_uploadFile {
         '@type': 'uploadFile';
         /** File to upload */
-        file?: td_InputFile;
+        file: td_InputFile;
         /** File type; pass null if unknown */
-        file_type?: td_FileType;
+        file_type: td_FileType;
         /** Priority of the upload (1-32). The higher the priority, the earlier the file will be uploaded. If the priorities of two files are equal, then the first one for which uploadFile was called will be uploaded first */
-        priority?: td_int32;
+        priority: td_int32;
     }
     
     
@@ -12042,7 +12042,7 @@ namespace TdApi {
     export interface td_cancelUploadFile {
         '@type': 'cancelUploadFile';
         /** Identifier of the file to stop uploading */
-        file_id?: td_int32;
+        file_id: td_int32;
     }
     
     
@@ -12050,11 +12050,11 @@ namespace TdApi {
     export interface td_writeGeneratedFilePart {
         '@type': 'writeGeneratedFilePart';
         /** The identifier of the generation process */
-        generation_id?: td_int64;
+        generation_id: td_int64;
         /** The offset from which to write the data to the file */
-        offset?: td_int32;
+        offset: td_int32;
         /** The data to write */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -12062,11 +12062,11 @@ namespace TdApi {
     export interface td_setFileGenerationProgress {
         '@type': 'setFileGenerationProgress';
         /** The identifier of the generation process */
-        generation_id?: td_int64;
+        generation_id: td_int64;
         /** Expected size of the generated file, in bytes; 0 if unknown */
-        expected_size?: td_int32;
+        expected_size: td_int32;
         /** The number of bytes already generated */
-        local_prefix_size?: td_int32;
+        local_prefix_size: td_int32;
     }
     
     
@@ -12074,9 +12074,9 @@ namespace TdApi {
     export interface td_finishFileGeneration {
         '@type': 'finishFileGeneration';
         /** The identifier of the generation process */
-        generation_id?: td_int64;
+        generation_id: td_int64;
         /** If passed, the file generation has failed and must be terminated; pass null if the file generation succeeded */
-        error?: td_error;
+        error: td_error;
     }
     
     
@@ -12084,11 +12084,11 @@ namespace TdApi {
     export interface td_readFilePart {
         '@type': 'readFilePart';
         /** Identifier of the file. The file must be located in the TDLib file cache */
-        file_id?: td_int32;
+        file_id: td_int32;
         /** The offset from which to read the file */
-        offset?: td_int32;
+        offset: td_int32;
         /** Number of bytes to read. An error will be returned if there are not enough bytes available in the file from the specified position. Pass 0 to read all available data from the specified position */
-        count?: td_int32;
+        count: td_int32;
     }
     
     
@@ -12096,7 +12096,7 @@ namespace TdApi {
     export interface td_deleteFile {
         '@type': 'deleteFile';
         /** Identifier of the file to delete */
-        file_id?: td_int32;
+        file_id: td_int32;
     }
     
     
@@ -12104,7 +12104,7 @@ namespace TdApi {
     export interface td_getMessageFileType {
         '@type': 'getMessageFileType';
         /** Beginning of the message file; up to 100 first lines */
-        message_file_head?: td_string;
+        message_file_head: td_string;
     }
     
     
@@ -12112,7 +12112,7 @@ namespace TdApi {
     export interface td_getMessageImportConfirmationText {
         '@type': 'getMessageImportConfirmationText';
         /** Identifier of a chat to which the messages will be imported. It must be an identifier of a private chat with a mutual contact or an identifier of a supergroup chat with can_change_info administrator right */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -12120,11 +12120,11 @@ namespace TdApi {
     export interface td_importMessages {
         '@type': 'importMessages';
         /** Identifier of a chat to which the messages will be imported. It must be an identifier of a private chat with a mutual contact or an identifier of a supergroup chat with can_change_info administrator right */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** File with messages to import. Only inputFileLocal and inputFileGenerated are supported. The file must not be previously uploaded */
-        message_file?: td_InputFile;
+        message_file: td_InputFile;
         /** Files used in the imported messages. Only inputFileLocal and inputFileGenerated are supported. The files must not be previously uploaded */
-        attached_files?: td_vector<td_InputFile>;
+        attached_files: td_vector<td_InputFile>;
     }
     
     
@@ -12132,7 +12132,7 @@ namespace TdApi {
     export interface td_replacePrimaryChatInviteLink {
         '@type': 'replacePrimaryChatInviteLink';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -12140,11 +12140,11 @@ namespace TdApi {
     export interface td_createChatInviteLink {
         '@type': 'createChatInviteLink';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Point in time (Unix timestamp) when the link will expire; pass 0 if never */
-        expire_date?: td_int32;
+        expire_date: td_int32;
         /** The maximum number of chat members that can join the chat by the link simultaneously; 0-99999; pass 0 if not limited */
-        member_limit?: td_int32;
+        member_limit: td_int32;
     }
     
     
@@ -12152,13 +12152,13 @@ namespace TdApi {
     export interface td_editChatInviteLink {
         '@type': 'editChatInviteLink';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Invite link to be edited */
-        invite_link?: td_string;
+        invite_link: td_string;
         /** Point in time (Unix timestamp) when the link will expire; pass 0 if never */
-        expire_date?: td_int32;
+        expire_date: td_int32;
         /** The maximum number of chat members that can join the chat by the link simultaneously; 0-99999; pass 0 if not limited */
-        member_limit?: td_int32;
+        member_limit: td_int32;
     }
     
     
@@ -12166,9 +12166,9 @@ namespace TdApi {
     export interface td_getChatInviteLink {
         '@type': 'getChatInviteLink';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Invite link to get */
-        invite_link?: td_string;
+        invite_link: td_string;
     }
     
     
@@ -12176,7 +12176,7 @@ namespace TdApi {
     export interface td_getChatInviteLinkCounts {
         '@type': 'getChatInviteLinkCounts';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -12184,17 +12184,17 @@ namespace TdApi {
     export interface td_getChatInviteLinks {
         '@type': 'getChatInviteLinks';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** User identifier of a chat administrator. Must be an identifier of the current user for non-owner */
-        creator_user_id?: td_int53;
+        creator_user_id: td_int53;
         /** Pass true if revoked links needs to be returned instead of active or expired */
-        is_revoked?: td_Bool;
+        is_revoked: td_Bool;
         /** Creation date of an invite link starting after which to return invite links; use 0 to get results from the beginning */
-        offset_date?: td_int32;
+        offset_date: td_int32;
         /** Invite link starting after which to return invite links; use empty string to get results from the beginning */
-        offset_invite_link?: td_string;
+        offset_invite_link: td_string;
         /** The maximum number of invite links to return */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12202,13 +12202,13 @@ namespace TdApi {
     export interface td_getChatInviteLinkMembers {
         '@type': 'getChatInviteLinkMembers';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Invite link for which to return chat members */
-        invite_link?: td_string;
+        invite_link: td_string;
         /** A chat member from which to return next chat members; pass null to get results from the beginning */
-        offset_member?: td_chatInviteLinkMember;
+        offset_member: td_chatInviteLinkMember;
         /** The maximum number of chat members to return */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12216,9 +12216,9 @@ namespace TdApi {
     export interface td_revokeChatInviteLink {
         '@type': 'revokeChatInviteLink';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Invite link to be revoked */
-        invite_link?: td_string;
+        invite_link: td_string;
     }
     
     
@@ -12226,9 +12226,9 @@ namespace TdApi {
     export interface td_deleteRevokedChatInviteLink {
         '@type': 'deleteRevokedChatInviteLink';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Invite link to revoke */
-        invite_link?: td_string;
+        invite_link: td_string;
     }
     
     
@@ -12236,9 +12236,9 @@ namespace TdApi {
     export interface td_deleteAllRevokedChatInviteLinks {
         '@type': 'deleteAllRevokedChatInviteLinks';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** User identifier of a chat administrator, which links will be deleted. Must be an identifier of the current user for non-owner */
-        creator_user_id?: td_int53;
+        creator_user_id: td_int53;
     }
     
     
@@ -12246,7 +12246,7 @@ namespace TdApi {
     export interface td_checkChatInviteLink {
         '@type': 'checkChatInviteLink';
         /** Invite link to be checked */
-        invite_link?: td_string;
+        invite_link: td_string;
     }
     
     
@@ -12254,7 +12254,7 @@ namespace TdApi {
     export interface td_joinChatByInviteLink {
         '@type': 'joinChatByInviteLink';
         /** Invite link to use */
-        invite_link?: td_string;
+        invite_link: td_string;
     }
     
     
@@ -12262,11 +12262,11 @@ namespace TdApi {
     export interface td_createCall {
         '@type': 'createCall';
         /** Identifier of the user to be called */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Description of the call protocols supported by the application */
-        protocol?: td_callProtocol;
+        protocol: td_callProtocol;
         /** True, if a video call needs to be created */
-        is_video?: td_Bool;
+        is_video: td_Bool;
     }
     
     
@@ -12274,9 +12274,9 @@ namespace TdApi {
     export interface td_acceptCall {
         '@type': 'acceptCall';
         /** Call identifier */
-        call_id?: td_int32;
+        call_id: td_int32;
         /** Description of the call protocols supported by the application */
-        protocol?: td_callProtocol;
+        protocol: td_callProtocol;
     }
     
     
@@ -12284,9 +12284,9 @@ namespace TdApi {
     export interface td_sendCallSignalingData {
         '@type': 'sendCallSignalingData';
         /** Call identifier */
-        call_id?: td_int32;
+        call_id: td_int32;
         /** The data */
-        data?: td_bytes;
+        data: td_bytes;
     }
     
     
@@ -12294,15 +12294,15 @@ namespace TdApi {
     export interface td_discardCall {
         '@type': 'discardCall';
         /** Call identifier */
-        call_id?: td_int32;
+        call_id: td_int32;
         /** True, if the user was disconnected */
-        is_disconnected?: td_Bool;
+        is_disconnected: td_Bool;
         /** The call duration, in seconds */
-        duration?: td_int32;
+        duration: td_int32;
         /** True, if the call was a video call */
-        is_video?: td_Bool;
+        is_video: td_Bool;
         /** Identifier of the connection used during the call */
-        connection_id?: td_int64;
+        connection_id: td_int64;
     }
     
     
@@ -12310,13 +12310,13 @@ namespace TdApi {
     export interface td_sendCallRating {
         '@type': 'sendCallRating';
         /** Call identifier */
-        call_id?: td_int32;
+        call_id: td_int32;
         /** Call rating; 1-5 */
-        rating?: td_int32;
+        rating: td_int32;
         /** An optional user comment if the rating is less than 5 */
-        comment?: td_string;
+        comment: td_string;
         /** List of the exact types of problems with the call, specified by the user */
-        problems?: td_vector<td_CallProblem>;
+        problems: td_vector<td_CallProblem>;
     }
     
     
@@ -12324,9 +12324,9 @@ namespace TdApi {
     export interface td_sendCallDebugInformation {
         '@type': 'sendCallDebugInformation';
         /** Call identifier */
-        call_id?: td_int32;
+        call_id: td_int32;
         /** Debug information in application-specific format */
-        debug_information?: td_string;
+        debug_information: td_string;
     }
     
     
@@ -12334,7 +12334,7 @@ namespace TdApi {
     export interface td_getVoiceChatAvailableParticipants {
         '@type': 'getVoiceChatAvailableParticipants';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -12342,9 +12342,9 @@ namespace TdApi {
     export interface td_setVoiceChatDefaultParticipant {
         '@type': 'setVoiceChatDefaultParticipant';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Default group call participant identifier to join the voice chats */
-        default_participant_id?: td_MessageSender;
+        default_participant_id: td_MessageSender;
     }
     
     
@@ -12352,11 +12352,11 @@ namespace TdApi {
     export interface td_createVoiceChat {
         '@type': 'createVoiceChat';
         /** Chat identifier, in which the voice chat will be created */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Group call title; if empty, chat title will be used */
-        title?: td_string;
+        title: td_string;
         /** Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 to start the voice chat immediately. The date must be at least 10 seconds and at most 8 days in the future */
-        start_date?: td_int32;
+        start_date: td_int32;
     }
     
     
@@ -12364,7 +12364,7 @@ namespace TdApi {
     export interface td_getGroupCall {
         '@type': 'getGroupCall';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -12372,7 +12372,7 @@ namespace TdApi {
     export interface td_startScheduledGroupCall {
         '@type': 'startScheduledGroupCall';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -12380,9 +12380,9 @@ namespace TdApi {
     export interface td_toggleGroupCallEnabledStartNotification {
         '@type': 'toggleGroupCallEnabledStartNotification';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** New value of the enabled_start_notification setting */
-        enabled_start_notification?: td_Bool;
+        enabled_start_notification: td_Bool;
     }
     
     
@@ -12390,19 +12390,19 @@ namespace TdApi {
     export interface td_joinGroupCall {
         '@type': 'joinGroupCall';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Identifier of a group call participant, which will be used to join the call; pass null to join as self; voice chats only */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** Caller audio channel synchronization source identifier; received from tgcalls */
-        audio_source_id?: td_int32;
+        audio_source_id: td_int32;
         /** Group call join payload; received from tgcalls */
-        payload?: td_string;
+        payload: td_string;
         /** True, if the user's microphone is muted */
-        is_muted?: td_Bool;
+        is_muted: td_Bool;
         /** True, if the user's video is enabled */
-        is_my_video_enabled?: td_Bool;
+        is_my_video_enabled: td_Bool;
         /** If non-empty, invite hash to be used to join the group call without being muted by administrators */
-        invite_hash?: td_string;
+        invite_hash: td_string;
     }
     
     
@@ -12410,11 +12410,11 @@ namespace TdApi {
     export interface td_startGroupCallScreenSharing {
         '@type': 'startGroupCallScreenSharing';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Screen sharing audio channel synchronization source identifier; received from tgcalls */
-        audio_source_id?: td_int32;
+        audio_source_id: td_int32;
         /** Group call join payload; received from tgcalls */
-        payload?: td_string;
+        payload: td_string;
     }
     
     
@@ -12422,9 +12422,9 @@ namespace TdApi {
     export interface td_toggleGroupCallScreenSharingIsPaused {
         '@type': 'toggleGroupCallScreenSharingIsPaused';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** True if screen sharing is paused */
-        is_paused?: td_Bool;
+        is_paused: td_Bool;
     }
     
     
@@ -12432,7 +12432,7 @@ namespace TdApi {
     export interface td_endGroupCallScreenSharing {
         '@type': 'endGroupCallScreenSharing';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -12440,9 +12440,9 @@ namespace TdApi {
     export interface td_setGroupCallTitle {
         '@type': 'setGroupCallTitle';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** New group call title; 1-64 characters */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -12450,9 +12450,9 @@ namespace TdApi {
     export interface td_toggleGroupCallMuteNewParticipants {
         '@type': 'toggleGroupCallMuteNewParticipants';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** New value of the mute_new_participants setting */
-        mute_new_participants?: td_Bool;
+        mute_new_participants: td_Bool;
     }
     
     
@@ -12460,7 +12460,7 @@ namespace TdApi {
     export interface td_revokeGroupCallInviteLink {
         '@type': 'revokeGroupCallInviteLink';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -12468,9 +12468,9 @@ namespace TdApi {
     export interface td_inviteGroupCallParticipants {
         '@type': 'inviteGroupCallParticipants';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** User identifiers. At most 10 users can be invited simultaneously */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -12478,9 +12478,9 @@ namespace TdApi {
     export interface td_getGroupCallInviteLink {
         '@type': 'getGroupCallInviteLink';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Pass true if the invite link needs to contain an invite hash, passing which to joinGroupCall would allow the invited user to unmute themselves. Requires groupCall.can_be_managed group call flag */
-        can_self_unmute?: td_Bool;
+        can_self_unmute: td_Bool;
     }
     
     
@@ -12488,13 +12488,13 @@ namespace TdApi {
     export interface td_startGroupCallRecording {
         '@type': 'startGroupCallRecording';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Group call recording title; 0-64 characters */
-        title?: td_string;
+        title: td_string;
         /** Pass true to record a video file instead of an audio file */
-        record_video?: td_Bool;
+        record_video: td_Bool;
         /** Pass true to use portrait orientation for video instead of landscape one */
-        use_portrait_orientation?: td_Bool;
+        use_portrait_orientation: td_Bool;
     }
     
     
@@ -12502,7 +12502,7 @@ namespace TdApi {
     export interface td_endGroupCallRecording {
         '@type': 'endGroupCallRecording';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -12510,9 +12510,9 @@ namespace TdApi {
     export interface td_toggleGroupCallIsMyVideoPaused {
         '@type': 'toggleGroupCallIsMyVideoPaused';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Pass true if the current user's video is paused */
-        is_my_video_paused?: td_Bool;
+        is_my_video_paused: td_Bool;
     }
     
     
@@ -12520,9 +12520,9 @@ namespace TdApi {
     export interface td_toggleGroupCallIsMyVideoEnabled {
         '@type': 'toggleGroupCallIsMyVideoEnabled';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Pass true if the current user's video is enabled */
-        is_my_video_enabled?: td_Bool;
+        is_my_video_enabled: td_Bool;
     }
     
     
@@ -12530,11 +12530,11 @@ namespace TdApi {
     export interface td_setGroupCallParticipantIsSpeaking {
         '@type': 'setGroupCallParticipantIsSpeaking';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Group call participant's synchronization audio source identifier, or 0 for the current user */
-        audio_source?: td_int32;
+        audio_source: td_int32;
         /** True, if the user is speaking */
-        is_speaking?: td_Bool;
+        is_speaking: td_Bool;
     }
     
     
@@ -12542,11 +12542,11 @@ namespace TdApi {
     export interface td_toggleGroupCallParticipantIsMuted {
         '@type': 'toggleGroupCallParticipantIsMuted';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Participant identifier */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** Pass true if the user must be muted and false otherwise */
-        is_muted?: td_Bool;
+        is_muted: td_Bool;
     }
     
     
@@ -12554,11 +12554,11 @@ namespace TdApi {
     export interface td_setGroupCallParticipantVolumeLevel {
         '@type': 'setGroupCallParticipantVolumeLevel';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Participant identifier */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** New participant's volume level; 1-20000 in hundreds of percents */
-        volume_level?: td_int32;
+        volume_level: td_int32;
     }
     
     
@@ -12566,11 +12566,11 @@ namespace TdApi {
     export interface td_toggleGroupCallParticipantIsHandRaised {
         '@type': 'toggleGroupCallParticipantIsHandRaised';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Participant identifier */
-        participant_id?: td_MessageSender;
+        participant_id: td_MessageSender;
         /** Pass true if the user's hand needs to be raised. Only self hand can be raised. Requires groupCall.can_be_managed group call flag to lower other's hand */
-        is_hand_raised?: td_Bool;
+        is_hand_raised: td_Bool;
     }
     
     
@@ -12578,9 +12578,9 @@ namespace TdApi {
     export interface td_loadGroupCallParticipants {
         '@type': 'loadGroupCallParticipants';
         /** Group call identifier. The group call must be previously received through getGroupCall and must be joined or being joined */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** The maximum number of participants to load */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12588,7 +12588,7 @@ namespace TdApi {
     export interface td_leaveGroupCall {
         '@type': 'leaveGroupCall';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -12596,7 +12596,7 @@ namespace TdApi {
     export interface td_discardGroupCall {
         '@type': 'discardGroupCall';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
     }
     
     
@@ -12604,15 +12604,15 @@ namespace TdApi {
     export interface td_getGroupCallStreamSegment {
         '@type': 'getGroupCallStreamSegment';
         /** Group call identifier */
-        group_call_id?: td_int32;
+        group_call_id: td_int32;
         /** Point in time when the stream segment begins; Unix timestamp in milliseconds */
-        time_offset?: td_int53;
+        time_offset: td_int53;
         /** Segment duration scale; 0-1. Segment's duration is 1000/(2**scale) milliseconds */
-        scale?: td_int32;
+        scale: td_int32;
         /** Identifier of an audio/video channel to get as received from tgcalls */
-        channel_id?: td_int32;
+        channel_id: td_int32;
         /** Video quality as received from tgcalls; pass null to get the worst available quality */
-        video_quality?: td_GroupCallVideoQuality;
+        video_quality: td_GroupCallVideoQuality;
     }
     
     
@@ -12620,9 +12620,9 @@ namespace TdApi {
     export interface td_toggleMessageSenderIsBlocked {
         '@type': 'toggleMessageSenderIsBlocked';
         /** Message Sender */
-        sender?: td_MessageSender;
+        sender: td_MessageSender;
         /** New value of is_blocked */
-        is_blocked?: td_Bool;
+        is_blocked: td_Bool;
     }
     
     
@@ -12630,13 +12630,13 @@ namespace TdApi {
     export interface td_blockMessageSenderFromReplies {
         '@type': 'blockMessageSenderFromReplies';
         /** The identifier of an incoming message in the Replies chat */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Pass true if the message must be deleted */
-        delete_message?: td_Bool;
+        delete_message: td_Bool;
         /** Pass true if all messages from the same sender must be deleted */
-        delete_all_messages?: td_Bool;
+        delete_all_messages: td_Bool;
         /** Pass true if the sender must be reported to the Telegram moderators */
-        report_spam?: td_Bool;
+        report_spam: td_Bool;
     }
     
     
@@ -12644,9 +12644,9 @@ namespace TdApi {
     export interface td_getBlockedMessageSenders {
         '@type': 'getBlockedMessageSenders';
         /** Number of users and chats to skip in the result; must be non-negative */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of users and chats to return; up to 100 */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12654,9 +12654,9 @@ namespace TdApi {
     export interface td_addContact {
         '@type': 'addContact';
         /** The contact to add or edit; phone number can be empty and needs to be specified only if known, vCard is ignored */
-        contact?: td_contact;
+        contact: td_contact;
         /** True, if the new contact needs to be allowed to see current user's phone number. A corresponding rule to userPrivacySettingShowPhoneNumber will be added if needed. Use the field userFullInfo.need_phone_number_privacy_exception to check whether the current user needs to be asked to share their phone number */
-        share_phone_number?: td_Bool;
+        share_phone_number: td_Bool;
     }
     
     
@@ -12664,7 +12664,7 @@ namespace TdApi {
     export interface td_importContacts {
         '@type': 'importContacts';
         /** The list of contacts to import or edit; contacts' vCard are ignored and are not imported */
-        contacts?: td_vector<td_contact>;
+        contacts: td_vector<td_contact>;
     }
     
     
@@ -12678,9 +12678,9 @@ namespace TdApi {
     export interface td_searchContacts {
         '@type': 'searchContacts';
         /** Query to search for; may be empty to return all contacts */
-        query?: td_string;
+        query: td_string;
         /** The maximum number of users to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12688,7 +12688,7 @@ namespace TdApi {
     export interface td_removeContacts {
         '@type': 'removeContacts';
         /** Identifiers of users to be deleted */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -12702,7 +12702,7 @@ namespace TdApi {
     export interface td_changeImportedContacts {
         '@type': 'changeImportedContacts';
         /** The new list of contacts, contact's vCard are ignored and are not imported */
-        contacts?: td_vector<td_contact>;
+        contacts: td_vector<td_contact>;
     }
     
     
@@ -12716,7 +12716,7 @@ namespace TdApi {
     export interface td_sharePhoneNumber {
         '@type': 'sharePhoneNumber';
         /** Identifier of the user with whom to share the phone number. The user must be a mutual contact */
-        user_id?: td_int53;
+        user_id: td_int53;
     }
     
     
@@ -12724,11 +12724,11 @@ namespace TdApi {
     export interface td_getUserProfilePhotos {
         '@type': 'getUserProfilePhotos';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** The number of photos to skip; must be non-negative */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of photos to be returned; up to 100 */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12736,9 +12736,9 @@ namespace TdApi {
     export interface td_getStickers {
         '@type': 'getStickers';
         /** String representation of emoji. If empty, returns all known installed stickers */
-        emoji?: td_string;
+        emoji: td_string;
         /** The maximum number of stickers to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12746,9 +12746,9 @@ namespace TdApi {
     export interface td_searchStickers {
         '@type': 'searchStickers';
         /** String representation of emoji; must be non-empty */
-        emoji?: td_string;
+        emoji: td_string;
         /** The maximum number of stickers to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12756,7 +12756,7 @@ namespace TdApi {
     export interface td_getInstalledStickerSets {
         '@type': 'getInstalledStickerSets';
         /** Pass true to return mask sticker sets; pass false to return ordinary sticker sets */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
     }
     
     
@@ -12764,11 +12764,11 @@ namespace TdApi {
     export interface td_getArchivedStickerSets {
         '@type': 'getArchivedStickerSets';
         /** Pass true to return mask stickers sets; pass false to return ordinary sticker sets */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
         /** Identifier of the sticker set from which to return the result */
-        offset_sticker_set_id?: td_int64;
+        offset_sticker_set_id: td_int64;
         /** The maximum number of sticker sets to return */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12776,9 +12776,9 @@ namespace TdApi {
     export interface td_getTrendingStickerSets {
         '@type': 'getTrendingStickerSets';
         /** The offset from which to return the sticker sets; must be non-negative */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of sticker sets to be returned; must be non-negative. For optimal performance, the number of returned sticker sets is chosen by TDLib and can be smaller than the specified limit, even if the end of the list has not been reached */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12786,7 +12786,7 @@ namespace TdApi {
     export interface td_getAttachedStickerSets {
         '@type': 'getAttachedStickerSets';
         /** File identifier */
-        file_id?: td_int32;
+        file_id: td_int32;
     }
     
     
@@ -12794,7 +12794,7 @@ namespace TdApi {
     export interface td_getStickerSet {
         '@type': 'getStickerSet';
         /** Identifier of the sticker set */
-        set_id?: td_int64;
+        set_id: td_int64;
     }
     
     
@@ -12802,7 +12802,7 @@ namespace TdApi {
     export interface td_searchStickerSet {
         '@type': 'searchStickerSet';
         /** Name of the sticker set */
-        name?: td_string;
+        name: td_string;
     }
     
     
@@ -12810,11 +12810,11 @@ namespace TdApi {
     export interface td_searchInstalledStickerSets {
         '@type': 'searchInstalledStickerSets';
         /** Pass true to return mask sticker sets; pass false to return ordinary sticker sets */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
         /** The maximum number of sticker sets to return */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12822,7 +12822,7 @@ namespace TdApi {
     export interface td_searchStickerSets {
         '@type': 'searchStickerSets';
         /** Query to search for */
-        query?: td_string;
+        query: td_string;
     }
     
     
@@ -12830,11 +12830,11 @@ namespace TdApi {
     export interface td_changeStickerSet {
         '@type': 'changeStickerSet';
         /** Identifier of the sticker set */
-        set_id?: td_int64;
+        set_id: td_int64;
         /** The new value of is_installed */
-        is_installed?: td_Bool;
+        is_installed: td_Bool;
         /** The new value of is_archived. A sticker set can't be installed and archived simultaneously */
-        is_archived?: td_Bool;
+        is_archived: td_Bool;
     }
     
     
@@ -12842,7 +12842,7 @@ namespace TdApi {
     export interface td_viewTrendingStickerSets {
         '@type': 'viewTrendingStickerSets';
         /** Identifiers of viewed trending sticker sets */
-        sticker_set_ids?: td_vector<td_int64>;
+        sticker_set_ids: td_vector<td_int64>;
     }
     
     
@@ -12850,9 +12850,9 @@ namespace TdApi {
     export interface td_reorderInstalledStickerSets {
         '@type': 'reorderInstalledStickerSets';
         /** Pass true to change the order of mask sticker sets; pass false to change the order of ordinary sticker sets */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
         /** Identifiers of installed sticker sets in the new correct order */
-        sticker_set_ids?: td_vector<td_int64>;
+        sticker_set_ids: td_vector<td_int64>;
     }
     
     
@@ -12860,7 +12860,7 @@ namespace TdApi {
     export interface td_getRecentStickers {
         '@type': 'getRecentStickers';
         /** Pass true to return stickers and masks that were recently attached to photos or video files; pass false to return recently sent stickers */
-        is_attached?: td_Bool;
+        is_attached: td_Bool;
     }
     
     
@@ -12868,9 +12868,9 @@ namespace TdApi {
     export interface td_addRecentSticker {
         '@type': 'addRecentSticker';
         /** Pass true to add the sticker to the list of stickers recently attached to photo or video files; pass false to add the sticker to the list of recently sent stickers */
-        is_attached?: td_Bool;
+        is_attached: td_Bool;
         /** Sticker file to add */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
     }
     
     
@@ -12878,9 +12878,9 @@ namespace TdApi {
     export interface td_removeRecentSticker {
         '@type': 'removeRecentSticker';
         /** Pass true to remove the sticker from the list of stickers recently attached to photo or video files; pass false to remove the sticker from the list of recently sent stickers */
-        is_attached?: td_Bool;
+        is_attached: td_Bool;
         /** Sticker file to delete */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
     }
     
     
@@ -12888,7 +12888,7 @@ namespace TdApi {
     export interface td_clearRecentStickers {
         '@type': 'clearRecentStickers';
         /** Pass true to clear the list of stickers recently attached to photo or video files; pass false to clear the list of recently sent stickers */
-        is_attached?: td_Bool;
+        is_attached: td_Bool;
     }
     
     
@@ -12902,7 +12902,7 @@ namespace TdApi {
     export interface td_addFavoriteSticker {
         '@type': 'addFavoriteSticker';
         /** Sticker file to add */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
     }
     
     
@@ -12910,7 +12910,7 @@ namespace TdApi {
     export interface td_removeFavoriteSticker {
         '@type': 'removeFavoriteSticker';
         /** Sticker file to delete from the list */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
     }
     
     
@@ -12918,7 +12918,7 @@ namespace TdApi {
     export interface td_getStickerEmojis {
         '@type': 'getStickerEmojis';
         /** Sticker file identifier */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
     }
     
     
@@ -12926,11 +12926,11 @@ namespace TdApi {
     export interface td_searchEmojis {
         '@type': 'searchEmojis';
         /** Text to search for */
-        text?: td_string;
+        text: td_string;
         /** True, if only emojis, which exactly match text needs to be returned */
-        exact_match?: td_Bool;
+        exact_match: td_Bool;
         /** List of possible IETF language tags of the user's input language; may be empty if unknown */
-        input_language_codes?: td_vector<td_string>;
+        input_language_codes: td_vector<td_string>;
     }
     
     
@@ -12938,7 +12938,7 @@ namespace TdApi {
     export interface td_getEmojiSuggestionsUrl {
         '@type': 'getEmojiSuggestionsUrl';
         /** Language code for which the emoji replacements will be suggested */
-        language_code?: td_string;
+        language_code: td_string;
     }
     
     
@@ -12952,7 +12952,7 @@ namespace TdApi {
     export interface td_addSavedAnimation {
         '@type': 'addSavedAnimation';
         /** The animation file to be added. Only animations known to the server (i.e., successfully sent via a message) can be added to the list */
-        animation?: td_InputFile;
+        animation: td_InputFile;
     }
     
     
@@ -12960,7 +12960,7 @@ namespace TdApi {
     export interface td_removeSavedAnimation {
         '@type': 'removeSavedAnimation';
         /** Animation file to be removed */
-        animation?: td_InputFile;
+        animation: td_InputFile;
     }
     
     
@@ -12974,9 +12974,9 @@ namespace TdApi {
     export interface td_searchHashtags {
         '@type': 'searchHashtags';
         /** Hashtag prefix to search for */
-        prefix?: td_string;
+        prefix: td_string;
         /** The maximum number of hashtags to be returned */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -12984,7 +12984,7 @@ namespace TdApi {
     export interface td_removeRecentHashtag {
         '@type': 'removeRecentHashtag';
         /** Hashtag to delete */
-        hashtag?: td_string;
+        hashtag: td_string;
     }
     
     
@@ -12992,7 +12992,7 @@ namespace TdApi {
     export interface td_getWebPagePreview {
         '@type': 'getWebPagePreview';
         /** Message text with formatting */
-        text?: td_formattedText;
+        text: td_formattedText;
     }
     
     
@@ -13000,9 +13000,9 @@ namespace TdApi {
     export interface td_getWebPageInstantView {
         '@type': 'getWebPageInstantView';
         /** The web page URL */
-        url?: td_string;
+        url: td_string;
         /** If true, the full instant view for the web page will be returned */
-        force_full?: td_Bool;
+        force_full: td_Bool;
     }
     
     
@@ -13010,7 +13010,7 @@ namespace TdApi {
     export interface td_setProfilePhoto {
         '@type': 'setProfilePhoto';
         /** Profile photo to set */
-        photo?: td_InputChatPhoto;
+        photo: td_InputChatPhoto;
     }
     
     
@@ -13018,7 +13018,7 @@ namespace TdApi {
     export interface td_deleteProfilePhoto {
         '@type': 'deleteProfilePhoto';
         /** Identifier of the profile photo to delete */
-        profile_photo_id?: td_int64;
+        profile_photo_id: td_int64;
     }
     
     
@@ -13026,9 +13026,9 @@ namespace TdApi {
     export interface td_setName {
         '@type': 'setName';
         /** The new value of the first name for the current user; 1-64 characters */
-        first_name?: td_string;
+        first_name: td_string;
         /** The new value of the optional last name for the current user; 0-64 characters */
-        last_name?: td_string;
+        last_name: td_string;
     }
     
     
@@ -13036,7 +13036,7 @@ namespace TdApi {
     export interface td_setBio {
         '@type': 'setBio';
         /** The new value of the user bio; 0-70 characters without line feeds */
-        bio?: td_string;
+        bio: td_string;
     }
     
     
@@ -13044,7 +13044,7 @@ namespace TdApi {
     export interface td_setUsername {
         '@type': 'setUsername';
         /** The new value of the username. Use an empty string to remove the username */
-        username?: td_string;
+        username: td_string;
     }
     
     
@@ -13052,7 +13052,7 @@ namespace TdApi {
     export interface td_setLocation {
         '@type': 'setLocation';
         /** The new location of the user */
-        location?: td_location;
+        location: td_location;
     }
     
     
@@ -13060,9 +13060,9 @@ namespace TdApi {
     export interface td_changePhoneNumber {
         '@type': 'changePhoneNumber';
         /** The new phone number of the user in international format */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** Settings for the authentication of the user's phone number; pass null to use default settings */
-        settings?: td_phoneNumberAuthenticationSettings;
+        settings: td_phoneNumberAuthenticationSettings;
     }
     
     
@@ -13076,7 +13076,7 @@ namespace TdApi {
     export interface td_checkChangePhoneNumberCode {
         '@type': 'checkChangePhoneNumberCode';
         /** Verification code received by SMS, phone call or flash call */
-        code?: td_string;
+        code: td_string;
     }
     
     
@@ -13084,11 +13084,11 @@ namespace TdApi {
     export interface td_setCommands {
         '@type': 'setCommands';
         /** The scope to which the commands are relevant; pass null to change commands in the default bot command scope */
-        scope?: td_BotCommandScope;
+        scope: td_BotCommandScope;
         /** A two-letter ISO 639-1 country code. If empty, the commands will be applied to all users from the given scope, for which language there are no dedicated commands */
-        language_code?: td_string;
+        language_code: td_string;
         /** List of the bot's commands */
-        commands?: td_vector<td_botCommand>;
+        commands: td_vector<td_botCommand>;
     }
     
     
@@ -13096,9 +13096,9 @@ namespace TdApi {
     export interface td_deleteCommands {
         '@type': 'deleteCommands';
         /** The scope to which the commands are relevant; pass null to delete commands in the default bot command scope */
-        scope?: td_BotCommandScope;
+        scope: td_BotCommandScope;
         /** A two-letter ISO 639-1 country code or an empty string */
-        language_code?: td_string;
+        language_code: td_string;
     }
     
     
@@ -13106,9 +13106,9 @@ namespace TdApi {
     export interface td_getCommands {
         '@type': 'getCommands';
         /** The scope to which the commands are relevant; pass null to get commands in the default bot command scope */
-        scope?: td_BotCommandScope;
+        scope: td_BotCommandScope;
         /** A two-letter ISO 639-1 country code or an empty string */
-        language_code?: td_string;
+        language_code: td_string;
     }
     
     
@@ -13122,7 +13122,7 @@ namespace TdApi {
     export interface td_terminateSession {
         '@type': 'terminateSession';
         /** Session identifier */
-        session_id?: td_int64;
+        session_id: td_int64;
     }
     
     
@@ -13142,7 +13142,7 @@ namespace TdApi {
     export interface td_disconnectWebsite {
         '@type': 'disconnectWebsite';
         /** Website identifier */
-        website_id?: td_int64;
+        website_id: td_int64;
     }
     
     
@@ -13156,9 +13156,9 @@ namespace TdApi {
     export interface td_setSupergroupUsername {
         '@type': 'setSupergroupUsername';
         /** Identifier of the supergroup or channel */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** New value of the username. Use an empty string to remove the username */
-        username?: td_string;
+        username: td_string;
     }
     
     
@@ -13166,9 +13166,9 @@ namespace TdApi {
     export interface td_setSupergroupStickerSet {
         '@type': 'setSupergroupStickerSet';
         /** Identifier of the supergroup */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** New value of the supergroup sticker set identifier. Use 0 to remove the supergroup sticker set */
-        sticker_set_id?: td_int64;
+        sticker_set_id: td_int64;
     }
     
     
@@ -13176,9 +13176,9 @@ namespace TdApi {
     export interface td_toggleSupergroupSignMessages {
         '@type': 'toggleSupergroupSignMessages';
         /** Identifier of the channel */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** New value of sign_messages */
-        sign_messages?: td_Bool;
+        sign_messages: td_Bool;
     }
     
     
@@ -13186,9 +13186,9 @@ namespace TdApi {
     export interface td_toggleSupergroupIsAllHistoryAvailable {
         '@type': 'toggleSupergroupIsAllHistoryAvailable';
         /** The identifier of the supergroup */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** The new value of is_all_history_available */
-        is_all_history_available?: td_Bool;
+        is_all_history_available: td_Bool;
     }
     
     
@@ -13196,7 +13196,7 @@ namespace TdApi {
     export interface td_toggleSupergroupIsBroadcastGroup {
         '@type': 'toggleSupergroupIsBroadcastGroup';
         /** Identifier of the supergroup */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
     }
     
     
@@ -13204,11 +13204,11 @@ namespace TdApi {
     export interface td_reportSupergroupSpam {
         '@type': 'reportSupergroupSpam';
         /** Supergroup identifier */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Identifiers of messages sent in the supergroup by the user. This list must be non-empty */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
     }
     
     
@@ -13216,13 +13216,13 @@ namespace TdApi {
     export interface td_getSupergroupMembers {
         '@type': 'getSupergroupMembers';
         /** Identifier of the supergroup or channel */
-        supergroup_id?: td_int53;
+        supergroup_id: td_int53;
         /** The type of users to return; pass null to use supergroupMembersFilterRecent */
-        filter?: td_SupergroupMembersFilter;
+        filter: td_SupergroupMembersFilter;
         /** Number of users to skip */
-        offset?: td_int32;
+        offset: td_int32;
         /** The maximum number of users be returned; up to 200 */
-        limit?: td_int32;
+        limit: td_int32;
     }
     
     
@@ -13230,7 +13230,7 @@ namespace TdApi {
     export interface td_closeSecretChat {
         '@type': 'closeSecretChat';
         /** Secret chat identifier */
-        secret_chat_id?: td_int32;
+        secret_chat_id: td_int32;
     }
     
     
@@ -13238,17 +13238,17 @@ namespace TdApi {
     export interface td_getChatEventLog {
         '@type': 'getChatEventLog';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Search query by which to filter events */
-        query?: td_string;
+        query: td_string;
         /** Identifier of an event from which to return results. Use 0 to get results from the latest events */
-        from_event_id?: td_int64;
+        from_event_id: td_int64;
         /** The maximum number of events to return; up to 100 */
-        limit?: td_int32;
+        limit: td_int32;
         /** The types of events to return; pass null to get chat events of all types */
-        filters?: td_chatEventLogFilters;
+        filters: td_chatEventLogFilters;
         /** User identifiers by which to filter events. By default, events relating to all users will be returned */
-        user_ids?: td_vector<td_int53>;
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -13256,11 +13256,11 @@ namespace TdApi {
     export interface td_getPaymentForm {
         '@type': 'getPaymentForm';
         /** Chat identifier of the Invoice message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Preferred payment form theme; pass null to use the default theme */
-        theme?: td_paymentFormTheme;
+        theme: td_paymentFormTheme;
     }
     
     
@@ -13268,13 +13268,13 @@ namespace TdApi {
     export interface td_validateOrderInfo {
         '@type': 'validateOrderInfo';
         /** Chat identifier of the Invoice message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** The order information, provided by the user; pass null if empty */
-        order_info?: td_orderInfo;
+        order_info: td_orderInfo;
         /** True, if the order information can be saved */
-        allow_save?: td_Bool;
+        allow_save: td_Bool;
     }
     
     
@@ -13282,19 +13282,19 @@ namespace TdApi {
     export interface td_sendPaymentForm {
         '@type': 'sendPaymentForm';
         /** Chat identifier of the Invoice message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Payment form identifier returned by getPaymentForm */
-        payment_form_id?: td_int64;
+        payment_form_id: td_int64;
         /** Identifier returned by validateOrderInfo, or an empty string */
-        order_info_id?: td_string;
+        order_info_id: td_string;
         /** Identifier of a chosen shipping option, if applicable */
-        shipping_option_id?: td_string;
+        shipping_option_id: td_string;
         /** The credentials chosen by user for payment */
-        credentials?: td_InputCredentials;
+        credentials: td_InputCredentials;
         /** Chosen by the user amount of tip in the smallest units of the currency */
-        tip_amount?: td_int53;
+        tip_amount: td_int53;
     }
     
     
@@ -13302,9 +13302,9 @@ namespace TdApi {
     export interface td_getPaymentReceipt {
         '@type': 'getPaymentReceipt';
         /** Chat identifier of the PaymentSuccessful message */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
     }
     
     
@@ -13336,7 +13336,7 @@ namespace TdApi {
     export interface td_getBackgrounds {
         '@type': 'getBackgrounds';
         /** True, if the backgrounds must be ordered for dark theme */
-        for_dark_theme?: td_Bool;
+        for_dark_theme: td_Bool;
     }
     
     
@@ -13344,9 +13344,9 @@ namespace TdApi {
     export interface td_getBackgroundUrl {
         '@type': 'getBackgroundUrl';
         /** Background name */
-        name?: td_string;
+        name: td_string;
         /** Background type */
-        type?: td_BackgroundType;
+        type: td_BackgroundType;
     }
     
     
@@ -13354,7 +13354,7 @@ namespace TdApi {
     export interface td_searchBackground {
         '@type': 'searchBackground';
         /** The name of the background */
-        name?: td_string;
+        name: td_string;
     }
     
     
@@ -13362,11 +13362,11 @@ namespace TdApi {
     export interface td_setBackground {
         '@type': 'setBackground';
         /** The input background to use; pass null to create a new filled backgrounds or to remove the current background */
-        background?: td_InputBackground;
+        background: td_InputBackground;
         /** Background type; pass null to use the default type of the remote background or to remove the current background */
-        type?: td_BackgroundType;
+        type: td_BackgroundType;
         /** True, if the background is chosen for dark theme */
-        for_dark_theme?: td_Bool;
+        for_dark_theme: td_Bool;
     }
     
     
@@ -13374,7 +13374,7 @@ namespace TdApi {
     export interface td_removeBackground {
         '@type': 'removeBackground';
         /** The background identifier */
-        background_id?: td_int64;
+        background_id: td_int64;
     }
     
     
@@ -13388,7 +13388,7 @@ namespace TdApi {
     export interface td_getLocalizationTargetInfo {
         '@type': 'getLocalizationTargetInfo';
         /** If true, returns only locally available information without sending network requests */
-        only_local?: td_Bool;
+        only_local: td_Bool;
     }
     
     
@@ -13396,7 +13396,7 @@ namespace TdApi {
     export interface td_getLanguagePackInfo {
         '@type': 'getLanguagePackInfo';
         /** Language pack identifier */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
     }
     
     
@@ -13404,9 +13404,9 @@ namespace TdApi {
     export interface td_getLanguagePackStrings {
         '@type': 'getLanguagePackStrings';
         /** Language pack identifier of the strings to be returned */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
         /** Language pack keys of the strings to be returned; leave empty to request all available strings */
-        keys?: td_vector<td_string>;
+        keys: td_vector<td_string>;
     }
     
     
@@ -13414,7 +13414,7 @@ namespace TdApi {
     export interface td_synchronizeLanguagePack {
         '@type': 'synchronizeLanguagePack';
         /** Language pack identifier */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
     }
     
     
@@ -13422,7 +13422,7 @@ namespace TdApi {
     export interface td_addCustomServerLanguagePack {
         '@type': 'addCustomServerLanguagePack';
         /** Identifier of a language pack to be added; may be different from a name that is used in an "https://t.me/setlanguage/" link */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
     }
     
     
@@ -13430,9 +13430,9 @@ namespace TdApi {
     export interface td_setCustomLanguagePack {
         '@type': 'setCustomLanguagePack';
         /** Information about the language pack. Language pack ID must start with 'X', consist only of English letters, digits and hyphens, and must not exceed 64 characters. Can be called before authorization */
-        info?: td_languagePackInfo;
+        info: td_languagePackInfo;
         /** Strings of the new language pack */
-        strings?: td_vector<td_languagePackString>;
+        strings: td_vector<td_languagePackString>;
     }
     
     
@@ -13440,7 +13440,7 @@ namespace TdApi {
     export interface td_editCustomLanguagePackInfo {
         '@type': 'editCustomLanguagePackInfo';
         /** New information about the custom local language pack */
-        info?: td_languagePackInfo;
+        info: td_languagePackInfo;
     }
     
     
@@ -13448,9 +13448,9 @@ namespace TdApi {
     export interface td_setCustomLanguagePackString {
         '@type': 'setCustomLanguagePackString';
         /** Identifier of a previously added custom local language pack in the current localization target */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
         /** New language pack string */
-        new_string?: td_languagePackString;
+        new_string: td_languagePackString;
     }
     
     
@@ -13458,7 +13458,7 @@ namespace TdApi {
     export interface td_deleteLanguagePack {
         '@type': 'deleteLanguagePack';
         /** Identifier of the language pack to delete */
-        language_pack_id?: td_string;
+        language_pack_id: td_string;
     }
     
     
@@ -13466,9 +13466,9 @@ namespace TdApi {
     export interface td_registerDevice {
         '@type': 'registerDevice';
         /** Device token */
-        device_token?: td_DeviceToken;
+        device_token: td_DeviceToken;
         /** List of user identifiers of other users currently using the application */
-        other_user_ids?: td_vector<td_int53>;
+        other_user_ids: td_vector<td_int53>;
     }
     
     
@@ -13476,7 +13476,7 @@ namespace TdApi {
     export interface td_processPushNotification {
         '@type': 'processPushNotification';
         /** JSON-encoded push notification payload with all fields sent by the server, and "google.sent_time" and "google.notification.sound" fields added */
-        payload?: td_string;
+        payload: td_string;
     }
     
     
@@ -13484,7 +13484,7 @@ namespace TdApi {
     export interface td_getPushReceiverId {
         '@type': 'getPushReceiverId';
         /** JSON-encoded push notification payload */
-        payload?: td_string;
+        payload: td_string;
     }
     
     
@@ -13492,7 +13492,7 @@ namespace TdApi {
     export interface td_getRecentlyVisitedTMeUrls {
         '@type': 'getRecentlyVisitedTMeUrls';
         /** Google Play referrer to identify the user */
-        referrer?: td_string;
+        referrer: td_string;
     }
     
     
@@ -13500,9 +13500,9 @@ namespace TdApi {
     export interface td_setUserPrivacySettingRules {
         '@type': 'setUserPrivacySettingRules';
         /** The privacy setting */
-        setting?: td_UserPrivacySetting;
+        setting: td_UserPrivacySetting;
         /** The new privacy rules */
-        rules?: td_userPrivacySettingRules;
+        rules: td_userPrivacySettingRules;
     }
     
     
@@ -13510,7 +13510,7 @@ namespace TdApi {
     export interface td_getUserPrivacySettingRules {
         '@type': 'getUserPrivacySettingRules';
         /** The privacy setting */
-        setting?: td_UserPrivacySetting;
+        setting: td_UserPrivacySetting;
     }
     
     
@@ -13518,7 +13518,7 @@ namespace TdApi {
     export interface td_getOption {
         '@type': 'getOption';
         /** The name of the option */
-        name?: td_string;
+        name: td_string;
     }
     
     
@@ -13526,9 +13526,9 @@ namespace TdApi {
     export interface td_setOption {
         '@type': 'setOption';
         /** The name of the option */
-        name?: td_string;
+        name: td_string;
         /** The new value of the option; pass null to reset option value to a default value */
-        value?: td_OptionValue;
+        value: td_OptionValue;
     }
     
     
@@ -13536,7 +13536,7 @@ namespace TdApi {
     export interface td_setAccountTtl {
         '@type': 'setAccountTtl';
         /** New account TTL */
-        ttl?: td_accountTtl;
+        ttl: td_accountTtl;
     }
     
     
@@ -13550,7 +13550,7 @@ namespace TdApi {
     export interface td_deleteAccount {
         '@type': 'deleteAccount';
         /** The reason why the account was deleted; optional */
-        reason?: td_string;
+        reason: td_string;
     }
     
     
@@ -13558,7 +13558,7 @@ namespace TdApi {
     export interface td_removeChatActionBar {
         '@type': 'removeChatActionBar';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -13566,13 +13566,13 @@ namespace TdApi {
     export interface td_reportChat {
         '@type': 'reportChat';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifiers of reported messages, if any */
-        message_ids?: td_vector<td_int53>;
+        message_ids: td_vector<td_int53>;
         /** The reason for reporting the chat */
-        reason?: td_ChatReportReason;
+        reason: td_ChatReportReason;
         /** Additional report details; 0-1024 characters */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -13580,13 +13580,13 @@ namespace TdApi {
     export interface td_reportChatPhoto {
         '@type': 'reportChatPhoto';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Identifier of the photo to report. Only full photos from chatPhoto can be reported */
-        file_id?: td_int32;
+        file_id: td_int32;
         /** The reason for reporting the chat photo */
-        reason?: td_ChatReportReason;
+        reason: td_ChatReportReason;
         /** Additional report details; 0-1024 characters */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -13594,9 +13594,9 @@ namespace TdApi {
     export interface td_getChatStatistics {
         '@type': 'getChatStatistics';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Pass true if a dark theme is used by the application */
-        is_dark?: td_Bool;
+        is_dark: td_Bool;
     }
     
     
@@ -13604,11 +13604,11 @@ namespace TdApi {
     export interface td_getMessageStatistics {
         '@type': 'getMessageStatistics';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** Message identifier */
-        message_id?: td_int53;
+        message_id: td_int53;
         /** Pass true if a dark theme is used by the application */
-        is_dark?: td_Bool;
+        is_dark: td_Bool;
     }
     
     
@@ -13616,11 +13616,11 @@ namespace TdApi {
     export interface td_getStatisticalGraph {
         '@type': 'getStatisticalGraph';
         /** Chat identifier */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The token for graph loading */
-        token?: td_string;
+        token: td_string;
         /** X-value for zoomed in graph or 0 otherwise */
-        x?: td_int53;
+        x: td_int53;
     }
     
     
@@ -13634,7 +13634,7 @@ namespace TdApi {
     export interface td_setNetworkType {
         '@type': 'setNetworkType';
         /** The new network type; pass null to set network type to networkTypeOther */
-        type?: td_NetworkType;
+        type: td_NetworkType;
     }
     
     
@@ -13642,7 +13642,7 @@ namespace TdApi {
     export interface td_getNetworkStatistics {
         '@type': 'getNetworkStatistics';
         /** If true, returns only data for the current library launch */
-        only_current?: td_Bool;
+        only_current: td_Bool;
     }
     
     
@@ -13650,7 +13650,7 @@ namespace TdApi {
     export interface td_addNetworkStatistics {
         '@type': 'addNetworkStatistics';
         /** The network statistics entry with the data to be added to statistics */
-        entry?: td_NetworkStatisticsEntry;
+        entry: td_NetworkStatisticsEntry;
     }
     
     
@@ -13670,9 +13670,9 @@ namespace TdApi {
     export interface td_setAutoDownloadSettings {
         '@type': 'setAutoDownloadSettings';
         /** New user auto-download settings */
-        settings?: td_autoDownloadSettings;
+        settings: td_autoDownloadSettings;
         /** Type of the network for which the new settings are relevant */
-        type?: td_NetworkType;
+        type: td_NetworkType;
     }
     
     
@@ -13680,7 +13680,7 @@ namespace TdApi {
     export interface td_getBankCardInfo {
         '@type': 'getBankCardInfo';
         /** The bank card number */
-        bank_card_number?: td_string;
+        bank_card_number: td_string;
     }
     
     
@@ -13688,9 +13688,9 @@ namespace TdApi {
     export interface td_getPassportElement {
         '@type': 'getPassportElement';
         /** Telegram Passport element type */
-        type?: td_PassportElementType;
+        type: td_PassportElementType;
         /** Password of the current user */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -13698,7 +13698,7 @@ namespace TdApi {
     export interface td_getAllPassportElements {
         '@type': 'getAllPassportElements';
         /** Password of the current user */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -13706,9 +13706,9 @@ namespace TdApi {
     export interface td_setPassportElement {
         '@type': 'setPassportElement';
         /** Input Telegram Passport element */
-        element?: td_InputPassportElement;
+        element: td_InputPassportElement;
         /** Password of the current user */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -13716,7 +13716,7 @@ namespace TdApi {
     export interface td_deletePassportElement {
         '@type': 'deletePassportElement';
         /** Element type */
-        type?: td_PassportElementType;
+        type: td_PassportElementType;
     }
     
     
@@ -13724,9 +13724,9 @@ namespace TdApi {
     export interface td_setPassportElementErrors {
         '@type': 'setPassportElementErrors';
         /** User identifier */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** The errors */
-        errors?: td_vector<td_inputPassportElementError>;
+        errors: td_vector<td_inputPassportElementError>;
     }
     
     
@@ -13734,7 +13734,7 @@ namespace TdApi {
     export interface td_getPreferredCountryLanguage {
         '@type': 'getPreferredCountryLanguage';
         /** A two-letter ISO 3166-1 alpha-2 country code */
-        country_code?: td_string;
+        country_code: td_string;
     }
     
     
@@ -13742,9 +13742,9 @@ namespace TdApi {
     export interface td_sendPhoneNumberVerificationCode {
         '@type': 'sendPhoneNumberVerificationCode';
         /** The phone number of the user, in international format */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** Settings for the authentication of the user's phone number; pass null to use default settings */
-        settings?: td_phoneNumberAuthenticationSettings;
+        settings: td_phoneNumberAuthenticationSettings;
     }
     
     
@@ -13758,7 +13758,7 @@ namespace TdApi {
     export interface td_checkPhoneNumberVerificationCode {
         '@type': 'checkPhoneNumberVerificationCode';
         /** Verification code */
-        code?: td_string;
+        code: td_string;
     }
     
     
@@ -13766,7 +13766,7 @@ namespace TdApi {
     export interface td_sendEmailAddressVerificationCode {
         '@type': 'sendEmailAddressVerificationCode';
         /** Email address */
-        email_address?: td_string;
+        email_address: td_string;
     }
     
     
@@ -13780,7 +13780,7 @@ namespace TdApi {
     export interface td_checkEmailAddressVerificationCode {
         '@type': 'checkEmailAddressVerificationCode';
         /** Verification code */
-        code?: td_string;
+        code: td_string;
     }
     
     
@@ -13788,13 +13788,13 @@ namespace TdApi {
     export interface td_getPassportAuthorizationForm {
         '@type': 'getPassportAuthorizationForm';
         /** User identifier of the service's bot */
-        bot_user_id?: td_int53;
+        bot_user_id: td_int53;
         /** Telegram Passport element types requested by the service */
-        scope?: td_string;
+        scope: td_string;
         /** Service's public key */
-        public_key?: td_string;
+        public_key: td_string;
         /** Unique request identifier provided by the service */
-        nonce?: td_string;
+        nonce: td_string;
     }
     
     
@@ -13802,9 +13802,9 @@ namespace TdApi {
     export interface td_getPassportAuthorizationFormAvailableElements {
         '@type': 'getPassportAuthorizationFormAvailableElements';
         /** Authorization form identifier */
-        autorization_form_id?: td_int32;
+        autorization_form_id: td_int32;
         /** Password of the current user */
-        password?: td_string;
+        password: td_string;
     }
     
     
@@ -13812,9 +13812,9 @@ namespace TdApi {
     export interface td_sendPassportAuthorizationForm {
         '@type': 'sendPassportAuthorizationForm';
         /** Authorization form identifier */
-        autorization_form_id?: td_int32;
+        autorization_form_id: td_int32;
         /** Types of Telegram Passport elements chosen by user to complete the authorization form */
-        types?: td_vector<td_PassportElementType>;
+        types: td_vector<td_PassportElementType>;
     }
     
     
@@ -13822,11 +13822,11 @@ namespace TdApi {
     export interface td_sendPhoneNumberConfirmationCode {
         '@type': 'sendPhoneNumberConfirmationCode';
         /** Hash value from the link */
-        hash?: td_string;
+        hash: td_string;
         /** Phone number value from the link */
-        phone_number?: td_string;
+        phone_number: td_string;
         /** Settings for the authentication of the user's phone number; pass null to use default settings */
-        settings?: td_phoneNumberAuthenticationSettings;
+        settings: td_phoneNumberAuthenticationSettings;
     }
     
     
@@ -13840,7 +13840,7 @@ namespace TdApi {
     export interface td_checkPhoneNumberConfirmationCode {
         '@type': 'checkPhoneNumberConfirmationCode';
         /** The phone number confirmation code */
-        code?: td_string;
+        code: td_string;
     }
     
     
@@ -13848,9 +13848,9 @@ namespace TdApi {
     export interface td_setBotUpdatesStatus {
         '@type': 'setBotUpdatesStatus';
         /** The number of pending updates */
-        pending_update_count?: td_int32;
+        pending_update_count: td_int32;
         /** The last error message */
-        error_message?: td_string;
+        error_message: td_string;
     }
     
     
@@ -13858,9 +13858,9 @@ namespace TdApi {
     export interface td_uploadStickerFile {
         '@type': 'uploadStickerFile';
         /** Sticker file owner; ignored for regular users */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Sticker file to upload */
-        sticker?: td_InputSticker;
+        sticker: td_InputSticker;
     }
     
     
@@ -13868,7 +13868,7 @@ namespace TdApi {
     export interface td_getSuggestedStickerSetName {
         '@type': 'getSuggestedStickerSetName';
         /** Sticker set title; 1-64 characters */
-        title?: td_string;
+        title: td_string;
     }
     
     
@@ -13876,7 +13876,7 @@ namespace TdApi {
     export interface td_checkStickerSetName {
         '@type': 'checkStickerSetName';
         /** Name to be checked */
-        name?: td_string;
+        name: td_string;
     }
     
     
@@ -13884,17 +13884,17 @@ namespace TdApi {
     export interface td_createNewStickerSet {
         '@type': 'createNewStickerSet';
         /** Sticker set owner; ignored for regular users */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Sticker set title; 1-64 characters */
-        title?: td_string;
+        title: td_string;
         /** Sticker set name. Can contain only English letters, digits and underscores. Must end with *"_by_<bot username>"* (*<bot_username>* is case insensitive) for bots; 1-64 characters */
-        name?: td_string;
+        name: td_string;
         /** True, if stickers are masks. Animated stickers can't be masks */
-        is_masks?: td_Bool;
+        is_masks: td_Bool;
         /** List of stickers to be added to the set; must be non-empty. All stickers must be of the same type. For animated stickers, uploadStickerFile must be used before the sticker is shown */
-        stickers?: td_vector<td_InputSticker>;
+        stickers: td_vector<td_InputSticker>;
         /** Source of the sticker set; may be empty if unknown */
-        source?: td_string;
+        source: td_string;
     }
     
     
@@ -13902,11 +13902,11 @@ namespace TdApi {
     export interface td_addStickerToSet {
         '@type': 'addStickerToSet';
         /** Sticker set owner */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Sticker set name */
-        name?: td_string;
+        name: td_string;
         /** Sticker to add to the set */
-        sticker?: td_InputSticker;
+        sticker: td_InputSticker;
     }
     
     
@@ -13914,11 +13914,11 @@ namespace TdApi {
     export interface td_setStickerSetThumbnail {
         '@type': 'setStickerSetThumbnail';
         /** Sticker set owner */
-        user_id?: td_int53;
+        user_id: td_int53;
         /** Sticker set name */
-        name?: td_string;
+        name: td_string;
         /** Thumbnail to set in PNG or TGS format; pass null to remove the sticker set thumbnail. Animated thumbnail must be set for animated sticker sets and only for them */
-        thumbnail?: td_InputFile;
+        thumbnail: td_InputFile;
     }
     
     
@@ -13926,9 +13926,9 @@ namespace TdApi {
     export interface td_setStickerPositionInSet {
         '@type': 'setStickerPositionInSet';
         /** Sticker */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
         /** New position of the sticker in the set, zero-based */
-        position?: td_int32;
+        position: td_int32;
     }
     
     
@@ -13936,7 +13936,7 @@ namespace TdApi {
     export interface td_removeStickerFromSet {
         '@type': 'removeStickerFromSet';
         /** Sticker */
-        sticker?: td_InputFile;
+        sticker: td_InputFile;
     }
     
     
@@ -13944,17 +13944,17 @@ namespace TdApi {
     export interface td_getMapThumbnailFile {
         '@type': 'getMapThumbnailFile';
         /** Location of the map center */
-        location?: td_location;
+        location: td_location;
         /** Map zoom level; 13-20 */
-        zoom?: td_int32;
+        zoom: td_int32;
         /** Map width in pixels before applying scale; 16-1024 */
-        width?: td_int32;
+        width: td_int32;
         /** Map height in pixels before applying scale; 16-1024 */
-        height?: td_int32;
+        height: td_int32;
         /** Map scale; 1-3 */
-        scale?: td_int32;
+        scale: td_int32;
         /** Identifier of a chat, in which the thumbnail will be shown. Use 0 if unknown */
-        chat_id?: td_int53;
+        chat_id: td_int53;
     }
     
     
@@ -13962,7 +13962,7 @@ namespace TdApi {
     export interface td_acceptTermsOfService {
         '@type': 'acceptTermsOfService';
         /** Terms of service identifier */
-        terms_of_service_id?: td_string;
+        terms_of_service_id: td_string;
     }
     
     
@@ -13970,9 +13970,9 @@ namespace TdApi {
     export interface td_sendCustomRequest {
         '@type': 'sendCustomRequest';
         /** The method name */
-        method?: td_string;
+        method: td_string;
         /** JSON-serialized method parameters */
-        parameters?: td_string;
+        parameters: td_string;
     }
     
     
@@ -13980,9 +13980,9 @@ namespace TdApi {
     export interface td_answerCustomQuery {
         '@type': 'answerCustomQuery';
         /** Identifier of a custom query */
-        custom_query_id?: td_int64;
+        custom_query_id: td_int64;
         /** JSON-serialized answer to the query */
-        data?: td_string;
+        data: td_string;
     }
     
     
@@ -13990,7 +13990,7 @@ namespace TdApi {
     export interface td_setAlarm {
         '@type': 'setAlarm';
         /** Number of seconds before the function returns */
-        seconds?: td_double;
+        seconds: td_double;
     }
     
     
@@ -14010,7 +14010,7 @@ namespace TdApi {
     export interface td_getPhoneNumberInfo {
         '@type': 'getPhoneNumberInfo';
         /** The phone number prefix */
-        phone_number_prefix?: td_string;
+        phone_number_prefix: td_string;
     }
     
     
@@ -14018,9 +14018,9 @@ namespace TdApi {
     export interface td_getPhoneNumberInfoSync {
         '@type': 'getPhoneNumberInfoSync';
         /** A two-letter ISO 639-1 country code for country information localization */
-        language_code?: td_string;
+        language_code: td_string;
         /** The phone number prefix */
-        phone_number_prefix?: td_string;
+        phone_number_prefix: td_string;
     }
     
     
@@ -14034,7 +14034,7 @@ namespace TdApi {
     export interface td_getDeepLinkInfo {
         '@type': 'getDeepLinkInfo';
         /** The link */
-        link?: td_string;
+        link: td_string;
     }
     
     
@@ -14048,11 +14048,11 @@ namespace TdApi {
     export interface td_saveApplicationLogEvent {
         '@type': 'saveApplicationLogEvent';
         /** Event type */
-        type?: td_string;
+        type: td_string;
         /** Optional chat identifier, associated with the event */
-        chat_id?: td_int53;
+        chat_id: td_int53;
         /** The log event data */
-        data?: td_JsonValue;
+        data: td_JsonValue;
     }
     
     
@@ -14060,15 +14060,15 @@ namespace TdApi {
     export interface td_editProxy {
         '@type': 'editProxy';
         /** Proxy identifier */
-        proxy_id?: td_int32;
+        proxy_id: td_int32;
         /** Proxy server IP address */
-        server?: td_string;
+        server: td_string;
         /** Proxy server port */
-        port?: td_int32;
+        port: td_int32;
         /** True, if the proxy needs to be enabled */
-        enable?: td_Bool;
+        enable: td_Bool;
         /** Proxy type */
-        type?: td_ProxyType;
+        type: td_ProxyType;
     }
     
     
@@ -14076,7 +14076,7 @@ namespace TdApi {
     export interface td_enableProxy {
         '@type': 'enableProxy';
         /** Proxy identifier */
-        proxy_id?: td_int32;
+        proxy_id: td_int32;
     }
     
     
@@ -14090,7 +14090,7 @@ namespace TdApi {
     export interface td_removeProxy {
         '@type': 'removeProxy';
         /** Proxy identifier */
-        proxy_id?: td_int32;
+        proxy_id: td_int32;
     }
     
     
@@ -14104,7 +14104,7 @@ namespace TdApi {
     export interface td_getProxyLink {
         '@type': 'getProxyLink';
         /** Proxy identifier */
-        proxy_id?: td_int32;
+        proxy_id: td_int32;
     }
     
     
@@ -14112,7 +14112,7 @@ namespace TdApi {
     export interface td_pingProxy {
         '@type': 'pingProxy';
         /** Proxy identifier. Use 0 to ping a Telegram server without a proxy */
-        proxy_id?: td_int32;
+        proxy_id: td_int32;
     }
     
     
@@ -14120,7 +14120,7 @@ namespace TdApi {
     export interface td_setLogStream {
         '@type': 'setLogStream';
         /** New log stream */
-        log_stream?: td_LogStream;
+        log_stream: td_LogStream;
     }
     
     
@@ -14134,7 +14134,7 @@ namespace TdApi {
     export interface td_setLogVerbosityLevel {
         '@type': 'setLogVerbosityLevel';
         /** New value of the verbosity level for logging. Value 0 corresponds to fatal errors, value 1 corresponds to errors, value 2 corresponds to warnings and debug warnings, value 3 corresponds to informational, value 4 corresponds to debug, value 5 corresponds to verbose debug, value greater than 5 and up to 1023 can be used to enable even more logging */
-        new_verbosity_level?: td_int32;
+        new_verbosity_level: td_int32;
     }
     
     
@@ -14154,9 +14154,9 @@ namespace TdApi {
     export interface td_setLogTagVerbosityLevel {
         '@type': 'setLogTagVerbosityLevel';
         /** Logging tag to change verbosity level */
-        tag?: td_string;
+        tag: td_string;
         /** New verbosity level; 1-1024 */
-        new_verbosity_level?: td_int32;
+        new_verbosity_level: td_int32;
     }
     
     
@@ -14164,7 +14164,7 @@ namespace TdApi {
     export interface td_getLogTagVerbosityLevel {
         '@type': 'getLogTagVerbosityLevel';
         /** Logging tag to change verbosity level */
-        tag?: td_string;
+        tag: td_string;
     }
     
     
@@ -14172,9 +14172,9 @@ namespace TdApi {
     export interface td_addLogMessage {
         '@type': 'addLogMessage';
         /** The minimum verbosity level needed for the message to be logged; 0-1023 */
-        verbosity_level?: td_int32;
+        verbosity_level: td_int32;
         /** Text of a message to log */
-        text?: td_string;
+        text: td_string;
     }
     
     
@@ -14188,7 +14188,7 @@ namespace TdApi {
     export interface td_testCallString {
         '@type': 'testCallString';
         /** String to return */
-        x?: td_string;
+        x: td_string;
     }
     
     
@@ -14196,7 +14196,7 @@ namespace TdApi {
     export interface td_testCallBytes {
         '@type': 'testCallBytes';
         /** Bytes to return */
-        x?: td_bytes;
+        x: td_bytes;
     }
     
     
@@ -14204,7 +14204,7 @@ namespace TdApi {
     export interface td_testCallVectorInt {
         '@type': 'testCallVectorInt';
         /** Vector of numbers to return */
-        x?: td_vector<td_int32>;
+        x: td_vector<td_int32>;
     }
     
     
@@ -14212,7 +14212,7 @@ namespace TdApi {
     export interface td_testCallVectorIntObject {
         '@type': 'testCallVectorIntObject';
         /** Vector of objects to return */
-        x?: td_vector<td_testInt>;
+        x: td_vector<td_testInt>;
     }
     
     
@@ -14220,7 +14220,7 @@ namespace TdApi {
     export interface td_testCallVectorString {
         '@type': 'testCallVectorString';
         /** Vector of strings to return */
-        x?: td_vector<td_string>;
+        x: td_vector<td_string>;
     }
     
     
@@ -14228,7 +14228,7 @@ namespace TdApi {
     export interface td_testCallVectorStringObject {
         '@type': 'testCallVectorStringObject';
         /** Vector of objects to return */
-        x?: td_vector<td_testString>;
+        x: td_vector<td_testString>;
     }
     
     
@@ -14236,7 +14236,7 @@ namespace TdApi {
     export interface td_testSquareInt {
         '@type': 'testSquareInt';
         /** Number to square */
-        x?: td_int32;
+        x: td_int32;
     }
     
     
@@ -14250,15 +14250,15 @@ namespace TdApi {
     export interface td_testProxy {
         '@type': 'testProxy';
         /** Proxy server IP address */
-        server?: td_string;
+        server: td_string;
         /** Proxy server port */
-        port?: td_int32;
+        port: td_int32;
         /** Proxy type */
-        type?: td_ProxyType;
+        type: td_ProxyType;
         /** Identifier of a datacenter, with which to test connection */
-        dc_id?: td_int32;
+        dc_id: td_int32;
         /** The maximum overall timeout for the request */
-        timeout?: td_double;
+        timeout: td_double;
     }
     
     
@@ -14278,7 +14278,7 @@ namespace TdApi {
     export interface td_testReturnError {
         '@type': 'testReturnError';
         /** The error to be returned */
-        error?: td_error;
+        error: td_error;
     }
     
     
@@ -14286,7 +14286,7 @@ namespace TdApi {
     export interface td_setJsLogVerbosityLevel {
         '@type': 'setJsLogVerbosityLevel';
         /** New value of the verbosity level for logging. */
-        new_verbosity_level?: td_jsLogLevel;
+        new_verbosity_level: td_jsLogLevel;
     }
     
     export type TdFunction = td_getAuthorizationState | td_setTdlibParameters | td_checkDatabaseEncryptionKey | td_setAuthenticationPhoneNumber | td_resendAuthenticationCode | td_checkAuthenticationCode | td_requestQrCodeAuthentication | td_registerUser | td_checkAuthenticationPassword | td_requestAuthenticationPasswordRecovery | td_checkAuthenticationPasswordRecoveryCode | td_recoverAuthenticationPassword | td_checkAuthenticationBotToken | td_logOut | td_close | td_destroy | td_confirmQrCodeAuthentication | td_getCurrentState | td_setDatabaseEncryptionKey | td_getPasswordState | td_setPassword | td_getRecoveryEmailAddress | td_setRecoveryEmailAddress | td_checkRecoveryEmailAddressCode | td_resendRecoveryEmailAddressCode | td_requestPasswordRecovery | td_checkPasswordRecoveryCode | td_recoverPassword | td_resetPassword | td_cancelPasswordReset | td_createTemporaryPassword | td_getTemporaryPasswordState | td_getMe | td_getUser | td_getUserFullInfo | td_getBasicGroup | td_getBasicGroupFullInfo | td_getSupergroup | td_getSupergroupFullInfo | td_getSecretChat | td_getChat | td_getMessage | td_getMessageLocally | td_getRepliedMessage | td_getChatPinnedMessage | td_getCallbackQueryMessage | td_getMessages | td_getMessageThread | td_getMessageViewers | td_getFile | td_getRemoteFile | td_loadChats | td_getChats | td_searchPublicChat | td_searchPublicChats | td_searchChats | td_searchChatsOnServer | td_searchChatsNearby | td_getTopChats | td_removeTopChat | td_addRecentlyFoundChat | td_removeRecentlyFoundChat | td_clearRecentlyFoundChats | td_getRecentlyOpenedChats | td_checkChatUsername | td_getCreatedPublicChats | td_checkCreatedPublicChatsLimit | td_getSuitableDiscussionChats | td_getInactiveSupergroupChats | td_getGroupsInCommon | td_getChatHistory | td_getMessageThreadHistory | td_deleteChatHistory | td_deleteChat | td_searchChatMessages | td_searchMessages | td_searchSecretMessages | td_searchCallMessages | td_deleteAllCallMessages | td_searchChatRecentLocationMessages | td_getActiveLiveLocationMessages | td_getChatMessageByDate | td_getChatMessageCount | td_getChatScheduledMessages | td_getMessagePublicForwards | td_getChatSponsoredMessages | td_viewSponsoredMessage | td_removeNotification | td_removeNotificationGroup | td_getMessageLink | td_getMessageEmbeddingCode | td_getMessageLinkInfo | td_sendMessage | td_sendMessageAlbum | td_sendBotStartMessage | td_sendInlineQueryResultMessage | td_forwardMessages | td_resendMessages | td_sendChatScreenshotTakenNotification | td_addLocalMessage | td_deleteMessages | td_deleteChatMessagesFromUser | td_editMessageText | td_editMessageLiveLocation | td_editMessageMedia | td_editMessageCaption | td_editMessageReplyMarkup | td_editInlineMessageText | td_editInlineMessageLiveLocation | td_editInlineMessageMedia | td_editInlineMessageCaption | td_editInlineMessageReplyMarkup | td_editMessageSchedulingState | td_getTextEntities | td_parseTextEntities | td_parseMarkdown | td_getMarkdownText | td_getFileMimeType | td_getFileExtension | td_cleanFileName | td_getLanguagePackString | td_getJsonValue | td_getJsonString | td_setPollAnswer | td_getPollVoters | td_stopPoll | td_hideSuggestedAction | td_getLoginUrlInfo | td_getLoginUrl | td_getInlineQueryResults | td_answerInlineQuery | td_getCallbackQueryAnswer | td_answerCallbackQuery | td_answerShippingQuery | td_answerPreCheckoutQuery | td_setGameScore | td_setInlineGameScore | td_getGameHighScores | td_getInlineGameHighScores | td_deleteChatReplyMarkup | td_sendChatAction | td_openChat | td_closeChat | td_viewMessages | td_openMessageContent | td_clickAnimatedEmojiMessage | td_getInternalLinkType | td_getExternalLinkInfo | td_getExternalLink | td_readAllChatMentions | td_createPrivateChat | td_createBasicGroupChat | td_createSupergroupChat | td_createSecretChat | td_createNewBasicGroupChat | td_createNewSupergroupChat | td_createNewSecretChat | td_upgradeBasicGroupChatToSupergroupChat | td_getChatListsToAddChat | td_addChatToList | td_getChatFilter | td_createChatFilter | td_editChatFilter | td_deleteChatFilter | td_reorderChatFilters | td_getRecommendedChatFilters | td_getChatFilterDefaultIconName | td_setChatTitle | td_setChatPhoto | td_setChatMessageTtlSetting | td_setChatPermissions | td_setChatTheme | td_setChatDraftMessage | td_setChatNotificationSettings | td_toggleChatIsMarkedAsUnread | td_toggleChatDefaultDisableNotification | td_setChatClientData | td_setChatDescription | td_setChatDiscussionGroup | td_setChatLocation | td_setChatSlowModeDelay | td_pinChatMessage | td_unpinChatMessage | td_unpinAllChatMessages | td_joinChat | td_leaveChat | td_addChatMember | td_addChatMembers | td_setChatMemberStatus | td_banChatMember | td_canTransferOwnership | td_transferChatOwnership | td_getChatMember | td_searchChatMembers | td_getChatAdministrators | td_clearAllDraftMessages | td_getChatNotificationSettingsExceptions | td_getScopeNotificationSettings | td_setScopeNotificationSettings | td_resetAllNotificationSettings | td_toggleChatIsPinned | td_setPinnedChats | td_downloadFile | td_cancelDownloadFile | td_getSuggestedFileName | td_uploadFile | td_cancelUploadFile | td_writeGeneratedFilePart | td_setFileGenerationProgress | td_finishFileGeneration | td_readFilePart | td_deleteFile | td_getMessageFileType | td_getMessageImportConfirmationText | td_importMessages | td_replacePrimaryChatInviteLink | td_createChatInviteLink | td_editChatInviteLink | td_getChatInviteLink | td_getChatInviteLinkCounts | td_getChatInviteLinks | td_getChatInviteLinkMembers | td_revokeChatInviteLink | td_deleteRevokedChatInviteLink | td_deleteAllRevokedChatInviteLinks | td_checkChatInviteLink | td_joinChatByInviteLink | td_createCall | td_acceptCall | td_sendCallSignalingData | td_discardCall | td_sendCallRating | td_sendCallDebugInformation | td_getVoiceChatAvailableParticipants | td_setVoiceChatDefaultParticipant | td_createVoiceChat | td_getGroupCall | td_startScheduledGroupCall | td_toggleGroupCallEnabledStartNotification | td_joinGroupCall | td_startGroupCallScreenSharing | td_toggleGroupCallScreenSharingIsPaused | td_endGroupCallScreenSharing | td_setGroupCallTitle | td_toggleGroupCallMuteNewParticipants | td_revokeGroupCallInviteLink | td_inviteGroupCallParticipants | td_getGroupCallInviteLink | td_startGroupCallRecording | td_endGroupCallRecording | td_toggleGroupCallIsMyVideoPaused | td_toggleGroupCallIsMyVideoEnabled | td_setGroupCallParticipantIsSpeaking | td_toggleGroupCallParticipantIsMuted | td_setGroupCallParticipantVolumeLevel | td_toggleGroupCallParticipantIsHandRaised | td_loadGroupCallParticipants | td_leaveGroupCall | td_discardGroupCall | td_getGroupCallStreamSegment | td_toggleMessageSenderIsBlocked | td_blockMessageSenderFromReplies | td_getBlockedMessageSenders | td_addContact | td_importContacts | td_getContacts | td_searchContacts | td_removeContacts | td_getImportedContactCount | td_changeImportedContacts | td_clearImportedContacts | td_sharePhoneNumber | td_getUserProfilePhotos | td_getStickers | td_searchStickers | td_getInstalledStickerSets | td_getArchivedStickerSets | td_getTrendingStickerSets | td_getAttachedStickerSets | td_getStickerSet | td_searchStickerSet | td_searchInstalledStickerSets | td_searchStickerSets | td_changeStickerSet | td_viewTrendingStickerSets | td_reorderInstalledStickerSets | td_getRecentStickers | td_addRecentSticker | td_removeRecentSticker | td_clearRecentStickers | td_getFavoriteStickers | td_addFavoriteSticker | td_removeFavoriteSticker | td_getStickerEmojis | td_searchEmojis | td_getEmojiSuggestionsUrl | td_getSavedAnimations | td_addSavedAnimation | td_removeSavedAnimation | td_getRecentInlineBots | td_searchHashtags | td_removeRecentHashtag | td_getWebPagePreview | td_getWebPageInstantView | td_setProfilePhoto | td_deleteProfilePhoto | td_setName | td_setBio | td_setUsername | td_setLocation | td_changePhoneNumber | td_resendChangePhoneNumberCode | td_checkChangePhoneNumberCode | td_setCommands | td_deleteCommands | td_getCommands | td_getActiveSessions | td_terminateSession | td_terminateAllOtherSessions | td_getConnectedWebsites | td_disconnectWebsite | td_disconnectAllWebsites | td_setSupergroupUsername | td_setSupergroupStickerSet | td_toggleSupergroupSignMessages | td_toggleSupergroupIsAllHistoryAvailable | td_toggleSupergroupIsBroadcastGroup | td_reportSupergroupSpam | td_getSupergroupMembers | td_closeSecretChat | td_getChatEventLog | td_getPaymentForm | td_validateOrderInfo | td_sendPaymentForm | td_getPaymentReceipt | td_getSavedOrderInfo | td_deleteSavedOrderInfo | td_deleteSavedCredentials | td_getSupportUser | td_getBackgrounds | td_getBackgroundUrl | td_searchBackground | td_setBackground | td_removeBackground | td_resetBackgrounds | td_getLocalizationTargetInfo | td_getLanguagePackInfo | td_getLanguagePackStrings | td_synchronizeLanguagePack | td_addCustomServerLanguagePack | td_setCustomLanguagePack | td_editCustomLanguagePackInfo | td_setCustomLanguagePackString | td_deleteLanguagePack | td_registerDevice | td_processPushNotification | td_getPushReceiverId | td_getRecentlyVisitedTMeUrls | td_setUserPrivacySettingRules | td_getUserPrivacySettingRules | td_getOption | td_setOption | td_setAccountTtl | td_getAccountTtl | td_deleteAccount | td_removeChatActionBar | td_reportChat | td_reportChatPhoto | td_getChatStatistics | td_getMessageStatistics | td_getStatisticalGraph | td_getDatabaseStatistics | td_setNetworkType | td_getNetworkStatistics | td_addNetworkStatistics | td_resetNetworkStatistics | td_getAutoDownloadSettingsPresets | td_setAutoDownloadSettings | td_getBankCardInfo | td_getPassportElement | td_getAllPassportElements | td_setPassportElement | td_deletePassportElement | td_setPassportElementErrors | td_getPreferredCountryLanguage | td_sendPhoneNumberVerificationCode | td_resendPhoneNumberVerificationCode | td_checkPhoneNumberVerificationCode | td_sendEmailAddressVerificationCode | td_resendEmailAddressVerificationCode | td_checkEmailAddressVerificationCode | td_getPassportAuthorizationForm | td_getPassportAuthorizationFormAvailableElements | td_sendPassportAuthorizationForm | td_sendPhoneNumberConfirmationCode | td_resendPhoneNumberConfirmationCode | td_checkPhoneNumberConfirmationCode | td_setBotUpdatesStatus | td_uploadStickerFile | td_getSuggestedStickerSetName | td_checkStickerSetName | td_createNewStickerSet | td_addStickerToSet | td_setStickerSetThumbnail | td_setStickerPositionInSet | td_removeStickerFromSet | td_getMapThumbnailFile | td_acceptTermsOfService | td_sendCustomRequest | td_answerCustomQuery | td_setAlarm | td_getCountries | td_getCountryCode | td_getPhoneNumberInfo | td_getPhoneNumberInfoSync | td_getApplicationDownloadLink | td_getDeepLinkInfo | td_getApplicationConfig | td_saveApplicationLogEvent | td_editProxy | td_enableProxy | td_disableProxy | td_removeProxy | td_getProxies | td_getProxyLink | td_pingProxy | td_setLogStream | td_getLogStream | td_setLogVerbosityLevel | td_getLogVerbosityLevel | td_getLogTags | td_setLogTagVerbosityLevel | td_getLogTagVerbosityLevel | td_addLogMessage | td_testCallEmpty | td_testCallString | td_testCallBytes | td_testCallVectorInt | td_testCallVectorIntObject | td_testCallVectorString | td_testCallVectorStringObject | td_testSquareInt | td_testNetwork | td_testProxy | td_testGetDifference | td_testUseUpdate | td_testReturnError | td_setJsLogVerbosityLevel;
