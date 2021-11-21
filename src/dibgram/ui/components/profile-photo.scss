@@ -22,13 +22,14 @@
         color: var(--theme-color-historyPeerUserpicFg);
         font-size: 18px;
 
-        &.color_1 { background-color: var(--theme-color-historyPeer1UserpicBg); } // These colors were intentionally reordered
-        &.color_2 { background-color: var(--theme-color-historyPeer8UserpicBg); }
-        &.color_3 { background-color: var(--theme-color-historyPeer5UserpicBg); }
-        &.color_4 { background-color: var(--theme-color-historyPeer2UserpicBg); }
-        &.color_5 { background-color: var(--theme-color-historyPeer4UserpicBg); }
-        &.color_6 { background-color: var(--theme-color-historyPeer4UserpicBg); }
-        &.color_7 { background-color: var(--theme-color-historyPeer6UserpicBg); }
+        &.color_1 { background-color: var(--theme-color-historyPeer1UserpicBg); }
+        &.color_2 { background-color: var(--theme-color-historyPeer2UserpicBg); }
+        &.color_3 { background-color: var(--theme-color-historyPeer3UserpicBg); }
+        &.color_4 { background-color: var(--theme-color-historyPeer4UserpicBg); }
+        &.color_5 { background-color: var(--theme-color-historyPeer5UserpicBg); }
+        &.color_6 { background-color: var(--theme-color-historyPeer6UserpicBg); }
+        &.color_7 { background-color: var(--theme-color-historyPeer7UserpicBg); }
+        &.color_8 { background-color: var(--theme-color-historyPeer8UserpicBg); }
     }
 
     .svg {

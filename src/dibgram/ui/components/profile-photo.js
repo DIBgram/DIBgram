@@ -96,7 +96,7 @@ ProfilePhoto.propTypes = {
 /** Renders photo initials fallback */
 function Initials({id, name}) {
     return (
-        <span className={'initials color_'+ ((Math.abs(id || 0) % 7) + 1)}>
+        <span className={'initials color_'+ getIdColorCode(id)}>
             {profileNameToInitials(name)}
         </span>
     );
@@ -107,6 +107,11 @@ Initials.propTypes = {
     /** Chat type ID, used to generate background color */
     id: PropTypes.number.isRequired
 };
+
+export function getIdColorCode(id) {
+    const map = [1, 8, 5, 2, 4, 4, 6];
+    return map[Math.abs(id || 0) % 7];
+}
 
 /**
  * Returns a chat's type ID. (supergroup Id / basic group ID / user ID)
