@@ -7,3 +7,61 @@
     padding: 3px 13px 4px;
     display: inline-block;
 }
+
+.history-message {
+    .bubble {
+        position: relative;
+        border-radius: 6px;
+        background-color: var(--theme-color-msgInBg);
+        font-size: 13px;
+        padding: 7px 13px;
+        margin-inline-start: 16px;
+        margin-inline-end: 57px;
+        max-width: 430px;
+        width: max-content;
+        white-space: pre-wrap;
+
+        &.has-tail {
+            border-end-start-radius: 0;
+        }
+
+        .tail {
+            position: absolute;
+            bottom: 0;
+            inset-inline-start: -6px;
+            width: 6px;
+            height: 10px;
+
+            svg {
+                position: absolute; // For some reason the svg is moved down by 2px, this is a workaround
+                top: 0;
+                left: 0;
+                fill: var(--theme-color-msgInBg);
+            }
+        }
+    }
+
+    &.outgoing {
+        .bubble {
+            margin-inline-start: 57px;
+            margin-inline-end: 16px;
+            background-color: var(--theme-color-msgOutBg);
+            float: right;
+
+            &.has-tail {
+                border-end-start-radius: 6px;
+                border-end-end-radius: 0;
+            }
+
+            .tail {
+                inset-inline-start: unset;
+                inset-inline-end: -6px;
+                transform: rotateY(180deg);
+                
+                svg {
+                    fill: var(--theme-color-msgOutBg);
+                }
+            }
+        }
+    }
+}
