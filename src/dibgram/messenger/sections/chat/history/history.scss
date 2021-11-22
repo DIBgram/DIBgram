@@ -1,8 +1,14 @@
 #chat-section > .history {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: stretch;
+    overflow: auto;
 
-    padding-bottom: 10px;
+    .history-scroll-content{
+        min-height: 100%;
+        box-sizing: border-box;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: stretch;
+        padding: 10px 0;
+    }
 }
