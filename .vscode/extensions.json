@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "stylelint.vscode-stylelint",
+        "dbaeumer.vscode-eslint",
+        "streetsidesoftware.code-spell-checker",
+        "SimonSiefke.svg-preview"
+    ]
+}
