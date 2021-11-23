@@ -1,12 +1,15 @@
 import React from 'react';
 import TdApi from '../../../TdWeb/td_api';
+import { timeToString } from '../../../time-tostring';
 import { getChatTypeId, getIdColorCode } from '../../../ui/components/profile-photo';
-import { bubble_tail } from '../../../ui/icon/icons';
+import { bubble_tail, dialogs_sending, history_received, history_sent } from '../../../ui/icon/icons';
 import { getChatNoCache } from '../../chat-store';
+import { getMessageStatus } from '../../message-misc';
 import { getUserFullName } from '../../user-misc';
 
 import './message-containers.scss';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ServiceMessage(props: { [key: string]: any }): JSX.Element {
     return (
         <div className="history-service-message" {...props}/>
@@ -56,8 +59,33 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
     }
     return (
         <MessageBubble>
-            <div className={`message-sender color_${senderId}`}>{sender}</div>
+            {sender && <div className={`message-sender color_${senderId}`}>{sender}</div>}
             {children}
+            <div className="after"/>
         </MessageBubble>
+    );
+}
+
+type MessageFooterProps= {
+    message: TdApi.td_message,
+    chat: TdApi.td_chat,
+}
+export function MessageFooter({message, chat}: MessageFooterProps): JSX.Element {
+    let tick= null;
+    switch(getMessageStatus(chat, message)) {
+    case 'sending':
+        tick= <span className="tick sending" dangerouslySetInnerHTML={{__html: dialogs_sending}}/>;
+        break;
+    case 'sent':
+        tick= <span className="tick sent" dangerouslySetInnerHTML={{__html: history_sent}}/>;
+        break;
+    case 'seen':
+        tick= <span className="tick seen" dangerouslySetInnerHTML={{__html: history_received}}/>;
+    }
+    return (
+        <div className="footer">
+            <div className="time">{timeToString(message.date)}</div>
+            {tick}
+        </div>
     );
 }

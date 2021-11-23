@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './history.scss';
-import { BubbleMessage } from '../../../message/ui/message-containers';
+import { BubbleMessage, MessageFooter } from '../../../message/ui/message-containers';
 import { _s__ } from '../../../../language-pack/language-pack';
 import withUsers from '../../../users-wrapper';
 import ScrollView from '../../../../ui/scroll/scrollbar';
@@ -19,6 +19,7 @@ export function ChatHistory({chat}) {
                             {message.content['@type'] === 'messageText' ?
                                 message.content.text.text :
                                 _s__('lngd_message_unsupported')}
+                            <MessageFooter message={message} chat={chat}/>
                         </div>
                     </BubbleMsg>
                 </div>

@@ -59,6 +59,33 @@
             word-wrap: break-word;
             unicode-bidi: plaintext;
         }
+
+        .footer {
+            float: right;
+            margin-inline-start: 10px;
+            position: relative;
+            top: 5px;
+            right: -2px;
+
+            .time {
+                color: var(--theme-color-msgInDateFg);
+                display: inline-block;
+                position: relative;
+                top: -1px;
+            }
+
+            .tick svg{
+                width: 20px;
+                height: 13px;
+                fill: var(--theme-color-historyOutIconFg);
+                margin-inline-start: 8px;
+                margin-inline-end: -4px;
+            }
+        }
+
+        .after {
+            clear: right;
+        }
     }
 
     &.outgoing {
@@ -81,6 +108,10 @@
                 svg {
                     fill: var(--theme-color-msgOutBg);
                 }
+            }
+
+            .footer .time {
+                color: var(--theme-color-msgOutDateFg);
             }
         }
     }
