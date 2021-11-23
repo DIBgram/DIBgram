@@ -3,13 +3,13 @@ import TdLib from '../TdWeb/tdlib';
 
 function reducer(state, action) {
     switch (action.type) {
-    case 'UPD_SUPERGROUP':
-        return {
-            ...state,
-            [action.supergroup.id]: action.supergroup
-        };
-    default:
-        return state;
+        case 'UPD_SUPERGROUP':
+            return {
+                ...state,
+                [action.supergroup.id]: action.supergroup
+            };
+        default:
+            return state;
     }
 }
 

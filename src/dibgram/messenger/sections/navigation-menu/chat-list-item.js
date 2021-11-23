@@ -91,15 +91,15 @@ class ChatListItem extends React.Component {
 
         var messageStatus = null;
         switch(getMessageStatus(chat, chat.last_message)) { // Is the message sending, sent or seen?
-        case 'sending': 
-            messageStatus = <span className="message-status-icon sending" dangerouslySetInnerHTML={{__html: dialogs_sending}}/>;
-            break;
-        case 'sent': 
-            messageStatus = <span className="message-status-icon sent" dangerouslySetInnerHTML={{__html: dialogs_sent}}/>;
-            break;
-        case 'seen': 
-            messageStatus = <span className="message-status-icon seen" dangerouslySetInnerHTML={{__html: dialogs_received}}/>;
-            break;
+            case 'sending': 
+                messageStatus = <span className="message-status-icon sending" dangerouslySetInnerHTML={{__html: dialogs_sending}}/>;
+                break;
+            case 'sent': 
+                messageStatus = <span className="message-status-icon sent" dangerouslySetInnerHTML={{__html: dialogs_sent}}/>;
+                break;
+            case 'seen': 
+                messageStatus = <span className="message-status-icon seen" dangerouslySetInnerHTML={{__html: dialogs_received}}/>;
+                break;
         }
 
         var unreadBadge = null;

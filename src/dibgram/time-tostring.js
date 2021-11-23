@@ -110,54 +110,54 @@ export function durationToString(duration) {
 
 export function lastSeenToString(status) {
     switch (status['@type']) {
-    case 'userLastStatusMonth':
-        return __('lng_status_last_month');
-    
-    case 'userStatusLastWeek':
-        return __('lng_status_last_week');
-
-    case 'userStatusOffline': {
-        let current = Math.floor((new Date().getTime()) / 1000);
-        let lastSeen = status.was_online;
-        let diff = current - lastSeen; // Difference in seconds
-        let diffMinutes = Math.floor(diff / 60);
-        let diffHours = Math.floor(diff / 3600);
+        case 'userLastStatusMonth':
+            return __('lng_status_last_month');
         
-        if (diffMinutes < 1)
-        {
-            return __('lng_status_lastseen_now');
-        }
-        if (diffMinutes < 60)
-        {
-            return __pl('lng_status_lastseen_minutes', [diffMinutes]);
-        }
-        if (diffHours < 12)
-        {
-            return __pl('lng_status_lastseen_hours', [diffHours]);
-        }
-        
-        let currentDate = TdLibDateToDate(current);
-        let lastSeenDate = TdLibDateToDate(lastSeen);
+        case 'userStatusLastWeek':
+            return __('lng_status_last_week');
 
-        if (currentDate.getHours() - diffHours >= 0)
-        {
-            return __fmt('lng_status_lastseen_today', {time: lastSeenDate.toLocaleTimeString('en-US')});
+        case 'userStatusOffline': {
+            let current = Math.floor((new Date().getTime()) / 1000);
+            let lastSeen = status.was_online;
+            let diff = current - lastSeen; // Difference in seconds
+            let diffMinutes = Math.floor(diff / 60);
+            let diffHours = Math.floor(diff / 3600);
+            
+            if (diffMinutes < 1)
+            {
+                return __('lng_status_lastseen_now');
+            }
+            if (diffMinutes < 60)
+            {
+                return __pl('lng_status_lastseen_minutes', [diffMinutes]);
+            }
+            if (diffHours < 12)
+            {
+                return __pl('lng_status_lastseen_hours', [diffHours]);
+            }
+            
+            let currentDate = TdLibDateToDate(current);
+            let lastSeenDate = TdLibDateToDate(lastSeen);
+
+            if (currentDate.getHours() - diffHours >= 0)
+            {
+                return __fmt('lng_status_lastseen_today', {time: lastSeenDate.toLocaleTimeString('en-US')});
+            }
+            if (currentDate.getHours() - diffHours < 0 && currentDate.getHours() - diffHours > -24)
+            {
+                return __fmt('lng_status_lastseen_yesterday', {time: lastSeenDate.toLocaleTimeString('en-US')});
+            }
+            return __fmt('lng_status_lastseen_date', {date: lastSeenDate.toLocaleDateString('en-US')});
         }
-        if (currentDate.getHours() - diffHours < 0 && currentDate.getHours() - diffHours > -24)
-        {
-            return __fmt('lng_status_lastseen_yesterday', {time: lastSeenDate.toLocaleTimeString('en-US')});
-        }
-        return __fmt('lng_status_lastseen_date', {date: lastSeenDate.toLocaleDateString('en-US')});
-    }
 
-    case 'userStatusRecently':
-        return __('lng_status_recently');
+        case 'userStatusRecently':
+            return __('lng_status_recently');
 
-    case 'userStatusOnline':
-        return __('lng_status_online');
+        case 'userStatusOnline':
+            return __('lng_status_online');
 
-    default: // userStatusEmpty
-        return null;
+        default: // userStatusEmpty
+            return null;
     }
 }
 

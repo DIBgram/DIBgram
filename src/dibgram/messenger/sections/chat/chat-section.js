@@ -28,24 +28,24 @@ connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSectio
         </div>
     );
     switch(chat.type['@type']){
-    case 'chatTypePrivate':
-        return (
-            <Provider store={usersStore}>
-                <ChatSectionContentWrapperPrivate chat={chat}/>
-            </Provider>
-        );
-    case 'chatTypeBasicGroup': 
-        return (
-            <Provider store={basicGroupStore}>
-                <ChatSectionContentWrapperBasicGroup chat={chat}/>
-            </Provider>
-        );
-    case 'chatTypeSupergroup':
-        return (
-            <Provider store={supergroupStore}>
-                <ChatSectionContentWrapperSupergroup chat={chat}/>
-            </Provider>
-        );
+        case 'chatTypePrivate':
+            return (
+                <Provider store={usersStore}>
+                    <ChatSectionContentWrapperPrivate chat={chat}/>
+                </Provider>
+            );
+        case 'chatTypeBasicGroup': 
+            return (
+                <Provider store={basicGroupStore}>
+                    <ChatSectionContentWrapperBasicGroup chat={chat}/>
+                </Provider>
+            );
+        case 'chatTypeSupergroup':
+            return (
+                <Provider store={supergroupStore}>
+                    <ChatSectionContentWrapperSupergroup chat={chat}/>
+                </Provider>
+            );
     }
 });
 

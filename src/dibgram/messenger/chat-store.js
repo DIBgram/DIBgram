@@ -22,98 +22,66 @@ function reducer(state= {
     }
 }, action) {
     switch (action.type) {
-    case 'SET_CURRENT_CHAT_LIST':
-        return {
-            ...state,
-            currentChatList: action.chatList
-        };
-    case 'SET_ARCHIVE_STATE':
-        return {
-            ...state,
-            archiveState: action.archiveState
-        };
-    case 'UPDATE_UNREAD_MESSAGE_COUNT':
-        if(action.chat_list['@type'] === 'chatListMain') {
+        case 'SET_CURRENT_CHAT_LIST':
             return {
                 ...state,
-                unread: {
-                    ...state.unread,
-                    main: {
-                        ...state.unread.main,
-                        unread_messages_count: action.unread_count,
-                        unread_unmuted_messages_count: action.unread_unmuted_count
-                    }
-                }
+                currentChatList: action.chatList
             };
-        } else if(action.chat_list['@type'] === 'chatListArchive') {
+        case 'SET_ARCHIVE_STATE':
             return {
                 ...state,
-                unread: {
-                    ...state.unread,
-                    archive: {
-                        ...state.unread.archive,
-                        unread_messages_count: action.unread_count,
-                        unread_unmuted_messages_count: action.unread_unmuted_count
-                    }
-                }
+                archiveState: action.archiveState
             };
-        } else if(action.chat_list['@type'] === 'chatListFilter') {
-            return {
-                ...state,
-                unread: {
-                    ...state.unread,
-                    filters: {
-                        ...state.unread.filters,
-                        [action.chat_list.chat_filter_id]: {
-                            ...state.unread.filters[action.chat_list.chat_filter_id],
+        case 'UPDATE_UNREAD_MESSAGE_COUNT':
+            if(action.chat_list['@type'] === 'chatListMain') {
+                return {
+                    ...state,
+                    unread: {
+                        ...state.unread,
+                        main: {
+                            ...state.unread.main,
                             unread_messages_count: action.unread_count,
                             unread_unmuted_messages_count: action.unread_unmuted_count
                         }
                     }
-                }
-            };
-        }
-        return state;
-    case 'UPDATE_UNREAD_CHAT_COUNT':
-        if(action.chat_list['@type'] === 'chatListMain') {
-            return {
-                ...state,
-                unread: {
-                    ...state.unread,
-                    main: {
-                        ...state.unread.main,
-                        total_chats_count: action.total_count,
-                        unread_chats_count: action.unread_count,
-                        unread_unmuted_chats_count: action.unread_unmuted_count,
-                        marked_as_unread_chats_count: action.marked_as_unread_count,
-                        marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
+                };
+            } else if(action.chat_list['@type'] === 'chatListArchive') {
+                return {
+                    ...state,
+                    unread: {
+                        ...state.unread,
+                        archive: {
+                            ...state.unread.archive,
+                            unread_messages_count: action.unread_count,
+                            unread_unmuted_messages_count: action.unread_unmuted_count
+                        }
                     }
-                }
-            };
-        } else if(action.chat_list['@type'] === 'chatListArchive') {
-            return {
-                ...state,
-                unread: {
-                    ...state.unread,
-                    archive: {
-                        ...state.unread.archive,
-                        total_chats_count: action.total_count,
-                        unread_chats_count: action.unread_count,
-                        unread_unmuted_chats_count: action.unread_unmuted_count,
-                        marked_as_unread_chats_count: action.marked_as_unread_count,
-                        marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
+                };
+            } else if(action.chat_list['@type'] === 'chatListFilter') {
+                return {
+                    ...state,
+                    unread: {
+                        ...state.unread,
+                        filters: {
+                            ...state.unread.filters,
+                            [action.chat_list.chat_filter_id]: {
+                                ...state.unread.filters[action.chat_list.chat_filter_id],
+                                unread_messages_count: action.unread_count,
+                                unread_unmuted_messages_count: action.unread_unmuted_count
+                            }
+                        }
                     }
-                }
-            };
-        } else if(action.chat_list['@type'] === 'chatListFilter') {
-            return {
-                ...state,
-                unread: {
-                    ...state.unread,
-                    filters: {
-                        ...state.unread.filters,
-                        [action.chat_list.chat_filter_id]: {
-                            ...state.unread.filters[action.chat_list.chat_filter_id],
+                };
+            }
+            return state;
+        case 'UPDATE_UNREAD_CHAT_COUNT':
+            if(action.chat_list['@type'] === 'chatListMain') {
+                return {
+                    ...state,
+                    unread: {
+                        ...state.unread,
+                        main: {
+                            ...state.unread.main,
                             total_chats_count: action.total_count,
                             unread_chats_count: action.unread_count,
                             unread_unmuted_chats_count: action.unread_unmuted_count,
@@ -121,79 +89,111 @@ function reducer(state= {
                             marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
                         }
                     }
-                }
-            };
-        }
-        return state;
-
-    case 'SET_ARCHIVE_BUTTON_STATE':
-        return {
-            ...state,
-            archiveButtonState: action.archiveButtonState
-        };
-    case 'ADD_CHAT':
-        return {
-            ...state,
-            chats: [
-                ...state.chats,
-                action.chat
-            ]
-        };
-    case 'UPDATE_CHAT_POSITION': // Replace the position property of a chat
-        return {
-            ...state,
-            chats: state.chats.map((chat) => {
-                if (chat.id === action.chat_id) {
-                    let changed=false;
-                    let newChat = {
-                        ...chat,
-                        positions: chat.positions.map((position) => {
-                            if (compareChatList(position.list, action.position.list)) {
-                                changed=true;
-                                return action.position;
+                };
+            } else if(action.chat_list['@type'] === 'chatListArchive') {
+                return {
+                    ...state,
+                    unread: {
+                        ...state.unread,
+                        archive: {
+                            ...state.unread.archive,
+                            total_chats_count: action.total_count,
+                            unread_chats_count: action.unread_count,
+                            unread_unmuted_chats_count: action.unread_unmuted_count,
+                            marked_as_unread_chats_count: action.marked_as_unread_count,
+                            marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
+                        }
+                    }
+                };
+            } else if(action.chat_list['@type'] === 'chatListFilter') {
+                return {
+                    ...state,
+                    unread: {
+                        ...state.unread,
+                        filters: {
+                            ...state.unread.filters,
+                            [action.chat_list.chat_filter_id]: {
+                                ...state.unread.filters[action.chat_list.chat_filter_id],
+                                total_chats_count: action.total_count,
+                                unread_chats_count: action.unread_count,
+                                unread_unmuted_chats_count: action.unread_unmuted_count,
+                                marked_as_unread_chats_count: action.marked_as_unread_count,
+                                marked_as_unread_unmuted_chats_count: action.marked_as_unread_unmuted_count
                             }
-                            return position;
-                        })
-                    };
-                    if(!changed) {
+                        }
+                    }
+                };
+            }
+            return state;
+
+        case 'SET_ARCHIVE_BUTTON_STATE':
+            return {
+                ...state,
+                archiveButtonState: action.archiveButtonState
+            };
+        case 'ADD_CHAT':
+            return {
+                ...state,
+                chats: [
+                    ...state.chats,
+                    action.chat
+                ]
+            };
+        case 'UPDATE_CHAT_POSITION': // Replace the position property of a chat
+            return {
+                ...state,
+                chats: state.chats.map((chat) => {
+                    if (chat.id === action.chat_id) {
+                        let changed=false;
+                        let newChat = {
+                            ...chat,
+                            positions: chat.positions.map((position) => {
+                                if (compareChatList(position.list, action.position.list)) {
+                                    changed=true;
+                                    return action.position;
+                                }
+                                return position;
+                            })
+                        };
+                        if(!changed) {
+                            return {
+                                ...chat,
+                                positions: [
+                                    ...chat.positions,
+                                    action.position
+                                ]
+                            };
+                        }
+                        return newChat;
+                    }
+                    return chat;
+                })
+            };
+        case 'REPLACE_CHAT_FILTERS':
+            return {
+                ...state,
+                filters: action.payload
+            };
+        case 'UPDATE_CHAT_PROPERTY':
+            return {
+                ...state,
+                chats: state.chats.map((chat) => {
+                    if (chat.id === action.chat_id) {
                         return {
                             ...chat,
-                            positions: [
-                                ...chat.positions,
-                                action.position
-                            ]
+                            [action.property]: action.value
                         };
                     }
-                    return newChat;
-                }
-                return chat;
-            })
-        };
-    case 'REPLACE_CHAT_FILTERS':
-        return {
-            ...state,
-            filters: action.payload
-        };
-    case 'UPDATE_CHAT_PROPERTY':
-        return {
-            ...state,
-            chats: state.chats.map((chat) => {
-                if (chat.id === action.chat_id) {
-                    return {
-                        ...chat,
-                        [action.property]: action.value
-                    };
-                }
-                return chat;
-            })
-        };
-    case 'SELECT_CHAT':
-        return {
-            ...state,
-            selectedChat: action.chat_id
-        };
-    default:
-        return state;
+                    return chat;
+                })
+            };
+        case 'SELECT_CHAT':
+            return {
+                ...state,
+                selectedChat: action.chat_id
+            };
+        default:
+            return state;
     }
 }
 

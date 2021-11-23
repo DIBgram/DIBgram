@@ -3,13 +3,13 @@ import TdLib from '../TdWeb/tdlib';
 
 function reducer(state, action) {
     switch (action.type) {
-    case 'UPD_BASIC_GROUP':
-        return {
-            ...state,
-            [action.basic_group.id]: action.basic_group
-        };
-    default:
-        return state;
+        case 'UPD_BASIC_GROUP':
+            return {
+                ...state,
+                [action.basic_group.id]: action.basic_group
+            };
+        default:
+            return state;
     }
 }
 

@@ -128,28 +128,28 @@ export default class AuthWindowStepPhoneNumber extends React.Component {
         const number = this.state.number_p + ' ' + this.state.number;
         Auth.givePhoneNumber(number).catch(reason=> {
             switch(reason.message){
-            case 'PHONE_NUMBER_FLOOD':
-                addDialog( 'phone_number_flood_error',
-                    <ConfirmDialog width="320px" hideCancelButton={true} largeFont={true} id="phone_number_flood_error">
-                        {__('lng_error_phone_flood')}
-                    </ConfirmDialog>
-                );
-                this.changeStatus('');
-                break;
+                case 'PHONE_NUMBER_FLOOD':
+                    addDialog( 'phone_number_flood_error',
+                        <ConfirmDialog width="320px" hideCancelButton={true} largeFont={true} id="phone_number_flood_error">
+                            {__('lng_error_phone_flood')}
+                        </ConfirmDialog>
+                    );
+                    this.changeStatus('');
+                    break;
 
-            case 'PHONE_NUMBER_INVALID':
-                this.setState({invalid: true});
-                this.changeStatus(__('lng_bad_phone'));
-                break;
+                case 'PHONE_NUMBER_INVALID':
+                    this.setState({invalid: true});
+                    this.changeStatus(__('lng_bad_phone'));
+                    break;
 
-            case 'Another authorization query has started': 
-                break;
+                case 'Another authorization query has started': 
+                    break;
 
-            default:
-                // We don't know what error it is, so just show it to the user, he/she might understand it.
-                this.setState({invalid: false});
-                this.changeStatus(reason.message);
-                break;
+                default:
+                    // We don't know what error it is, so just show it to the user, he/she might understand it.
+                    this.setState({invalid: false});
+                    this.changeStatus(reason.message);
+                    break;
             }
         });
     }

@@ -44,17 +44,17 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
     } 
     else if(chat.type['@type'] === 'chatTypeSupergroup' || chat.type['@type'] === 'chatTypeBasicGroup') {
         switch(message.sender['@type']) {
-        case 'messageSenderUser':
-            if(!message.is_outgoing) {
-                sender= getUserFullName(users[message.sender.user_id]);
-                senderId= getIdColorCode(message.sender.user_id);
+            case 'messageSenderUser':
+                if(!message.is_outgoing) {
+                    sender= getUserFullName(users[message.sender.user_id]);
+                    senderId= getIdColorCode(message.sender.user_id);
+                }
+                break;
+            case 'messageSenderChat': {
+                const chat: TdApi.td_chat= getChatNoCache(message.sender.chat_id).title;
+                sender= chat.title;
+                senderId= getIdColorCode(getChatTypeId(chat));
             }
-            break;
-        case 'messageSenderChat': {
-            const chat: TdApi.td_chat= getChatNoCache(message.sender.chat_id).title;
-            sender= chat.title;
-            senderId= getIdColorCode(getChatTypeId(chat));
-        }
         }
     }
     return (
@@ -73,14 +73,14 @@ type MessageFooterProps= {
 export function MessageFooter({message, chat}: MessageFooterProps): JSX.Element {
     let tick= null;
     switch(getMessageStatus(chat, message)) {
-    case 'sending':
-        tick= <span className="tick sending" dangerouslySetInnerHTML={{__html: dialogs_sending}}/>;
-        break;
-    case 'sent':
-        tick= <span className="tick sent" dangerouslySetInnerHTML={{__html: history_sent}}/>;
-        break;
-    case 'seen':
-        tick= <span className="tick seen" dangerouslySetInnerHTML={{__html: history_received}}/>;
+        case 'sending':
+            tick= <span className="tick sending" dangerouslySetInnerHTML={{__html: dialogs_sending}}/>;
+            break;
+        case 'sent':
+            tick= <span className="tick sent" dangerouslySetInnerHTML={{__html: history_sent}}/>;
+            break;
+        case 'seen':
+            tick= <span className="tick seen" dangerouslySetInnerHTML={{__html: history_received}}/>;
     }
     return (
         <div className="footer">

@@ -25,12 +25,12 @@ export const themeStore = createStore(
         rtl: getRtlMode()
     }, action) => {
         switch (action.type) {
-        case 'SET_THEME':
-            return { ...state, theme: action.theme };
-        case 'SET_RTL':
-            return { ...state, rtl: action.rtl };
-        default:
-            return state;
+            case 'SET_THEME':
+                return { ...state, theme: action.theme };
+            case 'SET_RTL':
+                return { ...state, rtl: action.rtl };
+            default:
+                return state;
         }
     }
 );

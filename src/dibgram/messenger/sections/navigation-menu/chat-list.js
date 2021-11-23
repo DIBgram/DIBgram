@@ -181,104 +181,104 @@ const ArchivedChatsItem= connect(state=> ({
     const moveToMainMenuToast= <Toast>{__('lng_context_archive_to_menu_info')}</Toast>;
 
     switch(archiveButtonState) {
-    case 'expanded': // Looks like a regular chat
-    default:
-        return (
-            <div 
-                className="chat archived" onClick={onArchiveOpen}
-                onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
-                onContextMenu={e=> createContextMenu(e, (
-                    <Menu.MenuContents>
-                        <Menu.MenuItem onClick={()=>{
-                            setButtonState('collapsed');
-                            localStorage.setItem('dibgram-archived-chats-button-mode', 'collapsed');
-                        }}>
-                            {__('lng_context_archive_collapse')}
-                        </Menu.MenuItem>
-                        <Menu.MenuItem onClick={()=>{
-                            setButtonState('hidden-expanded');
-                            localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-expanded');
-                            addToast(moveToMainMenuToast);
-                        }}>
-                            {__('lng_context_archive_to_menu')}
-                        </Menu.MenuItem>
-                    </Menu.MenuContents>
-                ))}>
-                <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
-                <div className="content">
-                    <div className="profile-photo">
-                        <div className="svg" dangerouslySetInnerHTML={{__html: archive_userpic}}/>
-                    </div>
-                    <div className="details">
-                        <div className="top">
-                            <div className="left">
-                                <div className="title">{__('lng_archived_name')}</div>
-                            </div>
+        case 'expanded': // Looks like a regular chat
+        default:
+            return (
+                <div 
+                    className="chat archived" onClick={onArchiveOpen}
+                    onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
+                    onContextMenu={e=> createContextMenu(e, (
+                        <Menu.MenuContents>
+                            <Menu.MenuItem onClick={()=>{
+                                setButtonState('collapsed');
+                                localStorage.setItem('dibgram-archived-chats-button-mode', 'collapsed');
+                            }}>
+                                {__('lng_context_archive_collapse')}
+                            </Menu.MenuItem>
+                            <Menu.MenuItem onClick={()=>{
+                                setButtonState('hidden-expanded');
+                                localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-expanded');
+                                addToast(moveToMainMenuToast);
+                            }}>
+                                {__('lng_context_archive_to_menu')}
+                            </Menu.MenuItem>
+                        </Menu.MenuContents>
+                    ))}>
+                    <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
+                    <div className="content">
+                        <div className="profile-photo">
+                            <div className="svg" dangerouslySetInnerHTML={{__html: archive_userpic}}/>
                         </div>
-                        <div className="bottom">
-                            <div className="left">
-                                <div className="last-message">
-                                    <span className="part-1">
-                                        {chatsInList
-                                            .filter(chat=> chat.unread_count > 0)
-                                            .map(chat => chatTitleOrDeletedAccount(chat) + ', ')
-                                            .join('')}
-                                    </span>
-                                    <span className="part-2">
-                                        {chatsInList
-                                            .filter(chat=> chat.unread_count == 0)
-                                            .map(chatTitleOrDeletedAccount)
-                                            .join(', ')}
-                                    </span>
-                                </div>
-                            </div>
-                            {unread.unread_messages_count? (
-                                <div className="right">
-                                    <span className="unread-badge muted">{unread.unread_messages_count}</span>
-                                </div>
-                            ) : null}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-
-    case 'collapsed': // Only title / tiny icon
-        return (
-            <div
-                className="chat archived collapsed" onClick={onArchiveOpen}
-                onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
-                onContextMenu={e=> createContextMenu(e, (
-                    <Menu.MenuContents>
-                        <Menu.MenuItem onClick={()=>{
-                            setButtonState('expanded');
-                            localStorage.setItem('dibgram-archived-chats-button-mode', 'expanded');
-                        }}>
-                            {__('lng_context_archive_expand')}
-                        </Menu.MenuItem>
-                        <Menu.MenuItem onClick={()=>{
-                            setButtonState('hidden-collapsed');
-                            localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-collapsed');
-                            addToast(moveToMainMenuToast);
-                        }}>
-                            {__('lng_context_archive_to_menu')}
-                        </Menu.MenuItem>
-                    </Menu.MenuContents>
-                ))}>
-                <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
-                <div className="content">
-                    {__('lng_archived_name')}
-                    {unread.unread_messages_count? (
                         <div className="details">
-                            <span className="unread-badge muted">{unread.unread_messages_count}</span>
+                            <div className="top">
+                                <div className="left">
+                                    <div className="title">{__('lng_archived_name')}</div>
+                                </div>
+                            </div>
+                            <div className="bottom">
+                                <div className="left">
+                                    <div className="last-message">
+                                        <span className="part-1">
+                                            {chatsInList
+                                                .filter(chat=> chat.unread_count > 0)
+                                                .map(chat => chatTitleOrDeletedAccount(chat) + ', ')
+                                                .join('')}
+                                        </span>
+                                        <span className="part-2">
+                                            {chatsInList
+                                                .filter(chat=> chat.unread_count == 0)
+                                                .map(chatTitleOrDeletedAccount)
+                                                .join(', ')}
+                                        </span>
+                                    </div>
+                                </div>
+                                {unread.unread_messages_count? (
+                                    <div className="right">
+                                        <span className="unread-badge muted">{unread.unread_messages_count}</span>
+                                    </div>
+                                ) : null}
+                            </div>
                         </div>
-                    ) : null}
+                    </div>
                 </div>
-            </div>
-        );
-    case 'hidden-expanded': // Not here, it's in main menu
-    case 'hidden-collapsed':
-        return null;
+            );
+
+        case 'collapsed': // Only title / tiny icon
+            return (
+                <div
+                    className="chat archived collapsed" onClick={onArchiveOpen}
+                    onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
+                    onContextMenu={e=> createContextMenu(e, (
+                        <Menu.MenuContents>
+                            <Menu.MenuItem onClick={()=>{
+                                setButtonState('expanded');
+                                localStorage.setItem('dibgram-archived-chats-button-mode', 'expanded');
+                            }}>
+                                {__('lng_context_archive_expand')}
+                            </Menu.MenuItem>
+                            <Menu.MenuItem onClick={()=>{
+                                setButtonState('hidden-collapsed');
+                                localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-collapsed');
+                                addToast(moveToMainMenuToast);
+                            }}>
+                                {__('lng_context_archive_to_menu')}
+                            </Menu.MenuItem>
+                        </Menu.MenuContents>
+                    ))}>
+                    <RippleEffect {...ripple[0]} color="var(--theme-color-dialogsRippleBg)"/>
+                    <div className="content">
+                        {__('lng_archived_name')}
+                        {unread.unread_messages_count? (
+                            <div className="details">
+                                <span className="unread-badge muted">{unread.unread_messages_count}</span>
+                            </div>
+                        ) : null}
+                    </div>
+                </div>
+            );
+        case 'hidden-expanded': // Not here, it's in main menu
+        case 'hidden-collapsed':
+            return null;
     }
 });
 ArchivedChatsItem.propTypes = {

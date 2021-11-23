@@ -12,17 +12,17 @@ export var dialogStore= createStore(
      */
     function (state= [], action) {
         switch (action.type) {
-        case 'ADD_DIALOG':
-            return [
-                ...state,
-                action.dialog
-            ];
-        
-        case 'REMOVE_DIALOG':
-            return state.filter(value => value.id!=action.id);
-        
-        default:
-            break;
+            case 'ADD_DIALOG':
+                return [
+                    ...state,
+                    action.dialog
+                ];
+            
+            case 'REMOVE_DIALOG':
+                return state.filter(value => value.id!=action.id);
+            
+            default:
+                break;
         }
     },
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

@@ -16,13 +16,13 @@ import LoadingSpinner from '../ui/elements/loading-spinner';
 
 export const authStore = createStore((state= { 'state': null }, action) => {
     switch (action.type) {
-    case 'SET_STATE':
-        return {
-            ...state,
-            'state': action.state
-        };
-    default:
-        return state;
+        case 'SET_STATE':
+            return {
+                ...state,
+                'state': action.state
+            };
+        default:
+            return state;
     }
 });
 
@@ -112,72 +112,72 @@ export const MainApp= connect(state=> ({step: state.state}))(class MainApp exten
     
     render () {
         switch (this.props.step?.['@type']) {
-        case 'authorizationStateWaitPhoneNumber':
-            // Enter your phone number
-            return (
-                <React.Fragment>
-                    <Provider store={dialogStore}>
-                        <Dialogs/>
+            case 'authorizationStateWaitPhoneNumber':
+                // Enter your phone number
+                return (
+                    <React.Fragment>
+                        <Provider store={dialogStore}>
+                            <Dialogs/>
+                        </Provider>
+                        <AuthWindowStepPhoneNumber/>
+                    </React.Fragment>
+                );
+
+            case 'authorizationStateWaitCode':
+                // Enter the verification code sent to you
+                return (
+                    <React.Fragment>
+                        <Provider store={dialogStore}>
+                            <Dialogs/>
+                        </Provider>
+                        <AuthWindowStepCode info={this.props.step.code_info}/>
+                    </React.Fragment>
+                );
+
+            case 'authorizationStateWaitPassword':
+                // Enter your 2-factor auth password
+                return (
+                    <React.Fragment>
+                        <Provider store={dialogStore}>
+                            <Dialogs/>
+                        </Provider>
+                        <AuthWindowStepPassword info={this.props.step}/>
+                    </React.Fragment>
+                );
+
+            case 'authorizationStateWaitRegistration':
+                // There isn't an account on this number, you need to sign up
+                return (
+                    <React.Fragment>
+                        <Provider store={dialogStore}>
+                            <Dialogs/>
+                        </Provider>
+                        <AuthWindowStepRegister tos={this.props.step.terms_of_service}/>
+                    </React.Fragment>
+                );
+
+            case 'authorizationStateReady':
+                // Logged in
+                return (
+                    <Provider store={themeStore}>
+                        <MessengerWindow/>
                     </Provider>
-                    <AuthWindowStepPhoneNumber/>
-                </React.Fragment>
-            );
+                );
 
-        case 'authorizationStateWaitCode':
-            // Enter the verification code sent to you
-            return (
-                <React.Fragment>
-                    <Provider store={dialogStore}>
-                        <Dialogs/>
-                    </Provider>
-                    <AuthWindowStepCode info={this.props.step.code_info}/>
-                </React.Fragment>
-            );
-
-        case 'authorizationStateWaitPassword':
-            // Enter your 2-factor auth password
-            return (
-                <React.Fragment>
-                    <Provider store={dialogStore}>
-                        <Dialogs/>
-                    </Provider>
-                    <AuthWindowStepPassword info={this.props.step}/>
-                </React.Fragment>
-            );
-
-        case 'authorizationStateWaitRegistration':
-            // There isn't an account on this number, you need to sign up
-            return (
-                <React.Fragment>
-                    <Provider store={dialogStore}>
-                        <Dialogs/>
-                    </Provider>
-                    <AuthWindowStepRegister tos={this.props.step.terms_of_service}/>
-                </React.Fragment>
-            );
-
-        case 'authorizationStateReady':
-            // Logged in
-            return (
-                <Provider store={themeStore}>
-                    <MessengerWindow/>
-                </Provider>
-            );
-
-        case 'authorizationStateClosed':
-            // TDLib session is closed.
-            window.location.reload();
-            return (
-                <p>{_s__('lngd_auth_closed_restart')}</p>
-            );
-        
-        default:
-            // TDLib is still loading
-            return (
-                <div id="auth" className="loading">
-                    <LoadingSpinner size={50} lineWidth={5} progressColor="var(--theme-color-menuIconFg)"/>
-                </div>
-            );
+            case 'authorizationStateClosed':
+                // TDLib session is closed.
+                window.location.reload();
+                return (
+                    <p>{_s__('lngd_auth_closed_restart')}</p>
+                );
+            
+            default:
+                // TDLib is still loading
+                return (
+                    <div id="auth" className="loading">
+                        <LoadingSpinner size={50} lineWidth={5} progressColor="var(--theme-color-menuIconFg)"/>
+                    </div>
+                );
         }
     }
 });

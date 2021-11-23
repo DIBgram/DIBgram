@@ -53,11 +53,11 @@ export function getCountMode(count) {
 
 export function getPluralString(mode, callback) {
     switch(mode) {
-    case 'zero': return callback('zero') || callback('few') || callback('many') || callback('other');
-    case 'one': return callback('one') || callback('other');
-    case 'two': return callback('two') || callback('few') || callback('many') || callback('other');
-    case 'few': return callback('few') || callback('many') || callback('other');
-    case 'many': return callback('many') || callback('other');
-    case 'other': return callback('other');
+        case 'zero': return callback('zero') || callback('few') || callback('many') || callback('other');
+        case 'one': return callback('one') || callback('other');
+        case 'two': return callback('two') || callback('few') || callback('many') || callback('other');
+        case 'few': return callback('few') || callback('many') || callback('other');
+        case 'many': return callback('many') || callback('other');
+        case 'other': return callback('other');
     }
 }

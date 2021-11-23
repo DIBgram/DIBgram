@@ -4,10 +4,10 @@ import TdLib from './tdlib';
 const connectionStore = createStore(
     (state = 'connectionStateConnecting', action) => {
         switch (action.type) {
-        case 'SET_CONNECTION':
-            return  action.connection;
-        default:
-            return state;
+            case 'SET_CONNECTION':
+                return  action.connection;
+            default:
+                return state;
         }
     }
 );

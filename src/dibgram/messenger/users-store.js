@@ -3,21 +3,21 @@ import TdLib from '../TdWeb/tdlib';
 
 const usersStore = createStore((state = {}, action) => {
     switch (action.type) {
-    case 'UPD_USER':
-        return {
-            ...state,
-            [action.user.id]: action.user
-        };
-    case 'UPD_USER_STATUS':
-        return {
-            ...state,
-            [action.userId]: {
-                ...state[action.userId],
-                status: action.status
-            }
-        };
-    default:
-        return state;
+        case 'UPD_USER':
+            return {
+                ...state,
+                [action.user.id]: action.user
+            };
+        case 'UPD_USER_STATUS':
+            return {
+                ...state,
+                [action.userId]: {
+                    ...state[action.userId],
+                    status: action.status
+                }
+            };
+        default:
+            return state;
     }
 }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 

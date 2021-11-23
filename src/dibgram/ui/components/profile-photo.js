@@ -120,16 +120,16 @@ export function getIdColorCode(id) {
  */
 export function getChatTypeId(chat) {
     switch (chat?.type?.['@type']) {
-    case 'chatTypeSupergroup': {
-        return chat?.type?.supergroup_id;
-    }
-    case 'chatTypeBasicGroup': {
-        return chat?.type?.basic_group_id;
-    }
-    case 'chatTypePrivate':
-    case 'chatTypeSecret': {
-        return chat?.type?.user_id;
-    }
+        case 'chatTypeSupergroup': {
+            return chat?.type?.supergroup_id;
+        }
+        case 'chatTypeBasicGroup': {
+            return chat?.type?.basic_group_id;
+        }
+        case 'chatTypePrivate':
+        case 'chatTypeSecret': {
+            return chat?.type?.user_id;
+        }
     }
     return null;
 }

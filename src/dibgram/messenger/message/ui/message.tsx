@@ -9,10 +9,10 @@ export type MessageProps = {
 };
 export function Message({message, chat}: MessageProps): JSX.Element {
     switch(message.content['@type']) {
-    case 'messageText':
-        return <MessageText chat={chat} message={message} />;
-    case 'messageUnsupported':
-    default:
-        return <MessageUnsupported chat={chat} message={message} />;
+        case 'messageText':
+            return <MessageText chat={chat} message={message} />;
+        case 'messageUnsupported':
+        default:
+            return <MessageUnsupported chat={chat} message={message} />;
     }
 }
