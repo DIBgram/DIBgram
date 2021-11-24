@@ -9,13 +9,11 @@ export default function MessageText({message, chat}: MessageProps): JSX.Element 
     
     const BubbleMsg= withUsers(BubbleMessage);
     return (
-        <div className={'history-message' + (message.is_outgoing ? ' outgoing' : '')}>
-            <BubbleMsg message={message} chat={chat}>
-                <div className="content">
-                    {messageContent.text.text}
-                    <MessageFooter message={message} chat={chat}/>
-                </div>
-            </BubbleMsg>
-        </div>
+        <BubbleMsg message={message} chat={chat}>
+            <div className="content">
+                {messageContent.text.text}
+                <MessageFooter message={message} chat={chat}/>
+            </div>
+        </BubbleMsg>
     );
 }

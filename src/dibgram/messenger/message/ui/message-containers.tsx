@@ -58,11 +58,13 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
         }
     }
     return (
-        <MessageBubble>
-            {sender && <div className={`message-sender color_${senderId}`}>{sender}</div>}
-            {children}
-            <div className="after"/>
-        </MessageBubble>
+        <div className={'history-message' + ((message.is_outgoing && !message.is_channel_post) ? ' outgoing' : '')}>
+            <MessageBubble>
+                {sender && <div className={`message-sender color_${senderId}`}>{sender}</div>}
+                {children}
+                <div className="after"/>
+            </MessageBubble>
+        </div>
     );
 }
 
@@ -85,7 +87,7 @@ export function MessageFooter({message, chat}: MessageFooterProps): JSX.Element 
     return (
         <div className="footer">
             <div className="time">{timeToString(message.date)}</div>
-            {tick}
+            {(!message.is_channel_post) && tick}
         </div>
     );
 }
