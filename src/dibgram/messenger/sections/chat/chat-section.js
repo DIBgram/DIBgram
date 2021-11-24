@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect, Provider } from 'react-redux';
 import __ from '../../../language-pack/language-pack';
 import { ServiceMessage } from '../../message/ui/message-containers';
@@ -9,6 +10,8 @@ import supergroupStore from '../../supergroup-store';
 import basicGroupStore from '../../basic-group-store';
 import { ChatFooter } from './footer/footer';
 import { ChatHistory } from './history/history';
+import { messageStores } from '../../message-stores';
+import TdLib from '../../../TdWeb/tdlib';
 
 export const ChatSection= 
 connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSection({chats, selectedChat}) {
@@ -68,13 +71,30 @@ const ChatSectionContentWrapperSupergroup= connect(supergroups=>({supergroups}))
 );
 
 function ChatSectionContentWrapper(props) {
+    React.useEffect(()=>{
+        TdLib.sendQuery({
+            '@type': 'openChat',
+            chat_id: props.chat.id
+        });
+        return ()=>{
+            TdLib.sendQuery({
+                '@type': 'closeChat',
+                chat_id: props.chat.id
+            });
+        };
+    }, [props.chat.id]);
     return (
         <div id="chat-section">
             <div className="headers">
                 <TitleHeader {...props}/>
             </div>
-            <ChatHistory {...props}/>
+            <Provider store={messageStores[props.chat.id]}>
+                <ChatHistory {...props}/>
+            </Provider>
             <ChatFooter {...props}/>
         </div>
     );
 }
+ChatSectionContentWrapper.propTypes = {
+    chat: PropTypes.object.isRequired
+};

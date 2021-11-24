@@ -1,5 +1,14 @@
 #chat-section > .history {
-    overflow: auto;
+
+    & > div:first-child {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .thumb-vertical {
+        position: absolute !important;
+        bottom: 0px;
+    }
 
     .history-scroll-content{
         min-height: 100%;
@@ -10,5 +19,9 @@
         justify-content: flex-end;
         align-items: stretch;
         padding: 10px 0;
+
+        .history-message {
+            margin-top: 10px;
+        }
     }
 }

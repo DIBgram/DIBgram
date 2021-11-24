@@ -1,5 +1,6 @@
 import { createStore } from 'redux';
 import TdLib from '../TdWeb/tdlib';
+import { initChatHistory } from './message/chat-history';
 
 /**
  * It is recommended to use the outline view or find tool to navigate this file.
@@ -216,6 +217,7 @@ TdLib.registerUpdateHandler('updateNewChat', update => {
         type: 'ADD_CHAT',
         chat: update.chat
     });
+    initChatHistory(update.chat.id);
 });
 
 TdLib.registerUpdateHandler('updateChatActionBar', update=> {
