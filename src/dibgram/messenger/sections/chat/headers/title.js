@@ -36,8 +36,7 @@ export default function TitleHeader(props) {
     );
 }
 TitleHeader.propTypes = {
-    chat: PropTypes.object.isRequired,
-    chatFull: PropTypes.object.isRequired
+    chat: PropTypes.object.isRequired
 };
 
 function SubText({chat, user, basicGroup, supergroup}) {
