@@ -2,6 +2,10 @@
   "$schema":  "https://json.schemastore.org/web-manifest-combined.json",
   "short_name": "DIBgram",
   "name": "DIBgram",
+  "description": "Access to Telegram in your browser with the good old Telegram Desktop look",
+  "lang": "en",
+  "scope": ".",
+  "start_url": ".",
   "icons": [
     {
       "src": "favicon.png",
@@ -26,7 +30,6 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#3FA9F5"
