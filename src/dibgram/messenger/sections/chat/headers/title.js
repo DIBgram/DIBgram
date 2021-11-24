@@ -22,8 +22,10 @@ export default function TitleHeader(props) {
                 <SubText {...props}/>
             </div>
             <div className="title-bar-right">
-                {/* Missed item: Call for normal users, It should depend on userFull */}
-                {props.chat.voice_chat.group_call_id != 0 && (<IconButton icon={top_bar_group_call}/>)}
+                {/*TODO Missing item: Call button for private chats, depends on userFullInfo */}
+                {props.chat.voice_chat.group_call_id != 0 && (
+                    <IconButton icon={top_bar_group_call} className="icon-button voice-chat"/>
+                )}
                 <IconButton icon={top_bar_search}/>
                 <IconButton icon={top_bar_profile}/>
                 <ThreeDotsMenu>
