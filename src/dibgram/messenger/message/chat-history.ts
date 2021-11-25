@@ -32,3 +32,68 @@ TdLib.registerUpdateHandler<TdApi.td_updateNewMessage>('updateNewMessage', (upda
         message: update.message,
     });
 });
+TdLib.registerUpdateHandler<TdApi.td_updateMessageSendSucceeded>('updateMessageSendSucceeded', (update) => {
+    messageStores[update.message.chat_id].dispatch({
+        type: 'REMOVE_MESSAGES',
+        messageIds: [update.old_message_id],
+    });
+    messageStores[update.message.chat_id].dispatch({
+        type: 'ADD_MESSAGE',
+        message: update.message,
+    });
+});
+TdLib.registerUpdateHandler<TdApi.td_updateDeleteMessages>('updateDeleteMessages', (update) => {
+    messageStores[update.chat_id].dispatch({
+        type: 'REMOVE_MESSAGES',
+        messageIds: update.message_ids,
+    });
+});
+TdLib.registerUpdateHandler<TdApi.td_updateMessageContent>('updateMessageContent', (update) => {
+    messageStores[update.chat_id].dispatch({
+        type: 'REDUCE_MESSAGE',
+        messageId: update.message_id,
+        reduce: (message) => {
+            return {
+                ...message,
+                content: update.new_content,
+            };
+        }
+    });
+});
+TdLib.registerUpdateHandler<TdApi.td_updateMessageEdited>('updateMessageEdited', (update) => {
+    messageStores[update.chat_id].dispatch({
+        type: 'REDUCE_MESSAGE',
+        messageId: update.message_id,
+        reduce: (message) => {
+            return {
+                ...message,
+                edit_date: update.edit_date,
+                reply_markup: update.reply_markup,
+            };
+        }
+    });
+});
+TdLib.registerUpdateHandler<TdApi.td_updateMessageIsPinned>('updateMessageIsPinned', (update) => {
+    messageStores[update.chat_id].dispatch({
+        type: 'REDUCE_MESSAGE',
+        messageId: update.message_id,
+        reduce: (message) => {
+            return {
+                ...message,
+                is_pinned: update.is_pinned,
+            };
+        }
+    });
+});
+TdLib.registerUpdateHandler<TdApi.td_updateMessageInteractionInfo>('updateMessageInteractionInfo', (update) => {
+    messageStores[update.chat_id].dispatch({
+        type: 'REDUCE_MESSAGE',
+        messageId: update.message_id,
+        reduce: (message) => {
+            return {
+                ...message,
+                interaction_info: update.interaction_info,
+            };
+        }
+    });
+});
