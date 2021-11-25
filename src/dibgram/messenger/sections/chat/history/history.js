@@ -8,7 +8,7 @@ import { loadChatHistory } from '../../../message/chat-history';
 
 export const ChatHistory= connect(({messages, isLoaded}) => ({messages, isLoaded})) (function ChatHistory({chat, messages, isLoaded}) {
     const array= [];
-    for(const id in messages) {
+    for(const id of Object.keys(messages).sort()) {
         array.push(messages[id]);
     }
     if(array.length==0) {
