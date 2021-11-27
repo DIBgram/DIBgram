@@ -419,12 +419,21 @@ TdLib.registerUpdateHandler('updateChatUnreadMentionCount', update=> {
     });
 });
 
-TdLib.registerUpdateHandler('updateChatVoiceChat', update=> {
+TdLib.registerUpdateHandler('updateChatPendingJoinRequests', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
-        property: 'voice_chat',
+        property: 'pending_join_requests',
         chat_id: update.chat_id,
-        value: update.voice_chat
+        value: update.pending_join_requests
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatVideoChat', update=> {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'video_chat',
+        chat_id: update.chat_id,
+        value: update.video_chat
     });
 });
 

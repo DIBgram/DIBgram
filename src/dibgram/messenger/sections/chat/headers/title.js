@@ -23,7 +23,7 @@ export default function TitleHeader(props) {
             </div>
             <div className="title-bar-right">
                 {/*TODO Missing item: Call button for private chats, depends on userFullInfo */}
-                {props.chat.voice_chat.group_call_id != 0 && (
+                {props.chat.video_chat.group_call_id != 0 && (
                     <IconButton icon={top_bar_group_call} className="icon-button voice-chat"/>
                 )}
                 <IconButton icon={top_bar_search}/>

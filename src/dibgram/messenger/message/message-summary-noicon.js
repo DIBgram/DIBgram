@@ -178,6 +178,15 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 </span></span>
             );
 
+        case 'messageChatJoinByRequest': // X was accepted to the group
+            return (
+                <span className={className}><span className="part-1">
+                    {__fmt('lng_action_user_joined_by_request', {
+                        from: <SenderFullName message={message} chat={chat} users={users}/>
+                    })}
+                </span></span>
+            );
+
         case 'messageChatSetTheme':
             if(message.is_channel_post) {
                 if(message.content.theme_name){
@@ -296,6 +305,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 </span>
             );
 
+        case 'messageAnimatedEmoji':
         case 'messageDice': // Dice (🎲🎯🎳⚽🏀)
             return (
                 <span className={className}>
@@ -644,7 +654,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 </span>
             );
 
-        case 'messageVoiceChatScheduled':
+        case 'messageVideoChatScheduled':
             if(message.is_channel_post) {
                 return (
                     <span className={className}><span className="part-1">
@@ -670,7 +680,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 );
             }
 
-        case 'messageVoiceChatStarted':
+        case 'messageVideoChatStarted':
             if(message.is_channel_post) {
                 return (
                     <span className={className}>
@@ -687,7 +697,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 );
             }
 
-        case 'messageVoiceChatEnded':
+        case 'messageVideoChatEnded':
             if(message.is_channel_post) {
                 return (
                     <span className={className}><span className="part-1">
@@ -707,7 +717,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 );
             }
 
-        case 'messageInviteVoiceChatParticipants':
+        case 'messageInviteVideoChatParticipants':
             var invitedMembers= message.content.user_ids.map(id=> // convert user IDs to names
                 getUserFullName(users[id]));
             invitedMembers= __collection(true, invitedMembers, false); // A, B, and C

@@ -105,9 +105,9 @@ namespace TdApi {
         '@type': 'authenticationCodeInfo';
         /** A phone number that is being authenticated */
         phone_number: td_string;
-        /** Describes the way the code was sent to the user */
+        /** The way the code was sent to the user */
         type: td_AuthenticationCodeType;
-        /** Describes the way the next code will be sent to the user; may be null */
+        /** The way the next code will be sent to the user; may be null */
         next_type?: td_AuthenticationCodeType;
         /** Timeout before the code can be re-sent, in seconds */
         timeout: td_int32;
@@ -488,6 +488,16 @@ namespace TdApi {
     }
     
     
+    /** Describes a color replacement for animated emoji */
+    export interface td_colorReplacement {
+        '@type': 'colorReplacement';
+        /** Original animated emoji color in the RGB24 format */
+        old_color: td_int32;
+        /** Replacement animated emoji color in the RGB24 format */
+        new_color: td_int32;
+    }
+    
+    
     /** Represents a closed vector path. The path begins at the end point of the last command */
     export interface td_closedVectorPath {
         '@type': 'closedVectorPath';
@@ -683,6 +693,18 @@ namespace TdApi {
         mime_type: td_string;
         /** File containing the voice note */
         voice: td_file;
+    }
+    
+    
+    /** Describes an animated representation of an emoji */
+    export interface td_animatedEmoji {
+        '@type': 'animatedEmoji';
+        /** Animated sticker for the emoji */
+        sticker: td_sticker;
+        /** List of colors to be replaced while the sticker is rendered */
+        color_replacements: td_vector<td_colorReplacement>;
+        /** File containing the sound to be played when the animated emoji is clicked if any; may be null. The sound is encoded with the Opus codec, and stored inside an OGG container */
+        sound?: td_file;
     }
     
     
@@ -1068,7 +1090,7 @@ namespace TdApi {
     }
     
     
-    /** The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage voice chats. In supergroups and channels, there are more detailed options for administrator privileges */
+    /** The user is a member of the chat and has some additional privileges. In basic groups, administrators can edit and delete messages sent by others, add new members, ban unprivileged members, and manage video chats. In supergroups and channels, there are more detailed options for administrator privileges */
     export interface td_chatMemberStatusAdministrator {
         '@type': 'chatMemberStatusAdministrator';
         /** A custom title of the administrator; 0-16 characters without emojis; applicable to supergroups only */
@@ -1093,8 +1115,8 @@ namespace TdApi {
         can_pin_messages: td_Bool;
         /** True, if the administrator can add new administrators with a subset of their own privileges or demote administrators that were directly or indirectly promoted by them */
         can_promote_members: td_Bool;
-        /** True, if the administrator can manage voice chats */
-        can_manage_voice_chats: td_Bool;
+        /** True, if the administrator can manage video chats */
+        can_manage_video_chats: td_Bool;
         /** True, if the administrator isn't shown in the chat member list and sends messages anonymously; applicable to supergroups only */
         is_anonymous: td_Bool;
     }
@@ -1124,7 +1146,7 @@ namespace TdApi {
     }
     
     
-    /** The user or the chat was banned (and hence is not a member of the chat). Implies the user can't return to the chat, view messages, or be used as a participant identifier to join a voice chat of the chat */
+    /** The user or the chat was banned (and hence is not a member of the chat). Implies the user can't return to the chat, view messages, or be used as a participant identifier to join a video chat of the chat */
     export interface td_chatMemberStatusBanned {
         '@type': 'chatMemberStatusBanned';
         /** Point in time (Unix timestamp) when the user will be unbanned; 0 if never. If the user is banned for more than 366 days or for less than 30 seconds from the current time, the user is considered to be banned forever. Always 0 in basic groups */
@@ -1132,7 +1154,7 @@ namespace TdApi {
     }
     
     
-    /** Information about a user or a chat as a member of another chat */
+    /** Describes a user or a chat as a member of another chat */
     export interface td_chatMember {
         '@type': 'chatMember';
         /** Identifier of the chat member. Currently, other chats can be only Left or Banned. Only supergroups and channels can have other chats as Left or Banned members and these chats must be supergroups or channels */
@@ -1265,6 +1287,8 @@ namespace TdApi {
         '@type': 'chatInviteLink';
         /** Chat invite link */
         invite_link: td_string;
+        /** Name of the link */
+        name: td_string;
         /** User identifier of an administrator created the link */
         creator_user_id: td_int53;
         /** Point in time (Unix timestamp) when the link was created */
@@ -1273,11 +1297,15 @@ namespace TdApi {
         edit_date: td_int32;
         /** Point in time (Unix timestamp) when the link will expire; 0 if never */
         expire_date: td_int32;
-        /** The maximum number of members, which can join the chat using the link simultaneously; 0 if not limited */
+        /** The maximum number of members, which can join the chat using the link simultaneously; 0 if not limited. Always 0 if the link requires approval */
         member_limit: td_int32;
         /** Number of chat members, which joined the chat using the link */
         member_count: td_int32;
-        /** True, if the link is primary. Primary invite link can't have expire date or usage limit. There is exactly one primary invite link for each administrator with can_invite_users right at a given time */
+        /** Number of pending join requests created using this link */
+        pending_join_request_count: td_int32;
+        /** True, if the link only creates join request. If true, total number of joining members will be unlimited */
+        creates_join_request: td_Bool;
+        /** True, if the link is primary. Primary invite link can't have name, expire date or usage limit. There is exactly one primary invite link for each administrator with can_invite_users right at a given time */
         is_primary: td_Bool;
         /** True, if the link was revoked */
         is_revoked: td_Bool;
@@ -1309,7 +1337,7 @@ namespace TdApi {
     /** Contains a list of chat invite link counts */
     export interface td_chatInviteLinkCounts {
         '@type': 'chatInviteLinkCounts';
-        /** List of invite linkcounts */
+        /** List of invite link counts */
         invite_link_counts: td_vector<td_chatInviteLinkCount>;
     }
     
@@ -1321,6 +1349,8 @@ namespace TdApi {
         user_id: td_int53;
         /** Point in time (Unix timestamp) when the user joined the chat */
         joined_chat_date: td_int32;
+        /** User identifier of the chat administrator, approved user join request */
+        approver_user_id: td_int53;
     }
     
     
@@ -1341,18 +1371,54 @@ namespace TdApi {
         chat_id: td_int53;
         /** If non-zero, the amount of time for which read access to the chat will remain available, in seconds */
         accessible_for: td_int32;
-        /** Contains information about the type of the chat */
+        /** Type of the chat */
         type: td_ChatType;
         /** Title of the chat */
         title: td_string;
         /** Chat photo; may be null */
         photo?: td_chatPhotoInfo;
+        /** Contains information about a chat invite link */
+        description: td_string;
         /** Number of members in the chat */
         member_count: td_int32;
         /** User identifiers of some chat members that may be known to the current user */
         member_user_ids: td_vector<td_int53>;
+        /** True, if the link only creates join request */
+        creates_join_request: td_Bool;
         /** True, if the chat is a public supergroup or channel, i.e. it has a username or it is a location-based supergroup */
         is_public: td_Bool;
+    }
+    
+    
+    /** Describes a user that sent a join request and waits for administrator approval */
+    export interface td_chatJoinRequest {
+        '@type': 'chatJoinRequest';
+        /** User identifier */
+        user_id: td_int53;
+        /** Point in time (Unix timestamp) when the user sent the join request */
+        date: td_int32;
+        /** A short bio of the user */
+        bio: td_string;
+    }
+    
+    
+    /** Contains a list of chat join requests */
+    export interface td_chatJoinRequests {
+        '@type': 'chatJoinRequests';
+        /** Approximate total count of requests found */
+        total_count: td_int32;
+        /** List of the requests */
+        requests: td_vector<td_chatJoinRequest>;
+    }
+    
+    
+    /** Contains information about pending chat join requests */
+    export interface td_chatJoinRequestsInfo {
+        '@type': 'chatJoinRequestsInfo';
+        /** Total number of pending join requests */
+        total_count: td_int32;
+        /** Identifiers of users sent the newest pending join requests */
+        user_ids: td_vector<td_int53>;
     }
     
     
@@ -1621,7 +1687,7 @@ namespace TdApi {
         view_count: td_int32;
         /** Number of times the message was forwarded */
         forward_count: td_int32;
-        /** Contains information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself */
+        /** Information about direct or indirect replies to the message; may be null. Currently, available only in channels with a discussion supergroup and discussion supergroups for messages, which are not replies itself */
         reply_info?: td_messageReplyInfo;
     }
     
@@ -1655,9 +1721,9 @@ namespace TdApi {
         sender: td_MessageSender;
         /** Chat identifier */
         chat_id: td_int53;
-        /** Information about the sending state of the message; may be null */
+        /** The sending state of the message; may be null */
         sending_state?: td_MessageSendingState;
-        /** Information about the scheduling state of the message; may be null */
+        /** The scheduling state of the message; may be null */
         scheduling_state?: td_MessageSchedulingState;
         /** True, if the message is outgoing */
         is_outgoing: td_Bool;
@@ -1737,6 +1803,48 @@ namespace TdApi {
         messages: td_vector<td_message>;
         /** The offset for the next request. If empty, there are no more results */
         next_offset: td_string;
+    }
+    
+    
+    /** Contains information about a message in a specific position */
+    export interface td_messagePosition {
+        '@type': 'messagePosition';
+        /** 0-based message position in the full list of suitable messages */
+        position: td_int32;
+        /** Message identifier */
+        message_id: td_int53;
+        /** Point in time (Unix timestamp) when the message was sent */
+        date: td_int32;
+    }
+    
+    
+    /** Contains a list of message positions */
+    export interface td_messagePositions {
+        '@type': 'messagePositions';
+        /** Total count of messages found */
+        total_count: td_int32;
+        /** List of message positions */
+        positions: td_vector<td_messagePosition>;
+    }
+    
+    
+    /** Contains information about found messages sent in a specific day */
+    export interface td_messageCalendarDay {
+        '@type': 'messageCalendarDay';
+        /** Total number of found messages sent in the day */
+        total_count: td_int32;
+        /** First message sent in the day */
+        message: td_message;
+    }
+    
+    
+    /** Contains information about found messages, splitted by days according to the option "utc_time_offset" */
+    export interface td_messageCalendar {
+        '@type': 'messageCalendar';
+        /** Total number of found messages */
+        total_count: td_int32;
+        /** Information about messages sent */
+        days: td_vector<td_messageCalendarDay>;
     }
     
     
@@ -1990,14 +2098,14 @@ namespace TdApi {
     }
     
     
-    /** Describes a voice chat */
-    export interface td_voiceChat {
-        '@type': 'voiceChat';
-        /** Group call identifier of an active voice chat; 0 if none. Full informationa about the voice chat can be received through the method getGroupCall */
+    /** Describes a video chat */
+    export interface td_videoChat {
+        '@type': 'videoChat';
+        /** Group call identifier of an active video chat; 0 if none. Full information about the video chat can be received through the method getGroupCall */
         group_call_id: td_int32;
-        /** True, if the voice chat has participants */
+        /** True, if the video chat has participants */
         has_participants: td_Bool;
-        /** Default group call participant identifier to join the voice chat; may be null */
+        /** Default group call participant identifier to join the video chat; may be null */
         default_participant_id?: td_MessageSender;
     }
     
@@ -2047,15 +2155,17 @@ namespace TdApi {
         message_ttl_setting: td_int32;
         /** If non-empty, name of a theme, set for the chat */
         theme_name: td_string;
-        /** Describes actions which must be possible to do through a chat action bar; may be null */
+        /** Information about actions which must be possible to do through the chat action bar; may be null */
         action_bar?: td_ChatActionBar;
-        /** Contains information about voice chat of the chat */
-        voice_chat: td_voiceChat;
+        /** Information about video chat of the chat */
+        video_chat: td_videoChat;
+        /** Information about pending join requests; may be null */
+        pending_join_requests?: td_chatJoinRequestsInfo;
         /** Identifier of the message from which reply markup needs to be used; 0 if there is no default custom reply markup in the chat */
         reply_markup_message_id: td_int53;
         /** A draft of a message in the chat; may be null */
         draft_message?: td_draftMessage;
-        /** Contains application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used */
+        /** Application-specific data associated with the chat. (For example, the chat scroll position or local chat notification settings can be stored here.) Persistent if the message database is used */
         client_data: td_string;
     }
     
@@ -2323,7 +2433,7 @@ namespace TdApi {
         chat_id: td_int53;
         /** Message thread identifier, unique within the chat */
         message_thread_id: td_int53;
-        /** Contains information about the message thread */
+        /** Information about the message thread */
         reply_info: td_messageReplyInfo;
         /** Approximate number of unread messages in the message thread */
         unread_message_count: td_int32;
@@ -3117,7 +3227,7 @@ namespace TdApi {
     /** Applies if a user enters new credentials on a payment provider website */
     export interface td_inputCredentialsNew {
         '@type': 'inputCredentialsNew';
-        /** Contains JSON-encoded data with a credential identifier from the payment provider */
+        /** JSON-encoded data with the credential identifier from the payment provider */
         data: td_string;
         /** True, if the credential identifier can be saved on the server side */
         allow_save: td_Bool;
@@ -3165,7 +3275,7 @@ namespace TdApi {
         hint_color: td_int32;
         /** A color of links in the RGB24 format */
         link_color: td_int32;
-        /** A color of thebuttons in the RGB24 format */
+        /** A color of the buttons in the RGB24 format */
         button_color: td_int32;
         /** A color of text on the buttons in the RGB24 format */
         button_text_color: td_int32;
@@ -3185,11 +3295,11 @@ namespace TdApi {
         seller_bot_user_id: td_int53;
         /** User identifier of the payment provider bot */
         payments_provider_user_id: td_int53;
-        /** Contains information about the payment provider, if available, to support it natively without the need for opening the URL; may be null */
+        /** Information about the payment provider, if available, to support it natively without the need for opening the URL; may be null */
         payments_provider?: td_paymentsProviderStripe;
         /** Saved server-side order information; may be null */
         saved_order_info?: td_orderInfo;
-        /** Contains information about saved card credentials; may be null */
+        /** Information about saved card credentials; may be null */
         saved_credentials?: td_savedCredentials;
         /** True, if the user can choose to save credentials */
         can_save_credentials: td_Bool;
@@ -3233,7 +3343,7 @@ namespace TdApi {
         seller_bot_user_id: td_int53;
         /** User identifier of the payment provider bot */
         payments_provider_user_id: td_int53;
-        /** Contains information about the invoice */
+        /** Information about the invoice */
         invoice: td_invoice;
         /** Order information; may be null */
         order_info?: td_orderInfo;
@@ -3743,7 +3853,7 @@ namespace TdApi {
         '@type': 'passportAuthorizationForm';
         /** Unique identifier of the authorization form */
         id: td_int32;
-        /** Information about the Telegram Passport elements that must be provided to complete the form */
+        /** Telegram Passport elements that must be provided to complete the form */
         required_elements: td_vector<td_passportRequiredElement>;
         /** URL for the privacy policy of the service; may be empty */
         privacy_policy_url: td_string;
@@ -4024,6 +4134,16 @@ namespace TdApi {
     }
     
     
+    /** A message with an animated emoji */
+    export interface td_messageAnimatedEmoji {
+        '@type': 'messageAnimatedEmoji';
+        /** The animated emoji */
+        animated_emoji: td_animatedEmoji;
+        /** The corresponding emoji */
+        emoji: td_string;
+    }
+    
+    
     /** A dice message. The dice value is randomly generated by the server */
     export interface td_messageDice {
         '@type': 'messageDice';
@@ -4092,36 +4212,36 @@ namespace TdApi {
     }
     
     
-    /** A new voice chat was scheduled */
-    export interface td_messageVoiceChatScheduled {
-        '@type': 'messageVoiceChatScheduled';
-        /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
+    /** A new video chat was scheduled */
+    export interface td_messageVideoChatScheduled {
+        '@type': 'messageVideoChatScheduled';
+        /** Identifier of the video chat. The video chat can be received through the method getGroupCall */
         group_call_id: td_int32;
         /** Point in time (Unix timestamp) when the group call is supposed to be started by an administrator */
         start_date: td_int32;
     }
     
     
-    /** A newly created voice chat */
-    export interface td_messageVoiceChatStarted {
-        '@type': 'messageVoiceChatStarted';
-        /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
+    /** A newly created video chat */
+    export interface td_messageVideoChatStarted {
+        '@type': 'messageVideoChatStarted';
+        /** Identifier of the video chat. The video chat can be received through the method getGroupCall */
         group_call_id: td_int32;
     }
     
     
-    /** A message with information about an ended voice chat */
-    export interface td_messageVoiceChatEnded {
-        '@type': 'messageVoiceChatEnded';
+    /** A message with information about an ended video chat */
+    export interface td_messageVideoChatEnded {
+        '@type': 'messageVideoChatEnded';
         /** Call duration, in seconds */
         duration: td_int32;
     }
     
     
-    /** A message with information about an invite to a voice chat */
-    export interface td_messageInviteVoiceChatParticipants {
-        '@type': 'messageInviteVoiceChatParticipants';
-        /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
+    /** A message with information about an invite to a video chat */
+    export interface td_messageInviteVideoChatParticipants {
+        '@type': 'messageInviteVideoChatParticipants';
+        /** Identifier of the video chat. The video chat can be received through the method getGroupCall */
         group_call_id: td_int32;
         /** Invited user identifiers */
         user_ids: td_vector<td_int53>;
@@ -4179,6 +4299,12 @@ namespace TdApi {
     /** A new member joined the chat by invite link */
     export interface td_messageChatJoinByLink {
         '@type': 'messageChatJoinByLink';
+    }
+    
+    
+    /** A new member was accepted to the chat by an administrator */
+    export interface td_messageChatJoinByRequest {
+        '@type': 'messageChatJoinByRequest';
     }
     
     
@@ -5097,7 +5223,7 @@ namespace TdApi {
         is_viewed: td_Bool;
         /** Total number of stickers in the set */
         size: td_int32;
-        /** Contains up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested */
+        /** Up to the first 5 stickers from the set, depending on the context. If the application needs more stickers the full sticker set needs to be requested */
         covers: td_vector<td_sticker>;
     }
     
@@ -6096,6 +6222,16 @@ namespace TdApi {
     }
     
     
+    /** A new member was accepted to the chat by an administrator */
+    export interface td_chatEventMemberJoinedByRequest {
+        '@type': 'chatEventMemberJoinedByRequest';
+        /** User identifier of the chat administrator, approved user join request */
+        approver_user_id: td_int53;
+        /** Invite link used to join the chat; may be null */
+        invite_link?: td_chatInviteLink;
+    }
+    
+    
     /** A member left the chat */
     export interface td_chatEventMemberLeft {
         '@type': 'chatEventMemberLeft';
@@ -6207,9 +6343,9 @@ namespace TdApi {
     /** The slow_mode_delay setting of a supergroup was changed */
     export interface td_chatEventSlowModeDelayChanged {
         '@type': 'chatEventSlowModeDelayChanged';
-        /** Previous value of slow_mode_delay */
+        /** Previous value of slow_mode_delay, in seconds */
         old_slow_mode_delay: td_int32;
-        /** New value of slow_mode_delay */
+        /** New value of slow_mode_delay, in seconds */
         new_slow_mode_delay: td_int32;
     }
     
@@ -6286,25 +6422,25 @@ namespace TdApi {
     }
     
     
-    /** A voice chat was created */
-    export interface td_chatEventVoiceChatCreated {
-        '@type': 'chatEventVoiceChatCreated';
-        /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
+    /** A video chat was created */
+    export interface td_chatEventVideoChatCreated {
+        '@type': 'chatEventVideoChatCreated';
+        /** Identifier of the video chat. The video chat can be received through the method getGroupCall */
         group_call_id: td_int32;
     }
     
     
-    /** A voice chat was discarded */
-    export interface td_chatEventVoiceChatDiscarded {
-        '@type': 'chatEventVoiceChatDiscarded';
-        /** Identifier of the voice chat. The voice chat can be received through the method getGroupCall */
+    /** A video chat was discarded */
+    export interface td_chatEventVideoChatDiscarded {
+        '@type': 'chatEventVideoChatDiscarded';
+        /** Identifier of the video chat. The video chat can be received through the method getGroupCall */
         group_call_id: td_int32;
     }
     
     
-    /** A voice chat participant was muted or unmuted */
-    export interface td_chatEventVoiceChatParticipantIsMutedToggled {
-        '@type': 'chatEventVoiceChatParticipantIsMutedToggled';
+    /** A video chat participant was muted or unmuted */
+    export interface td_chatEventVideoChatParticipantIsMutedToggled {
+        '@type': 'chatEventVideoChatParticipantIsMutedToggled';
         /** Identifier of the affected group call participant */
         participant_id: td_MessageSender;
         /** New value of is_muted */
@@ -6312,9 +6448,9 @@ namespace TdApi {
     }
     
     
-    /** A voice chat participant volume level was changed */
-    export interface td_chatEventVoiceChatParticipantVolumeLevelChanged {
-        '@type': 'chatEventVoiceChatParticipantVolumeLevelChanged';
+    /** A video chat participant volume level was changed */
+    export interface td_chatEventVideoChatParticipantVolumeLevelChanged {
+        '@type': 'chatEventVideoChatParticipantVolumeLevelChanged';
         /** Identifier of the affected group call participant */
         participant_id: td_MessageSender;
         /** New value of volume_level; 1-20000 in hundreds of percents */
@@ -6322,9 +6458,9 @@ namespace TdApi {
     }
     
     
-    /** The mute_new_participants setting of a voice chat was toggled */
-    export interface td_chatEventVoiceChatMuteNewParticipantsToggled {
-        '@type': 'chatEventVoiceChatMuteNewParticipantsToggled';
+    /** The mute_new_participants setting of a video chat was toggled */
+    export interface td_chatEventVideoChatMuteNewParticipantsToggled {
+        '@type': 'chatEventVideoChatMuteNewParticipantsToggled';
         /** New value of the mute_new_participants setting */
         mute_new_participants: td_Bool;
     }
@@ -6377,8 +6513,8 @@ namespace TdApi {
         setting_changes: td_Bool;
         /** True, if changes to invite links need to be returned */
         invite_link_changes: td_Bool;
-        /** True, if voice chat actions need to be returned */
-        voice_chat_changes: td_Bool;
+        /** True, if video chat actions need to be returned */
+        video_chat_changes: td_Bool;
     }
     
     
@@ -6621,7 +6757,7 @@ namespace TdApi {
     /** A PNG or TGV (gzipped subset of SVG with MIME type "application/x-tgwallpattern") pattern to be combined with the background fill chosen by the user */
     export interface td_backgroundTypePattern {
         '@type': 'backgroundTypePattern';
-        /** Description of the background fill */
+        /** Fill of the background */
         fill: td_BackgroundFill;
         /** Intensity of the pattern when it is shown above the filled background; 0-100. */
         intensity: td_int32;
@@ -6635,7 +6771,7 @@ namespace TdApi {
     /** A filled background */
     export interface td_backgroundTypeFill {
         '@type': 'backgroundTypeFill';
-        /** Description of the background fill */
+        /** The background fill */
         fill: td_BackgroundFill;
     }
     
@@ -7079,6 +7215,12 @@ namespace TdApi {
     /** A new member joined the chat by invite link */
     export interface td_pushMessageContentChatJoinByLink {
         '@type': 'pushMessageContentChatJoinByLink';
+    }
+    
+    
+    /** A new member was accepted to the chat by an administrator */
+    export interface td_pushMessageContentChatJoinByRequest {
+        '@type': 'pushMessageContentChatJoinByRequest';
     }
     
     
@@ -7714,14 +7856,20 @@ namespace TdApi {
     }
     
     
-    /** The link is a link to a voice chat. Call searchPublicChat with the given chat username, and then joinGoupCall with the given invite hash to process the link */
-    export interface td_internalLinkTypeVoiceChat {
-        '@type': 'internalLinkTypeVoiceChat';
-        /** Username of the chat with the voice chat */
+    /** The link is a link to an unsupported proxy. An alert can be shown to the user */
+    export interface td_internalLinkTypeUnsupportedProxy {
+        '@type': 'internalLinkTypeUnsupportedProxy';
+    }
+    
+    
+    /** The link is a link to a video chat. Call searchPublicChat with the given chat username, and then joinGoupCall with the given invite hash to process the link */
+    export interface td_internalLinkTypeVideoChat {
+        '@type': 'internalLinkTypeVideoChat';
+        /** Username of the chat with the video chat */
         chat_username: td_string;
-        /** If non-empty, invite hash to be used to join the voice chat without being muted by administrators */
+        /** If non-empty, invite hash to be used to join the video chat without being muted by administrators */
         invite_hash: td_string;
-        /** True, if the voice chat is expected to be a live stream in a channel or a broadcast group */
+        /** True, if the video chat is expected to be a live stream in a channel or a broadcast group */
         is_live_stream: td_Bool;
     }
     
@@ -8589,7 +8737,7 @@ namespace TdApi {
     /** A message has been successfully sent */
     export interface td_updateMessageSendSucceeded {
         '@type': 'updateMessageSendSucceeded';
-        /** Information about the sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change */
+        /** The sent message. Usually only the message identifier, date, and content are changed, but almost all other fields can also change */
         message: td_message;
         /** The previous temporary message identifier */
         old_message_id: td_int53;
@@ -8599,7 +8747,7 @@ namespace TdApi {
     /** A message failed to send. Be aware that some messages being sent can be irrecoverably deleted, in which case updateDeleteMessages will be received instead of this update */
     export interface td_updateMessageSendFailed {
         '@type': 'updateMessageSendFailed';
-        /** Contains information about the message which failed to send */
+        /** The failed to send message */
         message: td_message;
         /** The previous temporary message identifier */
         old_message_id: td_int53;
@@ -8782,13 +8930,13 @@ namespace TdApi {
     }
     
     
-    /** A chat voice chat state has changed */
-    export interface td_updateChatVoiceChat {
-        '@type': 'updateChatVoiceChat';
+    /** A chat video chat state has changed */
+    export interface td_updateChatVideoChat {
+        '@type': 'updateChatVideoChat';
         /** Chat identifier */
         chat_id: td_int53;
-        /** New value of voice_chat */
-        voice_chat: td_voiceChat;
+        /** New value of video_chat */
+        video_chat: td_videoChat;
     }
     
     
@@ -8881,6 +9029,16 @@ namespace TdApi {
         chat_id: td_int53;
         /** The new name of the chat theme; may be empty if theme was reset to default */
         theme_name: td_string;
+    }
+    
+    
+    /** The chat pending join requests were changed */
+    export interface td_updateChatPendingJoinRequests {
+        '@type': 'updateChatPendingJoinRequests';
+        /** Chat identifier */
+        chat_id: td_int53;
+        /** The new data about pending join requests; may be null */
+        pending_join_requests?: td_chatJoinRequestsInfo;
     }
     
     
@@ -9357,7 +9515,7 @@ namespace TdApi {
         sender_user_id: td_int53;
         /** User location; may be null */
         user_location?: td_location;
-        /** Contains information about the type of the chat, from which the query originated; may be null if unknown */
+        /** The type of the chat, from which the query originated; may be null if unknown */
         chat_type?: td_ChatType;
         /** Text of the query */
         query: td_string;
@@ -9508,6 +9666,18 @@ namespace TdApi {
     }
     
     
+    /** A user sent a join request to a chat; for bots only */
+    export interface td_updateNewChatJoinRequest {
+        '@type': 'updateNewChatJoinRequest';
+        /** Chat identifier */
+        chat_id: td_int53;
+        /** Join request */
+        request: td_chatJoinRequest;
+        /** The invite link, which was used to send join request; may be null */
+        invite_link?: td_chatInviteLink;
+    }
+    
+    
     /** Contains a list of updates */
     export interface td_updates {
         '@type': 'updates';
@@ -9652,6 +9822,7 @@ namespace TdApi {
     export type td_Thumbnail = td_thumbnail;
     export type td_MaskPoint = td_maskPointForehead | td_maskPointEyes | td_maskPointMouth | td_maskPointChin;
     export type td_MaskPosition = td_maskPosition;
+    export type td_ColorReplacement = td_colorReplacement;
     export type td_ClosedVectorPath = td_closedVectorPath;
     export type td_PollOption = td_pollOption;
     export type td_PollType = td_pollTypeRegular | td_pollTypeQuiz;
@@ -9663,6 +9834,7 @@ namespace TdApi {
     export type td_Video = td_video;
     export type td_VideoNote = td_videoNote;
     export type td_VoiceNote = td_voiceNote;
+    export type td_AnimatedEmoji = td_animatedEmoji;
     export type td_Contact = td_contact;
     export type td_Location = td_location;
     export type td_Venue = td_venue;
@@ -9696,6 +9868,9 @@ namespace TdApi {
     export type td_ChatInviteLinkMember = td_chatInviteLinkMember;
     export type td_ChatInviteLinkMembers = td_chatInviteLinkMembers;
     export type td_ChatInviteLinkInfo = td_chatInviteLinkInfo;
+    export type td_ChatJoinRequest = td_chatJoinRequest;
+    export type td_ChatJoinRequests = td_chatJoinRequests;
+    export type td_ChatJoinRequestsInfo = td_chatJoinRequestsInfo;
     export type td_BasicGroup = td_basicGroup;
     export type td_BasicGroupFullInfo = td_basicGroupFullInfo;
     export type td_Supergroup = td_supergroup;
@@ -9712,6 +9887,10 @@ namespace TdApi {
     export type td_Message = td_message;
     export type td_Messages = td_messages;
     export type td_FoundMessages = td_foundMessages;
+    export type td_MessagePosition = td_messagePosition;
+    export type td_MessagePositions = td_messagePositions;
+    export type td_MessageCalendarDay = td_messageCalendarDay;
+    export type td_MessageCalendar = td_messageCalendar;
     export type td_SponsoredMessage = td_sponsoredMessage;
     export type td_SponsoredMessages = td_sponsoredMessages;
     export type td_NotificationSettingsScope = td_notificationSettingsScopePrivateChats | td_notificationSettingsScopeGroupChats | td_notificationSettingsScopeChannelChats;
@@ -9727,7 +9906,7 @@ namespace TdApi {
     export type td_ChatLists = td_chatLists;
     export type td_ChatSource = td_chatSourceMtprotoProxy | td_chatSourcePublicServiceAnnouncement;
     export type td_ChatPosition = td_chatPosition;
-    export type td_VoiceChat = td_voiceChat;
+    export type td_VideoChat = td_videoChat;
     export type td_Chat = td_chat;
     export type td_Chats = td_chats;
     export type td_ChatNearby = td_chatNearby;
@@ -9790,7 +9969,7 @@ namespace TdApi {
     export type td_EncryptedPassportElement = td_encryptedPassportElement;
     export type td_InputPassportElementErrorSource = td_inputPassportElementErrorSourceUnspecified | td_inputPassportElementErrorSourceDataField | td_inputPassportElementErrorSourceFrontSide | td_inputPassportElementErrorSourceReverseSide | td_inputPassportElementErrorSourceSelfie | td_inputPassportElementErrorSourceTranslationFile | td_inputPassportElementErrorSourceTranslationFiles | td_inputPassportElementErrorSourceFile | td_inputPassportElementErrorSourceFiles;
     export type td_InputPassportElementError = td_inputPassportElementError;
-    export type td_MessageContent = td_messageText | td_messageAnimation | td_messageAudio | td_messageDocument | td_messagePhoto | td_messageExpiredPhoto | td_messageSticker | td_messageVideo | td_messageExpiredVideo | td_messageVideoNote | td_messageVoiceNote | td_messageLocation | td_messageVenue | td_messageContact | td_messageDice | td_messageGame | td_messagePoll | td_messageInvoice | td_messageCall | td_messageVoiceChatScheduled | td_messageVoiceChatStarted | td_messageVoiceChatEnded | td_messageInviteVoiceChatParticipants | td_messageBasicGroupChatCreate | td_messageSupergroupChatCreate | td_messageChatChangeTitle | td_messageChatChangePhoto | td_messageChatDeletePhoto | td_messageChatAddMembers | td_messageChatJoinByLink | td_messageChatDeleteMember | td_messageChatUpgradeTo | td_messageChatUpgradeFrom | td_messagePinMessage | td_messageScreenshotTaken | td_messageChatSetTheme | td_messageChatSetTtl | td_messageCustomServiceAction | td_messageGameScore | td_messagePaymentSuccessful | td_messagePaymentSuccessfulBot | td_messageContactRegistered | td_messageWebsiteConnected | td_messagePassportDataSent | td_messagePassportDataReceived | td_messageProximityAlertTriggered | td_messageUnsupported;
+    export type td_MessageContent = td_messageText | td_messageAnimation | td_messageAudio | td_messageDocument | td_messagePhoto | td_messageExpiredPhoto | td_messageSticker | td_messageVideo | td_messageExpiredVideo | td_messageVideoNote | td_messageVoiceNote | td_messageLocation | td_messageVenue | td_messageContact | td_messageAnimatedEmoji | td_messageDice | td_messageGame | td_messagePoll | td_messageInvoice | td_messageCall | td_messageVideoChatScheduled | td_messageVideoChatStarted | td_messageVideoChatEnded | td_messageInviteVideoChatParticipants | td_messageBasicGroupChatCreate | td_messageSupergroupChatCreate | td_messageChatChangeTitle | td_messageChatChangePhoto | td_messageChatDeletePhoto | td_messageChatAddMembers | td_messageChatJoinByLink | td_messageChatJoinByRequest | td_messageChatDeleteMember | td_messageChatUpgradeTo | td_messageChatUpgradeFrom | td_messagePinMessage | td_messageScreenshotTaken | td_messageChatSetTheme | td_messageChatSetTtl | td_messageCustomServiceAction | td_messageGameScore | td_messagePaymentSuccessful | td_messagePaymentSuccessfulBot | td_messageContactRegistered | td_messageWebsiteConnected | td_messagePassportDataSent | td_messagePassportDataReceived | td_messageProximityAlertTriggered | td_messageUnsupported;
     export type td_TextEntityType = td_textEntityTypeMention | td_textEntityTypeHashtag | td_textEntityTypeCashtag | td_textEntityTypeBotCommand | td_textEntityTypeUrl | td_textEntityTypeEmailAddress | td_textEntityTypePhoneNumber | td_textEntityTypeBankCardNumber | td_textEntityTypeBold | td_textEntityTypeItalic | td_textEntityTypeUnderline | td_textEntityTypeStrikethrough | td_textEntityTypeCode | td_textEntityTypePre | td_textEntityTypePreCode | td_textEntityTypeTextUrl | td_textEntityTypeMentionName | td_textEntityTypeMediaTimestamp;
     export type td_InputThumbnail = td_inputThumbnail;
     export type td_MessageSchedulingState = td_messageSchedulingStateSendAtDate | td_messageSchedulingStateSendWhenOnline;
@@ -9833,7 +10012,7 @@ namespace TdApi {
     export type td_CustomRequestResult = td_customRequestResult;
     export type td_GameHighScore = td_gameHighScore;
     export type td_GameHighScores = td_gameHighScores;
-    export type td_ChatEventAction = td_chatEventMessageEdited | td_chatEventMessageDeleted | td_chatEventPollStopped | td_chatEventMessagePinned | td_chatEventMessageUnpinned | td_chatEventMemberJoined | td_chatEventMemberJoinedByInviteLink | td_chatEventMemberLeft | td_chatEventMemberInvited | td_chatEventMemberPromoted | td_chatEventMemberRestricted | td_chatEventTitleChanged | td_chatEventPermissionsChanged | td_chatEventDescriptionChanged | td_chatEventUsernameChanged | td_chatEventPhotoChanged | td_chatEventInvitesToggled | td_chatEventLinkedChatChanged | td_chatEventSlowModeDelayChanged | td_chatEventMessageTtlSettingChanged | td_chatEventSignMessagesToggled | td_chatEventStickerSetChanged | td_chatEventLocationChanged | td_chatEventIsAllHistoryAvailableToggled | td_chatEventInviteLinkEdited | td_chatEventInviteLinkRevoked | td_chatEventInviteLinkDeleted | td_chatEventVoiceChatCreated | td_chatEventVoiceChatDiscarded | td_chatEventVoiceChatParticipantIsMutedToggled | td_chatEventVoiceChatParticipantVolumeLevelChanged | td_chatEventVoiceChatMuteNewParticipantsToggled;
+    export type td_ChatEventAction = td_chatEventMessageEdited | td_chatEventMessageDeleted | td_chatEventPollStopped | td_chatEventMessagePinned | td_chatEventMessageUnpinned | td_chatEventMemberJoined | td_chatEventMemberJoinedByInviteLink | td_chatEventMemberJoinedByRequest | td_chatEventMemberLeft | td_chatEventMemberInvited | td_chatEventMemberPromoted | td_chatEventMemberRestricted | td_chatEventTitleChanged | td_chatEventPermissionsChanged | td_chatEventDescriptionChanged | td_chatEventUsernameChanged | td_chatEventPhotoChanged | td_chatEventInvitesToggled | td_chatEventLinkedChatChanged | td_chatEventSlowModeDelayChanged | td_chatEventMessageTtlSettingChanged | td_chatEventSignMessagesToggled | td_chatEventStickerSetChanged | td_chatEventLocationChanged | td_chatEventIsAllHistoryAvailableToggled | td_chatEventInviteLinkEdited | td_chatEventInviteLinkRevoked | td_chatEventInviteLinkDeleted | td_chatEventVideoChatCreated | td_chatEventVideoChatDiscarded | td_chatEventVideoChatParticipantIsMutedToggled | td_chatEventVideoChatParticipantVolumeLevelChanged | td_chatEventVideoChatMuteNewParticipantsToggled;
     export type td_ChatEvent = td_chatEvent;
     export type td_ChatEvents = td_chatEvents;
     export type td_ChatEventLogFilters = td_chatEventLogFilters;
@@ -9857,7 +10036,7 @@ namespace TdApi {
     export type td_CheckStickerSetNameResult = td_checkStickerSetNameResultOk | td_checkStickerSetNameResultNameInvalid | td_checkStickerSetNameResultNameOccupied;
     export type td_ResetPasswordResult = td_resetPasswordResultOk | td_resetPasswordResultPending | td_resetPasswordResultDeclined;
     export type td_MessageFileType = td_messageFileTypePrivate | td_messageFileTypeGroup | td_messageFileTypeUnknown;
-    export type td_PushMessageContent = td_pushMessageContentHidden | td_pushMessageContentAnimation | td_pushMessageContentAudio | td_pushMessageContentContact | td_pushMessageContentContactRegistered | td_pushMessageContentDocument | td_pushMessageContentGame | td_pushMessageContentGameScore | td_pushMessageContentInvoice | td_pushMessageContentLocation | td_pushMessageContentPhoto | td_pushMessageContentPoll | td_pushMessageContentScreenshotTaken | td_pushMessageContentSticker | td_pushMessageContentText | td_pushMessageContentVideo | td_pushMessageContentVideoNote | td_pushMessageContentVoiceNote | td_pushMessageContentBasicGroupChatCreate | td_pushMessageContentChatAddMembers | td_pushMessageContentChatChangePhoto | td_pushMessageContentChatChangeTitle | td_pushMessageContentChatSetTheme | td_pushMessageContentChatDeleteMember | td_pushMessageContentChatJoinByLink | td_pushMessageContentMessageForwards | td_pushMessageContentMediaAlbum;
+    export type td_PushMessageContent = td_pushMessageContentHidden | td_pushMessageContentAnimation | td_pushMessageContentAudio | td_pushMessageContentContact | td_pushMessageContentContactRegistered | td_pushMessageContentDocument | td_pushMessageContentGame | td_pushMessageContentGameScore | td_pushMessageContentInvoice | td_pushMessageContentLocation | td_pushMessageContentPhoto | td_pushMessageContentPoll | td_pushMessageContentScreenshotTaken | td_pushMessageContentSticker | td_pushMessageContentText | td_pushMessageContentVideo | td_pushMessageContentVideoNote | td_pushMessageContentVoiceNote | td_pushMessageContentBasicGroupChatCreate | td_pushMessageContentChatAddMembers | td_pushMessageContentChatChangePhoto | td_pushMessageContentChatChangeTitle | td_pushMessageContentChatSetTheme | td_pushMessageContentChatDeleteMember | td_pushMessageContentChatJoinByLink | td_pushMessageContentChatJoinByRequest | td_pushMessageContentMessageForwards | td_pushMessageContentMediaAlbum;
     export type td_NotificationType = td_notificationTypeNewMessage | td_notificationTypeNewSecretChat | td_notificationTypeNewCall | td_notificationTypeNewPushMessage;
     export type td_NotificationGroupType = td_notificationGroupTypeMessages | td_notificationGroupTypeMentions | td_notificationGroupTypeSecretChat | td_notificationGroupTypeCalls;
     export type td_Notification = td_notification;
@@ -9874,7 +10053,7 @@ namespace TdApi {
     export type td_ConnectedWebsite = td_connectedWebsite;
     export type td_ConnectedWebsites = td_connectedWebsites;
     export type td_ChatReportReason = td_chatReportReasonSpam | td_chatReportReasonViolence | td_chatReportReasonPornography | td_chatReportReasonChildAbuse | td_chatReportReasonCopyright | td_chatReportReasonUnrelatedLocation | td_chatReportReasonFake | td_chatReportReasonCustom;
-    export type td_InternalLinkType = td_internalLinkTypeActiveSessions | td_internalLinkTypeAuthenticationCode | td_internalLinkTypeBackground | td_internalLinkTypeBotStart | td_internalLinkTypeBotStartInGroup | td_internalLinkTypeChangePhoneNumber | td_internalLinkTypeChatInvite | td_internalLinkTypeFilterSettings | td_internalLinkTypeGame | td_internalLinkTypeLanguagePack | td_internalLinkTypeMessage | td_internalLinkTypeMessageDraft | td_internalLinkTypePassportDataRequest | td_internalLinkTypePhoneNumberConfirmation | td_internalLinkTypeProxy | td_internalLinkTypePublicChat | td_internalLinkTypeQrCodeAuthentication | td_internalLinkTypeSettings | td_internalLinkTypeStickerSet | td_internalLinkTypeTheme | td_internalLinkTypeThemeSettings | td_internalLinkTypeUnknownDeepLink | td_internalLinkTypeVoiceChat;
+    export type td_InternalLinkType = td_internalLinkTypeActiveSessions | td_internalLinkTypeAuthenticationCode | td_internalLinkTypeBackground | td_internalLinkTypeBotStart | td_internalLinkTypeBotStartInGroup | td_internalLinkTypeChangePhoneNumber | td_internalLinkTypeChatInvite | td_internalLinkTypeFilterSettings | td_internalLinkTypeGame | td_internalLinkTypeLanguagePack | td_internalLinkTypeMessage | td_internalLinkTypeMessageDraft | td_internalLinkTypePassportDataRequest | td_internalLinkTypePhoneNumberConfirmation | td_internalLinkTypeProxy | td_internalLinkTypePublicChat | td_internalLinkTypeQrCodeAuthentication | td_internalLinkTypeSettings | td_internalLinkTypeStickerSet | td_internalLinkTypeTheme | td_internalLinkTypeThemeSettings | td_internalLinkTypeUnknownDeepLink | td_internalLinkTypeUnsupportedProxy | td_internalLinkTypeVideoChat;
     export type td_MessageLink = td_messageLink;
     export type td_MessageLinkInfo = td_messageLinkInfo;
     export type td_FilePart = td_filePart;
@@ -9916,7 +10095,7 @@ namespace TdApi {
     export type td_Point = td_point;
     export type td_VectorPathCommand = td_vectorPathCommandLine | td_vectorPathCommandCubicBezierCurve;
     export type td_BotCommandScope = td_botCommandScopeDefault | td_botCommandScopeAllPrivateChats | td_botCommandScopeAllGroupChats | td_botCommandScopeAllChatAdministrators | td_botCommandScopeChat | td_botCommandScopeChatAdministrators | td_botCommandScopeChatMember;
-    export type td_Update = td_updateAuthorizationState | td_updateNewMessage | td_updateMessageSendAcknowledged | td_updateMessageSendSucceeded | td_updateMessageSendFailed | td_updateMessageContent | td_updateMessageEdited | td_updateMessageIsPinned | td_updateMessageInteractionInfo | td_updateMessageContentOpened | td_updateMessageMentionRead | td_updateMessageLiveLocationViewed | td_updateNewChat | td_updateChatTitle | td_updateChatPhoto | td_updateChatPermissions | td_updateChatLastMessage | td_updateChatPosition | td_updateChatIsMarkedAsUnread | td_updateChatIsBlocked | td_updateChatHasScheduledMessages | td_updateChatVoiceChat | td_updateChatDefaultDisableNotification | td_updateChatReadInbox | td_updateChatReadOutbox | td_updateChatUnreadMentionCount | td_updateChatNotificationSettings | td_updateScopeNotificationSettings | td_updateChatMessageTtlSetting | td_updateChatActionBar | td_updateChatTheme | td_updateChatReplyMarkup | td_updateChatDraftMessage | td_updateChatFilters | td_updateChatOnlineMemberCount | td_updateNotification | td_updateNotificationGroup | td_updateActiveNotifications | td_updateHavePendingNotifications | td_updateDeleteMessages | td_updateUserChatAction | td_updateUserStatus | td_updateUser | td_updateBasicGroup | td_updateSupergroup | td_updateSecretChat | td_updateUserFullInfo | td_updateBasicGroupFullInfo | td_updateSupergroupFullInfo | td_updateServiceNotification | td_updateFile | td_updateFileGenerationStart | td_updateFileGenerationStop | td_updateCall | td_updateGroupCall | td_updateGroupCallParticipant | td_updateNewCallSignalingData | td_updateUserPrivacySettingRules | td_updateUnreadMessageCount | td_updateUnreadChatCount | td_updateOption | td_updateStickerSet | td_updateInstalledStickerSets | td_updateTrendingStickerSets | td_updateRecentStickers | td_updateFavoriteStickers | td_updateSavedAnimations | td_updateSelectedBackground | td_updateChatThemes | td_updateLanguagePackStrings | td_updateConnectionState | td_updateTermsOfService | td_updateUsersNearby | td_updateDiceEmojis | td_updateAnimatedEmojiMessageClicked | td_updateAnimationSearchParameters | td_updateSuggestedActions | td_updateNewInlineQuery | td_updateNewChosenInlineResult | td_updateNewCallbackQuery | td_updateNewInlineCallbackQuery | td_updateNewShippingQuery | td_updateNewPreCheckoutQuery | td_updateNewCustomEvent | td_updateNewCustomQuery | td_updatePoll | td_updatePollAnswer | td_updateChatMember | td_updateFatalError;
+    export type td_Update = td_updateAuthorizationState | td_updateNewMessage | td_updateMessageSendAcknowledged | td_updateMessageSendSucceeded | td_updateMessageSendFailed | td_updateMessageContent | td_updateMessageEdited | td_updateMessageIsPinned | td_updateMessageInteractionInfo | td_updateMessageContentOpened | td_updateMessageMentionRead | td_updateMessageLiveLocationViewed | td_updateNewChat | td_updateChatTitle | td_updateChatPhoto | td_updateChatPermissions | td_updateChatLastMessage | td_updateChatPosition | td_updateChatIsMarkedAsUnread | td_updateChatIsBlocked | td_updateChatHasScheduledMessages | td_updateChatVideoChat | td_updateChatDefaultDisableNotification | td_updateChatReadInbox | td_updateChatReadOutbox | td_updateChatUnreadMentionCount | td_updateChatNotificationSettings | td_updateScopeNotificationSettings | td_updateChatMessageTtlSetting | td_updateChatActionBar | td_updateChatTheme | td_updateChatPendingJoinRequests | td_updateChatReplyMarkup | td_updateChatDraftMessage | td_updateChatFilters | td_updateChatOnlineMemberCount | td_updateNotification | td_updateNotificationGroup | td_updateActiveNotifications | td_updateHavePendingNotifications | td_updateDeleteMessages | td_updateUserChatAction | td_updateUserStatus | td_updateUser | td_updateBasicGroup | td_updateSupergroup | td_updateSecretChat | td_updateUserFullInfo | td_updateBasicGroupFullInfo | td_updateSupergroupFullInfo | td_updateServiceNotification | td_updateFile | td_updateFileGenerationStart | td_updateFileGenerationStop | td_updateCall | td_updateGroupCall | td_updateGroupCallParticipant | td_updateNewCallSignalingData | td_updateUserPrivacySettingRules | td_updateUnreadMessageCount | td_updateUnreadChatCount | td_updateOption | td_updateStickerSet | td_updateInstalledStickerSets | td_updateTrendingStickerSets | td_updateRecentStickers | td_updateFavoriteStickers | td_updateSavedAnimations | td_updateSelectedBackground | td_updateChatThemes | td_updateLanguagePackStrings | td_updateConnectionState | td_updateTermsOfService | td_updateUsersNearby | td_updateDiceEmojis | td_updateAnimatedEmojiMessageClicked | td_updateAnimationSearchParameters | td_updateSuggestedActions | td_updateNewInlineQuery | td_updateNewChosenInlineResult | td_updateNewCallbackQuery | td_updateNewInlineCallbackQuery | td_updateNewShippingQuery | td_updateNewPreCheckoutQuery | td_updateNewCustomEvent | td_updateNewCustomQuery | td_updatePoll | td_updatePollAnswer | td_updateChatMember | td_updateNewChatJoinRequest | td_updateFatalError;
     export type td_Updates = td_updates;
     export type td_LogStream = td_logStreamDefault | td_logStreamFile | td_logStreamEmpty;
     export type td_LogVerbosityLevel = td_logVerbosityLevel;
@@ -9929,7 +10108,7 @@ namespace TdApi {
     export type td_TestVectorString = td_testVectorString;
     export type td_TestVectorStringObject = td_testVectorStringObject;
 
-    export type TdClass = td_Error | td_Ok | td_TdlibParameters | td_AuthenticationCodeType | td_AuthenticationCodeInfo | td_EmailAddressAuthenticationCodeInfo | td_TextEntity | td_TextEntities | td_FormattedText | td_TermsOfService | td_AuthorizationState | td_PasswordState | td_RecoveryEmailAddress | td_TemporaryPasswordState | td_LocalFile | td_RemoteFile | td_File | td_InputFile | td_PhotoSize | td_Minithumbnail | td_ThumbnailFormat | td_Thumbnail | td_MaskPoint | td_MaskPosition | td_ClosedVectorPath | td_PollOption | td_PollType | td_Animation | td_Audio | td_Document | td_Photo | td_Sticker | td_Video | td_VideoNote | td_VoiceNote | td_Contact | td_Location | td_Venue | td_Game | td_Poll | td_ProfilePhoto | td_ChatPhotoInfo | td_UserType | td_BotCommand | td_BotCommands | td_ChatLocation | td_AnimatedChatPhoto | td_ChatPhoto | td_ChatPhotos | td_InputChatPhoto | td_User | td_UserFullInfo | td_Users | td_ChatAdministrator | td_ChatAdministrators | td_ChatPermissions | td_ChatMemberStatus | td_ChatMember | td_ChatMembers | td_ChatMembersFilter | td_SupergroupMembersFilter | td_ChatInviteLink | td_ChatInviteLinks | td_ChatInviteLinkCount | td_ChatInviteLinkCounts | td_ChatInviteLinkMember | td_ChatInviteLinkMembers | td_ChatInviteLinkInfo | td_BasicGroup | td_BasicGroupFullInfo | td_Supergroup | td_SupergroupFullInfo | td_SecretChatState | td_SecretChat | td_MessageSender | td_MessageSenders | td_MessageForwardOrigin | td_MessageForwardInfo | td_MessageReplyInfo | td_MessageInteractionInfo | td_MessageSendingState | td_Message | td_Messages | td_FoundMessages | td_SponsoredMessage | td_SponsoredMessages | td_NotificationSettingsScope | td_ChatNotificationSettings | td_ScopeNotificationSettings | td_DraftMessage | td_ChatType | td_ChatFilter | td_ChatFilterInfo | td_RecommendedChatFilter | td_RecommendedChatFilters | td_ChatList | td_ChatLists | td_ChatSource | td_ChatPosition | td_VoiceChat | td_Chat | td_Chats | td_ChatNearby | td_ChatsNearby | td_PublicChatType | td_ChatActionBar | td_KeyboardButtonType | td_KeyboardButton | td_InlineKeyboardButtonType | td_InlineKeyboardButton | td_ReplyMarkup | td_LoginUrlInfo | td_MessageThreadInfo | td_RichText | td_PageBlockCaption | td_PageBlockListItem | td_PageBlockHorizontalAlignment | td_PageBlockVerticalAlignment | td_PageBlockTableCell | td_PageBlockRelatedArticle | td_PageBlock | td_WebPageInstantView | td_WebPage | td_CountryInfo | td_Countries | td_PhoneNumberInfo | td_BankCardActionOpenUrl | td_BankCardInfo | td_Address | td_LabeledPricePart | td_Invoice | td_OrderInfo | td_ShippingOption | td_SavedCredentials | td_InputCredentials | td_PaymentsProviderStripe | td_PaymentFormTheme | td_PaymentForm | td_ValidatedOrderInfo | td_PaymentResult | td_PaymentReceipt | td_DatedFile | td_PassportElementType | td_Date | td_PersonalDetails | td_IdentityDocument | td_InputIdentityDocument | td_PersonalDocument | td_InputPersonalDocument | td_PassportElement | td_InputPassportElement | td_PassportElements | td_PassportElementErrorSource | td_PassportElementError | td_PassportSuitableElement | td_PassportRequiredElement | td_PassportAuthorizationForm | td_PassportElementsWithErrors | td_EncryptedCredentials | td_EncryptedPassportElement | td_InputPassportElementErrorSource | td_InputPassportElementError | td_MessageContent | td_TextEntityType | td_InputThumbnail | td_MessageSchedulingState | td_MessageSendOptions | td_MessageCopyOptions | td_InputMessageContent | td_SearchMessagesFilter | td_ChatAction | td_UserStatus | td_Stickers | td_Emojis | td_StickerSet | td_StickerSetInfo | td_StickerSets | td_CallDiscardReason | td_CallProtocol | td_CallServerType | td_CallServer | td_CallId | td_GroupCallId | td_CallState | td_GroupCallVideoQuality | td_GroupCallRecentSpeaker | td_GroupCall | td_GroupCallVideoSourceGroup | td_GroupCallParticipantVideoInfo | td_GroupCallParticipant | td_CallProblem | td_Call | td_PhoneNumberAuthenticationSettings | td_Animations | td_DiceStickers | td_ImportedContacts | td_HttpUrl | td_InputInlineQueryResult | td_InlineQueryResult | td_InlineQueryResults | td_CallbackQueryPayload | td_CallbackQueryAnswer | td_CustomRequestResult | td_GameHighScore | td_GameHighScores | td_ChatEventAction | td_ChatEvent | td_ChatEvents | td_ChatEventLogFilters | td_LanguagePackStringValue | td_LanguagePackString | td_LanguagePackStrings | td_LanguagePackInfo | td_LocalizationTargetInfo | td_DeviceToken | td_PushReceiverId | td_BackgroundFill | td_BackgroundType | td_Background | td_Backgrounds | td_InputBackground | td_ThemeSettings | td_ChatTheme | td_Hashtags | td_CanTransferOwnershipResult | td_CheckChatUsernameResult | td_CheckStickerSetNameResult | td_ResetPasswordResult | td_MessageFileType | td_PushMessageContent | td_NotificationType | td_NotificationGroupType | td_Notification | td_NotificationGroup | td_OptionValue | td_JsonObjectMember | td_JsonValue | td_UserPrivacySettingRule | td_UserPrivacySettingRules | td_UserPrivacySetting | td_AccountTtl | td_Session | td_Sessions | td_ConnectedWebsite | td_ConnectedWebsites | td_ChatReportReason | td_InternalLinkType | td_MessageLink | td_MessageLinkInfo | td_FilePart | td_FileType | td_StorageStatisticsByFileType | td_StorageStatisticsByChat | td_StorageStatistics | td_StorageStatisticsFast | td_DatabaseStatistics | td_NetworkType | td_NetworkStatisticsEntry | td_NetworkStatistics | td_AutoDownloadSettings | td_AutoDownloadSettingsPresets | td_ConnectionState | td_TopChatCategory | td_TMeUrlType | td_TMeUrl | td_TMeUrls | td_SuggestedAction | td_Count | td_Text | td_Seconds | td_DeepLinkInfo | td_TextParseMode | td_ProxyType | td_Proxy | td_Proxies | td_InputSticker | td_DateRange | td_StatisticalValue | td_StatisticalGraph | td_ChatStatisticsMessageInteractionInfo | td_ChatStatisticsMessageSenderInfo | td_ChatStatisticsAdministratorActionsInfo | td_ChatStatisticsInviterInfo | td_ChatStatistics | td_MessageStatistics | td_Point | td_VectorPathCommand | td_BotCommandScope | td_Update | td_Updates | td_LogStream | td_LogVerbosityLevel | td_LogTags | td_TestInt | td_TestString | td_TestBytes | td_TestVectorInt | td_TestVectorIntObject | td_TestVectorString | td_TestVectorStringObject;
+    export type TdClass = td_Error | td_Ok | td_TdlibParameters | td_AuthenticationCodeType | td_AuthenticationCodeInfo | td_EmailAddressAuthenticationCodeInfo | td_TextEntity | td_TextEntities | td_FormattedText | td_TermsOfService | td_AuthorizationState | td_PasswordState | td_RecoveryEmailAddress | td_TemporaryPasswordState | td_LocalFile | td_RemoteFile | td_File | td_InputFile | td_PhotoSize | td_Minithumbnail | td_ThumbnailFormat | td_Thumbnail | td_MaskPoint | td_MaskPosition | td_ColorReplacement | td_ClosedVectorPath | td_PollOption | td_PollType | td_Animation | td_Audio | td_Document | td_Photo | td_Sticker | td_Video | td_VideoNote | td_VoiceNote | td_AnimatedEmoji | td_Contact | td_Location | td_Venue | td_Game | td_Poll | td_ProfilePhoto | td_ChatPhotoInfo | td_UserType | td_BotCommand | td_BotCommands | td_ChatLocation | td_AnimatedChatPhoto | td_ChatPhoto | td_ChatPhotos | td_InputChatPhoto | td_User | td_UserFullInfo | td_Users | td_ChatAdministrator | td_ChatAdministrators | td_ChatPermissions | td_ChatMemberStatus | td_ChatMember | td_ChatMembers | td_ChatMembersFilter | td_SupergroupMembersFilter | td_ChatInviteLink | td_ChatInviteLinks | td_ChatInviteLinkCount | td_ChatInviteLinkCounts | td_ChatInviteLinkMember | td_ChatInviteLinkMembers | td_ChatInviteLinkInfo | td_ChatJoinRequest | td_ChatJoinRequests | td_ChatJoinRequestsInfo | td_BasicGroup | td_BasicGroupFullInfo | td_Supergroup | td_SupergroupFullInfo | td_SecretChatState | td_SecretChat | td_MessageSender | td_MessageSenders | td_MessageForwardOrigin | td_MessageForwardInfo | td_MessageReplyInfo | td_MessageInteractionInfo | td_MessageSendingState | td_Message | td_Messages | td_FoundMessages | td_MessagePosition | td_MessagePositions | td_MessageCalendarDay | td_MessageCalendar | td_SponsoredMessage | td_SponsoredMessages | td_NotificationSettingsScope | td_ChatNotificationSettings | td_ScopeNotificationSettings | td_DraftMessage | td_ChatType | td_ChatFilter | td_ChatFilterInfo | td_RecommendedChatFilter | td_RecommendedChatFilters | td_ChatList | td_ChatLists | td_ChatSource | td_ChatPosition | td_VideoChat | td_Chat | td_Chats | td_ChatNearby | td_ChatsNearby | td_PublicChatType | td_ChatActionBar | td_KeyboardButtonType | td_KeyboardButton | td_InlineKeyboardButtonType | td_InlineKeyboardButton | td_ReplyMarkup | td_LoginUrlInfo | td_MessageThreadInfo | td_RichText | td_PageBlockCaption | td_PageBlockListItem | td_PageBlockHorizontalAlignment | td_PageBlockVerticalAlignment | td_PageBlockTableCell | td_PageBlockRelatedArticle | td_PageBlock | td_WebPageInstantView | td_WebPage | td_CountryInfo | td_Countries | td_PhoneNumberInfo | td_BankCardActionOpenUrl | td_BankCardInfo | td_Address | td_LabeledPricePart | td_Invoice | td_OrderInfo | td_ShippingOption | td_SavedCredentials | td_InputCredentials | td_PaymentsProviderStripe | td_PaymentFormTheme | td_PaymentForm | td_ValidatedOrderInfo | td_PaymentResult | td_PaymentReceipt | td_DatedFile | td_PassportElementType | td_Date | td_PersonalDetails | td_IdentityDocument | td_InputIdentityDocument | td_PersonalDocument | td_InputPersonalDocument | td_PassportElement | td_InputPassportElement | td_PassportElements | td_PassportElementErrorSource | td_PassportElementError | td_PassportSuitableElement | td_PassportRequiredElement | td_PassportAuthorizationForm | td_PassportElementsWithErrors | td_EncryptedCredentials | td_EncryptedPassportElement | td_InputPassportElementErrorSource | td_InputPassportElementError | td_MessageContent | td_TextEntityType | td_InputThumbnail | td_MessageSchedulingState | td_MessageSendOptions | td_MessageCopyOptions | td_InputMessageContent | td_SearchMessagesFilter | td_ChatAction | td_UserStatus | td_Stickers | td_Emojis | td_StickerSet | td_StickerSetInfo | td_StickerSets | td_CallDiscardReason | td_CallProtocol | td_CallServerType | td_CallServer | td_CallId | td_GroupCallId | td_CallState | td_GroupCallVideoQuality | td_GroupCallRecentSpeaker | td_GroupCall | td_GroupCallVideoSourceGroup | td_GroupCallParticipantVideoInfo | td_GroupCallParticipant | td_CallProblem | td_Call | td_PhoneNumberAuthenticationSettings | td_Animations | td_DiceStickers | td_ImportedContacts | td_HttpUrl | td_InputInlineQueryResult | td_InlineQueryResult | td_InlineQueryResults | td_CallbackQueryPayload | td_CallbackQueryAnswer | td_CustomRequestResult | td_GameHighScore | td_GameHighScores | td_ChatEventAction | td_ChatEvent | td_ChatEvents | td_ChatEventLogFilters | td_LanguagePackStringValue | td_LanguagePackString | td_LanguagePackStrings | td_LanguagePackInfo | td_LocalizationTargetInfo | td_DeviceToken | td_PushReceiverId | td_BackgroundFill | td_BackgroundType | td_Background | td_Backgrounds | td_InputBackground | td_ThemeSettings | td_ChatTheme | td_Hashtags | td_CanTransferOwnershipResult | td_CheckChatUsernameResult | td_CheckStickerSetNameResult | td_ResetPasswordResult | td_MessageFileType | td_PushMessageContent | td_NotificationType | td_NotificationGroupType | td_Notification | td_NotificationGroup | td_OptionValue | td_JsonObjectMember | td_JsonValue | td_UserPrivacySettingRule | td_UserPrivacySettingRules | td_UserPrivacySetting | td_AccountTtl | td_Session | td_Sessions | td_ConnectedWebsite | td_ConnectedWebsites | td_ChatReportReason | td_InternalLinkType | td_MessageLink | td_MessageLinkInfo | td_FilePart | td_FileType | td_StorageStatisticsByFileType | td_StorageStatisticsByChat | td_StorageStatistics | td_StorageStatisticsFast | td_DatabaseStatistics | td_NetworkType | td_NetworkStatisticsEntry | td_NetworkStatistics | td_AutoDownloadSettings | td_AutoDownloadSettingsPresets | td_ConnectionState | td_TopChatCategory | td_TMeUrlType | td_TMeUrl | td_TMeUrls | td_SuggestedAction | td_Count | td_Text | td_Seconds | td_DeepLinkInfo | td_TextParseMode | td_ProxyType | td_Proxy | td_Proxies | td_InputSticker | td_DateRange | td_StatisticalValue | td_StatisticalGraph | td_ChatStatisticsMessageInteractionInfo | td_ChatStatisticsMessageSenderInfo | td_ChatStatisticsAdministratorActionsInfo | td_ChatStatisticsInviterInfo | td_ChatStatistics | td_MessageStatistics | td_Point | td_VectorPathCommand | td_BotCommandScope | td_Update | td_Updates | td_LogStream | td_LogVerbosityLevel | td_LogTags | td_TestInt | td_TestString | td_TestBytes | td_TestVectorInt | td_TestVectorIntObject | td_TestVectorString | td_TestVectorStringObject;
     
     
     /** Returns the current authorization state; this is an offline request. For informational purposes only. Use updateAuthorizationState instead to maintain the current authorization state. Can be called before initialization */
@@ -10281,7 +10460,7 @@ namespace TdApi {
         '@type': 'getRepliedMessage';
         /** Identifier of the chat the message belongs to */
         chat_id?: td_int53;
-        /** Identifier of the message reply to which to get */
+        /** Identifier of the reply message */
         message_id?: td_int53;
     }
     
@@ -10570,7 +10749,7 @@ namespace TdApi {
     }
     
     
-    /** Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. Cannot be used in secret chats with a non-empty query -(searchSecretMessages mmust be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
+    /** Searches for messages with given words in the chat. Returns the results in reverse chronological order, i.e. in order of decreasing message_id. Cannot be used in secret chats with a non-empty query -(searchSecretMessages must be used instead), or without an enabled message database. For optimal performance, the number of returned messages is chosen by TDLib and can be smaller than the specified limit */
     export interface td_searchChatMessages {
         '@type': 'searchChatMessages';
         /** Identifier of the chat in which to search messages */
@@ -10675,6 +10854,32 @@ namespace TdApi {
         chat_id?: td_int53;
         /** Point in time (Unix timestamp) relative to which to search for messages */
         date?: td_int32;
+    }
+    
+    
+    /** Returns sparse positions of messages of the specified type in the chat to be used for shared media scroll implementation. Returns the results in reverse chronological order (i.e., in order of decreasing message_id). -Cannot be used in secret chats or with searchMessagesFilterFailedToSend filter without an enabled message database */
+    export interface td_getChatSparseMessagePositions {
+        '@type': 'getChatSparseMessagePositions';
+        /** Identifier of the chat in which to return information about message positions */
+        chat_id?: td_int53;
+        /** Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function */
+        filter?: td_SearchMessagesFilter;
+        /** The message identifier from which to return information about message positions */
+        from_message_id?: td_int53;
+        /** The expected number of message positions to be returned; 50-2000. A smaller number of positions can be returned, if there are not enough appropriate messages */
+        limit?: td_int32;
+    }
+    
+    
+    /** Returns information about the next messages of the specified type in the chat splitted by days. Returns the results in reverse chronological order. Can return partial result for the last returned day. Behavior of this method depends on the value of the option "utc_time_offset" */
+    export interface td_getChatMessageCalendar {
+        '@type': 'getChatMessageCalendar';
+        /** Identifier of the chat in which to return information about messages */
+        chat_id?: td_int53;
+        /** Filter for message content. Filters searchMessagesFilterEmpty, searchMessagesFilterCall, searchMessagesFilterMissedCall, searchMessagesFilterMention and searchMessagesFilterUnreadMention are unsupported in this function */
+        filter?: td_SearchMessagesFilter;
+        /** The message identifier from which to return information about messages; use 0 to get results from the last message */
+        from_message_id?: td_int53;
     }
     
     
@@ -10925,6 +11130,20 @@ namespace TdApi {
         chat_id?: td_int53;
         /** User identifier */
         user_id?: td_int53;
+    }
+    
+    
+    /** Deletes all messages between the specified dates in a chat. Supported only for private chats and basic groups. Messages sent in the last 30 seconds will not be deleted */
+    export interface td_deleteChatMessagesByDate {
+        '@type': 'deleteChatMessagesByDate';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** The minimum date of the messages to delete */
+        min_date?: td_int32;
+        /** The maximum date of the messages to delete */
+        max_date?: td_int32;
+        /** Pass true to try to delete chat messages for all users; private chats only */
+        revoke?: td_Bool;
     }
     
     
@@ -11775,7 +11994,7 @@ namespace TdApi {
         '@type': 'setChatSlowModeDelay';
         /** Chat identifier */
         chat_id?: td_int53;
-        /** New slow mode delay for the chat; must be one of 0, 10, 30, 60, 300, 900, 3600 */
+        /** New slow mode delay for the chat, in seconds; must be one of 0, 10, 30, 60, 300, 900, 3600 */
         slow_mode_delay?: td_int32;
     }
     
@@ -11850,7 +12069,7 @@ namespace TdApi {
     }
     
     
-    /** Changes the status of a chat member, needs appropriate privileges. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead. Use addChatMember or banChatMember if you need to pass some additional parameters */
+    /** Changes the status of a chat member, needs appropriate privileges. This function is currently not suitable for transferring chat ownership; use transferChatOwnership instead. Use addChatMember or banChatMember if some additional parameters needs to be passed */
     export interface td_setChatMemberStatus {
         '@type': 'setChatMemberStatus';
         /** Chat identifier */
@@ -11911,7 +12130,7 @@ namespace TdApi {
         chat_id?: td_int53;
         /** Query to search for */
         query?: td_string;
-        /** The maximum number of users to be returned */
+        /** The maximum number of users to be returned; up to 200 */
         limit?: td_int32;
         /** The type of users to search for; pass null to search among all chat members */
         filter?: td_ChatMembersFilter;
@@ -12141,10 +12360,14 @@ namespace TdApi {
         '@type': 'createChatInviteLink';
         /** Chat identifier */
         chat_id?: td_int53;
+        /** Invite link name; 0-32 characters */
+        name?: td_string;
         /** Point in time (Unix timestamp) when the link will expire; pass 0 if never */
         expire_date?: td_int32;
         /** The maximum number of chat members that can join the chat by the link simultaneously; 0-99999; pass 0 if not limited */
         member_limit?: td_int32;
+        /** True, if the link only creates join request. If true, member_limit must not be specified */
+        creates_join_request?: td_Bool;
     }
     
     
@@ -12155,10 +12378,14 @@ namespace TdApi {
         chat_id?: td_int53;
         /** Invite link to be edited */
         invite_link?: td_string;
+        /** Invite link name; 0-32 characters */
+        name?: td_string;
         /** Point in time (Unix timestamp) when the link will expire; pass 0 if never */
         expire_date?: td_int32;
         /** The maximum number of chat members that can join the chat by the link simultaneously; 0-99999; pass 0 if not limited */
         member_limit?: td_int32;
+        /** True, if the link only creates join request. If true, member_limit must not be specified */
+        creates_join_request?: td_Bool;
     }
     
     
@@ -12193,7 +12420,7 @@ namespace TdApi {
         offset_date?: td_int32;
         /** Invite link starting after which to return invite links; use empty string to get results from the beginning */
         offset_invite_link?: td_string;
-        /** The maximum number of invite links to return */
+        /** The maximum number of invite links to return; up to 100 */
         limit?: td_int32;
     }
     
@@ -12207,7 +12434,7 @@ namespace TdApi {
         invite_link?: td_string;
         /** A chat member from which to return next chat members; pass null to get results from the beginning */
         offset_member?: td_chatInviteLinkMember;
-        /** The maximum number of chat members to return */
+        /** The maximum number of chat members to return; up to 100 */
         limit?: td_int32;
     }
     
@@ -12258,12 +12485,48 @@ namespace TdApi {
     }
     
     
+    /** Returns pending join requests in a chat */
+    export interface td_getChatJoinRequests {
+        '@type': 'getChatJoinRequests';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Invite link for which to return join requests. If empty, all join requests will be returned. Requires administrator privileges and can_invite_users right in the chat for own links and owner privileges for other links */
+        invite_link?: td_string;
+        /** A query to search for in the first names, last names and usernames of the users to return */
+        query?: td_string;
+        /** A chat join request from which to return next requests; pass null to get results from the beginning */
+        offset_request?: td_chatJoinRequest;
+        /** The maximum number of chat join requests to return */
+        limit?: td_int32;
+    }
+    
+    
+    /** Approves pending join request in a chat */
+    export interface td_approveChatJoinRequest {
+        '@type': 'approveChatJoinRequest';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the user, which request will be approved */
+        user_id?: td_int53;
+    }
+    
+    
+    /** Declines pending join request in a chat */
+    export interface td_declineChatJoinRequest {
+        '@type': 'declineChatJoinRequest';
+        /** Chat identifier */
+        chat_id?: td_int53;
+        /** Identifier of the user, which request will be declined */
+        user_id?: td_int53;
+    }
+    
+    
     /** Creates a new call */
     export interface td_createCall {
         '@type': 'createCall';
         /** Identifier of the user to be called */
         user_id?: td_int53;
-        /** Description of the call protocols supported by the application */
+        /** The call protocols supported by the application */
         protocol?: td_callProtocol;
         /** True, if a video call needs to be created */
         is_video?: td_Bool;
@@ -12275,7 +12538,7 @@ namespace TdApi {
         '@type': 'acceptCall';
         /** Call identifier */
         call_id?: td_int32;
-        /** Description of the call protocols supported by the application */
+        /** The call protocols supported by the application */
         protocol?: td_callProtocol;
     }
     
@@ -12330,32 +12593,32 @@ namespace TdApi {
     }
     
     
-    /** Returns list of participant identifiers, which can be used to join voice chats in a chat */
-    export interface td_getVoiceChatAvailableParticipants {
-        '@type': 'getVoiceChatAvailableParticipants';
+    /** Returns list of participant identifiers, which can be used to join video chats in a chat */
+    export interface td_getVideoChatAvailableParticipants {
+        '@type': 'getVideoChatAvailableParticipants';
         /** Chat identifier */
         chat_id?: td_int53;
     }
     
     
-    /** Changes default participant identifier, which can be used to join voice chats in a chat */
-    export interface td_setVoiceChatDefaultParticipant {
-        '@type': 'setVoiceChatDefaultParticipant';
+    /** Changes default participant identifier, which can be used to join video chats in a chat */
+    export interface td_setVideoChatDefaultParticipant {
+        '@type': 'setVideoChatDefaultParticipant';
         /** Chat identifier */
         chat_id?: td_int53;
-        /** Default group call participant identifier to join the voice chats */
+        /** Default group call participant identifier to join the video chats */
         default_participant_id?: td_MessageSender;
     }
     
     
-    /** Creates a voice chat (a group call bound to a chat). Available only for basic groups, supergroups and channels; requires can_manage_voice_chats rights */
-    export interface td_createVoiceChat {
-        '@type': 'createVoiceChat';
-        /** Chat identifier, in which the voice chat will be created */
+    /** Creates a video chat (a group call bound to a chat). Available only for basic groups, supergroups and channels; requires can_manage_video_chats rights */
+    export interface td_createVideoChat {
+        '@type': 'createVideoChat';
+        /** Chat identifier, in which the video chat will be created */
         chat_id?: td_int53;
         /** Group call title; if empty, chat title will be used */
         title?: td_string;
-        /** Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 to start the voice chat immediately. The date must be at least 10 seconds and at most 8 days in the future */
+        /** Point in time (Unix timestamp) when the group call is supposed to be started by an administrator; 0 to start the video chat immediately. The date must be at least 10 seconds and at most 8 days in the future */
         start_date?: td_int32;
     }
     
@@ -12391,7 +12654,7 @@ namespace TdApi {
         '@type': 'joinGroupCall';
         /** Group call identifier */
         group_call_id?: td_int32;
-        /** Identifier of a group call participant, which will be used to join the call; pass null to join as self; voice chats only */
+        /** Identifier of a group call participant, which will be used to join the call; pass null to join as self; video chats only */
         participant_id?: td_MessageSender;
         /** Caller audio channel synchronization source identifier; received from tgcalls */
         audio_source_id?: td_int32;
@@ -12464,7 +12727,7 @@ namespace TdApi {
     }
     
     
-    /** Invites users to an active group call. Sends a service message of type messageInviteToGroupCall for voice chats */
+    /** Invites users to an active group call. Sends a service message of type messageInviteToGroupCall for video chats */
     export interface td_inviteGroupCallParticipants {
         '@type': 'inviteGroupCallParticipants';
         /** Group call identifier */
@@ -12474,7 +12737,7 @@ namespace TdApi {
     }
     
     
-    /** Returns invite link to a voice chat in a public chat */
+    /** Returns invite link to a video chat in a public chat */
     export interface td_getGroupCallInviteLink {
         '@type': 'getGroupCallInviteLink';
         /** Group call identifier */
@@ -12579,7 +12842,7 @@ namespace TdApi {
         '@type': 'loadGroupCallParticipants';
         /** Group call identifier. The group call must be previously received through getGroupCall and must be joined or being joined */
         group_call_id?: td_int32;
-        /** The maximum number of participants to load */
+        /** The maximum number of participants to load; up to 100 */
         limit?: td_int32;
     }
     
@@ -12767,7 +13030,7 @@ namespace TdApi {
         is_masks?: td_Bool;
         /** Identifier of the sticker set from which to return the result */
         offset_sticker_set_id?: td_int64;
-        /** The maximum number of sticker sets to return */
+        /** The maximum number of sticker sets to return; up to 100 */
         limit?: td_int32;
     }
     
@@ -12777,7 +13040,7 @@ namespace TdApi {
         '@type': 'getTrendingStickerSets';
         /** The offset from which to return the sticker sets; must be non-negative */
         offset?: td_int32;
-        /** The maximum number of sticker sets to be returned; must be non-negative. For optimal performance, the number of returned sticker sets is chosen by TDLib and can be smaller than the specified limit, even if the end of the list has not been reached */
+        /** The maximum number of sticker sets to be returned; up to 100. For optimal performance, the number of returned sticker sets is chosen by TDLib and can be smaller than the specified limit, even if the end of the list has not been reached */
         limit?: td_int32;
     }
     
@@ -12931,6 +13194,14 @@ namespace TdApi {
         exact_match?: td_Bool;
         /** List of possible IETF language tags of the user's input language; may be empty if unknown */
         input_language_codes?: td_vector<td_string>;
+    }
+    
+    
+    /** Returns an animated emoji corresponding to a given emoji. Returns a 404 error if the emoji has no animated emoji */
+    export interface td_getAnimatedEmoji {
+        '@type': 'getAnimatedEmoji';
+        /** The emoji */
+        emoji?: td_string;
     }
     
     
@@ -14289,7 +14560,7 @@ namespace TdApi {
         new_verbosity_level?: td_jsLogLevel;
     }
     
-    export type TdFunction = td_getAuthorizationState | td_setTdlibParameters | td_checkDatabaseEncryptionKey | td_setAuthenticationPhoneNumber | td_resendAuthenticationCode | td_checkAuthenticationCode | td_requestQrCodeAuthentication | td_registerUser | td_checkAuthenticationPassword | td_requestAuthenticationPasswordRecovery | td_checkAuthenticationPasswordRecoveryCode | td_recoverAuthenticationPassword | td_checkAuthenticationBotToken | td_logOut | td_close | td_destroy | td_confirmQrCodeAuthentication | td_getCurrentState | td_setDatabaseEncryptionKey | td_getPasswordState | td_setPassword | td_getRecoveryEmailAddress | td_setRecoveryEmailAddress | td_checkRecoveryEmailAddressCode | td_resendRecoveryEmailAddressCode | td_requestPasswordRecovery | td_checkPasswordRecoveryCode | td_recoverPassword | td_resetPassword | td_cancelPasswordReset | td_createTemporaryPassword | td_getTemporaryPasswordState | td_getMe | td_getUser | td_getUserFullInfo | td_getBasicGroup | td_getBasicGroupFullInfo | td_getSupergroup | td_getSupergroupFullInfo | td_getSecretChat | td_getChat | td_getMessage | td_getMessageLocally | td_getRepliedMessage | td_getChatPinnedMessage | td_getCallbackQueryMessage | td_getMessages | td_getMessageThread | td_getMessageViewers | td_getFile | td_getRemoteFile | td_loadChats | td_getChats | td_searchPublicChat | td_searchPublicChats | td_searchChats | td_searchChatsOnServer | td_searchChatsNearby | td_getTopChats | td_removeTopChat | td_addRecentlyFoundChat | td_removeRecentlyFoundChat | td_clearRecentlyFoundChats | td_getRecentlyOpenedChats | td_checkChatUsername | td_getCreatedPublicChats | td_checkCreatedPublicChatsLimit | td_getSuitableDiscussionChats | td_getInactiveSupergroupChats | td_getGroupsInCommon | td_getChatHistory | td_getMessageThreadHistory | td_deleteChatHistory | td_deleteChat | td_searchChatMessages | td_searchMessages | td_searchSecretMessages | td_searchCallMessages | td_deleteAllCallMessages | td_searchChatRecentLocationMessages | td_getActiveLiveLocationMessages | td_getChatMessageByDate | td_getChatMessageCount | td_getChatScheduledMessages | td_getMessagePublicForwards | td_getChatSponsoredMessages | td_viewSponsoredMessage | td_removeNotification | td_removeNotificationGroup | td_getMessageLink | td_getMessageEmbeddingCode | td_getMessageLinkInfo | td_sendMessage | td_sendMessageAlbum | td_sendBotStartMessage | td_sendInlineQueryResultMessage | td_forwardMessages | td_resendMessages | td_sendChatScreenshotTakenNotification | td_addLocalMessage | td_deleteMessages | td_deleteChatMessagesFromUser | td_editMessageText | td_editMessageLiveLocation | td_editMessageMedia | td_editMessageCaption | td_editMessageReplyMarkup | td_editInlineMessageText | td_editInlineMessageLiveLocation | td_editInlineMessageMedia | td_editInlineMessageCaption | td_editInlineMessageReplyMarkup | td_editMessageSchedulingState | td_getTextEntities | td_parseTextEntities | td_parseMarkdown | td_getMarkdownText | td_getFileMimeType | td_getFileExtension | td_cleanFileName | td_getLanguagePackString | td_getJsonValue | td_getJsonString | td_setPollAnswer | td_getPollVoters | td_stopPoll | td_hideSuggestedAction | td_getLoginUrlInfo | td_getLoginUrl | td_getInlineQueryResults | td_answerInlineQuery | td_getCallbackQueryAnswer | td_answerCallbackQuery | td_answerShippingQuery | td_answerPreCheckoutQuery | td_setGameScore | td_setInlineGameScore | td_getGameHighScores | td_getInlineGameHighScores | td_deleteChatReplyMarkup | td_sendChatAction | td_openChat | td_closeChat | td_viewMessages | td_openMessageContent | td_clickAnimatedEmojiMessage | td_getInternalLinkType | td_getExternalLinkInfo | td_getExternalLink | td_readAllChatMentions | td_createPrivateChat | td_createBasicGroupChat | td_createSupergroupChat | td_createSecretChat | td_createNewBasicGroupChat | td_createNewSupergroupChat | td_createNewSecretChat | td_upgradeBasicGroupChatToSupergroupChat | td_getChatListsToAddChat | td_addChatToList | td_getChatFilter | td_createChatFilter | td_editChatFilter | td_deleteChatFilter | td_reorderChatFilters | td_getRecommendedChatFilters | td_getChatFilterDefaultIconName | td_setChatTitle | td_setChatPhoto | td_setChatMessageTtlSetting | td_setChatPermissions | td_setChatTheme | td_setChatDraftMessage | td_setChatNotificationSettings | td_toggleChatIsMarkedAsUnread | td_toggleChatDefaultDisableNotification | td_setChatClientData | td_setChatDescription | td_setChatDiscussionGroup | td_setChatLocation | td_setChatSlowModeDelay | td_pinChatMessage | td_unpinChatMessage | td_unpinAllChatMessages | td_joinChat | td_leaveChat | td_addChatMember | td_addChatMembers | td_setChatMemberStatus | td_banChatMember | td_canTransferOwnership | td_transferChatOwnership | td_getChatMember | td_searchChatMembers | td_getChatAdministrators | td_clearAllDraftMessages | td_getChatNotificationSettingsExceptions | td_getScopeNotificationSettings | td_setScopeNotificationSettings | td_resetAllNotificationSettings | td_toggleChatIsPinned | td_setPinnedChats | td_downloadFile | td_cancelDownloadFile | td_getSuggestedFileName | td_uploadFile | td_cancelUploadFile | td_writeGeneratedFilePart | td_setFileGenerationProgress | td_finishFileGeneration | td_readFilePart | td_deleteFile | td_getMessageFileType | td_getMessageImportConfirmationText | td_importMessages | td_replacePrimaryChatInviteLink | td_createChatInviteLink | td_editChatInviteLink | td_getChatInviteLink | td_getChatInviteLinkCounts | td_getChatInviteLinks | td_getChatInviteLinkMembers | td_revokeChatInviteLink | td_deleteRevokedChatInviteLink | td_deleteAllRevokedChatInviteLinks | td_checkChatInviteLink | td_joinChatByInviteLink | td_createCall | td_acceptCall | td_sendCallSignalingData | td_discardCall | td_sendCallRating | td_sendCallDebugInformation | td_getVoiceChatAvailableParticipants | td_setVoiceChatDefaultParticipant | td_createVoiceChat | td_getGroupCall | td_startScheduledGroupCall | td_toggleGroupCallEnabledStartNotification | td_joinGroupCall | td_startGroupCallScreenSharing | td_toggleGroupCallScreenSharingIsPaused | td_endGroupCallScreenSharing | td_setGroupCallTitle | td_toggleGroupCallMuteNewParticipants | td_revokeGroupCallInviteLink | td_inviteGroupCallParticipants | td_getGroupCallInviteLink | td_startGroupCallRecording | td_endGroupCallRecording | td_toggleGroupCallIsMyVideoPaused | td_toggleGroupCallIsMyVideoEnabled | td_setGroupCallParticipantIsSpeaking | td_toggleGroupCallParticipantIsMuted | td_setGroupCallParticipantVolumeLevel | td_toggleGroupCallParticipantIsHandRaised | td_loadGroupCallParticipants | td_leaveGroupCall | td_discardGroupCall | td_getGroupCallStreamSegment | td_toggleMessageSenderIsBlocked | td_blockMessageSenderFromReplies | td_getBlockedMessageSenders | td_addContact | td_importContacts | td_getContacts | td_searchContacts | td_removeContacts | td_getImportedContactCount | td_changeImportedContacts | td_clearImportedContacts | td_sharePhoneNumber | td_getUserProfilePhotos | td_getStickers | td_searchStickers | td_getInstalledStickerSets | td_getArchivedStickerSets | td_getTrendingStickerSets | td_getAttachedStickerSets | td_getStickerSet | td_searchStickerSet | td_searchInstalledStickerSets | td_searchStickerSets | td_changeStickerSet | td_viewTrendingStickerSets | td_reorderInstalledStickerSets | td_getRecentStickers | td_addRecentSticker | td_removeRecentSticker | td_clearRecentStickers | td_getFavoriteStickers | td_addFavoriteSticker | td_removeFavoriteSticker | td_getStickerEmojis | td_searchEmojis | td_getEmojiSuggestionsUrl | td_getSavedAnimations | td_addSavedAnimation | td_removeSavedAnimation | td_getRecentInlineBots | td_searchHashtags | td_removeRecentHashtag | td_getWebPagePreview | td_getWebPageInstantView | td_setProfilePhoto | td_deleteProfilePhoto | td_setName | td_setBio | td_setUsername | td_setLocation | td_changePhoneNumber | td_resendChangePhoneNumberCode | td_checkChangePhoneNumberCode | td_setCommands | td_deleteCommands | td_getCommands | td_getActiveSessions | td_terminateSession | td_terminateAllOtherSessions | td_getConnectedWebsites | td_disconnectWebsite | td_disconnectAllWebsites | td_setSupergroupUsername | td_setSupergroupStickerSet | td_toggleSupergroupSignMessages | td_toggleSupergroupIsAllHistoryAvailable | td_toggleSupergroupIsBroadcastGroup | td_reportSupergroupSpam | td_getSupergroupMembers | td_closeSecretChat | td_getChatEventLog | td_getPaymentForm | td_validateOrderInfo | td_sendPaymentForm | td_getPaymentReceipt | td_getSavedOrderInfo | td_deleteSavedOrderInfo | td_deleteSavedCredentials | td_getSupportUser | td_getBackgrounds | td_getBackgroundUrl | td_searchBackground | td_setBackground | td_removeBackground | td_resetBackgrounds | td_getLocalizationTargetInfo | td_getLanguagePackInfo | td_getLanguagePackStrings | td_synchronizeLanguagePack | td_addCustomServerLanguagePack | td_setCustomLanguagePack | td_editCustomLanguagePackInfo | td_setCustomLanguagePackString | td_deleteLanguagePack | td_registerDevice | td_processPushNotification | td_getPushReceiverId | td_getRecentlyVisitedTMeUrls | td_setUserPrivacySettingRules | td_getUserPrivacySettingRules | td_getOption | td_setOption | td_setAccountTtl | td_getAccountTtl | td_deleteAccount | td_removeChatActionBar | td_reportChat | td_reportChatPhoto | td_getChatStatistics | td_getMessageStatistics | td_getStatisticalGraph | td_getDatabaseStatistics | td_setNetworkType | td_getNetworkStatistics | td_addNetworkStatistics | td_resetNetworkStatistics | td_getAutoDownloadSettingsPresets | td_setAutoDownloadSettings | td_getBankCardInfo | td_getPassportElement | td_getAllPassportElements | td_setPassportElement | td_deletePassportElement | td_setPassportElementErrors | td_getPreferredCountryLanguage | td_sendPhoneNumberVerificationCode | td_resendPhoneNumberVerificationCode | td_checkPhoneNumberVerificationCode | td_sendEmailAddressVerificationCode | td_resendEmailAddressVerificationCode | td_checkEmailAddressVerificationCode | td_getPassportAuthorizationForm | td_getPassportAuthorizationFormAvailableElements | td_sendPassportAuthorizationForm | td_sendPhoneNumberConfirmationCode | td_resendPhoneNumberConfirmationCode | td_checkPhoneNumberConfirmationCode | td_setBotUpdatesStatus | td_uploadStickerFile | td_getSuggestedStickerSetName | td_checkStickerSetName | td_createNewStickerSet | td_addStickerToSet | td_setStickerSetThumbnail | td_setStickerPositionInSet | td_removeStickerFromSet | td_getMapThumbnailFile | td_acceptTermsOfService | td_sendCustomRequest | td_answerCustomQuery | td_setAlarm | td_getCountries | td_getCountryCode | td_getPhoneNumberInfo | td_getPhoneNumberInfoSync | td_getApplicationDownloadLink | td_getDeepLinkInfo | td_getApplicationConfig | td_saveApplicationLogEvent | td_editProxy | td_enableProxy | td_disableProxy | td_removeProxy | td_getProxies | td_getProxyLink | td_pingProxy | td_setLogStream | td_getLogStream | td_setLogVerbosityLevel | td_getLogVerbosityLevel | td_getLogTags | td_setLogTagVerbosityLevel | td_getLogTagVerbosityLevel | td_addLogMessage | td_testCallEmpty | td_testCallString | td_testCallBytes | td_testCallVectorInt | td_testCallVectorIntObject | td_testCallVectorString | td_testCallVectorStringObject | td_testSquareInt | td_testNetwork | td_testProxy | td_testGetDifference | td_testUseUpdate | td_testReturnError | td_setJsLogVerbosityLevel;
+    export type TdFunction = td_getAuthorizationState | td_setTdlibParameters | td_checkDatabaseEncryptionKey | td_setAuthenticationPhoneNumber | td_resendAuthenticationCode | td_checkAuthenticationCode | td_requestQrCodeAuthentication | td_registerUser | td_checkAuthenticationPassword | td_requestAuthenticationPasswordRecovery | td_checkAuthenticationPasswordRecoveryCode | td_recoverAuthenticationPassword | td_checkAuthenticationBotToken | td_logOut | td_close | td_destroy | td_confirmQrCodeAuthentication | td_getCurrentState | td_setDatabaseEncryptionKey | td_getPasswordState | td_setPassword | td_getRecoveryEmailAddress | td_setRecoveryEmailAddress | td_checkRecoveryEmailAddressCode | td_resendRecoveryEmailAddressCode | td_requestPasswordRecovery | td_checkPasswordRecoveryCode | td_recoverPassword | td_resetPassword | td_cancelPasswordReset | td_createTemporaryPassword | td_getTemporaryPasswordState | td_getMe | td_getUser | td_getUserFullInfo | td_getBasicGroup | td_getBasicGroupFullInfo | td_getSupergroup | td_getSupergroupFullInfo | td_getSecretChat | td_getChat | td_getMessage | td_getMessageLocally | td_getRepliedMessage | td_getChatPinnedMessage | td_getCallbackQueryMessage | td_getMessages | td_getMessageThread | td_getMessageViewers | td_getFile | td_getRemoteFile | td_loadChats | td_getChats | td_searchPublicChat | td_searchPublicChats | td_searchChats | td_searchChatsOnServer | td_searchChatsNearby | td_getTopChats | td_removeTopChat | td_addRecentlyFoundChat | td_removeRecentlyFoundChat | td_clearRecentlyFoundChats | td_getRecentlyOpenedChats | td_checkChatUsername | td_getCreatedPublicChats | td_checkCreatedPublicChatsLimit | td_getSuitableDiscussionChats | td_getInactiveSupergroupChats | td_getGroupsInCommon | td_getChatHistory | td_getMessageThreadHistory | td_deleteChatHistory | td_deleteChat | td_searchChatMessages | td_searchMessages | td_searchSecretMessages | td_searchCallMessages | td_deleteAllCallMessages | td_searchChatRecentLocationMessages | td_getActiveLiveLocationMessages | td_getChatMessageByDate | td_getChatSparseMessagePositions | td_getChatMessageCalendar | td_getChatMessageCount | td_getChatScheduledMessages | td_getMessagePublicForwards | td_getChatSponsoredMessages | td_viewSponsoredMessage | td_removeNotification | td_removeNotificationGroup | td_getMessageLink | td_getMessageEmbeddingCode | td_getMessageLinkInfo | td_sendMessage | td_sendMessageAlbum | td_sendBotStartMessage | td_sendInlineQueryResultMessage | td_forwardMessages | td_resendMessages | td_sendChatScreenshotTakenNotification | td_addLocalMessage | td_deleteMessages | td_deleteChatMessagesFromUser | td_deleteChatMessagesByDate | td_editMessageText | td_editMessageLiveLocation | td_editMessageMedia | td_editMessageCaption | td_editMessageReplyMarkup | td_editInlineMessageText | td_editInlineMessageLiveLocation | td_editInlineMessageMedia | td_editInlineMessageCaption | td_editInlineMessageReplyMarkup | td_editMessageSchedulingState | td_getTextEntities | td_parseTextEntities | td_parseMarkdown | td_getMarkdownText | td_getFileMimeType | td_getFileExtension | td_cleanFileName | td_getLanguagePackString | td_getJsonValue | td_getJsonString | td_setPollAnswer | td_getPollVoters | td_stopPoll | td_hideSuggestedAction | td_getLoginUrlInfo | td_getLoginUrl | td_getInlineQueryResults | td_answerInlineQuery | td_getCallbackQueryAnswer | td_answerCallbackQuery | td_answerShippingQuery | td_answerPreCheckoutQuery | td_setGameScore | td_setInlineGameScore | td_getGameHighScores | td_getInlineGameHighScores | td_deleteChatReplyMarkup | td_sendChatAction | td_openChat | td_closeChat | td_viewMessages | td_openMessageContent | td_clickAnimatedEmojiMessage | td_getInternalLinkType | td_getExternalLinkInfo | td_getExternalLink | td_readAllChatMentions | td_createPrivateChat | td_createBasicGroupChat | td_createSupergroupChat | td_createSecretChat | td_createNewBasicGroupChat | td_createNewSupergroupChat | td_createNewSecretChat | td_upgradeBasicGroupChatToSupergroupChat | td_getChatListsToAddChat | td_addChatToList | td_getChatFilter | td_createChatFilter | td_editChatFilter | td_deleteChatFilter | td_reorderChatFilters | td_getRecommendedChatFilters | td_getChatFilterDefaultIconName | td_setChatTitle | td_setChatPhoto | td_setChatMessageTtlSetting | td_setChatPermissions | td_setChatTheme | td_setChatDraftMessage | td_setChatNotificationSettings | td_toggleChatIsMarkedAsUnread | td_toggleChatDefaultDisableNotification | td_setChatClientData | td_setChatDescription | td_setChatDiscussionGroup | td_setChatLocation | td_setChatSlowModeDelay | td_pinChatMessage | td_unpinChatMessage | td_unpinAllChatMessages | td_joinChat | td_leaveChat | td_addChatMember | td_addChatMembers | td_setChatMemberStatus | td_banChatMember | td_canTransferOwnership | td_transferChatOwnership | td_getChatMember | td_searchChatMembers | td_getChatAdministrators | td_clearAllDraftMessages | td_getChatNotificationSettingsExceptions | td_getScopeNotificationSettings | td_setScopeNotificationSettings | td_resetAllNotificationSettings | td_toggleChatIsPinned | td_setPinnedChats | td_downloadFile | td_cancelDownloadFile | td_getSuggestedFileName | td_uploadFile | td_cancelUploadFile | td_writeGeneratedFilePart | td_setFileGenerationProgress | td_finishFileGeneration | td_readFilePart | td_deleteFile | td_getMessageFileType | td_getMessageImportConfirmationText | td_importMessages | td_replacePrimaryChatInviteLink | td_createChatInviteLink | td_editChatInviteLink | td_getChatInviteLink | td_getChatInviteLinkCounts | td_getChatInviteLinks | td_getChatInviteLinkMembers | td_revokeChatInviteLink | td_deleteRevokedChatInviteLink | td_deleteAllRevokedChatInviteLinks | td_checkChatInviteLink | td_joinChatByInviteLink | td_getChatJoinRequests | td_approveChatJoinRequest | td_declineChatJoinRequest | td_createCall | td_acceptCall | td_sendCallSignalingData | td_discardCall | td_sendCallRating | td_sendCallDebugInformation | td_getVideoChatAvailableParticipants | td_setVideoChatDefaultParticipant | td_createVideoChat | td_getGroupCall | td_startScheduledGroupCall | td_toggleGroupCallEnabledStartNotification | td_joinGroupCall | td_startGroupCallScreenSharing | td_toggleGroupCallScreenSharingIsPaused | td_endGroupCallScreenSharing | td_setGroupCallTitle | td_toggleGroupCallMuteNewParticipants | td_revokeGroupCallInviteLink | td_inviteGroupCallParticipants | td_getGroupCallInviteLink | td_startGroupCallRecording | td_endGroupCallRecording | td_toggleGroupCallIsMyVideoPaused | td_toggleGroupCallIsMyVideoEnabled | td_setGroupCallParticipantIsSpeaking | td_toggleGroupCallParticipantIsMuted | td_setGroupCallParticipantVolumeLevel | td_toggleGroupCallParticipantIsHandRaised | td_loadGroupCallParticipants | td_leaveGroupCall | td_discardGroupCall | td_getGroupCallStreamSegment | td_toggleMessageSenderIsBlocked | td_blockMessageSenderFromReplies | td_getBlockedMessageSenders | td_addContact | td_importContacts | td_getContacts | td_searchContacts | td_removeContacts | td_getImportedContactCount | td_changeImportedContacts | td_clearImportedContacts | td_sharePhoneNumber | td_getUserProfilePhotos | td_getStickers | td_searchStickers | td_getInstalledStickerSets | td_getArchivedStickerSets | td_getTrendingStickerSets | td_getAttachedStickerSets | td_getStickerSet | td_searchStickerSet | td_searchInstalledStickerSets | td_searchStickerSets | td_changeStickerSet | td_viewTrendingStickerSets | td_reorderInstalledStickerSets | td_getRecentStickers | td_addRecentSticker | td_removeRecentSticker | td_clearRecentStickers | td_getFavoriteStickers | td_addFavoriteSticker | td_removeFavoriteSticker | td_getStickerEmojis | td_searchEmojis | td_getAnimatedEmoji | td_getEmojiSuggestionsUrl | td_getSavedAnimations | td_addSavedAnimation | td_removeSavedAnimation | td_getRecentInlineBots | td_searchHashtags | td_removeRecentHashtag | td_getWebPagePreview | td_getWebPageInstantView | td_setProfilePhoto | td_deleteProfilePhoto | td_setName | td_setBio | td_setUsername | td_setLocation | td_changePhoneNumber | td_resendChangePhoneNumberCode | td_checkChangePhoneNumberCode | td_setCommands | td_deleteCommands | td_getCommands | td_getActiveSessions | td_terminateSession | td_terminateAllOtherSessions | td_getConnectedWebsites | td_disconnectWebsite | td_disconnectAllWebsites | td_setSupergroupUsername | td_setSupergroupStickerSet | td_toggleSupergroupSignMessages | td_toggleSupergroupIsAllHistoryAvailable | td_toggleSupergroupIsBroadcastGroup | td_reportSupergroupSpam | td_getSupergroupMembers | td_closeSecretChat | td_getChatEventLog | td_getPaymentForm | td_validateOrderInfo | td_sendPaymentForm | td_getPaymentReceipt | td_getSavedOrderInfo | td_deleteSavedOrderInfo | td_deleteSavedCredentials | td_getSupportUser | td_getBackgrounds | td_getBackgroundUrl | td_searchBackground | td_setBackground | td_removeBackground | td_resetBackgrounds | td_getLocalizationTargetInfo | td_getLanguagePackInfo | td_getLanguagePackStrings | td_synchronizeLanguagePack | td_addCustomServerLanguagePack | td_setCustomLanguagePack | td_editCustomLanguagePackInfo | td_setCustomLanguagePackString | td_deleteLanguagePack | td_registerDevice | td_processPushNotification | td_getPushReceiverId | td_getRecentlyVisitedTMeUrls | td_setUserPrivacySettingRules | td_getUserPrivacySettingRules | td_getOption | td_setOption | td_setAccountTtl | td_getAccountTtl | td_deleteAccount | td_removeChatActionBar | td_reportChat | td_reportChatPhoto | td_getChatStatistics | td_getMessageStatistics | td_getStatisticalGraph | td_getDatabaseStatistics | td_setNetworkType | td_getNetworkStatistics | td_addNetworkStatistics | td_resetNetworkStatistics | td_getAutoDownloadSettingsPresets | td_setAutoDownloadSettings | td_getBankCardInfo | td_getPassportElement | td_getAllPassportElements | td_setPassportElement | td_deletePassportElement | td_setPassportElementErrors | td_getPreferredCountryLanguage | td_sendPhoneNumberVerificationCode | td_resendPhoneNumberVerificationCode | td_checkPhoneNumberVerificationCode | td_sendEmailAddressVerificationCode | td_resendEmailAddressVerificationCode | td_checkEmailAddressVerificationCode | td_getPassportAuthorizationForm | td_getPassportAuthorizationFormAvailableElements | td_sendPassportAuthorizationForm | td_sendPhoneNumberConfirmationCode | td_resendPhoneNumberConfirmationCode | td_checkPhoneNumberConfirmationCode | td_setBotUpdatesStatus | td_uploadStickerFile | td_getSuggestedStickerSetName | td_checkStickerSetName | td_createNewStickerSet | td_addStickerToSet | td_setStickerSetThumbnail | td_setStickerPositionInSet | td_removeStickerFromSet | td_getMapThumbnailFile | td_acceptTermsOfService | td_sendCustomRequest | td_answerCustomQuery | td_setAlarm | td_getCountries | td_getCountryCode | td_getPhoneNumberInfo | td_getPhoneNumberInfoSync | td_getApplicationDownloadLink | td_getDeepLinkInfo | td_getApplicationConfig | td_saveApplicationLogEvent | td_editProxy | td_enableProxy | td_disableProxy | td_removeProxy | td_getProxies | td_getProxyLink | td_pingProxy | td_setLogStream | td_getLogStream | td_setLogVerbosityLevel | td_getLogVerbosityLevel | td_getLogTags | td_setLogTagVerbosityLevel | td_getLogTagVerbosityLevel | td_addLogMessage | td_testCallEmpty | td_testCallString | td_testCallBytes | td_testCallVectorInt | td_testCallVectorIntObject | td_testCallVectorString | td_testCallVectorStringObject | td_testSquareInt | td_testNetwork | td_testProxy | td_testGetDifference | td_testUseUpdate | td_testReturnError | td_setJsLogVerbosityLevel;
     export type TdFunctionReturn<t> = 
     t extends td_getAuthorizationState ? td_AuthorizationState :
         t extends td_setTdlibParameters ? td_Ok :
@@ -14373,6 +14644,8 @@ namespace TdApi {
         t extends td_searchChatRecentLocationMessages ? td_Messages :
         t extends td_getActiveLiveLocationMessages ? td_Messages :
         t extends td_getChatMessageByDate ? td_Message :
+        t extends td_getChatSparseMessagePositions ? td_MessagePositions :
+        t extends td_getChatMessageCalendar ? td_MessageCalendar :
         t extends td_getChatMessageCount ? td_Count :
         t extends td_getChatScheduledMessages ? td_Messages :
         t extends td_getMessagePublicForwards ? td_FoundMessages :
@@ -14393,6 +14666,7 @@ namespace TdApi {
         t extends td_addLocalMessage ? td_Message :
         t extends td_deleteMessages ? td_Ok :
         t extends td_deleteChatMessagesFromUser ? td_Ok :
+        t extends td_deleteChatMessagesByDate ? td_Ok :
         t extends td_editMessageText ? td_Message :
         t extends td_editMessageLiveLocation ? td_Message :
         t extends td_editMessageMedia ? td_Message :
@@ -14518,15 +14792,18 @@ namespace TdApi {
         t extends td_deleteAllRevokedChatInviteLinks ? td_Ok :
         t extends td_checkChatInviteLink ? td_ChatInviteLinkInfo :
         t extends td_joinChatByInviteLink ? td_Chat :
+        t extends td_getChatJoinRequests ? td_ChatJoinRequests :
+        t extends td_approveChatJoinRequest ? td_Ok :
+        t extends td_declineChatJoinRequest ? td_Ok :
         t extends td_createCall ? td_CallId :
         t extends td_acceptCall ? td_Ok :
         t extends td_sendCallSignalingData ? td_Ok :
         t extends td_discardCall ? td_Ok :
         t extends td_sendCallRating ? td_Ok :
         t extends td_sendCallDebugInformation ? td_Ok :
-        t extends td_getVoiceChatAvailableParticipants ? td_MessageSenders :
-        t extends td_setVoiceChatDefaultParticipant ? td_Ok :
-        t extends td_createVoiceChat ? td_GroupCallId :
+        t extends td_getVideoChatAvailableParticipants ? td_MessageSenders :
+        t extends td_setVideoChatDefaultParticipant ? td_Ok :
+        t extends td_createVideoChat ? td_GroupCallId :
         t extends td_getGroupCall ? td_GroupCall :
         t extends td_startScheduledGroupCall ? td_Ok :
         t extends td_toggleGroupCallEnabledStartNotification ? td_Ok :
@@ -14586,6 +14863,7 @@ namespace TdApi {
         t extends td_removeFavoriteSticker ? td_Ok :
         t extends td_getStickerEmojis ? td_Emojis :
         t extends td_searchEmojis ? td_Emojis :
+        t extends td_getAnimatedEmoji ? td_AnimatedEmoji :
         t extends td_getEmojiSuggestionsUrl ? td_HttpUrl :
         t extends td_getSavedAnimations ? td_Animations :
         t extends td_addSavedAnimation ? td_Ok :
@@ -14763,7 +15041,7 @@ namespace TdApi {
         t extends td_updateChatIsMarkedAsUnread ? "updateChatIsMarkedAsUnread" :
         t extends td_updateChatIsBlocked ? "updateChatIsBlocked" :
         t extends td_updateChatHasScheduledMessages ? "updateChatHasScheduledMessages" :
-        t extends td_updateChatVoiceChat ? "updateChatVoiceChat" :
+        t extends td_updateChatVideoChat ? "updateChatVideoChat" :
         t extends td_updateChatDefaultDisableNotification ? "updateChatDefaultDisableNotification" :
         t extends td_updateChatReadInbox ? "updateChatReadInbox" :
         t extends td_updateChatReadOutbox ? "updateChatReadOutbox" :
@@ -14773,6 +15051,7 @@ namespace TdApi {
         t extends td_updateChatMessageTtlSetting ? "updateChatMessageTtlSetting" :
         t extends td_updateChatActionBar ? "updateChatActionBar" :
         t extends td_updateChatTheme ? "updateChatTheme" :
+        t extends td_updateChatPendingJoinRequests ? "updateChatPendingJoinRequests" :
         t extends td_updateChatReplyMarkup ? "updateChatReplyMarkup" :
         t extends td_updateChatDraftMessage ? "updateChatDraftMessage" :
         t extends td_updateChatFilters ? "updateChatFilters" :
@@ -14830,6 +15109,7 @@ namespace TdApi {
         t extends td_updatePoll ? "updatePoll" :
         t extends td_updatePollAnswer ? "updatePollAnswer" :
         t extends td_updateChatMember ? "updateChatMember" :
+        t extends td_updateNewChatJoinRequest ? "updateNewChatJoinRequest" :
         t extends td_updateFatalError ? "updateFatalError" :
         never;
 }
