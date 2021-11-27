@@ -7,7 +7,7 @@ export type MessageProps = {
     message: TdApi.td_message;
     chat: TdApi.td_chat;
 };
-export function Message({message, chat}: MessageProps): JSX.Element {
+export const Message= React.memo(function Message({message, chat}: MessageProps): JSX.Element {
     switch(message.content['@type']) {
         case 'messageText':
             return <MessageText chat={chat} message={message} />;
@@ -15,4 +15,4 @@ export function Message({message, chat}: MessageProps): JSX.Element {
         default:
             return <MessageUnsupported chat={chat} message={message} />;
     }
-}
+});
