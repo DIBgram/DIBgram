@@ -11,6 +11,7 @@ export default function MessaagePinnedMessage({message, from}) {
         case 'messageContact':
             return __fmt('lng_action_pinned_media', {media: __('lng_action_pinned_media_contact'), from: from});
 
+        case 'messageAnimatedEmoji':
         case 'messageDice':
             return __fmt('lng_action_pinned_message', {text: message.content.emoji, from: from});
 
