@@ -1,7 +1,7 @@
 import React from 'react';
 import TdApi from '../../../TdWeb/td_api';
 import { timeToString } from '../../../time-tostring';
-import { getChatTypeId, getIdColorCode } from '../../../ui/components/profile-photo';
+import { getIdColorCode } from '../../../ui/components/profile-photo';
 import { bubble_tail, dialogs_sending, history_received, history_sent } from '../../../ui/icon/icons';
 import { getChatNoCache } from '../../chat-store';
 import { getMessageStatus } from '../../message-misc';
@@ -51,9 +51,8 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                 }
                 break;
             case 'messageSenderChat': {
-                const chat: TdApi.td_chat= getChatNoCache(message.sender.chat_id).title;
+                const chat: TdApi.td_chat= getChatNoCache(message.sender.chat_id);
                 sender= chat.title;
-                senderId= getIdColorCode(getChatTypeId(chat));
             }
         }
     }
