@@ -76,5 +76,7 @@ function getEntityJsx(text: string, entity: TdApi.td_textEntity) {
             if (!/^https?:\/\//i.test(innerText))
                 return <LinkButton href={'https://'+innerText}>{innerText}</LinkButton>;
             return <LinkButton href={innerText}>{innerText}</LinkButton>;
+        default:
+            return innerText;
     }
 }
