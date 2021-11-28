@@ -9,6 +9,12 @@
 }
 
 .history-message {
+    margin-top: 8px;
+
+    &.small-margin {
+        margin-top: 3px;
+    }
+
     .bubble-container {
         margin-inline-start: 16px;
         margin-inline-end: 57px;
@@ -18,17 +24,26 @@
         display: flex;
         align-items: flex-end;
 
-        .profile-photo {
+        .profile-photo-c {
             margin-inline-start: -2px;
             margin-inline-end: 9px;
             flex-shrink: 0;
             width: 33px;
-            height: 33px;
+            position: relative;
 
-            .initials {
-                font-size: 13px;
-                font-weight: 400;
+            .profile-photo {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 33px;
+                height: 33px;
+
+                .initials {
+                    font-size: 13px;
+                    font-weight: 400;
+                }
             }
+
         }
             
         .bubble {

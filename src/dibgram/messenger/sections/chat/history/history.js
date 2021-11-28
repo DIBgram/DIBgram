@@ -5,14 +5,12 @@ import ScrollView from '../../../../ui/scroll/scrollbar';
 import { Message } from '../../../message/ui/message';
 import { connect } from 'react-redux';
 import { loadChatHistory } from '../../../message/chat-history';
+import processMessageHistory from '../../../message/processHistory';
 
 export const ChatHistory= connect(({messages, isLoaded}) => ({messages, isLoaded})) (function ChatHistory({chat, messages, isLoaded}) {
-    const array= [];
-    for(const id of Object.keys(messages).sort((a, b) => Number(a) - Number(b))) {
-        array.push(messages[id]);
-    }
-    if(array.length==0) {
-        array.push(chat.last_message);
+    let array= processMessageHistory(messages);
+    if(!(array?.length)) {
+        array= [chat.last_message];
     }
 
     const [loaded, setLoaded] = React.useState(false);

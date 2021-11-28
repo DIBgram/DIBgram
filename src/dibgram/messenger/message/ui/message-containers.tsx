@@ -6,6 +6,7 @@ import { bubble_tail, dialogs_sending, history_received, history_sent } from '..
 import { getChatNoCache } from '../../chat-store';
 import { getMessageStatus } from '../../message-misc';
 import { getUserFullName } from '../../user-misc';
+import { ProcessedSingleMessage } from '../processHistory';
 
 import './message-containers.scss';
 
@@ -35,7 +36,7 @@ export function MessageBubble({ children, beforeBubble=null, showTail=true, ...r
 
 
 type BubbleMessageProps= {
-    message: TdApi.td_message,
+    message: ProcessedSingleMessage,
     chat: TdApi.td_chat,
     users: {[key: number]: TdApi.td_user},
     children: React.ReactNode | React.ReactNode[],
@@ -54,7 +55,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                     const user=users[message.sender.user_id];
                     sender= getUserFullName(user);
                     senderId= getIdColorCode(message.sender.user_id);
-                    photo= <ProfilePhoto id={user.id} name={sender} disableSavedMessages={true} photo={user.profile_photo?.small}/>;
+                    photo= <div className="profile-photo-c"><ProfilePhoto id={user.id} name={sender} disableSavedMessages={true} photo={user.profile_photo?.small}/></div>;
                 }
                 break;
             case 'messageSenderChat': {
@@ -64,9 +65,9 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
         }
     }
     return (
-        <div className={'history-message' + ((message.is_outgoing && !message.is_channel_post) ? ' outgoing' : '')}>
-            <MessageBubble beforeBubble={photo}>
-                {sender && <div className={`message-sender color_${senderId}`}>{sender}</div>}
+        <div className={'history-message' + ((message.is_outgoing && !message.is_channel_post) ? ' outgoing' : '') + (message.hide_sender_name? ' small-margin' : '')}>
+            <MessageBubble beforeBubble={message.hide_tail ? (photo && <div className="profile-photo-c"/>) : photo} showTail={!message.hide_tail}>
+                {sender && (!message.hide_sender_name) && <div className={`message-sender color_${senderId}`}>{sender}</div>}
                 {children}
                 <div className="after"/>
             </MessageBubble>
