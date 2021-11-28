@@ -47,6 +47,8 @@ export function formatChunkedString(format, params= {}) {
     for(const chunk of format) {
         if(typeof chunk == 'string') {
             result.push(formatString(chunk, params));
+        } else {
+            result.push(chunk);
         }
     }
     return result.flat();
