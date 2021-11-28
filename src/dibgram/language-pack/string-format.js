@@ -2,10 +2,10 @@ import React from 'react';
 
 export const applyKeys= (item, index) => (<React.Fragment key={index}>{item}</React.Fragment>);
 
-export function getFormattedText(text){
+export function getFormattedText(text, useFragments=true){
     const formatted= applyFormatting(text);
     if(formatted.length === 1) return formatted[0];
-    return formatted.map(applyKeys);
+    return formatted.map(useFragments? applyKeys : e=>e);
 }
 
 export function applyFormatting(format) {
@@ -39,6 +39,17 @@ export function formatString(format, params= {}) {
         format= format.substr(execed.index + execed[1].length+2);
     }
     return [...res, ...applyFormatting(format)];
+}
+
+// Same as formatString, but for strings which are split in array elements.
+export function formatChunkedString(format, params= {}) {
+    var result= [];
+    for(const chunk of format) {
+        if(typeof chunk == 'string') {
+            result.push(formatString(chunk, params));
+        }
+    }
+    return result.flat();
 }
 
 // Returns 'zero', 'one', 'two', 'few', 'many' or 'other' depending on the number

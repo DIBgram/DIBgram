@@ -1,7 +1,7 @@
 import { authStore } from '../auth/auth-screen';
 import TdLib from '../TdWeb/tdlib';
 import englishLanguagePack from './english.json';
-import { applyKeys, formatString, getCountMode, getFormattedText, getPluralString } from './string-format';
+import { applyKeys, formatChunkedString, formatString, getCountMode, getFormattedText, getPluralString } from './string-format';
 import specialStringsEnglish from './special-strings/en.json';
 
 var currentLanguagePack= null;
@@ -81,16 +81,16 @@ export function getRtlMode() {
  * @param {string} key Language pack string name
  * @returns {string | React.ReactNode[]} Localized version of the string
  */
-export default function __(key) {
+export default function __(key, useFragments= true) {
     if(currentLanguagePack) {
         const languagePackString= currentLanguagePack[key].value;
         if(languagePackString['@type'] === 'languagePackStringValueOrdinary') {
-            return getFormattedText(languagePackString.value);
+            return getFormattedText(languagePackString.value, useFragments);
         }
     }
 
     const languagePack = englishLanguagePack;
-    return getFormattedText(languagePack[key]);
+    return getFormattedText(languagePack[key], useFragments);
 }
 
 /**
@@ -104,7 +104,9 @@ export default function __(key) {
  * @returns Localized version of the string, with formattings applied
  */
 export function __fmt(name, params, useFragments= true) {
-    return  formatString(__(name), params).map(useFragments? applyKeys : e=>e);
+    let string= __(name, false);
+    string= typeof string == 'string' ? formatString(string, params) : formatChunkedString(string, params);
+    return string.map(useFragments? applyKeys : e=>e);
 }
 
 export function __pl(key, count, params={}) {
