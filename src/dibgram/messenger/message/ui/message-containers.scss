@@ -15,6 +15,21 @@
         height: 100%;
         width: 430px;
         max-width: calc(100% - 57px - 16px);
+        display: flex;
+        align-items: flex-end;
+
+        .profile-photo {
+            margin-inline-start: -2px;
+            margin-inline-end: 9px;
+            flex-shrink: 0;
+            width: 33px;
+            height: 33px;
+
+            .initials {
+                font-size: 13px;
+                font-weight: 400;
+            }
+        }
             
         .bubble {
             position: relative;
@@ -105,6 +120,7 @@
             float: right;
             margin-inline-start: 57px;
             margin-inline-end: 16px;
+            flex-direction: row-reverse;
 
             .bubble {
                 background-color: var(--theme-color-msgOutBg);

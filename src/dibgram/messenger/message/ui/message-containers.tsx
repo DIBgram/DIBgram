@@ -1,7 +1,7 @@
 import React from 'react';
 import TdApi from '../../../TdWeb/td_api';
 import { timeToString } from '../../../time-tostring';
-import { getIdColorCode } from '../../../ui/components/profile-photo';
+import ProfilePhoto, { getIdColorCode } from '../../../ui/components/profile-photo';
 import { bubble_tail, dialogs_sending, history_received, history_sent } from '../../../ui/icon/icons';
 import { getChatNoCache } from '../../chat-store';
 import { getMessageStatus } from '../../message-misc';
@@ -19,10 +19,12 @@ export function ServiceMessage(props: { [key: string]: any }): JSX.Element {
 type MessageBubbleProps= {
     children: React.ReactNode | React.ReactNode[],
     showTail?: boolean,
+    beforeBubble?: React.ReactNode | React.ReactNode[],
 }
-export function MessageBubble({ children, showTail=true, ...rest}: MessageBubbleProps): JSX.Element {
+export function MessageBubble({ children, beforeBubble=null, showTail=true, ...rest}: MessageBubbleProps): JSX.Element {
     return (
         <div className="bubble-container">
+            {beforeBubble}
             <div className={`bubble ${showTail ? 'has-tail' : ''}`} {...rest}>
                 {children}
                 {showTail && <span className="tail" dangerouslySetInnerHTML={{__html: bubble_tail}}/>}
@@ -41,6 +43,7 @@ type BubbleMessageProps= {
 export function BubbleMessage({message, chat, users, children}: BubbleMessageProps): JSX.Element {
     let sender= null;
     let senderId= 0;
+    let photo= null;
     if(chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel) {
         sender= chat.title;
     } 
@@ -48,8 +51,10 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
         switch(message.sender['@type']) {
             case 'messageSenderUser':
                 if(!message.is_outgoing) {
-                    sender= getUserFullName(users[message.sender.user_id]);
+                    const user=users[message.sender.user_id];
+                    sender= getUserFullName(user);
                     senderId= getIdColorCode(message.sender.user_id);
+                    photo= <ProfilePhoto id={user.id} name={sender} disableSavedMessages={true} photo={user.profile_photo?.small}/>;
                 }
                 break;
             case 'messageSenderChat': {
@@ -60,7 +65,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
     }
     return (
         <div className={'history-message' + ((message.is_outgoing && !message.is_channel_post) ? ' outgoing' : '')}>
-            <MessageBubble>
+            <MessageBubble beforeBubble={photo}>
                 {sender && <div className={`message-sender color_${senderId}`}>{sender}</div>}
                 {children}
                 <div className="after"/>
