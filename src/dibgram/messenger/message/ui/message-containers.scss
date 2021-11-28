@@ -53,6 +53,11 @@
                 fill: var(--theme-color-msgInBg);
             }
         }
+        
+        &,
+        .tail {
+            box-shadow: 0 2px var(--theme-color-msgInShadow);
+        }
 
         .content {
             white-space: pre-wrap;
@@ -108,6 +113,11 @@
                 svg {
                     fill: var(--theme-color-msgOutBg);
                 }
+            }
+
+            &,
+            .tail {
+                box-shadow: 0 2px var(--theme-color-msgOutShadow);
             }
 
             .footer .time {
