@@ -88,11 +88,11 @@
         "comment": " default active button background"
     },
     "activeButtonBgOver": {
-        "value": "#32a898",
+        "value": "#32a896",
         "comment": " default active button background with mouse over"
     },
     "activeButtonBgRipple": {
-        "value": "#42b8a8",
+        "value": "#42b8a6",
         "comment": " default active button ripple effect"
     },
     "activeButtonFg": {
@@ -114,7 +114,7 @@
         "comment": " default active button additional text with mouse over"
     },
     "activeLineFg": {
-        "value": "#3ee2cc",
+        "value": "#3ee2c9",
         "comment": " default active line (like code input field bottom border when you log in and field is focused)"
     },
     "activeLineFgError": {
@@ -134,7 +134,7 @@
         "comment": " default light button ripple effect"
     },
     "lightButtonFg": {
-        "value": "#79e8da",
+        "value": "#79e8d9",
         "comment": " default light button text"
     },
     "lightButtonFgOver": {
@@ -278,7 +278,7 @@
         "comment": " default slider active bar (like in Settings when you choose interface scale or custom notifications count)"
     },
     "tooltipBg": {
-        "value": "#d4dadd",
+        "value": "#282e33",
         "comment": " tooltip background (like when you put mouse over the message timestamp and wait)"
     },
     "tooltipFg": {
@@ -286,7 +286,7 @@
         "comment": " tooltip text"
     },
     "tooltipBorderFg": {
-        "value": "#c9d1db",
+        "value": "#313b43",
         "comment": " tooltip border"
     },
     "titleShadow": {
@@ -516,7 +516,7 @@
         "comment": " avatar crop box corner rectangles (when choosing a new photo in Settings or for a group)"
     },
     "callArrowFg": {
-        "value": "#2bc7b8",
+        "value": "#2bc7b7",
         "comment": " received phone call arrow (in calls list box)"
     },
     "callArrowMissedFg": {
@@ -550,7 +550,7 @@
         "comment": " intro gradient bottom (to)"
     },
     "introCoverIconsFg": {
-        "value": "#34a495",
+        "value": "#34a493",
         "comment": " intro cloud graphics"
     },
     "introCoverPlaneTrace": {
@@ -626,7 +626,7 @@
         "comment": " chat list sending message icon (clock)"
     },
     "dialogsSentIconFg": {
-        "value": "#20eeda",
+        "value": "#20eed9",
         "comment": " chat list sent message tick / double tick icon"
     },
     "dialogsUnreadBg": {
@@ -642,7 +642,7 @@
         "comment": " chat list unread badge text"
     },
     "dialogsOnlineBadgeFg": {
-        "value": "#0ae7d2",
+        "value": "#0ae7d1",
         "comment": " chat list online status"
     },
     "dialogsBgOver": {
@@ -696,7 +696,7 @@
         "comment": " chat list sending message icon (clock) with mouse over"
     },
     "dialogsSentIconFgOver": {
-        "value": "#41f0df",
+        "value": "#41f0de",
         "comment": " chat list sent message tick / double tick icon with mouse over"
     },
     "dialogsUnreadBgOver": {
@@ -780,7 +780,7 @@
         "comment": " chat list unread badge background for not muted chat for current (active) chat"
     },
     "dialogsUnreadBgMutedActive": {
-        "value": "#cbf7e9",
+        "value": "#cbf7e8",
         "comment": " chat list unread badge background for muted chat for current (active) chat"
     },
     "dialogsUnreadFgActive": {
@@ -796,7 +796,7 @@
         "comment": " "
     },
     "dialogsRippleBgActive": {
-        "value": "#12a798",
+        "value": "#12a796",
         "comment": " "
     },
     "dialogsForwardBg": {
@@ -874,19 +874,19 @@
         "comment": " outbox message selected text or text in a selected message"
     },
     "historyLinkInFg": {
-        "value": "#37e1cb",
+        "value": "#37e1ca",
         "comment": " inbox message link"
     },
     "historyLinkInFgSelected": {
-        "value": "#a7fff4",
+        "value": "#a7fff3",
         "comment": " inbox message link in a selected text or message"
     },
     "historyLinkOutFg": {
-        "value": "#37e1cb",
+        "value": "#37e1ca",
         "comment": " outbox message link"
     },
     "historyLinkOutFgSelected": {
-        "value": "#a7fff4",
+        "value": "#a7fff3",
         "comment": " outbox message link in a selected text or message"
     },
     "historyFileNameInFg": {
@@ -934,7 +934,7 @@
         "comment": " media sending message icon (clock) (like in sent photo)"
     },
     "historyCallArrowInFg": {
-        "value": "#26c2ad",
+        "value": "#26c2ab",
         "comment": " received phone call arrow"
     },
     "historyCallArrowInFgSelected": {
@@ -1136,7 +1136,7 @@
         "comment": " inbox selected message information text (like information about a forwarded message original sender)"
     },
     "msgOutServiceFg": {
-        "value": "#60e5cb",
+        "value": "#60e5ca",
         "comment": " outbox message information text (like information about a forwarded message original sender)"
     },
     "msgOutServiceFgSelected": {
@@ -1190,7 +1190,7 @@
         "comment": " service message selected text background (like in a service message about group title being changed) (adjusted)"
     },
     "msgInReplyBarColor": {
-        "value": "#32ceb9",
+        "value": "#32ceb7",
         "comment": " inbox message reply outline"
     },
     "msgInReplyBarSelColor": {
@@ -1198,7 +1198,7 @@
         "comment": " inbox selected message reply outline"
     },
     "msgOutReplyBarColor": {
-        "value": "#32ceb9",
+        "value": "#32ceb7",
         "comment": " outbox message reply outline"
     },
     "msgOutReplyBarSelColor": {
@@ -1212,7 +1212,7 @@
         "comment": " sticker message reply outline"
     },
     "msgInMonoFg": {
-        "value": "#5aaba0",
+        "value": "#5aab9f",
         "comment": " inbox message monospace text (like a message sent with `test` text)"
     },
     "msgOutMonoFg": {
@@ -1220,7 +1220,7 @@
         "comment": " outbox message monospace text"
     },
     "msgInMonoFgSelected": {
-        "value": "#a7fff4",
+        "value": "#a7fff3",
         "comment": " inbox message monospace text in a selected text or message"
     },
     "msgOutMonoFgSelected": {
@@ -1258,7 +1258,7 @@
         "comment": " inbox selected media file message with thumbnail download / open with button text"
     },
     "msgFileThumbLinkOutFg": {
-        "value": "#60e5cb",
+        "value": "#60e5ca",
         "comment": " outbox media file message with thumbnail download / open with button text"
     },
     "msgFileThumbLinkOutFgSelected": {
@@ -1266,7 +1266,7 @@
         "comment": " outbox selected media file message with thumbnail download / open with button text"
     },
     "msgFileInBg": {
-        "value": "#50d4c3",
+        "value": "#50d4c2",
         "comment": " inbox audio file download circle background"
     },
     "msgFileInBgOver": {
@@ -1290,7 +1290,7 @@
         "comment": " outbox selected audio file download circle background"
     },
     "msgFile1Bg": {
-        "value": "#3fbbab",
+        "value": "#3fbbaa",
         "comment": " blue shared links / files without image square thumbnail"
     },
     "msgFile1BgDark": {
@@ -1306,7 +1306,7 @@
         "comment": " blue shared files without image download circle background if file is selected"
     },
     "msgFile2Bg": {
-        "value": "#8ef5e8",
+        "value": "#8ef5e7",
         "comment": " green shared links / shared files without image square thumbnail"
     },
     "msgFile2BgDark": {
@@ -1428,7 +1428,7 @@
         "comment": " inbox voice message inactive waveform lines (like upcoming part of currently playing voice message)"
     },
     "msgWaveformInInactiveSelected": {
-        "value": "#41d1c0",
+        "value": "#41d1be",
         "comment": " inbox selected voice message inactive waveform lines (like upcoming part of currently playing voice message)"
     },
     "msgWaveformOutActive": {
@@ -1444,7 +1444,7 @@
         "comment": " outbox voice message inactive waveform lines (like upcoming part of currently playing voice message)"
     },
     "msgWaveformOutInactiveSelected": {
-        "value": "#41d1c0",
+        "value": "#41d1be",
         "comment": " outbox selected voice message inactive waveform lines (like upcoming part of currently playing voice message)"
     },
     "msgBotKbOverBgAdd": {
@@ -1734,7 +1734,7 @@
         "comment": " "
     },
     "mainMenuCloudBg": {
-        "value": "#0e837f",
+        "value": "#0e837d",
         "comment": " "
     },
     "mediaPlayerBg": {
@@ -1930,7 +1930,7 @@
         "comment": " phone call popup answer, hangup and mute mic icon"
     },
     "callAnswerBg": {
-        "value": "#5ad1c1",
+        "value": "#5ad1bf",
         "comment": " phone call popup answer button background"
     },
     "callAnswerRipple": {
@@ -2056,11 +2056,11 @@
         "comment": " filters side bar icon"
     },
     "sideBarIconFgActive": {
-        "value": "#25dbca",
+        "value": "#25dbc9",
         "comment": " filters side bar active item icon"
     },
     "sideBarBadgeBg": {
-        "value": "#25dbca",
+        "value": "#25dbc9",
         "comment": " filters side bar badge background"
     },
     "sideBarBadgeBgMuted": {

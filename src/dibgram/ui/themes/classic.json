@@ -421,11 +421,11 @@
     },
     "titleFg": {
         "value": "#acacac",
-        "comment": " custom window title text when window is inactive (macOS only)"
+        "comment": " custom window title text when window is inactive (Windows 11 and macOS)"
     },
     "titleFgActive": {
         "value": "#3e3c3e",
-        "comment": " custom window title text when window is active (macOS only)"
+        "comment": " custom window title text when window is active (Windows 11 and macOS)"
     },
     "trayCounterBg": {
         "value": "#f23c34",
@@ -509,6 +509,22 @@
         },
         "comment": " settings close icon and box search cancel icon (like in contacts box) with mouse over"
     },
+    "boxDividerBg": {
+        "value": {
+            "equals": "windowBgOver"
+        },
+        "comment": " gray divider in boxes and layers"
+    },
+    "boxDividerFg": {
+        "value": {
+            "equals": "windowShadowFg"
+        },
+        "comment": " gray divider shadow in boxes and layers"
+    },
+    "paymentsTipActive": {
+        "value": "#01ad0f",
+        "comment": " tip button text in payments checkout form"
+    },
     "membersAboutLimitFg": {
         "value": {
             "equals": "windowSubTextFgOver"
@@ -562,7 +578,7 @@
         "comment": " avatar crop box corner rectangles (when choosing a new photo in Settings or for a group)"
     },
     "callArrowFg": {
-        "value": "#2ab32a",
+        "value": "#2dad2d",
         "comment": " received phone call arrow (in calls list box)"
     },
     "callArrowMissedFg": {
@@ -784,9 +800,7 @@
         "comment": " chat list sending message icon (clock) with mouse over"
     },
     "dialogsSentIconFgOver": {
-        "value": {
-            "equals": "dialogsSentIconFg"
-        },
+        "value": "#58b84d",
         "comment": " chat list sent message tick / double tick icon with mouse over"
     },
     "dialogsUnreadBgOver": {
@@ -1066,13 +1080,11 @@
         "comment": " outbox media filename text in a selected message"
     },
     "historyOutIconFg": {
-        "value": {
-            "equals": "dialogsSentIconFg"
-        },
+        "value": "#57b84c",
         "comment": " outbox message tick / double tick icon"
     },
     "historyOutIconFgSelected": {
-        "value": "#4da79f",
+        "value": "#45a3aa",
         "comment": " outbox message tick / double tick icon in a selected message"
     },
     "historyIconFgInverted": {
@@ -1094,15 +1106,11 @@
         "comment": " media sending message icon (clock) (like in sent photo)"
     },
     "historyCallArrowInFg": {
-        "value": {
-            "equals": "callArrowFg"
-        },
+        "value": "#32b032",
         "comment": " received phone call arrow"
     },
     "historyCallArrowInFgSelected": {
-        "value": {
-            "equals": "callArrowFg"
-        },
+        "value": "#2592a8",
         "comment": " received phone call arrow in a selected message"
     },
     "historyCallArrowMissedInFg": {
@@ -1340,11 +1348,11 @@
         "comment": " inbox selected message information text (like information about a forwarded message original sender)"
     },
     "msgOutServiceFg": {
-        "value": "#3a8e26",
+        "value": "#45a32d",
         "comment": " outbox message information text (like information about a forwarded message original sender)"
     },
     "msgOutServiceFgSelected": {
-        "value": "#367570",
+        "value": "#469992",
         "comment": " outbox message information text (like information about a forwarded message original sender)"
     },
     "msgInShadow": {
@@ -1356,11 +1364,11 @@
         "comment": " inbox selected message shadow (below the bubble)"
     },
     "msgOutShadow": {
-        "value": "#3ac34740",
+        "value": "#3ac3461d",
         "comment": " outbox message shadow (below the bubble)"
     },
     "msgOutShadowSelected": {
-        "value": "#37a78e40",
+        "value": "#37a78d22",
         "comment": " outbox selected message shadow (below the bubble)"
     },
     "msgInDateFg": {
@@ -1372,11 +1380,11 @@
         "comment": " inbox selected message time text"
     },
     "msgOutDateFg": {
-        "value": "#6cc264",
+        "value": "#6db566",
         "comment": " outbox message time text"
     },
     "msgOutDateFgSelected": {
-        "value": "#50a79c",
+        "value": "#56b2a6",
         "comment": " outbox selected message time text"
     },
     "msgServiceFg": {
@@ -1406,9 +1414,7 @@
         "comment": " inbox selected message reply outline"
     },
     "msgOutReplyBarColor": {
-        "value": {
-            "equals": "historyOutIconFg"
-        },
+        "value": "#5eb854",
         "comment": " outbox message reply outline"
     },
     "msgOutReplyBarSelColor": {
@@ -1428,7 +1434,7 @@
         "comment": " inbox message monospace text (like a message sent with `test` text)"
     },
     "msgOutMonoFg": {
-        "value": "#469165",
+        "value": "#459866",
         "comment": " outbox message monospace text"
     },
     "msgInMonoFgSelected": {
@@ -1474,7 +1480,7 @@
         "comment": " inbox selected media file message with thumbnail download / open with button text"
     },
     "msgFileThumbLinkOutFg": {
-        "value": "#5eba5b",
+        "value": "#4ba831",
         "comment": " outbox media file message with thumbnail download / open with button text"
     },
     "msgFileThumbLinkOutFgSelected": {
@@ -1496,15 +1502,15 @@
         "comment": " inbox selected audio file download circle background"
     },
     "msgFileOutBg": {
-        "value": "#78c67f",
+        "value": "#5fbe67",
         "comment": " outbox audio file download circle background"
     },
     "msgFileOutBgOver": {
-        "value": "#6bc272",
+        "value": "#5ab15f",
         "comment": " outbox audio file download circle background with mouse over"
     },
     "msgFileOutBgSelected": {
-        "value": "#5fb389",
+        "value": "#50ac9b",
         "comment": " outbox selected audio file download circle background"
     },
     "msgFile1Bg": {
@@ -1524,7 +1530,7 @@
         "comment": " blue shared files without image download circle background if file is selected"
     },
     "msgFile2Bg": {
-        "value": "#61b96e",
+        "value": "#5fbe67",
         "comment": " green shared links / shared files without image square thumbnail"
     },
     "msgFile2BgDark": {
@@ -1536,7 +1542,7 @@
         "comment": " green shared files without image download circle background with mouse over"
     },
     "msgFile2BgSelected": {
-        "value": "#46a07e",
+        "value": "#50ac9b",
         "comment": " green shared files without image download circle background if file is selected"
     },
     "msgFile3Bg": {
@@ -1668,7 +1674,7 @@
         "comment": " inbox selected voice message inactive waveform lines (like upcoming part of currently playing voice message)"
     },
     "msgWaveformOutActive": {
-        "value": "#78c67f",
+        "value": "#5ebd66",
         "comment": " outbox voice message active waveform lines (like played part of currently playing voice message)"
     },
     "msgWaveformOutActiveSelected": {
@@ -2029,11 +2035,11 @@
         "value": {
             "equals": "activeButtonFg"
         },
-        "comment": " "
+        "comment": " main menu top cover saved messages / archive button icon"
     },
     "mainMenuCloudBg": {
         "value": "#2785bf",
-        "comment": " "
+        "comment": " main menu top cover saved messages / archive button background"
     },
     "mediaPlayerBg": {
         "value": {
@@ -2247,10 +2253,6 @@
         "value": "#ffffff",
         "comment": " phone call popup name text"
     },
-    "callFingerprintBg": {
-        "value": "#00000066",
-        "comment": " phone call popup emoji fingerprint background"
-    },
     "callStatusFg": {
         "value": "#aaabac",
         "comment": " phone call popup status text"
@@ -2276,7 +2278,7 @@
         "comment": " phone call line busy cancel, muted mic and camera ripple effect"
     },
     "callAnswerBg": {
-        "value": "#64c15b",
+        "value": "#66c95b",
         "comment": " phone call popup answer button background"
     },
     "callAnswerRipple": {
@@ -2411,6 +2413,14 @@
         "value": "#f75c5c9e",
         "comment": " group call leave button ripple effect"
     },
+    "groupCallVideoTextFg": {
+        "value": "#ffffffe0",
+        "comment": " group call text over video"
+    },
+    "groupCallVideoSubTextFg": {
+        "value": "#ffffffc0",
+        "comment": " group call additional text over video"
+    },
     "callBarBg": {
         "value": {
             "equals": "dialogsBgActive"
@@ -2441,19 +2451,19 @@
         "value": {
             "equals": "toastBg"
         },
-        "comment": " "
+        "comment": " group call important tooltip background color"
     },
     "importantTooltipFg": {
         "value": {
             "equals": "toastFg"
         },
-        "comment": " "
+        "comment": " group call important tooltip text color"
     },
     "importantTooltipFgLink": {
         "value": {
             "equals": "mediaviewTextLinkFg"
         },
-        "comment": " "
+        "comment": " group call important tooltip text link color"
     },
     "outdatedFg": {
         "value": "#ffffff",
@@ -2640,6 +2650,16 @@
     "songCoverOverlayFg": {
         "value": "#00000066",
         "comment": " song cover overlay"
+    },
+    "photoEditorBg": {
+        "value": {
+            "equals": "boxTitleAdditionalFg"
+        },
+        "comment": " photo editor background"
+    },
+    "photoEditorItemBaseHandleFg": {
+        "value": "#3ccaef",
+        "comment": " photo editor handle circle"
     },
     "chatBg": {
         "value": "var(--img-classic-theme-bg)",
