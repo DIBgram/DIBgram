@@ -9,119 +9,130 @@
 }
 
 .history-message {
-    .bubble {
-        position: relative;
-        border-radius: 6px;
-        background-color: var(--theme-color-msgInBg);
-        font-size: 13px;
-        padding: 7px 13px;
+    .bubble-container {
         margin-inline-start: 16px;
         margin-inline-end: 57px;
-        max-width: 430px;
-        width: max-content;
-
-        .message-sender {
-            font-weight: 500;
-
-            &.color_0 { color: var(--theme-color-msgInServiceFg )}
-            &.color_1 { color: var(--theme-color-historyPeer1NameFg )}
-            &.color_2 { color: var(--theme-color-historyPeer2NameFg )}
-            &.color_3 { color: var(--theme-color-historyPeer3NameFg )}
-            &.color_4 { color: var(--theme-color-historyPeer4NameFg )}
-            &.color_5 { color: var(--theme-color-historyPeer5NameFg )}
-            &.color_6 { color: var(--theme-color-historyPeer6NameFg )}
-            &.color_7 { color: var(--theme-color-historyPeer7NameFg )}
-            &.color_8 { color: var(--theme-color-historyPeer8NameFg )}
-        }
-
-        &.has-tail {
-            border-end-start-radius: 0;
-        }
-
-        .tail {
-            position: absolute;
-            bottom: 0;
-            inset-inline-start: -6px;
-            width: 6px;
-            height: 10px;
-            pointer-events: none;
-
-            svg {
-                position: absolute; // For some reason the svg is moved down by 2px, this is a workaround
-                top: 0;
-                left: 0;
-                fill: var(--theme-color-msgInBg);
-            }
-        }
-        
-        &,
-        .tail {
-            box-shadow: 0 2px var(--theme-color-msgInShadow);
-        }
-
-        .content {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            unicode-bidi: plaintext;
-        }
-
-        .footer {
-            float: right;
-            margin-inline-start: 10px;
+        height: 100%;
+        width: 430px;
+        max-width: calc(100% - 57px - 16px);
+            
+        .bubble {
             position: relative;
-            top: 5px;
-            right: -2px;
+            border-radius: 6px;
+            background-color: var(--theme-color-msgInBg);
+            font-size: 13px;
+            padding: 7px 13px;
+            max-width: 100%;
+            box-sizing: border-box;
+            width: max-content;
 
-            .time {
-                color: var(--theme-color-msgInDateFg);
-                display: inline-block;
+            .message-sender {
+                font-weight: 500;
+
+                &.color_0 { color: var(--theme-color-msgInServiceFg )}
+                &.color_1 { color: var(--theme-color-historyPeer1NameFg )}
+                &.color_2 { color: var(--theme-color-historyPeer2NameFg )}
+                &.color_3 { color: var(--theme-color-historyPeer3NameFg )}
+                &.color_4 { color: var(--theme-color-historyPeer4NameFg )}
+                &.color_5 { color: var(--theme-color-historyPeer5NameFg )}
+                &.color_6 { color: var(--theme-color-historyPeer6NameFg )}
+                &.color_7 { color: var(--theme-color-historyPeer7NameFg )}
+                &.color_8 { color: var(--theme-color-historyPeer8NameFg )}
+            }
+
+            &.has-tail {
+                border-end-start-radius: 0;
+            }
+
+            .tail {
+                position: absolute;
+                bottom: 0;
+                inset-inline-start: -6px;
+                width: 6px;
+                height: 10px;
+                pointer-events: none;
+
+                svg {
+                    position: absolute; // For some reason the svg is moved down by 2px, this is a workaround
+                    top: 0;
+                    left: 0;
+                    fill: var(--theme-color-msgInBg);
+                }
+            }
+            
+            &,
+            .tail {
+                box-shadow: 0 2px var(--theme-color-msgInShadow);
+            }
+
+            .content {
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                unicode-bidi: plaintext;
+            }
+
+            .footer {
+                float: right;
+                margin-inline-start: 10px;
                 position: relative;
-                top: -1px;
+                top: 5px;
+                right: -2px;
+
+                .time {
+                    color: var(--theme-color-msgInDateFg);
+                    display: inline-block;
+                    position: relative;
+                    top: -1px;
+                }
+
+                .tick svg{
+                    width: 20px;
+                    height: 13px;
+                    fill: var(--theme-color-historyOutIconFg);
+                    margin-inline-start: 8px;
+                    margin-inline-end: -4px;
+                }
             }
 
-            .tick svg{
-                width: 20px;
-                height: 13px;
-                fill: var(--theme-color-historyOutIconFg);
-                margin-inline-start: 8px;
-                margin-inline-end: -4px;
+            .after {
+                clear: right;
             }
-        }
-
-        .after {
-            clear: right;
         }
     }
 
     &.outgoing {
-        .bubble {
+        .bubble-container {
+            float: right;
             margin-inline-start: 57px;
             margin-inline-end: 16px;
-            background-color: var(--theme-color-msgOutBg);
-            float: right;
 
-            &.has-tail {
-                border-end-start-radius: 6px;
-                border-end-end-radius: 0;
-            }
+            .bubble {
+                background-color: var(--theme-color-msgOutBg);
+                float: right;
 
-            .tail {
-                inset-inline-start: unset;
-                inset-inline-end: -6px;
-                transform: rotateY(180deg);
-                
-                svg {
-                    fill: var(--theme-color-msgOutBg);
+                &.has-tail {
+                    border-end-start-radius: 6px;
+                    border-end-end-radius: 0;
                 }
-            }
 
-            &,
-            .tail {
-                box-shadow: 0 2px var(--theme-color-msgOutShadow);
-            }
+                .tail {
+                    inset-inline-start: unset;
+                    inset-inline-end: -6px;
+                    transform: rotateY(180deg);
+                    
+                    svg {
+                        fill: var(--theme-color-msgOutBg);
+                    }
+                }
 
-            .footer .time {
-                color: var(--theme-color-msgOutDateFg);
+                &,
+                .tail {
+                    box-shadow: 0 2px var(--theme-color-msgOutShadow);
+                }
+
+                .footer .time {
+                    color: var(--theme-color-msgOutDateFg);
+                }
             }
         }
     }

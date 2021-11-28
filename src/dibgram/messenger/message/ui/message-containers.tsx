@@ -22,9 +22,11 @@ type MessageBubbleProps= {
 }
 export function MessageBubble({ children, showTail=true, ...rest}: MessageBubbleProps): JSX.Element {
     return (
-        <div className={`bubble ${showTail ? 'has-tail' : ''}`} {...rest}>
-            {children}
-            {showTail && <span className="tail" dangerouslySetInnerHTML={{__html: bubble_tail}}/>}
+        <div className="bubble-container">
+            <div className={`bubble ${showTail ? 'has-tail' : ''}`} {...rest}>
+                {children}
+                {showTail && <span className="tail" dangerouslySetInnerHTML={{__html: bubble_tail}}/>}
+            </div>
         </div>
     );
 }
