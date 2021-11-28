@@ -15,17 +15,17 @@ sendQuery({
 
     for(const string of res.strings) {
         switch(string.value['@type']) {
-        case 'languagePackStringValueOrdinary':
-            result[string.key] = string.value.value;
-            break;
-        case 'languagePackStringValuePluralized':
-            if(string.value.zero_value ) { result[string.key+'#zero' ] = string.value.zero_value ; }
-            if(string.value.one_value  ) { result[string.key+'#one'  ] = string.value.one_value  ; }
-            if(string.value.two_value  ) { result[string.key+'#two'  ] = string.value.two_value  ; }
-            if(string.value.few_value  ) { result[string.key+'#few'  ] = string.value.few_value  ; }
-            if(string.value.many_value ) { result[string.key+'#many' ] = string.value.many_value ; }
-            if(string.value.other_value) { result[string.key+'#other'] = string.value.other_value; }
-            break;
+            case 'languagePackStringValueOrdinary':
+                result[string.key] = string.value.value;
+                break;
+            case 'languagePackStringValuePluralized':
+                if(string.value.zero_value ) { result[string.key+'#zero' ] = string.value.zero_value ; }
+                if(string.value.one_value  ) { result[string.key+'#one'  ] = string.value.one_value  ; }
+                if(string.value.two_value  ) { result[string.key+'#two'  ] = string.value.two_value  ; }
+                if(string.value.few_value  ) { result[string.key+'#few'  ] = string.value.few_value  ; }
+                if(string.value.many_value ) { result[string.key+'#many' ] = string.value.many_value ; }
+                if(string.value.other_value) { result[string.key+'#other'] = string.value.other_value; }
+                break;
         }
     }
     let order= window.prompt('Please paste the content of the JSON generated from lang.strings. This is to ensure that strings are outputted in the correct order.');

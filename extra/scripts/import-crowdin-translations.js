@@ -12,6 +12,8 @@
  *          node import-crowdin-translations.js translations.zip > all-translations.json
  */
 
+const outDir= process.argv[3] || '../../src/dibgram/language-pack/special-strings';
+
 const ZIP = require('zip');
 const fs = require('fs');
 
@@ -19,10 +21,10 @@ const data = fs.readFileSync(process.argv[2]);
 const reader = new ZIP.Reader(data);
 reader.toObject();
 
-if(fs.existsSync('../src/dibgram/language-pack/special-strings')){
-    fs.rmdirSync('../src/dibgram/language-pack/special-strings', {recursive: true, force: true});
+if(fs.existsSync(outDir)){
+    fs.rmdirSync(outDir, {recursive: true, force: true});
 }
-fs.mkdirSync('../src/dibgram/language-pack/special-strings');
+fs.mkdirSync(outDir);
 
 const allResults= {};
 function forEachFile(entry) {
@@ -42,7 +44,7 @@ function forEachFile(entry) {
         
         allResults[languageCode]= result;
         const json= JSON.stringify(result);
-        fs.writeFile(`../src/dibgram/language-pack/special-strings/${languageCode}.json`, json, function(){});
+        fs.writeFile(`${outDir}/${languageCode}.json`, json, function(){});
     }
 }
 reader.forEach(forEachFile);

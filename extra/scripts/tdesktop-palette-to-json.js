@@ -23,22 +23,22 @@
 
 var readline = require('readline');
 var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  terminal: false
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false
 });
 
 var data={};
 
 rl.on('line', function(line){
-  if(/(\w+)(\s*):(\s*)(#[0-9a-fA-F]{3,8}|\w+)(\s*)/.test(line)){
-    const name= /((\w+)(\s*))(?=:(\s*)(#[0-9a-fA-F]{3,8}|\w+)(\s*);)/.exec(line);
-    const value= /(?<=(\w+)(\s*):(\s*))((#[0-9a-fA-F]{3,8}|\w+))(?=(\s*);)/.exec(line);
-    const comment= /(?<=\/\/).*/.exec(line);
-    if(name==null || value==null) return;
-    if(data[value[0]]) value[0]={equals:value[0]};
-    var obj={value: value[0], comment: (comment && comment[0])};
-    data[name[0]]= obj;
-  }
-})
-rl.on('close',()=>console.log(JSON.stringify(data, null, 4)))
+    if(/(\w+)(\s*):(\s*)(#[0-9a-fA-F]{3,8}|\w+)(\s*)/.test(line)){
+        const name= /((\w+)(\s*))(?=:(\s*)(#[0-9a-fA-F]{3,8}|\w+)(\s*);)/.exec(line);
+        const value= /(?<=(\w+)(\s*):(\s*))((#[0-9a-fA-F]{3,8}|\w+))(?=(\s*);)/.exec(line);
+        const comment= /(?<=\/\/).*/.exec(line);
+        if(name==null || value==null) return;
+        if(data[value[0]]) value[0]={equals:value[0]};
+        var obj={value: value[0], comment: (comment && comment[0])};
+        data[name[0]]= obj;
+    }
+});
+rl.on('close',()=>console.log(JSON.stringify(data, null, 4)));

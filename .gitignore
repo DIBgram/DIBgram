@@ -22,7 +22,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
+# Telegram API secrets
 src/dibgram/TdWeb/config.js
 
-extra/*.zip
+# Any file in extra/scripts which is not JS or TS
+extra/scripts/**
+!extra/scripts/*.js
+!extra/scripts/*.ts

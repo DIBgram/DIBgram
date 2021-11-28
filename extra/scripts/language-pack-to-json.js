@@ -5,11 +5,11 @@
 // 4. Copy the result to the clipboard (you need to remove the quotes on the first and last characters)
 // 
 // Note: The `lang.strings` is known to contain some incorrect strings, use `import-language-pack-from-tdlib.js` instead.
-var result= {}
+var result= {};
 document.body.innerText.replace(/\/\*.*\*\//gs, '').split('\n').forEach( line => {
     if(/".+"\s*=\s*".+";/.test(line)){
         const [, key, value]= /"(.+)"\s*=\s*"(.+)";/.exec(line.trim());
         result[key]= value;
     }
-})
-JSON.stringify(result, null, 4)
+});
+JSON.stringify(result, null, 4);
