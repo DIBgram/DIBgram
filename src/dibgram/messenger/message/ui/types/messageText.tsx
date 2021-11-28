@@ -1,6 +1,7 @@
 import React from 'react';
 import TdApi from '../../../../TdWeb/td_api';
 import withUsers from '../../../users-wrapper';
+import compileEntities from '../entities';
 import { MessageProps } from '../message';
 import { BubbleMessage, MessageFooter } from '../message-containers';
 
@@ -11,7 +12,7 @@ export default function MessageText({message, chat}: MessageProps): JSX.Element 
     return (
         <BubbleMsg message={message} chat={chat}>
             <div className="content">
-                {messageContent.text.text}
+                {compileEntities(messageContent.text)}
                 <MessageFooter message={message} chat={chat}/>
             </div>
         </BubbleMsg>
