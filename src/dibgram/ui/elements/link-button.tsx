@@ -15,6 +15,6 @@ type LinkButtonProps= {
 export default function LinkButton({href, children, onClick, ...rest}: LinkButtonProps): JSX.Element {
     const click= href ? ()=> window.open(href) : onClick;
     return (
-        <button className="link-button" onClick={click} {...rest}>{children}</button>
+        <a className="link-button" onClick={click} {...rest}>{children}</a>
     );
 }
