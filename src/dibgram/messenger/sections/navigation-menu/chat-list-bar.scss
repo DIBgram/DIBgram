@@ -8,6 +8,7 @@
     right: unset !important;
     inset-inline-end: -10px !important; // The handle is entirely on the right
     cursor: e-resize !important; // use <--> ( default is <|> )
+    z-index: +1;
 }
 
 #chat-list-bar {
