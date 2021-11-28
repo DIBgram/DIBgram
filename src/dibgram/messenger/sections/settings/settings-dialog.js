@@ -65,7 +65,7 @@ function Settings ({id, users}) {
                 <ScrollView scrollBarWidth="4">
                     <div className="scroll-content">
                         <ToolStrip.Section className="profile-info">
-                            <ProfilePhoto id={options['my_id']} name={user ? getUserFullName(user) : ''} photo={user?.profile_photo?.small} disableSavedMessages={true}/>
+                            <ProfilePhoto id={user?.id} name={user ? getUserFullName(user) : ''} photo={user?.profile_photo?.small} disableSavedMessages={true}/>
                             <span>
                                 <p className="name">{user && getUserFullName(user)}</p>
                                 <p className="status">{__('lng_status_online') /*TODO: Implement real status instead of a dummy 'online' */}</p>
