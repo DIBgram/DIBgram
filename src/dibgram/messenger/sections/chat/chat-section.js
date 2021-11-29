@@ -14,7 +14,7 @@ import { messageStores } from '../../message-stores';
 import TdLib from '../../../TdWeb/tdlib';
 
 export const ChatSection= 
-connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSection({chats, selectedChat}) {
+connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSection({chats, selectedChat, singleColumnLayout}) {
     let chat;
     for(let c of chats) {
         if(c.id === selectedChat) {
@@ -34,39 +34,45 @@ connect(({chats, selectedChat}) => ({chats, selectedChat})) (function ChatSectio
         case 'chatTypePrivate':
             return (
                 <Provider store={usersStore}>
-                    <ChatSectionContentWrapperPrivate chat={chat}/>
+                    <ChatSectionContentWrapperPrivate 
+                        chat={chat} 
+                        singleColumnLayout={singleColumnLayout}/>
                 </Provider>
             );
         case 'chatTypeBasicGroup': 
             return (
                 <Provider store={basicGroupStore}>
-                    <ChatSectionContentWrapperBasicGroup chat={chat}/>
+                    <ChatSectionContentWrapperBasicGroup 
+                        chat={chat} 
+                        singleColumnLayout={singleColumnLayout}/>
                 </Provider>
             );
         case 'chatTypeSupergroup':
             return (
                 <Provider store={supergroupStore}>
-                    <ChatSectionContentWrapperSupergroup chat={chat}/>
+                    <ChatSectionContentWrapperSupergroup 
+                        chat={chat} 
+                        singleColumnLayout={singleColumnLayout}/>
                 </Provider>
             );
     }
 });
 
 const ChatSectionContentWrapperPrivate= connect(users=>({users}))(
-    function ChatSectionContentWrapperPrivate({users, chat}) {
-        return <ChatSectionContentWrapper user={users[chat.type.user_id]} chat={chat}/>;
+    function ChatSectionContentWrapperPrivate({users, chat, ...rest}) {
+        return <ChatSectionContentWrapper user={users[chat.type.user_id]} chat={chat} {...rest}/>;
     }
 );
 
 const ChatSectionContentWrapperBasicGroup= connect(basicGroups=>({basicGroups}))(
-    function ChatSectionContentWrapperBasicGroup({basicGroups, chat}) {
-        return <ChatSectionContentWrapper basicGroup={basicGroups[chat.type.basic_group_id]} chat={chat}/>;
+    function ChatSectionContentWrapperBasicGroup({basicGroups, chat, ...rest}) {
+        return <ChatSectionContentWrapper basicGroup={basicGroups[chat.type.basic_group_id]} chat={chat} {...rest}/>;
     }
 );
 
 const ChatSectionContentWrapperSupergroup= connect(supergroups=>({supergroups}))(
-    function ChatSectionContentWrapperSupergroup({supergroups, chat}) {
-        return <ChatSectionContentWrapper supergroup={supergroups[chat.type.supergroup_id]} chat={chat}/>;
+    function ChatSectionContentWrapperSupergroup({supergroups, chat, ...rest}) {
+        return <ChatSectionContentWrapper supergroup={supergroups[chat.type.supergroup_id]} chat={chat} {...rest}/>;
     }
 );
 

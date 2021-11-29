@@ -3,6 +3,25 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+
+    > .responsive-container {
+        flex-grow: 1;
+        position: relative;
+
+        > div {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+
+            > .nav-animation {
+                flex-grow: 1;
+            }
+        }
+    }
 }
 
 #chat-container {

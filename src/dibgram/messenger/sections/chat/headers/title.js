@@ -6,20 +6,39 @@ import ThreeDotsMenu from '../../../../ui/menu/three-dots-menu';
 import Menu from '../../../../ui/menu/menu';
 import options from '../../../../TdWeb/options';
 import IconButton from '../../../../ui/elements/icon-button';
-import { top_bar_group_call, top_bar_profile, top_bar_search } from '../../../../ui/icon/icons';
+import { info_back, top_bar_group_call, top_bar_profile, top_bar_search } from '../../../../ui/icon/icons';
 import { chatTitleOrDeletedAccount } from '../../../chat-misc';
 import { lastSeenToString } from '../../../../time-tostring';
+import ProfilePhoto from '../../../../ui/components/profile-photo';
+import chatStore from '../../../chat-store';
 
 export default function TitleHeader(props) {
     return (
         <div className="title-bar">
+            {props.singleColumnLayout && (
+                <IconButton icon={info_back} className="icon-button back" onClick={()=>{
+                    chatStore.dispatch({
+                        type: 'SELECT_CHAT',
+                        chat_id: -1
+                    });
+                }}/>
+            )}
             <div className="title-bar-left">
-                <div className="title">
-                    {options['my_id'] == props.chat.id && (__('lng_saved_messages'))}
-                    {options['replies_bot_chat_id'] == props.chat.id && (__('lng_replies_messages'))}
-                    {options['my_id'] != props.chat.id && options['replies_bot_chat_id'] != props.chat.id && (chatTitleOrDeletedAccount(props.chat))}
+                {props.singleColumnLayout && (
+                    <ProfilePhoto 
+                        id={props.chat.id} 
+                        name={props.chat.title} 
+                        photo={props.chat.photo?.small}
+                    />
+                )}
+                <div className="text">
+                    <div className="title">
+                        {options['my_id'] == props.chat.id && (__('lng_saved_messages'))}
+                        {options['replies_bot_chat_id'] == props.chat.id && (__('lng_replies_messages'))}
+                        {options['my_id'] != props.chat.id && options['replies_bot_chat_id'] != props.chat.id && (chatTitleOrDeletedAccount(props.chat))}
+                    </div>
+                    <SubText {...props}/>
                 </div>
-                <SubText {...props}/>
             </div>
             <div className="title-bar-right">
                 {/*TODO Missing item: Call button for private chats, depends on userFullInfo */}
@@ -38,7 +57,8 @@ export default function TitleHeader(props) {
     );
 }
 TitleHeader.propTypes = {
-    chat: PropTypes.object.isRequired
+    chat: PropTypes.object.isRequired,
+    singleColumnLayout: PropTypes.bool
 };
 
 function SubText({chat, user, basicGroup, supergroup}) {
