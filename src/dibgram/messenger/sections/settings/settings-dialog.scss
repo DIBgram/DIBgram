@@ -80,10 +80,14 @@
                 .status {
                     margin-top: 5px;
                     display: inline-block;
-                    font-size: 12px;
+                    font-size: 13px;
                     font-weight: 400;
-                    color: var(--theme-color-windowActiveTextFg);
+                    color: var(--theme-color-windowSubTextFg);
                     user-select: none;
+                    
+                    &.active {
+                        color: var(--theme-color-windowActiveTextFg);
+                    }
                 }
             }
         }

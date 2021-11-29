@@ -19,6 +19,7 @@ import __ from '../../../language-pack/language-pack';
 import ChooseLanguageDialog from './choose-language';
 import NavAnimation, { closeNavAnimation } from '../../../ui/elements/nav-animation';
 import SettingsAdvanced from './advanced/advanced';
+import { lastSeenToString } from '../../../time-tostring';
 
 function Settings ({id, users}) {
     const dialogRef = React.useRef();
@@ -68,7 +69,9 @@ function Settings ({id, users}) {
                             <ProfilePhoto id={user?.id} name={user ? getUserFullName(user) : ''} photo={user?.profile_photo?.small} disableSavedMessages={true}/>
                             <span>
                                 <p className="name">{user && getUserFullName(user)}</p>
-                                <p className="status">{__('lng_status_online') /*TODO: Implement real status instead of a dummy 'online' */}</p>
+                                <p className={`status ${user.status['@type'] == 'userStatusOnline' ? 'active' : ''}`}>
+                                    {lastSeenToString(user.status)}
+                                </p>
                             </span>
                         </ToolStrip.Section>
                         <ToolStrip.Separator/>
