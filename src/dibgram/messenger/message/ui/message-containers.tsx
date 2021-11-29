@@ -7,8 +7,10 @@ import { getChatNoCache } from '../../chat-store';
 import { getMessageStatus } from '../../message-misc';
 import { getUserFullName } from '../../user-misc';
 import { ProcessedSingleMessage } from '../processHistory';
+import usersStore from '../../users-store';
 
 import './message-containers.scss';
+import { __fmt } from '../../../language-pack/language-pack';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ServiceMessage(props: { [key: string]: any }): JSX.Element {
@@ -83,9 +85,19 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                 beforeBubble={message.hide_tail ? (photo && <div className="profile-photo-c"/>) : photo} 
                 showTail={!message.hide_tail}>
 
-                {sender && (!message.hide_sender_name) && (
-                    <div className={`message-sender color_${senderId}`}>{sender}</div>
-                )}
+                <div className="message-sender">
+                    {sender && (!message.hide_sender_name) && (
+                        <span className={`color_${senderId}`}>{sender}</span>
+                    )}
+                    {message.via_bot_user_id? (
+                        <span className="color_0">
+                            {__fmt('lng_inline_bot_via', {
+                                inline_bot: '@'+(usersStore.getState()[message.via_bot_user_id] as TdApi.td_user).username
+                            })}
+                        </span>
+                    ): null}
+                </div>
+
                 {children}
                 <div className="after"/>
             </MessageBubble>

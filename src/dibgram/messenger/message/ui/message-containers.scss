@@ -60,15 +60,15 @@
                 font-weight: 500;
                 user-select: none;
 
-                &.color_0 { color: var(--theme-color-msgInServiceFg )}
-                &.color_1 { color: var(--theme-color-historyPeer1NameFg )}
-                &.color_2 { color: var(--theme-color-historyPeer2NameFg )}
-                &.color_3 { color: var(--theme-color-historyPeer3NameFg )}
-                &.color_4 { color: var(--theme-color-historyPeer4NameFg )}
-                &.color_5 { color: var(--theme-color-historyPeer5NameFg )}
-                &.color_6 { color: var(--theme-color-historyPeer6NameFg )}
-                &.color_7 { color: var(--theme-color-historyPeer7NameFg )}
-                &.color_8 { color: var(--theme-color-historyPeer8NameFg )}
+                .color_0 { color: var(--theme-color-msgInServiceFg )}
+                .color_1 { color: var(--theme-color-historyPeer1NameFg )}
+                .color_2 { color: var(--theme-color-historyPeer2NameFg )}
+                .color_3 { color: var(--theme-color-historyPeer3NameFg )}
+                .color_4 { color: var(--theme-color-historyPeer4NameFg )}
+                .color_5 { color: var(--theme-color-historyPeer5NameFg )}
+                .color_6 { color: var(--theme-color-historyPeer6NameFg )}
+                .color_7 { color: var(--theme-color-historyPeer7NameFg )}
+                .color_8 { color: var(--theme-color-historyPeer8NameFg )}
             }
 
             &.has-tail {
