@@ -4,6 +4,7 @@ import TdApi from '../../../TdWeb/td_api';
 import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 import { addDialog } from '../../../ui/dialog/dialogs';
 import LinkButton from '../../../ui/elements/link-button';
+import './entities.scss';
 
 export default function compileEntities(text: TdApi.td_formattedText): React.ReactNode {
     let last= 0;

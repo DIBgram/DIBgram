@@ -1,0 +1,23 @@
+.history-message .content {
+    strong, b {
+        font-weight: 500;
+    }
+
+    a {
+        color: var(--theme-color-historyLinkInFg);
+    }
+
+    code, pre {
+        color: var(--theme-color-msgInMonoFg);
+    }
+}
+
+.history-message.outgoing .content {
+    a {
+        color: var(--theme-color-historyLinkOutFg)
+    }
+
+    code, pre {
+        color: var(--theme-color-msgOutMonoFg);
+    }
+}
