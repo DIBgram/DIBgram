@@ -57,7 +57,11 @@ const SingleLevel=connect(({selectedChat})=>({selectedChat}))(
     function SingleLevel({selectedChat, setIsMenuOpen}) {
         return (
             <NavAnimation mode="slide-over" state={selectedChat==-1? 'closing' : 'open'}
-                innerScreen={<ChatSection singleColumnLayout/>}>
+                innerScreen={(
+                    <div id="chat-container">
+                        <ChatSection singleColumnLayout/>
+                    </div>)
+                }>
                 <ChatListBar onHamburgerMenuOpened={()=> setIsMenuOpen(true)}/>
             </NavAnimation>
         );
