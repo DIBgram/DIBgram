@@ -85,11 +85,11 @@ function SubText({chat, user, basicGroup, supergroup}) {
         }
 
         // In this case, He is a normal user, So app should show status
-        let status = lastSeenToString(user.status);
-        if (status == __('lng_status_online'))
-            return (<div className="info active">{status}</div>);
-
-        return (<div className="info">{status}</div>);
+        return (
+            <div className={`info ${user.status['@type'] == 'userStatusOnline' ? 'active' : ''}`}>
+                {lastSeenToString(user.status)}
+            </div>
+        );
     }
 
     return null;
