@@ -48,14 +48,24 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
     if(chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel) {
         sender= chat.title;
     } 
-    else if(chat.type['@type'] === 'chatTypeSupergroup' || chat.type['@type'] === 'chatTypeBasicGroup') {
+    else if(chat.type['@type'] === 'chatTypeSupergroup' || 
+            chat.type['@type'] === 'chatTypeBasicGroup') {
         switch(message.sender['@type']) {
             case 'messageSenderUser':
                 if(!message.is_outgoing) {
                     const user=users[message.sender.user_id];
                     sender= getUserFullName(user);
                     senderId= getIdColorCode(message.sender.user_id);
-                    photo= <div className="profile-photo-c"><ProfilePhoto id={user.id} name={sender} disableSavedMessages={true} photo={user.profile_photo?.small}/></div>;
+                    photo= (
+                        <div className="profile-photo-c">
+                            <ProfilePhoto 
+                                id={user.id} 
+                                name={sender} 
+                                disableSavedMessages={true} 
+                                photo={user.profile_photo?.small}
+                            />
+                        </div>
+                    );
                 }
                 break;
             case 'messageSenderChat': {
@@ -65,9 +75,17 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
         }
     }
     return (
-        <div className={'history-message' + ((message.is_outgoing && !message.is_channel_post) ? ' outgoing' : '') + (message.hide_sender_name? ' small-margin' : '')}>
-            <MessageBubble beforeBubble={message.hide_tail ? (photo && <div className="profile-photo-c"/>) : photo} showTail={!message.hide_tail}>
-                {sender && (!message.hide_sender_name) && <div className={`message-sender color_${senderId}`}>{sender}</div>}
+        <div className={'history-message' + 
+                        ((message.is_outgoing && !message.is_channel_post) ? ' outgoing' : '') +
+                        (message.hide_sender_name? ' small-margin' : '')}>
+
+            <MessageBubble 
+                beforeBubble={message.hide_tail ? (photo && <div className="profile-photo-c"/>) : photo} 
+                showTail={!message.hide_tail}>
+
+                {sender && (!message.hide_sender_name) && (
+                    <div className={`message-sender color_${senderId}`}>{sender}</div>
+                )}
                 {children}
                 <div className="after"/>
             </MessageBubble>
