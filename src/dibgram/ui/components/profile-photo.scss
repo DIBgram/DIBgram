@@ -6,6 +6,8 @@
     overflow: hidden;
     border-radius: 50%;
 
+    user-select: none;
+
     & > * {
         position: absolute; // Any child fills its parent
         top: 0;

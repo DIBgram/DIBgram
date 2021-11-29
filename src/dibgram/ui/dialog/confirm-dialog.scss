@@ -14,11 +14,13 @@
             letter-spacing: 0.45px;
             min-height: 2px;
             color: var(--theme-color-boxTitleFg);
+            user-select: none;
         }
 
         & > div.content {
             margin: 10px;
             margin-bottom: 20px;
+            user-select: none;
 
             &.large-font {
                 font-size: 14px;

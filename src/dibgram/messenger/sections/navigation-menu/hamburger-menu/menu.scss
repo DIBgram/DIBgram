@@ -54,6 +54,7 @@
 
             .row-2 {
                 padding: 0 30px 15px;
+                user-select: none;
 
                 .name {
                     font-size: 13px;
@@ -84,6 +85,7 @@
                 color: var(--theme-color-windowSubTextFg);
                 letter-spacing: -1px;
                 margin-top: -3px;
+                user-select: none;
 
                 .link-button {
                     padding: 0;

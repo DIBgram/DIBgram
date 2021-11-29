@@ -28,6 +28,7 @@
         cursor: pointer;
         position: relative;
         overflow: hidden;
+        user-select: none;
 
         &:hover {
             background-color: var(--theme-color-windowBgOver);
