@@ -58,6 +58,7 @@
 
             .message-sender {
                 font-weight: 500;
+                user-select: none;
 
                 &.color_0 { color: var(--theme-color-msgInServiceFg )}
                 &.color_1 { color: var(--theme-color-historyPeer1NameFg )}
@@ -99,6 +100,10 @@
                 white-space: pre-wrap;
                 word-wrap: break-word;
                 unicode-bidi: plaintext;
+
+                a {
+                    user-select: unset;
+                }
             }
 
             .footer {
@@ -107,6 +112,7 @@
                 position: relative;
                 top: 5px;
                 right: -2px;
+                user-select: none;
 
                 .time {
                     color: var(--theme-color-msgInDateFg);
