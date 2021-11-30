@@ -9,7 +9,7 @@ import IconButton from '../../../../ui/elements/icon-button';
 import { info_back, top_bar_group_call, top_bar_profile, top_bar_search } from '../../../../ui/icon/icons';
 import { chatTitleOrDeletedAccount } from '../../../chat-misc';
 import { lastSeenToString } from '../../../../time-tostring';
-import ProfilePhoto from '../../../../ui/components/profile-photo';
+import ProfilePhoto, { getChatTypeId } from '../../../../ui/components/profile-photo';
 import chatStore from '../../../chat-store';
 
 export default function TitleHeader(props) {
@@ -26,7 +26,7 @@ export default function TitleHeader(props) {
             <div className="title-bar-left">
                 {props.singleColumnLayout && (
                     <ProfilePhoto 
-                        id={props.chat.id} 
+                        id={getChatTypeId(props.chat)} 
                         name={props.chat.title} 
                         photo={props.chat.photo?.small}
                     />
