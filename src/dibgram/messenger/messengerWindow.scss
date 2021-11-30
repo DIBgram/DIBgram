@@ -19,6 +19,11 @@
 
             > .nav-animation {
                 flex-grow: 1;
+
+                #chat-list-bar,
+                #chat-container {
+                    min-width: unset;
+                }
             }
         }
     }
