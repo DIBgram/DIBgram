@@ -1,7 +1,7 @@
 import React from 'react';
 import TdApi from '../../../TdWeb/td_api';
 import { timeToString } from '../../../time-tostring';
-import ProfilePhoto, { getIdColorCode } from '../../../ui/components/profile-photo';
+import ProfilePhoto, { getChatTypeId, getIdColorCode } from '../../../ui/components/profile-photo';
 import { bubble_tail, dialogs_sending, history_received, history_sent } from '../../../ui/icon/icons';
 import { getChatNoCache } from '../../chat-store';
 import { getMessageStatus } from '../../message-misc';
@@ -47,32 +47,38 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
     let sender= null;
     let senderId= 0;
     let photo= null;
+    let usesPhoto= false;
     if(chat.type['@type'] === 'chatTypeSupergroup' && chat.type.is_channel) {
         sender= chat.title;
     } 
     else if(chat.type['@type'] === 'chatTypeSupergroup' || 
             chat.type['@type'] === 'chatTypeBasicGroup') {
+        usesPhoto= true;
         switch(message.sender['@type']) {
             case 'messageSenderUser':
                 if(!message.is_outgoing) {
                     const user=users[message.sender.user_id];
                     sender= getUserFullName(user);
                     senderId= getIdColorCode(message.sender.user_id);
-                    photo= (
-                        <div className="profile-photo-c">
+                    photo= (!message.hide_tail) &&
                             <ProfilePhoto 
                                 id={user.id} 
                                 name={sender} 
                                 disableSavedMessages={true} 
                                 photo={user.profile_photo?.small}
-                            />
-                        </div>
-                    );
+                            />;
                 }
                 break;
             case 'messageSenderChat': {
                 const chat: TdApi.td_chat= getChatNoCache(message.sender.chat_id);
                 sender= chat.title;
+                photo= (!message.hide_tail) &&
+                        <ProfilePhoto 
+                            id={getChatTypeId(chat)} 
+                            name={sender}
+                            disableSavedMessages={true} 
+                            photo={chat.photo?.small}
+                        />;
             }
         }
     }
@@ -82,7 +88,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                         (message.hide_sender_name? ' small-margin' : '')}>
 
             <MessageBubble 
-                beforeBubble={message.hide_tail ? (photo && <div className="profile-photo-c"/>) : photo} 
+                beforeBubble={usesPhoto && <div className="profile-photo-c">{photo}</div>} 
                 showTail={!message.hide_tail}>
 
                 <div className="message-sender">
