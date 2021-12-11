@@ -53,7 +53,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
     } 
     else if(chat.type['@type'] === 'chatTypeSupergroup' || 
             chat.type['@type'] === 'chatTypeBasicGroup') {
-        usesPhoto= true;
+        usesPhoto= !message.is_outgoing;
         switch(message.sender['@type']) {
             case 'messageSenderUser':
                 if(!message.is_outgoing) {
