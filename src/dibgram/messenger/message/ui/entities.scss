@@ -10,6 +10,12 @@
     code, pre {
         color: var(--theme-color-msgInMonoFg);
     }
+
+    pre {
+        margin: 0;
+        white-space: pre-wrap;
+        display: inline;
+    }
 }
 
 .history-message.outgoing .content {
