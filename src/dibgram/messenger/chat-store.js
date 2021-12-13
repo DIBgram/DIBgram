@@ -446,6 +446,24 @@ TdLib.registerUpdateHandler('updateMessageMentionRead', update => {
     });
 });
 
+TdLib.registerUpdateHandler('updateChatDefaultMessageSenderId', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'default_message_sender_id',
+        chat_id: update.chat_id,
+        value: update.default_message_sender_id
+    });
+});
+
+TdLib.registerUpdateHandler('updateChatHasProtectedContent', update => {
+    chatStore.dispatch({
+        type: 'UPDATE_CHAT_PROPERTY',
+        property: 'has_protected_content',
+        chat_id: update.chat_id,
+        value: update.has_protected_content
+    });
+});
+
 export default chatStore;
 
 /**

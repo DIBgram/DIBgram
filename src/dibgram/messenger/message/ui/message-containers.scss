@@ -104,6 +104,10 @@
                 a {
                     user-select: unset;
                 }
+
+                &.no-save {
+                    user-select: none !important;
+                }
             }
 
             .footer {

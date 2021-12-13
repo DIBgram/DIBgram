@@ -11,7 +11,7 @@ export default function MessageText({message, chat}: MessageProps): JSX.Element 
     const BubbleMsg= withUsers(BubbleMessage);
     return (
         <BubbleMsg message={message} chat={chat}>
-            <div className="content">
+            <div className={`content ${message.can_be_saved?'':'no-save'}`}>
                 {compileEntities(messageContent.text)}
                 <MessageFooter message={message} chat={chat}/>
             </div>

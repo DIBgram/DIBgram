@@ -47,9 +47,9 @@ export default function processMessageHistory(messages: {[id: number|string]: Td
                 message= prevEl as ProcessedSingleMessage;
             }
 
-            if( message.sender['@type']=='messageSenderUser' &&
-                current.sender['@type']=='messageSenderUser' &&
-                message.sender.user_id == current.sender.user_id &&
+            if( message.sender_id['@type']=='messageSenderUser' &&
+                current.sender_id['@type']=='messageSenderUser' &&
+                message.sender_id.user_id == current.sender_id.user_id &&
                 ((current.date - message.date) < (60 * 15))) {
 
                 return [

@@ -84,7 +84,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
         case 'messageChatAddMembers': // X added Y
             // If the user joined the group by themselves, it appears as 'X added X' and that is not accurate.
-            if(message.content.member_user_ids[0] == message.sender?.user_id) {
+            if(message.content.member_user_ids[0] == message.sender_id?.user_id) {
                 return (
                     <span className={className}>
                         <span className="part-1">{__fmt('lng_action_user_joined', {from: <SenderFullName message={message} chat={chat} users={users}/>})}</span>
@@ -134,7 +134,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
         case 'messageChatDeleteMember': // X removed Y
             var deletedMember= users[message.content.user_id];
-            if( deletedMember.id == message.sender?.user_id ) {
+            if( deletedMember.id == message.sender_id?.user_id ) {
                 return (
                     <span className={className}><span className="part-1">
                         {__fmt('lng_action_user_left', {
@@ -828,7 +828,7 @@ function SenderFullName({message, chat, users, includeYou}) {
     if(includeYou) { // Use 'You' if the message is outgoing?
         return message.is_outgoing ? __('lng_from_you') : <SenderFullName message={message} chat={chat} users={users}/>;
     }
-    const sender=message.sender;
+    const sender=message.sender_id;
     const user=users[sender.user_id];
     if(sender['@type']=='messageSenderUser') {
         return getUserFullName(user); 
@@ -853,10 +853,10 @@ function ServiceMessageIncludingYou({message, chat, users, lpString, lpString_yo
     if(!message.is_outgoing){
         string= lpString;
 
-        const user=users[message.sender.user_id];
-        if(message.sender['@type']=='messageSenderUser') {
+        const user=users[message.sender_id.user_id];
+        if(message.sender_id['@type']=='messageSenderUser') {
             sender= getUserFullName(user); 
-        } else if(message.sender['@type']=='messageSenderChat') { // Anonymous admin
+        } else if(message.sender_id['@type']=='messageSenderChat') { // Anonymous admin
             sender= chat.title;
         }
     }
@@ -884,12 +884,12 @@ export const MessageSummarySender=
             if(message.is_outgoing) {
                 part1= __('lng_from_you');
             } else if(['chatTypeBasicGroup', 'chatTypeSupergroup'].includes(chat.type['@type'])) { // Message is sent in a group
-                if(message.sender['@type']=='messageSenderUser') {
-                    part1= users[message.sender.user_id].first_name;
+                if(message.sender_id['@type']=='messageSenderUser') {
+                    part1= users[message.sender_id.user_id].first_name;
                 }
             }
-            if(message.sender['@type']=='messageSenderChat') {
-                part1= getChatNoCache(message.sender.chat_id).title;
+            if(message.sender_id['@type']=='messageSenderChat') {
+                part1= getChatNoCache(message.sender_id.chat_id).title;
             }
         }
         return part1? <span className="sender">{__fmt('lng_dialogs_text_from_wrapped', {from: part1})} </span> : null;

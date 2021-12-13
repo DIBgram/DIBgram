@@ -54,12 +54,12 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
     else if(chat.type['@type'] === 'chatTypeSupergroup' || 
             chat.type['@type'] === 'chatTypeBasicGroup') {
         usesPhoto= !message.is_outgoing;
-        switch(message.sender['@type']) {
+        switch(message.sender_id['@type']) {
             case 'messageSenderUser':
                 if(!message.is_outgoing) {
-                    const user=users[message.sender.user_id];
+                    const user=users[message.sender_id.user_id];
                     sender= getUserFullName(user);
-                    senderId= getIdColorCode(message.sender.user_id);
+                    senderId= getIdColorCode(message.sender_id.user_id);
                     photo= (!message.hide_tail) &&
                             <ProfilePhoto 
                                 id={user.id} 
@@ -70,7 +70,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                 }
                 break;
             case 'messageSenderChat': {
-                const chat: TdApi.td_chat= getChatNoCache(message.sender.chat_id);
+                const chat: TdApi.td_chat= getChatNoCache(message.sender_id.chat_id);
                 sender= chat.title;
                 photo= (!message.hide_tail) &&
                         <ProfilePhoto 
