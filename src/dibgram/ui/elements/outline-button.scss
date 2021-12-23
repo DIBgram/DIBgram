@@ -1,0 +1,20 @@
+.outline-button {
+    display: block;
+    color: var(--theme-color-msgInServiceFg);
+    background: transparent;
+    width: 100%;
+    padding: 6px;
+    border: 1px solid var(--theme-color-msgInServiceFg);
+    border-radius: 7px;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    overflow: hidden;
+    position: relative;
+
+    .content {
+        position: relative;
+        z-index: +1;
+        pointer-events: none;
+    }
+}

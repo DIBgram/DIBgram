@@ -501,6 +501,8 @@ export function getChat(id) {
 
 /**
  * Gets a chat from a chat ID. Does not support caching to prevent promises complexity.
+ * @param {number} id
+ * @returns {import('../TdWeb/td_api').default.td_chat}
  */
 export function getChatNoCache(id) {
     for(let chat of chatStore.getState()?.chats) {

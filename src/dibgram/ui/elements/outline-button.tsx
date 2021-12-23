@@ -1,0 +1,21 @@
+import React from 'react';
+import './outline-button.scss';
+import RippleEffect, { handleMyMouseEventsFunction } from './ripple-effect';
+
+type OutlineButtonProps= {
+    onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void,
+    children: React.ReactNode | React.ReactNode[],
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+    [key: string]: any,
+}
+
+export function OutlineButton({onClick, children, ...rest}: OutlineButtonProps): JSX.Element {
+    const ripple= React.useState({state: 'off'});
+    const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
+    return (
+        <button className="outline-button" onClick={onClick} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave} {...rest}>
+            <RippleEffect {...ripple[0]} color=""/>{/* TODO: Find the color */}
+            <div className="content">{children}</div>
+        </button>
+    );
+}

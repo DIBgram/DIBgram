@@ -129,7 +129,7 @@ export function MessageFooter({message, chat}: MessageFooterProps): JSX.Element 
     }
     return (
         <div className="footer">
-            <div className="time">{timeToString(message.date)}</div>
+            <div className="text">{timeToString(message.date)}</div>
             {(!message.is_channel_post) && tick}
         </div>
     );
