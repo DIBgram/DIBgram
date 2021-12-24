@@ -60,6 +60,10 @@
     & > .footer::after {
         inset-inline-start: 1px;
     }
+
+    & > .footer {
+        padding-inline-start: 1px;
+    }
 }
 
 #messenger-screen.three-column #chat-section {
@@ -72,5 +76,10 @@
     & > .headers::after,
     & > .footer::after {
         inset-inline-end: 1px;
+    }
+
+    & > .footer {
+        padding-inline-start: 1px;
+        padding-inline-end: 1px;
     }
 }
