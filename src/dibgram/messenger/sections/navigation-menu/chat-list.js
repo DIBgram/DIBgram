@@ -13,7 +13,6 @@ import RippleEffect, { handleMyMouseEventsFunction } from '../../../ui/elements/
 import { createContextMenu } from '../../../ui/menu/context-menu';
 import Menu from '../../../ui/menu/menu';
 import Toast, { addToast } from '../../../ui/dialog/toast';
-import './history-to-down.scss';
 import IconButton from '../../../ui/elements/icon-button';
 import { chatListScrollToTopEvent } from './chat-folders';
 import __ from '../../../language-pack/language-pack';
@@ -311,3 +310,9 @@ function EmptyChatList({list, unread}) {
         );
     }
 }
+EmptyChatList.propTypes = {
+    /** The active chat list */
+    list: PropTypes.object.isRequired,
+    /** Unread data */
+    unread: PropTypes.object.isRequired
+};
