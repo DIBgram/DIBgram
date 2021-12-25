@@ -14,7 +14,7 @@ export default function ComposeButton({ onClick, children, ...rest }: ComposeBut
     const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
     return (
         <button className="compose-button" onClick={onClick} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave} {...rest}>
-            <RippleEffect {...ripple[0]} color="var(--theme-color-historyComposeButtonBgRipple"/>
+            <RippleEffect {...ripple[0]} color="var(--theme-color-historyComposeButtonBgRipple)"/>
             <div className="content">{children}</div>
         </button>
     );
