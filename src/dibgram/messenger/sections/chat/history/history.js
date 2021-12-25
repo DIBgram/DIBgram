@@ -17,23 +17,25 @@ export const ChatHistory= connect(({messages, isLoaded}) => ({messages, isLoaded
     
     let array= processMessageHistory(messages);
     if(!(array?.length)) {
-        array= [chat.last_message];
+        array= chat.last_message ? [chat.last_message] : []; // Show last message as a fallback while loading
     }
 
     const [loaded, setLoaded] = React.useState(false);
     React.useEffect(() => {
-        if (!isLoaded) {
-            setTimeout(() => {
-                loadChatHistory(chat.id);
-            }, 100);
-        }
-        if ((!loaded) && isLoaded && array.length < 10) {
-            loadChatHistory(chat.id, array[0].id)
-                .then(count => {
-                    if (count == 0) {
-                        setLoaded(true); // If there are no more messages, then we are done loading
-                    }
-                });
+        if(chat.last_message) {
+            if (!isLoaded) {
+                setTimeout(() => {
+                    loadChatHistory(chat.id);
+                }, 100);
+            }
+            if ((!loaded) && isLoaded && array.length < 10) {
+                loadChatHistory(chat.id, array[0].id)
+                    .then(count => {
+                        if (count == 0) {
+                            setLoaded(true); // If there are no more messages, then we are done loading
+                        }
+                    });
+            }
         }
     }, [chat.id, isLoaded]);
     
