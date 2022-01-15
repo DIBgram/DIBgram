@@ -23,14 +23,13 @@ It is needed to compile DIBgram, but is automatically created in build workflows
     ```js
     export function getCredentials() {
         return {
-            api_id: API ID here,
-            api_hash: '<API Hash here>'
+            api_id: 123456,
+            api_hash: 'abcdefghijklmnopqrstuvwxyz'
         };
     }
 
     export function getConfig() {
         return {
-            use_test_dc: true or false,
             log: {
                 log_updates: true or false,
                 log_queries: true or false
@@ -39,13 +38,12 @@ It is needed to compile DIBgram, but is automatically created in build workflows
     }
     ```
 
-    **`api_id`**: API ID from my.telegram.org  
-    **`api_hash`**: API Hash from my.telegram.org
+    Make sure to replace these fields with their correct value:
+    - **`api_id`**: API ID from my.telegram.org  
+    - **`api_hash`**: API Hash from my.telegram.org
 
-    **`use_test_dc`**: `true` if you want to use Telegram test DCs, `false` if you want to use production ones (recommended `false`)
-
-    **`log_updates`**: `true` if you want updates received from TdLib to be shown in developer tools console, otherwise `false` (recommended `false`)
-    **`log_queries`**: `true` if you want updates received from TdLib to be shown in developer tools console, otherwise `false` (recommended `false`)
+    - **`log_updates`**: `true` if you want updates received from TdLib to be shown in developer tools console, otherwise `false` (recommended `false`)
+    - **`log_queries`**: `true` if you want updates received from TdLib to be shown in developer tools console, otherwise `false` (recommended `false`)
 
 ## Running app in test mode
 
