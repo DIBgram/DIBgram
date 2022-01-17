@@ -382,7 +382,6 @@
     "lng_settings_phone_label": "Phone number",
     "lng_settings_username_add": "Add username",
     "lng_settings_close_sure": "Are you sure you want to close this page? You didn't save your changes.",
-    "lng_settings_peer_to_peer": "Peer-to-Peer",
     "lng_settings_peer_to_peer_about": "Disabling peer-to-peer will relay all calls through Telegram servers to avoid revealing your IP address, but may decrease audio and video quality.",
     "lng_settings_advanced": "Advanced",
     "lng_settings_stickers_emoji": "Stickers and emoji",
