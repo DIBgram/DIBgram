@@ -196,7 +196,7 @@
         "comment": " default popup menu item icon with mouse over"
     },
     "menuSubmenuArrowFg": {
-        "value": "#373737",
+        "value": "#666b72",
         "comment": " default popup menu submenu arrow icon (like in message field context menu in case of RTL system language)"
     },
     "menuFgDisabled": {

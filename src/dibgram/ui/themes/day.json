@@ -50,7 +50,7 @@
         "comment": null
     },
     "windowActiveTextFg": {
-        "value": "#168dcd",
+        "value": "#168acd",
         "comment": null
     },
     "windowShadowFg": {
@@ -120,7 +120,7 @@
         "comment": null
     },
     "activeLineFg": {
-        "value": "#37a3de",
+        "value": "#37a1de",
         "comment": null
     },
     "activeLineFgError": {
@@ -524,15 +524,15 @@
         "comment": null
     },
     "introCoverBottomBg": {
-        "value": "#39b3f0",
+        "value": "#39b0f0",
         "comment": null
     },
     "introCoverIconsFg": {
-        "value": "#5ec7ff",
+        "value": "#5ec6ff",
         "comment": null
     },
     "introCoverPlaneTrace": {
-        "value": "#5ec7ff69",
+        "value": "#5ec6ff69",
         "comment": null
     },
     "introCoverPlaneInner": {
@@ -540,7 +540,7 @@
         "comment": null
     },
     "introCoverPlaneOuter": {
-        "value": "#a1bfd4",
+        "value": "#a1bed4",
         "comment": null
     },
     "introCoverPlaneTop": {
@@ -732,7 +732,7 @@
         "comment": null
     },
     "dialogsBgActive": {
-        "value": "#41a1d9",
+        "value": "#419fd9",
         "comment": null
     },
     "dialogsNameFgActive": {
@@ -766,7 +766,7 @@
         "comment": null
     },
     "dialogsDraftFgActive": {
-        "value": "#c6e2f7",
+        "value": "#c6e1f7",
         "comment": null
     },
     "dialogsVerifiedIconBgActive": {
@@ -920,7 +920,7 @@
         "comment": null
     },
     "historyOutIconFg": {
-        "value": "#05a0e8",
+        "value": "#059de8",
         "comment": null
     },
     "historyOutIconFgSelected": {
@@ -946,7 +946,7 @@
         "comment": null
     },
     "historySystemBg": {
-        "value": "#89a1b47f",
+        "value": "#89a0b47f",
         "comment": null
     },
     "historySystemBgSelected": {
@@ -970,7 +970,7 @@
         "comment": null
     },
     "historyUnreadBarFg": {
-        "value": "#538cb4",
+        "value": "#538bb4",
         "comment": null
     },
     "historyForwardChooseBg": {
@@ -1014,7 +1014,7 @@
         "comment": null
     },
     "historyPeer4UserpicBg": {
-        "value": "#65abdd",
+        "value": "#65aadd",
         "comment": null
     },
     "historyPeer5NameFg": {
@@ -1034,7 +1034,7 @@
         "comment": null
     },
     "historyPeer7NameFg": {
-        "value": "#2997ad",
+        "value": "#2996ad",
         "comment": null
     },
     "historyPeer7UserpicBg": {
@@ -1078,7 +1078,7 @@
         "comment": null
     },
     "msgInBgSelected": {
-        "value": "#bbe2fc",
+        "value": "#bbe1fc",
         "comment": null
     },
     "msgOutBg": {
@@ -1086,15 +1086,15 @@
         "comment": null
     },
     "msgOutBgSelected": {
-        "value": "#bbe2fc",
+        "value": "#bbe1fc",
         "comment": null
     },
     "msgSelectOverlay": {
-        "value": "#358dd44c",
+        "value": "#358cd44c",
         "comment": null
     },
     "msgStickerOverlay": {
-        "value": "#358dd47f",
+        "value": "#358cd47f",
         "comment": null
     },
     "msgInServiceFg": {
@@ -1150,7 +1150,7 @@
         "comment": null
     },
     "msgOutDateFgSelected": {
-        "value": "#6ca1c2",
+        "value": "#6ca0c2",
         "comment": null
     },
     "msgServiceFg": {
@@ -1164,7 +1164,7 @@
         "comment": null
     },
     "msgServiceBgSelected": {
-        "value": "#62b0dda2",
+        "value": "#62afdda2",
         "comment": null
     },
     "msgInReplyBarColor": {
@@ -1198,11 +1198,11 @@
         "comment": null
     },
     "msgInMonoFg": {
-        "value": "#4e7491",
+        "value": "#4e7391",
         "comment": null
     },
     "msgOutMonoFg": {
-        "value": "#4e7491",
+        "value": "#4e7391",
         "comment": null
     },
     "msgDateImgFg": {
@@ -1220,11 +1220,11 @@
         "comment": null
     },
     "msgDateImgBgSelected": {
-        "value": "#1c4b7187",
+        "value": "#1c4a7187",
         "comment": null
     },
     "msgFileThumbLinkInFg": {
-        "value": "#168dcd",
+        "value": "#168acd",
         "comment": null
     },
     "msgFileThumbLinkInFgSelected": {
@@ -1234,7 +1234,7 @@
         "comment": null
     },
     "msgFileThumbLinkOutFg": {
-        "value": "#0a8ed0",
+        "value": "#0a8bd0",
         "comment": null
     },
     "msgFileThumbLinkOutFgSelected": {
@@ -1250,7 +1250,7 @@
         "comment": null
     },
     "msgFileInBgOver": {
-        "value": "#4eafe3",
+        "value": "#4eade3",
         "comment": null
     },
     "msgFileInBgSelected": {
@@ -1264,7 +1264,7 @@
         "comment": null
     },
     "msgFileOutBgOver": {
-        "value": "#4eafe3",
+        "value": "#4eade3",
         "comment": null
     },
     "msgFileOutBgSelected": {
@@ -1276,15 +1276,15 @@
         "comment": null
     },
     "msgFile1BgDark": {
-        "value": "#5c9fce",
+        "value": "#5c9ece",
         "comment": null
     },
     "msgFile1BgOver": {
-        "value": "#5295c4",
+        "value": "#5294c4",
         "comment": null
     },
     "msgFile1BgSelected": {
-        "value": "#509bd0",
+        "value": "#5099d0",
         "comment": null
     },
     "msgFile2Bg": {
@@ -1350,7 +1350,7 @@
         "comment": null
     },
     "msgWaveformInInactiveSelected": {
-        "value": "#9cc2e1",
+        "value": "#9cc1e1",
         "comment": null
     },
     "msgWaveformOutActive": {
@@ -1364,7 +1364,7 @@
         "comment": null
     },
     "msgWaveformOutInactive": {
-        "value": "#b3d5e7",
+        "value": "#b3d4e7",
         "comment": null
     },
     "msgWaveformOutInactiveSelected": {
@@ -1398,11 +1398,11 @@
         "comment": null
     },
     "mediaOutFg": {
-        "value": "#80a4bd",
+        "value": "#80a3bd",
         "comment": null
     },
     "mediaOutFgSelected": {
-        "value": "#5f90b3",
+        "value": "#5f8fb3",
         "comment": null
     },
     "youtubePlayIconBg": {
@@ -1550,11 +1550,11 @@
         "comment": null
     },
     "overviewPhotoSelectOverlay": {
-        "value": "#40ade333",
+        "value": "#40ace333",
         "comment": null
     },
     "profileStatusFgOver": {
-        "value": "#7c9ab2",
+        "value": "#7c99b2",
         "comment": null
     },
     "notificationsBoxMonitorFg": {
@@ -1624,7 +1624,7 @@
         "comment": null
     },
     "mediaPlayerDisabledFg": {
-        "value": "#9dd2ef",
+        "value": "#9dd1ef",
         "comment": null
     },
     "mediaviewFileBg": {
@@ -1658,7 +1658,7 @@
         "comment": null
     },
     "mediaviewFileBlueCornerFg": {
-        "value": "#599ecf",
+        "value": "#599dcf",
         "comment": null
     },
     "mediaviewFileExtFg": {
@@ -1716,7 +1716,7 @@
         "comment": null
     },
     "mediaviewTextLinkFg": {
-        "value": "#91daff",
+        "value": "#91d9ff",
         "comment": null
     },
     "mediaviewSaveMsgBg": {
