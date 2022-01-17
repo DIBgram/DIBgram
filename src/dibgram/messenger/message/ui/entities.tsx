@@ -19,7 +19,7 @@ export default function compileEntities(text: TdApi.td_formattedText, singleLine
         res.push(getEntityJsx(text.text, entity, singleLine));
         last= entity.offset + entity.length;
     }
-    res.push(text.text.slice(last));
+    res.push(maybeDeleteNewLines(text.text.slice(last), singleLine));
     return res;
 }
 
