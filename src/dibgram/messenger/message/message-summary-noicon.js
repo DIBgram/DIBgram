@@ -521,7 +521,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> (
                             <span className={className}><span className="part-1">
-                                <MessagePinnedMessage message={result} sender={<SenderFullName message={message} chat={chat} users={users}/>}/>
+                                <MessagePinnedMessage message={result} from={<SenderFullName message={message} chat={chat} users={users}/>}/>
                             </span></span>
                         )});
                     },
