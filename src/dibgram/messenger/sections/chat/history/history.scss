@@ -23,6 +23,10 @@
             justify-content: flex-end;
             align-items: stretch;
             padding: 10px 0;
+
+            .end-detector.upper {
+                min-height: 2px;
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ import supergroupStore from '../../supergroup-store';
 import basicGroupStore from '../../basic-group-store';
 import { ChatFooter } from './footer/footer';
 import { ChatHistory } from './history/history';
-import { messageStores } from '../../message-stores';
+import { messageStore } from '../../message-store';
 import TdLib from '../../../TdWeb/tdlib';
 
 export const ChatSection= 
@@ -94,7 +94,7 @@ function ChatSectionContentWrapper(props) {
             <div className="headers">
                 <TitleHeader {...props}/>
             </div>
-            <Provider store={messageStores[props.chat.id]}>
+            <Provider store={messageStore}>
                 <ChatHistory {...props}/>
             </Provider>
             <ChatFooter {...props}/>

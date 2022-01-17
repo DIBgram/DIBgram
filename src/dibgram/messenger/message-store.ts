@@ -1,9 +1,8 @@
-import { Store } from 'redux';
+import { createStore } from 'redux';
 import TdApi from '../TdWeb/td_api';
 
 type MessageStoreState= {
     messages: {[id: number]: TdApi.td_message};
-    isLoaded: number;
 }
 type MessageStoreAction_AddMessages= { // Add a list of messages, which is returned from getChatHistory
     type: 'ADD_MESSAGES';
@@ -22,12 +21,17 @@ type MessageStoreAction_ReduceMessage= { // Replaces the message with the given 
     messageId: number;
     reduce: (message: TdApi.td_message) => TdApi.td_message;
 }
-type MessageStoreAction = MessageStoreAction_AddMessages | MessageStoreAction_AddMessage | MessageStoreAction_RemoveMessages | MessageStoreAction_ReduceMessage;
+type MessageStoreAction_ClearMessages= {
+    type: 'CLEAR_MESSAGES'
+}
 
-export function reducer(state: MessageStoreState= {
-    messages: {},
-    isLoaded: 0,
-} , action: MessageStoreAction): MessageStoreState {
+type MessageStoreAction = MessageStoreAction_AddMessages | MessageStoreAction_AddMessage | MessageStoreAction_RemoveMessages | MessageStoreAction_ReduceMessage| MessageStoreAction_ClearMessages;
+
+const defaultMessageStoreState= {
+    messages: {}
+};
+
+export function reducer(state: MessageStoreState= defaultMessageStoreState , action: MessageStoreAction): MessageStoreState {
     switch (action.type) {
         case 'ADD_MESSAGES': {
             const result: {[key: number]: TdApi.td_message} = {};
@@ -39,8 +43,7 @@ export function reducer(state: MessageStoreState= {
                 messages: {
                     ...state.messages,
                     ...result
-                },
-                isLoaded: state.isLoaded+1
+                }
             };
         }
         case 'ADD_MESSAGE': {
@@ -73,9 +76,11 @@ export function reducer(state: MessageStoreState= {
                 }
             };
         }
+        case 'CLEAR_MESSAGES': 
+            return defaultMessageStoreState;
         default:
             return state;
     }
 }
 
-export const messageStores: {[key: number]: Store<MessageStoreState, MessageStoreAction>} = {};
+export const messageStore= createStore(reducer);

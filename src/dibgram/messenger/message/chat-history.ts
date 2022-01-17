@@ -1,11 +1,8 @@
-import { createStore } from 'redux';
 import TdLib from '../../TdWeb/tdlib';
 import TdApi from '../../TdWeb/td_api';
-import { messageStores, reducer } from '../message-stores';
+import { messageStore } from '../message-store';
+import chatStore from '../chat-store';
 
-export function initChatHistory(chatId: number): void {
-    messageStores[chatId] = createStore(reducer);
-}
 export function loadChatHistory(chatId: number, fromMessageId = 0, limit= 100): Promise<number> {
     return new Promise<number>((resolve, reject) => {
         TdLib.sendQuery({
@@ -15,8 +12,13 @@ export function loadChatHistory(chatId: number, fromMessageId = 0, limit= 100): 
             limit: limit
         }).then((result) => {
             result= result as TdApi.td_messages;
+            if(chatId !== chatStore.getState().selectedChat) {
+                resolve(-1);
+                return;
+            }
+
             if(result.messages) {
-                messageStores[chatId].dispatch({
+                messageStore.dispatch({
                     type: 'ADD_MESSAGES',
                     messages: result.messages
                 });
@@ -27,29 +29,33 @@ export function loadChatHistory(chatId: number, fromMessageId = 0, limit= 100): 
 }
 
 TdLib.registerUpdateHandler<TdApi.td_updateNewMessage>('updateNewMessage', (update) => {
-    messageStores[update.message.chat_id].dispatch({
+    if(update.message.chat_id !== chatStore.getState().selectedChat) return;
+    messageStore.dispatch({
         type: 'ADD_MESSAGE',
         message: update.message,
     });
 });
 TdLib.registerUpdateHandler<TdApi.td_updateMessageSendSucceeded>('updateMessageSendSucceeded', (update) => {
-    messageStores[update.message.chat_id].dispatch({
+    if(update.message.chat_id !== chatStore.getState().selectedChat) return;
+    messageStore.dispatch({
         type: 'REMOVE_MESSAGES',
         messageIds: [update.old_message_id],
     });
-    messageStores[update.message.chat_id].dispatch({
+    messageStore.dispatch({
         type: 'ADD_MESSAGE',
         message: update.message,
     });
 });
 TdLib.registerUpdateHandler<TdApi.td_updateDeleteMessages>('updateDeleteMessages', (update) => {
-    messageStores[update.chat_id].dispatch({
+    if(update.chat_id !== chatStore.getState().selectedChat) return;
+    messageStore.dispatch({
         type: 'REMOVE_MESSAGES',
         messageIds: update.message_ids,
     });
 });
 TdLib.registerUpdateHandler<TdApi.td_updateMessageContent>('updateMessageContent', (update) => {
-    messageStores[update.chat_id].dispatch({
+    if(update.chat_id !== chatStore.getState().selectedChat) return;
+    messageStore.dispatch({
         type: 'REDUCE_MESSAGE',
         messageId: update.message_id,
         reduce: (message) => {
@@ -61,7 +67,8 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageContent>('updateMessageContent
     });
 });
 TdLib.registerUpdateHandler<TdApi.td_updateMessageEdited>('updateMessageEdited', (update) => {
-    messageStores[update.chat_id].dispatch({
+    if(update.chat_id !== chatStore.getState().selectedChat) return;
+    messageStore.dispatch({
         type: 'REDUCE_MESSAGE',
         messageId: update.message_id,
         reduce: (message) => {
@@ -74,7 +81,8 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageEdited>('updateMessageEdited',
     });
 });
 TdLib.registerUpdateHandler<TdApi.td_updateMessageIsPinned>('updateMessageIsPinned', (update) => {
-    messageStores[update.chat_id].dispatch({
+    if(update.chat_id !== chatStore.getState().selectedChat) return;
+    messageStore.dispatch({
         type: 'REDUCE_MESSAGE',
         messageId: update.message_id,
         reduce: (message) => {
@@ -86,7 +94,8 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageIsPinned>('updateMessageIsPinn
     });
 });
 TdLib.registerUpdateHandler<TdApi.td_updateMessageInteractionInfo>('updateMessageInteractionInfo', (update) => {
-    messageStores[update.chat_id].dispatch({
+    if(update.chat_id !== chatStore.getState().selectedChat) return;
+    messageStore.dispatch({
         type: 'REDUCE_MESSAGE',
         messageId: update.message_id,
         reduce: (message) => {
