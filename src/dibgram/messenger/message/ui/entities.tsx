@@ -11,16 +11,16 @@ export default function compileEntities(text: TdApi.td_formattedText): React.Rea
     const res: React.ReactNode[]= [];
     /* eslint-disable-next-line no-constant-condition */
     for(const entity of text.entities) {
-        res.push(text.text.substr(last, entity.offset-last));
+        res.push(text.text.slice(last, entity.offset));
         res.push(getEntityJsx(text.text, entity));
         last= entity.offset + entity.length;
     }
-    res.push(text.text.substr(last));
+    res.push(text.text.slice(last));
     return res;
 }
 
 function getEntityJsx(text: string, entity: TdApi.td_textEntity) {
-    const innerText= text.substr(entity.offset, entity.length);
+    const innerText= text.slice(entity.offset, entity.offset + entity.length);
 
     switch(entity.type['@type']) {
         // case 'textEntityTypeBankCardNumber':
