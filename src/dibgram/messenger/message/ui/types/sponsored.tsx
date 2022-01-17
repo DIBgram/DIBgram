@@ -27,9 +27,10 @@ export default function SponsoredMessage({message, chat_id, viewport}: Sponsored
                     if(!viewed) {
                         observer?.disconnect();
                         TdLib.sendQuery({
-                            '@type': 'viewSponsoredMessage',
+                            '@type': 'viewMessages',
                             chat_id: chat_id,
-                            sponsor_message_id: message.id,
+                            // sponsor_message_id: message.message_id,
+                            message_ids: [message.message_id]
                         });
                     }
                     setViewed(true);
@@ -44,7 +45,7 @@ export default function SponsoredMessage({message, chat_id, viewport}: Sponsored
             observer?.disconnect();
             setViewed(false);
         };
-    }, [chat_id, message.id]);
+    }, [chat_id, message.message_id]);
 
     return (
         <div className="history-message sponsored">

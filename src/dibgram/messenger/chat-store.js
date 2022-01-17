@@ -306,12 +306,12 @@ TdLib.registerUpdateHandler('updateChatLastMessage', update => {
     }
 });
 
-TdLib.registerUpdateHandler('updateChatMessageTtlSetting', update => {
+TdLib.registerUpdateHandler('updateChatMessageTtl', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
-        property: 'message_ttl_setting',
+        property: 'message_ttl',
         chat_id: update.chat_id,
-        value: update.message_ttl_setting
+        value: update.message_ttl
     });
 });
 
@@ -446,12 +446,12 @@ TdLib.registerUpdateHandler('updateMessageMentionRead', update => {
     });
 });
 
-TdLib.registerUpdateHandler('updateChatDefaultMessageSenderId', update => {
+TdLib.registerUpdateHandler('updateChatMessageSender', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
-        property: 'default_message_sender_id',
+        property: 'message_sender_id',
         chat_id: update.chat_id,
-        value: update.default_message_sender_id
+        value: update.message_sender_id
     });
 });
 

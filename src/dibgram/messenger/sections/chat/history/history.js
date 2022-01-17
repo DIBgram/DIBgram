@@ -39,15 +39,15 @@ export const ChatHistory= connect(({messages, isLoaded}) => ({messages, isLoaded
         }
     }, [chat.id, isLoaded]);
     
-    const [sponsoredMessages, setSponsoredMessages]= React.useState(null);
+    const [sponsoredMessage, setSponsoredMessage]= React.useState(null);
     React.useEffect(() => {
         if (chat.type['@type'] == 'chatTypeSupergroup' && chat.type.is_channel) {
             TdLib.sendQuery({
-                '@type': 'getChatSponsoredMessages',
+                '@type': 'getChatSponsoredMessage',
                 chat_id: chat.id
-            }).then(setSponsoredMessages);
+            }).then(setSponsoredMessage);
         } else {
-            setSponsoredMessages(null);
+            setSponsoredMessage(null);
         }
 
         return () => {
@@ -76,7 +76,7 @@ export const ChatHistory= connect(({messages, isLoaded}) => ({messages, isLoaded
             <ScrollView scrollRef={scrollRef} className="scrollbar full-size" scrollBarWidth={6} onScroll={onScroll}>
                 <div className="history-scroll-content">
                     {array.map(message => <Message key={message.id} message={message} chat={chat}/>)}
-                    {sponsoredMessages?.messages.map(message => <SponsoredMessage key={message.id} message={message} chat_id={chat.id} viewport={ref}/>)}
+                    {sponsoredMessage && <SponsoredMessage message={sponsoredMessage} chat_id={chat.id} viewport={ref}/>}
                 </div>
             </ScrollView>
             <IconButton icon={history_to_down} onClick={jumpToDown}
