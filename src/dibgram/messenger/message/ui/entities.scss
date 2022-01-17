@@ -1,4 +1,5 @@
-.history-message .content {
+.history-message .content,
+#chat-list .chat .details .last-message {
     strong, b {
         font-weight: 500;
     }
@@ -16,6 +17,17 @@
         white-space: pre-wrap;
         display: inline;
     }
+
+    .spoiler {
+        &:not(.viewed) {
+            background: var(--theme-color-msgInDateFg);
+            color: transparent;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        transition: background-color 300ms, color 300ms;
+    }
 }
 
 .history-message.outgoing .content {
@@ -25,5 +37,9 @@
 
     code, pre {
         color: var(--theme-color-msgOutMonoFg);
+    }
+
+    .spoiler:not(.viewed) {
+        background: var(--theme-color-msgOutDateFg);
     }
 }

@@ -1,4 +1,5 @@
 import __, { __fmt } from '../../language-pack/language-pack';
+import compileEntities from './ui/entities';
 
 export default function MessaagePinnedMessage({message, from}) {
     switch (message.content['@type']) {
@@ -30,13 +31,18 @@ export default function MessaagePinnedMessage({message, from}) {
         case 'messageSticker':
             return __fmt('lng_action_pinned_media', {media: __fmt('lng_action_pinned_media_emoji_sticker', {emoji: message.content.sticker.emoji}), from: from});
         
-        case 'messageText':
-            var text= message.content.text.text;
+        case 'messageText': {
+            let text= message.content.text.text;
             if( text.length > 21 ) {
                 text = `${text.substr(0, 16)}...`;
             }
+            text= compileEntities({
+                '@type': 'formattedText',
+                entities: message.content.text.entities,
+                text
+            });
             return __fmt('lng_action_pinned_message', {text: text, from: from});
-        
+        }
         case 'messageUnsupported':
             return __fmt('lng_action_pinned_message', {text: __('lng_message_unsupported').substr(0, 16)+'...', from: from});
 

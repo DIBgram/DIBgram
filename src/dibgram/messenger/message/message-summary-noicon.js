@@ -7,6 +7,7 @@ import { getChatNoCache } from '../chat-store';
 import MessagePinnedMessage from './message-pinned-message';
 import { durationToString, futureDayToString, timeToString } from '../../time-tostring';
 import __, { _s__, __collection, __fmt, __pl } from '../../language-pack/language-pack';
+import compileEntities from './ui/entities';
 
 /**
  * Gets a textual representation of the message without a thumbnail.
@@ -24,7 +25,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             return (
                 <MayHaveCaptionThumbnail
                     type="GIF" //TODO: Find the localized string
-                    caption={message.content.caption?.text} 
+                    caption={message.content.caption} 
                     className={className} 
                     message={message} 
                     chat={chat}
@@ -39,7 +40,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             return (
                 <MayHaveCaption 
                     type={title} 
-                    caption={message.content.caption?.text} 
+                    caption={message.content.caption} 
                     className={className} 
                     message={message} 
                     chat={chat}
@@ -318,7 +319,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             return (
                 <MayHaveCaptionThumbnail
                     type={message.content.document.file_name} 
-                    caption={message.content.caption?.text} 
+                    caption={message.content.caption} 
                     className={className} 
                     message={message} 
                     chat={chat}
@@ -498,7 +499,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 return (
                     <MayHaveCaptionThumbnail 
                         type={__('lng_in_dlg_photo')}
-                        caption={message.content.caption?.text} 
+                        caption={message.content.caption} 
                         className={className} 
                         message={message} 
                         chat={chat}
@@ -594,7 +595,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             return (
                 <span className={className}>
                     <MessageSummarySender message={message} chat={chat} users={users}/>
-                    <span className="part-2">{message.content.text.text.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
+                    <span className="part-2">{compileEntities(message.content.text, true)}</span>
                 </span>
             );
 
@@ -636,7 +637,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                 return (
                     <MayHaveCaptionThumbnail
                         type={__('lng_in_dlg_video')}
-                        caption={message.content.caption?.text} 
+                        caption={message.content.caption} 
                         className={className} 
                         message={message} 
                         chat={chat}
@@ -736,7 +737,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             return (
                 <MayHaveCaption 
                     type={__('lng_in_dlg_audio')}
-                    caption={message.content.caption?.text} 
+                    caption={message.content.caption} 
                     className={className} 
                     message={message} 
                     chat={chat}
@@ -769,11 +770,11 @@ MessageSummaryWithoutIcon.propTypes= {
 
 /** If caption has a value, adds a comma to type and returns type */ 
 function MayHaveCaption({type, caption, className, message, chat, users}) {
-    if(caption) type+=',';
+    if(caption?.text) type+=',';
     return (
         <span className={className}>
             <MessageSummarySender message={message} chat={chat} users={users}/>
-            <span className="part-1">{type}</span> <span className="part-2">{caption.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
+            <span className="part-1">{type}</span> <span className="part-2">{compileEntities(caption, true)}</span>
         </span>
     );
 }
@@ -798,8 +799,8 @@ function MayHaveCaptionThumbnail({thumbnails, isVideo, type, caption, className,
         <span className={className}>
             <MessageSummarySender message={message} chat={chat} users={users}/>
             {thumbnails.map((data, i) => data && <span className={'thumbnail'+ (isVideo? ' video': '')} key={i}><img src={'data:image/jpeg;base64,'+data}/></span>)} 
-            {caption? 
-                <span className="part-2">{caption.replace(/(\n|\r|\r\n|\n\r)/g, ' ')}</span>
+            {caption?.text? 
+                <span className="part-2">{compileEntities(caption, true)}</span>
                 :<span className="part-1">{type}</span> 
             }
         </span>
