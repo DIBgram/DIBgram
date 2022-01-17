@@ -8,8 +8,11 @@
                 "plugin:@typescript-eslint/recommended"
             ],
             "plugins": [
+                "@typescript-eslint",
                 "react",
-                "@typescript-eslint"
+                "react-hooks",
+                "import",
+                "jsx-a11y"
             ],
             "parser": "@typescript-eslint/parser"
         }
@@ -32,7 +35,10 @@
         "configFile": "${workspaceFolder}/babel.config.json"
     },
     "plugins": [
-        "react"
+        "react",
+        "react-hooks",
+        "import",
+        "jsx-a11y"
     ],
     "rules": {
         "indent": [
