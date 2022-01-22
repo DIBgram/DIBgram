@@ -52,17 +52,19 @@ Also, I will earn a lot of knowledge and experience while developing this app, b
 
 - **[Telegram Desktop][]**: The basis of the design and look of DIBgram
 - **[TdLib][]**: Telegram Database Library. Takes care of networking, encryption and storage
+- **[TypeScript][]**: Programming language
 - **[React][]**: UI framework used in project
-- **[Open Sans][] and [Vazir][] fonts**: Font families used in Telegram Desktop and DIBgram
 - **[Sass][]**: CSS preprocessor
+- **[Open Sans][] and [Vazir][] fonts**: Font families used in Telegram Desktop and DIBgram
 - **[ESLint][]**: Used to detect problems, warnings and enforce code style
 - **[VSCode][]**: The IDE (or code editor) I use to develop the app. Also recommended for contributors
 
 [Telegram Desktop]: https://github.com/telegramdesktop/tdesktop
+[TdLib]: https://github.com/tdlib/td
+[TypeScript]: https://github.com/microsoft/typescript
+[React]: https://github.com/facebook/react
+[Sass]: https://github.com/sass/sass
 [Open Sans]: https://github.com/googlefonts/opensans
 [Vazir]: https://github.com/rastikerdar/vazir-font
-[TdLib]: https://github.com/tdlib/td
-[React]: https://github.com/facebook/react
 [ESLint]: https://github.com/eslint/eslint
 [VSCode]: https://github.com/microsoft/vscode
-[Sass]: https://github.com/sass/sass
