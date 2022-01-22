@@ -1,5 +1,5 @@
 import React from 'react';
-import RippleEffect, { handleMyMouseEventsFunction } from '../../../../ui/elements/ripple-effect';
+import RippleEffect, { handleMyMouseEventsFunction, RippleEffectProps_AutoSettable } from '../../../../ui/elements/ripple-effect';
 import './compose-button.scss';
 
 type ComposeButtonProps = {
@@ -10,7 +10,7 @@ type ComposeButtonProps = {
 };
 
 export default function ComposeButton({ onClick, children, ...rest }: ComposeButtonProps): JSX.Element {
-    const ripple= React.useState({state: 'off'});
+    const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
     const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
     return (
         <button className="compose-button" onClick={onClick} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave} {...rest}>

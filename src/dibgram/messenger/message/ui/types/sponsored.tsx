@@ -15,7 +15,7 @@ type SponsoredMessageProps= {
 }
 
 export default function SponsoredMessage({message, chat_id, viewport}: SponsoredMessageProps): JSX.Element {
-    const chat= getChatNoCache(message.sponsor_chat_id);
+    const chat= getChatNoCache(message.sponsor_chat_id) as TdApi.td_chat;
 
     const [viewed, setViewed]= React.useState(false);
     const ref= React.useRef<HTMLDivElement>(null);

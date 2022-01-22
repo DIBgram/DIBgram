@@ -1,10 +1,11 @@
 import React from 'react';
 import TdApi from '../../../TdWeb/td_api';
+import { ProcessedSingleMessage } from '../processHistory';
 import MessageText from './types/messageText';
 import { MessageUnsupported } from './types/messageUnsupported';
 
 export type MessageProps = {
-    message: TdApi.td_message;
+    message: ProcessedSingleMessage
     chat: TdApi.td_chat;
 };
 export const Message= React.memo(function Message({message, chat}: MessageProps): JSX.Element {

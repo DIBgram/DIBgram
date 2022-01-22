@@ -19,7 +19,7 @@ export default class AuthWindowStepCode extends React.Component {
     };
     constructor(args) {
         super(args);
-        manageStatusTextContent(this);
+        [this.Status, this.changeStatus] = manageStatusTextContent(this);
     }
     state= {
         code: '',

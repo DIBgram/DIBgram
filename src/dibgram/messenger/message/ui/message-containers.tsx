@@ -70,7 +70,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                 }
                 break;
             case 'messageSenderChat': {
-                const chat: TdApi.td_chat= getChatNoCache(message.sender_id.chat_id);
+                const chat: TdApi.td_chat= getChatNoCache(message.sender_id.chat_id) as TdApi.td_chat;
                 sender= chat.title;
                 photo= (!message.hide_tail) &&
                         <ProfilePhoto 

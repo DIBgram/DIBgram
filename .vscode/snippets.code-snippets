@@ -26,7 +26,7 @@
 		"scope": "javascript,typescript,javascriptreact,typescriptreact",
 		"prefix": "ripple",
 		"body": [
-			"const ripple= React.useState({state: 'off'});",
+			"const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});",
 			"const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);"
 		],
 	},

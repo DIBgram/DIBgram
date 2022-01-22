@@ -1,9 +1,10 @@
 import { createStore } from 'redux';
 import TdApi from '../TdWeb/td_api';
 
-type MessageStoreState= {
+export type MessageStoreState= {
     messages: {[id: number]: TdApi.td_message};
 }
+
 type MessageStoreAction_AddMessages= { // Add a list of messages, which is returned from getChatHistory
     type: 'ADD_MESSAGES';
     messages: TdApi.td_message[];
@@ -25,7 +26,7 @@ type MessageStoreAction_ClearMessages= {
     type: 'CLEAR_MESSAGES'
 }
 
-type MessageStoreAction = MessageStoreAction_AddMessages | MessageStoreAction_AddMessage | MessageStoreAction_RemoveMessages | MessageStoreAction_ReduceMessage| MessageStoreAction_ClearMessages;
+export type MessageStoreAction = MessageStoreAction_AddMessages | MessageStoreAction_AddMessage | MessageStoreAction_RemoveMessages | MessageStoreAction_ReduceMessage| MessageStoreAction_ClearMessages;
 
 const defaultMessageStoreState= {
     messages: {}

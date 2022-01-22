@@ -25,7 +25,7 @@ export interface ProcessedMessage {
     processedType?: string;
 }
 
-export default function processMessageHistory(messages: {[id: number|string]: TdApi.td_message}): ProcessedMessage[] {
+export default function processMessageHistory(messages: {[id: number|string]: TdApi.td_message}): ProcessedSingleMessage[] {
     const array: TdApi.td_message[]= [];
     for(const id of Object.keys(messages).sort((a, b) => Number(a) - Number(b))) {
         array.push(messages[id]);

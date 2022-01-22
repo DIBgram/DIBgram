@@ -8,6 +8,7 @@
         "supergroups",
         "tdlib",
         "Tdweb",
+        "userpic",
         "Vazir"
     ],
     "eslint.rules.customizations": [

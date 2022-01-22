@@ -1,6 +1,6 @@
 import React from 'react';
 import './outline-button.scss';
-import RippleEffect, { handleMyMouseEventsFunction } from './ripple-effect';
+import RippleEffect, { handleMyMouseEventsFunction, RippleEffectProps_AutoSettable } from './ripple-effect';
 
 type OutlineButtonProps= {
     onClick: (e: React.SyntheticEvent<HTMLButtonElement>) => void,
@@ -10,7 +10,7 @@ type OutlineButtonProps= {
 }
 
 export function OutlineButton({onClick, children, ...rest}: OutlineButtonProps): JSX.Element {
-    const ripple= React.useState({state: 'off'});
+    const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
     const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
     return (
         <button className="outline-button" onClick={onClick} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave} {...rest}>
