@@ -12,6 +12,7 @@ import ProfilePhoto, { getChatTypeId } from '../../../../ui/components/profile-p
 import chatStore from '../../../chat-store';
 import { ChatSectionContentProps } from '../chat-section';
 import TdApi from '../../../../TdWeb/td_api';
+import { menu_report } from '../../../../ui/icon/menu/menu';
 
 export default function TitleHeader(props: ChatSectionContentProps): JSX.Element {
     return (
@@ -50,7 +51,7 @@ export default function TitleHeader(props: ChatSectionContentProps): JSX.Element
                 <IconButton icon={top_bar_profile}/>
                 <ThreeDotsMenu>
                     <Menu.MenuContents>
-                        {props.chat.can_be_reported && <Menu.MenuItem>{__('lng_report_button')}</Menu.MenuItem>}
+                        {props.chat.can_be_reported && <Menu.MenuItem icon={menu_report}>{__('lng_report_button')}</Menu.MenuItem>}
                     </Menu.MenuContents>
                 </ThreeDotsMenu>
             </div>

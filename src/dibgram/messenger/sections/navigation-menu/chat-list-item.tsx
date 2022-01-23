@@ -20,6 +20,7 @@ import chatStore from '../../chat-store';
 import { ChatWPosition } from './chat-list';
 import { UsersStoreState } from '../../users-store';
 import TdApi from '../../../TdWeb/td_api';
+import { menu_archive, menu_pin, menu_unarchive, menu_unpin } from '../../../ui/icon/menu/menu';
 
 type ChatListItemSelfProps = {
     /** The chat (TdApi.td_chat) */
@@ -222,11 +223,16 @@ function ChatContextMenu({chat}: ChatContextMenuProps): JSX.Element {
             result= result as TdApi.td_chatLists;
             setMovableChatLists(result.chat_lists.map(chatList=> {
                 const text= { // Only archive / unarchive
-                    'chatListMain': __('lng_archived_add'), 
-                    'chatListArchive': __('lng_archived_remove'),
+                    'chatListMain': __('lng_archived_remove'), 
+                    'chatListArchive': __('lng_archived_add'),
                     'chatListFilter': undefined
                 }[chatList['@type']];
                 if(!text) return;
+                const icon= { // Only archive / unarchive
+                    'chatListMain': menu_unarchive, 
+                    'chatListArchive': menu_archive,
+                    'chatListFilter': undefined
+                }[chatList['@type']];
                 return (
                     <Menu.MenuItem key={'chat_filter_id' in chatList ? chatList.chat_filter_id : chatList['@type']} onClick={() => {
                         TdLib.sendQuery({
@@ -241,7 +247,7 @@ function ChatContextMenu({chat}: ChatContextMenuProps): JSX.Element {
                                 addToast(<Toast>{__('lng_archived_added')}</Toast>);
                             }
                         });
-                    }}>
+                    }} icon={icon}>
                         {text}
                     </Menu.MenuItem>
                 );
@@ -269,7 +275,7 @@ function ChatContextMenu({chat}: ChatContextMenuProps): JSX.Element {
                         ));
                     }
                 });
-            }}>
+            }} icon={chat.position.is_pinned? menu_unpin : menu_pin}>
                 {chat.position.is_pinned? __('lng_context_unpin_from_top') : __('lng_context_pin_to_top')}
             </Menu.MenuItem>
         </Menu.MenuContents>

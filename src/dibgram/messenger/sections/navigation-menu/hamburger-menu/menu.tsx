@@ -21,6 +21,7 @@ import options from '../../../../TdWeb/options';
 import { getUserFullName } from '../../../user-misc';
 import __, { _s__fmt, __fmt } from '../../../../language-pack/language-pack';
 import TdApi from '../../../../TdWeb/td_api';
+import { menu_move_from_menu } from '../../../../ui/icon/menu/menu';
 
 type HamburgerMenuSelfProps = {
     visible: boolean;
@@ -124,7 +125,9 @@ const HamburgerMenu= (connect<HamburgerMenuStoreProps, unknown, HamburgerMenuSel
                                                     });
                                                     localStorage.setItem('dibgram-archived-chats-button-mode', newState);
                                                     onClose();
-                                                }}>{__('lng_context_archive_to_list')}</Menu.MenuItem>
+                                                }} icon={menu_move_from_menu}>
+                                                    {__('lng_context_archive_to_list')}
+                                                </Menu.MenuItem>
                                             </Menu.MenuContents>
                                         ))}/>
                                 )}

@@ -20,18 +20,29 @@ Menu.MenuContents= function MenuContents(props: React.DetailedHTMLProps<React.HT
     );
 };
 
+export type Menu_MenuitemProps = {
+    icon?: string,
+}
+
 /**
  * A menu item.
  */
-Menu.MenuItem= function MenuItem({children, ...rest}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element {
+Menu.MenuItem= function MenuItem({children, icon, ...rest}: Menu_MenuitemProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
     const [mouseDown, mouseUp, mouseLeave] = handleMyMouseEventsFunction(ripple);
     return (
         <div className="menu-item" {...rest} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgRipple)"/>
-            <div className="content">
-                {children}
-            </div>
+            {icon ? 
+                <div className="content has-icon">
+                    <div className="icon" dangerouslySetInnerHTML={{__html: icon}}/>
+                    <span>{children}</span>
+                </div>
+                :
+                <div className="content">
+                    {children}
+                </div>
+            }   
         </div>
     );
 };

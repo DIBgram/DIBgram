@@ -16,12 +16,33 @@
             font-size: 13px;
             overflow: hidden;
             position: relative;
+            color: var(--theme-color-windowFg);
 
             .content {
                 position: relative;
                 z-index: +1;
                 pointer-events: none;
                 user-select: none;
+                height: 18px;
+                
+                &.has-icon {
+                    height: 19px;
+
+                    .icon {
+                        display: inline-block;
+                        height: 19px;
+                        margin-left: -2px;
+                        margin-right: 14px;
+    
+                        svg {
+                            fill: var(--theme-color-menuSubmenuArrowFg);
+                            height: 24px;
+                            width: 24px;
+                            vertical-align: middle;
+                            margin-top: -3px;
+                        }
+                    }
+                }
             }
 
             &:hover {

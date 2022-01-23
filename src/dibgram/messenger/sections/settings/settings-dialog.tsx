@@ -20,6 +20,7 @@ import NavAnimation, { closeNavAnimation } from '../../../ui/elements/nav-animat
 import SettingsAdvanced from './advanced/advanced';
 import { lastSeenToString } from '../../../time-tostring';
 import { UsersStoreState } from '../../users-store';
+import { menu_add_account, menu_info, menu_leave } from '../../../ui/icon/menu/menu';
 
 type SettingsSection= React.ComponentType<{
     onClose: ()=> void,
@@ -59,9 +60,9 @@ function Settings ({id, users}: SettingsProps): JSX.Element {
                     
                     <ThreeDotsMenu className="more-options">
                         <Menu.MenuContents>
-                            <Menu.MenuItem>{__('lng_menu_add_account')}</Menu.MenuItem>
-                            <Menu.MenuItem>{__('lng_settings_information')}</Menu.MenuItem>
-                            <Menu.MenuItem onClick={() => {
+                            <Menu.MenuItem icon={menu_add_account}>{__('lng_menu_add_account')}</Menu.MenuItem>
+                            <Menu.MenuItem icon={menu_info}>{__('lng_settings_information')}</Menu.MenuItem>
+                            <Menu.MenuItem icon={menu_leave} onClick={() => {
                                 addDialog('log-out-from-main-menu-confirm-dialog',
                                     <ConfirmDialog largeFont={true}
                                         id="log-out-from-main-menu-confirm-dialog"

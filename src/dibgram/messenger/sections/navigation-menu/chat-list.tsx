@@ -19,6 +19,7 @@ import { Chat } from './chat-list-item';
 import TdApi from '../../../TdWeb/td_api';
 import { ConnectionStoreState } from '../../../TdWeb/connectionStore';
 import Scrollbars from 'react-custom-scrollbars-2';
+import { menu_collapse, menu_expand, menu_move_to_menu } from '../../../ui/icon/menu/menu';
 
 export type ChatWPosition = TdApi.td_chat & {position: TdApi.td_chatPosition};
 
@@ -212,14 +213,14 @@ const ArchivedChatsItem= (connect<ArchivedChatsItemStoreProps, unknown, Archived
                             <Menu.MenuItem onClick={()=>{
                                 setButtonState('collapsed');
                                 localStorage.setItem('dibgram-archived-chats-button-mode', 'collapsed');
-                            }}>
+                            }} icon={menu_collapse}>
                                 {__('lng_context_archive_collapse')}
                             </Menu.MenuItem>
                             <Menu.MenuItem onClick={()=>{
                                 setButtonState('hidden-expanded');
                                 localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-expanded');
                                 addToast(moveToMainMenuToast);
-                            }}>
+                            }} icon={menu_move_to_menu}>
                                 {__('lng_context_archive_to_menu')}
                             </Menu.MenuItem>
                         </Menu.MenuContents>
@@ -273,14 +274,14 @@ const ArchivedChatsItem= (connect<ArchivedChatsItemStoreProps, unknown, Archived
                             <Menu.MenuItem onClick={()=>{
                                 setButtonState('expanded');
                                 localStorage.setItem('dibgram-archived-chats-button-mode', 'expanded');
-                            }}>
+                            }} icon={menu_expand}>
                                 {__('lng_context_archive_expand')}
                             </Menu.MenuItem>
                             <Menu.MenuItem onClick={()=>{
                                 setButtonState('hidden-collapsed');
                                 localStorage.setItem('dibgram-archived-chats-button-mode', 'hidden-collapsed');
                                 addToast(moveToMainMenuToast);
-                            }}>
+                            }} icon={menu_move_to_menu}>
                                 {__('lng_context_archive_to_menu')}
                             </Menu.MenuItem>
                         </Menu.MenuContents>
