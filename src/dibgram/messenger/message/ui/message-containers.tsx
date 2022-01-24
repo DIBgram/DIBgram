@@ -10,7 +10,7 @@ import { ProcessedSingleMessage } from '../processHistory';
 import usersStore, { UsersStoreState } from '../../users-store';
 
 import './message-containers.scss';
-import { __fmt } from '../../../language-pack/language-pack';
+import __, { __fmt } from '../../../language-pack/language-pack';
 import { messageStore } from '../../message-store';
 import TdLib from '../../../TdWeb/tdlib';
 import MessageSummaryWithIcon from '../message-summary-withicon';
@@ -192,5 +192,13 @@ export function MessageReplyTo({message, users}: MessageReplyToProps): JSX.Eleme
             </div>
         );
     }
-    return null;
+    else {
+        return (
+            <div className="reply-to">
+                <div className="placeholder">
+                    { rMessage==-1 ? __('lng_deleted_message') : __('lng_contacts_loading')}
+                </div>
+            </div>
+        );
+    }
 }

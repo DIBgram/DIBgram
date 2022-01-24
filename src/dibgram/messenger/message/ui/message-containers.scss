@@ -105,6 +105,11 @@
                         }
                     }
                 }
+
+                .placeholder {
+                    padding: 9px 0;
+                    color: var(--theme-color-msgInDateFg);
+                }
             }
 
             &.has-tail {
@@ -194,12 +199,9 @@
                         color: var(--theme-color-msgOutServiceFg);
                     }
 
-                    .text-container {
-                        .text {
-                            .part-1 {
-                                color: var(--theme-color-msgOutDateFg);
-                            }
-                        }
+                    .text-container .text .part-1,
+                    .placeholder {
+                        color: var(--theme-color-msgOutDateFg);
                     }
                 }
 
