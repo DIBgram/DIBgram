@@ -13,6 +13,10 @@
         inset-inline-end: 0;
         z-index: 100;
     }
+
+    &:hover .icon-button svg {
+        fill: var(--theme-color-menuIconFgOver) !important;
+    }
 }
 
 [dir="rtl"] .more-options {
