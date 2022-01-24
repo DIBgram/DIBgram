@@ -1,6 +1,7 @@
 import React from 'react';
 import TdLib from '../../../../TdWeb/tdlib';
 import TdApi from '../../../../TdWeb/td_api';
+import { messageStore } from '../../../message-store';
 import { ServiceMessageIncludingYou } from '../../message-summary-noicon';
 import { MessageProps } from '../message';
 import { ServiceMessage } from '../message-containers';
@@ -21,13 +22,21 @@ export default function MessageGameScore({message, chat, users}: MessageProps): 
         }
     }
 
-    if(gameMessage == 0) {
-        TdLib.sendQuery({
-            '@type': 'getMessage',
-            chat_id: chat.id,
-            message_id: message.content.game_message_id
-        }).then(handleMessageQuery, handleMessageQuery);
-    }
+    React.useEffect(() => {
+        message.content = message.content as TdApi.td_messageGameScore;
+        if(gameMessage == 0) {
+            const gmessage= messageStore.getState().messages[message.content.game_message_id];
+            if(gmessage) {
+                setGameMessage(gmessage);
+            } else {
+                TdLib.sendQuery({
+                    '@type': 'getMessage',
+                    chat_id: chat.id,
+                    message_id: message.content.game_message_id
+                }).then(handleMessageQuery, handleMessageQuery);
+            }
+        }
+    }, []);
 
     return typeof gameMessage == 'number'? (
         <ServiceMessage>

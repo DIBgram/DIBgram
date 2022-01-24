@@ -2,6 +2,7 @@ import React from 'react';
 import __, { __fmt } from '../../../../language-pack/language-pack';
 import TdLib from '../../../../TdWeb/tdlib';
 import TdApi from '../../../../TdWeb/td_api';
+import { messageStore } from '../../../message-store';
 import MessaagePinnedMessage from '../../message-pinned-message';
 import { SenderFullName } from '../../message-summary-noicon';
 import { MessageProps } from '../message';
@@ -23,13 +24,21 @@ export default function MessagePinMessage({message, chat, users}: MessageProps):
         }
     }
 
-    if(pinnedMessage == 0) {
-        TdLib.sendQuery({
-            '@type': 'getMessage',
-            chat_id: chat.id,
-            message_id: message.content.message_id
-        }).then(handleMessageQuery, handleMessageQuery);
-    }
+    React.useEffect(() => {
+        message.content = message.content as TdApi.td_messagePinMessage;
+        if(pinnedMessage == 0) {
+            const pmessage= messageStore.getState().messages[message.content.message_id];
+            if(pmessage) {
+                setPinnedMessage(pmessage);
+            } else {
+                TdLib.sendQuery({
+                    '@type': 'getMessage',
+                    chat_id: chat.id,
+                    message_id: message.content.message_id
+                }).then(handleMessageQuery, handleMessageQuery);
+            }
+        }
+    }, []);
 
     return pinnedMessage == 0 ? (
         <ServiceMessage>

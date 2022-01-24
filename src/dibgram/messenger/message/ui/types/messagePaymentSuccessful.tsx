@@ -6,6 +6,7 @@ import currencyAmountToString from '../../../sections/payments/currency-tostring
 import { MessageProps } from '../message';
 import { ServiceMessage } from '../message-containers';
 import currencies from '../../../sections/payments/currencies.json';
+import { messageStore } from '../../../message-store';
 
 export default function MessagePaymentSuccessful({message, chat}: MessageProps): JSX.Element {
     if(message.content['@type'] != 'messagePaymentSuccessful') {
@@ -23,13 +24,21 @@ export default function MessagePaymentSuccessful({message, chat}: MessageProps):
         }
     }
 
-    if(invoiceMessage == 0) {
-        TdLib.sendQuery({
-            '@type': 'getMessage',
-            chat_id: message.content.invoice_chat_id,
-            message_id: message.content.invoice_message_id
-        }).then(handleMessageQuery, handleMessageQuery);
-    }
+    React.useEffect(() => {
+        message.content = message.content as TdApi.td_messagePaymentSuccessful;
+        if(invoiceMessage == 0) {
+            const imessage= messageStore.getState().messages[message.content.invoice_message_id];
+            if(imessage) {
+                setInvoiceMessage(imessage);
+            } else {
+                TdLib.sendQuery({
+                    '@type': 'getMessage',
+                    chat_id: message.content.invoice_chat_id,
+                    message_id: message.content.invoice_message_id
+                }).then(handleMessageQuery, handleMessageQuery);
+            }
+        }
+    }, []);
 
     return typeof invoiceMessage == 'number'? (
         <ServiceMessage>
