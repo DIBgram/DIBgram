@@ -1,22 +1,4 @@
 {
-    "overrides": [
-        {
-            "files": ["**/*.ts", "**/*.tsx"],
-            "extends": [
-                "eslint:recommended",
-                "plugin:react/recommended",
-                "plugin:@typescript-eslint/recommended"
-            ],
-            "plugins": [
-                "@typescript-eslint",
-                "react",
-                "react-hooks",
-                "import",
-                "jsx-a11y"
-            ],
-            "parser": "@typescript-eslint/parser"
-        }
-    ],
     "env": {
         "browser": true,
         "es2021": true
@@ -57,5 +39,26 @@
             "always"
         ],
         "no-unused-vars": "warn"
-    }
+    },
+    "overrides": [
+        {
+            "files": ["**/*.ts", "**/*.tsx"],
+            "extends": [
+                "eslint:recommended",
+                "plugin:react/recommended",
+                "plugin:@typescript-eslint/recommended"
+            ],
+            "plugins": [
+                "@typescript-eslint",
+                "react",
+                "react-hooks",
+                "import",
+                "jsx-a11y"
+            ],
+            "parser": "@typescript-eslint/parser",
+            "rules": {
+                "react/prop-types": "off"
+            }
+        }
+    ]
 }
