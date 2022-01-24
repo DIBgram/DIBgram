@@ -7,10 +7,13 @@ import { getChatNoCache } from '../../chat-store';
 import { getMessageStatus } from '../../message-misc';
 import { getUserFullName } from '../../user-misc';
 import { ProcessedSingleMessage } from '../processHistory';
-import usersStore from '../../users-store';
+import usersStore, { UsersStoreState } from '../../users-store';
 
 import './message-containers.scss';
 import { __fmt } from '../../../language-pack/language-pack';
+import { messageStore } from '../../message-store';
+import TdLib from '../../../TdWeb/tdlib';
+import MessageSummaryWithIcon from '../message-summary-withicon';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ServiceMessageBubble(props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element {
@@ -114,6 +117,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                     ): null}
                 </div>
 
+                {message.reply_to_message_id ? <MessageReplyTo message={message} users={users}/>: null}
                 {children}
                 <div className="after"/>
             </MessageBubble>
@@ -143,4 +147,50 @@ export function MessageFooter({message, chat}: MessageFooterProps): JSX.Element 
             {(!message.is_channel_post) && tick}
         </div>
     );
+}
+
+type MessageReplyToProps= {
+    message: TdApi.td_message,
+    users: UsersStoreState
+}
+
+export function MessageReplyTo({message, users}: MessageReplyToProps): JSX.Element|null {
+    const [replyMessage, setReplyMessage]= React.useState<TdApi.td_message|-1|0>(0);
+
+    const rMessage= ((message.reply_in_chat_id == message.chat_id) && messageStore.getState().messages[message.reply_to_message_id]) || replyMessage;
+
+    React.useEffect(() => {
+        function requestHandler(result: TdApi.td_message|TdApi.td_error) {
+            if(result['@type'] === 'error') {
+                setReplyMessage(-1);
+            } else {
+                setReplyMessage(result);
+            }
+        }
+
+        if((!rMessage) && replyMessage==0) {
+            TdLib.sendQuery({
+                '@type': 'getMessage',
+                chat_id: message.reply_in_chat_id,
+                message_id: message.reply_to_message_id
+            }).then(requestHandler, requestHandler);
+        }
+    }, []);
+
+    if( typeof rMessage != 'number') {
+        const chat= getChatNoCache(message.reply_in_chat_id) as TdApi.td_chat;
+        const sender= rMessage.sender_id['@type'] === 'messageSenderUser' ?
+            getUserFullName(users[rMessage.sender_id.user_id]):
+            (getChatNoCache(rMessage.sender_id.chat_id) as TdApi.td_chat).title;
+
+        return (
+            <div className="reply-to">
+                <div className="reply-sender">{sender}</div>
+                <div className="text-container">
+                    <MessageSummaryWithIcon chat={chat} message={rMessage} className='text' users={users}/>
+                </div>
+            </div>
+        );
+    }
+    return null;
 }

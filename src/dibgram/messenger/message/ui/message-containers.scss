@@ -71,6 +71,42 @@
                 .color_8 { color: var(--theme-color-historyPeer8NameFg )}
             }
 
+            .reply-to {
+                margin-top: 6px;
+                margin-bottom: 6px;
+                margin-inline-start: 1px;
+                border-inline-start: 2px solid var(--theme-color-msgInReplyBarColor);
+                padding-left: 8px;
+                user-select: none;
+
+                .reply-sender {
+                    font-weight: 500;
+                    color: var(--theme-color-msgInServiceFg);
+                }
+
+                .text-container {
+                    height: 18px;
+                    position: relative;
+
+                    .text {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        bottom: 0;
+                        right: 0;
+
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        display: block;
+    
+                        .part-1 {
+                            color: var(--theme-color-msgInDateFg);
+                        }
+                    }
+                }
+            }
+
             &.has-tail {
                 border-end-start-radius: 0;
             }
@@ -150,6 +186,22 @@
             .bubble {
                 background-color: var(--theme-color-msgOutBg);
                 float: right;
+
+                .reply-to {
+                    border-color: var(--theme-color-msgOutReplyBarColor);
+
+                    .reply-sender {
+                        color: var(--theme-color-msgOutServiceFg);
+                    }
+
+                    .text-container {
+                        .text {
+                            .part-1 {
+                                color: var(--theme-color-msgOutDateFg);
+                            }
+                        }
+                    }
+                }
 
                 &.has-tail {
                     border-end-start-radius: 6px;
