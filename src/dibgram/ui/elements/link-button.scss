@@ -15,3 +15,8 @@
         text-decoration-skip-ink: none;
     }
 }
+
+#app[data-theme-is-dark="false"] .link-button {
+    font-weight: 400;
+    letter-spacing: -0.1px;
+}
