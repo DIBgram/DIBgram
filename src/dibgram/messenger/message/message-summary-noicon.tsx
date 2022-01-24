@@ -34,14 +34,13 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
     switch(message.content['@type']) {
         case 'messageAnimation': // GIF
             return (
-                <MayHaveCaptionThumbnail
+                <MayHaveCaption
                     type="GIF" //TODO: Find the localized string
                     caption={message.content.caption} 
                     className={className} 
                     message={message} 
                     chat={chat}
-                    users={users}
-                    thumbnails={[message.content?.animation?.minithumbnail?.data]}/>
+                    users={users}/>
             );
         
         case 'messageAudio': { // Audio/music file
