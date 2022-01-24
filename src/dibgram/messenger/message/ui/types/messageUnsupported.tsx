@@ -3,9 +3,9 @@ import { _s__ } from '../../../../language-pack/language-pack';
 import { MessageProps } from '../message';
 import MessageText from './messageText';
 
-export function MessageUnsupported({message, chat}: MessageProps): JSX.Element {
+export function MessageUnsupported({message, chat, users}: MessageProps): JSX.Element {
     return (
-        <MessageText chat={chat} message={{
+        <MessageText chat={chat} users={users} message={{
             ...message,
             content: {
                 '@type': 'messageText',

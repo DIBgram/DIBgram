@@ -15,6 +15,7 @@ import { ChatSectionContentProps } from '../chat-section';
 import { Dispatch } from 'redux';
 import TdApi from '../../../../TdWeb/td_api';
 import Scrollbars from 'react-custom-scrollbars-2';
+import withUsers from '../../../users-wrapper';
 
 export const ChatHistory= connect<MessageStoreState, unknown, ChatSectionContentProps, MessageStoreState>(({messages}) => ({messages})) (
     function ChatHistory({chat, messages, dispatch }: ChatSectionContentProps & MessageStoreState & {dispatch: Dispatch<MessageStoreAction>}) {
@@ -102,12 +103,14 @@ export const ChatHistory= connect<MessageStoreState, unknown, ChatSectionContent
             }
         }
 
+        const Message2= withUsers(Message);
+
         return (
             <div className="history" ref={ref}>
                 <ScrollView scrollRef={scrollRef} className="scrollbar full-size" scrollBarWidth={6} onScroll={onScroll}>
                     <div className="history-scroll-content">
                         <div className="end-detector upper" ref={upperEndDetectorRef}></div>
-                        {array.map(message => <Message key={message.id} message={message} chat={chat}/>)}
+                        {array.map(message => <Message2 key={message.id} message={message} chat={chat}/>)}
                         <div className="end-detector lower" ref={lowerEndDetectorRef}></div>
                         {sponsoredMessage && <SponsoredMessage message={sponsoredMessage} chat_id={chat.id} viewport={ref}/>}
                     </div>

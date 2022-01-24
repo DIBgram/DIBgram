@@ -11,7 +11,7 @@
 .history-message {
     margin-top: 8px;
 
-    &.small-margin {
+    &.small-margin:not(.service+.small-margin) {
         margin-top: 3px;
     }
 
@@ -176,5 +176,15 @@
                 }
             }
         }
+    }
+
+    &.service {
+        margin-top: 10px;
+        text-align: center;
+        padding: 0 10px;
+    }
+
+    &.service+& {
+        margin-top: 10px;
     }
 }

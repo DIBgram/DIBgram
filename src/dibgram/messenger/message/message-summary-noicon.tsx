@@ -775,15 +775,6 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
             return null;
     }
 }
-MessageSummaryWithoutIcon.propTypes= {
-    /** Input message */
-    message: PropTypes.object,
-    className: PropTypes.string,
-    /** The chat in which the message was */
-    chat: PropTypes.object,
-    /** A dictionary of all users */
-    users: PropTypes.object,
-};
 
 type MayHaveCaptionProps= {
     /** Message type, e.g. 'GIF', 'Video' */
@@ -853,7 +844,7 @@ type SenderFullNameProps= {
 }
 
 /** Sender's first name + last name */
-function SenderFullName({message, chat, users, includeYou}: SenderFullNameProps): JSX.Element {
+export function SenderFullName({message, chat, users, includeYou}: SenderFullNameProps): JSX.Element {
     if(includeYou) { // Use 'You' if the message is outgoing?
         return message.is_outgoing ? <>{__('lng_from_you')}</> : <SenderFullName message={message} chat={chat} users={users}/>;
     }
@@ -888,7 +879,7 @@ type ServiceMessageIncludingYouProps= {
 /**
  * Formats a service message which 'from' can be 'You' or a user's full name
  */
-function ServiceMessageIncludingYou({message, chat, users, lpString, lpString_you, params={}, count=undefined}: ServiceMessageIncludingYouProps): JSX.Element {
+export function ServiceMessageIncludingYou({message, chat, users, lpString, lpString_you, params={}, count=undefined}: ServiceMessageIncludingYouProps): JSX.Element {
     let string= lpString_you;
     let sender;
     if(!message.is_outgoing){

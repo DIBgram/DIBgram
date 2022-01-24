@@ -1,4 +1,5 @@
 import TdApi from '../../TdWeb/td_api';
+import messageIsService from './message-is-service';
 
 export interface ProcessedSingleMessage extends TdApi.td_message, ProcessedMessage {
 }
@@ -47,7 +48,9 @@ export default function processMessageHistory(messages: {[id: number|string]: Td
                 message= prevEl as ProcessedSingleMessage;
             }
 
-            if( message.sender_id['@type']=='messageSenderUser' &&
+            if( (!messageIsService(message)) &&
+                (!messageIsService(current)) &&
+                message.sender_id['@type']=='messageSenderUser' &&
                 current.sender_id['@type']=='messageSenderUser' &&
                 message.sender_id.user_id == current.sender_id.user_id &&
                 ((current.date - message.date) < (60 * 15))) {

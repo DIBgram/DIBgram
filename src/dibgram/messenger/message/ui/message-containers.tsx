@@ -13,9 +13,19 @@ import './message-containers.scss';
 import { __fmt } from '../../../language-pack/language-pack';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function ServiceMessage(props: { [key: string]: any }): JSX.Element {
+export function ServiceMessageBubble(props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element {
     return (
         <div className="history-service-message" {...props}/>
+    );
+}
+
+export function ServiceMessage({children}: {children: React.ReactNode|React.ReactNode[]}): JSX.Element {
+    return (
+        <div className="history-message service">
+            <ServiceMessageBubble>
+                {children}
+            </ServiceMessageBubble>
+        </div>
     );
 }
 

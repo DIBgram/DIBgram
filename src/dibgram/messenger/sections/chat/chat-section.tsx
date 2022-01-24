@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect, Provider } from 'react-redux';
 import __ from '../../../language-pack/language-pack';
-import { ServiceMessage } from '../../message/ui/message-containers';
+import { ServiceMessageBubble } from '../../message/ui/message-containers';
 import TitleHeader from './headers/title';
 import './chat-section.scss';
 import usersStore, { UsersStoreState } from '../../users-store';
@@ -35,9 +35,9 @@ export const ChatSection= (connect<ChatSectionStoreProps, unknown, ChatSectionSe
 
         if(!chat) return (
             <div id="chat-section" className="no-chat">
-                <ServiceMessage>
+                <ServiceMessageBubble>
                     {__('lng_willbe_history')}
-                </ServiceMessage>
+                </ServiceMessageBubble>
             </div>
         );
         switch(chat.type['@type']){
