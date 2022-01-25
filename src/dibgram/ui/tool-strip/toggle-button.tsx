@@ -11,6 +11,8 @@ type ToolStripToggleButtonProps = {
     onChange: (value: boolean) => void;
     /** the on/off state of the button */
     isActive: boolean;
+    /** If true, does not show the icon. This removes the space allocated to the icon. */
+    hideIcon?: boolean;
 
     //eslint-disable-next-line @typescript-eslint/no-explicit-any
     [key: string]: any;

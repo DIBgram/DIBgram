@@ -4,7 +4,9 @@ import TdApi from '../../../TdWeb/td_api';
 import ConfirmDialog from '../../../ui/dialog/confirm-dialog';
 import { addDialog } from '../../../ui/dialog/dialogs';
 import LinkButton from '../../../ui/elements/link-button';
+import dibgramMods from "../../../dibgram-mods";
 import './entities.scss';
+import { getThemeIsDark } from '../../../ui/themes/theme';
 
 function maybeDeleteNewLines(str: string, doIt: boolean) {
     return doIt? str.replace(/(\n|\r|\r\n|\n\r)/g, ' ') : str;
@@ -62,7 +64,7 @@ function getEntityJsx(text: string, entity: TdApi.td_textEntity, singleLine=fals
             case 'textEntityTypePre':
                 return <pre>{innerText}</pre>;
             case 'textEntityTypePreCode':
-                return <pre><code>{innerText}</code></pre>;
+                return <TextEntityPreCode language={entity.type.language}>{innerText}</TextEntityPreCode>;
             case 'textEntityTypeSpoiler':
                 return <SpoilerEntity>{innerText}</SpoilerEntity>;
             case 'textEntityTypeStrikethrough':
@@ -106,4 +108,26 @@ function SpoilerEntity(props: {[key:string]:any}): JSX.Element {
     return (
         <span className={'spoiler' + (viewed?' viewed' : '')} onClick={()=>setViewed(true)} {...props}/>
     );
+}
+
+type TextEntityPreCodeProps= {
+    children: string;
+    language: string;
+}
+
+function TextEntityPreCode({children, language}: TextEntityPreCodeProps): JSX.Element {
+    if(dibgramMods.chat_enableSyntaxHighlighting) {
+        // Lazy-load syntax-highlighting.js
+        
+        const SyntaxHighLighting= React.lazy(()=> import('./syntax-highlighting'));
+        return (
+            <React.Suspense fallback={<pre>{children}</pre>}>
+                <SyntaxHighLighting lang={language} dark={getThemeIsDark()}>
+                    {children}
+                </SyntaxHighLighting>
+            </React.Suspense>
+        );
+    } else {
+        return <pre>{children}</pre>;
+    }
 }

@@ -4,11 +4,11 @@ import day from './day.json';
 import tinted from './tinted.json';
 import night from './night.json';
 import { convertThemeToCSS } from './dibgram-theme-to-css';
-import { createStore } from 'redux';
+import { createStore, Store } from 'redux';
 import { connect } from 'react-redux';
 import { getRtlMode } from '../../language-pack/language-pack';
 
-const themes = { day, classic, tinted, night };
+export const themes = { day, classic, tinted, night };
 
 export type ThemeObject= {
     [colorName: string]: {
@@ -41,7 +41,7 @@ export type ThemeStoreAction= {
     rtl: boolean,
 }
 
-export const themeStore = createStore<ThemeStoreState, ThemeStoreAction, any, any>(
+export const themeStore = (createStore<ThemeStoreState, ThemeStoreAction, any, any>(
     (state = { 
         theme: getThemeFromStorage(),
         rtl: getRtlMode()
@@ -55,7 +55,7 @@ export const themeStore = createStore<ThemeStoreState, ThemeStoreAction, any, an
                 return state;
         }
     }
-);
+)) as Store<ThemeStoreState, ThemeStoreAction>;
 
 /**
  * All children of this component will be rendered with the theme. Can be treated as a div.
@@ -76,4 +76,8 @@ export const ThemeProvider= connect<ThemeStoreState, unknown, React.PropsWithChi
 export function setTheme(theme: ThemeName): void {
     localStorage.setItem('dibgram-theme', theme);
     themeStore.dispatch({ type: 'SET_THEME', theme });
+}
+
+export function getThemeIsDark(): boolean {
+    return themes[themeStore.getState().theme].isDark.value == 'true';
 }

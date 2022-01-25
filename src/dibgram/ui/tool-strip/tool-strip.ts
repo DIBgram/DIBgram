@@ -10,6 +10,7 @@ import ToolStripButton from './button';
 import ToolStripSection from './section';
 import ToolStripSeparator from './separator';
 import ToolStripToggleButton from './toggle-button';
+import ToolStripHeading from './heading';
 
 /**
  * A collection of different components to create a generic menu.
@@ -20,7 +21,8 @@ const ToolStrip = {
     Button: ToolStripButton,
     Section: ToolStripSection,
     ToggleButton: ToolStripToggleButton,
-    Separator: ToolStripSeparator
+    Separator: ToolStripSeparator,
+    Heading: ToolStripHeading
 };
 export default ToolStrip;
-export { ToolStripButton, ToolStripSection, ToolStripToggleButton, ToolStripSeparator };
+export { ToolStripButton, ToolStripSection, ToolStripToggleButton, ToolStripSeparator, ToolStripHeading };
