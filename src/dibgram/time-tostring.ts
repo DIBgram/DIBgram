@@ -158,8 +158,9 @@ export function lastSeenToString(status: TdApi.td_UserStatus): React.ReactNode {
         case 'userStatusOnline':
             return __('lng_status_online');
 
-        default: // userStatusEmpty
-            return null;
+        case 'userStatusEmpty':
+        default:
+            return __('lng_status_offline');
     }
 }
 
