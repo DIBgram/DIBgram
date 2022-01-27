@@ -6,7 +6,8 @@ import { addDialog } from '../../../ui/dialog/dialogs';
 import LinkButton from '../../../ui/elements/link-button';
 import dibgramMods from "../../../dibgram-mods";
 import './entities.scss';
-import { getThemeIsDark } from '../../../ui/themes/theme';
+import { getThemeIsDark, themes, themeStore, ThemeStoreState } from '../../../ui/themes/theme';
+import { connect, Provider } from 'react-redux';
 
 function maybeDeleteNewLines(str: string, doIt: boolean) {
     return doIt? str.replace(/(\n|\r|\r\n|\n\r)/g, ' ') : str;
@@ -122,12 +123,35 @@ function TextEntityPreCode({children, language}: TextEntityPreCodeProps): JSX.El
         const SyntaxHighLighting= React.lazy(()=> import('./syntax-highlighting'));
         return (
             <React.Suspense fallback={<pre>{children}</pre>}>
-                <SyntaxHighLighting lang={language} dark={getThemeIsDark()}>
-                    {children}
-                </SyntaxHighLighting>
+                <Provider store={themeStore}>
+                    <SyntaxHighlight lang={language} SyntaxHighLighting={SyntaxHighLighting}>
+                        {children}
+                    </SyntaxHighlight>
+                </Provider>
             </React.Suspense>
         );
     } else {
         return <pre>{children}</pre>;
     }
 }
+
+type SyntaxHighlightProps= {
+    lang: string;
+    children: string;
+    SyntaxHighLighting: React.ComponentType<{
+        children: string,
+        lang: string,
+        dark: boolean
+    }>
+};
+
+const SyntaxHighlight= (connect<{dark:boolean}, unknown, SyntaxHighlightProps, ThemeStoreState>(
+    (state: ThemeStoreState)=> ({dark: themes[state.theme].isDark.value=='true'}),
+)(function SyntaxHighlight({lang, children, dark, SyntaxHighLighting}: SyntaxHighlightProps & {dark:boolean}): JSX.Element {
+    return (
+        <SyntaxHighLighting lang={lang} dark={dark}>
+            {children}
+        </SyntaxHighLighting>
+    );
+}) as React.ComponentType<SyntaxHighlightProps>);
+    
