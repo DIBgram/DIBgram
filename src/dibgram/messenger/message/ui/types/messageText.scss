@@ -1,0 +1,29 @@
+.history-message .content.text .link-preview {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-inline-start: 1px;
+    border-inline-start: 2px solid var(--theme-color-msgInReplyBarColor);
+    padding-left: 8px;
+
+    .site-name {
+        unicode-bidi: plaintext;
+        font-weight: 500;
+        color: var(--theme-color-msgInServiceFg);
+    }
+
+    .title {
+        unicode-bidi: plaintext;
+        font-weight: 500;
+    }
+
+    .description {
+        unicode-bidi: plaintext;
+        
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+                line-clamp: 3; 
+        -webkit-box-orient: vertical;
+    }
+}
