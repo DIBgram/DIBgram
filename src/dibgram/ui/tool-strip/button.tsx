@@ -15,10 +15,9 @@ type ToolStripButtonProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDiv
  */
 export default function ToolStripButton({icon, text, children, hideIcon, ...rest}: ToolStripButtonProps): JSX.Element {
     const ripple = React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
     return (
-        <div className="tool-strip-button" {...rest}
-            onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}>
+        <div className="tool-strip-button" {...rest} {...rippleEvents}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgRipple)"/>
             <div className="content">
                 {(!hideIcon) && <div className="icon" dangerouslySetInnerHTML={{__html: icon || ''}}></div>} 

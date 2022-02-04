@@ -11,9 +11,9 @@ type ComposeButtonProps = {
 
 export default function ComposeButton({ onClick, children, ...rest }: ComposeButtonProps): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
     return (
-        <button className="compose-button" onClick={onClick} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave} {...rest}>
+        <button className="compose-button" onClick={onClick} {...rippleEvents} {...rest}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-historyComposeButtonBgRipple)"/>
             <div className="content">{children}</div>
         </button>

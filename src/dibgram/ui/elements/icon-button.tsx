@@ -11,9 +11,9 @@ export type IconButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes
  */
 export default function IconButton({icon, ...rest}: IconButtonProps): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
     return (
-        <button className="icon-button" {...rest} {...{onMouseDown, onMouseUp, onMouseLeave}}>
+        <button className="icon-button" {...rest} {...rippleEvents}>
             <span dangerouslySetInnerHTML={{__html: icon}} />
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgOver)" small={true}/>
         </button>

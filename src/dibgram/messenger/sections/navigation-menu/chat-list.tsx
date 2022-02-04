@@ -182,7 +182,7 @@ const ArchivedChatsItem= (connect<ArchivedChatsItemStoreProps, unknown, Archived
 
     // Ripple
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
 
     function onArchiveOpen() {
         chatStore.dispatch({
@@ -205,9 +205,8 @@ const ArchivedChatsItem= (connect<ArchivedChatsItemStoreProps, unknown, Archived
         case 'expanded': // Looks like a regular chat
         default:
             return (
-                <div 
+                <div {...rippleEvents}
                     className="chat archived" onClick={onArchiveOpen}
-                    onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
                     onContextMenu={e=> createContextMenu(e, (
                         <Menu.MenuContents>
                             <Menu.MenuItem onClick={()=>{
@@ -266,9 +265,8 @@ const ArchivedChatsItem= (connect<ArchivedChatsItemStoreProps, unknown, Archived
 
         case 'collapsed': // Only title / tiny icon
             return (
-                <div
+                <div {...rippleEvents}
                     className="chat archived collapsed" onClick={onArchiveOpen}
-                    onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}
                     onContextMenu={e=> createContextMenu(e, (
                         <Menu.MenuContents>
                             <Menu.MenuItem onClick={()=>{

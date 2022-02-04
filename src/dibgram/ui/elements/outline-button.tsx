@@ -11,9 +11,9 @@ type OutlineButtonProps= {
 
 export function OutlineButton({onClick, children, ...rest}: OutlineButtonProps): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
     return (
-        <button className="outline-button" onClick={onClick} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseLeave={onMouseLeave} {...rest}>
+        <button className="outline-button" onClick={onClick} {...rippleEvents} {...rest}>
             <RippleEffect {...ripple[0]} color=""/>{/* TODO: Find the color */}
             <div className="content">{children}</div>
         </button>

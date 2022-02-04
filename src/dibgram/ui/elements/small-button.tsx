@@ -17,14 +17,12 @@ type SmallButtonProps= {
  */
 export default function SmallButton ({children, attention, ...rest}: SmallButtonProps): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
     return (
         <button 
             className="small-button" 
             data-attention={attention? 'true': 'false'}
-            onMouseDown={mouseDown}
-            onMouseUp={mouseUp}
-            onMouseLeave={mouseLeave}
+            {...rippleEvents}
             {...rest}>
 
             <RippleEffect {...ripple[0]} color="var(--theme-color-lightButtonBgRipple)"/>

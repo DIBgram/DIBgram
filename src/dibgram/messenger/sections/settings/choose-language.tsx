@@ -71,9 +71,9 @@ type LanguagePackProps= {
 
 export function LanguagePack({pack, onClick, selected}: LanguagePackProps): JSX.Element {
     const ripple = React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [mouseDown, mouseUp, mouseLeave] = handleMyMouseEventsFunction(ripple);
+    const rippleEvents = handleMyMouseEventsFunction(ripple);
     return (
-        <div className="language-pack-item" onClick={onClick} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}>
+        <div className="language-pack-item" onClick={onClick} {...rippleEvents}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgRipple)"/>
             <div className="content">
                 <input type="radio" name="settings-language-pack-selector" checked={selected}/>

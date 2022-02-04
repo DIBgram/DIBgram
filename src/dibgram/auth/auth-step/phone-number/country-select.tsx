@@ -57,9 +57,9 @@ type CountrySelectItemProps= {
 
 export function CountrySelectItem({country, onClick}: CountrySelectItemProps): JSX.Element {
     const ripple = React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [mouseDown, mouseUp, mouseLeave] = handleMyMouseEventsFunction(ripple);
+    const rippleEvents = handleMyMouseEventsFunction(ripple);
     return (
-        <div className="country-select-item" onClick={onClick} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}>
+        <div className="country-select-item" onClick={onClick} {...rippleEvents}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgRipple)"/>
             <div className="content">
                 <span className="name">{country.english_name}</span>

@@ -6,7 +6,7 @@ import { getRtlMode } from '../../language-pack/language-pack';
 
 export default function ThreeDotsMenu({children, className, ...rest}: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
+    const {onMouseDown, onMouseUp, onMouseLeave}= handleMyMouseEventsFunction(ripple);
 
     const [visible, setVisible]= React.useState(false);
 

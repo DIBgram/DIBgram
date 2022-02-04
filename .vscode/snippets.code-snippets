@@ -27,7 +27,7 @@
 		"prefix": "ripple",
 		"body": [
 			"const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});",
-			"const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);"
+			"const rippleEvents= handleMyMouseEventsFunction(ripple);"
 		],
 	},
 	"Ripple effect": {

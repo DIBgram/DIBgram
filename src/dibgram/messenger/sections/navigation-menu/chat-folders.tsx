@@ -28,7 +28,7 @@ type ChatFolderProps = {
 export function ChatFolder({folder, active, onClick, unread}: ChatFolderProps): JSX.Element {
     // Ripple effect
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [mouseDown, mouseUp, mouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
 
     const [iconName, setIconName]= React.useState(folder.icon_name);
 
@@ -68,10 +68,7 @@ export function ChatFolder({folder, active, onClick, unread}: ChatFolderProps): 
     return (
         <div className={active ? 'item active' : 'item'}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-sideBarBgRipple)"/>
-            <button
-                onMouseDown={mouseDown}
-                onMouseUp={mouseUp}
-                onMouseLeave={mouseLeave}
+            <button {...rippleEvents}
                 onClick={handleClick}>
 
                 <div className="icon" dangerouslySetInnerHTML={{__html: icon}}></div>

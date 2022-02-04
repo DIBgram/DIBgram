@@ -133,9 +133,16 @@ export function handleMyMouseEvents(This: RippleableComponent): ((e: React.Mouse
         }).bind(This)
     ];
 }
+
+type RippleEffectEvents= {
+    onMouseDown:  (e: React.MouseEvent) => void,
+    onMouseUp:    (e: React.MouseEvent) => void,
+    onMouseLeave: (e: React.MouseEvent) => void
+}
+
 // Assign your `mouseDown`, `mouseUp` and `mouseLeave` to the returned functions.
-export function handleMyMouseEventsFunction([ripple, setRipple]: [RippleEffectProps_AutoSettable, React.Dispatch<React.SetStateAction<RippleEffectProps_AutoSettable>>]): ((e: React.MouseEvent) => void)[] {
-    function down(e: React.MouseEvent): void {
+export function handleMyMouseEventsFunction([ripple, setRipple]: [RippleEffectProps_AutoSettable, React.Dispatch<React.SetStateAction<RippleEffectProps_AutoSettable>>]): RippleEffectEvents {
+    function onMouseDown(e: React.MouseEvent): void {
         // Reset the ripple effect if it's not off
         if(ripple.state!='off'){
             setRipple({ state: 'off' });
@@ -157,7 +164,7 @@ export function handleMyMouseEventsFunction([ripple, setRipple]: [RippleEffectPr
         });
     }
 
-    function up(e: React.MouseEvent): void {
+    function onMouseUp(e: React.MouseEvent): void {
         setRipple ({
             state: 'released',
             X: e.nativeEvent.offsetX,
@@ -167,11 +174,11 @@ export function handleMyMouseEventsFunction([ripple, setRipple]: [RippleEffectPr
         });
     }
 
-    function leave(e: React.MouseEvent): void {
+    function onMouseLeave(e: React.MouseEvent): void {
         if(ripple.state=='pressed') {
-            up(e);
+            onMouseUp(e);
         }
     }
     
-    return [down, up, leave];
+    return { onMouseDown, onMouseUp, onMouseLeave };
 }

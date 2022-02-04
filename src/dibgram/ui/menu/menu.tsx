@@ -29,9 +29,9 @@ export type Menu_MenuitemProps = {
  */
 Menu.MenuItem= function MenuItem({children, icon, ...rest}: Menu_MenuitemProps & React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [mouseDown, mouseUp, mouseLeave] = handleMyMouseEventsFunction(ripple);
+    const rippleEvents = handleMyMouseEventsFunction(ripple);
     return (
-        <div className="menu-item" {...rest} onMouseDown={mouseDown} onMouseUp={mouseUp} onMouseLeave={mouseLeave}>
+        <div className="menu-item" {...rest} {...rippleEvents}>
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgRipple)"/>
             {icon ? 
                 <div className="content has-icon">

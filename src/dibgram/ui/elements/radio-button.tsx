@@ -7,9 +7,9 @@ import './radio-button.scss';
  */
 export default function RadioButton(props: React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>): JSX.Element {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
     return (
-        <button className="radio-button" {...{onMouseDown, onMouseUp, onMouseLeave}}>
+        <button className="radio-button" {...rippleEvents}>
             <input type="radio" {...props}/>
             <RippleEffect {...ripple[0]} color="var(--theme-color-windowBgOver)" small={true}/>
         </button>

@@ -11,10 +11,9 @@ type SignUpProfilePicProps= {
 
 export default function SignUpProfilePic({image, onChange}: SignUpProfilePicProps): React.ReactElement {
     const ripple= React.useState<RippleEffectProps_AutoSettable>({state: 'off'});
-    const [onMouseDown, onMouseUp, onMouseLeave]= handleMyMouseEventsFunction(ripple);
+    const rippleEvents= handleMyMouseEventsFunction(ripple);
     return (
-        <div className={'icon-button sign-up-profile-pic' + (image? ' has-image' : '')} 
-            {...{onMouseDown, onMouseUp, onMouseLeave}}>
+        <div className={'icon-button sign-up-profile-pic' + (image? ' has-image' : '')} {...rippleEvents}>
 
             {image && <img src={blobToUrl(image)} alt="profile"/>}
             <RippleEffect {...ripple[0]} color="var(--theme-color-activeButtonBgRipple)" small={true}/>
