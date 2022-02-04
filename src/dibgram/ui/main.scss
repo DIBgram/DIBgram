@@ -48,6 +48,10 @@ code, pre {
     outline: none;
 }
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
 ::selection {
     background-color: var(--theme-color-msgInBgSelected);
 }
