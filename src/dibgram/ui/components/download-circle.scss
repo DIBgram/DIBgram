@@ -1,0 +1,57 @@
+.download-circle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .download-circle {
+        position: relative;
+        border-radius: 50%;
+        height: 44px;
+        width: 44px;
+        background: var(--theme-color-msgDateImgBg);
+        transition: background-color 0.3s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon svg {
+            fill: var(--theme-color-historyFileThumbIconFg);
+        }
+
+        .icon.download,
+        .icon.download svg {
+            width: 18px;
+            height: 22px;
+        }
+
+        .icon.cancel,
+        .icon.cancel svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        div:not(.icon) {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+
+            svg {
+                animation-duration: 3s !important;
+            }
+        }
+    }
+
+    &:hover {
+        .download-circle {
+            background: var(--theme-color-msgDateImgBgOver);
+        }
+    }
+}

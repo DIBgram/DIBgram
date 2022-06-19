@@ -3,6 +3,9 @@ import { createTdClient } from './tdweb';
 import {getConfig} from './config';
 import TdApi from './td_api';
 import removeItemFromArray from '../../remove-item-from-array';
+
+const {log}= getConfig();
+
 export function getUseTestDc() {
     var urlPar=new URL(window.location.href).searchParams.get('test');
     if(urlPar){
@@ -27,18 +30,10 @@ export default class TdLib {
      * Creates the instance of Tdweb
      */
     static initializeTdLib() {
-        const {log}= getConfig();
         TdLib.#tdClient= createTdClient({
             useDatabase: true,
             instanceName: ( getCurrentSessionId() ) + (getUseTestDc() ? 'test' : 'production'), // e.g. ?account=1&test=1 = '1test' or ?account=1&test=0 = '1production'
-            onUpdate: function (update: TdApi.td_Update) {
-                if(log.log_updates) {
-                    console.log('Update: ',update);
-                }
-                if(TdLib.#updateHandlers[update['@type']]){
-                    TdLib.#updateHandlers[update['@type']].forEach(h => h(update));
-                }
-            }
+            onUpdate: this.handleUpdate
         });
         return TdLib.sendQuery({'@type': 'getAuthorizationState'}); // It both starts TDLib and returns the authorization state
     }
@@ -73,8 +68,7 @@ export default class TdLib {
      * @param query The request to send. Consult TdLib & JSON interface API for help.
      * @returns The result of the request
      */
-    static sendQuery<T extends TdApi.TdFunction>(query: T): Promise<TdApi.TdFunctionReturn<T> | TdApi.td_Error> {
-        const {log}= getConfig();
+    static sendQuery<T extends TdApi.TdFunction>(query: T): Promise<TdApi.TdFunctionReturn<T>> {
         if(log.log_queries && query['@type']!=='setTdlibParameters') {
             console.log('Query: ',query);
         }
@@ -92,5 +86,17 @@ export default class TdLib {
             }
             );
         });
+    }
+
+    /**
+     * Handles a TDLib update
+     */
+    static handleUpdate(update: TdApi.td_Update) {
+        if(log.log_updates) {
+            console.log('Update: ',update);
+        }
+        if(TdLib.#updateHandlers[update['@type']]){
+            TdLib.#updateHandlers[update['@type']].forEach(h => h(update));
+        }
     }
 }

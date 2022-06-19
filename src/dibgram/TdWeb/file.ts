@@ -7,7 +7,7 @@ import TdApi from './td_api';
  * @param priority From 1 to 32, higher number results in earlier download
  * @returns File object
  */
-export function downloadFile (file_id: number, priority: number): Promise<TdApi.td_file> {
+export function downloadFile(file_id: number, priority: number): Promise<TdApi.td_file> {
     let onReject;
     TdLib.sendQuery({
         '@type': 'downloadFile',
@@ -16,7 +16,13 @@ export function downloadFile (file_id: number, priority: number): Promise<TdApi.
         'offset': 0,
         'limit': 0,
         'synchronous': false
-    }).catch(onReject);
+    }).then((res)=> {
+        const file = res as TdApi.td_file;
+        TdLib.handleUpdate({ // TDLib will not sent an update when file.local.is_downloading_active changes. We can inject one here.
+            '@type': 'updateFile',
+            file
+        });
+    }, onReject);
 
     return new Promise((resolve, reject) => {
         downloadCallbacks[file_id]= (result: TdApi.td_file) => {
@@ -26,6 +32,16 @@ export function downloadFile (file_id: number, priority: number): Promise<TdApi.
         onReject=reject;
     });
 }
+
+export function cancelDownloadFile(file_id: number): void {
+    TdLib.sendQuery({
+        '@type': 'cancelDownloadFile',
+        file_id
+    }).then(() => {
+        delete downloadCallbacks[file_id];
+    });
+}
+
 const downloadCallbacks: {[key: number]: (result: TdApi.td_file) => void} = {};
 
 TdLib.registerUpdateHandler<TdApi.td_updateFile>('updateFile', function (update) {

@@ -1,0 +1,14 @@
+.history-photo {
+    overflow: hidden;
+    position: relative;
+
+    img {
+        width: 100%;
+
+        &.thumbnail {
+            filter: blur(7px);
+            transform: scale(1.07);
+        }
+    }
+
+}

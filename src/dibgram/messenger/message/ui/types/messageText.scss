@@ -5,25 +5,37 @@
     border-inline-start: 2px solid var(--theme-color-msgInReplyBarColor);
     padding-left: 8px;
 
-    .site-name {
+    .texts {
         unicode-bidi: plaintext;
-        font-weight: 500;
-        color: var(--theme-color-msgInServiceFg);
-    }
-
-    .title {
-        unicode-bidi: plaintext;
-        font-weight: 500;
-    }
-
-    .description {
-        unicode-bidi: plaintext;
-        
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
-                line-clamp: 3; 
+        -webkit-line-clamp: 4;
+                line-clamp: 4; 
         -webkit-box-orient: vertical;
+
+        .site-name {
+            unicode-bidi: plaintext;
+            font-weight: 500;
+            color: var(--theme-color-msgInServiceFg);
+        }
+    
+        .title {
+            font-weight: 500;
+            
+            unicode-bidi: plaintext;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+                    line-clamp: 2; 
+            -webkit-box-orient: vertical;
+        }
+    }
+
+    .history-photo {
+        margin-top: 5px;
+        border-radius: 3px;
+        overflow: hidden;
     }
 }
