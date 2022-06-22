@@ -129,7 +129,7 @@ class ChatListItem extends React.Component<ChatListItemProps, ChatListItemState>
         }
 
         let unreadBadge = null;
-        const unreadBadgeClass= chat.notification_settings.mute_for ? 'unread-badge muted' : 'unread-badge';
+        const unreadBadgeClass= (chat.notification_settings.mute_for||chat.notification_settings.use_default_mute_for) ? 'unread-badge muted' : 'unread-badge';
         // Show the mention badge alone if there is exactly one mention and no other unread messages
         if (chat.unread_mention_count == 1 && chat.unread_count == chat.unread_mention_count) {
             unreadBadge = <span className="unread-badge mention">@</span>;
