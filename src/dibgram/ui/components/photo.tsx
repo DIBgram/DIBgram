@@ -5,10 +5,10 @@ import './photo.scss';
 import DownloadCircle from './download-circle';
 import TdLib from '../../TdWeb/tdlib';
 
-function getBestPhotoSize(sizes: TdApi.td_photoSize[]) {
+export function getBestPhotoSize(sizes: TdApi.td_photoSize[], minWidth = 400): TdApi.td_photoSize {
     // Get smallest photo size with width >= 400
     const sorted= sizes.sort((a, b) => a.width - b.width);
-    return sorted.find(s => s.width >= 400) || sorted[0];
+    return sorted.find(s => s.width >= minWidth) || sorted[0];
 }
 
 type PhotoProps = {

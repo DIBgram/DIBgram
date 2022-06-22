@@ -38,4 +38,15 @@
         border-radius: 3px;
         overflow: hidden;
     }
+
+    &.has-side-photo {
+        display: flex;
+
+        .photo-thumbnail {
+            float: right;
+            height: 50px;
+            border-radius: 3px;
+            margin-left: 5px;
+        }
+    }
 }
