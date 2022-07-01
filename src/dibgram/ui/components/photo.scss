@@ -1,13 +1,28 @@
 .history-photo {
     overflow: hidden;
     position: relative;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    min-height: 100px;
+    max-width: max-content;
+    width: 100%;
+    
     img {
-        width: 100%;
+        max-width: 430px;
+        max-height: 430px;
+        object-fit: contain;
+        max-width: 100%;
+        height: auto;
 
-        &.thumbnail {
+        &.thumbnail:not(.behind) {
             filter: blur(7px);
-            transform: scale(1.07);
+        }
+
+        &.behind {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
         }
     }
 

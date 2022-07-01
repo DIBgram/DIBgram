@@ -42,6 +42,10 @@
     &.has-side-photo {
         display: flex;
 
+        .texts {
+            flex-grow: 1;
+        }
+
         .photo-thumbnail {
             float: right;
             height: 50px;
