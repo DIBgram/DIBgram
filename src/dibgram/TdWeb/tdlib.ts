@@ -2,9 +2,10 @@
 import { createTdClient } from './tdweb';
 import {getConfig} from './config';
 import TdApi from './td_api';
-import removeItemFromArray from '../../remove-item-from-array';
 
 const {log}= getConfig();
+
+let lastUniqueId = 0;
 
 export function getUseTestDc() {
     var urlPar=new URL(window.location.href).searchParams.get('test');
@@ -24,7 +25,7 @@ export function getCurrentSessionId() {
 export default class TdLib {
     static #tdClient: any;
     /** @type {[string: Array<Function>]} */
-    static #updateHandlers: {[key: string]: ((update: any) => void)[]}={};
+    static #updateHandlers: {[key: string]: ([(update: any) => void, number])[]}={};
 
     /**
      * Creates the instance of Tdweb
@@ -42,24 +43,27 @@ export default class TdLib {
      * Listen for updates from TdLib
      * @param type The type of the update to listen to. Look for TdLib API docs for types
      * @param handler The function that gets called with the update object when the update is received
+     * @returns an ID that can be used to unregister the handler
      */
-    static registerUpdateHandler<T extends TdApi.Update>(type: T['@type'], handler: (update: T) => void): void {
+    static registerUpdateHandler<T extends TdApi.Update>(type: T['@type'], handler: (update: T) => void): number {
         if(TdLib.#updateHandlers[type]===undefined){
             TdLib.#updateHandlers[type]= [];
         }
-        TdLib.#updateHandlers[type].push(handler);
+        const id= ++lastUniqueId;
+        TdLib.#updateHandlers[type].push([handler, id]);
+        return id;
     }
 
     /**
      * Remove an existing update handler
-     * @param {string} type The type of the update to remove handler from. Look for TdLib API docs for types
-     * @param {Function} handler The handler to remove
+     * @param type The type of the update to remove handler from. Look for TdLib API docs for types
+     * @param handler The ID of the handler to remove (returned by registerUpdateHandler)
      */
-    static unRegisterUpdateHandler<T extends TdApi.Update>(type: T['@type'], handler: (update: T) => void): void {
+    static unRegisterUpdateHandler<T extends TdApi.Update>(type: T['@type'], handlerId: number): void {
         if(TdLib.#updateHandlers[type]===undefined){
             return;
         }
-        removeItemFromArray.call(TdLib.#updateHandlers[type], handler);
+        TdLib.#updateHandlers[type]= TdLib.#updateHandlers[type].filter(h => h[1]!==handlerId);
     }
 
     /**
@@ -96,7 +100,7 @@ export default class TdLib {
             console.log('Update: ',update);
         }
         if(TdLib.#updateHandlers[update['@type']]){
-            TdLib.#updateHandlers[update['@type']].forEach(h => h(update));
+            TdLib.#updateHandlers[update['@type']].forEach(h => h[0](update));
         }
     }
 }

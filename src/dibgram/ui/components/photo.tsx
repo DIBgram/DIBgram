@@ -22,26 +22,15 @@ export default function Photo({photo, priority=1, getBestSize= getBestPhotoSize,
     const [blob, setBlob] = React.useState<Blob | null>(null);
     const [photoSize, setPhotoSize] = React.useState<TdApi.photoSize | null>(null);
 
-    const onUpdateFile = React.useCallback(function onUpdateFile(upd: TdApi.updateFile) {
-        if(upd.file.id === photoSize?.photo?.id) {
-            setPhotoSize(s=> (s? {...s, photo: upd.file}: null));
-        }
-    }, [photoSize?.photo]);
-
     React.useEffect(() => {
         if (photo.sizes.length > 0) {
             const size = getBestSize(photo.sizes);
             const fl = size.photo;
             setPhotoSize(size);
-            // getFileContent(size.photo, priority).then(part => setBlob(part.data));
             TdLib.sendQuery({
                 '@type': 'getFile',
                 file_id: fl.id
             }).then(f=> setPhotoSize(s=> (s? {...s, photo: f}: null)));
-            TdLib.registerUpdateHandler<TdApi.updateFile>('updateFile', onUpdateFile);
-            return ()=> {
-                TdLib.unRegisterUpdateHandler<TdApi.updateFile>('updateFile', onUpdateFile);
-            };
         }
     }, [photo]);
 
@@ -55,6 +44,19 @@ export default function Photo({photo, priority=1, getBestSize= getBestPhotoSize,
             setBlob(null);
         }
     }, [photoSize?.photo]);
+
+    React.useEffect(() => {
+        const hid = TdLib.registerUpdateHandler<TdApi.updateFile>('updateFile', update => {
+            console.log('updateFile');
+            if(update.file.id === photoSize?.photo.id) {
+                console.log('correct id');
+                setPhotoSize(s=> (s? {...s, photo: update.file}: null));
+            }
+        });
+        return ()=> {
+            TdLib.unRegisterUpdateHandler<TdApi.updateFile>('updateFile', hid);
+        };
+    }, [photoSize?.photo.id]);
 
     if(photoSize) {
         let width = photoSize.width, height = photoSize.height;
