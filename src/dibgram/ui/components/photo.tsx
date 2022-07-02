@@ -95,17 +95,17 @@ export default function Photo({photo, priority=1, getBestSize= getBestPhotoSize,
             } else {
                 return (
                     <div className='history-photo' onClick={onClick}>
+                        <DownloadCircle file={photoSize.photo} priority={priority}/>
                     </div>
                 );
             }
         } else {
             return (
-                <div className='history-photo' onClick={onClick}>
+                <div className='history-photo'>
                     <img 
                         src={blobToUrl(blob)} 
                         alt='thumbnail'
-                        // height={height}
-                        // width={width}
+                        onClick={onClick}
                     />
                 </div>
             );
