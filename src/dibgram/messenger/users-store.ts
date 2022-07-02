@@ -3,16 +3,16 @@ import TdLib from '../TdWeb/tdlib';
 import TdApi from '../TdWeb/td_api';
 
 export type UsersStoreState = {
-    [id: number]: TdApi.td_user;
+    [id: number]: TdApi.user;
 }
 
 export type UsersStoreAction = {
     type: 'UPD_USER',
-    user: TdApi.td_user;
+    user: TdApi.user;
 } | {
     type: 'UPD_USER_STATUS',
     userId: number;
-    status: TdApi.td_UserStatus;
+    status: TdApi.UserStatus;
 }
 
 const usersStore: Store<UsersStoreState, UsersStoreAction> = createStore<UsersStoreState, UsersStoreAction, any, any>((state = {}, action) => {
@@ -36,14 +36,14 @@ const usersStore: Store<UsersStoreState, UsersStoreAction> = createStore<UsersSt
     //eslint-disable-next-line @typescript-eslint/no-explicit-any
 }, (window as any).__REDUX_DEVTOOLS_EXTENSION__?.());
 
-TdLib.registerUpdateHandler<TdApi.td_updateUser>('updateUser', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateUser>('updateUser', (update) => {
     usersStore.dispatch({
         type: 'UPD_USER',
         user: update.user
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateUserStatus>('updateUserStatus', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateUserStatus>('updateUserStatus', (update) => {
     usersStore.dispatch({
         type: 'UPD_USER_STATUS',
         userId: update.user_id,

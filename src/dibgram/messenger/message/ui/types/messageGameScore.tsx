@@ -11,9 +11,9 @@ export default function MessageGameScore({message, chat, users}: MessageProps): 
         throw new Error('Message is not messageGameScore');
     }
 
-    const [gameMessage, setGameMessage] = React.useState<TdApi.td_message|0|-1>(0);
+    const [gameMessage, setGameMessage] = React.useState<TdApi.message|0|-1>(0);
 
-    function handleMessageQuery(result: TdApi.td_message|TdApi.td_error) {
+    function handleMessageQuery(result: TdApi.message|TdApi.error) {
         if(result['@type'] == 'error') {
             setGameMessage(-1);
         }
@@ -23,7 +23,7 @@ export default function MessageGameScore({message, chat, users}: MessageProps): 
     }
 
     React.useEffect(() => {
-        message.content = message.content as TdApi.td_messageGameScore;
+        message.content = message.content as TdApi.messageGameScore;
         if(gameMessage == 0) {
             const gmessage= messageStore.getState().messages[message.content.game_message_id];
             if(gmessage) {
@@ -53,7 +53,7 @@ export default function MessageGameScore({message, chat, users}: MessageProps): 
                 lpString="lng_action_game_score"
                 lpString_you="lng_action_game_you_scored"
                 count={message.content.score}
-                params={{game: (gameMessage.content as TdApi.td_messageGame).game.title}}/>
+                params={{game: (gameMessage.content as TdApi.messageGame).game.title}}/>
         </ServiceMessage>
     );
 }

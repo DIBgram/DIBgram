@@ -12,7 +12,7 @@ import __, { __fmt } from '../../../language-pack/language-pack';
 import TdApi from '../../../TdWeb/td_api';
 
 type AuthWindowStepPasswordProps = {
-    info: TdApi.td_authorizationStateWaitPassword;
+    info: TdApi.authorizationStateWaitPassword;
 }
 
 type AuthWindowStepPasswordState = {

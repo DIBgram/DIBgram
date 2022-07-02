@@ -4,7 +4,7 @@ import { getFileContent, blobToUrl } from '../../TdWeb/file';
 import { getBestPhotoSize } from './photo';
 
 type ThumbnailProps = {
-    photo: TdApi.td_photo,
+    photo: TdApi.photo,
     priority?: number,
 }
 

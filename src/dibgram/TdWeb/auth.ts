@@ -4,7 +4,7 @@ import {getUseTestDc} from './tdlib';
 import version from '../../version';
 import TdApi from './td_api';
 
-TdLib.registerUpdateHandler<TdApi.td_updateAuthorizationState>('updateAuthorizationState',function (update) {
+TdLib.registerUpdateHandler<TdApi.updateAuthorizationState>('updateAuthorizationState',function (update) {
     const credentials= getCredentials();
     const auth_state= update['authorization_state'];
     
@@ -40,7 +40,7 @@ export default class Auth {
      * @param {string} number The phone number the user entered
      * @returns TdLib query result
      */
-    static givePhoneNumber(number: string): Promise<TdApi.td_error | TdApi.td_ok> {
+    static givePhoneNumber(number: string): Promise<TdApi.ok> {
         return TdLib.sendQuery({'@type': 'setAuthenticationPhoneNumber', 'phone_number': number});
     }
     /**
@@ -48,7 +48,7 @@ export default class Auth {
      * @param {string} code The code the user entered
      * @returns TdLib query result
      */
-    static checkAuthCode(code: string): Promise<TdApi.td_error | TdApi.td_ok> {
+    static checkAuthCode(code: string): Promise<TdApi.ok> {
         return TdLib.sendQuery({'@type': 'checkAuthenticationCode', 'code': code});
     }
     /**
@@ -56,7 +56,7 @@ export default class Auth {
      * @param {string} pass The password the user entered
      * @returns TdLib query result
      */
-    static check2FACode(pass: string): Promise<TdApi.td_error | TdApi.td_ok> {
+    static check2FACode(pass: string): Promise<TdApi.ok> {
         return TdLib.sendQuery({'@type': 'checkAuthenticationPassword', 'password': pass});
     }
     /**
@@ -65,7 +65,7 @@ export default class Auth {
      * @param {string} last Tha last name to be used in the new account
      * @returns TdLib query result
      */
-    static registerNewAccount(first: string, last: string): Promise<TdApi.td_error | TdApi.td_ok> {
+    static registerNewAccount(first: string, last: string): Promise<TdApi.ok> {
         return TdLib.sendQuery({'@type': 'registerUser', 'first_name': first, 'last_name': last});
     }
 }

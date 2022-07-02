@@ -9,13 +9,13 @@ import { MessageBubble } from '../message-containers';
 import './sponsored.scss';
 
 type SponsoredMessageProps= {
-    message: TdApi.td_SponsoredMessage;
+    message: TdApi.SponsoredMessage;
     chat_id: number;
     viewport: React.RefObject<HTMLElement>;
 }
 
 export default function SponsoredMessage({message, chat_id, viewport}: SponsoredMessageProps): JSX.Element {
-    const chat= getChatNoCache(message.sponsor_chat_id) as TdApi.td_chat;
+    const chat= getChatNoCache(message.sponsor_chat_id) as TdApi.chat;
 
     const [viewed, setViewed]= React.useState(false);
     const ref= React.useRef<HTMLDivElement>(null);
@@ -55,7 +55,7 @@ export default function SponsoredMessage({message, chat_id, viewport}: Sponsored
                 </div>
                 <div className="content">
                     <div ref={ref}>
-                        {compileEntities((message.content as TdApi.td_messageText).text)}
+                        {compileEntities((message.content as TdApi.messageText).text)}
                     </div>
                     <div className="footer">
                         <div className="text"> {__('lng_sponsored')}</div>

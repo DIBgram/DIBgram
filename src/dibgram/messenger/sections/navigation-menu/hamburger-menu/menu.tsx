@@ -29,7 +29,7 @@ type HamburgerMenuSelfProps = {
 }
 
 type HamburgerMenuStoreProps = {
-    chats: TdApi.td_chat[];
+    chats: TdApi.chat[];
     archiveButtonState: 'expanded' | 'collapsed' | 'hidden-expanded' | 'hidden-collapsed';
 }
 
@@ -43,20 +43,19 @@ const HamburgerMenu= (connect<HamburgerMenuStoreProps, unknown, HamburgerMenuSel
     archiveButtonState: state.archiveButtonState,
 })) (
     function HamburgerMenu ({visible, onClose, chats, archiveButtonState}: HamburgerMenuProps): JSX.Element {
-        const [me, setMe] = React.useState<TdApi.td_user|null>(null);
+        const [me, setMe] = React.useState<TdApi.user|null>(null);
         React.useEffect(() => {
             TdLib.sendQuery({ // Get current user info
                 '@type': 'getMe'
             }).then(result => {
-                result= result as TdApi.td_user;
                 // Format phone number and put it in state
                 if(result.phone_number) {
                     TdLib.sendQuery({
                         '@type': 'getPhoneNumberInfo',
                         phone_number_prefix: result.phone_number
                     }).then(info => {
-                        result= result as TdApi.td_user;
-                        info = info as TdApi.td_phoneNumberInfo;
+                        result= result as TdApi.user;
+                        info = info as TdApi.phoneNumberInfo;
                         // Format phone number
                         if(info.country_calling_code){
                             result.phone_number= `+${info.country_calling_code} ${info.formatted_phone_number}`;

@@ -3,12 +3,12 @@ import TdLib from '../TdWeb/tdlib';
 import TdApi from '../TdWeb/td_api';
 
 export type SupergroupStoreState= {
-    [id: number]: TdApi.td_supergroup;
+    [id: number]: TdApi.supergroup;
 }
 
 export type SupergroupStoreAction= {
     type: 'UPD_SUPERGROUP',
-    supergroup: TdApi.td_supergroup;
+    supergroup: TdApi.supergroup;
 }
 
 function reducer(state: SupergroupStoreState= {}, action: SupergroupStoreAction): SupergroupStoreState {
@@ -26,7 +26,7 @@ function reducer(state: SupergroupStoreState= {}, action: SupergroupStoreAction)
 const supergroupStore= createStore<SupergroupStoreState, SupergroupStoreAction, any, any>(reducer);
 export default supergroupStore;
 
-TdLib.registerUpdateHandler<TdApi.td_updateSupergroup>('updateSupergroup', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateSupergroup>('updateSupergroup', (update) => {
     supergroupStore.dispatch({
         type: 'UPD_SUPERGROUP',
         supergroup: update.supergroup

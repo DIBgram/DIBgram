@@ -15,7 +15,7 @@ import __, { __fmt } from '../../../language-pack/language-pack';
 import TdApi from '../../../TdWeb/td_api';
 
 type AuthWindowStepRegisterProps = {
-    tos: TdApi.td_termsOfService
+    tos: TdApi.termsOfService
 }
 
 type AuthWindowStepRegisterState = {

@@ -21,7 +21,7 @@ import { ConnectionStoreState } from '../../../TdWeb/connectionStore';
 import Scrollbars from 'react-custom-scrollbars-2';
 import { menu_collapse, menu_expand, menu_move_to_menu } from '../../../ui/icon/menu/menu';
 
-export type ChatWPosition = TdApi.td_chat & {position: TdApi.td_chatPosition};
+export type ChatWPosition = TdApi.chat & {position: TdApi.chatPosition};
 
 /**
  * Returns a sorted list of all chats in the given chat list
@@ -30,8 +30,8 @@ export type ChatWPosition = TdApi.td_chat & {position: TdApi.td_chatPosition};
  * @param chats
  * @param list
  */
-export function getChatsFromList(chats: TdApi.td_chat[], list: TdApi.td_ChatList): ChatWPosition[] {
-    return ((chats.map<any>((chat: TdApi.td_chat): (TdApi.td_chat|ChatWPosition|false) => { // Step 1 - get the chat positions which refer to the current list
+export function getChatsFromList(chats: TdApi.chat[], list: TdApi.ChatList): ChatWPosition[] {
+    return ((chats.map<any>((chat: TdApi.chat): (TdApi.chat|ChatWPosition|false) => { // Step 1 - get the chat positions which refer to the current list
         for( const position of chat.positions ) {
             if (compareChatList(list, position.list)) {
                 if( position.order=='0' ) return false; // Replace a chat without a suitable position with `false`
@@ -42,7 +42,7 @@ export function getChatsFromList(chats: TdApi.td_chat[], list: TdApi.td_ChatList
             }
         }
         return chat;
-    }) as (TdApi.td_chat|ChatWPosition|false)[])
+    }) as (TdApi.chat|ChatWPosition|false)[])
         .filter(chat => chat!=false && 'position' in chat) as ChatWPosition[]) // Step 2 - Remove `false` values (chats outside the list)
         .sort((a, b) => { // Step 3 - Sort it by position.order
             const order1= a.position.order, order2= b.position.order;
@@ -58,8 +58,8 @@ export function getChatsFromList(chats: TdApi.td_chat[], list: TdApi.td_ChatList
 }
 
 type ChatListProps= {
-    chats: TdApi.td_chat[],
-    list: TdApi.td_ChatList,
+    chats: TdApi.chat[],
+    list: TdApi.ChatList,
     unread: ChatStoreUnreadData,
     selectedChat: number,
 }
@@ -165,7 +165,7 @@ export default ChatList;
 
 type ArchivedChatsItemProps= {
     /** A list of all chats (not just current list) */
-    chats: TdApi.td_chat[],
+    chats: TdApi.chat[],
 }
 
 type ArchivedChatsItemStoreProps= {
@@ -303,7 +303,7 @@ const ArchivedChatsItem= (connect<ArchivedChatsItemStoreProps, unknown, Archived
 
 type EmptyChatListProps = {
     /** The active chat list */
-    list: TdApi.td_ChatList,
+    list: TdApi.ChatList,
     /** Unread data */
     unread: ChatStoreUnreadData,
 }

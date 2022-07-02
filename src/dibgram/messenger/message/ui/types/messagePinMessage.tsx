@@ -13,9 +13,9 @@ export default function MessagePinMessage({message, chat, users}: MessageProps):
         throw new Error('Message is not messagePinMessage');
     }
 
-    const [pinnedMessage, setPinnedMessage] = React.useState<TdApi.td_message|0|-1>(0);
+    const [pinnedMessage, setPinnedMessage] = React.useState<TdApi.message|0|-1>(0);
 
-    function handleMessageQuery(result: TdApi.td_message|TdApi.td_error) {
+    function handleMessageQuery(result: TdApi.message|TdApi.error) {
         if(result['@type'] == 'error') {
             setPinnedMessage(-1);
         }
@@ -25,7 +25,7 @@ export default function MessagePinMessage({message, chat, users}: MessageProps):
     }
 
     React.useEffect(() => {
-        message.content = message.content as TdApi.td_messagePinMessage;
+        message.content = message.content as TdApi.messagePinMessage;
         if(pinnedMessage == 0) {
             const pmessage= messageStore.getState().messages[message.content.message_id];
             if(pmessage) {

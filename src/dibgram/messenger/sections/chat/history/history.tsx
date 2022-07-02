@@ -26,7 +26,7 @@ export const ChatHistory= connect<MessageStoreState, unknown, ChatSectionContent
         
         const array= Object.keys(messages).length ? processMessageHistory(messages) : [];
         
-        const [sponsoredMessage, setSponsoredMessage]= React.useState<TdApi.td_sponsoredMessage|null>(null);
+        const [sponsoredMessage, setSponsoredMessage]= React.useState<TdApi.sponsoredMessage|null>(null);
 
         const [observer, setObserver]= React.useState<IntersectionObserver|null>(null);
         const [currentlyLoading, setCurrentlyLoading]= React.useState(0);
@@ -63,7 +63,7 @@ export const ChatHistory= connect<MessageStoreState, unknown, ChatSectionContent
                 TdLib.sendQuery({
                     '@type': 'getChatSponsoredMessage',
                     chat_id: chat.id
-                }).then((res)=>(setSponsoredMessage(res as TdApi.td_sponsoredMessage)));
+                }).then((res)=>(setSponsoredMessage(res as TdApi.sponsoredMessage)));
             } else {
                 setSponsoredMessage(null);
             }

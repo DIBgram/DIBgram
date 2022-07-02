@@ -13,7 +13,7 @@ function maybeDeleteNewLines(str: string, doIt: boolean) {
     return doIt? str.replace(/(\n|\r|\r\n|\n\r)/g, ' ') : str;
 }
 
-export default function compileEntities(text: TdApi.td_formattedText, singleLine= false): React.ReactNode {
+export default function compileEntities(text: TdApi.formattedText, singleLine= false): React.ReactNode {
     let last= 0;
     const res: React.ReactNode[]= [];
     /* eslint-disable-next-line no-constant-condition */
@@ -26,7 +26,7 @@ export default function compileEntities(text: TdApi.td_formattedText, singleLine
     return res;
 }
 
-function getEntityJsx(text: string, entity: TdApi.td_textEntity, singleLine=false) {
+function getEntityJsx(text: string, entity: TdApi.textEntity, singleLine=false) {
     const innerText= maybeDeleteNewLines(text.slice(entity.offset, entity.offset + entity.length), singleLine);
 
     if(singleLine) {

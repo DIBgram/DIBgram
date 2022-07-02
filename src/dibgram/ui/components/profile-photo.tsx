@@ -8,8 +8,8 @@ import TdApi from '../../TdWeb/td_api';
 
 /**
  * Converts a name to initials.
- * @param {string} name Input name
- * @returns {string} One or two uppercase letters
+ * @param name Input name
+ * @returns One or two uppercase letters
  */
 export function profileNameToInitials(name: string): string {
     const words=name.replace(/[\u0021-\u002F\u003A-\u0040\u005B-\u0060\u007B-\u007F]/g,'') // Remove non-word characters
@@ -27,7 +27,7 @@ type ProfilePhotoProps = {
     /** Chat type id (supergroup id, user id, etc.), used for initials background */
     id: number|string;
     /** Chat / user photo (e.g. `chat.photo?.small`) */
-    photo?: TdApi.td_file;
+    photo?: TdApi.file;
     /** If false, saved messages icon will be used when user_id = my_id */
     disableSavedMessages?: boolean;
     /** Chat/user name, used for initials */
@@ -39,7 +39,7 @@ type ProfilePhotoProps = {
  */
 export default function ProfilePhoto (props: ProfilePhotoProps): JSX.Element {
     const [photo, setPhoto] = React.useState<string|null>(null);
-    const [photoObj, setPhotoObj] = React.useState<TdApi.td_file|undefined>(undefined);
+    const [photoObj, setPhotoObj] = React.useState<TdApi.file|undefined>(undefined);
     const [loaded, setLoaded] = React.useState(false);
     const isServiceMessages= props.id==options['telegram_service_notifications_chat_id'];
     const isSavedMessages= props.id==options['my_id'];
@@ -49,7 +49,7 @@ export default function ProfilePhoto (props: ProfilePhotoProps): JSX.Element {
         let mounted=true;
         if(props.photo){
             if(photoObj!=props.photo){ // No need for any fetch if the same photo is already loaded
-                getFileContent(props.photo, 8).then((file: TdApi.td_FilePart)=> {
+                getFileContent(props.photo, 8).then((file: TdApi.FilePart)=> {
                     if(!mounted) return;
                     setPhoto(blobToUrl(file.data));
                     setPhotoObj(props.photo);
@@ -120,7 +120,7 @@ export function getIdColorCode(id: string|number): number {
  * @param chat Input chat
  * @returns Chat type ID
  */
-export function getChatTypeId(chat: TdApi.td_chat): number {
+export function getChatTypeId(chat: TdApi.chat): number {
     switch (chat?.type?.['@type']) {
         case 'chatTypeSupergroup': {
             return chat?.type?.supergroup_id;

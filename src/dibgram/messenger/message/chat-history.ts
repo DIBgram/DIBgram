@@ -11,7 +11,7 @@ export function loadChatHistory(chatId: number, fromMessageId = 0, limit= 100): 
             from_message_id: fromMessageId,
             limit: limit
         }).then((result) => {
-            result= result as TdApi.td_messages;
+            result= result as TdApi.messages;
             if(chatId !== chatStore.getState().selectedChat) {
                 resolve(-1);
                 return;
@@ -28,14 +28,14 @@ export function loadChatHistory(chatId: number, fromMessageId = 0, limit= 100): 
     });
 }
 
-TdLib.registerUpdateHandler<TdApi.td_updateNewMessage>('updateNewMessage', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateNewMessage>('updateNewMessage', (update) => {
     if(update.message.chat_id !== chatStore.getState().selectedChat) return;
     messageStore.dispatch({
         type: 'ADD_MESSAGE',
         message: update.message,
     });
 });
-TdLib.registerUpdateHandler<TdApi.td_updateMessageSendSucceeded>('updateMessageSendSucceeded', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateMessageSendSucceeded>('updateMessageSendSucceeded', (update) => {
     if(update.message.chat_id !== chatStore.getState().selectedChat) return;
     messageStore.dispatch({
         type: 'REMOVE_MESSAGES',
@@ -46,14 +46,14 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageSendSucceeded>('updateMessageS
         message: update.message,
     });
 });
-TdLib.registerUpdateHandler<TdApi.td_updateDeleteMessages>('updateDeleteMessages', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateDeleteMessages>('updateDeleteMessages', (update) => {
     if(update.chat_id !== chatStore.getState().selectedChat) return;
     messageStore.dispatch({
         type: 'REMOVE_MESSAGES',
         messageIds: update.message_ids,
     });
 });
-TdLib.registerUpdateHandler<TdApi.td_updateMessageContent>('updateMessageContent', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateMessageContent>('updateMessageContent', (update) => {
     if(update.chat_id !== chatStore.getState().selectedChat) return;
     messageStore.dispatch({
         type: 'REDUCE_MESSAGE',
@@ -66,7 +66,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageContent>('updateMessageContent
         }
     });
 });
-TdLib.registerUpdateHandler<TdApi.td_updateMessageEdited>('updateMessageEdited', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateMessageEdited>('updateMessageEdited', (update) => {
     if(update.chat_id !== chatStore.getState().selectedChat) return;
     messageStore.dispatch({
         type: 'REDUCE_MESSAGE',
@@ -80,7 +80,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageEdited>('updateMessageEdited',
         }
     });
 });
-TdLib.registerUpdateHandler<TdApi.td_updateMessageIsPinned>('updateMessageIsPinned', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateMessageIsPinned>('updateMessageIsPinned', (update) => {
     if(update.chat_id !== chatStore.getState().selectedChat) return;
     messageStore.dispatch({
         type: 'REDUCE_MESSAGE',
@@ -93,7 +93,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageIsPinned>('updateMessageIsPinn
         }
     });
 });
-TdLib.registerUpdateHandler<TdApi.td_updateMessageInteractionInfo>('updateMessageInteractionInfo', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateMessageInteractionInfo>('updateMessageInteractionInfo', (update) => {
     if(update.chat_id !== chatStore.getState().selectedChat) return;
     messageStore.dispatch({
         type: 'REDUCE_MESSAGE',

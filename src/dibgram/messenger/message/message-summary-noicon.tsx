@@ -14,10 +14,10 @@ import { LanguagePackKey, LanguagePackStringName, LanguagePackStringNamePluraliz
 import currencies from '../sections/payments/currencies.json';
 
 type MessageSummaryWithoutIconProps = {
-    message?: TdApi.td_message,
+    message?: TdApi.message,
     className: string,
     users: UsersStoreState,
-    chat: TdApi.td_chat,
+    chat: TdApi.chat,
 }
 
 /**
@@ -358,7 +358,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
             // Get game message
             const GameScoreWithTitle= React.lazy(()=> new Promise<{default: React.ComponentType}>(resolve=> {
-                message.content = message.content as TdApi.td_messageGameScore;
+                message.content = message.content as TdApi.messageGameScore;
                 TdLib.sendQuery({
                     '@type': 'getMessage',
                     chat_id: chat.id,
@@ -367,9 +367,9 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     result=> { 
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> {
-                            message.content = message.content as TdApi.td_messageGameScore;
-                            result = result as TdApi.td_message;
-                            result.content = result.content as TdApi.td_messageGame;
+                            message.content = message.content as TdApi.messageGameScore;
+                            result = result as TdApi.message;
+                            result.content = result.content as TdApi.messageGame;
 
                             return (
                                 <span className={className}><span className="part-1">
@@ -453,7 +453,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
             // Get invoice message
             const PaymentInfoWithInvoiceTitle= React.lazy(()=>new Promise<{default:React.ComponentType}>(resolve=> {
-                message.content= message.content as TdApi.td_messagePaymentSuccessful;
+                message.content= message.content as TdApi.messagePaymentSuccessful;
                 TdLib.sendQuery({
                     '@type': 'getMessage',
                     chat_id: message.content.invoice_chat_id,
@@ -462,9 +462,9 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     result=> { 
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> {
-                            message.content= message.content as TdApi.td_messagePaymentSuccessful;
-                            result= result as TdApi.td_message;
-                            result.content= result.content as TdApi.td_messageInvoice;
+                            message.content= message.content as TdApi.messagePaymentSuccessful;
+                            result= result as TdApi.message;
+                            result.content= result.content as TdApi.messageInvoice;
                             return (
                                 <span className={className}><span className="part-1">
                                     {__fmt('lng_action_payment_done_for', {
@@ -523,7 +523,7 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
 
             // Get pinned message message
             const PinnedMessageMessage= React.lazy(()=>new Promise<{default:React.ComponentType}>(resolve=> {
-                message.content= message.content as TdApi.td_messagePinMessage;
+                message.content= message.content as TdApi.messagePinMessage;
                 TdLib.sendQuery({
                     '@type': 'getMessage',
                     chat_id: chat.id,
@@ -532,8 +532,8 @@ export default function MessageSummaryWithoutIcon({message, className, users, ch
                     result=> { 
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> {
-                            message.content= message.content as TdApi.td_messagePinMessage;
-                            result= result as TdApi.td_message;
+                            message.content= message.content as TdApi.messagePinMessage;
+                            result= result as TdApi.message;
                             return (
                                 <span className={className}><span className="part-1">
                                     <MessagePinnedMessage message={result} from={<SenderFullName message={message} chat={chat} users={users}/>}/>
@@ -779,13 +779,13 @@ type MayHaveCaptionProps= {
     /** Message type, e.g. 'GIF', 'Video' */
     type: string,
     /** Message caption, can be empty */
-    caption: TdApi.td_formattedText,
+    caption: TdApi.formattedText,
 
     className: string,
     /** Message object */
-    message: TdApi.td_message,
+    message: TdApi.message,
     /** The chat in which the message was sent */
-    chat: TdApi.td_chat,
+    chat: TdApi.chat,
     /** A dictionary of all users */
     users: UsersStoreState,
 }
@@ -809,13 +809,13 @@ type MayHaveCaptionThumbnailsProps= {
     /** Message type, e.g. 'GIF', 'Video' */
     type: string,
     /** Message caption, can be empty */
-    caption: TdApi.td_formattedText,
+    caption: TdApi.formattedText,
 
     className: string,
     /** Message object */
-    message: TdApi.td_message,
+    message: TdApi.message,
     /** The chat in which the message was sent */
-    chat: TdApi.td_chat,
+    chat: TdApi.chat,
     /** A dictionary of all users */
     users: UsersStoreState,
 }
@@ -836,8 +836,8 @@ function MayHaveCaptionThumbnail({thumbnails, isVideo, type, caption, className,
 }
 
 type SenderFullNameProps= {
-    message: TdApi.td_message,
-    chat: TdApi.td_chat,
+    message: TdApi.message,
+    chat: TdApi.chat,
     users: UsersStoreState,
     includeYou?: boolean,
 }
@@ -860,9 +860,9 @@ export function SenderFullName({message, chat, users, includeYou}: SenderFullNam
 
 type ServiceMessageIncludingYouProps= {
     /** The message object */
-    message: TdApi.td_message,
+    message: TdApi.message,
     /** The chat in which the message was sent */
-    chat: TdApi.td_chat,
+    chat: TdApi.chat,
     /** A dictionary of all users */
     users: UsersStoreState,
     /** Language pack string key for the service message */
@@ -907,9 +907,9 @@ export function ServiceMessageIncludingYou({message, chat, users, lpString, lpSt
 
 type MessageSummarySenderProps= {
     /** Message to check the sender */
-    message: TdApi.td_message,
+    message: TdApi.message,
     /** Chat in which the message was sent */
-    chat: TdApi.td_chat,
+    chat: TdApi.chat,
     /** A dictionary of all users */
     users: UsersStoreState,
 }

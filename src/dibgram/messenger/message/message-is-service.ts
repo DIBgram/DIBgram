@@ -29,8 +29,8 @@ const serviceMessages= ([
     'messageWebsiteConnected',
     'messagePassportDataSent',
     'messageProximityAlertTriggered',
-] as TdApi.td_MessageContent['@type'][])
+] as TdApi.MessageContent['@type'][]);
 
-export default function messageIsService(message: TdApi.td_message): boolean {
+export default function messageIsService(message: TdApi.message): boolean {
     return serviceMessages.includes(message.content['@type']);
 }

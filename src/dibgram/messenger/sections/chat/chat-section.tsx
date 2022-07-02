@@ -19,7 +19,7 @@ type ChatSectionSelfProps= {
 }
 
 type ChatSectionStoreProps= {
-    chats: TdApi.td_chat[],
+    chats: TdApi.chat[],
     selectedChat: number
 }
 
@@ -70,30 +70,30 @@ export const ChatSection= (connect<ChatSectionStoreProps, unknown, ChatSectionSe
     }
 )) as unknown as React.FunctionComponent<ChatSectionSelfProps>;
 
-type ChatSectionContentWrapperSelfProps= {chat: TdApi.td_chat} & ChatSectionSelfProps;
+type ChatSectionContentWrapperSelfProps= {chat: TdApi.chat} & ChatSectionSelfProps;
 
 const ChatSectionContentWrapperPrivate= connect<{users: UsersStoreState}, unknown, ChatSectionContentWrapperSelfProps, UsersStoreState>(users=>({users}))(
     function ChatSectionContentWrapperPrivate({users, chat, ...rest}: {users: UsersStoreState} & ChatSectionContentWrapperSelfProps) {
-        return <ChatSectionContentWrapper user={users[(chat.type as TdApi.td_chatTypePrivate).user_id]} chat={chat} {...rest}/>;
+        return <ChatSectionContentWrapper user={users[(chat.type as TdApi.chatTypePrivate).user_id]} chat={chat} {...rest}/>;
     }
 );
 
 const ChatSectionContentWrapperBasicGroup= connect<{basicGroups: BasicGroupStoreState}, unknown, ChatSectionContentWrapperSelfProps, BasicGroupStoreState>(basicGroups=>({basicGroups}))(
     function ChatSectionContentWrapperBasicGroup({basicGroups, chat, ...rest}: {basicGroups: BasicGroupStoreState} & ChatSectionContentWrapperSelfProps) {
-        return <ChatSectionContentWrapper basicGroup={basicGroups[(chat.type as TdApi.td_chatTypeBasicGroup).basic_group_id]} chat={chat} {...rest}/>;
+        return <ChatSectionContentWrapper basicGroup={basicGroups[(chat.type as TdApi.chatTypeBasicGroup).basic_group_id]} chat={chat} {...rest}/>;
     }
 );
 
 const ChatSectionContentWrapperSupergroup= connect<{supergroups: SupergroupStoreState}, unknown, ChatSectionContentWrapperSelfProps, SupergroupStoreState>(supergroups=>({supergroups}))(
     function ChatSectionContentWrapperSupergroup({supergroups, chat, ...rest}: {supergroups: SupergroupStoreState} & ChatSectionContentWrapperSelfProps) {
-        return <ChatSectionContentWrapper supergroup={supergroups[(chat.type as TdApi.td_chatTypeSupergroup).supergroup_id]} chat={chat} {...rest}/>;
+        return <ChatSectionContentWrapper supergroup={supergroups[(chat.type as TdApi.chatTypeSupergroup).supergroup_id]} chat={chat} {...rest}/>;
     }
 );
 
 export type ChatSectionContentProps= ChatSectionContentWrapperSelfProps & {
-    user?: TdApi.td_user,
-    basicGroup?: TdApi.td_basicGroup,
-    supergroup?: TdApi.td_supergroup
+    user?: TdApi.user,
+    basicGroup?: TdApi.basicGroup,
+    supergroup?: TdApi.supergroup
 }
 
 function ChatSectionContentWrapper(props: ChatSectionContentProps) {

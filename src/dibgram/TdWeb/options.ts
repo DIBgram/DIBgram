@@ -2,10 +2,10 @@ import TdLib from './tdlib';
 import TdApi from './td_api';
 
 type OptionInt64ToInt53<T> = 
-    T extends TdApi.td_optionValueInteger ? number :
-    T extends TdApi.td_optionValueBoolean ? boolean :
-    T extends TdApi.td_optionValueString ? string :
-    T extends TdApi.td_optionValueEmpty ? undefined :
+    T extends TdApi.optionValueInteger ? number :
+    T extends TdApi.optionValueBoolean ? boolean :
+    T extends TdApi.optionValueString ? string :
+    T extends TdApi.optionValueEmpty ? undefined :
     never;
 type OptionsInt64ToInt53<T> = { [K in keyof T]: OptionInt64ToInt53<T[K]> };
 
@@ -14,7 +14,7 @@ type OptionsInt64ToInt53<T> = { [K in keyof T]: OptionInt64ToInt53<T[K]> };
  */
 const options: OptionsInt64ToInt53<TdApi.TdOptions>={};
 
-TdLib.registerUpdateHandler<TdApi.td_updateOption>('updateOption', function (update) {
+TdLib.registerUpdateHandler<TdApi.updateOption>('updateOption', function (update) {
     switch (update.value['@type']) {
         case 'optionValueInteger':
             options[update.name] = Number(update.value.value);

@@ -15,12 +15,12 @@ import LoadingSpinner from '../ui/elements/loading-spinner';
 import TdApi from '../TdWeb/td_api';
 
 type AuthStoreState = {
-    state: TdApi.td_AuthorizationState | null;
+    state: TdApi.AuthorizationState | null;
 }
 
 type AuthStoreAction_SetState = {
     type: 'SET_STATE';
-    state: TdApi.td_AuthorizationState;
+    state: TdApi.AuthorizationState;
 }
 
 export const authStore = createStore<AuthStoreState, AuthStoreAction_SetState, any, any>(
@@ -82,7 +82,7 @@ export function manageStatusTextContent(thisClass: ComponentWithStatusText): [
 }
 
 type MainAppProps= {
-    step?: TdApi.td_AuthorizationState;
+    step?: TdApi.AuthorizationState;
 }
 
 /**
@@ -92,7 +92,7 @@ export const MainApp= connect<MainAppProps, unknown, Record<string, never>, Auth
     class MainApp extends React.Component<MainAppProps> {
         componentDidMount(){
             // Handle authorization state updates
-            TdLib.registerUpdateHandler<TdApi.td_updateAuthorizationState>('updateAuthorizationState', (update) => {
+            TdLib.registerUpdateHandler<TdApi.updateAuthorizationState>('updateAuthorizationState', (update) => {
                 authStore.dispatch({
                     type: 'SET_STATE',
                     state: update.authorization_state

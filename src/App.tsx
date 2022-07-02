@@ -27,7 +27,7 @@ if(process.env.NODE_ENV== 'development') {
  */
 function App(): JSX.Element {
     React.useEffect(() => { // A fatal error occurred in TdLib
-        TdLib.registerUpdateHandler<TdApi.td_updateFatalError>('updateFatalError', function (update) {
+        TdLib.registerUpdateHandler<TdApi.updateFatalError>('updateFatalError', function (update) {
             console.error('Fatal error:', update.error);
             
             addDialog( 'tdlib_fatal_error',

@@ -5,7 +5,7 @@ import React from 'react';
 
 type MessagePinnedMessageProps = {
     /** The message which was pinned */
-    message: TdApi.td_message,
+    message: TdApi.message,
     /** The string representation of the user/chat who pinned the message */
     from: React.ReactNode|React.ReactNode[],
 }

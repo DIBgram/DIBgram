@@ -26,7 +26,7 @@ type AuthWindowStepPhoneNumberState = {
     statusContent: React.ReactNode|React.ReactNode[]|null;
     statusVisible: boolean;
     dropDownText: React.ReactNode|React.ReactNode[];
-    countries: TdApi.td_countryInfo[],
+    countries: TdApi.countryInfo[],
 }
 
 /**
@@ -58,7 +58,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component<AuthWindo
             '@type': 'getCountries',
         }).then((result) => {
             this.setState({
-                countries: (result as TdApi.td_countries).countries,
+                countries: result.countries,
             });
         });
     }
@@ -142,7 +142,7 @@ export default class AuthWindowStepPhoneNumber extends React.Component<AuthWindo
 
     submitNumber= (): void => {
         const number = this.state.number_p + ' ' + this.state.number;
-        Auth.givePhoneNumber(number).catch(reason=> {
+        Auth.givePhoneNumber(number).catch((reason: TdApi.error)=> {
             switch(reason.message){
                 case 'PHONE_NUMBER_FLOOD':
                     addDialog( 'phone_number_flood_error',

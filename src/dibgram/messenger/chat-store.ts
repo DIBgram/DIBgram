@@ -7,11 +7,11 @@ import TdApi from '../TdWeb/td_api';
  */
 
 export type ChatStoreState = {
-    currentChatList: TdApi.td_ChatList,
+    currentChatList: TdApi.ChatList,
     archiveState: 'open' | 'closing' | 'closed',
     archiveButtonState: 'expanded' | 'collapsed' | 'hidden-expanded' | 'hidden-collapsed',
-    chats: TdApi.td_chat[],
-    filters: TdApi.td_chatFilterInfo[],
+    chats: TdApi.chat[],
+    filters: TdApi.chatFilterInfo[],
     selectedChat: number,
     unread: ChatStoreUnreadData
 }
@@ -36,18 +36,18 @@ export type ChatListUnreadData = {
 
 export type ChatStoreAction = {
     type: 'SET_CURRENT_CHAT_LIST',
-    chatList: TdApi.td_ChatList,
+    chatList: TdApi.ChatList,
 } | {
     type: 'SET_ARCHIVE_STATE',
     archiveState: 'open' | 'closing' | 'closed',
 } | {
     type: 'UPDATE_UNREAD_MESSAGE_COUNT',
-    chat_list: TdApi.td_ChatList,
+    chat_list: TdApi.ChatList,
     unread_count: number,
     unread_unmuted_count: number,
 } | {
     type: 'UPDATE_UNREAD_CHAT_COUNT',
-    chat_list: TdApi.td_ChatList,
+    chat_list: TdApi.ChatList,
     total_count: number,
     unread_count: number,
     unread_unmuted_count: number,
@@ -58,21 +58,21 @@ export type ChatStoreAction = {
     archiveButtonState: 'expanded' | 'collapsed' | 'hidden-expanded' | 'hidden-collapsed',
 } | {
     type: 'ADD_CHAT',
-    chat: TdApi.td_chat,
+    chat: TdApi.chat,
 } | {
     type: 'UPDATE_CHAT_POSITION',
     chat_id: number,
-    position: TdApi.td_chatPosition,
+    position: TdApi.chatPosition,
 } | {
     type: 'REPLACE_CHAT_FILTERS',
-    payload: TdApi.td_chatFilterInfo[],
+    payload: TdApi.chatFilterInfo[],
 } | (
-    Exclude<{ [K in keyof TdApi.td_chat]: {
+    Exclude<{ [K in keyof TdApi.chat]: {
         type: 'UPDATE_CHAT_PROPERTY',
         chat_id: number,
         property: K
-        value: TdApi.td_chat[K],
-    } }[keyof TdApi.td_chat], undefined>
+        value: TdApi.chat[K],
+    } }[keyof TdApi.chat], undefined>
 ) | {
     type: 'SELECT_CHAT',
     chat_id: number,
@@ -270,28 +270,28 @@ function reducer(state: ChatStoreState= {
     }
 }
 
-TdLib.registerUpdateHandler<TdApi.td_updateUnreadChatCount>('updateUnreadChatCount', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateUnreadChatCount>('updateUnreadChatCount', (update) => {
     chatStore.dispatch({
         type: 'UPDATE_UNREAD_CHAT_COUNT',
         ...update
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateUnreadMessageCount>('updateUnreadMessageCount', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateUnreadMessageCount>('updateUnreadMessageCount', (update) => {
     chatStore.dispatch({
         type: 'UPDATE_UNREAD_MESSAGE_COUNT',
         ...update
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateNewChat>('updateNewChat', update => {
+TdLib.registerUpdateHandler<TdApi.updateNewChat>('updateNewChat', update => {
     chatStore.dispatch({
         type: 'ADD_CHAT',
         chat: update.chat
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatActionBar>('updateChatActionBar', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatActionBar>('updateChatActionBar', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'action_bar',
@@ -300,7 +300,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatActionBar>('updateChatActionBar',
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatDefaultDisableNotification>('updateChatDefaultDisableNotification', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatDefaultDisableNotification>('updateChatDefaultDisableNotification', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'default_disable_notification',
@@ -309,7 +309,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatDefaultDisableNotification>('upda
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatDraftMessage>('updateChatDraftMessage', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatDraftMessage>('updateChatDraftMessage', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'draft_message',
@@ -325,7 +325,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatDraftMessage>('updateChatDraftMes
     }
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatFilters>('updateChatFilters', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatFilters>('updateChatFilters', update=> {
     if(update.chat_filters) {
         chatStore.dispatch({
             type: 'REPLACE_CHAT_FILTERS',
@@ -334,7 +334,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatFilters>('updateChatFilters', upd
     }
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatHasScheduledMessages>('updateChatHasScheduledMessages', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatHasScheduledMessages>('updateChatHasScheduledMessages', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'has_scheduled_messages',
@@ -343,7 +343,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatHasScheduledMessages>('updateChat
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatIsBlocked>('updateChatIsBlocked', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatIsBlocked>('updateChatIsBlocked', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'is_blocked',
@@ -352,7 +352,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatIsBlocked>('updateChatIsBlocked',
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatIsMarkedAsUnread>('updateChatIsMarkedAsUnread', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatIsMarkedAsUnread>('updateChatIsMarkedAsUnread', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'is_marked_as_unread',
@@ -361,7 +361,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatIsMarkedAsUnread>('updateChatIsMa
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatLastMessage>('updateChatLastMessage', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatLastMessage>('updateChatLastMessage', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'last_message',
@@ -377,7 +377,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatLastMessage>('updateChatLastMessa
     }
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatMessageTtl>('updateChatMessageTtl', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatMessageTtl>('updateChatMessageTtl', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'message_ttl',
@@ -386,7 +386,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatMessageTtl>('updateChatMessageTtl
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatNotificationSettings>('updateChatNotificationSettings', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatNotificationSettings>('updateChatNotificationSettings', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'notification_settings',
@@ -396,7 +396,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatNotificationSettings>('updateChat
 });
 
 // Temporarily disabled because `online_member_count` is not a field in `chat`
-// TdLib.registerUpdateHandler<TdApi.td_updateChatOnlineMemberCount>('updateChatOnlineMemberCount', update=> {
+// TdLib.registerUpdateHandler<TdApi.updateChatOnlineMemberCount>('updateChatOnlineMemberCount', update=> {
 //     chatStore.dispatch({
 //         type: 'UPDATE_CHAT_PROPERTY',
 //         property: 'online_member_count',
@@ -405,7 +405,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatNotificationSettings>('updateChat
 //     });
 // });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatPermissions>('updateChatPermissions', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatPermissions>('updateChatPermissions', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'permissions',
@@ -414,7 +414,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatPermissions>('updateChatPermissio
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatPhoto>('updateChatPhoto', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatPhoto>('updateChatPhoto', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'photo',
@@ -423,7 +423,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatPhoto>('updateChatPhoto', update=
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatPosition>('updateChatPosition', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatPosition>('updateChatPosition', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_POSITION',
         chat_id: update.chat_id,
@@ -431,7 +431,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatPosition>('updateChatPosition', u
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatReadInbox>('updateChatReadInbox', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatReadInbox>('updateChatReadInbox', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'unread_count',
@@ -446,7 +446,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatReadInbox>('updateChatReadInbox',
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatReadOutbox>('updateChatReadOutbox', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatReadOutbox>('updateChatReadOutbox', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'last_read_outbox_message_id',
@@ -455,7 +455,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatReadOutbox>('updateChatReadOutbox
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatReplyMarkup>('updateChatReplyMarkup', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatReplyMarkup>('updateChatReplyMarkup', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'reply_markup_message_id',
@@ -464,7 +464,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatReplyMarkup>('updateChatReplyMark
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatTheme>('updateChatTheme', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatTheme>('updateChatTheme', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'theme_name',
@@ -473,7 +473,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatTheme>('updateChatTheme', update 
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatTitle>('updateChatTitle', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatTitle>('updateChatTitle', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'title',
@@ -482,7 +482,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatTitle>('updateChatTitle', update=
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatUnreadMentionCount>('updateChatUnreadMentionCount', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatUnreadMentionCount>('updateChatUnreadMentionCount', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'unread_mention_count',
@@ -491,7 +491,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatUnreadMentionCount>('updateChatUn
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatPendingJoinRequests>('updateChatPendingJoinRequests', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatPendingJoinRequests>('updateChatPendingJoinRequests', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'pending_join_requests',
@@ -500,7 +500,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatPendingJoinRequests>('updateChatP
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatVideoChat>('updateChatVideoChat', update=> {
+TdLib.registerUpdateHandler<TdApi.updateChatVideoChat>('updateChatVideoChat', update=> {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'video_chat',
@@ -509,7 +509,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatVideoChat>('updateChatVideoChat',
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateMessageMentionRead>('updateMessageMentionRead', update => {
+TdLib.registerUpdateHandler<TdApi.updateMessageMentionRead>('updateMessageMentionRead', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'unread_mention_count',
@@ -518,7 +518,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateMessageMentionRead>('updateMessageMen
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatMessageSender>('updateChatMessageSender', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatMessageSender>('updateChatMessageSender', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'message_sender_id',
@@ -527,7 +527,7 @@ TdLib.registerUpdateHandler<TdApi.td_updateChatMessageSender>('updateChatMessage
     });
 });
 
-TdLib.registerUpdateHandler<TdApi.td_updateChatHasProtectedContent>('updateChatHasProtectedContent', update => {
+TdLib.registerUpdateHandler<TdApi.updateChatHasProtectedContent>('updateChatHasProtectedContent', update => {
     chatStore.dispatch({
         type: 'UPDATE_CHAT_PROPERTY',
         property: 'has_protected_content',
@@ -544,12 +544,12 @@ export default chatStore;
  * @param list2 
  * @returns True if the provided objects refer to the same list. Otherwise false
  */
-export function compareChatList(list1: TdApi.td_ChatList, list2: TdApi.td_ChatList): boolean {
+export function compareChatList(list1: TdApi.ChatList, list2: TdApi.ChatList): boolean {
     if (list1['@type'] != list2['@type']) { // First compare type
         return false;
     }
     if (list1['@type'] == 'chatListFilter' ) { // Then Compare folder ID
-        return list1.chat_filter_id == (list2 as TdApi.td_chatListFilter).chat_filter_id;
+        return list1.chat_filter_id == (list2 as TdApi.chatListFilter).chat_filter_id;
     }
     return true;
 }
@@ -557,7 +557,7 @@ export function compareChatList(list1: TdApi.td_ChatList, list2: TdApi.td_ChatLi
 /**
  * Gets a chat from a chat ID. Supports caching.
  */
-export function getChat(id: number): Promise<TdApi.td_chat | TdApi.td_error> {
+export function getChat(id: number): Promise<TdApi.chat> {
     let res;
     for(const chat of chatStore.getState()?.chats) {
         if(chat.id==id) res = Promise.resolve(chat);
@@ -575,7 +575,7 @@ export function getChat(id: number): Promise<TdApi.td_chat | TdApi.td_error> {
  * Gets a chat from a chat ID. Does not support caching to prevent promises complexity.
  * @param id
  */
-export function getChatNoCache(id: number): TdApi.td_chat|undefined {
+export function getChatNoCache(id: number): TdApi.chat|undefined {
     for(const chat of chatStore.getState()?.chats) {
         if(chat.id==id) return chat;
     }

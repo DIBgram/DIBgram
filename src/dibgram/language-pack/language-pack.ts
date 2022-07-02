@@ -7,7 +7,7 @@ import TdApi from '../TdWeb/td_api';
 import React from 'react';
 import { LanguagePackKey, LanguagePackSpecialStringName, LanguagePackStringName, LanguagePackStringNamePluralized } from './language-pack-types';
 
-let currentLanguagePack: { [key: string]: TdApi.td_languagePackString }|null = null;
+let currentLanguagePack: { [key: string]: TdApi.languagePackString }|null = null;
 let specialStrings= specialStringsEnglish;
 
 export function initLanguagePack(): void{
@@ -30,7 +30,7 @@ export function initLanguagePack(): void{
             '@type': 'getLanguagePackStrings',
             language_pack_id: languageInfo.id || 'en'
         }).then(result=>{
-            result= result as TdApi.td_languagePackStrings;
+            result= result as TdApi.languagePackStrings;
             currentLanguagePack = {};
             for (const string of result.strings) {
                 currentLanguagePack[string.key] = string;
@@ -49,7 +49,7 @@ export function initLanguagePack(): void{
  * @param englishIsDefault If true, returns english if the user didn't set a language
  * @returns Language pack object
  */
-export function getCurrentLanguagePack<T extends boolean=true>(englishIsDefault: T): T extends true ? TdApi.td_LanguagePackInfo : TdApi.td_LanguagePackInfo | null {
+export function getCurrentLanguagePack<T extends boolean=true>(englishIsDefault: T): T extends true ? TdApi.LanguagePackInfo : TdApi.LanguagePackInfo | null {
     const json= localStorage.getItem('dibgram-active-language');
     if(json) {
         return JSON.parse(json);
@@ -73,7 +73,7 @@ export function getCurrentLanguagePack<T extends boolean=true>(englishIsDefault:
             };
         }
         else {
-            return null as T extends true ? TdApi.td_LanguagePackInfo : TdApi.td_LanguagePackInfo | null;
+            return null as T extends true ? TdApi.LanguagePackInfo : TdApi.LanguagePackInfo | null;
         }
     }
 }

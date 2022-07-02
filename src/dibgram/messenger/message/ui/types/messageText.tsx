@@ -9,7 +9,7 @@ import { BubbleMessage, MessageFooter } from '../message-containers';
 import './messageText.scss';
 
 export default function MessageText({message, chat}: MessageProps): JSX.Element {
-    const messageContent= (message.content as TdApi.td_messageText);
+    const messageContent= (message.content as TdApi.messageText);
     
     const BubbleMsg= withUsers(BubbleMessage);
     return (
@@ -24,7 +24,7 @@ export default function MessageText({message, chat}: MessageProps): JSX.Element 
 }
 
 type LinkPreviewProps = {
-    preview: TdApi.td_webPage;
+    preview: TdApi.webPage;
 }
 function LinkPreview({preview}: LinkPreviewProps): JSX.Element {
     return (

@@ -12,10 +12,10 @@ import { LanguagePackKey, LanguagePackStringName, LanguagePackStringNamePluraliz
 import currencies from '../sections/payments/currencies.json';
 
 type MessageSummaryWithIconProps = {
-    message?: TdApi.td_message,
+    message?: TdApi.message,
     className: string,
     users: UsersStoreState,
-    chat: TdApi.td_chat,
+    chat: TdApi.chat,
 }
 
 export default function MessageSummaryWithIcon({message, className, users, chat}: MessageSummaryWithIconProps): JSX.Element|null {
@@ -324,7 +324,7 @@ export default function MessageSummaryWithIcon({message, className, users, chat}
 
             // Get game message
             const GameScoreWithTitle= React.lazy(()=> new Promise<{default: React.ComponentType}>(resolve=> {
-                message.content = message.content as TdApi.td_messageGameScore;
+                message.content = message.content as TdApi.messageGameScore;
                 TdLib.sendQuery({
                     '@type': 'getMessage',
                     chat_id: chat.id,
@@ -333,9 +333,9 @@ export default function MessageSummaryWithIcon({message, className, users, chat}
                     result=> { 
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> {
-                            message.content = message.content as TdApi.td_messageGameScore;
-                            result = result as TdApi.td_message;
-                            result.content = result.content as TdApi.td_messageGame;
+                            message.content = message.content as TdApi.messageGameScore;
+                            result = result as TdApi.message;
+                            result.content = result.content as TdApi.messageGame;
 
                             return (
                                 <span className={className}><span className="part-1">
@@ -417,7 +417,7 @@ export default function MessageSummaryWithIcon({message, className, users, chat}
 
             // Get invoice message
             const PaymentInfoWithInvoiceTitle= React.lazy(()=>new Promise<{default:React.ComponentType}>(resolve=> {
-                message.content= message.content as TdApi.td_messagePaymentSuccessful;
+                message.content= message.content as TdApi.messagePaymentSuccessful;
                 TdLib.sendQuery({
                     '@type': 'getMessage',
                     chat_id: message.content.invoice_chat_id,
@@ -426,9 +426,9 @@ export default function MessageSummaryWithIcon({message, className, users, chat}
                     result=> { 
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> {
-                            message.content= message.content as TdApi.td_messagePaymentSuccessful;
-                            result= result as TdApi.td_message;
-                            result.content= result.content as TdApi.td_messageInvoice;
+                            message.content= message.content as TdApi.messagePaymentSuccessful;
+                            result= result as TdApi.message;
+                            result.content= result.content as TdApi.messageInvoice;
                             return (
                                 <span className={className}><span className="part-1">
                                     {__fmt('lng_action_payment_done_for', {
@@ -481,7 +481,7 @@ export default function MessageSummaryWithIcon({message, className, users, chat}
 
             // Get pinned message message
             const PinnedMessageMessage= React.lazy(()=>new Promise<{default:React.ComponentType}>(resolve=> {
-                message.content= message.content as TdApi.td_messagePinMessage;
+                message.content= message.content as TdApi.messagePinMessage;
                 TdLib.sendQuery({
                     '@type': 'getMessage',
                     chat_id: chat.id,
@@ -490,8 +490,8 @@ export default function MessageSummaryWithIcon({message, className, users, chat}
                     result=> { 
                         //eslint-disable-next-line react/display-name
                         resolve({ default: ()=> {
-                            message.content= message.content as TdApi.td_messagePinMessage;
-                            result= result as TdApi.td_message;
+                            message.content= message.content as TdApi.messagePinMessage;
+                            result= result as TdApi.message;
                             return (
                                 <span className={className}><span className="part-1">
                                     <MessagePinnedMessage message={result} from={null}/>
@@ -720,7 +720,7 @@ type MayHaveCaptionProps= {
     /** Message type, e.g. 'GIF', 'Video' */
     type: string,
     /** Message caption, can be empty */
-    caption: TdApi.td_formattedText,
+    caption: TdApi.formattedText,
 
     className: string,
 }
@@ -737,7 +737,7 @@ function MayHaveCaption({type, caption, className}: MayHaveCaptionProps): JSX.El
 
 type ServiceMessageIncludingYouProps= {
     /** The message object */
-    message: TdApi.td_message,
+    message: TdApi.message,
     /** Language pack string key for the service message */
     lpString: LanguagePackStringName,
     /** Language pack string key for the service message if the service message is outgoing */

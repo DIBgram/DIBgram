@@ -21,7 +21,7 @@ const connectionStore = createStore<ConnectionStoreState, ConnectionStoreAction,
     }
 );
 
-TdLib.registerUpdateHandler<TdApi.td_updateConnectionState>('updateConnectionState', (update) => {
+TdLib.registerUpdateHandler<TdApi.updateConnectionState>('updateConnectionState', (update) => {
     connectionStore.dispatch({
         type: 'SET_CONNECTION',
         connection: update.state['@type']

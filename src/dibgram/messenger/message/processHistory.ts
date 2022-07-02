@@ -1,13 +1,13 @@
 import TdApi from '../../TdWeb/td_api';
 import messageIsService from './message-is-service';
 
-export interface ProcessedSingleMessage extends TdApi.td_message, ProcessedMessage {
+export interface ProcessedSingleMessage extends TdApi.message, ProcessedMessage {
 }
 
 export interface MessageAlbum extends ProcessedMessage {
     processedType: 'messageAlbum';
     type: 'messageDocument' | 'messagePhoto' | 'messageVideo' | 'messageAudio';
-    messages: TdApi.td_message[];
+    messages: TdApi.message[];
 }
 
 export interface FileAlbum extends MessageAlbum {
@@ -26,13 +26,13 @@ export interface ProcessedMessage {
     processedType?: string;
 }
 
-export default function processMessageHistory(messages: {[id: number|string]: TdApi.td_message}): ProcessedSingleMessage[] {
-    const array: TdApi.td_message[]= [];
+export default function processMessageHistory(messages: {[id: number|string]: TdApi.message}): ProcessedSingleMessage[] {
+    const array: TdApi.message[]= [];
     for(const id of Object.keys(messages).sort((a, b) => Number(a) - Number(b))) {
         array.push(messages[id]);
     }
 
-    function reducer(prev: ProcessedMessage[] | null, current: TdApi.td_message): ProcessedMessage[] {
+    function reducer(prev: ProcessedMessage[] | null, current: TdApi.message): ProcessedMessage[] {
         if(!prev) {
             return [{
                 ...current,
@@ -41,7 +41,7 @@ export default function processMessageHistory(messages: {[id: number|string]: Td
             }];
         } else {
             const prevEl= prev[prev.length-1];
-            let message: TdApi.td_message;
+            let message: TdApi.message;
             if(prevEl.processedType== 'messageAlbum') {
                 message= (prevEl as MessageAlbum).messages[0];
             } else {

@@ -43,7 +43,7 @@ export default class TdLib {
      * @param type The type of the update to listen to. Look for TdLib API docs for types
      * @param handler The function that gets called with the update object when the update is received
      */
-    static registerUpdateHandler<T extends TdApi.td_Update>(type: TdApi.TdUpdateType<T>, handler: (update: T) => void): void {
+    static registerUpdateHandler<T extends TdApi.Update>(type: T['@type'], handler: (update: T) => void): void {
         if(TdLib.#updateHandlers[type]===undefined){
             TdLib.#updateHandlers[type]= [];
         }
@@ -55,7 +55,7 @@ export default class TdLib {
      * @param {string} type The type of the update to remove handler from. Look for TdLib API docs for types
      * @param {Function} handler The handler to remove
      */
-    static unRegisterUpdateHandler<T extends TdApi.td_Update>(type: TdApi.TdUpdateType<T>, handler: (update: T) => void): void {
+    static unRegisterUpdateHandler<T extends TdApi.Update>(type: T['@type'], handler: (update: T) => void): void {
         if(TdLib.#updateHandlers[type]===undefined){
             return;
         }
@@ -78,7 +78,7 @@ export default class TdLib {
                     console.log('Query result: ', result);
                 }
                 resolve(result);
-            }, (error: TdApi.td_Error)=> {
+            }, (error: TdApi.Error)=> {
                 if(log.log_queries) {
                     console.warn('Query failed: ', error);
                 }
@@ -91,7 +91,7 @@ export default class TdLib {
     /**
      * Handles a TDLib update
      */
-    static handleUpdate(update: TdApi.td_Update) {
+    static handleUpdate(update: TdApi.Update) {
         if(log.log_updates) {
             console.log('Update: ',update);
         }

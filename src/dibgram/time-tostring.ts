@@ -110,7 +110,7 @@ export function durationToString(duration: number): string {
     }
 }
 
-export function lastSeenToString(status: TdApi.td_UserStatus): React.ReactNode {
+export function lastSeenToString(status: TdApi.UserStatus): React.ReactNode {
     switch (status['@type']) {
         case 'userStatusLastMonth':
             return __('lng_status_last_month');

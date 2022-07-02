@@ -12,7 +12,7 @@ import TdApi from '../../../TdWeb/td_api';
 type CountrySelectProps = {
     onChange?: (country: string) => void;
     id: string;
-    countries: TdApi.td_countryInfo[];
+    countries: TdApi.countryInfo[];
 }
 
 export default function CountrySelect({onChange, id, countries}: CountrySelectProps): JSX.Element {
@@ -20,7 +20,7 @@ export default function CountrySelect({onChange, id, countries}: CountrySelectPr
     
     const [search, setSearch] = React.useState('');
     if(search.length > 0) {
-        countries = countries.filter((country: TdApi.td_countryInfo) => country.name.toLowerCase().startsWith(search.toLowerCase()));
+        countries = countries.filter((country: TdApi.countryInfo) => country.name.toLowerCase().startsWith(search.toLowerCase()));
     }
 
     return (
@@ -51,7 +51,7 @@ CountrySelect.propTypes = {
 };
 
 type CountrySelectItemProps= {
-    country: TdApi.td_countryInfo;
+    country: TdApi.countryInfo;
     onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 

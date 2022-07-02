@@ -5,14 +5,14 @@ import './photo.scss';
 import DownloadCircle from './download-circle';
 import TdLib from '../../TdWeb/tdlib';
 
-export function getBestPhotoSize(sizes: TdApi.td_photoSize[], minWidth = 400): TdApi.td_photoSize {
+export function getBestPhotoSize(sizes: TdApi.photoSize[], minWidth = 400): TdApi.photoSize {
     // Get smallest photo size with width >= 400
     const sorted= sizes.sort((a, b) => a.width - b.width);
     return sorted.find(s => s.width >= minWidth) || sorted[0];
 }
 
 type PhotoProps = {
-    photo: TdApi.td_photo,
+    photo: TdApi.photo,
     priority?: number,
     getBestSize?: typeof getBestPhotoSize,
     onClick?: () => void,
@@ -20,9 +20,9 @@ type PhotoProps = {
 
 export default function Photo({photo, priority=1, getBestSize= getBestPhotoSize, onClick}: PhotoProps): JSX.Element {
     const [blob, setBlob] = React.useState<Blob | null>(null);
-    const [photoSize, setPhotoSize] = React.useState<TdApi.td_photoSize | null>(null);
+    const [photoSize, setPhotoSize] = React.useState<TdApi.photoSize | null>(null);
 
-    const onUpdateFile = React.useCallback(function onUpdateFile(upd: TdApi.td_updateFile) {
+    const onUpdateFile = React.useCallback(function onUpdateFile(upd: TdApi.updateFile) {
         if(upd.file.id === photoSize?.photo?.id) {
             setPhotoSize(s=> (s? {...s, photo: upd.file}: null));
         }
@@ -38,9 +38,9 @@ export default function Photo({photo, priority=1, getBestSize= getBestPhotoSize,
                 '@type': 'getFile',
                 file_id: fl.id
             }).then(f=> setPhotoSize(s=> (s? {...s, photo: f}: null)));
-            TdLib.registerUpdateHandler<TdApi.td_updateFile>('updateFile', onUpdateFile);
+            TdLib.registerUpdateHandler<TdApi.updateFile>('updateFile', onUpdateFile);
             return ()=> {
-                TdLib.unRegisterUpdateHandler<TdApi.td_updateFile>('updateFile', onUpdateFile);
+                TdLib.unRegisterUpdateHandler<TdApi.updateFile>('updateFile', onUpdateFile);
             };
         }
     }, [photo]);

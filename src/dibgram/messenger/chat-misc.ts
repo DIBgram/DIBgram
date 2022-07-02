@@ -9,7 +9,7 @@ import usersStore, { UsersStoreState } from './users-store';
  * @param users A dictionary of all users (e.g. usersStore state)
  * @returns True if the chat is private and the other party's account is deleted
  */
-export function isChatWithDeletedAccount(chat: TdApi.td_chat, users: UsersStoreState|undefined= undefined): boolean {
+export function isChatWithDeletedAccount(chat: TdApi.chat, users: UsersStoreState|undefined= undefined): boolean {
     switch (chat.type['@type']) {
         case 'chatTypeBasicGroup': // Groups are not applicable
         case 'chatTypeSupergroup':
@@ -30,7 +30,7 @@ export function isChatWithDeletedAccount(chat: TdApi.td_chat, users: UsersStoreS
  * @param users A list of all users (e.g. usersStore state). If not provided, usersStore will be used
  * @returns Chat title, or 'Deleted Account'
  */
-export function chatTitleOrDeletedAccount(chat: TdApi.td_chat, users: UsersStoreState|undefined= undefined): string {
+export function chatTitleOrDeletedAccount(chat: TdApi.chat, users: UsersStoreState|undefined= undefined): string {
     if(isChatWithDeletedAccount(chat, users))
         return __('lng_deleted') as string;
     return chat.title;
@@ -41,7 +41,7 @@ export function chatTitleOrDeletedAccount(chat: TdApi.td_chat, users: UsersStore
  * @param {import('tdweb').TdObject} chat The chat to be checked
  * @returns {boolean} True if the chat is verified, false if not
  */
-export function isChatVerified(chat: TdApi.td_chat): boolean {
+export function isChatVerified(chat: TdApi.chat): boolean {
     switch (chat.type['@type']) {
         case 'chatTypeBasicGroup':
             return false;

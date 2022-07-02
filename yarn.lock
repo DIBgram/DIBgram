@@ -1207,10 +1207,10 @@
   "resolved" "https://registry.npmjs.org/@csstools/normalize.css/-/normalize.css-10.1.0.tgz"
   "version" "10.1.0"
 
-"@dibgram/tdweb@^1.8.0":
-  "integrity" "sha512-P0PFV86uBacfG6KpIZQKcDz6skmW5Z5IYLgzvelUlTLxjfGKW2jPQNjnmA+C4XZgg8qz1yMuoNXGBh+AzIJzAw=="
-  "resolved" "https://registry.npmjs.org/@dibgram/tdweb/-/tdweb-1.8.0.tgz"
-  "version" "1.8.0"
+"@dibgram/tdweb@^1.8.4-aeed6c4":
+  "integrity" "sha512-7I3qER/MereqNMY1XMXjKUsEdMRDcWXe5I3t0vJppiojXejeoWee/NsrNX/vKqLWqXi4eBjLScmTxlImlynZ0A=="
+  "resolved" "https://registry.npmjs.org/@dibgram/tdweb/-/tdweb-1.8.4-aeed6c4.tgz"
+  "version" "1.8.4-aeed6c4"
   dependencies:
     "@babel/runtime" "^7.4.3"
     "broadcast-channel" "^2.1.12"

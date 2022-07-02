@@ -63,7 +63,7 @@ function SubText({chat, user, basicGroup, supergroup}: ChatSectionContentProps):
     if(supergroup) {
         return (
             <div className="info">
-                {__pl((chat.type as TdApi.td_chatTypeSupergroup).is_channel ? 'lng_chat_status_subscribers' : 'lng_chat_status_members', supergroup.member_count)}
+                {__pl((chat.type as TdApi.chatTypeSupergroup).is_channel ? 'lng_chat_status_subscribers' : 'lng_chat_status_members', supergroup.member_count)}
             </div>
         );
     } 

@@ -6,7 +6,7 @@ import { history_file_cancel, history_file_download } from '../icon/icons';
 import './download-circle.scss';
 
 type DownloadCircleProps = {
-    file: TdApi.td_file,
+    file: TdApi.file,
     priority?: number,
 }
 

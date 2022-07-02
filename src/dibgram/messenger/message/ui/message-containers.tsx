@@ -52,8 +52,8 @@ export function MessageBubble({ children, beforeBubble=null, showTail=true, ...r
 
 type BubbleMessageProps= {
     message: ProcessedSingleMessage,
-    chat: TdApi.td_chat,
-    users: {[key: number]: TdApi.td_user},
+    chat: TdApi.chat,
+    users: {[key: number]: TdApi.user},
     children: React.ReactNode | React.ReactNode[],
 }
 export function BubbleMessage({message, chat, users, children}: BubbleMessageProps): JSX.Element {
@@ -83,7 +83,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                 }
                 break;
             case 'messageSenderChat': {
-                const chat: TdApi.td_chat= getChatNoCache(message.sender_id.chat_id) as TdApi.td_chat;
+                const chat: TdApi.chat= getChatNoCache(message.sender_id.chat_id) as TdApi.chat;
                 sender= chat.title;
                 photo= (!message.hide_tail) &&
                         <ProfilePhoto 
@@ -111,7 +111,7 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
                     {message.via_bot_user_id? (
                         <span className="color_0">
                             {__fmt('lng_inline_bot_via', {
-                                inline_bot: '@'+(usersStore.getState()[message.via_bot_user_id] as TdApi.td_user).username
+                                inline_bot: '@'+(usersStore.getState()[message.via_bot_user_id] as TdApi.user).username
                             })}
                         </span>
                     ): null}
@@ -126,8 +126,8 @@ export function BubbleMessage({message, chat, users, children}: BubbleMessagePro
 }
 
 type MessageFooterProps= {
-    message: TdApi.td_message,
-    chat: TdApi.td_chat,
+    message: TdApi.message,
+    chat: TdApi.chat,
 }
 export function MessageFooter({message, chat}: MessageFooterProps): JSX.Element {
     let tick= null;
@@ -150,17 +150,17 @@ export function MessageFooter({message, chat}: MessageFooterProps): JSX.Element 
 }
 
 type MessageReplyToProps= {
-    message: TdApi.td_message,
+    message: TdApi.message,
     users: UsersStoreState
 }
 
 export function MessageReplyTo({message, users}: MessageReplyToProps): JSX.Element|null {
-    const [replyMessage, setReplyMessage]= React.useState<TdApi.td_message|-1|0>(0);
+    const [replyMessage, setReplyMessage]= React.useState<TdApi.message|-1|0>(0);
 
     const rMessage= ((message.reply_in_chat_id == message.chat_id) && messageStore.getState().messages[message.reply_to_message_id]) || replyMessage;
 
     React.useEffect(() => {
-        function requestHandler(result: TdApi.td_message|TdApi.td_error) {
+        function requestHandler(result: TdApi.message|TdApi.error) {
             if(result['@type'] === 'error') {
                 setReplyMessage(-1);
             } else {
@@ -178,10 +178,10 @@ export function MessageReplyTo({message, users}: MessageReplyToProps): JSX.Eleme
     }, []);
 
     if( typeof rMessage != 'number') {
-        const chat= getChatNoCache(message.reply_in_chat_id) as TdApi.td_chat;
+        const chat= getChatNoCache(message.reply_in_chat_id) as TdApi.chat;
         const sender= rMessage.sender_id['@type'] === 'messageSenderUser' ?
             getUserFullName(users[rMessage.sender_id.user_id]):
-            (getChatNoCache(rMessage.sender_id.chat_id) as TdApi.td_chat).title;
+            (getChatNoCache(rMessage.sender_id.chat_id) as TdApi.chat).title;
 
         return (
             <div className="reply-to">

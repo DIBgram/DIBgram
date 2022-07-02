@@ -10,7 +10,7 @@ import TdApi from '../TdWeb/td_api';
  * @param chat The chat in which the message was sent.
  * @param message The message to check.
  */
-export function getMessageStatus(chat: TdApi.td_chat|undefined, message: TdApi.td_message|undefined): 'sending' | 'sent' | 'seen' | 'unread' | 'read' | undefined {
+export function getMessageStatus(chat: TdApi.chat|undefined, message: TdApi.message|undefined): 'sending' | 'sent' | 'seen' | 'unread' | 'read' | undefined {
     if (!chat || !message) return undefined;
     if(message.is_outgoing) {
         if(message.sending_state) {

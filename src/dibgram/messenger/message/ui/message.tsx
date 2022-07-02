@@ -59,7 +59,7 @@ const messageTypes = {
 
 export type MessageProps = {
     message: ProcessedSingleMessage
-    chat: TdApi.td_chat
+    chat: TdApi.chat
     users: UsersStoreState
 };
 export const Message= React.memo(function Message({message, chat, users}: MessageProps): JSX.Element {

@@ -19,7 +19,7 @@ type ChooseLanguageDialog= {
 export default function ChooseLanguageDialog({id}: ChooseLanguageDialog): JSX.Element {
     const ref = React.useRef<Dialog>() as React.RefObject<Dialog>;
     // eslint-disable-next-line prefer-const
-    let [languages, setLanguages] = React.useState<TdApi.td_languagePackInfo[]>([]);
+    let [languages, setLanguages] = React.useState<TdApi.languagePackInfo[]>([]);
     const [search, setSearch] = React.useState('');
 
     if(search.length > 0) { // Search
@@ -31,7 +31,7 @@ export default function ChooseLanguageDialog({id}: ChooseLanguageDialog): JSX.El
             '@type': 'getLocalizationTargetInfo',
             'only_local': false
         }).then((response) => {
-            response= response as TdApi.td_localizationTargetInfo;
+            response= response as TdApi.localizationTargetInfo;
             setLanguages(response.language_packs);
         });
     }, []);
@@ -64,7 +64,7 @@ export default function ChooseLanguageDialog({id}: ChooseLanguageDialog): JSX.El
 }
 
 type LanguagePackProps= {
-    pack: TdApi.td_languagePackInfo,
+    pack: TdApi.languagePackInfo,
     onClick: (e: React.MouseEvent<HTMLDivElement>)=> void,
     selected: boolean
 }
@@ -93,7 +93,7 @@ type SpecialLanguageStringsCache= {
     [id: string]: SpecialLanguageStrings
 }
 
-function selectLanguage(pack: TdApi.td_languagePackInfo): void {
+function selectLanguage(pack: TdApi.languagePackInfo): void {
     const cache: SpecialLanguageStringsCache= JSON.parse(localStorage.getItem('dibgram-special-language-strings-cache') || '{}');
     let specialStringsImport: Promise<{default:SpecialLanguageStrings}|null>;
     if(!cache[pack.id] && pack.id!='en'){
@@ -121,14 +121,14 @@ function selectLanguage(pack: TdApi.td_languagePackInfo): void {
         keys: [ 'lng_sure_save_language' ]
     })
         .then(response => {
-            response= response as TdApi.td_languagePackStrings;
+            response= response as TdApi.languagePackStrings;
             addDialog('settings-language-restart-confirm-dialog', (
                 <ConfirmDialog id="settings-language-restart-confirm-dialog"
                     largeFont={true} onOK={apply}>
 
                     {__('lng_sure_save_language')}
                     <br/><br/>
-                    {(response.strings[0].value as TdApi.td_languagePackStringValueOrdinary).value}
+                    {(response.strings[0].value as TdApi.languagePackStringValueOrdinary).value}
                 </ConfirmDialog>
             ));
 

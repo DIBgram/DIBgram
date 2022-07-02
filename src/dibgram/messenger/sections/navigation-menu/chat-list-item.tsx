@@ -58,7 +58,7 @@ class ChatListItem extends React.Component<ChatListItemProps, ChatListItemState>
     mouseLeave: (e: React.MouseEvent<HTMLDivElement>) => void;
 
     shouldComponentUpdate(nextProps: ChatListItemProps, nextState: ChatListItemState): boolean {
-        function getUser(props: ChatListItemProps): TdApi.td_user|null { // Gets the user which is the other party of the chat. Used to see if the needed user has changed
+        function getUser(props: ChatListItemProps): TdApi.user|null { // Gets the user which is the other party of the chat. Used to see if the needed user has changed
             if(props.chat.type['@type']=='chatTypePrivate') {
                 return props.users[props.chat.type.user_id];
             }
@@ -186,7 +186,7 @@ class ChatListItem extends React.Component<ChatListItemProps, ChatListItemState>
                             <div className="left">
                                 {(chat.draft_message && !unreadBadge) ?  // I don't know why, but Telegram Desktop does not show the draft message if the chat is unread.
                                     <span className="last-message">
-                                        <span className="draft">{__('lng_from_draft')}:</span> <span className="part-2">{(chat.draft_message.input_message_text as TdApi.td_inputMessageText).text.text}</span>
+                                        <span className="draft">{__('lng_from_draft')}:</span> <span className="part-2">{(chat.draft_message.input_message_text as TdApi.inputMessageText).text.text}</span>
                                     </span> 
                                     :
                                     <MessageSummaryWithoutIcon message={chat.last_message} users={this.props.users} chat={chat} className="last-message"/>
@@ -219,8 +219,8 @@ function ChatContextMenu({chat}: ChatContextMenuProps): JSX.Element {
         TdLib.sendQuery({ // Only TDLib can know what lists we can add the chat to
             '@type': 'getChatListsToAddChat',
             chat_id: chat.id
-        }).then((result: TdApi.td_chatLists | TdApi.td_error) => {
-            result= result as TdApi.td_chatLists;
+        }).then((result: TdApi.chatLists | TdApi.error) => {
+            result= result as TdApi.chatLists;
             setMovableChatLists(result.chat_lists.map(chatList=> {
                 const text= { // Only archive / unarchive
                     'chatListMain': __('lng_archived_remove'), 

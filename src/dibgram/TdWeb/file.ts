@@ -7,7 +7,7 @@ import TdApi from './td_api';
  * @param priority From 1 to 32, higher number results in earlier download
  * @returns File object
  */
-export function downloadFile(file_id: number, priority: number): Promise<TdApi.td_file> {
+export function downloadFile(file_id: number, priority: number): Promise<TdApi.file> {
     let onReject;
     TdLib.sendQuery({
         '@type': 'downloadFile',
@@ -17,7 +17,7 @@ export function downloadFile(file_id: number, priority: number): Promise<TdApi.t
         'limit': 0,
         'synchronous': false
     }).then((res)=> {
-        const file = res as TdApi.td_file;
+        const file = res as TdApi.file;
         TdLib.handleUpdate({ // TDLib will not sent an update when file.local.is_downloading_active changes. We can inject one here.
             '@type': 'updateFile',
             file
@@ -25,7 +25,7 @@ export function downloadFile(file_id: number, priority: number): Promise<TdApi.t
     }, onReject);
 
     return new Promise((resolve, reject) => {
-        downloadCallbacks[file_id]= (result: TdApi.td_file) => {
+        downloadCallbacks[file_id]= (result: TdApi.file) => {
             resolve(result);
             delete downloadCallbacks[file_id];
         };
@@ -42,9 +42,9 @@ export function cancelDownloadFile(file_id: number): void {
     });
 }
 
-const downloadCallbacks: {[key: number]: (result: TdApi.td_file) => void} = {};
+const downloadCallbacks: {[key: number]: (result: TdApi.file) => void} = {};
 
-TdLib.registerUpdateHandler<TdApi.td_updateFile>('updateFile', function (update) {
+TdLib.registerUpdateHandler<TdApi.updateFile>('updateFile', function (update) {
     if(update.file.local.is_downloading_completed){
         downloadCallbacks[update.file.id]?.(update.file);
     }
@@ -60,7 +60,7 @@ const cachedFiles: {[key: number]: Blob} = {};
  * @returns A `filePart` object
  * 
  */
-export function getFileContent(file: TdApi.td_file, priority: number, enableCache= true): Promise<TdApi.td_filePart> {
+export function getFileContent(file: TdApi.file, priority: number, enableCache= true): Promise<TdApi.filePart> {
     if(file.id in cachedFiles){ // If we have it in cache, we can use that
         return Promise.resolve({
             '@type': 'filePart',
@@ -68,7 +68,7 @@ export function getFileContent(file: TdApi.td_file, priority: number, enableCach
         });
     }
 
-    function resolveFilePart(filePart: TdApi.td_filePart): TdApi.td_filePart {
+    function resolveFilePart(filePart: TdApi.filePart): TdApi.filePart {
         if(enableCache && file.size <= 500*1024) {
             cachedFiles[file.id]=filePart.data;
         }
@@ -82,7 +82,7 @@ export function getFileContent(file: TdApi.td_file, priority: number, enableCach
                 'file_id': file.id,
                 'offset': 0,
                 'count': 0
-            }).then((f)=>resolve(resolveFilePart(f as TdApi.td_filePart))).catch(reject);
+            }).then((f)=>resolve(resolveFilePart(f as TdApi.filePart))).catch(reject);
         });
     } 
     else if(file.local.is_downloading_active){ // File is already being downloaded - gets quite complex here.
@@ -95,7 +95,7 @@ export function getFileContent(file: TdApi.td_file, priority: number, enableCach
                     'file_id': file.id,
                     'offset': 0,
                     'count': 0
-                }).then((f)=>resolve(resolveFilePart(f as TdApi.td_filePart))).catch(reject);
+                }).then((f)=>resolve(resolveFilePart(f as TdApi.filePart))).catch(reject);
             };
         });
     } else {
@@ -106,7 +106,7 @@ export function getFileContent(file: TdApi.td_file, priority: number, enableCach
                     'file_id': file.id,
                     'offset': 0,
                     'count': 0
-                }).then((f)=>resolve(resolveFilePart(f as TdApi.td_filePart))).catch(reject);
+                }).then((f)=>resolve(resolveFilePart(f as TdApi.filePart))).catch(reject);
             }).catch(reject);
         });
     }

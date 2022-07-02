@@ -19,8 +19,8 @@ type ChatListBarProps = {
 
 type ChatListBarStateProps = {
     useFolders: boolean;
-    chats: TdApi.td_chat[];
-    list: TdApi.td_ChatList;
+    chats: TdApi.chat[];
+    list: TdApi.ChatList;
     archiveState: 'open' | 'closing' | 'closed';
     unread: ChatStoreUnreadData,
     selectedChat: number;
@@ -79,7 +79,7 @@ export default ChatListBar;
 type ArchiveScreenProps = {
     unread: ChatStoreUnreadData,
     selectedChat: number,
-    chats: TdApi.td_chat[],
+    chats: TdApi.chat[],
     closeArchive: () => void;
 }
 

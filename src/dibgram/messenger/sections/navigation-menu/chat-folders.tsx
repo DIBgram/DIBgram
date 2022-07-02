@@ -16,7 +16,7 @@ import { Dispatch } from 'redux';
 export const chatListScrollToTopEvent = [function():void{}];
 
 type ChatFolderProps = {
-    folder: TdApi.td_chatFilterInfo,
+    folder: TdApi.chatFilterInfo,
     active: boolean,
     onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
     unread: ChatListUnreadData
@@ -52,8 +52,8 @@ export function ChatFolder({folder, active, onClick, unread}: ChatFolderProps): 
             }).then(folder=> {
                 TdLib.sendQuery({ // Ask TDLib what the icon should be
                     '@type': 'getChatFilterDefaultIconName',
-                    'filter': folder as TdApi.td_chatFilter
-                }).then(result=> setIconName((result as TdApi.td_text).text));
+                    'filter': folder as TdApi.chatFilter
+                }).then(result=> setIconName((result as TdApi.text).text));
             });
         }
     }, [folder]);
@@ -101,8 +101,8 @@ type ChatFolderListSelfProps= {
 }
 
 type ChatFolderListStoreProps= {
-    folders: TdApi.td_chatFilterInfo[],
-    currentFolder: TdApi.td_ChatList,
+    folders: TdApi.chatFilterInfo[],
+    currentFolder: TdApi.ChatList,
     unread: ChatStoreUnreadData
 }
 
